@@ -174,12 +174,24 @@
   z-index: 10;
 }
 
+/* Right-edge fade hints that the tab strip scrolls horizontally when it overflows. */
+.tabs-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--sp-6);
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--c-surface));
+}
+
 .tabs-inner {
   max-width: var(--content-w);
   margin: 0 auto;
   padding: 0 var(--sp-5);
   display: flex;
-  gap: var(--sp-1);
+  gap: var(--sp-2);
   overflow-x: auto;
   scrollbar-width: thin;
 }
@@ -280,16 +292,64 @@
 }
 
 /* ── Responsive ── */
+/* Tablet and below: tighten chrome, stack the wide comparison grid, and let only
+   the tab bar stay pinned so short viewports keep more room for content. */
 @media (max-width: 860px) {
-  .g2,
-  .g3,
   .pathway-grid-pick {
     grid-template-columns: 1fr;
   }
+  .app-header {
+    position: static;
+  }
   .app-header-inner {
     gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
   }
   .main {
     padding: var(--sp-4);
+  }
+  .pathway-picker {
+    padding: var(--sp-5) var(--sp-4);
+  }
+  .pathway-picker__lead {
+    margin-bottom: var(--sp-4);
+  }
+  .pathway-picker__lead h2 {
+    font-size: var(--fs-xl);
+  }
+  .pathway-bar__select {
+    min-width: 0;
+    flex: 1 1 100%;
+    width: 100%;
+  }
+  .pathway-bar__spacer {
+    display: none;
+  }
+  .pathway-bar .btn {
+    flex: 1 1 auto;
+  }
+}
+
+/* Tablet: 3-up grids become 2-up rather than collapsing all the way to 1. */
+@media (min-width: 641px) and (max-width: 960px) {
+  .g3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Phone: single column, and section headers stack so the title and its controls
+   each get a full-width line. */
+@media (max-width: 640px) {
+  .g2,
+  .g3 {
+    grid-template-columns: 1fr;
+  }
+  .sec-hdr {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--sp-2);
+  }
+  .sec-hdr .row {
+    width: 100%;
   }
 }

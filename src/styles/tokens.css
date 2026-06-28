@@ -68,6 +68,7 @@
   --fs-lg: 1.125rem; /* 18px */
   --fs-xl: 1.375rem; /* 22px */
   --fs-2xl: 1.75rem; /* 28px */
+  --fs-input: 1rem; /* 16px — focusable controls; below this iOS Safari auto-zooms on focus */
   --lh: 1.5;
 
   /* ── Spacing scale (4px base) ── */
@@ -91,4 +92,16 @@
   --content-w: 1120px;
   --t-fast: 0.12s ease;
   --t: 0.2s ease;
+}
+
+/* Nudge the type scale up on phones so running text, captions, and table data
+   stay comfortably readable at arm's length. Controls are pinned to 16px
+   separately (--fs-input) so this is purely a readability bump. */
+@media (max-width: 640px) {
+  :root {
+    --fs-base: 1rem; /* 16px */
+    --fs-md: 1.0625rem; /* 17px */
+    --fs-sm: 0.875rem; /* 14px */
+    --fs-xs: 0.8125rem; /* 13px */
+  }
 }
