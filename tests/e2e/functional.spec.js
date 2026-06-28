@@ -192,3 +192,63 @@ test('serves the strict security headers from the _headers policy', async ({ pag
   expect(h['referrer-policy']).toBe('no-referrer');
   expect(h['x-content-type-options']).toBe('nosniff');
 });
+
+test('risk tally reaches 16/16 and fills the progress bar', async ({ page }) => {
+  await page.click('[data-pathway="full"]');
+  const boxes = page.locator('#tab-risk .rcb');
+  const n = await boxes.count();
+  expect(n).toBe(16); // the maximum the readout (/16) and methodology assume
+  for (let i = 0; i < n; i++) await boxes.nth(i).check();
+  await expect(page.locator('#rscore')).toHaveText('16');
+  const width = await page.locator('#rprog').evaluate((el) => el.style.width);
+  expect(width).toBe('100%'); // was ~94% when the denominator was a stale 17
+});
+
+test('auto-fill example populates the medication and setup tabs too', async ({ page }) => {
+  await page.click('[data-pathway="full"]');
+  await page.click('[data-act="autofill"]');
+  await page.click('[data-tab="meds"]');
+  await expect(page.locator('#med-active-count')).not.toHaveText(/^0 active/);
+  await page.click('[data-tab="settings"]');
+  await expect(page.locator('#set-director')).not.toHaveValue('');
+  await expect(page.locator('#set-cno')).not.toHaveValue('');
+});
+
+test('settings load ignores manipulated values', async ({ page }) => {
+  await page.evaluate(() => {
+    localStorage.setItem(
+      'deliriumtool:settings',
+      JSON.stringify({
+        'set-rass': 'HACKED — not a real option', // out-of-range <select> value
+        'set-director': 'A'.repeat(5000), // over-long free text
+        evil: 'should be ignored', // key not in the allowlist
+      }),
+    );
+  });
+  await page.reload();
+  await page.click('[data-pathway="full"]');
+  await page.click('[data-tab="settings"]');
+  await expect(page.locator('#set-rass')).not.toHaveValue(/HACKED/); // rejected → keeps a valid option
+  const dir = await page.locator('#set-director').inputValue();
+  expect(dir.length).toBeLessThanOrEqual(2000); // bounded
+});
+
+test('exported PDF filename carries a generation timestamp', async ({ page }) => {
+  await page.click('[data-pathway="record"]');
+  await page.fill('#facility-input', 'Test');
+  await page.click('[data-tab="export"]');
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.click('[data-act="openDoc"][data-doc="full"]'),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/_\d{4}-\d{2}-\d{2}_\d{4}\.pdf$/);
+});
+
+test('CAM result status uses a vector sprite icon, not an emoji', async ({ page }) => {
+  await page.click('[data-pathway="full"]');
+  await page.click('[data-tab="cam"]');
+  await page.click('#c1y');
+  await page.fill('#cam2-err', '3');
+  await page.selectOption('#cam4', 'abnormal'); // → CAM positive
+  await expect(page.locator('#cam-res-icon svg use')).toHaveCount(1);
+});

@@ -38,8 +38,16 @@ var CEREBRAL = TEAL,
   LINEGRAY = LINE;
 
 // Section family lookup for the ABCDEF bundle, DELIRIUM(S) factors, and SPA columns.
-var FAMILIES = [TEAL, CRIM, AMBER, INDIGO, GREEN, PURPLE];
-var FAMILY_T = [TEAL_T, CRIM_T, AMBER_T, INDIGO_T, GREEN_T, PURPLE_T];
+// Three extra hues beyond the six section families, so a 9-domain mnemonic like
+// DELIRIUM(S) gets a distinct colour per letter (each accent has a matching tint).
+var STEEL = [58, 108, 150],
+  STEEL_T = [231, 238, 247];
+var OLIVE = [120, 122, 60],
+  OLIVE_T = [240, 242, 228];
+var PLUM = [150, 80, 130],
+  PLUM_T = [246, 233, 243];
+var FAMILIES = [TEAL, CRIM, AMBER, INDIGO, GREEN, PURPLE, STEEL, OLIVE, PLUM];
+var FAMILY_T = [TEAL_T, CRIM_T, AMBER_T, INDIGO_T, GREEN_T, PURPLE_T, STEEL_T, OLIVE_T, PLUM_T];
 
 // Pastel treatment: header bands are a light tint of the family color with dark
 // same-hue text (deep family color stays as the checkbox outline / text accent).
@@ -645,44 +653,44 @@ function buildFull(doc, opts, k) {
       'Subdural hematoma (recent fall or anticoagulation)? Sleep deprivation?',
     ],
   ];
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 6.3 * k,
-      cellPadding: 3 * k,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      valign: 'top',
-      textColor: INK,
+  cbTable(
+    doc,
+    {
+      startY: y,
+      margin: { left: M, right: M },
+      theme: 'grid',
+      styles: {
+        fontSize: 6.3 * k,
+        cellPadding: 3 * k,
+        lineColor: LINEGRAY,
+        lineWidth: 0.5,
+        valign: 'top',
+        textColor: INK,
+      },
+      body: [
+        mnem.map(function (mm, i) {
+          var d = (ASMT.mnemDomains && ASMT.mnemDomains[i]) || {};
+          return {
+            content:
+              mm[0] +
+              '\n' +
+              mm[1] +
+              '\n\n' +
+              _tk(d.reviewed) +
+              ' Reviewed   Action: ' +
+              (d.action ? ftext(d.action) : '______'),
+            styles: {},
+          };
+        }),
+      ],
+      columnStyles: (function () {
+        var cs = {};
+        for (var i = 0; i < 9; i++) cs[i] = { cellWidth: CW / 9 };
+        return cs;
+      })(),
     },
-    body: [
-      mnem.map(function (mm, i) {
-        var d = (ASMT.mnemDomains && ASMT.mnemDomains[i]) || {};
-        return {
-          content:
-            mm[0] +
-            '\n' +
-            mm[1] +
-            '\n\n' +
-            _tk(d.reviewed) +
-            ' Reviewed   Action: ' +
-            (d.action ? ftext(d.action) : '______'),
-          styles: {},
-        };
-      }),
-    ],
-    columnStyles: (function () {
-      var cs = {};
-      for (var i = 0; i < 9; i++) cs[i] = { cellWidth: CW / 9 };
-      return cs;
-    })(),
-    didParseCell: function (d) {
-      var t = d.cell.text.join('\n');
-      // make the letter/title line bold-ish by drawing later is complex; keep simple
-    },
-  });
+    { accents: FAMILIES, tinted: true },
+  ); // distinct colour per DELIRIUM(S) domain (9 families)
   y = doc.lastAutoTable.finalY;
 
   // STEP 2 — ABCDEF non-pharmacologic bundle (6 color-coded columns, real checkboxes)

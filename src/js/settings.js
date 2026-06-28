@@ -33,11 +33,18 @@ export function settingsObject() {
 }
 
 export function applySettings(o) {
-  if (!o || typeof o !== 'object') return;
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return;
   SETTINGS_IDS.forEach((id) => {
+    if (o[id] == null) return;
     const el = document.getElementById(id);
-    // Coerce + bound — the source may be an imported file or a crafted share link.
-    if (el && o[id] != null) el.value = String(o[id]).slice(0, 2000);
+    if (!el) return;
+    // Untrusted source (imported file, fetched settings.json, or a crafted share
+    // link): coerce to a bounded, trimmed string.
+    const v = String(o[id]).slice(0, 2000).trim();
+    // For <select> controls, only accept a value the control actually offers — so a
+    // crafted file can't inject an out-of-range screening tool or sedation target.
+    if (el.tagName === 'SELECT' && !Array.from(el.options).some((opt) => opt.value === v)) return;
+    el.value = v;
   });
   syncRassTarget();
 }
@@ -172,6 +179,16 @@ export async function loadSettings(btn) {
   }
 }
 
+// The provisioning file defaults to settings.json next to the page; a self-hosted
+// copy can point elsewhere via <meta name="settings-src" content="...">. Same-origin
+// only — absolute/protocol-relative URLs are ignored (the CSP also blocks them).
+function settingsSrc() {
+  const meta = document.querySelector('meta[name="settings-src"]');
+  const src = ((meta && meta.content) || '').trim();
+  if (!src || /^[a-z][a-z0-9+.-]*:/i.test(src) || src.startsWith('//')) return 'settings.json';
+  return src;
+}
+
 export function initSettings() {
   try {
     applySettings(JSON.parse(localStorage.getItem(LS_KEY) || '{}'));
@@ -179,7 +196,7 @@ export function initSettings() {
     /* non-fatal */
   }
   if (location.protocol === 'http:' || location.protocol === 'https:') {
-    fetch('settings.json', { cache: 'no-store' })
+    fetch(settingsSrc(), { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))
       .then((o) => {
         if (o && typeof o === 'object') {

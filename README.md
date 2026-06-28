@@ -39,6 +39,21 @@ npm run dev      # builds, then serves with Wrangler at the printed localhost UR
 After `npm run build`, the contents of `dist/` are a self-contained static site —
 you can also open `dist/index.html` directly; it works offline.
 
+### Pre-configuring protocol settings (`settings.json`)
+
+A self-hosted copy can ship a default protocol configuration. When served over
+http(s), the app reads a `settings.json` placed next to the page (e.g.
+`https://your-host/settings.json`) and applies it to the Setup tab — screening
+tool, RASS target, review cadence, and the governance fields. Generate one from
+**Setup → Save settings** (it downloads `settings.json`), then drop it beside
+`index.html`.
+
+- These are **unit/protocol settings only — never patient data.** Values are
+  validated on load: unknown keys are ignored, lengths are bounded, and dropdowns
+  are constrained to their allowed options.
+- To use a different filename, add a same-origin
+  `<meta name="settings-src" content="my-unit.json">` to `index.html`.
+
 ## Tests
 
 ```sh
