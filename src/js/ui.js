@@ -94,16 +94,20 @@ export function updateTabBadges() {
 
   const cb = $('badge-cam');
   if (cb) {
-    const camLabel =
-      { positive: 'CAM positive', negative: 'CAM negative', unable: 'CAM unable to assess' }[
-        S.camResult
-      ] || '';
-    cb.textContent = { positive: '+', negative: '✓', unable: '?' }[S.camResult] || '';
-    // Give the bare symbol an accessible name (screen readers read the tab otherwise as "plus").
-    if (camLabel) {
-      cb.setAttribute('aria-label', camLabel);
-      cb.title = camLabel;
+    cb.classList.remove('tone-danger', 'tone-ok', 'tone-caution');
+    // Colour-coded vector icon: red (positive), green (negative), amber (unable).
+    const meta = {
+      positive: { label: 'CAM positive', icon: 'fa-triangle-exclamation', tone: 'danger' },
+      negative: { label: 'CAM negative', icon: 'fa-circle-check', tone: 'ok' },
+      unable: { label: 'CAM unable to assess', icon: 'fa-ban', tone: 'caution' },
+    }[S.camResult];
+    if (meta) {
+      cb.classList.add('tone-' + meta.tone);
+      cb.replaceChildren(faIcon(meta.icon, 'fa fa-sm'));
+      cb.setAttribute('aria-label', meta.label);
+      cb.title = meta.label;
     } else {
+      cb.replaceChildren();
       cb.removeAttribute('aria-label');
       cb.removeAttribute('title');
     }

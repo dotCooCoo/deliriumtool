@@ -56,3 +56,13 @@ test('every generated PDF carries Title metadata', () => {
     assert.match(gen(kind).output(), /\/Title/, `${kind} should set PDF Title metadata`);
   }
 });
+
+test('the footer embeds clickable source reference links', () => {
+  for (const kind of ['full', 'spa', 'record']) {
+    assert.match(
+      gen(kind).output(),
+      /pubmed|doi\.org|nice\.org|sccm\.org/,
+      `${kind} footer should link source names to the citation registry`,
+    );
+  }
+});

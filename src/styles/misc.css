@@ -221,10 +221,10 @@
   --accent-weak: var(--fam-purple-weak);
 }
 
-/* The Generate-tab card matching the chosen document. */
+/* The Generate-tab card matching the chosen document. Keep the family accent —
+   show selection with a ring + the "— selected" label, not a colour swap. */
 .export-card.is-selected {
-  border-color: var(--c-primary);
-  box-shadow: 0 0 0 2px var(--c-primary-weak);
+  box-shadow: 0 0 0 2px var(--c-primary);
 }
 .export-card.is-selected .export-card-title::after {
   content: ' — selected';

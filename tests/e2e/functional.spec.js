@@ -107,7 +107,8 @@ test('CAM-ICU evaluates positive with 1 AND 2 AND (3 OR 4)', async ({ page }) =>
   await page.fill('#cam2-err', '3'); // inattention > 2 -> Feature 2 present
   await page.selectOption('#cam4', 'abnormal'); // a secondary feature present
   await expect(page.locator('#cam-res-txt')).toContainText('Positive');
-  await expect(page.locator('#badge-cam')).toHaveText('+');
+  await expect(page.locator('#badge-cam')).toHaveClass(/tone-danger/); // red, positive
+  await expect(page.locator('#badge-cam svg use')).toHaveCount(1); // vector icon, not text
 });
 
 test('RASS -4/-5 gates CAM to "Unable to Assess"', async ({ page }) => {
