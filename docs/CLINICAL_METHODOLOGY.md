@@ -148,10 +148,10 @@ Applies when CAM-ICU is positive. The governing principle is *"Non-pharmacologic
 
 | Drug | Typical dose | Key notes (abridged) |
 |---|---|---|
-| Haloperidol | 0.25–0.5 mg q4–6h PRN; lowest effective dose, cap per local protocol | Elderly more sensitive (EPS/QTc); EKG baseline; QTc caution > 500 ms; avoid Parkinson/Lewy; dementia-mortality boxed warning; IV route off-label (higher QT/Torsades); stop & escalate if NMS |
+| Haloperidol | 0.25–0.5 mg q4–6h PRN; lowest effective dose, cap per local protocol | Elderly more sensitive (EPS/QTc); ECG baseline; QTc caution > 500 ms; avoid Parkinson/Lewy; dementia-mortality boxed warning; IV route off-label (higher QT/Torsades); stop & escalate if NMS |
 | Quetiapine | 12.5–25 mg q12h PO; lowest dose, shortest duration | Sedating; orthostatic hypotension; QTc prolongation; antipsychotic-class boxed warning |
 | Dexmedetomidine | 0.2–0.7 mcg/kg/hr IV infusion | In ventilated adults, suggested over propofol when light sedation/delirium reduction is a priority (PADIS 2025); monitor bradycardia/hypotension |
-| Lorazepam *(specific use)* | Per CIWA protocol | Rescue / ETOH withdrawal **only** — may worsen delirium |
+| Lorazepam *(specific use)* | Per CIWA protocol | Rescue / alcohol withdrawal **only** — may worsen delirium |
 | Melatonin | 0.5–3 mg nightly | Sleep/circadian support; low-certainty ICU evidence; not a treatment for established delirium; prevention evidence mixed |
 
 These doses are **conventional / expert starting references** for short-term agitation control, **not RCT- or guideline-calibrated doses for delirium** (no agent is guideline-recommended to treat delirium): haloperidol low-dose is off-label, quetiapine 12.5–25 mg is a conservative starting fraction, and dexmedetomidine 0.2–0.7 mcg/kg/hr is a **sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent** — so the three are not interchangeable.
