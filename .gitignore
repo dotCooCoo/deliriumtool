@@ -9,6 +9,8 @@
 !.editorconfig
 !.nvmrc
 !.github/
+!.prettierrc.json
+!.prettierignore
 
 # ── Reference literature ──────────────────────────────────────────────
 # The article PDFs are copyrighted full text — they are NEVER committed.

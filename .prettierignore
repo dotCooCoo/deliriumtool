@@ -1,0 +1,10 @@
+dist/
+node_modules/
+playwright-report/
+test-results/
+coverage/
+scratch/
+package-lock.json
+references/
+wrangler.jsonc
+*.md
