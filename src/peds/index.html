@@ -188,10 +188,47 @@
       <main class="main" id="main">
         <section class="tab-panel active" id="tab-screen">
           <div class="card">
-            <div class="card-head">Screening</div>
+            <div class="card-head">1 · Arousal — the screening gate</div>
             <p class="note">
-              The interactive scoring for this screen is being built and will appear here next.
+              Score arousal first. RASS −4/−5 (or SBS −3) = comatose → record
+              <strong>unable to assess</strong>; screen only once the child responds to voice (RASS
+              ≥ −3). SBS is the pediatric arousal scale for intubated infants and young children.
             </p>
+            <label class="scr-label" for="peds-rass">Arousal level (RASS)</label>
+            <select class="fsel" id="peds-rass" data-screen-input="rass">
+              <option value="">— select —</option>
+            </select>
+          </div>
+
+          <div class="card screen-block" data-screen="capd">
+            <div class="card-head">2 · CAPD — Cornell Assessment of Pediatric Delirium</div>
+            <p class="note">
+              Rate the child over the shift against <em>age-expected</em> behavior. Eight items, 0–4
+              each (0–32 total); <strong>≥ 9 = positive</strong>.
+            </p>
+            <div id="capd-items"></div>
+          </div>
+
+          <div class="card screen-block" data-screen="cam">
+            <div class="card-head">2 · pCAM-ICU / psCAM-ICU features</div>
+            <p class="note">
+              Delirium is present when Feature 1 <strong>and</strong> Feature 2 are present
+              <strong>and</strong> (Feature 3 <strong>or</strong> Feature 4).
+              <span data-screen-note="pcam"
+                >pCAM-ICU (≥ 5 yr): verbal attention and command tasks.</span
+              >
+              <span data-screen-note="pscam"
+                >psCAM-ICU (6 mo–5 yr): age-adapted observational tasks.</span
+              >
+            </p>
+            <div id="cam-features"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">Result</div>
+            <div id="screen-result" class="scr-result" aria-live="polite">
+              Select an arousal level to begin.
+            </div>
           </div>
         </section>
         <section class="tab-panel" id="tab-risk">
