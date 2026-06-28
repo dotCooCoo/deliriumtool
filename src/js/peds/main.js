@@ -5,8 +5,9 @@
  * element carries a data-* attribute, no inline handlers and no globals — so the
  * strict CSP (script-src 'self') holds. This entry owns the screen picker, tab
  * navigation, and the bedside screen (arousal gate + CAPD or pCAM/psCAM). The
- * clinical logic lives in ./scoring.js and is unit-tested; this file only renders
- * controls and reads them back.
+ * clinical logic lives in ./scoring.js and is unit-tested; this file only builds
+ * controls and reads them back. Controls are built with safe DOM APIs
+ * (createElement + textContent) — no HTML strings are ever parsed.
  */
 import {
   evalCapd,
@@ -19,6 +20,21 @@ import {
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+// Tiny element builder. Text and attributes only — never HTML — so there is no
+// injection sink even though all inputs here are static constants.
+function el(tag, props, ...kids) {
+  const node = document.createElement(tag);
+  if (props) {
+    for (const [k, v] of Object.entries(props)) {
+      if (k === 'class') node.className = v;
+      else if (k === 'text') node.textContent = v;
+      else node.setAttribute(k, String(v));
+    }
+  }
+  for (const kid of kids) if (kid != null) node.append(kid);
+  return node;
+}
 
 const SCREENS = {
   capd: 'CAPD — all ages',
@@ -52,91 +68,130 @@ const CAM_FEATURES = [
 const state = { rass: '', capd: {}, cam: {} };
 
 const fmtRass = (v) => String(v).replace('-', '−');
-const badge = (cls, text) => `<span class="scr-badge ${cls}">${text}</span>`;
+const note = (text) => el('span', { class: 'note', text });
 
-// ── Control rendering (static content only — safe to set as innerHTML) ──────
+// ── Control rendering (safe DOM construction) ──────────────────────────────────
 function renderRass() {
-  const el = $('#peds-rass');
-  if (!el) return;
-  el.insertAdjacentHTML(
-    'beforeend',
-    RASS_OPTS.map(([v, l]) => `<option value="${v}">${l}</option>`).join(''),
-  );
+  const sel = $('#peds-rass');
+  if (!sel) return;
+  for (const [v, label] of RASS_OPTS) sel.append(el('option', { value: v, text: label }));
 }
 
 function segRow(legend, name, dataKey, options) {
-  const opts = options
-    .map(
-      (o) =>
-        `<label class="pseg-opt"><input type="radio" name="${name}" value="${o.value}" data-${dataKey}="${o.key}" /><span>${o.label}</span></label>`,
-    )
-    .join('');
-  return `<fieldset class="pseg-row"><legend class="pseg-legend">${legend}</legend><div class="pseg" role="radiogroup">${opts}</div></fieldset>`;
+  const group = el('div', { class: 'pseg', role: 'radiogroup' });
+  for (const o of options) {
+    const input = el('input', { type: 'radio', name, value: o.value });
+    input.setAttribute(`data-${dataKey}`, o.key);
+    group.append(el('label', { class: 'pseg-opt' }, input, el('span', { text: o.label })));
+  }
+  return el(
+    'fieldset',
+    { class: 'pseg-row' },
+    el('legend', { class: 'pseg-legend', text: legend }),
+    group,
+  );
 }
 
 function renderCapd() {
-  const el = $('#capd-items');
-  if (!el) return;
-  el.innerHTML = CAPD_ITEMS.map((item) =>
-    segRow(
-      item.text,
-      `capd-${item.id}`,
-      'capd',
-      CAPD_FREQ.map((label, i) => ({ value: i, key: item.id, label })),
+  const box = $('#capd-items');
+  if (!box) return;
+  box.replaceChildren(
+    ...CAPD_ITEMS.map((item) =>
+      segRow(
+        item.text,
+        `capd-${item.id}`,
+        'capd',
+        CAPD_FREQ.map((label, i) => ({ value: i, key: item.id, label })),
+      ),
     ),
-  ).join('');
+  );
 }
 
 function renderCam() {
-  const el = $('#cam-features');
-  if (!el) return;
-  el.innerHTML = CAM_FEATURES.map((f) =>
-    segRow(f.label, `cam-${f.id}`, 'cam', [
-      { value: 'yes', key: f.id, label: 'Yes' },
-      { value: 'no', key: f.id, label: 'No' },
-    ]),
-  ).join('');
+  const box = $('#cam-features');
+  if (!box) return;
+  box.replaceChildren(
+    ...CAM_FEATURES.map((f) =>
+      segRow(f.label, `cam-${f.id}`, 'cam', [
+        { value: 'yes', key: f.id, label: 'Yes' },
+        { value: 'no', key: f.id, label: 'No' },
+      ]),
+    ),
+  );
 }
 
 // ── Result ──────────────────────────────────────────────────────────────────
+function setResult(badgeCls, badgeText, ...rest) {
+  const out = $('#screen-result');
+  if (!out) return;
+  out.replaceChildren(
+    el('span', { class: `scr-badge ${badgeCls}`, text: badgeText }),
+    ' ',
+    ...rest,
+  );
+}
+
 function renderResult() {
-  const el = $('#screen-result');
-  if (!el) return;
   const screen = document.body.dataset.screen;
   const gate = arousalGate(state.rass);
 
-  if (gate == null) {
-    el.innerHTML = `${badge('scr-pending', 'Awaiting')} Select an arousal level to begin.`;
-    return;
-  }
+  if (gate == null)
+    return setResult('scr-pending', 'Awaiting', 'Select an arousal level to begin.');
   if (gate === 'unable') {
-    el.innerHTML = `${badge('scr-unable', 'Unable to assess')} RASS ${fmtRass(state.rass)} — comatose / too sedated to screen. Record “unable to assess” and reassess when the child responds to voice (RASS ≥ −3).`;
-    return;
+    return setResult(
+      'scr-unable',
+      'Unable to assess',
+      `RASS ${fmtRass(state.rass)} — comatose / too sedated to screen. Record “unable to assess” and reassess when the child responds to voice (RASS ≥ −3).`,
+    );
   }
 
   if (screen === 'capd') {
     const r = evalCapd(state.capd);
     if (!r.complete) {
-      el.innerHTML = `${badge('scr-pending', `${r.answered}/8`)} Rate all eight CAPD items to score.`;
-      return;
+      return setResult('scr-pending', `${r.answered}/8`, 'Rate all eight CAPD items to score.');
     }
-    el.innerHTML = r.positive
-      ? `${badge('scr-pos', 'Positive')} CAPD ${r.score}/32 (≥ 9) — delirium screen positive. <span class="note">${CAPD_DEV_DELAY_NOTE}</span>`
-      : `${badge('scr-neg', 'Negative')} CAPD ${r.score}/32 (&lt; 9). <span class="note">Delirium fluctuates — rescreen at least each shift and after any acute change. ${CAPD_DEV_DELAY_NOTE}</span>`;
-    return;
+    return r.positive
+      ? setResult(
+          'scr-pos',
+          'Positive',
+          `CAPD ${r.score}/32 (≥ 9) — delirium screen positive. `,
+          note(CAPD_DEV_DELAY_NOTE),
+        )
+      : setResult(
+          'scr-neg',
+          'Negative',
+          `CAPD ${r.score}/32 (< 9). `,
+          note(
+            `Delirium fluctuates — rescreen at least each shift and after any acute change. ${CAPD_DEV_DELAY_NOTE}`,
+          ),
+        );
   }
 
   const tool = screen === 'pcam' ? 'pCAM-ICU' : 'psCAM-ICU';
   const res = evalCam({ ...state.cam, rass: state.rass });
   if (res == null) {
-    el.innerHTML = `${badge('scr-pending', 'In progress')} Answer Feature 1 and 2 (and a secondary feature) to complete the ${tool}.`;
-  } else if (res === 'unable') {
-    el.innerHTML = `${badge('scr-unable', 'Unable to assess')} Too sedated — reassess when RASS ≥ −3.`;
-  } else if (res === 'positive') {
-    el.innerHTML = `${badge('scr-pos', 'Positive')} ${tool} positive — delirium present (Feature 1 + 2 + [3 or 4]).`;
-  } else {
-    el.innerHTML = `${badge('scr-neg', 'Negative')} ${tool} negative. <span class="note">Delirium fluctuates — rescreen each shift and after any acute change.</span>`;
+    return setResult(
+      'scr-pending',
+      'In progress',
+      `Answer Feature 1 and 2 (and a secondary feature) to complete the ${tool}.`,
+    );
   }
+  if (res === 'unable') {
+    return setResult('scr-unable', 'Unable to assess', 'Too sedated — reassess when RASS ≥ −3.');
+  }
+  if (res === 'positive') {
+    return setResult(
+      'scr-pos',
+      'Positive',
+      `${tool} positive — delirium present (Feature 1 + 2 + [3 or 4]).`,
+    );
+  }
+  return setResult(
+    'scr-neg',
+    'Negative',
+    `${tool} negative. `,
+    note('Delirium fluctuates — rescreen each shift and after any acute change.'),
+  );
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────────
