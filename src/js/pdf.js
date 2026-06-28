@@ -13,6 +13,7 @@ var INK = [31, 42, 48]; // #1F2A30  primary text
 var SEC = [92, 107, 116]; // #5C6B74  secondary text
 var LINE = [218, 226, 230]; // #DAE2E6  hairlines
 var WHITE = [255, 255, 255];
+var HILITE = [255, 241, 196]; // soft amber — marks a captured selection (e.g. the RASS level)
 
 // Six section families — [header] and [soft tint background]
 var TEAL = [47, 117, 124],
@@ -201,19 +202,34 @@ function renderChecklistCell(doc, cell, accent) {
     gap = 2.5;
   var cy = cell.y + padT + fs;
   for (var i = 0; i < lines.length; i++) {
-    var ln = lines[i],
-      m = ln.match(/^\[([ Xx])\]\s?([\s\S]*)$/);
+    var ln = lines[i];
+    if (ln.charCodeAt(0) === 1) {
+      // Sentinel-marked line (e.g. the selected RASS level): highlighted + bold.
+      var ht = ln.slice(1);
+      var hw = doc.splitTextToSize(ht, w - padL * 2);
+      var hh = hw.length * lineH;
+      doc.setFillColor(HILITE[0], HILITE[1], HILITE[2]);
+      doc.rect(x + 1.5, cy - fs - 0.5, w - 3, hh + 1.5, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(fs);
+      doc.setTextColor(INK[0], INK[1], INK[2]);
+      doc.text(hw, x + padL, cy);
+      cy += hh;
+      continue;
+    }
+    var m = ln.match(/^\[([ Xx])\]\s?([\s\S]*)$/);
     if (m) {
       var wrapped = doc.splitTextToSize(m[2], w - padL * 2 - boxSz - gap);
       checkbox(doc, x + padL, cy - boxSz + 1.2, boxSz, accent, m[1] !== ' ');
-      doc.setFont('helvetica', 'normal');
+      doc.setFont('helvetica', m[1] !== ' ' ? 'bold' : 'normal'); // bold the chosen option
       doc.setFontSize(fs);
       doc.setTextColor(INK[0], INK[1], INK[2]);
       doc.text(wrapped, x + padL + boxSz + gap, cy);
       cy += wrapped.length * lineH;
     } else {
       var wrap2 = doc.splitTextToSize(ln, w - padL * 2);
-      doc.setFont('helvetica', i === 0 ? 'bold' : 'normal');
+      // First line, or a short "Label:" line on its own, renders bold.
+      doc.setFont('helvetica', i === 0 || /^.{1,30}:$/.test(ln) ? 'bold' : 'normal');
       doc.setFontSize(fs);
       doc.setTextColor(INK[0], INK[1], INK[2]);
       doc.text(wrap2, x + padL, cy);
@@ -237,6 +253,11 @@ function cbTable(doc, opts, cb) {
   var isCb = function (cell) {
     return cell.section === 'body' && /\[[ Xx]\]/.test(cellRaw(cell));
   };
+  // boldHeads routes every body cell through our renderer so the first line is bold
+  // even without checkboxes; otherwise only [ ]/[X] cells are taken over.
+  var render = function (cell) {
+    return cell.section === 'body' && (cb.boldHeads || isCb(cell));
+  };
   var uParse = opts.didParseCell,
     uWill = opts.willDrawCell,
     uDid = opts.didDrawCell;
@@ -249,11 +270,11 @@ function cbTable(doc, opts, cb) {
   };
   opts.willDrawCell = function (d) {
     if (uWill) uWill(d);
-    if (isCb(d.cell)) d.cell.text = []; // suppress autoTable's own text; we draw it
+    if (render(d.cell)) d.cell.text = []; // suppress autoTable's own text; we draw it
   };
   opts.didDrawCell = function (d) {
     if (uDid) uDid(d);
-    if (isCb(d.cell)) renderChecklistCell(doc, d.cell, acc(d.column.index));
+    if (render(d.cell)) renderChecklistCell(doc, d.cell, acc(d.column.index));
   };
   doc.autoTable(opts);
 }
@@ -557,6 +578,32 @@ function mnemonicTable(doc, opts, y, compact, k) {
   return doc.lastAutoTable.finalY;
 }
 
+// The RASS scale as one cell: a bold header carrying the captured score, then the
+// eight levels with the selected one highlighted (sentinel ) + target marks.
+// Shared so every document shows it identically.
+function rassCellContent(opts) {
+  var ASMT = opts.assessment || {};
+  var rows = [
+    { label: '+4/+3 Combative / Very Agitated', vals: ['+4', '+3'] },
+    { label: '+2/+1 Agitated / Restless', vals: ['+2', '+1'] },
+    { label: '0 Alert & Calm', vals: ['0'], tgt: '0' },
+    { label: '-1 Drowsy', vals: ['-1'], tgt: '-1' },
+    { label: '-2 Light Sedation', vals: ['-2'], tgt: '-2' },
+    { label: '-3 Moderate Sedation', vals: ['-3'], tgt: '-3' },
+    { label: '-4 Deep Sedation', vals: ['-4'], tgt: '-4' },
+    { label: '-5 Unarousable', vals: ['-5'], tgt: '-5' },
+  ];
+  var head = 'RASS SCORE' + (ASMT.rass ? ': ' + ASMT.rass : '');
+  var body = rows
+    .map(function (r) {
+      var label = r.label + (r.tgt ? tgtMark(opts, r.tgt) : '');
+      var selected = ASMT.rass && r.vals.indexOf(ASMT.rass) >= 0;
+      return (selected ? String.fromCharCode(1) : '') + label;
+    })
+    .join('\n');
+  return head + '\n\n' + body;
+}
+
 // ============================================================
 // DOCUMENT 1 — FULL ICU DELIRIUM ROUNDING TOOL
 // ============================================================
@@ -568,10 +615,6 @@ function buildFull(doc, opts, k) {
   var ASMT = opts.assessment || {};
   function _tk(on) {
     return on ? '[X]' : '[ ]';
-  }
-  function _rmark(label, vals) {
-    var hit = vals.indexOf(ASMT.rass) >= 0;
-    return (hit ? '>> ' : '') + label + (hit ? '  <<' : '');
   }
   var blank = '__________________';
 
@@ -585,77 +628,63 @@ function buildFull(doc, opts, k) {
   );
 
   // Assessment row (4 cells) via table
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 7 * k,
-      cellPadding: 4 * k,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      textColor: INK,
-      valign: 'top',
-    },
-    columnStyles: {
-      0: { cellWidth: CW / 4 },
-      1: { cellWidth: CW / 4 },
-      2: { cellWidth: CW / 4 },
-      3: { cellWidth: CW / 4 },
-    },
-    body: [
-      [
-        {
-          content:
-            'SEDATION GOAL\n\nTarget RASS: ' +
-            rassGoalOf(opts) +
-            rassIndicationOf(opts) +
-            '\nAvoid deep sedation unless clinically required.\nDaily SAT/SBT when feasible.',
-        },
-        {
-          content:
-            'CAM-ICU RESULT\n\n' +
-            _tk(ASMT.cam === 'positive') +
-            ' Positive - delirium present\n' +
-            _tk(ASMT.cam === 'negative') +
-            ' Negative\n' +
-            _tk(ASMT.cam === 'unable') +
-            ' Unable to assess (RASS -4/-5)',
-        },
-        {
-          content:
-            'DELIRIUM SUBTYPE\n(predominant motor behaviour this shift)\n\n' +
-            _tk(ASMT.sub === 'hyper') +
-            ' Hyperactive\n' +
-            _tk(ASMT.sub === 'hypo') +
-            ' Hypoactive\n' +
-            _tk(ASMT.sub === 'mixed') +
-            ' Mixed - alternating features',
-        },
-        {
-          content:
-            'RASS THIS ASSESSMENT' +
-            (ASMT.rass ? ': ' + ASMT.rass : '') +
-            '\n\n' +
-            _rmark('+4/+3 Combative / Very Agitated', ['+4', '+3']) +
-            '\n' +
-            _rmark('+2/+1 Agitated / Restless', ['+2', '+1']) +
-            '\n' +
-            _rmark('0 Alert & Calm' + tgtMark(opts, '0'), ['0']) +
-            '\n' +
-            _rmark('-1 Drowsy' + tgtMark(opts, '-1'), ['-1']) +
-            '\n' +
-            _rmark('-2 Light Sedation' + tgtMark(opts, '-2'), ['-2']) +
-            '\n' +
-            _rmark('-3 Moderate Sedation' + tgtMark(opts, '-3'), ['-3']) +
-            '\n' +
-            _rmark('-4 Deep Sedation' + tgtMark(opts, '-4'), ['-4']) +
-            '\n' +
-            _rmark('-5 Unarousable' + tgtMark(opts, '-5'), ['-5']),
-        },
+  cbTable(
+    doc,
+    {
+      startY: y,
+      margin: { left: M, right: M },
+      theme: 'grid',
+      styles: {
+        fontSize: 7 * k,
+        cellPadding: 4 * k,
+        lineColor: LINEGRAY,
+        lineWidth: 0.5,
+        textColor: INK,
+        valign: 'top',
+      },
+      columnStyles: {
+        0: { cellWidth: CW / 4 },
+        1: { cellWidth: CW / 4 },
+        2: { cellWidth: CW / 4 },
+        3: { cellWidth: CW / 4 },
+      },
+      body: [
+        [
+          {
+            content:
+              'SEDATION GOAL\n\nTarget RASS: ' +
+              rassGoalOf(opts) +
+              rassIndicationOf(opts) +
+              '\nAvoid deep sedation unless clinically required.\nDaily SAT/SBT when feasible.',
+          },
+          {
+            content:
+              'CAM-ICU RESULT\n\n' +
+              _tk(ASMT.cam === 'positive') +
+              ' Positive - delirium present\n' +
+              _tk(ASMT.cam === 'negative') +
+              ' Negative\n' +
+              _tk(ASMT.cam === 'unable') +
+              ' Unable to assess (RASS -4/-5)',
+          },
+          {
+            content:
+              'DELIRIUM SUBTYPE\n(predominant motor behaviour this shift)\n\n' +
+              _tk(ASMT.sub === 'hyper') +
+              ' Hyperactive\n' +
+              _tk(ASMT.sub === 'hypo') +
+              ' Hypoactive\n' +
+              _tk(ASMT.sub === 'mixed') +
+              ' Mixed - alternating features',
+          },
+          {
+            content: rassCellContent(opts),
+          },
+        ],
       ],
-    ],
-  });
+    },
+    { boldHeads: true },
+  );
   y = doc.lastAutoTable.finalY;
 
   // THIS ASSESSMENT — completion status + free-text notes (reflects the tool)
@@ -698,28 +727,32 @@ function buildFull(doc, opts, k) {
     ],
   });
   y = doc.lastAutoTable.finalY;
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 6.8 * k,
-      cellPadding: 3.5 * k,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      textColor: INK,
-      valign: 'top',
-    },
-    body: [
-      [
-        'ASSESSMENT NOTES:  ' +
-          (ASMT.notes
-            ? ftext(ASMT.notes)
-            : '________________________________________________________________') +
-          (ASMT.plan ? '\n\nTREATMENT PLAN:  ' + ftext(ASMT.plan) : ''),
+  cbTable(
+    doc,
+    {
+      startY: y,
+      margin: { left: M, right: M },
+      theme: 'grid',
+      styles: {
+        fontSize: 6.8 * k,
+        cellPadding: 3.5 * k,
+        lineColor: LINEGRAY,
+        lineWidth: 0.5,
+        textColor: INK,
+        valign: 'top',
+      },
+      body: [
+        [
+          'ASSESSMENT NOTES:\n' +
+            (ASMT.notes
+              ? ftext(ASMT.notes)
+              : '________________________________________________________________') +
+            (ASMT.plan ? '\n\nTREATMENT PLAN:\n' + ftext(ASMT.plan) : ''),
+        ],
       ],
-    ],
-  });
+    },
+    { boldHeads: true },
+  );
   y = doc.lastAutoTable.finalY;
 
   // STEP 1 — DELIRIUM(S) mnemonic (9 cells, 1 row)
@@ -1109,10 +1142,6 @@ function buildSpa(doc, opts) {
   function _tk(on) {
     return on ? '[X]' : '[ ]';
   }
-  function _rmark(label, vals) {
-    var hit = vals.indexOf(ASMT.rass) >= 0;
-    return (hit ? '>> ' : '') + label + (hit ? '  <<' : '');
-  }
   var blank = '__________________';
 
   var y = header(
@@ -1225,87 +1254,78 @@ function buildSpa(doc, opts) {
   y = maxBottom + 8;
 
   // Assessment strip (CAM / RASS / Subtype / Sedation goal)
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 6.6,
-      cellPadding: 4,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      valign: 'top',
-      textColor: INK,
-    },
-    columnStyles: {
-      0: { cellWidth: CW / 4 },
-      1: { cellWidth: CW / 4 },
-      2: { cellWidth: CW / 4 },
-      3: { cellWidth: CW / 4 },
-    },
-    body: [
-      [
-        'CAM-ICU RESULT\n' +
-          _tk(ASMT.cam === 'positive') +
-          ' Positive\n' +
-          _tk(ASMT.cam === 'negative') +
-          ' Negative\n' +
-          _tk(ASMT.cam === 'unable') +
-          ' Unable to assess (RASS -4/-5)',
-        'RASS THIS ASSESSMENT' +
-          (ASMT.rass ? ': ' + ASMT.rass : '') +
-          '\n' +
-          _rmark('+4/+3 Combative/Very Agitated', ['+4', '+3']) +
-          '\n' +
-          _rmark('+2/+1 Agitated/Restless', ['+2', '+1']) +
-          '\n' +
-          _rmark('0 Alert & Calm' + tgtMark(opts, '0'), ['0']) +
-          '\n' +
-          _rmark('-1 Drowsy' + tgtMark(opts, '-1'), ['-1']) +
-          '\n' +
-          _rmark('-2 Light Sedation' + tgtMark(opts, '-2'), ['-2']) +
-          '\n' +
-          _rmark('-3 Moderate Sedation' + tgtMark(opts, '-3'), ['-3']) +
-          '\n' +
-          _rmark('-4 Deep Sedation' + tgtMark(opts, '-4'), ['-4']) +
-          '\n' +
-          _rmark('-5 Unarousable' + tgtMark(opts, '-5'), ['-5']),
-        'DELIRIUM SUBTYPE\n' +
-          _tk(ASMT.sub === 'hyper') +
-          ' Hyperactive (~23%, least common)\n' +
-          _tk(ASMT.sub === 'hypo') +
-          ' Hypoactive (most common, often missed)\n' +
-          _tk(ASMT.sub === 'mixed') +
-          ' Mixed - alternating',
-        'SEDATION GOAL\nTarget RASS: ' +
-          rassGoalOf(opts) +
-          rassIndicationOf(opts) +
-          '\nAvoid deep sedation unless required.\nDaily SAT/SBT when feasible.\nDocument goal each shift.',
-      ],
-    ],
-  });
-  y = doc.lastAutoTable.finalY;
-  if (ASMT.notes || ASMT.plan) {
-    cbTable(doc, {
+  cbTable(
+    doc,
+    {
       startY: y,
       margin: { left: M, right: M },
       theme: 'grid',
       styles: {
         fontSize: 6.6,
-        cellPadding: 3.5,
+        cellPadding: 4,
         lineColor: LINEGRAY,
         lineWidth: 0.5,
-        textColor: INK,
         valign: 'top',
+        textColor: INK,
+      },
+      columnStyles: {
+        0: { cellWidth: CW / 4 },
+        1: { cellWidth: CW / 4 },
+        2: { cellWidth: CW / 4 },
+        3: { cellWidth: CW / 4 },
       },
       body: [
         [
-          'ASSESSMENT NOTES:  ' +
-            ftext(ASMT.notes || '-') +
-            (ASMT.plan ? '\nPLAN:  ' + ftext(ASMT.plan) : ''),
+          'CAM-ICU RESULT\n' +
+            _tk(ASMT.cam === 'positive') +
+            ' Positive\n' +
+            _tk(ASMT.cam === 'negative') +
+            ' Negative\n' +
+            _tk(ASMT.cam === 'unable') +
+            ' Unable to assess (RASS -4/-5)',
+          rassCellContent(opts),
+          'DELIRIUM SUBTYPE\n' +
+            _tk(ASMT.sub === 'hyper') +
+            ' Hyperactive (~23%, least common)\n' +
+            _tk(ASMT.sub === 'hypo') +
+            ' Hypoactive (most common, often missed)\n' +
+            _tk(ASMT.sub === 'mixed') +
+            ' Mixed - alternating',
+          'SEDATION GOAL\nTarget RASS: ' +
+            rassGoalOf(opts) +
+            rassIndicationOf(opts) +
+            '\nAvoid deep sedation unless required.\nDaily SAT/SBT when feasible.\nDocument goal each shift.',
         ],
       ],
-    });
+    },
+    { boldHeads: true },
+  );
+  y = doc.lastAutoTable.finalY;
+  if (ASMT.notes || ASMT.plan) {
+    cbTable(
+      doc,
+      {
+        startY: y,
+        margin: { left: M, right: M },
+        theme: 'grid',
+        styles: {
+          fontSize: 6.6,
+          cellPadding: 3.5,
+          lineColor: LINEGRAY,
+          lineWidth: 0.5,
+          textColor: INK,
+          valign: 'top',
+        },
+        body: [
+          [
+            'ASSESSMENT NOTES:\n' +
+              ftext(ASMT.notes || '-') +
+              (ASMT.plan ? '\n\nPLAN:\n' + ftext(ASMT.plan) : ''),
+          ],
+        ],
+      },
+      { boldHeads: true },
+    );
     y = doc.lastAutoTable.finalY;
   }
   y = governanceStrip(doc, y, opts.settings);
@@ -1446,10 +1466,6 @@ function buildRecord(doc, opts) {
   function _tk(on) {
     return on ? '[X]' : '[ ]';
   }
-  function _rmark(label, vals) {
-    var hit = vals.indexOf(ASMT.rass) >= 0;
-    return (hit ? '>> ' : '') + label + (hit ? '  <<' : '');
-  }
 
   var y = header(
     doc,
@@ -1460,130 +1476,120 @@ function buildRecord(doc, opts) {
   );
 
   y = sectionBar(doc, y, 'ASSESSMENT', TEAL);
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 8,
-      cellPadding: 5,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      textColor: INK,
-      valign: 'top',
-    },
-    columnStyles: {
-      0: { cellWidth: CW / 4 },
-      1: { cellWidth: CW / 4 },
-      2: { cellWidth: CW / 4 },
-      3: { cellWidth: CW / 4 },
-    },
-    body: [
-      [
-        {
-          content:
-            'CAM-ICU RESULT\n\n' +
-            _tk(ASMT.cam === 'positive') +
-            ' Positive - delirium present\n' +
-            _tk(ASMT.cam === 'negative') +
-            ' Negative\n' +
-            _tk(ASMT.cam === 'unable') +
-            ' Unable to assess (RASS -4/-5)',
-        },
-        {
-          content:
-            'RASS THIS ASSESSMENT' +
-            (ASMT.rass ? ': ' + ASMT.rass : '') +
-            '\n\n' +
-            _rmark('+4/+3 Combative / Very Agitated', ['+4', '+3']) +
-            '\n' +
-            _rmark('+2/+1 Agitated / Restless', ['+2', '+1']) +
-            '\n' +
-            _rmark('0 Alert & Calm' + tgtMark(opts, '0'), ['0']) +
-            '\n' +
-            _rmark('-1 Drowsy' + tgtMark(opts, '-1'), ['-1']) +
-            '\n' +
-            _rmark('-2 Light Sedation' + tgtMark(opts, '-2'), ['-2']) +
-            '\n' +
-            _rmark('-3 Moderate Sedation' + tgtMark(opts, '-3'), ['-3']) +
-            '\n' +
-            _rmark('-4 Deep Sedation' + tgtMark(opts, '-4'), ['-4']) +
-            '\n' +
-            _rmark('-5 Unarousable' + tgtMark(opts, '-5'), ['-5']),
-        },
-        {
-          content:
-            'DELIRIUM SUBTYPE\n\n' +
-            _tk(ASMT.sub === 'hyper') +
-            ' Hyperactive\n' +
-            _tk(ASMT.sub === 'hypo') +
-            ' Hypoactive\n' +
-            _tk(ASMT.sub === 'mixed') +
-            ' Mixed - alternating',
-        },
-        {
-          content:
-            'RISK & PREVENTION\n\nRisk factors: ' +
-            (ASMT.risk || 0) +
-            '/16 (' +
-            (ASMT.riskTier || '-') +
-            ') — count of present factors, not a validated score\nABCDEF bundle: ' +
-            (ASMT.bundleOn || 0) +
-            '/' +
-            (ASMT.bundleAll || 0) +
-            '\nDELIRIUM(S) reviewed: ' +
-            (ASMT.mnemOn || 0) +
-            '/' +
-            (ASMT.mnemAll || 0) +
-            '\nTreatment steps: ' +
-            (ASMT.treatOn || 0) +
-            '/' +
-            (ASMT.treatAll || 0) +
-            '\nConsults: ' +
-            (ASMT.consults && ASMT.consults.length ? S_(ASMT.consults.join(', ')) : 'none'),
-        },
+  cbTable(
+    doc,
+    {
+      startY: y,
+      margin: { left: M, right: M },
+      theme: 'grid',
+      styles: {
+        fontSize: 8,
+        cellPadding: 5,
+        lineColor: LINEGRAY,
+        lineWidth: 0.5,
+        textColor: INK,
+        valign: 'top',
+      },
+      columnStyles: {
+        0: { cellWidth: CW / 4 },
+        1: { cellWidth: CW / 4 },
+        2: { cellWidth: CW / 4 },
+        3: { cellWidth: CW / 4 },
+      },
+      body: [
+        [
+          {
+            content:
+              'CAM-ICU RESULT\n\n' +
+              _tk(ASMT.cam === 'positive') +
+              ' Positive - delirium present\n' +
+              _tk(ASMT.cam === 'negative') +
+              ' Negative\n' +
+              _tk(ASMT.cam === 'unable') +
+              ' Unable to assess (RASS -4/-5)',
+          },
+          {
+            content: rassCellContent(opts),
+          },
+          {
+            content:
+              'DELIRIUM SUBTYPE\n\n' +
+              _tk(ASMT.sub === 'hyper') +
+              ' Hyperactive\n' +
+              _tk(ASMT.sub === 'hypo') +
+              ' Hypoactive\n' +
+              _tk(ASMT.sub === 'mixed') +
+              ' Mixed - alternating',
+          },
+          {
+            content:
+              'RISK & PREVENTION\n\nRisk factors: ' +
+              (ASMT.risk || 0) +
+              '/16 (' +
+              (ASMT.riskTier || '-') +
+              ') — count of present factors, not a validated score\nABCDEF bundle: ' +
+              (ASMT.bundleOn || 0) +
+              '/' +
+              (ASMT.bundleAll || 0) +
+              '\nDELIRIUM(S) reviewed: ' +
+              (ASMT.mnemOn || 0) +
+              '/' +
+              (ASMT.mnemAll || 0) +
+              '\nTreatment steps: ' +
+              (ASMT.treatOn || 0) +
+              '/' +
+              (ASMT.treatAll || 0) +
+              '\nConsults: ' +
+              (ASMT.consults && ASMT.consults.length ? S_(ASMT.consults.join(', ')) : 'none'),
+          },
+        ],
       ],
-    ],
-  });
+    },
+    { boldHeads: true },
+  );
   y = doc.lastAutoTable.finalY;
 
   y = sectionBar(doc, y, 'DELIRIUM(S) CAUSATIVE FACTORS - REVIEW STATUS', INDIGO);
   y = mnemonicTable(doc, opts, y, true);
 
   y = sectionBar(doc, y, 'ASSESSMENT NOTES & TREATMENT PLAN', GREENOK);
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 7.5,
-      cellPadding: 5,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      textColor: INK,
-      valign: 'top',
+  cbTable(
+    doc,
+    {
+      startY: y,
+      margin: { left: M, right: M },
+      theme: 'grid',
+      styles: {
+        fontSize: 7.5,
+        cellPadding: 5,
+        lineColor: LINEGRAY,
+        lineWidth: 0.5,
+        textColor: INK,
+        valign: 'top',
+      },
+      body: [
+        [
+          {
+            content:
+              'NOTES:\n' +
+              (ASMT.notes
+                ? ftext(ASMT.notes)
+                : '________________________________________________________________'),
+          },
+        ],
+        [
+          {
+            content:
+              'PLAN:\n' +
+              (ASMT.plan
+                ? ftext(ASMT.plan)
+                : '________________________________________________________________'),
+          },
+        ],
+      ],
     },
-    body: [
-      [
-        {
-          content:
-            'NOTES:  ' +
-            (ASMT.notes
-              ? ftext(ASMT.notes)
-              : '________________________________________________________________'),
-        },
-      ],
-      [
-        {
-          content:
-            'PLAN:  ' +
-            (ASMT.plan
-              ? ftext(ASMT.plan)
-              : '________________________________________________________________'),
-        },
-      ],
-    ],
-  });
+    { boldHeads: true },
+  );
   y = doc.lastAutoTable.finalY;
   y = governanceStrip(doc, y, opts.settings);
 
