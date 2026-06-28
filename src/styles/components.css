@@ -148,6 +148,15 @@
 .tab-badge:empty {
   display: none;
 }
+.tab-badge.tone-danger {
+  background: var(--c-danger);
+}
+.tab-badge.tone-ok {
+  background: var(--c-ok);
+}
+.tab-badge.tone-caution {
+  background: var(--c-caution);
+}
 
 /* ── Alerts ── */
 .alert {

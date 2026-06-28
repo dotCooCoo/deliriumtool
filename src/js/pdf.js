@@ -1,6 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
 import { rassTargetSet } from './scoring.js';
+import { DELIRIUM_REFS } from './data/refs.js';
 
 // jspdf-autotable v3 attaches doc.autoTable(...) once its plugin is applied to the
 // jsPDF instance we import here. Apply it once at module load.
@@ -362,16 +363,58 @@ function checklistRow(doc, y, cols, fam, sk) {
   return y + maxH;
 }
 
+// Source names shown in the footer, linked to their registry URL so the links are
+// never hand-rolled \u2014 adding an id here pulls the current URL from refs.js.
+var FOOTER_SOURCES = [
+  { t: 'PADIS 2018', id: 'padis2018' },
+  { t: 'PADIS 2025', id: 'padis2025' },
+  { t: 'ICU Liberation', id: 'sccm_abcdef' },
+  { t: 'Beers 2023', id: 'beers2023' },
+  { t: 'NICE CG103', id: 'nice_cg103' },
+];
+
 function footer(doc) {
-  // Centered disclaimer only; the generation stamp (left) + page numbers (right)
-  // are added per-page in stampPageNumbers. Facility + document title already
-  // appear in the header, so they are not repeated here.
+  // Centered disclaimer + clickable source links. The generation stamp (left) and
+  // page numbers (right) are added per-page in stampPageNumbers; facility + title
+  // already appear in the header, so they are not repeated here.
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(6.5);
-  doc.setTextColor(150, 150, 160);
-  var txt =
-    'Reference aid only \u2014 follow local policy & prescriber/pharmacy review  \u00B7  Sources: PADIS 2018+2025, ICU Liberation, Beers 2023, NICE CG103';
-  doc.text(txt, PW / 2, PH - 14, { align: 'center' });
+  var SEP = '  \u00B7  ';
+  var segs = [
+    {
+      s:
+        'Reference aid only \u2014 follow local policy & prescriber/pharmacy review' +
+        SEP +
+        'Sources: ',
+    },
+  ];
+  FOOTER_SOURCES.forEach(function (r, i) {
+    if (i) segs.push({ s: SEP });
+    var ref = DELIRIUM_REFS[r.id];
+    segs.push({ s: r.t, url: ref && ref.u });
+  });
+  // Lay the segments out left-to-right from a centered start so the mixed plain
+  // text + links stay visually centered as one line.
+  var total = 0;
+  segs.forEach(function (g) {
+    total += doc.getTextWidth(g.s);
+  });
+  var x = PW / 2 - total / 2,
+    y = PH - 14;
+  segs.forEach(function (g) {
+    var w = doc.getTextWidth(g.s);
+    if (g.url) {
+      doc.setTextColor(70, 110, 170);
+      doc.textWithLink(g.s, x, y, { url: g.url });
+      doc.setDrawColor(70, 110, 170);
+      doc.setLineWidth(0.4);
+      doc.line(x, y + 1, x + w, y + 1);
+    } else {
+      doc.setTextColor(150, 150, 160);
+      doc.text(g.s, x, y);
+    }
+    x += w;
+  });
 }
 
 // Protocol governance block (from the Setup tab) \u2014 printed on the generated documents.
@@ -444,6 +487,80 @@ function stampPageNumbers(doc, generatedAt) {
     // Generation timestamp (bottom-left) so a user can tell two prints apart.
     if (generatedAt) doc.text('Generated ' + generatedAt, M, PH - 14, { align: 'left' });
   }
+}
+
+// The DELIRIUM(S) mnemonic — one source of domain titles + guidance bodies, so the
+// section renders identically in every document.
+var DLM_DOMAINS = [
+  [
+    'D — Drugs / Withdrawal',
+    'Deliriogenic agents? Dose reduction? Withdrawal (alcohol/benzo/opioid) — treat to RASS, not CIWA, in the ICU.',
+  ],
+  ['E — Eyes/Ears/Env', 'Glasses & hearing aids in? Whiteboard updated? Daytime lights?'],
+  ['L — Low O2/Liver', 'Check SpO2, Hgb, cardiac/PE events, liver function.'],
+  ['I — Infection', 'Fever, leukocytosis, cultures pending? Occult sepsis?'],
+  [
+    'R — Retention',
+    'Urinary retention or constipation? Bladder scan; disimpact / catheterize if indicated.',
+  ],
+  ['I — Ictal/Seizure', 'Non-convulsive seizures/status? Esp. unexplained low LOC. Consider EEG.'],
+  [
+    'U — Under-hydration / Nutrition',
+    'Volume status, intake, electrolytes. Parenteral thiamine BEFORE glucose. At-risk (malnutrition/alcohol use): 100-300 mg IV daily (ESPEN). Suspected Wernicke (guidelines diverge, low-certainty): EFNS 200 mg IV TID or RCP 500 mg IV TID x 2-3 days then 250 mg taper.',
+  ],
+  ['M — Metabolic', 'Na, Mg, Ca, glucose, BUN/Cr, acid-base.'],
+  [
+    'S — Subdural / Sleep',
+    'Subdural hematoma (recent fall or anticoagulation)? Sleep deprivation?',
+  ],
+];
+
+// Shared DELIRIUM(S) primitive: nine colour-coded domain cells (one per letter),
+// used by every document so the section always looks the same. `compact` drops the
+// guidance body (the Record is a status snapshot). Returns the bottom y.
+function mnemonicTable(doc, opts, y, compact, k) {
+  k = k || 1;
+  var ASMT = opts.assessment || {};
+  cbTable(
+    doc,
+    {
+      startY: y,
+      margin: { left: M, right: M },
+      theme: 'grid',
+      styles: {
+        fontSize: 6.3 * k,
+        cellPadding: 3 * k,
+        lineColor: LINEGRAY,
+        lineWidth: 0.5,
+        valign: 'top',
+        textColor: INK,
+      },
+      body: [
+        DLM_DOMAINS.map(function (dm, i) {
+          var d = (ASMT.mnemDomains && ASMT.mnemDomains[i]) || {};
+          var mark = d.reviewed ? '[X]' : '[ ]';
+          return {
+            content: compact
+              ? dm[0] + '\n\n' + mark + ' Reviewed\n' + (d.action ? ftext(d.action) : '')
+              : dm[0] +
+                '\n' +
+                dm[1] +
+                '\n\n' +
+                mark +
+                ' Reviewed   Action: ' +
+                (d.action ? ftext(d.action) : '______'),
+          };
+        }),
+      ],
+      columnStyles: (function () {
+        var cs = {};
+        for (var i = 0; i < 9; i++) cs[i] = { cellWidth: CW / 9 };
+        return cs;
+      })(),
+    },
+    { accents: FAMILIES, tinted: true },
+  );
+  return doc.lastAutoTable.finalY;
 }
 
 // ============================================================
@@ -627,71 +744,7 @@ function buildFull(doc, opts, k) {
     INDIGO,
     k,
   );
-  var mnem = [
-    [
-      'D — Drugs / Withdrawal',
-      'Deliriogenic agents? Dose reduction? Withdrawal (alcohol/benzo/opioid) — treat to RASS, not CIWA, in the ICU.',
-    ],
-    ['E — Eyes/Ears/Env', 'Glasses & hearing aids in? Whiteboard updated? Daytime lights?'],
-    ['L — Low O2/Liver', 'Check SpO2, Hgb, cardiac/PE events, liver function.'],
-    ['I — Infection', 'Fever, leukocytosis, cultures pending? Occult sepsis?'],
-    [
-      'R — Retention',
-      'Urinary retention or constipation? Bladder scan; disimpact / catheterize if indicated.',
-    ],
-    [
-      'I — Ictal/Seizure',
-      'Non-convulsive seizures/status? Esp. unexplained low LOC. Consider EEG.',
-    ],
-    [
-      'U — Under-hydration / Nutrition',
-      'Volume status, intake, electrolytes. Parenteral thiamine BEFORE glucose. At-risk (malnutrition/alcohol use): 100-300 mg IV daily (ESPEN). Suspected Wernicke (guidelines diverge, low-certainty): EFNS 200 mg IV TID or RCP 500 mg IV TID x 2-3 days then 250 mg taper.',
-    ],
-    ['M — Metabolic', 'Na, Mg, Ca, glucose, BUN/Cr, acid-base.'],
-    [
-      'S — Subdural / Sleep',
-      'Subdural hematoma (recent fall or anticoagulation)? Sleep deprivation?',
-    ],
-  ];
-  cbTable(
-    doc,
-    {
-      startY: y,
-      margin: { left: M, right: M },
-      theme: 'grid',
-      styles: {
-        fontSize: 6.3 * k,
-        cellPadding: 3 * k,
-        lineColor: LINEGRAY,
-        lineWidth: 0.5,
-        valign: 'top',
-        textColor: INK,
-      },
-      body: [
-        mnem.map(function (mm, i) {
-          var d = (ASMT.mnemDomains && ASMT.mnemDomains[i]) || {};
-          return {
-            content:
-              mm[0] +
-              '\n' +
-              mm[1] +
-              '\n\n' +
-              _tk(d.reviewed) +
-              ' Reviewed   Action: ' +
-              (d.action ? ftext(d.action) : '______'),
-            styles: {},
-          };
-        }),
-      ],
-      columnStyles: (function () {
-        var cs = {};
-        for (var i = 0; i < 9; i++) cs[i] = { cellWidth: CW / 9 };
-        return cs;
-      })(),
-    },
-    { accents: FAMILIES, tinted: true },
-  ); // distinct colour per DELIRIUM(S) domain (9 families)
-  y = doc.lastAutoTable.finalY;
+  y = mnemonicTable(doc, opts, y, false, k);
 
   // STEP 2 — ABCDEF non-pharmacologic bundle (6 color-coded columns, real checkboxes)
   y = sectionBar(
@@ -1510,44 +1563,7 @@ function buildRecord(doc, opts) {
   y = doc.lastAutoTable.finalY;
 
   y = sectionBar(doc, y, 'DELIRIUM(S) CAUSATIVE FACTORS - REVIEW STATUS', INDIGO);
-  var mnem = [
-    'D - Drugs / Withdrawal',
-    'E - Eyes / Ears / Env',
-    'L - Low O2 / Liver',
-    'I - Infection',
-    'R - Retention',
-    'I - Ictal / Seizure',
-    'U - Under-hydration / Nutrition',
-    'M - Metabolic',
-    'S - Subdural / Sleep',
-  ];
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 6.5,
-      cellPadding: 3,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      valign: 'top',
-      textColor: INK,
-    },
-    body: [
-      mnem.map(function (m, i) {
-        var d = (ASMT.mnemDomains && ASMT.mnemDomains[i]) || {};
-        return {
-          content: m + '\n\n' + _tk(d.reviewed) + ' Reviewed\n' + (d.action ? ftext(d.action) : ''),
-        };
-      }),
-    ],
-    columnStyles: (function () {
-      var cs = {};
-      for (var i = 0; i < 9; i++) cs[i] = { cellWidth: CW / 9 };
-      return cs;
-    })(),
-  });
-  y = doc.lastAutoTable.finalY;
+  y = mnemonicTable(doc, opts, y, true);
 
   y = sectionBar(doc, y, 'ASSESSMENT NOTES & TREATMENT PLAN', GREENOK);
   cbTable(doc, {
