@@ -491,6 +491,7 @@ function footer(doc) {
 function governanceStrip(doc, y, st, k) {
   if (!st) return y;
   k = k || 1;
+  y += 4 * k; // breathing room so the bar never crowds the notes/plan above it
   y = sectionBar(doc, y, 'PROTOCOL & GOVERNANCE', NAVY, k);
   cbTable(doc, {
     startY: y,

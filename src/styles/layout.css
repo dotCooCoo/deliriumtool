@@ -193,7 +193,11 @@
   display: flex;
   gap: var(--sp-2);
   overflow-x: auto;
-  scrollbar-width: thin;
+  scrollbar-width: none; /* hidden — the right-edge fade hints the horizontal scroll */
+}
+
+.tabs-inner::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-btn {
