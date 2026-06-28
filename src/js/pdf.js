@@ -730,7 +730,7 @@ function buildFull(doc, opts, k) {
           },
           {
             content:
-              'DELIRIUM SUBTYPE\n(predominant motor behaviour this shift)\n\n' +
+              'DELIRIUM SUBTYPE\n(predominant motor behavior this shift)\n\n' +
               _tk(ASMT.sub === 'hyper') +
               ' Hyperactive\n' +
               _tk(ASMT.sub === 'hypo') +
@@ -1011,12 +1011,12 @@ function buildFull(doc, opts, k) {
     body: [
       [
         'Haloperidol',
-        '0.25-0.5mg q4-6h PRN; lowest effective dose, cap per local protocol',
-        'Elderly more sensitive (EPS/QTc rise with dose); EKG baseline; monitor QTc (caution >500ms); avoid Parkinson/Lewy body; dementia-mortality boxed warning',
+        '0.25-0.5 mg q4-6h PRN; lowest effective dose, cap per local protocol',
+        'Elderly more sensitive (EPS/QTc rise with dose); ECG baseline; monitor QTc (caution >500 ms); avoid Parkinson/Lewy body; dementia-mortality boxed warning',
       ],
       [
         'Quetiapine',
-        '12.5-25mg q12h PO; lowest dose, shortest duration',
+        '12.5-25 mg q12h PO; lowest dose, shortest duration',
         'Sedating; orthostatic hypotension; QTc prolongation',
       ],
       [
@@ -1027,11 +1027,11 @@ function buildFull(doc, opts, k) {
       [
         'Lorazepam (specific use)',
         'Per CIWA protocol',
-        'Rescue / ETOH withdrawal ONLY — may worsen delirium',
+        'Rescue / alcohol withdrawal ONLY — may worsen delirium',
       ],
       [
         'Melatonin',
-        '0.5-3mg nightly',
+        '0.5-3 mg nightly',
         'May be considered for sleep/circadian support; low-certainty ICU evidence (Pro-MEDIC RCT; 2025 ICU meta-analysis); not a treatment for established delirium and prevention evidence is mixed',
       ],
     ],
@@ -1256,13 +1256,13 @@ function buildSpa(doc, opts) {
     ],
     [
       'Consider melatonin for sleep',
-      '0.5-3mg nightly; may help sleep but ICU benefit is low-certainty; not a treatment for delirium.',
+      '0.5-3 mg nightly; may help sleep but ICU benefit is low-certainty; not a treatment for delirium.',
     ],
   ];
   var A = [
     [
       'Mobilize — remove barriers',
-      'Get the patient up. D/C foley, central lines, restraints as soon as safe. Immobility drives delirium.',
+      'Get the patient up. D/C Foley, central lines, restraints as soon as safe. Immobility drives delirium.',
     ],
     [
       'PT/OT consult early',
@@ -1274,7 +1274,7 @@ function buildSpa(doc, opts) {
     ],
     [
       'Engage family & caregivers',
-      'Familiar faces reorient. Teach T-A-D-A (Tolerate, Anticipate, Dont Agitate).',
+      "Familiar faces reorient. Teach T-A-D-A (Tolerate, Anticipate, Don't Agitate).",
     ],
     [
       'Protect sleep — day/night',
@@ -1437,9 +1437,9 @@ function buildSpa(doc, opts) {
     },
     body: [
       [
-        'Dexmedetomidine preferred in ventilated patients; reduces delirium vs benzos; monitor bradycardia/hypotension.\n\nPropofol acceptable short-term; daily cost/benefit.\n\nAvoid midazolam/lorazepam for routine sedation.\n\nException: benzos first-line for alcohol/benzo withdrawal (CIWA).\n\nHaloperidol 0.25-0.5mg IV/IM q4-6h PRN for hyperactive delirium w/ safety risk; lowest effective dose, cap per local protocol; check QTc; elderly are more sensitive (EPS/QTc; dementia-mortality boxed warning).\n\nQuetiapine 12.5-25mg PO q12h if oral available; monitor QTc & orthostasis.',
-        'Scheduled acetaminophen 650-975mg q6h (if no hepatic contraindication) as a multimodal, opioid-sparing adjunct.\n\nRegional anesthesia (nerve blocks, epidurals) preferred for surgical patients.\n\nPain assessment routinely / per unit protocol - NRS if able to self-report, CPOT or BPS if not.\n\nPharmacy consult for any CAM-positive patient or high anticholinergic/sedative burden (polypharmacy >= 5 meds is a common practice heuristic).\n\nElectrolytes Na, K, Mg, Ca, Phos, glucose - check and correct per clinical indication.\n\nCheck for infection/occult sepsis in new delirium.',
-        'Every device = barrier to mobility. Remove the urinary catheter as early as clinically feasible. CVC reassess daily. Restraints: least restrictive.\n\n4-level mobility: passive ROM -> edge-of-bed -> chair -> ambulate. Target chair daily.\n\nT-A-D-A: Tolerate seemingly dangerous (but not truly harmful) behaviors, Anticipate triggers, Dont Agitate.\n\nOrientation board: date, team, daily goal each shift.\n\nSleep hygiene: dim lights per unit quiet-hours protocol, cluster vitals/labs, ear protection.',
+        'Dexmedetomidine preferred in ventilated patients; reduces delirium vs benzos; monitor bradycardia/hypotension.\n\nPropofol acceptable short-term; daily cost/benefit.\n\nAvoid midazolam/lorazepam for routine sedation.\n\nException: benzos first-line for alcohol/benzo withdrawal (CIWA).\n\nHaloperidol 0.25-0.5 mg IV/IM q4-6h PRN for hyperactive delirium w/ safety risk; lowest effective dose, cap per local protocol; check QTc; elderly are more sensitive (EPS/QTc; dementia-mortality boxed warning).\n\nQuetiapine 12.5-25 mg PO q12h if oral available; monitor QTc & orthostasis.',
+        'Scheduled acetaminophen 650-975 mg q6h (if no hepatic contraindication) as a multimodal, opioid-sparing adjunct.\n\nRegional anesthesia (nerve blocks, epidurals) preferred for surgical patients.\n\nPain assessment routinely / per unit protocol - NRS if able to self-report, CPOT or BPS if not.\n\nPharmacy consult for any CAM-positive patient or high anticholinergic/sedative burden (polypharmacy >= 5 meds is a common practice heuristic).\n\nElectrolytes Na, K, Mg, Ca, Phos, glucose - check and correct per clinical indication.\n\nCheck for infection/occult sepsis in new delirium.',
+        "Every device = barrier to mobility. Remove the urinary catheter as early as clinically feasible. CVC reassess daily. Restraints: least restrictive.\n\n4-level mobility: passive ROM -> edge-of-bed -> chair -> ambulate. Target chair daily.\n\nT-A-D-A: Tolerate seemingly dangerous (but not truly harmful) behaviors, Anticipate triggers, Don't Agitate.\n\nOrientation board: date, team, daily goal each shift.\n\nSleep hygiene: dim lights per unit quiet-hours protocol, cluster vitals/labs, ear protection.",
       ],
     ],
   });
@@ -1507,7 +1507,7 @@ function buildSpa(doc, opts) {
         'Apply SPA measures on admission\nCAM-ICU once per shift + RASS each shift\nMedication review & bundle in place',
         'Notify provider; document in chart\nIntensify all SPA measures\nTreat reversible causes: labs, meds, infection, pain\nConsider 1:1 sitter; family presence',
         'Geriatrics or psychiatry consult\nPharmacy medication optimization\nReassess sedation strategy\nBrain imaging if focal neuro signs',
-        'Document safety indication first\nHaloperidol 0.25-0.5mg — short-term agitation control only (not a treatment for delirium; MIND-USA negative)\nCheck QTc; lowest dose, shortest duration\nReassess daily; taper/stop plan; none at discharge without psych Rx',
+        'Document safety indication first\nHaloperidol 0.25-0.5 mg — short-term agitation control only (not a treatment for delirium; MIND-USA negative)\nCheck QTc; lowest dose, shortest duration\nReassess daily; taper/stop plan; none at discharge without psych Rx',
       ],
     ],
     didParseCell: function (d) {
