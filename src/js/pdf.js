@@ -14,6 +14,7 @@ var SEC = [92, 107, 116]; // #5C6B74  secondary text
 var LINE = [218, 226, 230]; // #DAE2E6  hairlines
 var WHITE = [255, 255, 255];
 var HILITE = [255, 241, 196]; // soft amber — marks a captured selection (e.g. the RASS level)
+var TGT_TINT = [234, 240, 246]; // faint cool band — marks the configured target RASS rows
 
 // Six section families — [header] and [soft tint background]
 var TEAL = [47, 117, 124],
@@ -228,6 +229,12 @@ function renderChecklistCell(doc, cell, accent) {
       cy += wrapped.length * lineH;
     } else {
       var wrap2 = doc.splitTextToSize(ln, w - padL * 2);
+      if (ln.indexOf('[TARGET]') >= 0) {
+        // Faint band so the configured target RASS rows read as a group; the
+        // selected level still gets the stronger amber highlight above.
+        doc.setFillColor(TGT_TINT[0], TGT_TINT[1], TGT_TINT[2]);
+        doc.rect(x + 1.5, cy - fs - 0.5, w - 3, wrap2.length * lineH + 1.5, 'F');
+      }
       // First line, or a short "Label:" line on its own, renders bold.
       doc.setFont('helvetica', i === 0 || /^.{1,30}:$/.test(ln) ? 'bold' : 'normal');
       doc.setFontSize(fs);
@@ -296,7 +303,14 @@ function cbTable(doc, opts, cb) {
     if (!render(d.cell)) return;
     if (isCb(d.cell) && cb.tinted) {
       var t = tint(d.column.index);
-      if (t) d.cell.styles.fillColor = t;
+      if (t) {
+        // Optionally fade cells the clinician hasn't checked ([ ]) so reviewed
+        // domains read as filled chips and unreviewed ones recede.
+        if (cb.dimUnreviewed && !/\[[Xx]\]/.test(cellRaw(d.cell))) {
+          t = [(t[0] + 255) >> 1, (t[1] + 255) >> 1, (t[2] + 255) >> 1];
+        }
+        d.cell.styles.fillColor = t;
+      }
     }
     // Reserve the height our custom renderer needs so wrapped/bold lines never
     // overflow the cell into the section below.
@@ -614,7 +628,7 @@ function mnemonicTable(doc, opts, y, compact, k) {
         return cs;
       })(),
     },
-    { accents: FAMILIES, tinted: true },
+    { accents: FAMILIES, tinted: true, dimUnreviewed: true },
   );
   return doc.lastAutoTable.finalY;
 }
@@ -667,6 +681,8 @@ function buildFull(doc, opts, k) {
     'Bedside nurse checklist for multidisciplinary rounds',
     'Patient: ' + blank + '   Room: ______   Date: ' + dt,
   );
+
+  y = sectionBar(doc, y, 'ASSESSMENT', TEAL, k);
 
   // Assessment row (4 cells) via table
   cbTable(
