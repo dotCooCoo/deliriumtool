@@ -189,12 +189,16 @@ function settingsSrc() {
   return src;
 }
 
-export function initSettings() {
+export function initSettings(opts) {
   try {
     applySettings(JSON.parse(localStorage.getItem(LS_KEY) || '{}'));
   } catch {
     /* non-fatal */
   }
+  // A shared #cfg link takes precedence — skip provisioning so settings.json can't
+  // silently override it. The fetched file is applied for the session only (below),
+  // so it is re-read from source each load rather than persisting stale values.
+  if (opts && opts.shareActive) return;
   if (location.protocol === 'http:' || location.protocol === 'https:') {
     fetch(settingsSrc(), { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))
@@ -206,7 +210,6 @@ export function initSettings() {
           });
           if (Object.keys(clean).length) {
             applySettings(clean);
-            persistLocal();
           }
         }
       })

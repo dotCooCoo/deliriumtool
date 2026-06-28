@@ -484,7 +484,8 @@ function init() {
   wireGlossary();
   wireA11y();
   wireDispatch();
-  initSettings();
+  const shared = readShareUrl();
+  initSettings({ shareActive: !!shared }); // a shared #cfg link wins over settings.json
 
   const fac = $('facility-input');
   if (fac) {
@@ -495,7 +496,6 @@ function init() {
   }
 
   // Resume an in-progress assessment, apply a shared config, or show the picker.
-  const shared = readShareUrl();
   const saved = loadAutosave();
   if (saved) {
     restore(root, saved);

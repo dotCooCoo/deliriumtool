@@ -4,10 +4,6 @@ export const MEDS = {
       id: 'benzo',
       label: 'Benzodiazepines',
       hdrBg: '#C2341F',
-      bodyBg: '#FFEDE9',
-      bodyColor: '#06246B',
-      hdrClass: 'th-benzo',
-      bodyClass: 'tb-benzo',
       items: [
         {
           id: 'benzo-lorazepam',
@@ -69,10 +65,6 @@ export const MEDS = {
       id: 'opioids',
       label: 'Opioids / Analgesics',
       hdrBg: '#E2502F',
-      bodyBg: '#FFF0EC',
-      bodyColor: '#8A3A26',
-      hdrClass: 'th-opioid',
-      bodyClass: 'tb-opioid',
       items: [
         {
           id: 'opi-meperidine',
@@ -131,10 +123,6 @@ export const MEDS = {
       id: 'antichol',
       label: 'Anticholinergics',
       hdrBg: '#00147A',
-      bodyBg: '#EAF1FF',
-      bodyColor: '#001A5C',
-      hdrClass: 'th-anti',
-      bodyClass: 'tb-anti',
       items: [
         {
           id: 'ach-diphenhydramine',
@@ -232,10 +220,6 @@ export const MEDS = {
       id: 'sedatives',
       label: 'Sedatives / Hypnotics',
       hdrBg: '#0047B8',
-      bodyBg: '#E3EDFF',
-      bodyColor: '#06246B',
-      hdrClass: 'th-sed',
-      bodyClass: 'tb-sed',
       items: [
         {
           id: 'sed-propofol',
@@ -278,10 +262,6 @@ export const MEDS = {
       id: 'antipsych',
       label: 'Antipsychotics (high-dose / typical)',
       hdrBg: '#0E7C66',
-      bodyBg: '#D6F2EA',
-      bodyColor: '#06342B',
-      hdrClass: 'th-apsy',
-      bodyClass: 'tb-apsy',
       items: [
         {
           id: 'apsy-haloperidol',
@@ -319,10 +299,6 @@ export const MEDS = {
       id: 'antidep',
       label: 'Antidepressants / Mood (anticholinergic)',
       hdrBg: '#1E6FD0',
-      bodyBg: '#EAF1FF',
-      bodyColor: '#0E2E66',
-      hdrClass: 'th-adep',
-      bodyClass: 'tb-adep',
       items: [
         {
           id: 'adep-amitriptyline',
@@ -370,10 +346,6 @@ export const MEDS = {
       id: 'antimicro',
       label: 'Antimicrobials',
       hdrBg: '#005CE9',
-      bodyBg: '#EAF1FF',
-      bodyColor: '#0E4A6B',
-      hdrClass: 'th-micro',
-      bodyClass: 'tb-micro',
       items: [
         {
           id: 'mic-cefepime',
@@ -446,10 +418,6 @@ export const MEDS = {
       id: 'cardiac',
       label: 'Cardiovascular / Cardiac',
       hdrBg: '#3A4654',
-      bodyBg: '#EAEEF3',
-      bodyColor: '#2A323D',
-      hdrClass: 'th-card',
-      bodyClass: 'tb-card',
       items: [
         {
           id: 'car-digoxin',
@@ -497,10 +465,6 @@ export const MEDS = {
       id: 'steroids',
       label: 'Corticosteroids / Immunosuppressants',
       hdrBg: '#005CE9',
-      bodyBg: '#E8EDFF',
-      bodyColor: '#0E1A52',
-      hdrClass: 'th-ster',
-      bodyClass: 'tb-ster',
       items: [
         {
           id: 'ste-prednisone',
@@ -543,10 +507,6 @@ export const MEDS = {
       id: 'gi',
       label: 'GI / Antiemetics / H2 Blockers',
       hdrBg: '#2C7FB8',
-      bodyBg: '#E2F0FB',
-      bodyColor: '#13456B',
-      hdrClass: 'th-gi',
-      bodyClass: 'tb-gi',
       items: [
         {
           id: 'gi-famotidine',
@@ -584,10 +544,6 @@ export const MEDS = {
       id: 'other',
       label: 'Other / Miscellaneous',
       hdrBg: '#55616F',
-      bodyBg: '#EEF1F5',
-      bodyColor: '#2A323D',
-      hdrClass: 'th-other',
-      bodyClass: 'tb-other',
       items: [
         {
           id: 'oth-baclofen',

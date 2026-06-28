@@ -97,12 +97,6 @@ function ftext(s) {
 }
 
 // ---- helpers ----
-function getJsPDF() {
-  return jsPDF;
-}
-function runTable(doc, opts) {
-  doc.autoTable(opts);
-}
 
 // The sedation target shown in the document body — sourced from settings so the
 // body and the governance strip agree. Strips a trailing "(…)" note for the body.
@@ -126,7 +120,7 @@ function tgtMark(opts, v) {
 
 // Header: white bg, facility eyebrow + title, patient line, accent bar.
 // White-label — no logo image; the document title leads.
-function header(doc, logoB64, facility, title, sub, ptRight) {
+function header(doc, facility, title, sub, ptRight) {
   doc.setFillColor(255, 255, 255);
   doc.rect(0, 0, PW, 52, 'F');
   // facility eyebrow + title (lead at the left margin; no logo)
@@ -261,7 +255,7 @@ function cbTable(doc, opts, cb) {
     if (uDid) uDid(d);
     if (isCb(d.cell)) renderChecklistCell(doc, d.cell, acc(d.column.index));
   };
-  runTable(doc, opts);
+  doc.autoTable(opts);
 }
 // A manual, color-coded checklist column: accent header band + tinted body with
 // real checkboxes. Full layout control (used for the ABCDEF bundle). `total`
@@ -570,8 +564,7 @@ function buildFull(doc, opts, k) {
   k = k || 1; // page-1 scale, chosen by buildFullFitted so the checklist fits one page
   var facility = opts.facility,
     dt = opts.dt,
-    meds = opts.meds || [],
-    logo = opts.logoB64;
+    meds = opts.meds || [];
   var ASMT = opts.assessment || {};
   function _tk(on) {
     return on ? '[X]' : '[ ]';
@@ -585,7 +578,6 @@ function buildFull(doc, opts, k) {
   // ---------- PAGE 1 ----------
   var y = header(
     doc,
-    logo,
     facility,
     'ICU Delirium Rounding Tool',
     'Bedside nurse checklist for multidisciplinary rounds',
@@ -663,12 +655,6 @@ function buildFull(doc, opts, k) {
         },
       ],
     ],
-    didParseCell: function (d) {
-      // bold the first line (label) by splitting — emulate with header-ish styling
-      if (d.cell.raw && d.cell.text.length) {
-        d.cell.styles.fontStyle = 'normal';
-      }
-    },
   });
   y = doc.lastAutoTable.finalY;
 
@@ -867,7 +853,6 @@ function buildFull(doc, opts, k) {
   doc.addPage('letter', 'landscape');
   y = header(
     doc,
-    logo,
     facility,
     'ICU Delirium Rounding Tool — Page 2',
     'Pharmacologic guidance · Deliriogenic medications · Nurse care pathway',
@@ -1019,7 +1004,6 @@ function buildFull(doc, opts, k) {
     doc.addPage('letter', 'landscape');
     y = header(
       doc,
-      logo,
       facility,
       'ICU Delirium Rounding Tool — Nurse Care Pathway',
       'Report each step status during rounds',
@@ -1120,8 +1104,7 @@ function buildFull(doc, opts, k) {
 function buildSpa(doc, opts) {
   var facility = opts.facility,
     dt = opts.dt,
-    meds = opts.meds || [],
-    logo = opts.logoB64;
+    meds = opts.meds || [];
   var ASMT = opts.assessment || {};
   function _tk(on) {
     return on ? '[X]' : '[ ]';
@@ -1134,7 +1117,6 @@ function buildSpa(doc, opts) {
 
   var y = header(
     doc,
-    logo,
     facility,
     'SPA Quick Reference — Delirium Prevention & Management',
     'High-impact, high-frequency actions for delirium prevention & management · For all inpatient units',
@@ -1334,7 +1316,6 @@ function buildSpa(doc, opts) {
   doc.addPage('letter', 'landscape');
   y = header(
     doc,
-    logo,
     facility,
     'SPA Reference — Deeper Guidance & Medication Review',
     'Key actions per domain · Deliriogenic medications · Escalation',
@@ -1361,8 +1342,14 @@ function buildSpa(doc, opts) {
         'A — Activity/Awareness: Priorities',
       ],
     ],
-    headStyles: { fillColor: CLARITY, textColor: 255, fontSize: 6.8 },
+    headStyles: { textColor: 255, fontSize: 6.8 },
     columnStyles: { 0: { cellWidth: CW / 3 }, 1: { cellWidth: CW / 3 }, 2: { cellWidth: CW / 3 } },
+    didParseCell: function (d) {
+      // S/P/A column headers in the same colours as page 1 (teal / amber / indigo).
+      if (d.section === 'head') {
+        d.cell.styles.fillColor = [spaColors.S, spaColors.P, spaColors.A][d.column.index];
+      }
+    },
     body: [
       [
         'Dexmedetomidine preferred in ventilated patients; reduces delirium vs benzos; monitor bradycardia/hypotension.\n\nPropofol acceptable short-term; daily cost/benefit.\n\nAvoid midazolam/lorazepam for routine sedation.\n\nException: benzos first-line for alcohol/benzo withdrawal (CIWA).\n\nHaloperidol 0.25-0.5mg IV/IM q4-6h PRN for hyperactive delirium w/ safety risk; lowest effective dose, cap per local protocol; check QTc; elderly are more sensitive (EPS/QTc; dementia-mortality boxed warning).\n\nQuetiapine 12.5-25mg PO q12h if oral available; monitor QTc & orthostasis.',
@@ -1454,8 +1441,7 @@ function buildSpa(doc, opts) {
 // ============================================================
 function buildRecord(doc, opts) {
   var facility = opts.facility,
-    dt = opts.dt,
-    logo = opts.logoB64;
+    dt = opts.dt;
   var ASMT = opts.assessment || {};
   function _tk(on) {
     return on ? '[X]' : '[ ]';
@@ -1467,7 +1453,6 @@ function buildRecord(doc, opts) {
 
   var y = header(
     doc,
-    logo,
     facility,
     'Delirium Assessment Record',
     'Completed CAM-ICU / RASS assessment & prevention status',
@@ -1701,7 +1686,6 @@ function buildFullFitted(mkDoc, opts) {
 
 // ---- public entry ----
 function generate(kind, opts) {
-  var jsPDF = getJsPDF();
   // Fresh doc factory: compress (smaller downloads) + viewer metadata (no PHI).
   // buildFullFitted may build several to find the page-fit scale.
   var mkDoc = function () {
