@@ -3,6 +3,8 @@
 // cleared localStorage so it sees the first-run experience.
 import { test, expect } from '@playwright/test';
 
+/* global document, getComputedStyle -- available inside page.evaluate() (browser context) */
+
 // Each test runs in an isolated browser context (empty localStorage by default).
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
@@ -166,4 +168,27 @@ test('the pathway picker shows the adult/ICU scope panel with redirects', async 
   await expect(page.locator('.scope-note')).toContainText('adult ICU');
   await expect(page.locator('.scope-redirects')).toContainText('bCAM');
   await expect(page.locator('.scope-redirects')).toContainText('pCAM-ICU');
+});
+
+test.describe('light-only theme', () => {
+  test.use({ colorScheme: 'dark' }); // simulate an OS dark preference
+
+  test('stays light even when the OS prefers dark mode', async ({ page }) => {
+    // The tool is intentionally light-only: a dark OS used to flip the palette
+    // and made native <select> option headers unreadable.
+    const v = await page.evaluate(() => ({
+      scheme: getComputedStyle(document.documentElement).colorScheme,
+      bg: getComputedStyle(document.documentElement).getPropertyValue('--c-bg').trim(),
+    }));
+    expect(v.scheme).toBe('light');
+    expect(v.bg).toBe('#f6f8fb'); // light token, not the former dark #0e1320
+  });
+});
+
+test('serves the strict security headers from the _headers policy', async ({ page }) => {
+  const res = await page.goto('/');
+  const h = res.headers();
+  expect(h['content-security-policy']).toContain("script-src 'self'");
+  expect(h['referrer-policy']).toBe('no-referrer');
+  expect(h['x-content-type-options']).toBe('nosniff');
 });
