@@ -38,6 +38,26 @@
     />
     <meta name="twitter:image" content="https://deliriumtool.com/img/og-image.png" />
 
+    <!-- Structured data: a non-executable application/ld+json data block (read from the
+         HTML source by crawlers; permitted under the strict script-src 'self' CSP). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Delirium Bedside Reference Tool",
+        "url": "https://deliriumtool.com/",
+        "description": "Bedside ICU delirium screening and reference — CAM-ICU, RASS, the ABCDEF bundle, the DELIRIUM(S) mnemonic, treatment guidance, and printable documents. Runs entirely in the browser; no patient data leaves the device.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any modern web browser",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "inLanguage": "en",
+        "about": { "@type": "MedicalCondition", "name": "Delirium" },
+        "keywords": "CAM-ICU, RASS, ABCDEF bundle, ICU delirium, delirium screening, delirium prevention"
+      }
+    </script>
+
     <link rel="stylesheet" href="./assets/app.css" />
     <script src="./assets/app.js" defer></script>
   </head>
