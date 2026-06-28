@@ -150,17 +150,19 @@ function header(doc, logoB64, facility, title, sub, ptRight) {
 }
 
 // Colored section bar; returns y after bar
-function sectionBar(doc, y, text, rgb) {
+function sectionBar(doc, y, text, rgb, k) {
+  k = k || 1;
   rgb = rgb || TEAL;
   var band = lighten(rgb, BAND_F),
     tx = darken(rgb, 0.2);
+  var h = 16 * k;
   doc.setFillColor(band[0], band[1], band[2]);
-  doc.rect(M, y, CW, 16, 'F');
+  doc.rect(M, y, CW, h, 'F');
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.5);
+  doc.setFontSize(8.5 * k);
   doc.setTextColor(tx[0], tx[1], tx[2]);
-  doc.text(text, M + 7, y + 11);
-  return y + 16;
+  doc.text(text, M + 7, y + 11 * k);
+  return y + h;
 }
 
 // ---- real checkboxes + color-coded checklist columns ----
@@ -262,9 +264,10 @@ function checklistColumn(doc, x, y, w, opts) {
     tint = opts.tint || WHITE;
   var fs = opts.fontSize || 6.2,
     bandH = opts.bandH || 14,
-    pad = 4,
-    boxSz = 6.4,
-    gap = 3,
+    sc = fs / 6.2, // spacing tracks the (possibly reduced) font size
+    pad = 4 * sc,
+    boxSz = 6.4 * sc,
+    gap = 3 * sc,
     lineH = fs * 1.2;
   var rows = (opts.items || []).map(function (it) {
     return { on: !!it.on, lines: doc.splitTextToSize(S_(it.t), w - pad * 2 - boxSz - gap) };
@@ -307,45 +310,47 @@ function checklistColumn(doc, x, y, w, opts) {
 }
 // Draw a row of color-coded checklist columns (computes a common height). `cols`
 // = [{title, items:[{t,on}]}]; families assigned in order. Returns bottom y.
-function checklistRow(doc, y, cols, fam) {
+function checklistRow(doc, y, cols, fam, sk) {
+  sk = sk || 1;
   fam = fam || FAMILIES;
   var n = cols.length,
-    gap = 5,
+    gap = 5 * sk,
     w = (CW - gap * (n - 1)) / n;
-  var fs = 6.2,
-    pad = 4,
-    boxSz = 6.4,
-    igap = 3,
+  var fs = 6.2 * sk,
+    pad = 4 * sk,
+    boxSz = 6.4 * sk,
+    igap = 3 * sk,
     lineH = fs * 1.2;
   // common band height sized to the longest wrapped title so headers don't clip
-  var tSize = 7.2,
+  var tSize = 7.2 * sk,
     tLineH = tSize * 1.12,
-    bandH = 14;
+    bandH = 14 * sk;
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(tSize);
   cols.forEach(function (c) {
     var tl = doc.splitTextToSize(S_(c.title), w - pad * 2);
-    bandH = Math.max(bandH, tl.length * tLineH + 7);
+    bandH = Math.max(bandH, tl.length * tLineH + 7 * sk);
   });
   var maxH = 0;
   cols.forEach(function (c) {
     var h = bandH + pad;
     (c.items || []).forEach(function (it) {
       var ls = doc.splitTextToSize(S_(it.t), w - pad * 2 - boxSz - igap);
-      h += Math.max(boxSz, ls.length * lineH) + 3;
+      h += Math.max(boxSz, ls.length * lineH) + 3 * sk;
     });
     h += pad;
     if (h > maxH) maxH = h;
   });
   for (var i = 0; i < n; i++) {
-    var k = i % fam.length;
+    var ci = i % fam.length;
     checklistColumn(doc, M + i * (w + gap), y, w, {
       title: cols[i].title,
-      accent: fam[k],
-      tint: FAMILY_T[FAMILIES.indexOf(fam[k])] || WHITE,
+      accent: fam[ci],
+      tint: FAMILY_T[FAMILIES.indexOf(fam[ci])] || WHITE,
       items: cols[i].items,
       total: maxH,
       bandH: bandH,
+      fontSize: fs,
     });
   }
   return y + maxH;
@@ -364,16 +369,17 @@ function footer(doc, facility, label) {
 }
 
 // Protocol governance block (from the Setup tab) \u2014 printed on the generated documents.
-function governanceStrip(doc, y, st) {
+function governanceStrip(doc, y, st, k) {
   if (!st) return y;
-  y = sectionBar(doc, y, 'PROTOCOL & GOVERNANCE', NAVY);
+  k = k || 1;
+  y = sectionBar(doc, y, 'PROTOCOL & GOVERNANCE', NAVY, k);
   cbTable(doc, {
     startY: y,
     margin: { left: M, right: M },
     theme: 'grid',
     styles: {
-      fontSize: 6.8,
-      cellPadding: 3.5,
+      fontSize: 6.8 * k,
+      cellPadding: 3.5 * k,
       lineColor: LINEGRAY,
       lineWidth: 0.5,
       textColor: INK,
@@ -407,8 +413,8 @@ function governanceStrip(doc, y, st) {
       margin: { left: M, right: M },
       theme: 'grid',
       styles: {
-        fontSize: 6.5,
-        cellPadding: 3.5,
+        fontSize: 6.5 * k,
+        cellPadding: 3.5 * k,
         lineColor: LINEGRAY,
         lineWidth: 0.5,
         textColor: MONITOR,
@@ -435,7 +441,8 @@ function stampPageNumbers(doc) {
 // ============================================================
 // DOCUMENT 1 — FULL ICU DELIRIUM ROUNDING TOOL
 // ============================================================
-function buildFull(doc, opts) {
+function buildFull(doc, opts, k) {
+  k = k || 1; // page-1 scale, chosen by buildFullFitted so the checklist fits one page
   var facility = opts.facility,
     dt = opts.dt,
     meds = opts.meds,
@@ -466,8 +473,8 @@ function buildFull(doc, opts) {
     margin: { left: M, right: M },
     theme: 'grid',
     styles: {
-      fontSize: 7,
-      cellPadding: 4,
+      fontSize: 7 * k,
+      cellPadding: 4 * k,
       lineColor: LINEGRAY,
       lineWidth: 0.5,
       textColor: INK,
@@ -541,14 +548,14 @@ function buildFull(doc, opts) {
   y = doc.lastAutoTable.finalY;
 
   // THIS ASSESSMENT — completion status + free-text notes (reflects the tool)
-  y = sectionBar(doc, y, 'THIS ASSESSMENT  ·  STATUS & NOTES', MONITOR);
+  y = sectionBar(doc, y, 'THIS ASSESSMENT  ·  STATUS & NOTES', MONITOR, k);
   cbTable(doc, {
     startY: y,
     margin: { left: M, right: M },
     theme: 'grid',
     styles: {
-      fontSize: 6.8,
-      cellPadding: 3.5,
+      fontSize: 6.8 * k,
+      cellPadding: 3.5 * k,
       lineColor: LINEGRAY,
       lineWidth: 0.5,
       textColor: INK,
@@ -585,8 +592,8 @@ function buildFull(doc, opts) {
     margin: { left: M, right: M },
     theme: 'grid',
     styles: {
-      fontSize: 6.8,
-      cellPadding: 3.5,
+      fontSize: 6.8 * k,
+      cellPadding: 3.5 * k,
       lineColor: LINEGRAY,
       lineWidth: 0.5,
       textColor: INK,
@@ -610,6 +617,7 @@ function buildFull(doc, opts) {
     y,
     'STEP 1  ·  IDENTIFY & ADDRESS CAUSATIVE FACTORS (DELIRIUM(S) MNEMONIC)',
     INDIGO,
+    k,
   );
   var mnem = [
     [
@@ -642,8 +650,8 @@ function buildFull(doc, opts) {
     margin: { left: M, right: M },
     theme: 'grid',
     styles: {
-      fontSize: 6.3,
-      cellPadding: 3,
+      fontSize: 6.3 * k,
+      cellPadding: 3 * k,
       lineColor: LINEGRAY,
       lineWidth: 0.5,
       valign: 'top',
@@ -683,6 +691,7 @@ function buildFull(doc, opts) {
     y,
     'STEP 2  ·  NON-PHARMACOLOGIC BUNDLE (ABCDEF) — APPLY TO ALL PATIENTS',
     TEAL,
+    k,
   );
   var bundleCols =
     ASMT.bundle && ASMT.bundle.length
@@ -750,15 +759,21 @@ function buildFull(doc, opts) {
             ],
           },
         ];
-  y = checklistRow(doc, y, bundleCols);
+  y = checklistRow(doc, y, bundleCols, null, k);
 
   // Sleep & orientation strip
-  y = sectionBar(doc, y, 'SLEEP & ORIENTATION MEASURES', GREENOK);
+  y = sectionBar(doc, y, 'SLEEP & ORIENTATION MEASURES', GREENOK, k);
   cbTable(doc, {
     startY: y,
     margin: { left: M, right: M },
     theme: 'grid',
-    styles: { fontSize: 6.6, cellPadding: 3, lineColor: LINEGRAY, lineWidth: 0.5, textColor: INK },
+    styles: {
+      fontSize: 6.6 * k,
+      cellPadding: 3 * k,
+      lineColor: LINEGRAY,
+      lineWidth: 0.5,
+      textColor: INK,
+    },
     body: [
       (ASMT.sleep && ASMT.sleep.length
         ? ASMT.sleep
@@ -783,7 +798,7 @@ function buildFull(doc, opts) {
     })(),
   });
   y = doc.lastAutoTable.finalY;
-  y = governanceStrip(doc, y, opts.settings);
+  y = governanceStrip(doc, y, opts.settings, k);
 
   footer(doc, facility, 'ICU Delirium Rounding Tool');
 
@@ -1645,16 +1660,50 @@ function drawMedTile(doc, x, y, w, label, items, color) {
   return y + totalH;
 }
 
+// Page 1 of the full tool is dense; build it at progressively smaller scales
+// (floored at 0.85 for legibility) until the checklist fits one page — no stray
+// near-blank 3rd page, and it self-corrects as content changes. Page count is
+// the reliable fit signal across Node + browser. Returns the chosen doc.
+function buildFullFitted(mkDoc, opts) {
+  var scales = [1, 0.95, 0.9, 0.85];
+  var doc;
+  for (var i = 0; i < scales.length; i++) {
+    doc = mkDoc();
+    buildFull(doc, opts, scales[i]);
+    if (doc.internal.getNumberOfPages() <= 2) break; // fits (last scale wins regardless)
+  }
+  return doc;
+}
+
 // ---- public entry ----
 function generate(kind, opts) {
   var jsPDF = getJsPDF();
-  var doc = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter' });
+  // Fresh doc factory: compress (smaller downloads) + viewer metadata (no PHI).
+  // buildFullFitted may build several to find the page-fit scale.
+  var mkDoc = function () {
+    var d = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'letter', compress: true });
+    d.setProperties({
+      title:
+        kind === 'spa'
+          ? 'Simplified SPA Delirium Quick Reference'
+          : kind === 'record'
+            ? 'Delirium Assessment Record'
+            : 'ICU Delirium Rounding Tool',
+      subject: 'Bedside ICU delirium screening, prevention, and management reference',
+      creator: 'deliriumtool.com',
+      keywords: 'delirium, CAM-ICU, RASS, ABCDEF, ICU, reference aid',
+    });
+    return d;
+  };
+  var doc;
   if (kind === 'spa') {
+    doc = mkDoc();
     buildSpa(doc, opts);
   } else if (kind === 'record') {
+    doc = mkDoc();
     buildRecord(doc, opts);
   } else {
-    buildFull(doc, opts);
+    doc = buildFullFitted(mkDoc, opts);
   }
   stampPageNumbers(doc);
   var fname =
