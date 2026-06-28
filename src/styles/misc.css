@@ -181,6 +181,9 @@
     position: sticky;
     top: 76px;
   }
+  .facility-input {
+    min-width: 230px;
+  }
 }
 
 /* Family accent on a card — coloured left edge, tinted icon, and coloured heading.
@@ -230,4 +233,74 @@
   content: ' — selected';
   color: var(--c-primary);
   font-weight: 700;
+}
+
+/* ── Touch devices (phones + tablets): comfortable tap targets (WCAG 2.5.8) ── */
+@media (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+  }
+  .btn-sm {
+    min-height: 44px;
+    padding-top: var(--sp-2);
+    padding-bottom: var(--sp-2);
+  }
+  .fsel,
+  .finp,
+  .fta,
+  .facility-input {
+    min-height: 44px;
+  }
+  .pathway-bar__select {
+    min-height: 44px;
+    padding-top: var(--sp-2);
+    padding-bottom: var(--sp-2);
+  }
+  .cat-toggle-all {
+    min-height: 44px;
+    min-width: 44px;
+    padding-top: var(--sp-2);
+    padding-bottom: var(--sp-2);
+  }
+  .med-toggle-pill {
+    min-height: 44px;
+  }
+  .med-items-wrap {
+    gap: var(--sp-3);
+  }
+  .chk {
+    min-height: 44px;
+    align-items: center;
+  }
+  .chk + .chk {
+    margin-top: var(--sp-1);
+  }
+  .chk input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+  }
+  .ref-link {
+    min-height: 44px;
+    padding-top: var(--sp-2);
+    padding-bottom: var(--sp-2);
+  }
+  .ref-links {
+    gap: var(--sp-3);
+  }
+  .gh-badge {
+    min-height: 44px;
+    padding-top: var(--sp-3);
+    padding-bottom: var(--sp-3);
+  }
+  a.cite {
+    padding: var(--sp-2) var(--sp-1);
+    margin: calc(-1 * var(--sp-2)) 0 calc(-1 * var(--sp-2)) 2px;
+  }
+}
+
+/* Let the RASS scale labels shrink rather than collide on narrow screens. */
+.rass-scale > * {
+  flex: 0 1 auto;
+  min-width: 0;
 }
