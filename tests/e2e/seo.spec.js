@@ -1,5 +1,6 @@
 // SEO/crawlability guarantees: the robots + sitemap files serve, and the home page
 // carries its core search + social metadata.
+/* global window */
 import { test, expect } from '@playwright/test';
 
 test('robots.txt serves and references the sitemap', async ({ request }) => {
@@ -32,4 +33,22 @@ test('home page carries core SEO + social tags and a single h1', async ({ page }
     'summary_large_image',
   );
   await expect(page.locator('h1')).toHaveCount(1);
+});
+
+test('home page exposes valid JSON-LD with no CSP violation', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__csp = [];
+    window.addEventListener('securitypolicyviolation', (e) => {
+      window.__csp.push(`${e.violatedDirective} ${e.blockedURI}`);
+    });
+  });
+  await page.goto('/');
+  const ld = page.locator('script[type="application/ld+json"]');
+  await expect(ld).toHaveCount(1);
+  const data = JSON.parse(await ld.textContent());
+  expect(data['@type']).toBe('WebApplication');
+  expect(data.url).toBe('https://deliriumtool.com/');
+  // A data block must not trip script-src (it is not executed).
+  const cspHits = await page.evaluate(() => window.__csp.filter((v) => /script-src/.test(v)));
+  expect(cspHits).toEqual([]);
 });
