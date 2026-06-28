@@ -51,6 +51,20 @@ test('SPA = 2 pages, record = 1 page', () => {
   assert.equal(gen('record').internal.getNumberOfPages(), 1);
 });
 
+test('long free-text notes/plan reserve height instead of overprinting the next section', () => {
+  // Custom-drawn cells reserve their wrapped height (minCellHeight), so long notes
+  // push the following section down rather than printing behind it. A few hundred
+  // characters still fit the record on one page and keep the SPA at two.
+  const longText = 'Acute change with fluctuating attention and disorganized thinking. '.repeat(6);
+  const a = { cam: 'positive', rass: '-1', sub: 'hypo', notes: longText, plan: longText };
+  assert.equal(
+    gen('record', a).internal.getNumberOfPages(),
+    1,
+    'record absorbs long notes on one page',
+  );
+  assert.equal(gen('spa', a).internal.getNumberOfPages(), 2, 'spa stays two pages with long notes');
+});
+
 test('every generated PDF carries Title metadata', () => {
   for (const kind of ['full', 'spa', 'record']) {
     assert.match(gen(kind).output(), /\/Title/, `${kind} should set PDF Title metadata`);

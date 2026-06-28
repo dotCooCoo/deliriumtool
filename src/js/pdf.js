@@ -237,6 +237,36 @@ function renderChecklistCell(doc, cell, accent) {
     }
   }
 }
+// Height renderChecklistCell will actually occupy at content width w, measured
+// bold-aware (bold text wraps wider → more lines) so a wrapped or highlighted line
+// can never overflow the row height autoTable reserved from the plain text.
+function measureCellHeight(doc, cell, w) {
+  var lines = cellRaw(cell).split('\n');
+  var pad = cell.styles.cellPadding;
+  var fs = cell.styles.fontSize;
+  var lineH = fs * 1.18,
+    boxSz = fs * 0.95,
+    gap = 2.5;
+  var n = 0;
+  doc.setFontSize(fs);
+  for (var i = 0; i < lines.length; i++) {
+    var ln = lines[i];
+    if (ln.charCodeAt(0) === 1) {
+      doc.setFont('helvetica', 'bold');
+      n += doc.splitTextToSize(ln.slice(1), w - pad * 2).length;
+    } else {
+      var m = ln.match(/^\[([ Xx])\]\s?([\s\S]*)$/);
+      if (m) {
+        doc.setFont('helvetica', m[1] !== ' ' ? 'bold' : 'normal');
+        n += doc.splitTextToSize(m[2], w - pad * 2 - boxSz - gap).length;
+      } else {
+        doc.setFont('helvetica', i === 0 || /^.{1,30}:$/.test(ln) ? 'bold' : 'normal');
+        n += doc.splitTextToSize(ln, w - pad * 2).length;
+      }
+    }
+  }
+  return n * lineH + pad * 2 + fs * 0.3; // + descender slack
+}
 // runTable wrapper: any body cell containing "[ ]/[X]" gets real checkboxes,
 // tinted background, and an accent color (per-column via cb.accents, else TEAL).
 function cbTable(doc, opts, cb) {
@@ -263,10 +293,21 @@ function cbTable(doc, opts, cb) {
     uDid = opts.didDrawCell;
   opts.didParseCell = function (d) {
     if (uParse) uParse(d);
+    if (!render(d.cell)) return;
     if (isCb(d.cell) && cb.tinted) {
       var t = tint(d.column.index);
       if (t) d.cell.styles.fillColor = t;
     }
+    // Reserve the height our custom renderer needs so wrapped/bold lines never
+    // overflow the cell into the section below.
+    var cs = opts.columnStyles && opts.columnStyles[d.column.index];
+    var ncol = (d.table && d.table.columns && d.table.columns.length) || 1;
+    // Prefer the cell's resolved width; fall back to the declared column width, then
+    // an even split. Shave a couple points so a boundary case wraps one more line in
+    // the measure rather than one fewer than the actual render (which would clip).
+    var w = (d.cell.width || (cs && cs.cellWidth) || CW / ncol) - 2;
+    var h = measureCellHeight(doc, d.cell, w);
+    if (h > (d.cell.styles.minCellHeight || 0)) d.cell.styles.minCellHeight = h;
   };
   opts.willDrawCell = function (d) {
     if (uWill) uWill(d);
