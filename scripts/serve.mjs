@@ -9,6 +9,25 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const port = Number(process.env.PORT) || 4173;
 
+// Mirror the global (/*) security headers Cloudflare serves from _headers, so the
+// test/dev server reflects production and a dropped CSP is caught by the e2e suite.
+const securityHeaders = {};
+try {
+  const raw = await readFile(join(root, '_headers'), 'utf8');
+  let inGlobal = false;
+  for (const line of raw.split('\n')) {
+    if (line.startsWith('/*')) {
+      inGlobal = true;
+      continue;
+    }
+    if (line.trim() && !/^\s/.test(line)) inGlobal = false; // a new path block began
+    const m = inGlobal && line.match(/^\s+([\w-]+):\s*(.+?)\s*$/);
+    if (m) securityHeaders[m[1]] = m[2];
+  }
+} catch {
+  // No _headers (e.g. an unbuilt tree) — serve without them.
+}
+
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -39,12 +58,15 @@ const server = createServer(async (req, res) => {
     } catch {
       // Single-page fallback.
       body = await readFile(join(root, 'index.html'));
-      res.writeHead(200, { 'Content-Type': TYPES['.html'] }).end(body);
+      res.writeHead(200, { 'Content-Type': TYPES['.html'], ...securityHeaders }).end(body);
       return;
     }
 
     res
-      .writeHead(200, { 'Content-Type': TYPES[extname(filePath)] || 'application/octet-stream' })
+      .writeHead(200, {
+        'Content-Type': TYPES[extname(filePath)] || 'application/octet-stream',
+        ...securityHeaders,
+      })
       .end(body);
   } catch {
     res.writeHead(500).end('Server error');

@@ -1,7 +1,7 @@
 /*
  * tokens.css — design tokens (the single source of truth for colour, type,
  * spacing, radius, and elevation). Everything else references these custom
- * properties, and a dark theme is provided via prefers-color-scheme.
+ * properties. The tool is intentionally light-only (color-scheme: light).
  *
  * Palette intent: a calm, professional clinical look. A blue brand colour
  * (distinct from the green "success" status), cool slate neutrals, soft airy
@@ -9,11 +9,13 @@
  * amber, violet, green, plum) so colour-coded sections clearly differentiate.
  * Each family is a soft tint background + a deep same-hue text colour; both the
  * tints-with-deep-text and the deep colours on white meet WCAG AA (4.5:1).
- *
- * The JS-facing status colours are mirrored in js/data/colors.js — keep in sync.
  */
 
 :root {
+  /* Light-only: pin native controls (select menus, scrollbars) to light so a
+     dark-OS preference can't render them unreadable. */
+  color-scheme: light;
+
   /* ── Brand / primary (calm clinical blue — distinct from the green status) ── */
   --c-primary: #3457b1;
   --c-primary-strong: #2b478f;
@@ -32,7 +34,7 @@
   --c-text-2: #475569; /* slate-600 */
   --c-text-3: #556175; /* muted / captions (meets AA on light surfaces) */
 
-  /* ── Status (mirror in js/data/colors.js) ── */
+  /* ── Status ── */
   --c-ok: #2a7049; /* meets AA on --c-ok-weak (tier text) */
   --c-ok-weak: #e3f3e9;
   --c-caution: #9a5b13;
@@ -89,51 +91,4 @@
   --content-w: 1120px;
   --t-fast: 0.12s ease;
   --t: 0.2s ease;
-}
-
-/* Dark theme — desaturated / lighter tonal variants (not inverted). */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --c-primary: #7090e2;
-    --c-primary-strong: #8aa4ea;
-    --c-primary-weak: #1a2238;
-    --c-primary-contrast: #0a1020;
-
-    --c-bg: #0e1320;
-    --c-surface: #161c2b;
-    --c-surface-2: #1d2433;
-    --c-border: #2b3447;
-    --c-border-strong: #3b465c;
-
-    --c-text: #e7ebf3;
-    --c-text-2: #aeb8c8;
-    --c-text-3: #8b97a8;
-
-    --c-ok: #56c98a;
-    --c-ok-weak: #103326;
-    --c-caution: #d99a4e;
-    --c-caution-weak: #33260f;
-    --c-danger: #ec7a93;
-    --c-danger-weak: #371720;
-    --c-info: var(--c-primary);
-    --c-info-weak: var(--c-primary-weak);
-
-    --fam-teal: #4fc9be;
-    --fam-teal-weak: #0e3330;
-    --fam-crim: #ec7a93;
-    --fam-crim-weak: #371720;
-    --fam-amber: #d99a4e;
-    --fam-amber-weak: #33260f;
-    --fam-indigo: #a99af0;
-    --fam-indigo-weak: #201c3d;
-    --fam-green: #56c98a;
-    --fam-green-weak: #103326;
-    --fam-purple: #cf86dd;
-    --fam-purple-weak: #2e1834;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow: 0 6px 20px rgba(0, 0, 0, 0.46);
-    --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
-    --ring: 0 0 0 3px rgba(112, 144, 226, 0.4);
-  }
 }

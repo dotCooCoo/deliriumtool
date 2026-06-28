@@ -470,7 +470,8 @@
 }
 
 .med-toggle-pill {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   align-items: center;
   gap: 6px;
   padding: 5px 10px;
@@ -501,10 +502,11 @@
 
 /* Higher-risk marker (benzodiazepines, strong anticholinergics, meperidine). */
 .pill-flag {
+  margin-left: auto;
+  white-space: nowrap;
   font-size: var(--fs-xs);
   font-weight: 700;
   color: var(--c-danger);
-  margin-left: 2px;
 }
 
 .pill-dot {
@@ -1043,6 +1045,36 @@ details.panel[open] > summary::before {
 .fa-lg {
   width: 1.4em;
   height: 1.4em;
+}
+
+/* ── Site footer (source link) ── */
+.site-footer {
+  max-width: var(--content-w);
+  margin: var(--sp-6) auto var(--sp-5);
+  padding: 0 var(--sp-4);
+  text-align: center;
+}
+.gh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 6px 14px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--c-surface);
+  color: var(--c-text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background var(--t-fast),
+    border-color var(--t-fast),
+    color var(--t-fast);
+}
+.gh-badge:hover {
+  background: var(--c-surface-2);
+  border-color: var(--c-primary);
+  color: var(--c-primary);
 }
 
 /* ── Disclaimer banner ── */

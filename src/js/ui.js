@@ -19,9 +19,22 @@ import {
   rassZone,
   rassTone,
   pct,
+  RISK_MAX,
 } from './scoring.js';
 import { S } from './state.js';
 import { syncRassTarget } from './settings.js';
+
+// Build a sprite icon element (FontAwesome <use>) for JS-rendered UI — never emoji.
+function faIcon(id, cls) {
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('class', cls || 'fa');
+  svg.setAttribute('aria-hidden', 'true');
+  const use = document.createElementNS(ns, 'use');
+  use.setAttribute('href', '#' + id);
+  svg.appendChild(use);
+  return svg;
+}
 
 const $ = (id) => document.getElementById(id);
 const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -53,6 +66,12 @@ export function formatStamp(value) {
   });
 }
 
+// A filename-safe "YYYY-MM-DD_HHMM" stamp (now) for export filenames.
+export function fileStamp() {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}_${pad2(d.getHours())}${pad2(d.getMinutes())}`;
+}
+
 // Default the assessment-time field to now when empty (first entry / post-reset).
 export function seedAssessmentTime() {
   const ct = $('cam-time');
@@ -60,8 +79,6 @@ export function seedAssessmentTime() {
 }
 const TONE_BG = { ok: '--c-ok-weak', caution: '--c-caution-weak', danger: '--c-danger-weak' };
 const TONE_FG = { ok: '--c-ok', caution: '--c-caution', danger: '--c-danger' };
-
-export const DEFAULT_FACILITY = 'Your facility';
 
 // ─── Tab badges ─────────────────────────────────────────────────────────────
 export function updateTabBadges() {
@@ -116,7 +133,7 @@ export function recalcRisk() {
   $('rnote').textContent = note;
 
   const fill = $('rprog');
-  const riskPct = Math.min(100, (score / 17) * 100);
+  const riskPct = Math.min(100, (score / RISK_MAX) * 100);
   fill.style.width = `${riskPct}%`;
   fill.style.setProperty('--pct', riskPct);
 
@@ -248,7 +265,7 @@ export function evalCam() {
       '--sb',
       tone === 'neutral' ? cssVar('--c-surface-2') : cssVar(TONE_BG[tone]),
     );
-    icon.textContent = ic;
+    icon.replaceChildren(faIcon(ic, 'fa fa-lg'));
     title.textContent = t;
     title.style.color = tone === 'neutral' ? cssVar('--c-text-2') : cssVar(TONE_FG[tone]);
     sub.textContent = subtxt;
@@ -264,7 +281,7 @@ export function evalCam() {
   if (result === 'unable') {
     show(
       'caution',
-      '⏸',
+      'fa-ban',
       'Unable to Assess',
       `RASS ${S.rass}: patient too sedated. Stop CAM-ICU; reassess when RASS ≥ -3.`,
       'a-warn',
@@ -273,7 +290,7 @@ export function evalCam() {
   } else if (result === 'positive') {
     show(
       'danger',
-      '⚠️',
+      'fa-triangle-exclamation',
       'CAM Positive — Delirium Present',
       'Initiate delirium management protocol',
       'a-danger',
@@ -282,7 +299,7 @@ export function evalCam() {
   } else if (result === 'negative') {
     show(
       'ok',
-      '✓',
+      'fa-circle-check',
       'CAM Negative — No Delirium',
       'Continue prevention measures',
       'a-green',
@@ -293,7 +310,7 @@ export function evalCam() {
     const needBoth = S.cam[1] === undefined || S.cam[2] === undefined;
     show(
       'neutral',
-      '—',
+      'fa-minus',
       'Incomplete',
       needBoth
         ? 'Answer Features 1 and 2 first'
@@ -438,7 +455,7 @@ export function renderCamLog() {
     del.dataset.act = 'delCamLog';
     del.dataset.i = String(i);
     del.setAttribute('aria-label', 'Delete this assessment');
-    del.textContent = '✕';
+    del.replaceChildren(faIcon('fa-xmark', 'fa fa-sm'));
 
     row.append(left, mid, del);
     el.append(row);
@@ -602,7 +619,10 @@ export function renderMedToggles() {
         if (item.risk === 'high') {
           const flag = document.createElement('span');
           flag.className = 'pill-flag';
-          flag.textContent = '⚠ higher-risk';
+          flag.append(
+            faIcon('fa-triangle-exclamation', 'fa fa-sm'),
+            document.createTextNode(' higher-risk'),
+          );
           pill.append(flag);
         }
         wrap.append(pill);
@@ -826,14 +846,39 @@ export function autofillExample() {
     plan.value =
       'Non-pharmacologic bundle in place; 1:1 sitter, non-essential devices removed, family present for reorientation. No antipsychotic required. Reassess CAM-ICU each shift and de-escalate as mental status improves.';
 
+  // Medications — a realistic subset this example patient is on (not the whole list).
+  const exampleMeds = ['Lorazepam', 'Fentanyl', 'Diphenhydramine'];
+  MEDS.categories.forEach((cat) =>
+    cat.items.forEach((it) => {
+      it.on = exampleMeds.some((n) => it.name.includes(n));
+    }),
+  );
+  renderMedToggles();
+
+  // Setup / governance — fill the empty fields so the Setup tab and the printed
+  // governance block show a complete example (the selects already default sensibly).
+  const setIfEmpty = (id, val) => {
+    const el = $(id);
+    if (el && !el.value) el.value = val;
+  };
+  const isoDate = (d) => `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+  const now = new Date();
+  setIfEmpty('proto-ver', '1.0');
+  setIfEmpty('set-director', 'A. Director, MD — ICU Medical Director');
+  setIfEmpty('set-cno', 'B. Lead, RN — Nurse Leader');
+  setIfEmpty('set-lastrev', isoDate(now));
+  setIfEmpty(
+    'set-nextrev',
+    isoDate(new Date(now.getFullYear(), now.getMonth() + 6, now.getDate())),
+  );
+
   updateTabBadges();
   updateExportMedSummary();
 }
 
 // ─── Initial render ─────────────────────────────────────────────────────────
 export function initUI() {
-  const ct = $('cam-time');
-  if (ct && !ct.value) ct.value = localStampInput();
+  seedAssessmentTime();
   buildLetterStrip();
   renderMedToggles();
   recalcRisk();

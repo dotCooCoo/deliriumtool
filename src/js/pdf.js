@@ -11,7 +11,6 @@ applyPlugin(jsPDF);
 var INK = [31, 42, 48]; // #1F2A30  primary text
 var SEC = [92, 107, 116]; // #5C6B74  secondary text
 var LINE = [218, 226, 230]; // #DAE2E6  hairlines
-var WASH = [246, 249, 249]; // #F6F9F9  page wash
 var WHITE = [255, 255, 255];
 
 // Six section families — [header] and [soft tint background]
@@ -32,7 +31,6 @@ var NAVY = [58, 71, 83]; // #3A4753  governance / footer slate
 // Back-compat aliases (former brand names → muted palette) so existing draws restyle.
 var CEREBRAL = TEAL,
   CLARITY = TEAL,
-  SYNAPTIC = [120, 170, 178],
   GENTLE = [237, 242, 243],
   MONITOR = SEC,
   ACTION = CRIM,
@@ -356,15 +354,15 @@ function checklistRow(doc, y, cols, fam, sk) {
   return y + maxH;
 }
 
-function footer(doc, facility, label) {
-  // Records footer text WITHOUT page numbers; numbering is stamped in a final pass.
+function footer(doc) {
+  // Centered disclaimer only; the generation stamp (left) + page numbers (right)
+  // are added per-page in stampPageNumbers. Facility + document title already
+  // appear in the header, so they are not repeated here.
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(6.5);
   doc.setTextColor(150, 150, 160);
   var txt =
-    (facility ? facility + '  \u00B7  ' : '') +
-    label +
-    '  \u00B7  Reference aid only \u2014 follow local policy & prescriber/pharmacy review  \u00B7  Sources: PADIS 2018+2025, ICU Liberation, Beers 2023, NICE CG103';
+    'Reference aid only \u2014 follow local policy & prescriber/pharmacy review  \u00B7  Sources: PADIS 2018+2025, ICU Liberation, Beers 2023, NICE CG103';
   doc.text(txt, PW / 2, PH - 14, { align: 'center' });
 }
 
@@ -427,7 +425,7 @@ function governanceStrip(doc, y, st, k) {
   return y;
 }
 // Stamp "Page X of N" on every page after the document is fully built.
-function stampPageNumbers(doc) {
+function stampPageNumbers(doc, generatedAt) {
   var n = doc.internal.getNumberOfPages();
   for (var i = 1; i <= n; i++) {
     doc.setPage(i);
@@ -435,6 +433,8 @@ function stampPageNumbers(doc) {
     doc.setFontSize(6.5);
     doc.setTextColor(150, 150, 160);
     doc.text('Page ' + i + ' of ' + n, PW - M, PH - 14, { align: 'right' });
+    // Generation timestamp (bottom-left) so a user can tell two prints apart.
+    if (generatedAt) doc.text('Generated ' + generatedAt, M, PH - 14, { align: 'left' });
   }
 }
 
@@ -445,7 +445,7 @@ function buildFull(doc, opts, k) {
   k = k || 1; // page-1 scale, chosen by buildFullFitted so the checklist fits one page
   var facility = opts.facility,
     dt = opts.dt,
-    meds = opts.meds,
+    meds = opts.meds || [],
     logo = opts.logoB64;
   var ASMT = opts.assessment || {};
   function _tk(on) {
@@ -800,7 +800,7 @@ function buildFull(doc, opts, k) {
   y = doc.lastAutoTable.finalY;
   y = governanceStrip(doc, y, opts.settings, k);
 
-  footer(doc, facility, 'ICU Delirium Rounding Tool');
+  footer(doc);
 
   // ---------- PAGE 2 ----------
   doc.addPage('letter', 'landscape');
@@ -1050,7 +1050,7 @@ function buildFull(doc, opts, k) {
     });
   }
 
-  footer(doc, facility, 'ICU Delirium Rounding Tool');
+  footer(doc);
 }
 
 // ============================================================
@@ -1059,7 +1059,7 @@ function buildFull(doc, opts, k) {
 function buildSpa(doc, opts) {
   var facility = opts.facility,
     dt = opts.dt,
-    meds = opts.meds,
+    meds = opts.meds || [],
     logo = opts.logoB64;
   var ASMT = opts.assessment || {};
   function _tk(on) {
@@ -1267,7 +1267,7 @@ function buildSpa(doc, opts) {
   }
   y = governanceStrip(doc, y, opts.settings);
 
-  footer(doc, facility, 'SPA Delirium Quick Reference');
+  footer(doc);
 
   // ---------- PAGE 2 ----------
   doc.addPage('letter', 'landscape');
@@ -1385,7 +1385,7 @@ function buildSpa(doc, opts) {
     },
   });
 
-  footer(doc, facility, 'SPA Delirium Quick Reference');
+  footer(doc);
 }
 
 // ============================================================
@@ -1578,7 +1578,7 @@ function buildRecord(doc, opts) {
   y = doc.lastAutoTable.finalY;
   y = governanceStrip(doc, y, opts.settings);
 
-  footer(doc, facility, 'Delirium Assessment Record');
+  footer(doc);
 }
 
 // ---- manual block helpers (robust; avoid autotable fill/overprint collisions) ----
@@ -1705,13 +1705,16 @@ function generate(kind, opts) {
   } else {
     doc = buildFullFitted(mkDoc, opts);
   }
-  stampPageNumbers(doc);
+  stampPageNumbers(doc, opts.generatedAt);
+  var stamp = opts && opts.generatedAtFile ? '_' + opts.generatedAtFile : '';
   var fname =
     (kind === 'spa'
       ? 'SPA_Delirium_Quick_Reference'
       : kind === 'record'
         ? 'Delirium_Assessment_Record'
-        : 'ICU_Delirium_Rounding_Tool') + '.pdf';
+        : 'ICU_Delirium_Rounding_Tool') +
+    stamp +
+    '.pdf';
   if (opts && opts._returnDoc) return doc; // for node testing
   doc.save(fname);
 }

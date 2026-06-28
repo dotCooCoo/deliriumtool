@@ -6,8 +6,8 @@
 // hashed filenames, and copies the security-headers file. Output is self-contained
 // and also works offline from file:// (assets are referenced relatively).
 //
-// Until the modular source lands, this publishes the current single-file
-// index.html unchanged so the deploy path works today.
+// Legacy fallback: if src/index.html is absent, the repo-root single-file
+// index.html is copied through unchanged.
 
 import { existsSync } from 'node:fs';
 import { rm, mkdir, copyFile, cp, readFile, writeFile } from 'node:fs/promises';

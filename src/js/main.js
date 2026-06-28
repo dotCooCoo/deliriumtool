@@ -184,6 +184,10 @@ function pdfPayload() {
     meds: ui.selectedMeds(),
     assessment,
     settings: ui.gatherSettings(),
+    // Generation time (now) — printed in the footer + used in the filename so a
+    // user can tell two prints apart.
+    generatedAt: ui.formatStamp(),
+    generatedAtFile: ui.fileStamp(),
   };
 }
 
