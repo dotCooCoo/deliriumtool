@@ -1,0 +1,295 @@
+/*
+ * layout.css — page scaffolding: the app bar, the pathway picker, the workspace
+ * (tab bar + panels), section headers, and the responsive grid helpers.
+ */
+
+/* ── App bar ── */
+.app-header {
+  background: var(--c-surface);
+  background: linear-gradient(
+    180deg,
+    var(--c-surface),
+    color-mix(in srgb, var(--c-primary) 5%, var(--c-surface))
+  );
+  border-bottom: 1px solid var(--c-border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.app-header-inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: var(--sp-3) var(--sp-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+}
+
+.app-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.app-logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: block;
+}
+
+.app-header-titles {
+  min-width: 0;
+}
+
+.app-header h1 {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--c-text);
+}
+
+.app-header-sub {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  margin-top: 2px;
+}
+
+.header-pill {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-primary-strong);
+  background: var(--c-primary-weak);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  margin-bottom: var(--sp-2);
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.facility-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.facility-field label {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-3);
+  font-weight: 600;
+}
+
+/* ── Pathway picker (the first thing the user sees) ── */
+.pathway-picker {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: var(--sp-7) var(--sp-5);
+}
+
+.pathway-picker__lead {
+  text-align: center;
+  margin-bottom: var(--sp-6);
+}
+
+.pathway-picker__lead h2 {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  margin-bottom: var(--sp-2);
+}
+
+.pathway-picker__lead p {
+  color: var(--c-text-2);
+  font-size: var(--fs-md);
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.pathway-grid-pick {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+
+/* ── Pathway bar (shown in the workspace once a pathway is chosen) ── */
+.pathway-bar {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: var(--sp-3) var(--sp-5);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.pathway-bar__label {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-3);
+  font-weight: 600;
+}
+
+.pathway-bar__name {
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+.pathway-bar__spacer {
+  margin-left: auto;
+}
+
+.pathway-bar__select {
+  width: auto;
+  min-width: 13rem;
+  font-weight: 700;
+  padding: 4px 8px;
+}
+
+.pathway-bar__uses {
+  font-size: var(--fs-xs);
+  color: var(--c-text-3);
+}
+
+/* ── Tab bar ── */
+.tabs-wrap {
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tabs-inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  display: flex;
+  gap: var(--sp-1);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--c-text-2);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  padding: var(--sp-3) var(--sp-3);
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    color var(--t-fast),
+    border-color var(--t-fast);
+}
+
+.tab-btn:hover {
+  color: var(--c-text);
+}
+
+.tab-btn.active {
+  color: var(--c-primary);
+  border-bottom-color: var(--c-primary);
+}
+
+/* Tabs that don't shape the chosen document — de-emphasized, never hidden. */
+.tab-btn.tab-aside:not(.active) {
+  color: var(--c-text-3);
+  font-weight: 500;
+}
+
+/* Tabs that build the chosen document — a small lead dot marks them. */
+.tab-btn.tab-primary::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  flex-shrink: 0;
+}
+
+/* ── Main / panels ── */
+.main {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: var(--sp-5) var(--sp-5) var(--sp-7);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* ── Section header ── */
+.sec-hdr {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-5);
+  padding-bottom: var(--sp-3);
+  border-bottom: 2px solid var(--c-border);
+}
+
+.sec-title {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--c-text);
+}
+
+.sec-sub {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  margin-top: 2px;
+}
+
+/* ── Grid helpers ── */
+.g2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+
+.g3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .g2,
+  .g3,
+  .pathway-grid-pick {
+    grid-template-columns: 1fr;
+  }
+  .app-header-inner {
+    gap: var(--sp-3);
+  }
+  .main {
+    padding: var(--sp-4);
+  }
+}

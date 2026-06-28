@@ -1,0 +1,41 @@
+{
+  "name": "deliriumtool",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Bedside ICU delirium screening, prevention, and management reference (CAM-ICU, RASS, ABCDEF). Runs entirely in the browser; no patient data leaves the device.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && wrangler dev",
+    "preview": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test \"tests/unit/*.test.js\"",
+    "test:e2e": "playwright test --grep-invert @visual",
+    "test:visual": "playwright test --grep @visual",
+    "test:visual:update": "playwright test --grep @visual --update-snapshots"
+  },
+  "dependencies": {
+    "jspdf": "2.5.2",
+    "jspdf-autotable": "3.8.2"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.61.1",
+    "esbuild": "0.28.1",
+    "eslint": "10.6.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.7.0",
+    "prettier": "3.8.5",
+    "wrangler": "4.105.0"
+  }
+}

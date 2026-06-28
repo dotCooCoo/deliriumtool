@@ -1,0 +1,139 @@
+/*
+ * tokens.css — design tokens (the single source of truth for colour, type,
+ * spacing, radius, and elevation). Everything else references these custom
+ * properties, and a dark theme is provided via prefers-color-scheme.
+ *
+ * Palette intent: a calm, professional clinical look. A blue brand colour
+ * (distinct from the green "success" status), cool slate neutrals, soft airy
+ * tints, and six section "families" spread across the hue wheel (teal, rose,
+ * amber, violet, green, plum) so colour-coded sections clearly differentiate.
+ * Each family is a soft tint background + a deep same-hue text colour; both the
+ * tints-with-deep-text and the deep colours on white meet WCAG AA (4.5:1).
+ *
+ * The JS-facing status colours are mirrored in js/data/colors.js — keep in sync.
+ */
+
+:root {
+  /* ── Brand / primary (calm clinical blue — distinct from the green status) ── */
+  --c-primary: #3457b1;
+  --c-primary-strong: #2b478f;
+  --c-primary-weak: #eaf0fb;
+  --c-primary-contrast: #ffffff;
+
+  /* ── Surfaces (cool, airy slate) ── */
+  --c-bg: #f6f8fb;
+  --c-surface: #ffffff;
+  --c-surface-2: #f1f5f9;
+  --c-border: #e2e8f0;
+  --c-border-strong: #cbd5e1;
+
+  /* ── Text ── */
+  --c-text: #1e293b; /* slate-800 */
+  --c-text-2: #475569; /* slate-600 */
+  --c-text-3: #556175; /* muted / captions (meets AA on light surfaces) */
+
+  /* ── Status (mirror in js/data/colors.js) ── */
+  --c-ok: #2a7049; /* meets AA on --c-ok-weak (tier text) */
+  --c-ok-weak: #e3f3e9;
+  --c-caution: #9a5b13;
+  --c-caution-weak: #fbeedd;
+  --c-danger: #b3294a;
+  --c-danger-weak: #fce4ea;
+  --c-info: var(--c-primary);
+  --c-info-weak: var(--c-primary-weak);
+
+  /* ── Section families — soft tint + deep same-hue text, spread across hues ── */
+  --fam-teal: #0f766e;
+  --fam-teal-weak: #d7f0ec;
+  --fam-crim: #b3294a; /* rose */
+  --fam-crim-weak: #fce4ea;
+  --fam-amber: #9a5b13;
+  --fam-amber-weak: #fbeedd;
+  --fam-indigo: #5b4bc4; /* violet */
+  --fam-indigo-weak: #ece9fb;
+  --fam-green: #2a7049;
+  --fam-green-weak: #e3f3e9;
+  --fam-purple: #8a3fa6; /* plum */
+  --fam-purple-weak: #f6e7f7;
+
+  /* ── Typography ── */
+  --font-sans:
+    'Inter var', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.8125rem; /* 13px */
+  --fs-base: 0.875rem; /* 14px */
+  --fs-md: 0.9375rem; /* 15px */
+  --fs-lg: 1.125rem; /* 18px */
+  --fs-xl: 1.375rem; /* 22px */
+  --fs-2xl: 1.75rem; /* 28px */
+  --lh: 1.5;
+
+  /* ── Spacing scale (4px base) ── */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+
+  /* ── Radius / elevation / motion ── */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(30, 41, 59, 0.05);
+  --shadow: 0 6px 20px rgba(30, 41, 59, 0.08);
+  --shadow-lg: 0 14px 36px rgba(30, 41, 59, 0.12);
+  --ring: 0 0 0 3px rgba(52, 87, 177, 0.28);
+  --content-w: 1120px;
+  --t-fast: 0.12s ease;
+  --t: 0.2s ease;
+}
+
+/* Dark theme — desaturated / lighter tonal variants (not inverted). */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-primary: #7090e2;
+    --c-primary-strong: #8aa4ea;
+    --c-primary-weak: #1a2238;
+    --c-primary-contrast: #0a1020;
+
+    --c-bg: #0e1320;
+    --c-surface: #161c2b;
+    --c-surface-2: #1d2433;
+    --c-border: #2b3447;
+    --c-border-strong: #3b465c;
+
+    --c-text: #e7ebf3;
+    --c-text-2: #aeb8c8;
+    --c-text-3: #8b97a8;
+
+    --c-ok: #56c98a;
+    --c-ok-weak: #103326;
+    --c-caution: #d99a4e;
+    --c-caution-weak: #33260f;
+    --c-danger: #ec7a93;
+    --c-danger-weak: #371720;
+    --c-info: var(--c-primary);
+    --c-info-weak: var(--c-primary-weak);
+
+    --fam-teal: #4fc9be;
+    --fam-teal-weak: #0e3330;
+    --fam-crim: #ec7a93;
+    --fam-crim-weak: #371720;
+    --fam-amber: #d99a4e;
+    --fam-amber-weak: #33260f;
+    --fam-indigo: #a99af0;
+    --fam-indigo-weak: #201c3d;
+    --fam-green: #56c98a;
+    --fam-green-weak: #103326;
+    --fam-purple: #cf86dd;
+    --fam-purple-weak: #2e1834;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.46);
+    --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.55);
+    --ring: 0 0 0 3px rgba(112, 144, 226, 0.4);
+  }
+}

@@ -1,0 +1,1865 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delirium Bedside Reference Tool — CAM-ICU, RASS &amp; ABCDEF</title>
+    <meta
+      name="description"
+      content="Bedside ICU delirium reference: CAM-ICU, RASS, the ABCDEF bundle, DELIRIUM(S), treatment, and printable documents. Runs entirely in your browser; no patient data leaves the device."
+    />
+    <link rel="canonical" href="https://deliriumtool.com/" />
+    <meta name="theme-color" content="#3457b1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)" />
+
+    <!-- Icons + PWA -->
+    <link rel="icon" href="./img/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="./img/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="./img/apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Delirium Bedside Reference Tool" />
+    <meta property="og:title" content="Delirium Bedside Reference Tool" />
+    <meta
+      property="og:description"
+      content="Bedside ICU delirium reference — CAM-ICU, RASS, the ABCDEF bundle, treatment, and printable PDFs. Runs entirely in your browser."
+    />
+    <meta property="og:url" content="https://deliriumtool.com/" />
+    <meta property="og:image" content="https://deliriumtool.com/img/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Delirium Bedside Reference Tool" />
+    <meta
+      name="twitter:description"
+      content="Bedside ICU delirium reference — CAM-ICU, RASS, ABCDEF, treatment, and printable PDFs. Runs entirely in your browser."
+    />
+    <meta name="twitter:image" content="https://deliriumtool.com/img/og-image.png" />
+
+    <link rel="stylesheet" href="./assets/app.css" />
+    <script src="./assets/app.js" defer></script>
+  </head>
+  <body>
+    <a id="skip-link" class="skip-link" href="#pathway-picker">Skip to content</a>
+
+    <!-- ═══════ APP BAR ═══════ -->
+    <header class="app-header">
+      <div class="app-header-inner">
+        <div class="app-header-brand">
+          <img
+            class="app-logo"
+            src="./img/icon-192.png"
+            width="44"
+            height="44"
+            alt="Delirium Bedside Reference Tool logo"
+          />
+          <div class="app-header-titles">
+            <span class="header-pill">Clinical field reference</span>
+            <h1>Delirium Bedside Reference Tool</h1>
+            <p class="app-header-sub">
+              ICU-focused (CAM-ICU · RASS · ABCDEF). On the ward, use a ward-validated screen (4AT /
+              3D-CAM).
+            </p>
+          </div>
+        </div>
+        <div class="app-header-actions">
+          <div class="facility-field">
+            <label for="facility-input">Facility — prints on all PDFs</label>
+            <input
+              type="text"
+              id="facility-input"
+              class="facility-input"
+              placeholder="Enter facility name"
+              value=""
+              spellcheck="false"
+            />
+          </div>
+          <button type="button" class="btn btn-sec btn-sm" data-act="autofill">
+            Auto-fill example data
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══════ PATHWAY PICKER (shown first) ═══════ -->
+    <section id="pathway-picker" class="pathway-picker" tabindex="-1">
+      <div class="pathway-picker__lead">
+        <h2>Choose a document to build</h2>
+        <p>
+          Pick the output you need. You'll work through the assessment, then export this document.
+          You can switch or reset at any time.
+        </p>
+      </div>
+      <div class="alert a-warn scope-note">
+        <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-triangle-exclamation" /></svg>
+        <strong>Built for the adult ICU.</strong> CAM-ICU, RASS, and the ABCDEF bundle are validated
+        for adult intensive-care patients (ICDSC is the in-ICU alternative screen) — not for other
+        settings. Elsewhere, use the setting-appropriate validated tool:
+        <ul class="scope-redirects">
+          <li><strong>Emergency department</strong> → bCAM (DTS → bCAM) or 4AT</li>
+          <li><strong>General / step-down ward</strong> → 3D-CAM or 4AT</li>
+          <li>
+            <strong>Paediatric ICU</strong> → pCAM-ICU (≥ 5 yr), psCAM-ICU (6 mo–5 yr), or CAPD (all
+            ages)
+          </li>
+          <li>
+            <strong>Pregnancy</strong> → the adult ICU screens still apply, but adjust medication
+            safety and dosing
+          </li>
+        </ul>
+      </div>
+      <div class="pathway-grid-pick">
+        <button type="button" class="pathway-card" data-act="choosePathway" data-pathway="full">
+          <span class="pathway-card__icon"
+            ><svg class="fa fa-lg" aria-hidden="true"><use href="#fa-clipboard-list" /></svg
+          ></span>
+          <span class="pathway-card__title">ICU Delirium Rounding Tool</span>
+          <span class="pathway-card__desc">
+            The comprehensive bedside checklist — CAM-ICU, RASS, DELIRIUM(S), the ABCDEF bundle,
+            pharmacologic guidance, medication tiles, and the 7-step nurse care pathway.
+          </span>
+        </button>
+        <button type="button" class="pathway-card" data-act="choosePathway" data-pathway="record">
+          <span class="pathway-card__icon"
+            ><svg class="fa fa-lg" aria-hidden="true"><use href="#fa-file-pdf" /></svg
+          ></span>
+          <span class="pathway-card__title">Delirium Assessment Record</span>
+          <span class="pathway-card__desc">
+            A single-page snapshot of this assessment — CAM-ICU result, RASS, subtype, risk tier,
+            completion status, and your notes &amp; plan — for charting or handoff.
+          </span>
+        </button>
+        <button type="button" class="pathway-card" data-act="choosePathway" data-pathway="spa">
+          <span class="pathway-card__icon"
+            ><svg class="fa fa-lg" aria-hidden="true"><use href="#fa-bolt" /></svg
+          ></span>
+          <span class="pathway-card__title">Simplified SPA Quick Reference</span>
+          <span class="pathway-card__desc">
+            A focused reference using the SPA framework (Sedation · Pain/Pharmacy ·
+            Activity/Awareness) — for sites implementing delirium care for the first time.
+          </span>
+        </button>
+      </div>
+      <p class="note-sm center mt-4">
+        Everything runs in your browser — no patient data is sent anywhere. Do not enter PHI in
+        fields you intend to share.
+      </p>
+    </section>
+
+    <!-- ═══════ WORKSPACE (revealed after a pathway is chosen) ═══════ -->
+    <div id="workspace" tabindex="-1" hidden>
+      <div class="pathway-bar">
+        <span class="pathway-bar__label">Building</span>
+        <select
+          class="fsel pathway-bar__select"
+          id="pathway-select"
+          data-act="switchPathway"
+          aria-label="Document to build"
+        >
+          <option value="full">ICU Delirium Rounding Tool</option>
+          <option value="record">Delirium Assessment Record</option>
+          <option value="spa">Simplified SPA Quick Reference</option>
+        </select>
+        <span class="pathway-bar__uses" id="pathway-uses"></span>
+        <span class="pathway-bar__spacer"></span>
+        <button class="btn btn-primary btn-sm" data-act="generateCurrent">
+          <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Review &amp;
+          generate
+        </button>
+        <button
+          class="btn btn-sec btn-sm"
+          data-act="exportJSON"
+          title="Saves a JSON file with the full assessment, including any free-text notes — may contain PHI. Do not email or share externally; unlike 'Share setup' this is not de-identified."
+        >
+          Save
+        </button>
+        <button class="btn btn-sec btn-sm" data-act="importJSON">Load</button>
+        <button
+          class="btn btn-sec btn-sm"
+          data-act="share"
+          title="Copies a setup link only — no assessment data"
+        >
+          Share setup
+        </button>
+        <button class="btn btn-ghost btn-sm" data-act="reset">Reset</button>
+      </div>
+
+      <div class="tabs-wrap">
+        <div class="tabs-inner">
+          <button class="tab-btn active" data-tab="risk">
+            Risk Factors<span class="tab-badge" id="badge-risk"></span>
+          </button>
+          <button class="tab-btn" data-tab="cam">
+            CAM-ICU<span class="tab-badge" id="badge-cam"></span>
+          </button>
+          <button class="tab-btn" data-tab="bundle">
+            Prevention Bundle<span class="tab-badge" id="badge-bundle"></span>
+          </button>
+          <button class="tab-btn" data-tab="mnemonic">
+            DELIRIUM(S)<span class="tab-badge" id="badge-mnemonic"></span>
+          </button>
+          <button class="tab-btn" data-tab="treatment">Treatment</button>
+          <button class="tab-btn" data-tab="meds">Medications</button>
+          <button class="tab-btn" data-tab="settings">
+            <svg class="fa" aria-hidden="true"><use href="#fa-gear" /></svg> Setup
+          </button>
+          <button class="tab-btn" data-tab="export">
+            <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Generate Documents
+          </button>
+        </div>
+      </div>
+
+      <main class="main" id="main">
+        <div class="disclaimer">
+          <strong>Reference aid only.</strong> This tool supports — and does not replace — clinical
+          judgment, local protocol, and prescriber/pharmacy review. It is not a standalone order set
+          or a validated decision-support device. Verify all medication decisions against current
+          institutional policy.
+        </div>
+
+        <!-- ───────── RISK ───────── -->
+        <section class="tab-panel active" id="tab-risk">
+          <div class="sec-hdr">
+            <div>
+              <div class="sec-title">Risk Factor Checklist</div>
+              <div class="sec-sub">
+                Complete at admission and q24h — a count of present risk factors (not a validated
+                score)
+              </div>
+            </div>
+            <button class="btn btn-sm btn-sec" data-act="clearRisk">Clear all</button>
+          </div>
+          <div class="g2">
+            <div>
+              <div id="risk-disp" class="score-box risk-low">
+                <div class="score-num">
+                  <span id="rscore">0</span><span class="muted">/17</span>
+                </div>
+                <div class="score-info">
+                  <div class="score-lbl">Risk factor tally</div>
+                  <div class="score-tier" id="rtier">Few risk factors</div>
+                  <div class="score-note" id="rnote">Maintain baseline prevention measures</div>
+                </div>
+              </div>
+              <div class="pbar"><div class="pfill" id="rprog"></div></div>
+              <p class="note mt-2">
+                Risk factors present (max 17) — a checklist tally, not a validated prediction score.
+                For a validated ICU model use <strong>E-PRE-DELIRIC</strong> (at admission) or
+                <strong>PRE-DELIRIC</strong> (after 24 h).<a
+                  class="cite"
+                  data-ref="epredeliric2015"
+                ></a
+                ><a class="cite" data-ref="predeliric2012"></a>
+              </p>
+              <p class="note-sm">
+                Bands: Few 0–3 · Several 4–6 · Many 7–10 · Very many 11+ (heuristic)
+              </p>
+              <div class="mt-3" id="rrecs"></div>
+            </div>
+            <div>
+              <div class="card accented accent-amber">
+                <div class="card-head">
+                  <span class="card-icon"
+                    ><svg class="fa fa-md" aria-hidden="true">
+                      <use href="#fa-triangle-exclamation" /></svg
+                  ></span>
+                  Predisposing factors
+                </div>
+                <div class="chk-group-lbl">Cognitive / Psychiatric</div>
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Dementia / cognitive impairment (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Prior delirium episode (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Depression / psychiatric history (+1)</span></label
+                >
+                <div class="chk-group-lbl">Functional / Sensory</div>
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Visual impairment (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Hearing impairment (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Functional dependence / immobility (+1)</span></label
+                >
+                <div class="chk-group-lbl">Demographics / Comorbidities</div>
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Age ≥ 70 (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Severe illness (APACHE &gt; 16) (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Dehydration / poor nutrition (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Alcohol / substance use disorder (+1)</span></label
+                >
+                <hr class="hr-line" />
+                <div class="card-head">
+                  <span class="card-icon"
+                    ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-hospital" /></svg
+                  ></span>
+                  Precipitating factors
+                </div>
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Surgery / general anesthesia (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Mechanical ventilation (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Physical restraints in use (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Urinary catheter (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Metabolic abnormality (+1)</span></label
+                >
+                <label class="chk"
+                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
+                  <span>Sleep / circadian disruption (+1)</span></label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol
+              class="auto-refs"
+              data-refs="inouye1993,marcantonio1994,inouye_charpentier1996,predeliric2012,epredeliric2015,pisani2009"
+            ></ol>
+          </div>
+        </section>
+
+        <!-- ───────── CAM ───────── -->
+        <section class="tab-panel" id="tab-cam">
+          <div class="sec-hdr">
+            <div>
+              <div class="sec-title">CAM-ICU Screening</div>
+              <div class="sec-sub">
+                Perform once per shift and with any acute change in mental status
+              </div>
+            </div>
+            <div class="row">
+              <input
+                type="datetime-local"
+                id="cam-time"
+                class="finp"
+                aria-label="Assessment date and time"
+              />
+              <button class="btn btn-primary btn-sm" data-act="saveCam">Log assessment</button>
+            </div>
+          </div>
+          <div class="g2">
+            <div>
+              <div class="card">
+                <div class="card-head">
+                  <span class="card-icon">1</span>Acute onset &amp; fluctuating course
+                  <span class="badge b-red">Required</span>
+                </div>
+                <p class="note mb-3">
+                  Evidence of acute change from mental status baseline, OR fluctuation during the
+                  day?
+                  <span class="muted"
+                    >Anchor "baseline" with family/collateral on admission — Feature 1 cannot be
+                    scored without it.<a class="cite" data-ref="nice_cg103"></a
+                  ></span>
+                </p>
+                <div class="row">
+                  <button
+                    class="cam-ans btn btn-sec btn-sm"
+                    id="c1y"
+                    data-act="setCam"
+                    data-f="1"
+                    data-v="yes"
+                  >
+                    Yes — present
+                  </button>
+                  <button
+                    class="cam-ans btn btn-sec btn-sm"
+                    id="c1n"
+                    data-act="setCam"
+                    data-f="1"
+                    data-v="no"
+                  >
+                    No — absent
+                  </button>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-head">
+                  <span class="card-icon">2</span>Inattention
+                  <span class="badge b-red">Required</span>
+                </div>
+                <p class="note">
+                  Letters task: say S-A-V-E-A-H-A-A-R-T (10 letters, ~1 every 3 sec); patient
+                  squeezes on each "A".
+                </p>
+                <p class="note mb-3">
+                  Can't do letters (deaf, language barrier, non-verbal)? Use the
+                  <strong>Pictures ASE</strong> — show 5 pictures to memorize, then 10 recognition
+                  pictures (yes/no); &gt;2 errors out of 10 = positive (same 0–10 scale as the
+                  letters task).<a class="cite" data-ref="camicu_worksheet"></a>
+                </p>
+                <div class="frow">
+                  <label class="flbl" for="cam2-err">Inattention errors</label>
+                  <input
+                    type="number"
+                    id="cam2-err"
+                    min="0"
+                    max="10"
+                    placeholder="# errors (0–10)"
+                    class="finp"
+                    data-act="cam2"
+                    aria-label="Number of inattention errors (0 to 10)"
+                  />
+                </div>
+                <div class="row">
+                  <button
+                    class="cam-ans btn btn-sec btn-sm"
+                    id="c2y"
+                    data-act="setCam"
+                    data-f="2"
+                    data-v="yes"
+                  >
+                    Yes — &gt;2 errors
+                  </button>
+                  <button
+                    class="cam-ans btn btn-sec btn-sm"
+                    id="c2n"
+                    data-act="setCam"
+                    data-f="2"
+                    data-v="no"
+                  >
+                    No — ≤2 errors
+                  </button>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-head">
+                  <span class="card-icon">3</span>Altered level of consciousness
+                </div>
+                <label class="flbl" for="cam4">Level of consciousness</label>
+                <select class="fsel" id="cam4" data-act="cam4">
+                  <option value="">Select level of consciousness…</option>
+                  <option value="alert">Alert — normal (CAM Feature 3 negative)</option>
+                  <option value="abnormal">
+                    Vigilant / Lethargic / Stuporous (CAM Feature 3 positive)
+                  </option>
+                </select>
+              </div>
+              <div class="card">
+                <div class="card-head"><span class="card-icon">4</span>Disorganized thinking</div>
+                <p class="note">
+                  Ask the 4 yes/no questions, then the command.
+                  <strong>Disorganized thinking present if combined errors &gt;1.</strong
+                  ><a class="cite" data-ref="camicu_worksheet"></a>
+                </p>
+                <ol class="note">
+                  <li>Will a stone float on water?</li>
+                  <li>Are there fish in the sea?</li>
+                  <li>Does one pound weigh more than two pounds?</li>
+                  <li>Can you use a hammer to pound a nail?</li>
+                </ol>
+                <p class="note mb-3">
+                  <strong>Command:</strong> "Hold up this many fingers" (examiner holds up 2), then
+                  "Now do the same with the other hand" (or add one finger). Any wrong answer or
+                  failed command counts as one error.
+                </p>
+                <div class="row">
+                  <button
+                    class="cam-ans btn btn-sec btn-sm"
+                    id="c3y"
+                    data-act="setCam"
+                    data-f="3"
+                    data-v="yes"
+                  >
+                    Yes — present
+                  </button>
+                  <button
+                    class="cam-ans btn btn-sec btn-sm"
+                    id="c3n"
+                    data-act="setCam"
+                    data-f="3"
+                    data-v="no"
+                  >
+                    No — absent
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="card cam-result-sticky accented accent-teal">
+                <div class="card-head">
+                  <span class="card-icon"
+                    ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-brain" /></svg
+                  ></span>
+                  CAM result
+                </div>
+                <div id="cam-res-box" class="score-box">
+                  <div class="score-num" id="cam-res-icon">—</div>
+                  <div class="score-info">
+                    <div class="score-lbl">Delirium status</div>
+                    <div class="score-tier" id="cam-res-txt">Incomplete</div>
+                    <div class="score-note" id="cam-res-sub">
+                      Complete Features 1 &amp; 2 + one of 3 or 4
+                    </div>
+                  </div>
+                </div>
+                <div id="cam-strip" class="cam-strip">
+                  <span title="Feature 1: Acute onset or fluctuating course (required)"
+                    ><span class="cstep"></span><strong>F1</strong>&nbsp;Acute/fluctuating</span
+                  >
+                  <span title="Feature 2: Inattention (required)"
+                    ><span class="cstep"></span><strong>F2</strong>&nbsp;Inattention</span
+                  >
+                  <span title="Feature 3 or 4 — one required"
+                    ><span class="cstep"></span><strong>3 or 4</strong>&nbsp;LOC / thinking</span
+                  >
+                </div>
+                <div class="cam-rule">Positive if&nbsp;<strong>1 AND 2 AND (3 OR 4)</strong></div>
+                <div id="cam-guid" class="alert a-info" hidden></div>
+                <p class="note-sm mt-2">
+                  Limitations: score against the patient's baseline; reduced accuracy in primary
+                  neurologic injury/TBI, aphasia, or deep sedation. Missed cases are predominantly
+                  hypoactive — screen every shift.<a class="cite" data-ref="hayhurst2016"></a>
+                </p>
+                <p class="note mt-2">
+                  <strong>A positive CAM-ICU is a screen, not a diagnosis</strong> — confirm
+                  clinically and exclude mimics.<a class="cite" data-ref="nice_cg103"></a>
+                </p>
+                <details class="panel">
+                  <summary>Delirium vs mimics</summary>
+                  <div class="panel-body">
+                    <strong>Dementia</strong> — chronic, stable; delirium is acute, fluctuating,
+                    with inattention.<br />
+                    <strong>Depression</strong> — can look hypoactive; mood-driven, attention less
+                    affected.<br />
+                    <strong>Receptive aphasia / focal stroke</strong> — focal deficit, not global
+                    inattention → neuro exam + imaging.<br />
+                    <strong>Non-convulsive seizures / status</strong> — unexplained ↓LOC → EEG.<br />
+                    <strong>Catatonia</strong> — posturing, mutism, waxy flexibility.<br />
+                    <strong>Intoxication / withdrawal</strong> — substance history; treat the
+                    cause.<br />
+                    These can <em>coexist</em> with delirium — known dementia does not exclude
+                    superimposed delirium.
+                  </div>
+                </details>
+                <hr class="hr-line" />
+                <label class="flbl" for="rass">RASS score</label>
+                <select class="fsel" id="rass" data-act="rass">
+                  <option value="">Select RASS…</option>
+                  <option value="+4">+4 Combative</option>
+                  <option value="+3">+3 Very Agitated</option>
+                  <option value="+2">+2 Agitated</option>
+                  <option value="+1">+1 Restless</option>
+                  <option value="0">0 Alert &amp; Calm</option>
+                  <option value="-1">−1 Drowsy</option>
+                  <option value="-2">−2 Light Sedation</option>
+                  <option value="-3">−3 Moderate Sedation</option>
+                  <option value="-4">−4 Deep Sedation</option>
+                  <option value="-5">−5 Unarousable</option>
+                </select>
+                <div
+                  id="rass-band"
+                  class="rass-band"
+                  aria-hidden="true"
+                  title="Light-sedation target band: RASS 0 to −2"
+                >
+                  <span data-r="-5" class="rb-danger"></span>
+                  <span data-r="-4" class="rb-danger"></span>
+                  <span data-r="-3" class="rb-caution"></span>
+                  <span data-r="-2" class="rb-ok"></span>
+                  <span data-r="-1" class="rb-ok"></span>
+                  <span data-r="0" class="rb-ok"></span>
+                  <span data-r="+1" class="rb-caution"></span>
+                  <span data-r="+2" class="rb-danger"></span>
+                  <span data-r="+3" class="rb-danger"></span>
+                  <span data-r="+4" class="rb-danger"></span>
+                </div>
+                <div class="rass-scale">
+                  <span>← Over-sedated</span><strong id="rass-band-cur">TARGET 0 to −2</strong
+                  ><span>Agitated →</span>
+                </div>
+                <div id="rass-note" class="mt-2"></div>
+                <hr class="hr-line" />
+                <label class="flbl">Delirium subtype</label>
+                <div class="row">
+                  <button class="btn btn-sec btn-sm" id="sub-hy" data-act="setSub" data-sub="hyper">
+                    Hyperactive
+                  </button>
+                  <button class="btn btn-sec btn-sm" id="sub-ho" data-act="setSub" data-sub="hypo">
+                    Hypoactive
+                  </button>
+                  <button class="btn btn-sec btn-sm" id="sub-mx" data-act="setSub" data-sub="mixed">
+                    Mixed
+                  </button>
+                </div>
+                <div id="sub-note" class="note mt-2"></div>
+                <hr class="hr-line" />
+                <div class="frow">
+                  <label class="flbl" for="cam-notes">Assessment notes</label>
+                  <textarea
+                    class="fta"
+                    id="cam-notes"
+                    placeholder="Clinical observations, identified triggers, family input…"
+                  ></textarea>
+                </div>
+                <details class="panel">
+                  <summary>
+                    Logged this session
+                    <span class="muted"
+                      >— scratchpad, clears on reload, not saved to the record</span
+                    >
+                  </summary>
+                  <div class="panel-body">
+                    <div id="cam-log"><p class="muted">No assessments logged this session.</p></div>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol
+              class="auto-refs"
+              data-refs="camicu_worksheet,ely2001,sessler2002,ely2003,hayhurst2016,icudelirium_monitoring,nice_cg103"
+            ></ol>
+          </div>
+        </section>
+
+        <!-- ───────── BUNDLE ───────── -->
+        <section class="tab-panel" id="tab-bundle">
+          <div class="sec-hdr">
+            <div>
+              <div class="sec-title">ABCDEF Prevention Bundle</div>
+              <div class="sec-sub">
+                Non-pharmacologic — first-line for all patients — document each shift
+              </div>
+            </div>
+            <div class="row">
+              <span class="muted" id="bpct-lbl">0/0 items · 0%</span>
+              <button class="btn btn-primary btn-sm" data-act="markAllBundle">Mark all</button>
+            </div>
+          </div>
+          <div class="pbar mb-3"><div class="pfill" id="bfill"></div></div>
+          <div id="bundle-letters" class="letter-strip mb-3" aria-hidden="true">
+            <div data-letter="A">A</div>
+            <div data-letter="B">B</div>
+            <div data-letter="C">C</div>
+            <div data-letter="D">D</div>
+            <div data-letter="E">E</div>
+            <div data-letter="F">F</div>
+          </div>
+          <div class="g2">
+            <div class="card accented accent-teal" data-bundle="A">
+              <div class="card-head">A — Assess, Prevent &amp; Manage Pain</div>
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span
+                  >Pain assessed using NRS (self-report) or CPOT/BPS (unable to self-report),
+                  routinely per protocol</span
+                ></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Adequate analgesia administered; effectiveness noted</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Non-pharmacologic pain strategies offered</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Multimodal approach — avoid over-reliance on opioids</span></label
+              >
+            </div>
+            <div class="card accented accent-crim" data-bundle="B">
+              <div class="card-head">B — Both SAT &amp; SBT</div>
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>SAT performed or contraindication documented</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>SBT performed or contraindication documented</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Sedation holds coordinated with respiratory therapy</span></label
+              >
+              <details class="panel">
+                <summary>SAT / SBT safety screen &amp; failure criteria</summary>
+                <div class="panel-body">
+                  <p>
+                    <strong>SAT — do NOT interrupt sedation if:</strong> active seizures · alcohol
+                    withdrawal on sedation · escalating sedation for agitation · neuromuscular
+                    blockade · MI in prior 24 h · raised ICP.
+                  </p>
+                  <p>
+                    <strong
+                      >SAT failure → stop SAT, restart sedation at HALF the prior dose if:</strong
+                    >
+                    sustained anxiety/agitation/pain · RR &gt;35 for &gt;5 min · SpO₂ &lt;88% for
+                    &gt;5 min · acute dysrhythmia · ≥2 signs of respiratory distress.
+                  </p>
+                  <p>
+                    <strong>SBT — proceed only if:</strong> SpO₂ &gt;88% on FiO₂ &lt;50% &amp; PEEP
+                    &lt;8 · pH &gt;7.15 · no agitation · no ischemia in 24 h · hemodynamically
+                    stable · no raised ICP.
+                  </p>
+                  <p>
+                    <strong>SBT failure → abort, resume support if:</strong> RR &gt;35 or &lt;8 ·
+                    SpO₂ &lt;88% · abrupt mental-status change · dysrhythmia · ≥2 distress signs.
+                  </p>
+                  <p>
+                    <strong>Loop:</strong> pass SAT → proceed to SBT; fail either → restart sedation
+                    at half the prior dose, re-screen in 24 h.
+                  </p>
+                </div>
+              </details>
+            </div>
+            <div class="card accented accent-amber" data-bundle="C">
+              <div class="card-head">C — Choice of Analgesia &amp; Sedation</div>
+              <p class="note mb-3">
+                <strong>eCASH:</strong> minimal sedation is the default — analgesia first, lightest
+                RASS that meets the goal, reassess each shift.<a
+                  class="cite"
+                  data-ref="padis2025"
+                ></a>
+              </p>
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span
+                  >Target RASS documented; sedation titrated to target (<span class="rass-echo"
+                    >0 to −2</span
+                  >)</span
+                ></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span
+                  >Benzodiazepines avoided/minimized; dexmedetomidine preferred if needed</span
+                ></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Analgesia-first approach applied</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Consider bolus dosing over continuous infusions where safe</span></label
+              >
+            </div>
+            <div class="card accented accent-indigo" data-bundle="D">
+              <div class="card-head">D — Delirium: Assess, Prevent &amp; Manage</div>
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>CAM-ICU completed this shift</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>RASS score documented</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Precipitating factors reassessed and addressed</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Family/caregiver education provided</span></label
+              >
+            </div>
+            <div class="card accented accent-green" data-bundle="E">
+              <div class="card-head">E — Early Mobility &amp; Exercise</div>
+              <p class="note">
+                <strong>Safety screen first</strong> — reddest parameter wins; a single red = hold
+                &amp; discuss with the team.<a class="cite" data-ref="hodgson2014"></a>
+              </p>
+              <div class="note mb-3">
+                <div>
+                  <span class="txt-ok">●</span> Respiratory: FiO₂ &lt;0.6 · SpO₂ &gt;90% · RR &lt;30
+                </div>
+                <div>
+                  <span class="txt-ok">●</span> Cardiovascular: stable BP, no escalating
+                  vasopressors, no active ischemia/arrhythmia
+                </div>
+                <div>
+                  <span class="txt-ok">●</span> Neuro: RASS-arousable &amp; able to participate
+                </div>
+                <div>
+                  <span class="txt-ok">●</span> Lines/other: no unstable airway, active bleeding, or
+                  unstable fracture
+                </div>
+              </div>
+              <p class="note mb-3">
+                <strong>Progression:</strong> passive ROM → active ROM / bed exercises → sit / edge
+                of bed → stand / transfer → ambulate.<a
+                  class="cite"
+                  data-ref="icudelirium_mobility"
+                ></a>
+              </p>
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Mobility level assessed and documented</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>PT/OT consulted or mobility exercises performed</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Unnecessary lines, catheters, restraints removed</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>HOB elevated where able</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Bed rest orders discontinued if not clinically required</span></label
+              >
+            </div>
+            <div class="card accented accent-purple" data-bundle="F">
+              <div class="card-head">F — Family Engagement &amp; Empowerment</div>
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Family present or contacted today</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Family educated on delirium signs and their role</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Familiar objects / photos at bedside; T-A-D-A approach</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Glasses and hearing aids in place</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Preferred music or radio provided</span></label
+              >
+            </div>
+          </div>
+          <div class="card" data-role="sleep">
+            <div class="card-head">Sleep &amp; Orientation Measures</div>
+            <div class="grid-2">
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Nighttime light/noise reduction per unit quiet-hours protocol</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Eye mask &amp; earplugs offered<a class="cite" data-ref="padis2018"></a></span
+              ></label>
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Orientation board / whiteboard updated</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Non-urgent procedures clustered to protect sleep</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Clock and calendar visible</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Verbal reorientation each encounter</span></label
+              >
+              <label class="chk bun"
+                ><input type="checkbox" data-act="bundle" />
+                <span>Oral care completed; adequate hydration reviewed</span></label
+              >
+            </div>
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol
+              class="auto-refs"
+              data-refs="sccm_abcdef,pun2019,marra2017,padis2018,padis2025,inouye1999,hshieh2015,icudelirium_satsbt,hodgson2014,nice_cg103"
+            ></ol>
+          </div>
+        </section>
+
+        <!-- ───────── DELIRIUM(S) ───────── -->
+        <section class="tab-panel" id="tab-mnemonic">
+          <div class="sec-hdr">
+            <div>
+              <div class="sec-title">
+                DELIRIUM(S) Mnemonic — Identify &amp; Address Causative Factors
+              </div>
+              <div class="sec-sub">Review each domain each round; document action taken</div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <div class="row mb-3">
+              <div class="pbar grow"><div class="pfill" id="mfill"></div></div>
+              <span class="muted" id="mnem-count">0/9 reviewed</span>
+            </div>
+            <div id="mnemonic-letters" class="letter-strip" aria-hidden="true"></div>
+          </div>
+          <div class="mnemonic-grid">
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">D</div>
+              <div class="mnemonic-word">Drugs / Withdrawal</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">
+                  Deliriogenic agents? Dose reduction? Also <strong>withdrawal</strong> —
+                  alcohol/benzo/opioid (check last use &amp; home meds; in the ICU treat to RASS,
+                  not CIWA).
+                </p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">E</div>
+              <div class="mnemonic-word">Eyes / Ears / Env</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">
+                  Glasses &amp; hearing aids in? Whiteboard updated? Lights on daytime?
+                </p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">L</div>
+              <div class="mnemonic-word">Low O₂ / Liver</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">Check SpO₂, Hgb, cardiac/PE events, liver function.</p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">I</div>
+              <div class="mnemonic-word">Infection</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">Fever, leukocytosis, cultures pending? Occult sepsis?</p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">R</div>
+              <div class="mnemonic-word">Retention</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">
+                  Urinary retention or constipation? Bladder scan; disimpact or catheterize if
+                  indicated.
+                </p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">I</div>
+              <div class="mnemonic-word">Ictal / Seizure</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">
+                  Consider non-convulsive seizures / status — esp. with unexplained ↓LOC. Consider
+                  EEG.
+                </p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">U</div>
+              <div class="mnemonic-word">Under-hydration / Nutrition</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">
+                  Volume status, intake, electrolytes.
+                  <strong>Parenteral thiamine before glucose.</strong>
+                  At-risk (malnutrition / alcohol use): 100–300 mg IV daily.<a
+                    class="cite"
+                    data-ref="espen_icu"
+                  ></a>
+                  Suspected Wernicke — guidelines diverge (low-certainty evidence): EFNS 200 mg IV
+                  TID<a class="cite" data-ref="efns_wernicke"></a> or RCP 500 mg IV TID × 2–3 days
+                  then 250 mg taper.<a class="cite" data-ref="rcp_wernicke"></a>
+                </p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">M</div>
+              <div class="mnemonic-word">Metabolic</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">
+                  Na, Mg, Ca, glucose, BUN/Cr, acid-base. Pain/retention/constipation?
+                </p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+            <div class="mnemonic-cell">
+              <div class="mnemonic-ltr">(S)</div>
+              <div class="mnemonic-word">Subdural / Sleep</div>
+              <div class="mnemonic-body">
+                <label class="chk"
+                  ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
+                >
+                <p class="mnem-note">
+                  Subdural hematoma (recent fall or anticoagulation)? Sleep deprivation?
+                </p>
+                <textarea
+                  class="fta mnem-action"
+                  placeholder="Action…"
+                  aria-label="Action"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol
+              class="auto-refs"
+              data-refs="icudelirium_mnemonics,flaherty2011,maldonado2018,inouye_charpentier1996,lacour2022,krewulak2018,hayhurst2020"
+            ></ol>
+          </div>
+        </section>
+
+        <!-- ───────── TREATMENT ───────── -->
+        <section class="tab-panel" id="tab-treatment">
+          <div class="sec-hdr">
+            <div class="sec-title">Treatment Algorithm</div>
+            <div class="sec-sub">Applies when CAM is positive — non-pharmacologic first</div>
+          </div>
+          <div class="alert a-warn mb-3">
+            <strong>First-line:</strong> Non-pharmacological interventions are the cornerstone of
+            treatment. Pharmacologic therapy is reserved for patient safety concerns only.
+          </div>
+          <details class="panel">
+            <summary>
+              <svg class="fa" aria-hidden="true"><use href="#fa-diagram-project" /></svg> Algorithm
+              overview (visual) — the Step cards below are the working checklist
+            </summary>
+            <div class="panel-body">
+              <div class="dtree">
+                <div class="dnode dn-diamond">
+                  <span class="dn-h">Acutely agitated (RASS +2 to +4)?</span
+                  ><span class="dnode-sub"
+                    >Enter here for the combative patient — CAM-ICU may read "unable to
+                    assess."</span
+                  >
+                </div>
+                <div class="dnode dn-step">
+                  <span class="dn-h">1 · Rule out &amp; treat reversible causes</span>Pain · hypoxia
+                  · hypoglycemia · alcohol/benzo withdrawal · urinary retention / full bladder · new
+                  deliriogenic med.
+                </div>
+                <div class="dnode dn-step">
+                  <span class="dn-h"
+                    >2 · Verbal de-escalation first<a class="cite" data-ref="projectbeta"></a></span
+                  >Respect ~2 arms' length of space · one clinician speaks calmly · short, simple
+                  sentences · identify what the patient wants · offer realistic choices (medication
+                  as an offer, not a threat) · set clear limits.
+                </div>
+                <div class="dnode">
+                  <span class="dn-h">CAM-ICU result</span>Negative → continue prevention / ABCDEF. ·
+                  Unable to assess (RASS −4/−5) → re-screen when RASS ≥ −3. · Positive → enter
+                  management ↓
+                </div>
+                <div class="dnode dn-step">
+                  <span class="dn-h"
+                    >Dr. DRE — treat reversible causes<a
+                      class="cite"
+                      data-ref="hayhurst2016"
+                    ></a></span
+                  ><strong>D</strong>iseases (sepsis, hypoxia, metabolic) · <strong>D</strong>rug
+                  removal (deliriogenic agents; withdrawal) · <strong>R</strong>emove
+                  <strong>E</strong>nvironmental contributors. Full list → DELIRIUM(S) tab.
+                </div>
+                <div class="dnode dn-step">
+                  <span class="dn-h">Apply / intensify the non-pharmacologic ABCDEF bundle</span>
+                </div>
+                <div class="dnode dn-diamond">
+                  <span class="dn-h"
+                    >Severe agitation with imminent safety risk to self or others?</span
+                  >
+                </div>
+                <div class="dbranches">
+                  <div class="dnode dn-yes">
+                    <span class="dn-h">YES</span>Lowest-dose, shortest-duration agent for safety
+                    only — document the indication, check QTc, reassess daily.
+                  </div>
+                  <div class="dnode dn-cont">
+                    <span class="dn-h">NO</span>Continue non-pharmacologic measures; reassess each
+                    shift.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+          <div class="g2">
+            <div class="card accented accent-indigo treat-step">
+              <div class="card-head">
+                <span class="card-icon"
+                  ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-magnifying-glass" /></svg
+                ></span>
+                Step 1 — Identify &amp; Treat Underlying Cause
+              </div>
+              <label class="chk"
+                ><input type="checkbox" />
+                <span
+                  >Review medication list —
+                  <a href="#" class="link-jump" data-act="goTab" data-tab="mnemonic"
+                    >full DELIRIUM(S) causes →</a
+                  ></span
+                ></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Electrolytes: Na, K, Ca, Mg, Phos, glucose</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Assess for occult infection / sepsis (CBC, cultures, UA)</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Evaluate oxygenation and ventilation (SpO₂, ABG)</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Assess for urinary retention / constipation / pain</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span
+                  >Review for alcohol / benzo withdrawal — in the ICU titrate to RASS (CIWA-Ar is
+                  not validated in intubated / sedated / delirious patients)<a
+                    class="cite"
+                    data-ref="ciwa_mdcalc"
+                  ></a></span
+              ></label>
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Brain imaging if focal neurological signs present</span></label
+              >
+            </div>
+            <div class="card accented accent-teal treat-step">
+              <div class="card-head">
+                <span class="card-icon"
+                  ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-leaf" /></svg
+                ></span>
+                Step 2 — Intensify Non-Pharmacologic Measures
+              </div>
+              <label class="chk"
+                ><input type="checkbox" />
+                <span
+                  >Full ABCDEF bundle in place (<a
+                    href="#"
+                    class="link-jump"
+                    data-act="goTab"
+                    data-tab="bundle"
+                    >open Bundle →</a
+                  >)</span
+                ></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Increase bedside family / volunteer presence</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Consider 1:1 sitter if active safety risk</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Geriatric / psychiatric consult placed</span></label
+              >
+            </div>
+          </div>
+          <div class="g2">
+            <div class="card accented accent-crim treat-step" data-role="rx">
+              <div class="card-head">
+                <span class="card-icon"
+                  ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-pills" /></svg
+                ></span>
+                Step 3 — Pharmacologic (Safety Indication Only)
+              </div>
+              <div class="alert a-danger mb-3">
+                <strong>Safety indications only.</strong> Antipsychotics do
+                <strong>not</strong> treat or shorten delirium (PADIS: no recommendation for or
+                against) — use only for short-term control of dangerous agitation, then stop.<a
+                  class="cite"
+                  data-ref="padis2025"
+                ></a>
+              </div>
+              <label class="chk"
+                ><input type="checkbox" /> <span>Safety indication documented in chart</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>QTc baseline checked (haloperidol: caution if &gt;500 ms)</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span
+                  >Lowest effective dose —
+                  <a href="#" class="link-jump" data-act="goTab" data-tab="meds"
+                    >open Medications →</a
+                  ></span
+                ></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span>Daily reassessment for discontinuation</span></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span
+                  >No scheduled antipsychotics at discharge without psych indication</span
+                ></label
+              >
+              <label class="chk"
+                ><input type="checkbox" />
+                <span
+                  >Do NOT stop abruptly: benzos · opioids · SSRIs · steroids · antiepileptics ·
+                  dexmedetomidine (rebound agitation/hypertension)</span
+                ></label
+              >
+              <details class="panel">
+                <summary>Quick dosing reference</summary>
+                <div class="panel-body dose-ref">
+                  <strong>Haloperidol</strong> 0.25–0.5 mg q4–6h PRN (QTc caution &gt;500 ms; avoid
+                  Parkinson/Lewy)<br />
+                  <strong>Quetiapine</strong> 12.5–25 mg q12h PO<br />
+                  <strong>Dexmedetomidine</strong> 0.2–0.7 mcg/kg/hr (preferred when agitation
+                  prevents weaning)<br />
+                  <strong>Lorazepam</strong> — withdrawal only (titrate to RASS)<br />
+                  <a href="#" class="link-jump" data-act="goTab" data-tab="meds"
+                    >Full doses, cautions &amp; deliriogenic-med review → Medications</a
+                  ><a class="cite" data-ref="padis2025"></a>
+                </div>
+              </details>
+            </div>
+            <div class="card" data-role="consults">
+              <div class="card-head">Consults / Plan</div>
+              <div class="consult-row">
+                <label class="chk consult-chip"
+                  ><input type="checkbox" /> <span>Geriatrics</span></label
+                >
+                <label class="chk consult-chip"
+                  ><input type="checkbox" /> <span>Psychiatry</span></label
+                >
+                <label class="chk consult-chip"
+                  ><input type="checkbox" /> <span>Neurology</span></label
+                >
+                <label class="chk consult-chip"
+                  ><input type="checkbox" /> <span>Pharmacy</span></label
+                >
+                <label class="chk consult-chip"
+                  ><input type="checkbox" /> <span>Palliative Care</span></label
+                >
+              </div>
+              <textarea
+                class="fta"
+                data-role="plan"
+                aria-label="Treatment plan"
+                placeholder="Treatment plan, response to interventions, family discussion…"
+              ></textarea>
+            </div>
+          </div>
+          <div class="card accented accent-green">
+            <div class="card-head">
+              <span class="card-icon"
+                ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-leaf" /></svg
+              ></span>
+              T-A-D-A — Behavioral Approach to Agitation
+            </div>
+            <div class="tada-grid">
+              <div class="tada-cell">
+                <div class="tada-hd">T — Tolerate</div>
+                Seemingly dangerous but not truly harmful behaviors.
+              </div>
+              <div class="tada-cell">
+                <div class="tada-hd">A — Anticipate</div>
+                Triggers; remove non-essential tethers (O₂ / IV / Foley / monitors / restraints).
+              </div>
+              <div class="tada-cell">
+                <div class="tada-hd">D-A — Don't Agitate</div>
+                Calm voice, dim room, familiar faces.
+              </div>
+            </div>
+            <p class="dnode-sub mt-3">
+              Restraints are the last resort after de-escalation, environment, device removal, and
+              1:1 observation — re-evaluate daily.<a class="cite" data-ref="nice_ng10"></a>
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-head">Nurse Care Pathway</div>
+            <div class="pathway-grid">
+              <div class="pathway-col">
+                <div class="pathway-hdr ph1">1 · Deter</div>
+                <div class="pathway-body">
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>No deliriogenic drugs added</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>No abrupt med discontinuation</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Devices limited to essential</span></label
+                  >
+                  <label class="chk"><input type="checkbox" /> <span>Bundle applied</span></label>
+                </div>
+              </div>
+              <div class="pathway-col">
+                <div class="pathway-hdr ph2">2 · Detect</div>
+                <div class="pathway-body">
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>CAM-ICU completed</span></label
+                  >
+                  <label class="chk"><input type="checkbox" /> <span>RASS documented</span></label>
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Baseline mental status known</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" />
+                    <span>Provider notified if first positive CAM</span></label
+                  >
+                </div>
+              </div>
+              <div class="pathway-col">
+                <div class="pathway-hdr ph3">3 · Do (Acute)</div>
+                <div class="pathway-body">
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Fall prevention active</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Devices removed / disguised</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Family teaching done</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>T-A-D-A approach applied</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Plan individualized</span></label
+                  >
+                </div>
+              </div>
+              <div class="pathway-col">
+                <div class="pathway-hdr ph46">4–6 · Daily</div>
+                <div class="pathway-body">
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>CAM once per shift + PRN</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Comfort / calm / consistent</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Toileting completed</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Adequate nutrition/hydration</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Sleep/wake cycle maintained</span></label
+                  >
+                </div>
+              </div>
+              <div class="pathway-col">
+                <div class="pathway-hdr ph7">7 · Discharge</div>
+                <div class="pathway-body">
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Delirium course documented</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Unnecessary psychotropics stopped</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Follow-up arranged</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>Family &amp; patient educated</span></label
+                  >
+                  <label class="chk"
+                    ><input type="checkbox" /> <span>After-visit summary updated</span></label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol
+              class="auto-refs"
+              data-refs="padis2018,padis2025,mindusa2018,projectbeta,nice_ng10,hshieh2015,balas2014,ciwa_mdcalc,hayhurst2016"
+            ></ol>
+          </div>
+        </section>
+
+        <!-- ───────── MEDICATIONS ───────── -->
+        <section class="tab-panel" id="tab-meds">
+          <div class="sec-hdr">
+            <div class="sec-title">Medications Reference</div>
+            <div class="sec-sub">
+              Pharmacologic options and deliriogenic agents to review &amp; limit
+            </div>
+          </div>
+          <div class="alert a-info mb-3">
+            <strong>Reminder:</strong> No agent has FDA approval for delirium treatment.
+            Antipsychotics do <strong>not</strong> treat or shorten delirium (PADIS: no
+            recommendation for or against) — they control dangerous agitation short-term, then stop.
+            Medications address <em>symptoms</em> only when non-pharmacologic measures fail and
+            safety is at risk.<a class="cite" data-ref="padis2025"></a>
+          </div>
+          <div class="card accented accent-crim">
+            <div class="card-head">Pharmacologic Options — Safety Indication Only</div>
+            <div class="table-scroll">
+              <table class="mt">
+                <thead>
+                  <tr>
+                    <th>Drug</th>
+                    <th>Typical Dose</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Haloperidol</strong></td>
+                    <td>0.25–0.5 mg q4–6h PRN; lowest effective dose, cap per local protocol</td>
+                    <td>
+                      Elderly more sensitive (EPS/QTc rise with dose); EKG baseline; monitor QTc
+                      (caution &gt;500 ms); avoid Parkinson's / Lewy body;
+                      dementia-related-mortality boxed warning; IV route is off-label (higher
+                      QT/Torsades risk) — prefer PO/IM, continuous ECG if given IV.
+                      <strong>Stop &amp; escalate if NMS</strong> (rigidity + hyperthermia +
+                      autonomic instability + ↑CK).<a class="cite" data-ref="haldol_label"></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Quetiapine</strong></td>
+                    <td>12.5–25 mg q12h PO; lowest dose, shortest duration</td>
+                    <td>
+                      Sedating; orthostatic hypotension (fall risk); QTc prolongation;
+                      antipsychotic-class boxed warning — increased mortality in elderly with
+                      dementia-related psychosis.<a class="cite" data-ref="beers2023"></a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dexmedetomidine</strong></td>
+                    <td>0.2–0.7 mcg/kg/hr IV infusion</td>
+                    <td>
+                      MV adults: agitation preventing weaning, or when light sedation / delirium
+                      reduction is a priority (PADIS 2025, suggested over propofol); monitor
+                      bradycardia/hypotension
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Lorazepam</strong> <span class="badge b-amber">Specific Use</span>
+                    </td>
+                    <td>Per CIWA protocol</td>
+                    <td>Rescue / ETOH withdrawal ONLY — may worsen delirium</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Melatonin</strong></td>
+                    <td>0.5–3mg nightly</td>
+                    <td>
+                      May be considered for sleep / circadian support; low-certainty ICU evidence<a
+                        class="cite"
+                        data-ref="promedic2022"
+                      ></a
+                      ><a class="cite" data-ref="melatonin_meta2025"></a>; not a treatment for
+                      established delirium, and prevention evidence is mixed
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note mt-2">
+              These are conventional / expert starting references for short-term agitation control —
+              not RCT- or guideline-calibrated delirium doses. Dexmedetomidine is a sedative
+              infusion for ventilated patients, not a PRN antipsychotic-equivalent.
+            </p>
+            <div class="alert a-danger mt-3">
+              <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-ban" /></svg>
+              <strong>No antipsychotics at discharge</strong> without psychiatric indication.
+            </div>
+          </div>
+          <div class="card accented accent-amber">
+            <div class="card-head">
+              Deliriogenic Medications — Review &amp; Limit
+              <span class="badge b-gray row-end" id="med-active-count"></span>
+            </div>
+            <div class="alert a-warn mb-3">
+              This is a medication-<em>review prompt</em>, not a list of equally harmful drugs. Risk
+              varies by agent, dose, route, renal/hepatic function, drug interactions, and temporal
+              association with the delirium. Some agents (e.g., benzodiazepines, strong
+              anticholinergics, meperidine) are higher-risk; others warrant review only in specific
+              contexts. Beers Criteria apply to adults ≥65.
+            </div>
+            <div class="flag-note">
+              Renal/hepatic accumulation: <strong>meperidine</strong> → normeperidine builds up in
+              renal failure (seizures) — avoid;
+              <strong>morphine / hydromorphone</strong> metabolites are neurotoxic at GFR &lt;30;
+              <strong>gabapentin / pregabalin</strong> need ~50% dose reduction at CrCl &lt;60.<a
+                class="cite"
+                data-ref="beers2023"
+              ></a>
+            </div>
+            <div class="alert a-teal mb-3">
+              Toggle any medication off to remove it from the printed documents. Changes apply to
+              both the Full Rounding Tool and the SPA Quick Reference.
+            </div>
+            <div id="med-toggle-grid"></div>
+            <div class="row mt-3">
+              <button class="btn btn-sm btn-sec" data-act="setAllMeds" data-on="true">
+                Enable all
+              </button>
+              <button class="btn btn-sm btn-sec" data-act="setAllMeds" data-on="false">
+                Disable all
+              </button>
+            </div>
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol
+              class="auto-refs"
+              data-refs="beers2023,padis2025,padis2018,haldol_label,mends2,mindusa2018,promedic2022"
+            ></ol>
+          </div>
+        </section>
+
+        <!-- ───────── SETUP ───────── -->
+        <section class="tab-panel" id="tab-settings">
+          <div class="sec-hdr">
+            <div class="sec-title">Customize Protocol</div>
+            <div class="sec-sub">Unit &amp; institution-level settings</div>
+          </div>
+          <div class="g2">
+            <div class="card">
+              <div class="card-head">Institution / Unit Settings</div>
+              <p class="note mb-3">
+                Facility name is set in the header field at the top of the page — it prints on every
+                exported PDF.
+              </p>
+              <div class="frow">
+                <label class="flbl" for="proto-ver">Protocol Version</label>
+                <input
+                  type="text"
+                  class="finp"
+                  id="proto-ver"
+                  placeholder="e.g. v2.1 — June 2026"
+                />
+              </div>
+              <div class="frow">
+                <label class="flbl" for="set-screen">Screening Tool</label>
+                <select class="fsel" id="set-screen">
+                  <option>CAM-ICU</option>
+                  <option>ICDSC</option>
+                </select>
+              </div>
+              <div class="frow">
+                <label class="flbl" for="set-camfreq">CAM Frequency</label>
+                <select class="fsel" id="set-camfreq">
+                  <option>Once per shift</option>
+                  <option>Every 8 hours (q8h)</option>
+                  <option>Every 4 hours (q4h)</option>
+                  <option>Every 12 hours (q12h)</option>
+                  <option>Once daily</option>
+                </select>
+              </div>
+              <div class="frow">
+                <label class="flbl" for="set-rass">RASS Target</label>
+                <select class="fsel" id="set-rass" data-act="syncRass">
+                  <option>0 to −2 (light — ICU default)</option>
+                  <option>0 to −1 (general ward)</option>
+                  <option>−3 to −4 (deep — indication required)</option>
+                </select>
+              </div>
+              <div class="frow" id="rass-deep-gate" hidden>
+                <label class="flbl" for="set-rass-indication">Indication for deeper sedation</label>
+                <input
+                  type="text"
+                  class="finp"
+                  id="set-rass-indication"
+                  placeholder="e.g. NMB / severe ARDS · raised ICP · status epilepticus · dyssynchrony · TTM"
+                />
+              </div>
+              <p class="note-sm" id="rass-deep-note" hidden>
+                Deeper sedation (RASS ≤ −3) is <strong>associated with</strong> longer ventilation,
+                more delirium, and higher mortality (observational evidence plus one small RCT;
+                PADIS is conditional, low-certainty). Use it only for a specific indication — it is
+                <strong>not</strong> a delirium-prevention default.
+              </p>
+              <div class="row">
+                <button class="btn btn-primary" data-act="saveSettings">
+                  <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-download" /></svg> Save
+                  settings
+                </button>
+                <button class="btn btn-sec" data-act="loadSettings">Load settings.json</button>
+              </div>
+              <p class="note-sm mt-2">
+                Settings also auto-save in this browser. <strong>Save settings</strong> writes a
+                <code>settings.json</code>; <strong>Load settings.json</strong> imports one back —
+                for sharing a configured protocol or moving it between machines.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-head">Protocol Approvals</div>
+              <div class="frow">
+                <label class="flbl" for="set-director">Medical Director</label>
+                <input type="text" class="finp" id="set-director" placeholder="Name and title" />
+              </div>
+              <div class="frow">
+                <label class="flbl" for="set-cno">CNO / Nurse Leader</label>
+                <input type="text" class="finp" id="set-cno" placeholder="Name and title" />
+              </div>
+              <div class="frow">
+                <label class="flbl" for="set-lastrev">Last Reviewed</label>
+                <input type="date" class="finp" id="set-lastrev" />
+              </div>
+              <div class="frow">
+                <label class="flbl" for="set-nextrev">Next Review Due</label>
+                <input type="date" class="finp" id="set-nextrev" />
+              </div>
+              <div class="frow">
+                <label class="flbl" for="set-footer">Footer Disclaimer</label>
+                <textarea
+                  class="fta"
+                  id="set-footer"
+                  placeholder="This protocol is intended as clinical guidance only…"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol
+              class="auto-refs"
+              data-refs="padis2018,padis2025,sccm_abcdef,beers2023,nice_cg103"
+            ></ol>
+          </div>
+        </section>
+
+        <!-- ───────── EXPORT ───────── -->
+        <section class="tab-panel" id="tab-export">
+          <div class="sec-hdr">
+            <div class="sec-title">Generate Print Documents</div>
+            <div class="sec-sub">Print-ready PDFs — generated and downloaded on your device</div>
+          </div>
+          <div class="alert a-warn mb-3">
+            <strong>Before you export —</strong> Facility:
+            <strong><span id="export-facility">—</span></strong>
+            <span class="muted">(set in the header field, top of page)</span> · Deliriogenic meds in
+            the printout: <strong><span id="export-med-count">—</span></strong>
+            <a href="#" class="link-jump" data-act="goTab" data-tab="meds">edit selection →</a>
+          </div>
+          <div class="export-options">
+            <div class="export-card accented accent-teal" data-doc="full">
+              <div class="export-card-title">ICU Delirium Rounding Tool</div>
+              <div class="export-card-desc">
+                Comprehensive bedside checklist — full CAM-ICU, RASS, DELIRIUM mnemonic, ABCDEF
+                bundle, pharmacologic considerations, medication tiles, and the 7-step nurse care
+                pathway.
+              </div>
+              <button class="btn btn-primary" data-act="openDoc" data-doc="full">
+                <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-download" /></svg> Download
+                — Full Rounding Tool
+              </button>
+            </div>
+            <div class="export-card accented accent-indigo" data-doc="record">
+              <div class="export-card-title">Delirium Assessment Record</div>
+              <div class="export-card-desc">
+                A single-page snapshot of <em>this</em> assessment — CAM-ICU result, RASS, motor
+                subtype, risk tier, bundle / DELIRIUM(S) / treatment completion, consults, and your
+                notes &amp; plan. No reference tables or full drug list.
+              </div>
+              <button class="btn btn-primary" data-act="openDoc" data-doc="record">
+                <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-download" /></svg> Download
+                — Assessment Record
+              </button>
+            </div>
+            <div class="export-card accented accent-amber" data-doc="spa">
+              <div class="export-card-title">Simplified SPA Quick Reference</div>
+              <div class="export-card-desc">
+                Focused reference using the SPA framework (Sedation · Pain/Pharmacy ·
+                Activity/Awareness) — the high-impact, high-frequency actions for delirium
+                prevention and management.
+              </div>
+              <button class="btn btn-export" data-act="openDoc" data-doc="spa">
+                <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-download" /></svg> Download
+                — Simplified SPA Tool
+              </button>
+            </div>
+          </div>
+          <div class="alert a-info mt-4">
+            <strong>One-click PDF:</strong> each button generates a structured, print-ready PDF in
+            your browser and downloads it — no print dialog needed. Files are US Letter landscape
+            with selectable text, and reflect your current facility name and medication selections.
+            Everything is generated locally, so it works offline.
+          </div>
+          <div class="ref-bar">
+            <span class="ref-bar-label">References</span>
+            <ol class="auto-refs" data-refs="padis2018,padis2025,sccm_abcdef,pun2019"></ol>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- icon sprite -->
+    <svg id="fa-sprite" width="0" height="0" aria-hidden="true" focusable="false" class="sprite">
+      <defs>
+        <symbol id="fa-arrow-up-right-from-square" viewBox="0 0 512 512">
+          <path
+            d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"
+          />
+        </symbol>
+        <symbol id="fa-ban" viewBox="0 0 512 512">
+          <path
+            d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"
+          />
+        </symbol>
+        <symbol id="fa-bolt" viewBox="0 0 448 512">
+          <path
+            d="M349.4 44.6c5.9-13.7 1.5-29.7-10.6-38.5s-28.6-8-39.9 1.8l-256 224c-10 8.8-13.6 22.9-8.9 35.3S50.7 288 64 288H175.5L98.6 467.4c-5.9 13.7-1.5 29.7 10.6 38.5s28.6 8 39.9-1.8l256-224c10-8.8 13.6-22.9 8.9-35.3s-16.6-20.7-30-20.7H272.5L349.4 44.6z"
+          />
+        </symbol>
+        <symbol id="fa-brain" viewBox="0 0 512 512">
+          <path
+            d="M184 0c30.9 0 56 25.1 56 56V456c0 30.9-25.1 56-56 56c-28.9 0-52.7-21.9-55.7-50.1c-5.2 1.4-10.7 2.1-16.3 2.1c-35.3 0-64-28.7-64-64c0-7.4 1.3-14.6 3.6-21.2C21.4 367.4 0 338.2 0 304c0-31.9 18.7-59.5 45.8-72.3C37.1 220.8 32 207 32 192c0-30.7 21.6-56.3 50.4-62.6C80.8 123.9 80 118 80 112c0-29.9 20.6-55.1 48.3-62.1C131.3 21.9 155.1 0 184 0zM328 0c28.9 0 52.6 21.9 55.7 49.9c27.8 7 48.3 32.1 48.3 62.1c0 6-.8 11.9-2.4 17.4c28.8 6.2 50.4 31.9 50.4 62.6c0 15-5.1 28.8-13.8 39.7C493.3 244.5 512 272.1 512 304c0 34.2-21.4 63.4-51.6 74.8c2.3 6.6 3.6 13.8 3.6 21.2c0 35.3-28.7 64-64 64c-5.6 0-11.1-.7-16.3-2.1c-3 28.2-26.8 50.1-55.7 50.1c-30.9 0-56-25.1-56-56V56c0-30.9 25.1-56 56-56z"
+          />
+        </symbol>
+        <symbol id="fa-clipboard-list" viewBox="0 0 384 512">
+          <path
+            d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16z"
+          />
+        </symbol>
+        <symbol id="fa-diagram-project" viewBox="0 0 576 512">
+          <path
+            d="M0 80C0 53.5 21.5 32 48 32h96c26.5 0 48 21.5 48 48V96H384V80c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H432c-26.5 0-48-21.5-48-48V160H192v16c0 1.7-.1 3.4-.3 5L272 288h96c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H272c-26.5 0-48-21.5-48-48V336c0-1.7 .1-3.4 .3-5L144 224H48c-26.5 0-48-21.5-48-48V80z"
+          />
+        </symbol>
+        <symbol id="fa-download" viewBox="0 0 512 512">
+          <path
+            d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+          />
+        </symbol>
+        <symbol id="fa-file-pdf" viewBox="0 0 512 512">
+          <path
+            d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z"
+          />
+        </symbol>
+        <symbol id="fa-gear" viewBox="0 0 512 512">
+          <path
+            d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4L83.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"
+          />
+        </symbol>
+        <symbol id="fa-hospital" viewBox="0 0 640 512">
+          <path
+            d="M192 48c0-26.5 21.5-48 48-48H400c26.5 0 48 21.5 48 48V512H368V432c0-26.5-21.5-48-48-48s-48 21.5-48 48v80H192V48zM48 96H160V512H48c-26.5 0-48-21.5-48-48V320H80c8.8 0 16-7.2 16-16s-7.2-16-16-16H0V224H80c8.8 0 16-7.2 16-16s-7.2-16-16-16H0V144c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v48H560c-8.8 0-16 7.2-16 16s7.2 16 16 16h80v64H560c-8.8 0-16 7.2-16 16s7.2 16 16 16h80V464c0 26.5-21.5 48-48 48H480V96H592zM312 64c-8.8 0-16 7.2-16 16v24H272c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h24v24c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V152h24c8.8 0 16-7.2 16-16V120c0-8.8-7.2-16-16-16H344V80c0-8.8-7.2-16-16-16H312z"
+          />
+        </symbol>
+        <symbol id="fa-leaf" viewBox="0 0 512 512">
+          <path
+            d="M272 96c-78.6 0-145.1 51.5-167.7 122.5c33.6-17 71.5-26.5 111.7-26.5h88c8.8 0 16 7.2 16 16s-7.2 16-16 16H288 216s0 0 0 0c-16.6 0-32.7 1.9-48.3 5.4c-25.9 5.9-49.9 16.4-71.4 30.7c0 0 0 0 0 0C38.3 298.8 0 364.9 0 440v16c0 13.3 10.7 24 24 24s24-10.7 24-24V440c0-48.7 20.7-92.5 53.8-123.2C121.6 392.3 190.3 448 272 448l1 0c132.1-.7 239-130.9 239-291.4c0-42.6-7.5-83.1-21.1-119.6c-2.6-6.9-12.7-6.6-16.2-.1C455.9 72.1 418.7 96 376 96L272 96z"
+          />
+        </symbol>
+        <symbol id="fa-magnifying-glass" viewBox="0 0 512 512">
+          <path
+            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+          />
+        </symbol>
+        <symbol id="fa-pills" viewBox="0 0 576 512">
+          <path
+            d="M112 96c-26.5 0-48 21.5-48 48V256h96V144c0-26.5-21.5-48-48-48zM0 144C0 82.1 50.1 32 112 32s112 50.1 112 112V368c0 61.9-50.1 112-112 112S0 429.9 0 368V144zM554.9 399.4c-7.1 12.3-23.7 13.1-33.8 3.1L333.5 214.9c-10-10-9.3-26.7 3.1-33.8C360 167.7 387.1 160 416 160c88.4 0 160 71.6 160 160c0 28.9-7.7 56-21.1 79.4zm-59.5 59.5C472 472.3 444.9 480 416 480c-88.4 0-160-71.6-160-160c0-28.9 7.7-56 21.1-79.4c7.1-12.3 23.7-13.1 33.8-3.1L498.5 425.1c10 10 9.3 26.7-3.1 33.8z"
+          />
+        </symbol>
+        <symbol id="fa-print" viewBox="0 0 512 512">
+          <path
+            d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zM432 248a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+          />
+        </symbol>
+        <symbol id="fa-triangle-exclamation" viewBox="0 0 512 512">
+          <path
+            d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+name: deliriumtool CodeQL config
+
+# Don't scan vendored third-party libraries, build output, or visual snapshots.
+paths-ignore:
+  - src/vendor
+  - dist
+  - 'tests/e2e/**/*-snapshots/**'

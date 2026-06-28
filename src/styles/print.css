@@ -1,0 +1,29 @@
+/*
+ * print.css — the tool exports real PDFs (see js/pdf.js), so browser printing is
+ * a fallback only. These rules drop the app chrome and reveal all panels so a
+ * "Print to PDF" of the page is still legible.
+ */
+
+@media print {
+  .app-header,
+  .tabs-wrap,
+  .pathway-bar,
+  .pathway-picker,
+  .ref-bar,
+  .export-options,
+  .skip-link {
+    display: none !important;
+  }
+
+  .tab-panel {
+    display: block !important;
+  }
+
+  details.panel > .panel-body {
+    display: block !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+}

@@ -1,0 +1,1063 @@
+/*
+ * components.css — reusable UI pieces: cards, buttons, alerts, forms, checklist
+ * rows, score readouts, progress, the pathway cards, medication toggles, the
+ * nurse-care pathway, the DELIRIUM(S) grid, citations, and reference bars.
+ * Class names are shared with index.html.
+ */
+
+/* ── Cards ── */
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--sp-4);
+}
+
+.card-head {
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.card-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-weak);
+  color: var(--c-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Buttons ── */
+.btn {
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  transition:
+    background var(--t-fast),
+    border-color var(--t-fast),
+    color var(--t-fast);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary,
+.btn-export {
+  background: var(--c-primary);
+  background: linear-gradient(180deg, var(--c-primary), var(--c-primary-strong));
+  color: var(--c-primary-contrast);
+}
+
+.btn-primary:hover,
+.btn-export:hover {
+  background: var(--c-primary-strong);
+}
+
+.btn-sec,
+.btn-navy {
+  background: var(--c-surface);
+  color: var(--c-text);
+  border-color: var(--c-border-strong);
+}
+
+.btn-sec:hover,
+.btn-navy:hover {
+  background: var(--c-surface-2);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--c-primary);
+  border-color: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--c-primary-weak);
+}
+
+.btn-sm {
+  min-height: 32px;
+  padding: var(--sp-1) var(--sp-3);
+  font-size: var(--fs-sm);
+}
+
+/* ── Badges ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.b-teal,
+.b-navy {
+  background: var(--c-primary-weak);
+  color: var(--c-primary-strong);
+}
+.b-amber {
+  background: var(--c-caution-weak);
+  color: var(--c-caution);
+}
+.b-red {
+  background: var(--c-danger-weak);
+  color: var(--c-danger);
+}
+.b-gray {
+  background: var(--c-surface-2);
+  color: var(--c-text-2);
+}
+
+.tab-badge {
+  display: inline-block;
+  min-width: 16px;
+  padding: 0 5px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  color: var(--c-primary-contrast);
+}
+
+.tab-badge:empty {
+  display: none;
+}
+
+/* ── Alerts ── */
+.alert {
+  border-radius: var(--radius-sm);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  margin-bottom: var(--sp-3);
+  border-left: 3px solid var(--c-info);
+  --al: var(--c-info-weak);
+  background: var(--al);
+  background: linear-gradient(180deg, var(--al), color-mix(in srgb, var(--al) 52%, #fff));
+  color: var(--c-text);
+}
+
+.a-warn {
+  border-left-color: var(--c-caution);
+  --al: var(--c-caution-weak);
+}
+.a-danger {
+  border-left-color: var(--c-danger);
+  --al: var(--c-danger-weak);
+}
+.a-green {
+  border-left-color: var(--c-ok);
+  --al: var(--c-ok-weak);
+}
+.a-teal,
+.a-info,
+.a-purple {
+  border-left-color: var(--c-info);
+  --al: var(--c-info-weak);
+}
+
+/* Adult/ICU scope panel on the pathway picker + its redirect list. */
+.scope-note {
+  max-width: 760px;
+  margin: 0 auto var(--sp-4);
+  text-align: left;
+}
+.scope-redirects {
+  margin: var(--sp-2) 0 0;
+  padding-left: var(--sp-4);
+}
+.scope-redirects li {
+  margin-bottom: var(--sp-1);
+}
+
+/* ── Forms ── */
+.frow {
+  margin-bottom: var(--sp-3);
+}
+
+.flbl {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--c-text-2);
+  margin-bottom: var(--sp-1);
+}
+
+.finp,
+.fsel,
+.fta,
+.facility-input {
+  width: 100%;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: var(--fs-base);
+  color: var(--c-text);
+  background: var(--c-surface);
+  outline: none;
+  transition:
+    border-color var(--t-fast),
+    box-shadow var(--t-fast);
+}
+
+.facility-input {
+  min-width: 230px;
+}
+
+.finp:focus,
+.fsel:focus,
+.fta:focus,
+.facility-input:focus {
+  border-color: var(--c-primary);
+  box-shadow: var(--ring);
+}
+
+.fta {
+  resize: vertical;
+  min-height: 72px;
+}
+
+/* ── Checklist rows ── */
+.chk {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--t-fast);
+}
+
+.chk:hover {
+  background: var(--c-surface-2);
+}
+
+.chk input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--c-primary);
+  cursor: pointer;
+}
+
+.chk span {
+  font-size: var(--fs-base);
+  color: var(--c-text);
+  line-height: 1.45;
+}
+
+.chk.done span {
+  color: var(--c-text-3);
+  text-decoration: line-through;
+}
+
+.chk-group-lbl {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--c-text-3);
+  margin: var(--sp-3) 0 var(--sp-1);
+}
+
+/* ── Score readout ── */
+.score-box {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--radius);
+  border: 1px solid var(--c-border);
+  margin-bottom: var(--sp-4);
+  --sb: var(--c-surface-2);
+  background: linear-gradient(135deg, var(--sb), color-mix(in srgb, var(--sb) 58%, #fff));
+}
+
+.score-num {
+  font-size: 2.5rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.score-lbl {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--c-text-2);
+}
+
+.score-tier {
+  font-size: var(--fs-md);
+  font-weight: 700;
+  margin: 2px 0;
+}
+
+.score-note {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+}
+
+.risk-low {
+  --sb: var(--c-ok-weak);
+}
+.risk-low .score-num,
+.risk-low .score-tier {
+  color: var(--c-ok);
+}
+.risk-mod {
+  --sb: var(--c-caution-weak);
+}
+.risk-mod .score-num,
+.risk-mod .score-tier {
+  color: var(--c-caution);
+}
+.risk-high {
+  --sb: var(--c-danger-weak);
+}
+.risk-high .score-num,
+.risk-high .score-tier {
+  color: var(--c-danger);
+}
+.risk-crit {
+  --sb: var(--c-danger-weak);
+}
+.risk-crit .score-num,
+.risk-crit .score-tier {
+  color: var(--c-danger);
+}
+
+/* ── Progress bar ── */
+.pbar {
+  height: 9px;
+  background: var(--c-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-top: var(--sp-2);
+}
+
+.pfill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  /* Vivid blue→azure→teal→green spectrum anchored to the track width (via --pct),
+     so the leading-edge colour clearly travels from blue to green as it fills. */
+  background: linear-gradient(
+      90deg,
+      var(--c-primary) 0%,
+      #1f8fb5 30%,
+      #11a58f 55%,
+      #2bb866 80%,
+      #5ad07f 100%
+    )
+    no-repeat;
+  background-size: calc((100% * 100) / max(var(--pct, 100), 1)) 100%;
+  transition:
+    width var(--t),
+    background-size var(--t);
+}
+
+.pfill.is-complete {
+  background: var(--c-ok);
+}
+
+/* ── Pathway picker cards ── */
+.pathway-card {
+  text-align: left;
+  background: var(--c-surface);
+  background: linear-gradient(180deg, var(--c-surface), var(--c-surface-2));
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+  cursor: pointer;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color var(--t),
+    box-shadow var(--t),
+    transform var(--t);
+}
+
+.pathway-card:hover {
+  border-color: var(--c-primary);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.pathway-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  background: var(--c-primary-weak);
+  color: var(--c-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pathway-card__title {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+}
+
+.pathway-card__desc {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+
+/* ── Medication category toggles ── */
+.med-cat-block {
+  margin-bottom: var(--sp-4);
+}
+
+.med-cat-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--c-primary); /* category accent set per-category via JS */
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--c-surface-2);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--c-text);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.med-items-wrap {
+  border: 1px solid var(--c-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  padding: var(--sp-2) var(--sp-3);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--sp-2);
+}
+
+.med-toggle-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  font: inherit;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  border: 1.5px solid var(--c-border-strong);
+  background: var(--c-surface);
+  color: var(--c-text);
+  text-align: left;
+  min-height: 36px;
+  transition:
+    background var(--t-fast),
+    border-color var(--t-fast);
+}
+
+.med-toggle-pill.on {
+  background: var(--c-surface);
+  color: var(--c-text);
+  /* border + dot colour set per-category via JS */
+}
+
+.med-toggle-pill.off {
+  background: var(--c-surface-2);
+  color: var(--c-text-3);
+}
+
+/* Higher-risk marker (benzodiazepines, strong anticholinergics, meperidine). */
+.pill-flag {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--c-danger);
+  margin-left: 2px;
+}
+
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--c-border-strong); /* off; on colour set per-category via JS */
+}
+
+.cat-toggle-all {
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--c-primary);
+  cursor: pointer;
+  border: 1px solid var(--c-border-strong);
+  background: var(--c-surface);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.cat-toggle-all:hover {
+  background: var(--c-surface-2);
+}
+
+/* ── Nurse-care pathway (Treatment tab) ── */
+.pathway-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: var(--sp-2);
+}
+
+.pathway-col {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--c-border);
+}
+
+.pathway-col:last-child {
+  border-right: none;
+}
+
+.pathway-hdr {
+  padding: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  --ph: var(--fam-teal);
+  background: var(--ph);
+  background: linear-gradient(160deg, var(--ph), color-mix(in srgb, var(--ph) 80%, #000));
+}
+
+.pathway-hdr.ph1 {
+  --ph: var(--fam-teal);
+}
+.pathway-hdr.ph2 {
+  --ph: var(--fam-indigo);
+}
+.pathway-hdr.ph3 {
+  --ph: var(--fam-green);
+}
+.pathway-hdr.ph46 {
+  --ph: var(--fam-amber);
+}
+.pathway-hdr.ph7 {
+  --ph: var(--fam-purple);
+}
+
+.pathway-body {
+  padding: var(--sp-2);
+  flex: 1;
+  background: var(--c-surface);
+}
+
+/* ── DELIRIUM(S) mnemonic grid ── */
+.mnemonic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+.mnemonic-cell {
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color var(--t-fast);
+}
+
+.mnemonic-cell.reviewed {
+  border-color: var(--fam-indigo);
+}
+
+.mnemonic-ltr {
+  background: var(--fam-indigo-weak);
+  color: var(--fam-indigo);
+  text-align: center;
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  padding: var(--sp-1) 0;
+  transition: background var(--t-fast);
+}
+
+.mnemonic-cell.reviewed .mnemonic-ltr {
+  background: var(--fam-indigo);
+  background: linear-gradient(
+    145deg,
+    var(--fam-indigo),
+    color-mix(in srgb, var(--fam-indigo) 80%, #000)
+  );
+  color: #fff;
+}
+
+.mnemonic-word {
+  background: var(--fam-indigo-weak);
+  color: var(--fam-indigo);
+  text-align: center;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 4px;
+}
+
+.mnemonic-body {
+  background: var(--c-surface);
+  padding: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  line-height: 1.45;
+}
+
+.mnem-note {
+  font-size: var(--fs-sm);
+  margin: var(--sp-1) 0;
+  color: var(--c-text-2);
+}
+
+.mnem-action {
+  min-height: 40px;
+  font-size: var(--fs-sm);
+}
+
+.letter-strip {
+  display: flex;
+  gap: var(--sp-1);
+}
+
+.letter-strip > * {
+  flex: 1;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  background: var(--c-surface-2);
+  color: var(--c-text-2);
+  transition:
+    background var(--t-fast),
+    color var(--t-fast);
+}
+
+.letter-strip > .on {
+  background: var(--c-ok);
+  color: #fff;
+}
+
+/* DELIRIUM(S) progress pills stay in the violet family (matches the grid). */
+#mnemonic-letters > .on {
+  background: var(--fam-indigo);
+}
+
+/* ABCDEF letter tiles echo the PDF's six section families (soft tint + deep text;
+   filled with the family colour when that letter's card is complete). */
+#bundle-letters > div {
+  --f: var(--c-text-2);
+  --fw: var(--c-surface-2);
+  background: var(--fw);
+  color: var(--f);
+}
+#bundle-letters > div:nth-child(1) {
+  --f: var(--fam-teal);
+  --fw: var(--fam-teal-weak);
+}
+#bundle-letters > div:nth-child(2) {
+  --f: var(--fam-crim);
+  --fw: var(--fam-crim-weak);
+}
+#bundle-letters > div:nth-child(3) {
+  --f: var(--fam-amber);
+  --fw: var(--fam-amber-weak);
+}
+#bundle-letters > div:nth-child(4) {
+  --f: var(--fam-indigo);
+  --fw: var(--fam-indigo-weak);
+}
+#bundle-letters > div:nth-child(5) {
+  --f: var(--fam-green);
+  --fw: var(--fam-green-weak);
+}
+#bundle-letters > div:nth-child(6) {
+  --f: var(--fam-purple);
+  --fw: var(--fam-purple-weak);
+}
+#bundle-letters > div.on {
+  background: var(--f);
+  background: linear-gradient(145deg, var(--f), color-mix(in srgb, var(--f) 80%, #000));
+  color: #fff;
+}
+
+/* ── Medication reference table ── */
+.mt {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.mt th {
+  background: var(--c-surface-2);
+  font-weight: 700;
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--c-text-2);
+  padding: var(--sp-2) var(--sp-3);
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.mt td {
+  padding: var(--sp-2) var(--sp-3);
+  border-bottom: 1px solid var(--c-border);
+  vertical-align: top;
+  color: var(--c-text-2);
+}
+
+.mt tr:last-child td {
+  border-bottom: none;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* ── Export cards ── */
+.export-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+
+.export-card {
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+  background: var(--c-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  transition:
+    border-color var(--t),
+    box-shadow var(--t);
+}
+
+.export-card:hover {
+  border-color: var(--c-primary);
+  box-shadow: var(--shadow);
+}
+
+.export-card-title {
+  font-weight: 800;
+  font-size: var(--fs-md);
+}
+
+.export-card-desc {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  line-height: 1.5;
+  flex: 1;
+}
+
+@media (max-width: 860px) {
+  .export-options,
+  .mnemonic-grid {
+    grid-template-columns: 1fr;
+  }
+  .pathway-grid {
+    grid-template-columns: 1fr;
+  }
+  .pathway-col {
+    border-right: none;
+    border-bottom: 1px solid var(--c-border);
+  }
+}
+
+/* ── Reference bar ── */
+.ref-bar {
+  margin-top: var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  border-left: 3px solid var(--c-primary);
+  border-radius: var(--radius);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.ref-bar-label {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-text-3);
+}
+
+.ref-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.ref-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-primary);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+}
+
+.ref-link:hover {
+  background: var(--c-primary-weak);
+  text-decoration: none;
+}
+
+.ref-citations {
+  width: 100%;
+  font-size: var(--fs-xs);
+  color: var(--c-text-3);
+  line-height: 1.6;
+}
+
+ol.auto-refs {
+  width: 100%;
+  margin: 0;
+  padding-left: var(--sp-5);
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--c-text-2);
+}
+
+ol.auto-refs a {
+  word-break: break-word;
+}
+
+/* ── Inline citation superscripts ── */
+a.cite {
+  font-size: 0.64em;
+  vertical-align: super;
+  line-height: 0;
+  margin-left: 2px;
+  color: var(--c-primary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* In-text links carry an underline so they're distinguishable without relying on
+   colour alone (WCAG link-in-text-block). */
+a.cite,
+.link-jump,
+ol.auto-refs a {
+  text-decoration: underline;
+}
+
+/* ── Collapsible detail panels ── */
+details.panel {
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  margin: var(--sp-3) 0;
+  background: var(--c-surface);
+  overflow: hidden;
+}
+
+details.panel > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: var(--sp-2) var(--sp-3);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--c-text);
+  background: var(--c-surface-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+details.panel > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.panel > summary::before {
+  content: '▸';
+  color: var(--c-primary);
+  transition: transform var(--t-fast);
+}
+
+details.panel[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.panel-body {
+  padding: var(--sp-3);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+/* ── Decision tree (Treatment overview) ── */
+.dtree {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin: var(--sp-2) 0;
+}
+
+.dnode {
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--c-primary);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+
+.dnode .dn-h {
+  font-weight: 700;
+  color: var(--c-text);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.dnode.dn-diamond {
+  border-left-color: var(--c-caution);
+  background: var(--c-caution-weak);
+}
+.dnode.dn-yes {
+  border-left-color: var(--c-danger);
+}
+.dnode.dn-cont {
+  border-left-color: var(--c-ok);
+}
+
+.dbranches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-2);
+}
+
+.dnode-sub {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+}
+
+@media (max-width: 640px) {
+  .dbranches {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flag-note {
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  border-left: 3px solid var(--c-caution);
+  background: var(--c-caution-weak);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-sm);
+  margin: var(--sp-2) 0;
+  color: var(--c-text);
+}
+
+/* ── Small shared helpers ── */
+.link-jump {
+  color: var(--c-primary);
+  font-weight: 600;
+}
+
+.consult-chip {
+  background: var(--c-surface-2);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+}
+
+.txt-ok {
+  color: var(--c-ok);
+  font-weight: 700;
+}
+
+.tada-hd {
+  font-weight: 700;
+  color: var(--c-primary);
+  margin-bottom: 3px;
+}
+
+.hr-line {
+  border: none;
+  border-top: 1px solid var(--c-border);
+  margin: var(--sp-4) 0;
+}
+
+/* ── Icons ── */
+.fa {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.125em;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.fa-sm {
+  width: 0.85em;
+  height: 0.85em;
+}
+.fa-md {
+  width: 1.1em;
+  height: 1.1em;
+}
+.fa-lg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+/* ── Disclaimer banner ── */
+.disclaimer {
+  background: var(--c-primary-weak);
+  background: linear-gradient(
+    135deg,
+    var(--c-primary-weak),
+    color-mix(in srgb, var(--fam-teal-weak) 70%, #fff)
+  );
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: var(--sp-4);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--c-text);
+}

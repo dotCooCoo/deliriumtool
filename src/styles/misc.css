@@ -1,0 +1,233 @@
+/*
+ * misc.css — small utilities and a few component specifics (RASS band, CAM strip,
+ * content grids) that let index.html stay free of inline styles, which the strict
+ * CSP (style-src 'self') requires.
+ */
+
+/* Text helpers */
+.muted {
+  color: var(--c-text-3);
+  font-size: var(--fs-sm);
+}
+.note {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+.note-sm {
+  font-size: var(--fs-xs);
+  color: var(--c-text-3);
+  line-height: 1.5;
+}
+.center {
+  text-align: center;
+}
+
+/* Spacing helpers */
+.mt-2 {
+  margin-top: var(--sp-2);
+}
+.mt-3 {
+  margin-top: var(--sp-3);
+}
+.mt-4 {
+  margin-top: var(--sp-4);
+}
+.mb-3 {
+  margin-bottom: var(--sp-3);
+}
+
+/* Flex helpers */
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.row-end {
+  margin-left: auto;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.score-info {
+  min-width: 0;
+}
+.grow {
+  flex: 1;
+}
+/* Off-screen icon sprite host (no inline style, so the strict CSP holds). */
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* CAM completion strip */
+.cam-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  margin-top: var(--sp-3);
+  font-size: var(--fs-xs);
+  color: var(--c-text-2);
+  align-items: center;
+}
+.cam-strip > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.cstep {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c-border-strong);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.cam-rule {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--c-text-3);
+  font-weight: 600;
+}
+
+/* RASS target band */
+.rass-band {
+  display: flex;
+  gap: 2px;
+  margin-top: var(--sp-3);
+  height: 16px;
+  align-items: flex-end;
+}
+.rass-band > span {
+  flex: 1;
+  height: 9px;
+  transition:
+    height var(--t-fast),
+    outline var(--t-fast);
+}
+.rass-band > span:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.rass-band > span:last-child {
+  border-radius: 0 3px 3px 0;
+}
+.rb-ok {
+  background: var(--c-ok);
+}
+.rb-caution {
+  background: var(--c-caution);
+}
+.rb-danger {
+  background: var(--c-danger);
+}
+.rass-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-xs);
+  color: var(--c-text-2);
+  margin-top: var(--sp-1);
+}
+.rass-scale strong {
+  color: var(--c-text);
+}
+
+/* Content grids reused across panels */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--sp-5);
+}
+.tada-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+}
+.tada-cell {
+  background: var(--c-surface-2);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-3);
+  border-left: 3px solid var(--c-primary);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+.consult-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+.dose-ref {
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .tada-grid,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Keep the CAM result visible while working through the features on wide screens. */
+@media (min-width: 861px) {
+  .cam-result-sticky {
+    position: sticky;
+    top: 76px;
+  }
+}
+
+/* Family accent on a card — coloured left edge, tinted icon, and coloured heading.
+   Pair an .accent-<family> class (which sets --accent / --accent-weak) with .accented. */
+.accented {
+  border-left: 4px solid var(--accent, var(--c-primary));
+}
+.accented .card-icon {
+  background: var(--accent-weak, var(--c-primary-weak));
+  color: var(--accent, var(--c-primary));
+}
+.accented .card-head,
+.accented .export-card-title {
+  color: var(--accent, var(--c-text));
+}
+.accent-teal {
+  --accent: var(--fam-teal);
+  --accent-weak: var(--fam-teal-weak);
+}
+.accent-crim {
+  --accent: var(--fam-crim);
+  --accent-weak: var(--fam-crim-weak);
+}
+.accent-amber {
+  --accent: var(--fam-amber);
+  --accent-weak: var(--fam-amber-weak);
+}
+.accent-indigo {
+  --accent: var(--fam-indigo);
+  --accent-weak: var(--fam-indigo-weak);
+}
+.accent-green {
+  --accent: var(--fam-green);
+  --accent-weak: var(--fam-green-weak);
+}
+.accent-purple {
+  --accent: var(--fam-purple);
+  --accent-weak: var(--fam-purple-weak);
+}
+
+/* The Generate-tab card matching the chosen document. */
+.export-card.is-selected {
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 2px var(--c-primary-weak);
+}
+.export-card.is-selected .export-card-title::after {
+  content: ' — selected';
+  color: var(--c-primary);
+  font-weight: 700;
+}

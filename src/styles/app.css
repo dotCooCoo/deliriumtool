@@ -1,0 +1,11 @@
+/*
+ * app.css — stylesheet entry point. esbuild bundles these @imports into a single
+ * content-hashed dist/assets/app-[hash].css. Order matters: tokens first, then
+ * base resets, layout scaffolding, components, and finally print overrides.
+ */
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './components.css';
+@import './misc.css';
+@import './print.css';

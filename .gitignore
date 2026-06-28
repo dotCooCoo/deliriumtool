@@ -1,0 +1,56 @@
+# ── Dotfiles: deny by default, allow-list only what should ship ───────
+# Catches .env*, .dev.vars, .wrangler/, .vscode/, .idea/, .DS_Store,
+# .claude/, and any other dotfile we don't explicitly intend to publish.
+.*
+
+# Dotfiles that DO belong in the repo
+!.gitignore
+!.gitattributes
+!.editorconfig
+!.nvmrc
+!.github/
+
+# ── Reference literature ──────────────────────────────────────────────
+# The article PDFs are copyrighted full text — they are NEVER committed.
+# The citation index is fine to publish.
+references/*.pdf
+!references/INDEX.md
+
+# ── Build output & dependencies ───────────────────────────────────────
+node_modules/
+dist/
+.wrangler/
+
+# ── Test output ───────────────────────────────────────────────────────
+test-results/
+playwright-report/
+blob-report/
+coverage/
+# Visual-regression baselines are platform-specific — generated on demand, not committed.
+*-snapshots/
+
+# ── Local clinical / patient data must never be committed ─────────────
+# Anything a contributor saves, exports, or uses as a fixture locally.
+*.phi
+patient-*.json
+assessment-*.json
+/scratch/
+
+# ── Credential & key material (belt-and-braces over the .* rule) ──────
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.pfx
+secrets.json
+credentials.json
+id_rsa*
+id_ed25519*
+
+# ── OS / editor junk ──────────────────────────────────────────────────
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~

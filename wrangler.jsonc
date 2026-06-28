@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers — Static Assets. Serves the built site in ./dist.
+  // https://developers.cloudflare.com/workers/static-assets/
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "deliriumtool",
+  "compatibility_date": "2026-06-26",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
