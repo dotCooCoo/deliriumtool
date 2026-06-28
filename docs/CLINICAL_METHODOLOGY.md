@@ -612,6 +612,18 @@ The user picks the validated screen for the child's age and developmental level;
 
 **Sign-off status:** the CAPD scoring direction and cut point, the developmental-delay caveat, and the age/developmental boundaries that route a child to CAPD vs psCAM-ICU vs pCAM-ICU are **pending pediatric-clinician sign-off** before the pediatric tool is presented as reviewed.
 
+### 7.2 Risk factors
+
+A review aid listing reported associations — **not a validated predictive score** (no pediatric equivalent of PRE-DELIRIC is in routine bedside use). Factors are grouped modifiable vs patient/illness, each tagged by evidence strength; the clinician checks those that apply. No numeric score or band is computed or implied.
+
+**Modifiable (review and minimize):** benzodiazepine exposure (the strongest, most consistent factor — dose-dependent, causal-effect estimate OR ≈ 3.3 from a marginal structural model, vs crude OR 4.4); deep sedation; anticholinergic cumulative burden; mechanical ventilation; physical restraints (partly confounded by indication); immobility / device tethering.
+
+**Patient / illness:** young age (≤ 2 yr); developmental delay / baseline cognitive impairment; greater severity of illness; prior coma; prolonged PICU stay (both a risk marker and an outcome).
+
+**Citations mapped (pediatric Risk tab):** Traube 2017 epidemiology & mortality (PMID 28288026 — independent predictors: age ≤ 2, developmental delay, severity, prior coma, mechanical ventilation, benzodiazepines, anticholinergics; delirium independently predicted mortality, aOR 4.39); Traube 2017 international point-prevalence (PMID 28079605, ~25%); Mody 2018 benzodiazepine causal effect (PMID 29727363 — the corrected reference; the earlier-guessed 29879008 resolves to an unrelated paper); SCCM PANDEM 2022 (PMID 35119438).
+
+**Sign-off status:** the risk-factor list, the evidence-strength tags, and the benzodiazepine effect-size wording are **pending pediatric-clinician sign-off**.
+
 ---
 
 *This document describes the tool as implemented. Where the application's wording and this document differ, the in-application disclaimers and your institution's policy govern clinical use.*
