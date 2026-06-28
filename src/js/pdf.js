@@ -688,44 +688,48 @@ function buildFull(doc, opts, k) {
   y = doc.lastAutoTable.finalY;
 
   // THIS ASSESSMENT — completion status + free-text notes (reflects the tool)
-  y = sectionBar(doc, y, 'THIS ASSESSMENT  ·  STATUS & NOTES', MONITOR, k);
-  cbTable(doc, {
-    startY: y,
-    margin: { left: M, right: M },
-    theme: 'grid',
-    styles: {
-      fontSize: 6.8 * k,
-      cellPadding: 3.5 * k,
-      lineColor: LINEGRAY,
-      lineWidth: 0.5,
-      textColor: INK,
-      valign: 'top',
-    },
-    columnStyles: {
-      0: { cellWidth: CW / 4 },
-      1: { cellWidth: CW / 4 },
-      2: { cellWidth: CW / 4 },
-      3: { cellWidth: CW / 4 },
-    },
-    body: [
-      [
-        'Risk factors: ' +
-          (ASMT.risk || 0) +
-          '/16 (' +
-          (ASMT.riskTier || '-') +
-          ') — count of present factors, not a validated score',
-        'ABCDEF bundle: ' + (ASMT.bundleOn || 0) + '/' + (ASMT.bundleAll || 0),
-        'DELIRIUM(S) reviewed: ' + (ASMT.mnemOn || 0) + '/' + (ASMT.mnemAll || 0),
-        'Treatment steps: ' +
-          (ASMT.treatOn || 0) +
-          '/' +
-          (ASMT.treatAll || 0) +
-          (ASMT.consults && ASMT.consults.length
-            ? '\nConsults: ' + S_(ASMT.consults.join(', '))
-            : ''),
+  y = sectionBar(doc, y, 'THIS ASSESSMENT  ·  STATUS & NOTES', STEEL, k);
+  cbTable(
+    doc,
+    {
+      startY: y,
+      margin: { left: M, right: M },
+      theme: 'grid',
+      styles: {
+        fontSize: 6.8 * k,
+        cellPadding: 3.5 * k,
+        lineColor: LINEGRAY,
+        lineWidth: 0.5,
+        textColor: INK,
+        valign: 'top',
+      },
+      columnStyles: {
+        0: { cellWidth: CW / 4 },
+        1: { cellWidth: CW / 4 },
+        2: { cellWidth: CW / 4 },
+        3: { cellWidth: CW / 4 },
+      },
+      body: [
+        [
+          'Risk factors:\n' +
+            (ASMT.risk || 0) +
+            '/16 (' +
+            (ASMT.riskTier || '-') +
+            ') — count of present factors, not a validated score',
+          'ABCDEF bundle:\n' + (ASMT.bundleOn || 0) + '/' + (ASMT.bundleAll || 0),
+          'DELIRIUM(S) reviewed:\n' + (ASMT.mnemOn || 0) + '/' + (ASMT.mnemAll || 0),
+          'Treatment steps:\n' +
+            (ASMT.treatOn || 0) +
+            '/' +
+            (ASMT.treatAll || 0) +
+            (ASMT.consults && ASMT.consults.length
+              ? '\n\nConsults:\n' + S_(ASMT.consults.join(', '))
+              : ''),
+        ],
       ],
-    ],
-  });
+    },
+    { boldHeads: true },
+  );
   y = doc.lastAutoTable.finalY;
   cbTable(
     doc,
@@ -1362,7 +1366,7 @@ function buildSpa(doc, opts) {
         'A — Activity/Awareness: Priorities',
       ],
     ],
-    headStyles: { textColor: 255, fontSize: 6.8 },
+    headStyles: { fillColor: spaColors.S, textColor: 255, fontSize: 6.8 },
     columnStyles: { 0: { cellWidth: CW / 3 }, 1: { cellWidth: CW / 3 }, 2: { cellWidth: CW / 3 } },
     didParseCell: function (d) {
       // S/P/A column headers in the same colours as page 1 (teal / amber / indigo).
