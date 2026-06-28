@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pediatric ICU Delirium Reference — CAPD, pCAM-ICU, psCAM-ICU</title>
+    <meta
+      name="description"
+      content="Bedside pediatric ICU delirium screening & reference: CAPD, pCAM-ICU, psCAM-ICU, prevention bundle, weight-based dosing, and printable documents. Runs entirely in your browser; no patient data leaves the device. Reference aid only."
+    />
+    <link rel="canonical" href="https://deliriumtool.com/peds/" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0e8f96" />
+
+    <link rel="icon" href="../img/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="../img/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="../img/apple-touch-icon.png" />
+    <link rel="manifest" href="../site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pediatric Delirium Bedside Reference Tool" />
+    <meta
+      property="og:title"
+      content="Pediatric ICU Delirium Reference — CAPD, pCAM-ICU, psCAM-ICU"
+    />
+    <meta
+      property="og:description"
+      content="Bedside pediatric ICU delirium reference — CAPD, pCAM-ICU, psCAM-ICU, prevention, weight-based dosing, and printable PDFs. Runs entirely in your browser."
+    />
+    <meta property="og:url" content="https://deliriumtool.com/peds/" />
+    <meta property="og:image" content="https://deliriumtool.com/img/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pediatric ICU Delirium Reference" />
+    <meta
+      name="twitter:description"
+      content="Bedside pediatric ICU delirium reference — CAPD, pCAM-ICU, psCAM-ICU, prevention, weight-based dosing, and printable PDFs."
+    />
+    <meta name="twitter:image" content="https://deliriumtool.com/img/og-image.png" />
+
+    <!-- Structured data: non-executable application/ld+json data block (CSP-safe). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Pediatric Delirium Bedside Reference Tool",
+        "url": "https://deliriumtool.com/peds/",
+        "description": "Bedside pediatric ICU delirium screening and reference — CAPD, pCAM-ICU, psCAM-ICU, prevention bundle, weight-based dosing, and printable documents. Runs entirely in the browser; no patient data leaves the device.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any modern web browser",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "inLanguage": "en",
+        "about": { "@type": "MedicalCondition", "name": "Pediatric delirium" },
+        "keywords": "CAPD, pCAM-ICU, psCAM-ICU, pediatric delirium, PICU delirium screening, pediatric delirium prevention"
+      }
+    </script>
+
+    <link rel="stylesheet" href="../assets/app.css" />
+    <link rel="stylesheet" href="../assets/peds.css" />
+    <script src="../assets/peds.js" defer></script>
+  </head>
+  <body>
+    <a id="skip-link" class="skip-link" href="#pathway-picker">Skip to content</a>
+
+    <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+      <symbol id="fa-gear" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M495 327l-44-25a192 192 0 0 0 0-92l44-25a12 12 0 0 0 5-15l-46-80a12 12 0 0 0-14-5l-52 21a192 192 0 0 0-80-46l-8-55a12 12 0 0 0-12-10h-92a12 12 0 0 0-12 10l-8 55a192 192 0 0 0-80 46l-52-21a12 12 0 0 0-14 5l-46 80a12 12 0 0 0 5 15l44 25a192 192 0 0 0 0 92l-44 25a12 12 0 0 0-5 15l46 80a12 12 0 0 0 14 5l52-21a192 192 0 0 0 80 46l8 55a12 12 0 0 0 12 10h92a12 12 0 0 0 12-10l8-55a192 192 0 0 0 80-46l52 21a12 12 0 0 0 14-5l46-80a12 12 0 0 0-5-15zM256 336a80 80 0 1 1 0-160 80 80 0 0 1 0 160z"
+        />
+      </symbol>
+      <symbol id="fa-file-pdf" viewBox="0 0 384 512">
+        <path
+          fill="currentColor"
+          d="M64 0C28.7 0 0 28.7 0 64v384c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zm192 0v128h128L256 0zM176 240c0-8.8 7.2-16 16-16s16 7.2 16 16v48h24c8.8 0 16 7.2 16 16s-7.2 16-16 16h-24v48c0 8.8-7.2 16-16 16s-16-7.2-16-16v-48h-24c-8.8 0-16-7.2-16-16s7.2-16 16-16h24v-48z"
+        />
+      </symbol>
+      <symbol id="fa-github" viewBox="0 0 496 512">
+        <path
+          fill="currentColor"
+          d="M165 397c0 2-2 4-5 4-3 0-5-1-5-4 0-2 2-4 5-4 2 0 5 1 5 4zm-29-5c-1 2 0 5 3 6 2 1 5 0 6-2 0-2-1-4-4-5-2-1-4 0-5 1zm40-2c-2 1-4 3-3 5 0 2 3 3 5 3 3-1 4-3 4-5-1-2-3-3-6-3zM244 8C108 8 0 116 0 252c0 109 70 201 167 234 12 2 17-6 17-12v-44c-68 15-82-29-82-29-11-28-27-35-27-35-22-15 2-15 2-15 24 2 37 25 37 25 22 37 57 26 71 20 2-16 9-27 16-33-54-6-111-27-111-121 0-27 10-49 25-66-2-6-11-31 2-65 0 0 21-6 67 25a235 235 0 0 1 122 0c47-31 67-25 67-25 14 34 5 59 3 65 15 17 25 39 25 66 0 94-57 115-111 121 9 8 17 23 17 46v68c0 6 4 14 17 12a249 249 0 0 0 167-234C496 116 388 8 244 8z"
+        />
+      </symbol>
+      <symbol id="fa-arrow-left" viewBox="0 0 448 512">
+        <path
+          fill="currentColor"
+          d="M9 239a32 32 0 0 0 0 46l160 160a32 32 0 0 0 45-45L109 288H416a32 32 0 0 0 0-64H109L214 119a32 32 0 0 0-45-45L9 239z"
+        />
+      </symbol>
+    </svg>
+
+    <header class="app-header">
+      <div class="app-header-inner">
+        <div class="header-pill">
+          <img class="app-logo" src="../img/logo.png" alt="" />
+          <div>
+            <h1>Pediatric Delirium Bedside Reference</h1>
+            <p class="header-sub">
+              PICU-focused (CAPD · pCAM-ICU · psCAM-ICU). Weight-based dosing · age-banded screens.
+            </p>
+          </div>
+        </div>
+        <div class="app-header-actions">
+          <a class="btn btn-ghost btn-sm" href="/"
+            ><svg class="fa" aria-hidden="true"><use href="#fa-arrow-left" /></svg> Adult tool</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- ───────── PATHWAY PICKER ───────── -->
+    <main class="pathway-picker" id="pathway-picker">
+      <div class="pathway-picker__lead">
+        <h2>Choose a screening tool</h2>
+        <p>
+          Pick the validated screen matched to the child's age and developmental level. First check
+          arousal (SBS or RASS); a child too sedated to engage (RASS −4/−5) is recorded as
+          <em>unable to assess</em>, not screen-negative.
+        </p>
+      </div>
+
+      <div class="alert a-warn scope-note">
+        <strong>Reference aid only.</strong> This pediatric tool supports — and does not replace —
+        clinical judgment, local protocol, and prescriber/pharmacy review. It is not a validated
+        decision-support device or an order set. Pharmacologic content is off-label and
+        limited-evidence; verify every weight-based dose against your institution's formulary.
+      </div>
+
+      <div class="pathway-grid-pick">
+        <button class="export-card accented accent-teal" data-pathway="capd">
+          <div class="export-card-title">CAPD — all ages</div>
+          <div class="export-card-desc">
+            Cornell Assessment of Pediatric Delirium. 8-item observational nursing screen, scored
+            over the shift; <strong>positive ≥ 9</strong>. The only screen validated across the full
+            age range (0–21 yr) with developmental anchor points — the practical single instrument
+            for most PICUs.
+          </div>
+        </button>
+        <button class="export-card accented accent-indigo" data-pathway="pcam">
+          <div class="export-card-title">pCAM-ICU — ≥ 5 years</div>
+          <div class="export-card-desc">
+            Pediatric CAM-ICU for children chronologically and developmentally ≥ 5 yr. Mirrors the
+            adult CAM-ICU: Feature 1 + Feature 2 + (Feature 3 or 4). Requires arousability (RASS ≥
+            −3) to perform the attention and cognition tasks.
+          </div>
+        </button>
+        <button class="export-card accented accent-purple" data-pathway="pscam">
+          <div class="export-card-title">psCAM-ICU — 6 mo–5 yr</div>
+          <div class="export-card-desc">
+            Preschool CAM-ICU for infants and preschoolers 6 months–5 years, using age-adapted
+            observational attention and cognition tasks. Same hierarchical algorithm as the CAM-ICU
+            family.
+          </div>
+        </button>
+      </div>
+
+      <p class="note mt-3 tac">
+        Clinical modules (scoring, risk, prevention bundle, weight-based dosing, and the printable
+        report) are being built out and added here.
+      </p>
+    </main>
+
+    <!-- ───────── WORKSPACE (revealed once a tool is chosen) ───────── -->
+    <div id="workspace" hidden>
+      <div class="pathway-bar">
+        <span class="pathway-bar__label">Screen</span>
+        <span class="pathway-bar__name" id="pathway-name"></span>
+        <span class="pathway-bar__spacer"></span>
+        <button class="btn btn-ghost btn-sm" data-act="reset">Change tool</button>
+      </div>
+
+      <div class="tabs-wrap">
+        <div class="tabs-inner">
+          <button class="tab-btn active" data-tab="screen">Screening</button>
+          <button class="tab-btn" data-tab="risk">Risk Factors</button>
+          <button class="tab-btn" data-tab="prevent">Prevention</button>
+          <button class="tab-btn" data-tab="treatment">Treatment</button>
+          <button class="tab-btn" data-tab="meds">Medications</button>
+          <button class="tab-btn" data-tab="export">
+            <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Generate Documents
+          </button>
+        </div>
+      </div>
+
+      <main class="main" id="main">
+        <section class="tab-panel active" id="tab-screen">
+          <div class="card">
+            <div class="card-head">Screening</div>
+            <p class="note">
+              The interactive scoring for this screen is being built and will appear here next.
+            </p>
+          </div>
+        </section>
+        <section class="tab-panel" id="tab-risk">
+          <div class="card">
+            <div class="card-head">Risk Factors</div>
+            <p class="note">Coming next.</p>
+          </div>
+        </section>
+        <section class="tab-panel" id="tab-prevent">
+          <div class="card">
+            <div class="card-head">Prevention Bundle</div>
+            <p class="note">Coming next.</p>
+          </div>
+        </section>
+        <section class="tab-panel" id="tab-treatment">
+          <div class="card">
+            <div class="card-head">Treatment</div>
+            <p class="note">Coming next.</p>
+          </div>
+        </section>
+        <section class="tab-panel" id="tab-meds">
+          <div class="card">
+            <div class="card-head">Medications</div>
+            <p class="note">Coming next.</p>
+          </div>
+        </section>
+        <section class="tab-panel" id="tab-export">
+          <div class="card">
+            <div class="card-head">Generate Documents</div>
+            <p class="note">The structured pediatric report is being built.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <a class="gh-badge" href="https://github.com/dotCooCoo/deliriumtool" rel="noopener">
+        <svg class="fa" aria-hidden="true"><use href="#fa-github" /></svg> Source on GitHub
+      </a>
+      <a class="link-jump" href="/">← Adult ICU tool</a>
+    </footer>
+  </body>
+</html>
