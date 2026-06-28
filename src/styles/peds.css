@@ -164,3 +164,22 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   background: var(--c-surface-2);
   color: var(--c-text-2);
 }
+
+/* Evidence-strength tag on risk factors (and reused elsewhere). */
+.ev-tag {
+  display: inline-block;
+  margin-left: var(--sp-1);
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--c-surface-2);
+  color: var(--c-text-2);
+  white-space: nowrap;
+}
+.ev-tag.ev-est {
+  background: var(--c-primary-weak);
+  color: var(--c-primary-strong);
+}

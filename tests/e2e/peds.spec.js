@@ -77,3 +77,14 @@ test('pCAM-ICU: feature algorithm yields a positive result', async ({ page }) =>
   await expect(page.locator('#screen-result')).toContainText('Positive');
   await expect(page.locator('#screen-result')).toContainText('pCAM-ICU');
 });
+
+test('Risk tab lists modifiable + patient risk factors', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-pathway="capd"]');
+  await page.click('.tab-btn[data-tab="risk"]');
+  await expect(page.locator('#tab-risk')).toBeVisible();
+  await expect(page.locator('#tab-risk')).toContainText('Benzodiazepine exposure');
+  await expect(page.locator('#tab-risk')).toContainText('Developmental delay');
+  const boxes = page.locator('#tab-risk input[type="checkbox"][data-risk]');
+  expect(await boxes.count()).toBeGreaterThanOrEqual(10);
+});
