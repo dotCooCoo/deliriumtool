@@ -119,6 +119,47 @@ export function updateTabBadges() {
     const chk = document.querySelectorAll('#tab-mnemonic .mnemonic-cell input:checked').length;
     mb.textContent = chk > 0 ? `${chk}/${all}` : '';
   }
+  updateTabCompletion();
+}
+
+// A clinical tab counts as "filled" once the clinician has recorded its input, so
+// its pathway highlight can fade. Definitions are deliberately conservative: they
+// never fade a tab that might be untouched (a blank checklist reads as not-filled),
+// which keeps the guidance honest in a clinical workflow.
+const TAB_FILLED = {
+  // Any present risk factor recorded. (Zero checked is ambiguous — reviewed-empty vs
+  // untouched — so it stays highlighted, the safe direction.)
+  risk: () => document.querySelectorAll('#tab-risk .rcb:checked').length > 0,
+  // A determinate CAM-ICU verdict (positive / negative / unable) has been reached.
+  cam: () => !!S.camResult,
+  // At least two ABCDEF cards fully addressed (genuine engagement across domains).
+  bundle: () =>
+    [...document.querySelectorAll('#tab-bundle .card[data-bundle]')].filter((c) => {
+      const ins = c.querySelectorAll('.bun input');
+      return ins.length > 0 && c.querySelectorAll('.bun input:checked').length === ins.length;
+    }).length >= 2,
+  // The full DELIRIUM(S) review sweep is complete (the tab's own 9/9 state).
+  mnemonic: () => {
+    const cells = document.querySelectorAll('#tab-mnemonic .mnemonic-cell');
+    return (
+      cells.length > 0 &&
+      document.querySelectorAll('#tab-mnemonic .mnemonic-cell input[type="checkbox"]:checked')
+        .length === cells.length
+    );
+  },
+  // Any treatment item checked, or a treatment-plan note written.
+  treatment: () =>
+    document.querySelectorAll('#tab-treatment input[type="checkbox"]:checked').length > 0 ||
+    (document.querySelector('#tab-treatment [data-role="plan"]')?.value.trim().length || 0) > 0,
+  // The clinician has curated an individual medication this session (see toggleMed).
+  meds: () => document.querySelector('#med-toggle-grid')?.dataset.curated === 'true',
+};
+
+export function updateTabCompletion() {
+  document.querySelectorAll('.tab-btn[data-tab]').forEach((b) => {
+    const fn = TAB_FILLED[b.dataset.tab];
+    b.classList.toggle('tab-done', !!(fn && fn()));
+  });
 }
 
 // ─── Risk tally ─────────────────────────────────────────────────────────────
@@ -559,6 +600,11 @@ export function toggleMed(id) {
   const item = getMedItem(id);
   if (item) {
     item.on = !item.on;
+    // Toggling an individual drug is a genuine review action — mark the Medications
+    // tab curated so its pathway highlight can fade (bulk enable/disable-all and
+    // restored selections deliberately do not set this).
+    const grid = $('med-toggle-grid');
+    if (grid) grid.dataset.curated = 'true';
     renderMedToggles();
   }
 }
@@ -779,6 +825,10 @@ export function selectedMeds() {
 
 // ─── Recompute every derived readout (after a restore) ──────────────────────
 export function refreshAll() {
+  // A fresh load / reset / import is not this session's med curation — clear the flag
+  // so a restored non-default selection doesn't read as "reviewed".
+  const mg = $('med-toggle-grid');
+  if (mg) delete mg.dataset.curated;
   recalcRisk();
   // Re-apply CAM feature button states from S.cam.
   [1, 2, 3, 4].forEach((f) => {
@@ -858,6 +908,9 @@ export function autofillExample() {
     }),
   );
   renderMedToggles();
+  // The demo represents a fully reviewed patient, so mark the meds tab curated too.
+  const medGrid = $('med-toggle-grid');
+  if (medGrid) medGrid.dataset.curated = 'true';
 
   // Setup / governance — fill the empty fields so the Setup tab and the printed
   // governance block show a complete example (the selects already default sensibly).

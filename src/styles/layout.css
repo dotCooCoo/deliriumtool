@@ -247,6 +247,23 @@
   flex-shrink: 0;
 }
 
+/* Once the user has filled a tab, its highlight fades and the to-do dot becomes a
+   green check, shifting attention to the tabs still needing input. */
+.tab-btn.tab-primary.tab-done {
+  background: transparent;
+}
+
+.tab-btn.tab-primary.tab-done::before {
+  width: 5px;
+  height: 9px;
+  border: solid var(--c-ok);
+  border-width: 0 2px 2px 0;
+  border-radius: 0;
+  background: none;
+  transform: rotate(45deg);
+  margin-bottom: 3px;
+}
+
 /* ── Main / panels ── */
 .main {
   max-width: var(--content-w);
