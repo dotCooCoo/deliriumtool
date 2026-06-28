@@ -230,7 +230,14 @@
   font-weight: 500;
 }
 
-/* Tabs that build the chosen document — a small lead dot marks them. */
+/* Tabs that build the chosen document are softly highlighted so it's obvious which
+   ones to fill out for this pathway; a small lead dot reinforces it. */
+.tab-btn.tab-primary {
+  background: var(--c-primary-weak);
+  border-top-left-radius: var(--radius-sm);
+  border-top-right-radius: var(--radius-sm);
+}
+
 .tab-btn.tab-primary::before {
   content: '';
   width: 6px;
