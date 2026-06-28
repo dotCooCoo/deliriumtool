@@ -88,3 +88,14 @@ test('Risk tab lists modifiable + patient risk factors', async ({ page }) => {
   const boxes = page.locator('#tab-risk input[type="checkbox"][data-risk]');
   expect(await boxes.count()).toBeGreaterThanOrEqual(10);
 });
+
+test('Prevention tab lists the ABCDEF bundle + non-pharmacologic measures', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-pathway="capd"]');
+  await page.click('.tab-btn[data-tab="prevent"]');
+  await expect(page.locator('#tab-prevent')).toBeVisible();
+  await expect(page.locator('#tab-prevent')).toContainText('Choice of analgesia');
+  await expect(page.locator('#tab-prevent')).toContainText('Protect sleep');
+  const boxes = page.locator('#tab-prevent input[type="checkbox"][data-prev]');
+  expect(await boxes.count()).toBeGreaterThanOrEqual(10);
+});

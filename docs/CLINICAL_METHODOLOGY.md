@@ -624,6 +624,16 @@ A review aid listing reported associations — **not a validated predictive scor
 
 **Sign-off status:** the risk-factor list, the evidence-strength tags, and the benzodiazepine effect-size wording are **pending pediatric-clinician sign-off**.
 
+### 7.3 Prevention bundle
+
+The pediatric ABCDEF / PICU Liberation bundle, presented as a shift checklist with honest evidence framing: non-pharmacologic multicomponent prevention is first-line and routine pharmacologic prophylaxis is not recommended; bundle benefit is best established for mortality and care-process measures rather than a proven reduction in delirium incidence, with benzodiazepine minimization the best-supported single lever.
+
+**Elements:** A — pain (FLACC/FACES/self-report); B — spontaneous awakening + breathing trials, protocolized titration, watch iatrogenic withdrawal (WAT-1); C — light goal-directed sedation (SBS −1 to 0), minimize benzodiazepines, prefer dexmedetomidine; D — screen ≥ each shift; E — developmentally appropriate early mobility; F — family engagement. Plus non-pharmacologic sleep/circadian protection, day–night normalization, sensory aids, and minimizing restraints and deliriogenic medications. Melatonin/pharmacologic sleep aids are noted as **not established** for pediatric delirium prevention.
+
+**Citations mapped (pediatric Prevention tab):** SCCM PANDEM 2022 (PMID 35119438); SCCM Pediatric ICU Liberation collaborative — Ista 2023 (PMID 37125798; higher bundle utilization associated with lower mortality, not consistently lower delirium incidence — an observational collaborative, not a randomized bundle trial); RESTORE goal-directed sedation (Curley 2015, JAMA — **negative for its primary mechanical-ventilation-duration outcome**; cited only for the SBS-titration model, not an efficacy claim); PICU Up! early mobility (Choong et al., Trials 2023; **NCT04989790** — corrected from an earlier pilot-era registration); Mody 2018 benzodiazepine causal effect (PMID 29727363).
+
+**Sign-off status:** the bundle elements, the SBS comfort-target wording, the "melatonin not established" statement, and the evidence-framing of bundle benefit are **pending pediatric-clinician sign-off**.
+
 ---
 
 *This document describes the tool as implemented. Where the application's wording and this document differ, the in-application disclaimers and your institution's policy govern clinical use.*
