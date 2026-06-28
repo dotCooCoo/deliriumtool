@@ -43,3 +43,37 @@ test('peds page exposes valid JSON-LD for the peds URL', async ({ page }) => {
   expect(data['@type']).toBe('WebApplication');
   expect(data.url).toBe('https://deliriumtool.com/peds/');
 });
+
+test('CAPD: arousal gate, full scoring, and positive result', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-pathway="capd"]');
+  // Deeply sedated → unable to assess, regardless of items.
+  await page.selectOption('#peds-rass', '-5');
+  await expect(page.locator('#screen-result')).toContainText('Unable to assess');
+  // Arousable → score the eight items.
+  await page.selectOption('#peds-rass', '0');
+  const nevers = page.locator('#capd-items label.pseg-opt', {
+    has: page.locator('input[value="0"]'),
+  });
+  await expect(nevers).toHaveCount(8);
+  for (let i = 0; i < 8; i++) await nevers.nth(i).click();
+  // All "Never": capacity items reverse-score 4 each (16) → ≥ 9 positive.
+  await expect(page.locator('#screen-result')).toContainText('Positive');
+  await expect(page.locator('#screen-result')).toContainText('/32');
+});
+
+test('pCAM-ICU: feature algorithm yields a positive result', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-pathway="pcam"]');
+  await page.selectOption('#peds-rass', '0');
+  await expect(page.locator('#screen-result')).toContainText('In progress');
+  for (const f of ['f1', 'f2', 'f3']) {
+    await page
+      .locator('#cam-features label.pseg-opt', {
+        has: page.locator(`input[name="cam-${f}"][value="yes"]`),
+      })
+      .click();
+  }
+  await expect(page.locator('#screen-result')).toContainText('Positive');
+  await expect(page.locator('#screen-result')).toContainText('pCAM-ICU');
+});

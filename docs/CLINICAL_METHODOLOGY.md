@@ -594,4 +594,24 @@ Record the outcome of this check in the review ledger (§6.2). A failed check is
 
 ---
 
+## 7. Pediatric tool (/peds/)
+
+A sibling bedside reference for the pediatric ICU at `/peds/`, built on the same framework and held to the same rules. Clinical values are sourced and carry a clinician/pharmacy sign-off gate; pharmacologic content is off-label and limited-evidence. This section grows as the pediatric modules land — screening first.
+
+### 7.1 Screening — arousal gate + CAPD / pCAM-ICU / psCAM-ICU
+
+The user picks the validated screen for the child's age and developmental level; arousal is scored first as the gate.
+
+**Arousal gate (all screens).** RASS **−4/−5** (or SBS **−3**) = comatose → **"Unable to assess"**; screen once the child responds to voice (RASS ≥ −3). Same logic as the adult CAM-ICU gate (§2.2), carried into all three pediatric tools.
+
+**CAPD (Cornell Assessment of Pediatric Delirium) — all ages (0–21 yr).** Eight-item observational nursing screen rated over the shift against age-expected behavior; each item 0–4 (total 0–32). Items 1–4 (eye contact, purposeful actions, awareness, communication) are reverse-scored (Never = 4 … Always = 0); items 5–8 (restless, inconsolable, underactive, slow to respond) are scored Never = 0 … Always = 4. **Cut point ≥ 9 = positive** (Traube 2014: sensitivity 94.1%, specificity 79.2%). **Developmental-delay caveat surfaced at the result:** specificity falls (~51% at ≥ 9) in baseline developmental delay — interpret against the child's own baseline and consider a higher cut point. The 0–32 score and positive/negative are withheld until all eight items are rated.
+
+**pCAM-ICU (≥ 5 yr) and psCAM-ICU (6 mo–5 yr).** The CAM-ICU hierarchical algorithm, reused from the adult tool: **positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, with the RASS arousal gate. pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); psCAM-ICU uses age-adapted observational tasks (6 mo–5 yr). The result is withheld until Features 1 and 2 (and a secondary feature) are answered.
+
+**Citations mapped (pediatric Screening tab):** CAPD → Traube 2014 (Crit Care Med 2014;42(3):656–663; PMID 24145848; cut point 9, developmental-delay specificity 51.2%); pCAM-ICU → Smith 2011 (Crit Care Med 2011;39(1):150–157; PMID 20959783; developmental age ≥ 5 yr); psCAM-ICU → Smith 2016 (Crit Care Med 2016;44(3):592–600; PMID 26565631; 6 mo–5 yr); arousal scales → Curley 2006 (State Behavioral Scale; Pediatr Crit Care Med 2006;7(2):107–114) and Sessler 2002 / Kerson 2016 (RASS, adult + pediatric validation); screening practice → SCCM PANDEM 2022 (Pediatr Crit Care Med 2022;23(2):e74–e110).
+
+**Sign-off status:** the CAPD scoring direction and cut point, the developmental-delay caveat, and the age/developmental boundaries that route a child to CAPD vs psCAM-ICU vs pCAM-ICU are **pending pediatric-clinician sign-off** before the pediatric tool is presented as reviewed.
+
+---
+
 *This document describes the tool as implemented. Where the application's wording and this document differ, the in-application disclaimers and your institution's policy govern clinical use.*
