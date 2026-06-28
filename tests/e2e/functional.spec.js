@@ -36,10 +36,11 @@ test('switching the pathway re-tailors the workspace without resetting', async (
 test('Log assessment stamps now and keeps a manually edited assessment time', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   await page.click('[data-tab="cam"]');
-  await page.fill('#cam-time', '2026-06-01T03:15');
+  // A year that can never be "now" — keeps the assertion time-of-day independent.
+  await page.fill('#cam-time', '2020-06-01T03:15');
   await page.click('[data-act="saveCam"]');
-  await expect(page.locator('#cam-time')).toHaveValue('2026-06-01T03:15'); // edit preserved
-  await expect(page.locator('#cam-log')).not.toContainText('03:15'); // log used "now", not the field
+  await expect(page.locator('#cam-time')).toHaveValue('2020-06-01T03:15'); // edit preserved
+  await expect(page.locator('#cam-log')).not.toContainText('2020'); // log used "now", not the field's year
 });
 
 test('changing the RASS target updates the on-screen echoes', async ({ page }) => {
