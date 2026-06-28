@@ -1,0 +1,63 @@
+/*
+ * peds.css — pediatric theme overrides for /peds/.
+ *
+ * Loaded AFTER app.css on the pediatric page, so these :root overrides win. Only
+ * the palette, rounding, and a few warmth touches change — every component class
+ * and layout rule is inherited from the shared stylesheet, so the two tools stay
+ * structurally identical and only feel different. Softer, warmer, rounder: a calm
+ * teal primary, a peach accent, a light mint canvas, and gentler corners suit a
+ * pediatric setting while keeping WCAG AA contrast.
+ */
+
+:root {
+  /* Friendly teal primary (AA on white and on the weak tint). */
+  --c-primary: #0e8f96;
+  --c-primary-strong: #0a737a;
+  --c-primary-weak: #def3f3;
+  --c-primary-contrast: #ffffff;
+
+  /* Warm peach secondary accent for playful highlights. */
+  --c-accent: #f08a5d;
+  --c-accent-weak: #fdeadf;
+
+  /* Soft mint canvas + airy surfaces. */
+  --c-bg: #f3faf9;
+  --c-surface: #ffffff;
+  --c-surface-2: #ecf6f5;
+  --c-border: #d8ebe9;
+  --c-border-strong: #b8dad7;
+
+  /* Status stays clinically conventional (green/amber/red) for safety legibility. */
+  --c-info: var(--c-primary);
+  --c-info-weak: var(--c-primary-weak);
+
+  /* Rounder, softer — a gentler feel than the adult tool. */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(14, 143, 150, 0.06);
+  --shadow: 0 8px 24px rgba(14, 143, 150, 0.1);
+  --shadow-lg: 0 16px 40px rgba(14, 143, 150, 0.14);
+  --ring: 0 0 0 3px rgba(14, 143, 150, 0.26);
+}
+
+/* A warmer header wash for the pediatric tool. */
+.app-header {
+  background: linear-gradient(
+    180deg,
+    var(--c-surface),
+    color-mix(in srgb, var(--c-accent) 8%, var(--c-surface))
+  );
+}
+
+/* The product logo sits in the header; keep it crisp and sized for the bar. */
+.app-logo {
+  height: 40px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Small alignment helper (CSP-safe — no inline style attributes). */
+.tac {
+  text-align: center;
+}

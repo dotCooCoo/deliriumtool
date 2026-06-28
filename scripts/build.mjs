@@ -37,7 +37,7 @@ await mkdir(assets, { recursive: true });
 const esbuild = await import('esbuild');
 
 const js = await esbuild.build({
-  entryPoints: { app: join(src, 'js', 'main.js') },
+  entryPoints: { app: join(src, 'js', 'main.js'), peds: join(src, 'js', 'peds', 'main.js') },
   bundle: true,
   format: 'iife',
   minify: true,
@@ -50,7 +50,7 @@ const js = await esbuild.build({
 });
 
 const css = await esbuild.build({
-  entryPoints: { app: join(src, 'styles', 'app.css') },
+  entryPoints: { app: join(src, 'styles', 'app.css'), peds: join(src, 'styles', 'peds.css') },
   bundle: true,
   minify: true,
   entryNames: '[name]-[hash]',
@@ -59,18 +59,36 @@ const css = await esbuild.build({
   metafile: true,
 });
 
-const pick = (meta, ext) =>
-  basename(Object.keys(meta.outputs).find((f) => f.endsWith(ext) && !f.endsWith('.map')));
-const jsName = pick(js.metafile, '.js');
-const cssName = pick(css.metafile, '.css');
+// Map a named esbuild entry to its content-hashed output basename.
+const outName = (meta, name, ext) =>
+  basename(
+    Object.keys(meta.outputs).find(
+      (f) => basename(f).startsWith(`${name}-`) && f.endsWith(ext) && !f.endsWith('.map'),
+    ),
+  );
+const jsName = outName(js.metafile, 'app', '.js');
+const cssName = outName(css.metafile, 'app', '.css');
+const pedsJsName = outName(js.metafile, 'peds', '.js');
+const pedsCssName = outName(css.metafile, 'peds', '.css');
 
-// Point the entry document at the content-hashed bundles (relative paths so the
-// built dist/ also opens from file://).
-let html = await readFile(join(src, 'index.html'), 'utf8');
-html = html
-  .replaceAll('./assets/app.js', `./assets/${jsName}`)
-  .replaceAll('./assets/app.css', `./assets/${cssName}`);
-await writeFile(join(dist, 'index.html'), html);
+// Rewrite each entry document's asset placeholders to the content-hashed names.
+// Relative paths keep the built dist/ working from file://; the pediatric page
+// lives at /peds/ so it references ../assets/ and layers peds.css over app.css.
+async function emitPage(srcRel, outRel, subs) {
+  let h = await readFile(join(src, srcRel), 'utf8');
+  for (const [from, to] of subs) h = h.replaceAll(from, to);
+  await mkdir(dirname(join(dist, outRel)), { recursive: true });
+  await writeFile(join(dist, outRel), h);
+}
+await emitPage('index.html', 'index.html', [
+  ['./assets/app.js', `./assets/${jsName}`],
+  ['./assets/app.css', `./assets/${cssName}`],
+]);
+await emitPage('peds/index.html', 'peds/index.html', [
+  ['../assets/peds.js', `../assets/${pedsJsName}`],
+  ['../assets/peds.css', `../assets/${pedsCssName}`],
+  ['../assets/app.css', `../assets/${cssName}`],
+]);
 
 if (existsSync(join(src, 'vendor'))) {
   await cp(join(src, 'vendor'), join(assets, 'vendor'), { recursive: true });
@@ -88,6 +106,7 @@ const rootImages = [
   'icon-192.png',
   'icon-512.png',
   'og-image.png',
+  'logo.png',
 ];
 await mkdir(join(dist, 'img'), { recursive: true });
 for (const name of rootImages) {
