@@ -321,6 +321,9 @@ function cbTable(doc, opts, cb) {
     // the measure rather than one fewer than the actual render (which would clip).
     var w = (d.cell.width || (cs && cs.cellWidth) || CW / ncol) - 2;
     var h = measureCellHeight(doc, d.cell, w);
+    // Free-text notes/plan cells get a full pad of extra bottom room so the last
+    // line clears the cell border instead of reading as flush against it.
+    if (/(?:NOTES|PLAN):/.test(cellRaw(d.cell))) h += d.cell.styles.cellPadding;
     if (h > (d.cell.styles.minCellHeight || 0)) d.cell.styles.minCellHeight = h;
   };
   opts.willDrawCell = function (d) {
