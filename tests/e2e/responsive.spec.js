@@ -1,5 +1,6 @@
 // Responsive guarantees: no horizontal overflow at phone/tablet widths, and the
 // medication reference table reflows to stacked, labelled cards on a phone.
+/* global document, window, getComputedStyle */
 import { test, expect } from '@playwright/test';
 
 const TABS = ['risk', 'cam', 'bundle', 'mnemonic', 'treatment', 'meds', 'settings', 'export'];
