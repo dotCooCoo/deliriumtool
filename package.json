@@ -24,8 +24,8 @@
     "test:visual:update": "playwright test --grep @visual --update-snapshots"
   },
   "dependencies": {
-    "jspdf": "2.5.2",
-    "jspdf-autotable": "3.8.2"
+    "jspdf": "4.2.1",
+    "jspdf-autotable": "5.0.8"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",
