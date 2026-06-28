@@ -7,7 +7,7 @@
 // and also works offline from file:// (assets are referenced relatively).
 
 import { existsSync } from 'node:fs';
-import { rm, mkdir, copyFile, cp, readFile, writeFile } from 'node:fs/promises';
+import { rm, mkdir, readdir, copyFile, cp, readFile, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -16,9 +16,23 @@ const src = join(root, 'src');
 const dist = join(root, 'dist');
 const assets = join(dist, 'assets');
 
-await rm(dist, { recursive: true, force: true });
-await mkdir(dist, { recursive: true });
+// Reset the output dir. On a Dropbox/OneDrive-synced checkout the folder handle is
+// occasionally held by the sync client, which makes removing the directory itself
+// fail; fall back to emptying its contents so the build still produces fresh,
+// correctly-hashed output (CI builds on a clean checkout, so this only matters
+// locally). esbuild then overwrites into the reused directory.
+async function resetDir(dir) {
+  try {
+    await rm(dir, { recursive: true, force: true });
+  } catch {
+    for (const entry of await readdir(dir).catch(() => [])) {
+      await rm(join(dir, entry), { recursive: true, force: true }).catch(() => {});
+    }
+  }
+  await mkdir(dir, { recursive: true });
+}
 
+await resetDir(dist);
 await mkdir(assets, { recursive: true });
 const esbuild = await import('esbuild');
 
