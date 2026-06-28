@@ -2,59 +2,59 @@
  * peds.css — pediatric theme overrides for /peds/.
  *
  * Loaded AFTER app.css on the pediatric page, so these :root overrides win. Only
- * the palette, rounding, and a few warmth touches change — every component class
- * and layout rule is inherited from the shared stylesheet, so the two tools stay
- * structurally identical and only feel different. Softer, warmer, rounder: a calm
- * teal primary, a peach accent, a light mint canvas, and gentler corners suit a
- * pediatric setting while keeping WCAG AA contrast.
+ * the palette and rounding change — every component class and layout rule is
+ * inherited from the shared stylesheet, so the two tools stay structurally
+ * identical and only feel different. The pediatric feel is soft and calm: a
+ * muted teal primary, gentle low-saturation accent families, a light mint canvas,
+ * and rounder corners. Every foreground/background pair keeps WCAG AA contrast.
  */
 
 :root {
-  /* Friendly teal primary (AA on white and on the weak tint). */
-  --c-primary: #0e8f96;
-  --c-primary-strong: #0a737a;
-  --c-primary-weak: #def3f3;
+  /* Calm teal primary — AA with white for buttons and active states. */
+  --c-primary: #0d7d84;
+  --c-primary-strong: #0a5f65;
+  --c-primary-weak: #e4f3f3;
   --c-primary-contrast: #ffffff;
 
-  /* Warm peach secondary accent for playful highlights. */
-  --c-accent: #f08a5d;
-  --c-accent-weak: #fdeadf;
+  /* Soft muted-peach accent, used sparingly. */
+  --c-accent: #e0a48c;
+  --c-accent-weak: #faeee8;
 
   /* Soft mint canvas + airy surfaces. */
-  --c-bg: #f3faf9;
+  --c-bg: #f5fbfa;
   --c-surface: #ffffff;
-  --c-surface-2: #ecf6f5;
-  --c-border: #d8ebe9;
-  --c-border-strong: #b8dad7;
+  --c-surface-2: #eff8f6;
+  --c-border: #dcecea;
+  --c-border-strong: #c2dcd9;
 
-  /* Status stays clinically conventional (green/amber/red) for safety legibility. */
+  /* Softer, lower-saturation family accents for the screen cards (kept AA as
+     card-title text). Gentle teal / lavender / orchid instead of the bold
+     adult hues. */
+  --fam-teal: #2d8079;
+  --fam-teal-weak: #e6f4f1;
+  --fam-indigo: #6a5fc0;
+  --fam-indigo-weak: #eeecfa;
+  --fam-purple: #94559f;
+  --fam-purple-weak: #f6ecf8;
+
   --c-info: var(--c-primary);
   --c-info-weak: var(--c-primary-weak);
 
-  /* Rounder, softer — a gentler feel than the adult tool. */
+  /* Rounder, softer than the adult tool. */
   --radius-sm: 10px;
   --radius: 16px;
   --radius-lg: 22px;
-  --shadow-sm: 0 1px 2px rgba(14, 143, 150, 0.06);
-  --shadow: 0 8px 24px rgba(14, 143, 150, 0.1);
-  --shadow-lg: 0 16px 40px rgba(14, 143, 150, 0.14);
-  --ring: 0 0 0 3px rgba(14, 143, 150, 0.26);
+  --shadow-sm: 0 1px 2px rgba(13, 125, 132, 0.05);
+  --shadow: 0 8px 24px rgba(13, 125, 132, 0.08);
+  --shadow-lg: 0 16px 40px rgba(13, 125, 132, 0.12);
+  --ring: 0 0 0 3px rgba(13, 125, 132, 0.24);
 }
 
-/* A warmer header wash for the pediatric tool. */
-.app-header {
-  background: linear-gradient(
-    180deg,
-    var(--c-surface),
-    color-mix(in srgb, var(--c-accent) 8%, var(--c-surface))
-  );
-}
-
-/* The product logo sits in the header; keep it crisp and sized for the bar. */
+/* The product logo (a square mark) sits beside the titles in the header. */
 .app-logo {
   height: 40px;
-  width: auto;
-  flex-shrink: 0;
+  width: 40px;
+  border-radius: 10px;
 }
 
 /* Small alignment helper (CSP-safe — no inline style attributes). */

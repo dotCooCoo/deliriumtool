@@ -18,7 +18,7 @@ test('peds page applies the teal theme and shows the logo', async ({ page }) => 
   const primary = await page.evaluate(() =>
     getComputedStyle(document.documentElement).getPropertyValue('--c-primary').trim(),
   );
-  expect(primary).toBe('#0e8f96');
+  expect(primary).toBe('#0d7d84');
   await expect(page.locator('img.app-logo')).toHaveAttribute('src', /logo\.png$/);
 });
 
