@@ -94,8 +94,9 @@ for (const name of rootImages) {
   const file = join(src, 'img', name);
   if (existsSync(file)) await copyFile(file, join(dist, 'img', name));
 }
-if (existsSync(join(src, 'site.webmanifest'))) {
-  await copyFile(join(src, 'site.webmanifest'), join(dist, 'site.webmanifest'));
+// Root files served verbatim: the PWA manifest and the crawler files.
+for (const name of ['site.webmanifest', 'robots.txt', 'sitemap.xml']) {
+  if (existsSync(join(src, name))) await copyFile(join(src, name), join(dist, name));
 }
 
 console.log(`Built src/ -> dist/  (${jsName}, ${cssName})`);

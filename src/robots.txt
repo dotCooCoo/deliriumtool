@@ -1,0 +1,5 @@
+# deliriumtool.com — a public clinical reference; crawling is welcome.
+User-agent: *
+Allow: /
+
+Sitemap: https://deliriumtool.com/sitemap.xml
