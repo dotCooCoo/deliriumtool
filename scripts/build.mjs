@@ -107,6 +107,14 @@ const rootImages = [
   'icon-512.png',
   'og-image.png',
   'logo.png',
+  // Pediatric-tool branding (derived from logo.png) so /peds/ has its own tab
+  // icon, saved/installed icon, and social card.
+  'peds-favicon-16.png',
+  'peds-favicon-32.png',
+  'peds-apple-touch-icon.png',
+  'peds-icon-192.png',
+  'peds-icon-512.png',
+  'peds-og-image.png',
 ];
 await mkdir(join(dist, 'img'), { recursive: true });
 for (const name of rootImages) {
