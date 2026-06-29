@@ -1,61 +1,24 @@
 /**
- * peds/scoring.js — pure clinical logic for the pediatric screens.
- *
- * No DOM and no shared state, so each threshold is unit-tested directly against
- * the source literature. The CAM-ICU-family algorithm (Feature 1 AND 2 AND (3 OR
- * 4), with the RASS arousal gate) is identical to the adult tool, so pCAM-ICU and
- * psCAM-ICU reuse evalCam from the shared module. CAPD scoring is pediatric-
- * specific. Thresholds are documented in docs/CLINICAL_METHODOLOGY.md; do not
- * change a clinical number without updating that doc and the golden tests.
- *
- * Sources: CAPD — Traube et al., Crit Care Med 2014;42(3):656–663 (cut point 9).
- * pCAM-ICU — Smith et al., Crit Care Med 2011;39(1):150–157 (developmental age
- * ≥ 5 yr). psCAM-ICU — Smith et al., Crit Care Med 2016;44(3):592–600 (6 mo–5 yr).
+ * peds/scoring.js — pure clinical logic for the pediatric screens. No DOM and no
+ * shared state, so every function is unit-tested directly. Thresholds and sources
+ * are documented in docs/CLINICAL_METHODOLOGY.md.
  */
-import { evalCam } from '../scoring.js';
+import { CAPD_ITEMS, CAPD_POSITIVE } from './data/capd.js';
+import { RASS_COMATOSE, SBS_COMATOSE } from './data/arousal.js';
 
-// pCAM-ICU / psCAM-ICU share the CAM-ICU hierarchical algorithm + RASS gate.
-export { evalCam };
+export { capdBand } from './data/capd.js';
 
-// CAPD (Traube 2014): 8 items, each 0–4; total 0–32; ≥ 9 = positive in typically
-// developing children. Items 1–4 (capacity) are reverse-scored (Never = 4 …
-// Always = 0); items 5–8 (behavior) are scored Never = 0 … Always = 4.
-export const CAPD_POSITIVE = 9;
-
-// The validated cut point is higher in children with baseline developmental
-// delay (specificity falls to ~51% at ≥ 9); interpret against the child's own
-// baseline. Surfaced as a caveat, not auto-applied — clinician sign-off pending.
-export const CAPD_DEV_DELAY_NOTE =
-  'In developmental delay, specificity at ≥ 9 falls (~51%); interpret against the child’s baseline and consider a higher cut point.';
-
-export const CAPD_FREQ = ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'];
-
-export const CAPD_ITEMS = [
-  { id: 'eye', text: 'Makes eye contact with the caregiver', reverse: true },
-  { id: 'purpose', text: 'Actions are purposeful', reverse: true },
-  { id: 'aware', text: 'Aware of surroundings', reverse: true },
-  { id: 'comm', text: 'Communicates needs and wants', reverse: true },
-  { id: 'restless', text: 'Restless', reverse: false },
-  { id: 'inconsolable', text: 'Inconsolable', reverse: false },
-  { id: 'underactive', text: 'Underactive — very little movement while awake', reverse: false },
-  { id: 'slow', text: 'Takes a long time to respond to interactions', reverse: false },
-];
-
-/**
- * Points for a chosen frequency index (0 = Never … 4 = Always) given the item's
- * scoring direction. Returns null when unanswered.
- */
+// CAPD — items 1–4 reverse-scored, 5–8 normal; each 0–4; total 0–32; ≥ 9 positive.
 export function capdItemPoints(reverse, freqIndex) {
-  if (freqIndex == null || freqIndex === '' || Number(freqIndex) < 0) return null;
+  if (freqIndex == null || freqIndex === '') return null;
   const f = Number(freqIndex);
   if (!Number.isInteger(f) || f < 0 || f > 4) return null;
   return reverse ? 4 - f : f;
 }
 
 /**
- * Evaluate CAPD from a map of itemId -> frequency index (0–4).
- * The score and positive/negative are withheld until all 8 items are answered —
- * a partial CAPD is not interpretable.
+ * Evaluate CAPD from a map of itemId → frequency index (0–4). Score and result are
+ * withheld until all eight items are answered.
  * @returns {{answered:number, complete:boolean, score:number|null, positive:boolean|null}}
  */
 export function evalCapd(values = {}) {
@@ -77,13 +40,40 @@ export function evalCapd(values = {}) {
 }
 
 /**
- * Arousal gate shared by every pediatric screen: RASS −4/−5 (responds only to
- * physical stimulus / no response) means the child is comatose and delirium is
- * "unable to assess" — do not score a CAM as negative or over-call CAPD from
- * sedation alone. SBS −3 is the equivalent for the State Behavioral Scale.
- * @returns {'unable'|'ok'|null} null = arousal not yet recorded
+ * Arousal gate by scale: a comatose-floor value → 'unable'; otherwise 'ok'; null
+ * until a value is recorded. RASS floor −4/−5, SBS floor −2/−3.
  */
-export function arousalGate(rass) {
-  if (rass == null || rass === '') return null;
-  return rass === '-4' || rass === '-5' ? 'unable' : 'ok';
+export function arousalGate(scale, value) {
+  if (value == null || value === '') return null;
+  const floor = scale === 'sbs' ? SBS_COMATOSE : RASS_COMATOSE;
+  return floor.includes(String(value)) ? 'unable' : 'ok';
+}
+
+/**
+ * CAM family (pCAM-ICU / psCAM-ICU): Feature 1 AND Feature 2 AND (Feature 3 OR
+ * Feature 4). Each feature is 'yes' | 'no' | unset; arousal is gated separately.
+ * @returns {'positive'|'negative'|null} null = incomplete
+ */
+export function evalCam({ f1, f2, f3, f4 } = {}) {
+  const set = (x) => x !== undefined && x !== '';
+  if (!set(f1) || !set(f2)) return null;
+  if (f1 !== 'yes' || f2 !== 'yes') return 'negative';
+  if (f3 === 'yes' || f4 === 'yes') return 'positive';
+  if (set(f3) && set(f4)) return 'negative';
+  return null;
+}
+
+/**
+ * Derived instrument routing from the child profile (ages in months). CAPD is the
+ * recommended default for all ages; psCAM-ICU and pCAM-ICU are offered when the
+ * developmental age fits their validated band.
+ * @returns {{recommended:'capd', alternatives:Array<'pscam'|'pcam'>}}
+ */
+export function recommendScreen({ chronoMonths, devMonths } = {}) {
+  const c = Number(chronoMonths);
+  const d = Number(devMonths);
+  const alternatives = [];
+  if (Number.isFinite(d) && d >= 6 && d <= 60) alternatives.push('pscam');
+  if (Number.isFinite(c) && Number.isFinite(d) && c >= 60 && d >= 60) alternatives.push('pcam');
+  return { recommended: 'capd', alternatives };
 }

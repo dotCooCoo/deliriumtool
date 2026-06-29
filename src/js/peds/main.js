@@ -9,14 +9,8 @@
  * controls and reads them back. Controls are built with safe DOM APIs
  * (createElement + textContent) — no HTML strings are ever parsed.
  */
-import {
-  evalCapd,
-  evalCam,
-  arousalGate,
-  CAPD_ITEMS,
-  CAPD_FREQ,
-  CAPD_DEV_DELAY_NOTE,
-} from './scoring.js';
+import { evalCapd, evalCam, arousalGate } from './scoring.js';
+import { CAPD_ITEMS, CAPD_FREQ, CAPD_DEV_DELAY_NOTE } from './data/capd.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -133,7 +127,7 @@ function setResult(badgeCls, badgeText, ...rest) {
 
 function renderResult() {
   const screen = document.body.dataset.screen;
-  const gate = arousalGate(state.rass);
+  const gate = arousalGate('rass', state.rass);
 
   if (gate == null)
     return setResult('scr-pending', 'Awaiting', 'Select an arousal level to begin.');
@@ -168,7 +162,7 @@ function renderResult() {
   }
 
   const tool = screen === 'pcam' ? 'pCAM-ICU' : 'psCAM-ICU';
-  const res = evalCam({ ...state.cam, rass: state.rass });
+  const res = evalCam({ ...state.cam });
   if (res == null) {
     return setResult(
       'scr-pending',
