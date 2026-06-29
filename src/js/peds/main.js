@@ -70,7 +70,30 @@ const state = {
 };
 
 const fmtRass = (v) => String(v).replace('-', '−');
-const badge = (cls, text) => el('span', { class: `scr-badge ${cls}`, text });
+// Status glyphs so verdicts/zones read by shape, not color alone (WCAG).
+const BADGE_ICONS = {
+  'scr-pos': 'circle-exclamation',
+  'scr-neg': 'circle-check',
+  'scr-pending': 'circle-info',
+  'scr-unable': 'triangle-exclamation',
+};
+const FV_ICONS = {
+  'fv-pos': 'circle-exclamation',
+  'fv-neg': 'circle-check',
+  'fv-pending': 'circle-info',
+};
+const ZONE_ICONS = {
+  agi: 'triangle-exclamation',
+  calm: 'circle-check',
+  sed: 'moon',
+  coma: 'bed-pulse',
+};
+const badge = (cls, text) => {
+  const b = el('span', { class: `scr-badge ${cls}` });
+  if (BADGE_ICONS[cls]) b.append(svgIcon(BADGE_ICONS[cls]));
+  b.append(el('span', { text }));
+  return b;
+};
 const note = (text) => el('span', { class: 'note', text });
 
 const SVGNS = 'http://www.w3.org/2000/svg';
@@ -308,10 +331,12 @@ function renderArousal() {
       if (state.arousal === v) input.checked = true;
       const labelEl = el('span', { class: 'ascale-label' }, el('span', { text: label }));
       if (marker) labelEl.append(el('span', { class: 'ascale-marker', text: marker }));
+      const zone = arousalZone(v, scale.comatose);
       const row = el(
         'label',
-        { class: 'ascale-opt', 'data-zone': arousalZone(v, scale.comatose) },
+        { class: 'ascale-opt', 'data-zone': zone },
         input,
+        svgIcon(ZONE_ICONS[zone]),
         el('span', { class: 'ascale-v', text: fmtRass(v) }),
         labelEl,
       );
@@ -389,7 +414,7 @@ function featVerdict(present, text) {
   return el(
     'p',
     { class: `feat-verdict ${cls}` },
-    el('span', { class: 'fv-badge', text: label }),
+    el('span', { class: 'fv-badge' }, svgIcon(FV_ICONS[cls]), el('span', { text: label })),
     el('span', { text: ' ' + text }),
   );
 }
@@ -621,6 +646,9 @@ const HEAD_ICONS = [
   [/arousal/i, 'gauge-high'],
   [/CAPD|pCAM|psCAM|features/i, 'brain'],
   [/^\s*Result/i, 'circle-check'],
+  [/Step 1/i, 'magnifying-glass'],
+  [/Step 2/i, 'leaf'],
+  [/Step 3/i, 'syringe'],
   [/risk factors/i, 'triangle-exclamation'],
   [/Modifiable/i, 'triangle-exclamation'],
   [/Patient/i, 'circle-info'],

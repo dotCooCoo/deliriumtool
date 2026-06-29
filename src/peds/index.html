@@ -326,7 +326,10 @@
           ></label
         >
 
-        <button class="btn btn-primary mt-2" data-act="deriveScreen">Recommend a screen →</button>
+        <button class="btn btn-primary mt-2" data-act="deriveScreen">
+          Recommend a screen
+          <svg class="fa" aria-hidden="true"><use href="#fa-chevron-right" /></svg>
+        </button>
         <p class="note err-text" id="prof-error" hidden>Enter the child's age to continue.</p>
         <div class="profile-actions">
           <button class="btn btn-ghost btn-sm" data-act="loadExample">Load example data</button>
@@ -926,7 +929,10 @@
               flagged risks, medications given, and your unit governance — generated on this device.
               No data leaves the browser.
             </p>
-            <button class="btn btn-primary" data-act="generateReport">Generate report (PDF)</button>
+            <button class="btn btn-primary" data-act="generateReport">
+              <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Generate report
+              (PDF)
+            </button>
             <p class="note err-text" id="export-empty" hidden>
               Enter a child and record an arousal level first.
             </p>
