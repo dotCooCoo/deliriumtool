@@ -30,6 +30,7 @@
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",
     "@eslint/js": "10.0.1",
+    "@fortawesome/fontawesome-free": "7.3.0",
     "@playwright/test": "1.61.1",
     "esbuild": "0.28.1",
     "eslint": "10.6.0",

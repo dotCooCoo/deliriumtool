@@ -13,6 +13,9 @@ async function start(page, ageMonths = 36) {
 const nevers = (page) =>
   page.locator('#capd-items label.pseg-opt', { has: page.locator('input[value="0"]') });
 
+const setArousal = (page, v) =>
+  page.locator('#peds-arousal .ascale-opt', { has: page.locator(`input[value="${v}"]`) }).click();
+
 test('peds page routes and carries its own SEO', async ({ page }) => {
   await page.goto('/peds/');
   await expect(page).toHaveTitle(/Pediatric/);
@@ -62,9 +65,9 @@ test('CAPD shows age-filtered anchors and scores positive', async ({ page }) => 
   await start(page, 36);
   // inline developmental anchor for this child's band
   await expect(page.locator('#capd-items .anchor-hint').first()).toContainText('Age-expected');
-  await page.selectOption('#peds-rass', '-5');
+  await setArousal(page, '-5');
   await expect(page.locator('#screen-result')).toContainText('Unable to assess');
-  await page.selectOption('#peds-rass', '0');
+  await setArousal(page, '0');
   const opts = nevers(page);
   await expect(opts).toHaveCount(8);
   for (let i = 0; i < 8; i++) await opts.nth(i).click();
@@ -72,18 +75,31 @@ test('CAPD shows age-filtered anchors and scores positive', async ({ page }) => 
   await expect(page.locator('#screen-result')).toContainText('/32');
 });
 
-test('routing offers pCAM-ICU for an older child; it screens positive', async ({ page }) => {
+const camYes = (page, f) =>
+  page
+    .locator('#cam-features label.pseg-opt', {
+      has: page.locator(`input[name="cam-${f}"][value="yes"]`),
+    })
+    .click();
+
+test('pCAM-ICU runs as real feature tasks: error tally drives the result', async ({ page }) => {
   await start(page, 84); // 7 yr → CAPD recommended, pCAM offered
   await page.click('[data-act="switchScreen"][data-screen="pcam"]');
   await expect(page.locator('#pathway-name')).toHaveText('pCAM-ICU');
-  await page.selectOption('#peds-rass', '0');
-  for (const f of ['f1', 'f2', 'f3']) {
-    await page
-      .locator('#cam-features label.pseg-opt', {
-        has: page.locator(`input[name="cam-${f}"][value="yes"]`),
-      })
-      .click();
-  }
+  await setArousal(page, '0');
+
+  const f2 = page.locator('.cam-feat', { hasText: 'Feature 2' });
+  await camYes(page, 'f1'); // acute change — judgment
+  // Feature 2 inattention: 2 errors marked + performed → still ABSENT (threshold 3)
+  for (const i of [0, 1])
+    await page.locator(`.errchip[data-cam-err="f2"][data-idx="${i}"]`).click();
+  await page.locator('input[data-cam-performed="f2"]').check();
+  await expect(f2.locator('.fv-badge')).toHaveText('absent');
+  await camYes(page, 'f3');
+  await expect(page.locator('#screen-result')).toContainText('Negative');
+  // add a 3rd error → Feature 2 present → screen flips positive
+  await page.locator('.errchip[data-cam-err="f2"][data-idx="2"]').click();
+  await expect(f2.locator('.fv-badge')).toHaveText('present');
   await expect(page.locator('#screen-result')).toContainText('Positive');
   await expect(page.locator('#screen-result')).toContainText('pCAM-ICU');
 });

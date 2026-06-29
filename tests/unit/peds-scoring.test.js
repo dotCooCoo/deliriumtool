@@ -9,6 +9,7 @@ import {
   evalCapd,
   arousalGate,
   evalCam,
+  featurePresent,
   recommendScreen,
   capdBand,
 } from '../../src/js/peds/scoring.js';
@@ -74,12 +75,32 @@ test('capdBand maps developmental age (months) to the anchor band', () => {
   assert.equal(capdBand(null), null);
 });
 
-test('CAM algorithm: Feature 1 AND 2 AND (3 OR 4)', () => {
-  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'yes' }), 'positive');
-  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'no', f4: 'yes' }), 'positive');
-  assert.equal(evalCam({ f1: 'yes', f2: 'no' }), 'negative');
-  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'no', f4: 'no' }), 'negative');
-  assert.equal(evalCam({ f1: 'yes' }), null);
+test('CAM algorithm over resolved features: F1 AND F2 AND (F3 OR F4)', () => {
+  assert.equal(evalCam({ f1: true, f2: true, f3: true }), 'positive');
+  assert.equal(evalCam({ f1: true, f2: true, f3: false, f4: true }), 'positive');
+  assert.equal(evalCam({ f1: true, f2: false }), 'negative');
+  assert.equal(evalCam({ f1: true, f2: true, f3: false, f4: false }), 'negative');
+  assert.equal(evalCam({ f1: true }), null);
+});
+
+test('featurePresent resolves judgment / error-tally / compound features', () => {
+  const judg = { type: 'judgment' };
+  assert.equal(featurePresent(judg, 'yes'), true);
+  assert.equal(featurePresent(judg, 'no'), false);
+  assert.equal(featurePresent(judg, undefined), null);
+
+  const err = { type: 'errors', threshold: 3 };
+  assert.equal(featurePresent(err, { performed: true, errors: [0, 1, 2] }), true);
+  assert.equal(featurePresent(err, { performed: true, errors: [0, 1] }), false);
+  assert.equal(featurePresent(err, { performed: false, errors: [0, 1, 2] }), null); // not performed
+  assert.equal(featurePresent(err, null), null);
+
+  const comp = { type: 'compound' };
+  assert.equal(featurePresent(comp, { performed: true, swc: true }), true);
+  assert.equal(featurePresent(comp, { performed: true, unaware: true, inconsolable: true }), true);
+  assert.equal(featurePresent(comp, { performed: true, unaware: true }), false); // needs both
+  assert.equal(featurePresent(comp, { performed: true }), false);
+  assert.equal(featurePresent(comp, { performed: false, swc: true }), null);
 });
 
 test('recommendScreen: CAPD default; psCAM 6–60 mo dev; pCAM needs chrono AND dev ≥ 60 mo', () => {
