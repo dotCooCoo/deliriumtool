@@ -75,7 +75,7 @@ export function riskActions(score) {
 
 // ─── CAM-ICU ────────────────────────────────────────────────────────────────
 // Inattention is positive at > 2 errors on the SAVEAHAART letters task (or the
-// 5-card Pictures ASE, same cut-point). See docs §2.2.
+// 10-item Pictures ASE, > 2/10 — same cut-point). See docs §2.2.
 export function inattentionPositive(errors) {
   return Number(errors) > 2;
 }

@@ -602,7 +602,7 @@ A sibling bedside reference for the pediatric ICU at `/peds/`, built on the same
 
 The user picks the validated screen for the child's age and developmental level; arousal is scored first as the gate.
 
-**Arousal gate (all screens).** RASS **−4/−5** (or SBS **−3**) = comatose → **"Unable to assess"**; screen once the child responds to voice (RASS ≥ −3). Same logic as the adult CAM-ICU gate (§2.2), carried into all three pediatric tools.
+**Arousal gate (all screens).** RASS **−4/−5** (or SBS **−2/−3**) = comatose → **"Unable to assess"**; screen once the child responds to voice (RASS ≥ −3). Same logic as the adult CAM-ICU gate (§2.2), carried into all three pediatric tools.
 
 **CAPD (Cornell Assessment of Pediatric Delirium) — all ages (0–21 yr).** Eight-item observational nursing screen rated over the shift against age-expected behavior; each item 0–4 (total 0–32). Items 1–4 (eye contact, purposeful actions, awareness, communication) are reverse-scored (Never = 4 … Always = 0); items 5–8 (restless, inconsolable, underactive, slow to respond) are scored Never = 0 … Always = 4. **Cut point ≥ 9 = positive** (Traube 2014: sensitivity 94.1%, specificity 79.2%). **Developmental-delay caveat surfaced at the result:** specificity falls (~51% at ≥ 9) in baseline developmental delay — interpret against the child's own baseline and consider a higher cut point. The 0–32 score and positive/negative are withheld until all eight items are rated.
 
