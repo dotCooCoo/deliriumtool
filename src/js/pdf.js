@@ -79,8 +79,8 @@ function S_(s) {
     .replace(/[\u201C\u201D]/g, '"')
     .replace(/\u2082/g, '2')
     .replace(/\u00B2/g, '2') // subscript/superscript 2 (O2)
-    .replace(/\u2026/g, '...')
-    .replace(/\u00B7/g, '\u00B7'); // middle dot is WinAnsi-ok, keep
+    .replace(/\u2026/g, '...');
+  // U+00B7 (middle dot) is WinAnsi-safe and intentionally passes through unchanged.
 }
 
 // Free text for PDF cells: sanitises like S_ and neutralises line-leading checkbox
