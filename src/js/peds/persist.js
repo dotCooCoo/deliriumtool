@@ -10,6 +10,7 @@ const SETTINGS_KEY = 'deliriumtool:peds:settings';
 const SNAPSHOT_KEYS = [
   'profile',
   'assessedAt',
+  'assessor',
   'screen',
   'alternatives',
   'arousal',
@@ -144,6 +145,7 @@ export const EXAMPLE_SETTINGS = {
 
 export const EXAMPLE = {
   v: 1,
+  assessor: 'J. Rivera, RN',
   profile: { ageM: 14, devM: 14, delay: false, baseline: 'typical', weightKg: 11, band: '1yr' },
   screen: 'capd',
   alternatives: ['pscam'],

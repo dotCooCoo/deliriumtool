@@ -938,8 +938,20 @@
                 data-assessed
               />
             </div>
+            <div class="profile-row">
+              <label class="scr-label" for="peds-assessor">Assessed by (name or initials)</label>
+              <input
+                class="finp"
+                id="peds-assessor"
+                type="text"
+                maxlength="80"
+                autocomplete="off"
+                placeholder="e.g. J. Rivera, RN"
+                data-assessor
+              />
+            </div>
             <p class="note">
-              The report prints this as <strong>Assessed</strong>, alongside
+              The report prints these as <strong>Assessed</strong> (time and clinician), alongside
               <strong>Generated</strong>
               (when you create it); the file is named with the generation timestamp.
             </p>

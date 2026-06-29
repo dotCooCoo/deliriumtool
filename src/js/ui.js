@@ -766,6 +766,7 @@ export function gatherAssessment() {
     notes: ($('cam-notes')?.value || '').trim(),
     plan: (document.querySelector('#tab-treatment [data-role="plan"]')?.value || '').trim(),
     time: $('cam-time')?.value || '',
+    assessor: $('cam-assessor')?.value || '',
   };
 }
 
@@ -824,6 +825,8 @@ export function refreshAll() {
 export function autofillExample() {
   const fac = $('facility-input');
   if (fac) fac.value = 'Example Medical Center';
+  const asr = $('cam-assessor');
+  if (asr) asr.value = 'A. Chen, RN';
 
   document.querySelectorAll('.rcb').forEach((cb, i) => {
     cb.checked = i < 7;

@@ -88,7 +88,11 @@ function buildReport(doc, state, settings, scale) {
     .setFontSize(10 * scale)
     .setTextColor(...SEC)
     .text(
-      `${(settings.hospital || 'Pediatric ICU').trim()}  ·  Assessed ${formatStamp(state.assessedAt)}`,
+      ascii(
+        `${(settings.hospital || 'Pediatric ICU').trim()}  ·  Assessed ${formatStamp(state.assessedAt)}${
+          state.assessor ? ` by ${state.assessor.trim()}` : ''
+        }`,
+      ),
       M,
       y,
     );
