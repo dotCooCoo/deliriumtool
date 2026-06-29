@@ -95,20 +95,17 @@ function buildReport(doc, state, settings, scale) {
     .setTextColor(...INK)
     .text('Pediatric Delirium Screening — Summary', M, y);
   y += 18 * scale;
-  doc
+  const assessorName = (state.assessor || '').trim();
+  const subLine = `${(settings.hospital || 'Pediatric ICU').trim()}  ·  Assessed ${formatStamp(
+    state.assessedAt,
+  )}${assessorName ? ` by ${assessorName}` : ''}`;
+  const subWrapped = doc
     .setFont('helvetica', 'normal')
     .setFontSize(10 * scale)
     .setTextColor(...SEC)
-    .text(
-      ascii(
-        `${(settings.hospital || 'Pediatric ICU').trim()}  ·  Assessed ${formatStamp(state.assessedAt)}${
-          state.assessor ? ` by ${state.assessor.trim()}` : ''
-        }`,
-      ),
-      M,
-      y,
-    );
-  y += 10 * scale;
+    .splitTextToSize(ascii(subLine), W - 2 * M);
+  doc.text(subWrapped, M, y);
+  y += 10 * scale + (subWrapped.length - 1) * 11 * scale;
   doc
     .setDrawColor(...TEAL)
     .setLineWidth(2 * scale)
