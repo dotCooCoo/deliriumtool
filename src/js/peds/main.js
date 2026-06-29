@@ -826,7 +826,12 @@ document.addEventListener('click', (e) => {
       autosave(state);
       return;
     }
-    if (a === 'clearAll') return clearAll();
+    if (a === 'clearAll') {
+      if (state.profile.ageM != null && !confirm('Clear this assessment and start a new child?')) {
+        return;
+      }
+      return clearAll();
+    }
     if (a === 'exportJSON') return exportJSON(state);
     if (a === 'importJSON') {
       importJSON().then((data) => {

@@ -248,11 +248,21 @@ test('Autosave restores the assessment after a reload', async ({ page }) => {
 });
 
 test('New child clears the saved assessment', async ({ page }) => {
+  page.on('dialog', (d) => d.accept());
   await start(page, 36);
   await page.click('[data-act="reset"]'); // Edit child → profile gate (populated)
   await expect(page.locator('#prof-age')).toHaveValue('36');
-  await page.click('[data-act="clearAll"]');
+  await page.click('.profile-actions [data-act="clearAll"]');
   await expect(page.locator('#prof-age')).toHaveValue('');
+});
+
+test('the workspace has a New child reset that returns to the picker', async ({ page }) => {
+  page.on('dialog', (d) => d.accept());
+  await start(page, 36);
+  await expect(page.locator('#workspace')).toBeVisible();
+  await page.click('.pathway-bar [data-act="clearAll"]'); // reset from mid-assessment
+  await expect(page.locator('#pathway-picker')).toBeVisible();
+  await expect(page.locator('#workspace')).toBeHidden();
 });
 
 test('Documents tab lists medications given and generates a PDF', async ({ page }) => {
