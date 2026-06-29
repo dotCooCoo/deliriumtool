@@ -76,11 +76,12 @@ function deriveScreen() {
   }
   if (errEl) errEl.hidden = true;
 
-  const delay = $('input[data-prof="delay"]').checked;
+  const baseline = $('#prof-baseline').value;
+  const delay = baseline === 'impaired';
   const devM = delay ? (toMonths($('#prof-dev').value, $('#prof-dev-unit').value) ?? ageM) : ageM;
   const weightKg = toMonths($('#prof-weight').value, 'm'); // kg, reuse positive-number parse
 
-  state.profile = { ageM, devM, delay, weightKg, band: capdBand(devM) };
+  state.profile = { ageM, devM, delay, baseline, weightKg, band: capdBand(devM) };
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
   state.alternatives = alternatives;
@@ -377,6 +378,15 @@ function devDelayNote() {
   return state.profile.delay ? [' ', note(CAPD_DEV_DELAY_NOTE)] : [];
 }
 
+// Anchor the result to this child's stated baseline, not a generic norm.
+function baselineQualifier() {
+  const b = state.profile.baseline;
+  if (b === 'impaired') return ' — relative to this child’s own baseline';
+  if (b === 'unknown')
+    return ' — confirm against the child’s usual state (baseline not established)';
+  return '';
+}
+
 function renderResult() {
   const screen = state.screen;
   const scaleLabel = AROUSAL_SCALES[state.arousalScale].label;
@@ -403,10 +413,15 @@ function renderResult() {
       ? setResult(
           'scr-pos',
           'Positive',
-          `CAPD ${r.score}/32 (≥ 9) — delirium screen positive.`,
+          `CAPD ${r.score}/32 (≥ 9) — delirium screen positive${baselineQualifier()}.`,
           ...devDelayNote(),
         )
-      : setResult('scr-neg', 'Negative', `CAPD ${r.score}/32 (< 9).`, ...devDelayNote());
+      : setResult(
+          'scr-neg',
+          'Negative',
+          `CAPD ${r.score}/32 (< 9)${baselineQualifier()}.`,
+          ...devDelayNote(),
+        );
   }
 
   const tool = SCREEN_NAMES[screen];
@@ -425,9 +440,9 @@ function renderResult() {
     ? setResult(
         'scr-pos',
         'Positive',
-        `${tool} positive — delirium present (Feature 1 + 2 + [3 or 4]).`,
+        `${tool} positive — delirium present (Feature 1 + 2 + [3 or 4])${baselineQualifier()}.`,
       )
-    : setResult('scr-neg', 'Negative', `${tool} negative.`);
+    : setResult('scr-neg', 'Negative', `${tool} negative${baselineQualifier()}.`);
 }
 
 function showTab(tab) {
@@ -459,9 +474,9 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('change', (e) => {
   const t = e.target;
-  if (t.dataset.prof === 'delay') {
+  if (t.dataset.prof === 'baseline') {
     const row = $('#prof-dev-row');
-    if (row) row.hidden = !t.checked;
+    if (row) row.hidden = t.value !== 'impaired';
     return;
   }
   if (t.dataset.screenInput === 'arousal') {

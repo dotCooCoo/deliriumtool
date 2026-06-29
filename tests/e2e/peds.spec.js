@@ -75,6 +75,19 @@ test('CAPD shows age-filtered anchors and scores positive', async ({ page }) => 
   await expect(page.locator('#screen-result')).toContainText('/32');
 });
 
+test('baseline mental status anchors the result to this child', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.fill('#prof-age', '36');
+  await page.selectOption('#prof-baseline', 'impaired');
+  await expect(page.locator('#prof-dev-row')).toBeVisible();
+  await page.fill('#prof-dev', '12');
+  await page.click('[data-act="deriveScreen"]');
+  await setArousal(page, '0');
+  const opts = nevers(page);
+  for (let i = 0; i < 8; i++) await opts.nth(i).click();
+  await expect(page.locator('#screen-result')).toContainText('relative to this child');
+});
+
 test('arousal scale switches to SBS and applies its own coma floor', async ({ page }) => {
   await start(page, 8); // infant — SBS is the relevant scale
   await page.click('[data-act="arousalScale"][data-scale="sbs"]');

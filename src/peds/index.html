@@ -277,11 +277,12 @@
           </div>
         </div>
 
-        <label class="chk"
-          ><input type="checkbox" data-prof="delay" /><span
-            >Developmental age differs from chronological (developmental delay)</span
-          ></label
-        >
+        <label class="scr-label" for="prof-baseline">Baseline mental status</label>
+        <select class="fsel" id="prof-baseline" data-prof="baseline">
+          <option value="typical">Age-typical / interactive at baseline</option>
+          <option value="impaired">Developmental delay or baseline cognitive impairment</option>
+          <option value="unknown">Unknown / not established</option>
+        </select>
         <div class="profile-row" id="prof-dev-row" hidden>
           <label class="scr-label" for="prof-dev">Developmental age</label>
           <div class="profile-age">
