@@ -610,3 +610,11 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   border-radius: var(--radius);
   background: var(--c-surface);
 }
+
+/* Card-head icons (decorative, consistent across tabs) */
+.card-head .fa {
+  margin-right: 7px;
+  vertical-align: -0.08em;
+  color: var(--c-primary);
+  opacity: 0.85;
+}

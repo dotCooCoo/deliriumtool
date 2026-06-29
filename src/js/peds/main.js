@@ -107,6 +107,7 @@ function deriveScreen() {
   renderCam();
   renderRisk();
   renderResult();
+  decorateHeads();
   window.scrollTo({ top: 0 });
 }
 
@@ -441,6 +442,30 @@ function renderRisk() {
   box.replaceChildren(...kids);
 }
 
+// Give every card head a matching icon (decorative) for a consistent visual system.
+const HEAD_ICONS = [
+  [/arousal/i, 'gauge-high'],
+  [/CAPD|pCAM|psCAM|features/i, 'brain'],
+  [/^\s*Result/i, 'circle-check'],
+  [/risk factors/i, 'triangle-exclamation'],
+  [/Modifiable/i, 'triangle-exclamation'],
+  [/Patient/i, 'circle-info'],
+  [/Prevention|bundle/i, 'leaf'],
+  [/Non-pharmacolog/i, 'moon'],
+  [/Treatment/i, 'syringe'],
+  [/monitoring/i, 'gauge-high'],
+  [/Sedation/i, 'pills'],
+  [/Deliriogenic/i, 'triangle-exclamation'],
+  [/Documents/i, 'file-pdf'],
+];
+function decorateHeads() {
+  for (const head of $$('.card-head')) {
+    if (head.querySelector('.fa')) continue;
+    const match = HEAD_ICONS.find(([re]) => re.test(head.textContent));
+    if (match) head.prepend(svgIcon(match[1]));
+  }
+}
+
 // ── Result ────────────────────────────────────────────────────────────────────
 function setResult(badgeCls, badgeText, ...rest) {
   const out = $('#screen-result');
@@ -604,3 +629,4 @@ document.addEventListener('change', (e) => {
 });
 
 renderArousal();
+decorateHeads();
