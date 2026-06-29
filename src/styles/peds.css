@@ -492,3 +492,31 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   font-weight: 400;
   color: var(--c-text-2);
 }
+
+/* ── Result → action (shown on a positive screen) ───────────────────── */
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--c-border);
+}
+.wat1-prompt,
+.act-next {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 0;
+  font-size: var(--fs-sm);
+}
+.wat1-prompt {
+  color: #9a3f1f;
+}
+.act-next {
+  color: var(--c-primary-strong);
+}
+.result-actions .fa {
+  flex: none;
+  margin-top: 2px;
+}

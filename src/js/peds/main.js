@@ -52,6 +52,17 @@ const fmtRass = (v) => String(v).replace('-', '−');
 const badge = (cls, text) => el('span', { class: `scr-badge ${cls}`, text });
 const note = (text) => el('span', { class: 'note', text });
 
+const SVGNS = 'http://www.w3.org/2000/svg';
+function svgIcon(id) {
+  const svg = document.createElementNS(SVGNS, 'svg');
+  svg.setAttribute('class', 'fa');
+  svg.setAttribute('aria-hidden', 'true');
+  const use = document.createElementNS(SVGNS, 'use');
+  use.setAttribute('href', `#fa-${id}`);
+  svg.append(use);
+  return svg;
+}
+
 function toMonths(value, unit) {
   if (value == null || value === '') return null;
   const n = Number(value);
@@ -387,6 +398,32 @@ function baselineQualifier() {
   return '';
 }
 
+// A positive screen routes forward: rule out withdrawal, then act on precipitants.
+function positiveActions() {
+  return [
+    el(
+      'div',
+      { class: 'result-actions' },
+      el(
+        'p',
+        { class: 'wat1-prompt' },
+        svgIcon('triangle-exclamation'),
+        el('span', {
+          text: ' Withdrawal can mimic delirium — if the child is on or weaning prolonged opioids or benzodiazepines, assess for iatrogenic withdrawal (e.g. WAT-1).',
+        }),
+      ),
+      el(
+        'p',
+        { class: 'act-next' },
+        svgIcon('hand-holding-heart'),
+        el('span', {
+          text: ' Next — review and minimize modifiable precipitants in Risk Factors and Prevention.',
+        }),
+      ),
+    ),
+  ];
+}
+
 function renderResult() {
   const screen = state.screen;
   const scaleLabel = AROUSAL_SCALES[state.arousalScale].label;
@@ -415,6 +452,7 @@ function renderResult() {
           'Positive',
           `CAPD ${r.score}/32 (≥ 9) — delirium screen positive${baselineQualifier()}.`,
           ...devDelayNote(),
+          ...positiveActions(),
         )
       : setResult(
           'scr-neg',
@@ -441,6 +479,7 @@ function renderResult() {
         'scr-pos',
         'Positive',
         `${tool} positive — delirium present (Feature 1 + 2 + [3 or 4])${baselineQualifier()}.`,
+        ...positiveActions(),
       )
     : setResult('scr-neg', 'Negative', `${tool} negative${baselineQualifier()}.`);
 }
