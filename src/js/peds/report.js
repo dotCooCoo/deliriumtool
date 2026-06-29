@@ -156,6 +156,8 @@ function buildReport(doc, state, settings, scale) {
         : 'Age-typical',
   );
   if (p.weightKg) row('Weight', `${p.weightKg} kg`);
+  const aids = [p.glasses && 'glasses', p.hearing && 'hearing aids'].filter(Boolean);
+  if (aids.length) row('Sensory aids', `${aids.join(', ')} (keep in place)`);
   y += 6 * scale;
 
   sectionTitle('Screen', INDIGO);
@@ -199,6 +201,8 @@ function buildReport(doc, state, settings, scale) {
   if (settings.attending) row('Attending intensivist', settings.attending);
   if (settings.nurse) row('Nurse leader', settings.nurse);
   if (settings.pharmacist) row('Pharmacist (dosing)', settings.pharmacist);
+  if (settings.reviewed) row('Last reviewed', settings.reviewed);
+  if (settings.nextrev) row('Next review due', settings.nextrev);
   y += 10 * scale;
 
   // References for what this report shows, so a printed sheet stays citable.
