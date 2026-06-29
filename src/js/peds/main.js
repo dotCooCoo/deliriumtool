@@ -179,6 +179,7 @@ function applyState(snap) {
   document.body.dataset.screen = state.screen;
   $('#pathway-picker').hidden = true;
   $('#workspace').hidden = false;
+  $('#skip-link')?.setAttribute('href', '#workspace');
   renderHeader();
   renderArousal();
   renderCapd();
@@ -222,6 +223,7 @@ function clearAll() {
   delete document.body.dataset.screen;
   $('#workspace').hidden = true;
   $('#pathway-picker').hidden = false;
+  $('#skip-link')?.setAttribute('href', '#pathway-picker');
 }
 
 // ── Profile gate ──────────────────────────────────────────────────────────────
@@ -244,17 +246,22 @@ function deriveScreen() {
   const glasses = !!$('[data-prof="glasses"]')?.checked;
   const hearing = !!$('[data-prof="hearing"]')?.checked;
   state.profile = { ageM, devM, delay, baseline, weightKg, band: capdBand(devM), glasses, hearing };
+  const wasFresh = !state.screen; // a first derive vs re-deriving via "Edit child"
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
   // Keep every applicable screen (incl. the recommended) so the header can always
   // offer the others — switching to an alternative must still let you switch back.
   state.alternatives = [recommended, ...alternatives];
-  state.arousalScale = readSettings().scale === 'sbs' ? 'sbs' : 'rass';
-  state.arousal = '';
+  // Only reset the arousal on a fresh start; an "Edit child" re-derive keeps it.
+  if (wasFresh) {
+    state.arousalScale = readSettings().scale === 'sbs' ? 'sbs' : 'rass';
+    state.arousal = '';
+  }
 
   document.body.dataset.screen = recommended;
   $('#pathway-picker').hidden = true;
   $('#workspace').hidden = false;
+  $('#skip-link')?.setAttribute('href', '#workspace');
   renderHeader();
   renderArousal();
   renderCapd();
@@ -285,6 +292,7 @@ function resetToProfile() {
   fillProfileForm();
   $('#workspace').hidden = true;
   $('#pathway-picker').hidden = false;
+  $('#skip-link')?.setAttribute('href', '#pathway-picker');
 }
 
 // ── Header (persistent child context) ─────────────────────────────────────────
