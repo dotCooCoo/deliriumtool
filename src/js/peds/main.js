@@ -139,14 +139,17 @@ function fillProfileForm() {
     const e = $(sel);
     if (e) e.value = v;
   };
-  set('#prof-age', p.ageM != null ? p.ageM : '');
-  set('#prof-age-unit', 'm');
+  // Restore the same unit the value was entered in (months vs years).
+  const ageUnit = p.ageUnit === 'y' ? 'y' : 'm';
+  const devUnit = p.devUnit === 'y' ? 'y' : 'm';
+  set('#prof-age', p.ageM != null ? (ageUnit === 'y' ? p.ageM / 12 : p.ageM) : '');
+  set('#prof-age-unit', ageUnit);
   set('#prof-baseline', p.baseline || 'typical');
   set('#prof-weight', p.weightKg != null ? p.weightKg : '');
   const dr = $('#prof-dev-row');
   if (dr) dr.hidden = p.baseline !== 'impaired';
-  set('#prof-dev', p.delay && p.devM != null ? p.devM : '');
-  set('#prof-dev-unit', 'm');
+  set('#prof-dev', p.delay && p.devM != null ? (devUnit === 'y' ? p.devM / 12 : p.devM) : '');
+  set('#prof-dev-unit', devUnit);
   const g = $('[data-prof="glasses"]');
   if (g) g.checked = !!p.glasses;
   const h = $('[data-prof="hearing"]');
@@ -253,7 +256,22 @@ function deriveScreen() {
 
   const glasses = !!$('[data-prof="glasses"]')?.checked;
   const hearing = !!$('[data-prof="hearing"]')?.checked;
-  state.profile = { ageM, devM, delay, baseline, weightKg, band: capdBand(devM), glasses, hearing };
+  // Remember whether age / developmental age were entered in months or years so the
+  // form round-trips the same way it was filled in.
+  const ageUnit = $('#prof-age-unit').value === 'y' ? 'y' : 'm';
+  const devUnit = $('#prof-dev-unit').value === 'y' ? 'y' : 'm';
+  state.profile = {
+    ageM,
+    devM,
+    delay,
+    baseline,
+    weightKg,
+    band: capdBand(devM),
+    glasses,
+    hearing,
+    ageUnit,
+    devUnit,
+  };
   const wasFresh = !state.screen; // a first derive vs re-deriving via "Edit child"
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
@@ -264,6 +282,8 @@ function deriveScreen() {
   if (wasFresh) {
     state.arousalScale = readSettings().scale === 'sbs' ? 'sbs' : 'rass';
     state.arousal = '';
+    // A child who uses glasses or hearing aids → default the sensory-aids item on.
+    if (glasses || hearing) state.prevention.sensory = true;
   }
 
   document.body.dataset.screen = recommended;
@@ -276,6 +296,7 @@ function deriveScreen() {
   renderCam();
   renderRisk();
   renderMedsGiven();
+  reflectPrevention();
   syncAssessed();
   renderResult();
   decorateHeads();

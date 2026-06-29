@@ -431,3 +431,22 @@ test('the peds checklist tabs show completion-count badges', async ({ page }) =>
   await expect(page.locator('.tab-btn[data-tab="prevent"] .tab-badge')).toBeVisible();
   await expect(page.locator('.tab-btn[data-tab="export"] .tab-badge')).toHaveText('2');
 });
+
+test('age entered in years round-trips as years after reload', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.fill('#prof-age', '3');
+  await page.selectOption('#prof-age-unit', 'y'); // 3 years
+  await page.click('[data-act="deriveScreen"]');
+  await page.reload();
+  await expect(page.locator('#prof-age')).toHaveValue('3');
+  await expect(page.locator('#prof-age-unit')).toHaveValue('y');
+});
+
+test('glasses or hearing aids default the sensory-aids prevention item on', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.fill('#prof-age', '36');
+  await page.check('[data-prof="glasses"]');
+  await page.click('[data-act="deriveScreen"]');
+  await page.click('.tab-btn[data-tab="prevent"]');
+  await expect(page.locator('[data-prev="sensory"]')).toBeChecked();
+});
