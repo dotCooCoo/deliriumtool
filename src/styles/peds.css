@@ -626,3 +626,9 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   gap: var(--sp-2);
   margin-top: var(--sp-3);
 }
+
+/* Medications-given checklist (Documents tab) */
+.med-dose {
+  color: var(--c-text-2);
+  font-size: var(--fs-sm);
+}

@@ -16,6 +16,7 @@ const SNAPSHOT_KEYS = [
   'capd',
   'cam',
   'risk',
+  'medsGiven',
 ];
 
 export function snapshot(state) {
@@ -158,4 +159,5 @@ export const EXAMPLE = {
   },
   cam: {},
   risk: {},
+  medsGiven: { dexmed: true, melatonin: true },
 };
