@@ -23,7 +23,7 @@ import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { REFS } from './data/refs.js';
 import { generateReport } from './report.js';
-import { faIcon } from '../shared/dom.js';
+import { faIcon, wireTablist } from '../shared/dom.js';
 import { localInput } from '../shared/time.js';
 import { initA11y } from '../shared/a11y.js';
 import {
@@ -195,6 +195,7 @@ function applyState(snap) {
   syncAssessed();
   renderResult();
   decorateHeads();
+  updateTabBadges();
   showTab(state.activeTab);
 }
 
@@ -278,6 +279,7 @@ function deriveScreen() {
   syncAssessed();
   renderResult();
   decorateHeads();
+  updateTabBadges();
   autosave(state);
   window.scrollTo({ top: 0 });
 }
@@ -826,10 +828,41 @@ function renderResult() {
 }
 
 function showTab(tab) {
-  $$('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
+  $$('.tab-btn').forEach((b) => {
+    const on = b.dataset.tab === tab;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-selected', String(on));
+    b.tabIndex = on ? 0 : -1;
+  });
   $$('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === `tab-${tab}`));
   state.activeTab = tab;
   if (state.profile.ageM != null) autosave(state); // remember where the user is
+}
+
+// Completion-count badges on the checklist tabs (Risk, Prevention, meds given).
+function updateTabBadges() {
+  const setBadge = (tab, n) => {
+    const btn = $(`.tab-btn[data-tab="${tab}"]`);
+    if (!btn) return;
+    let b = btn.querySelector('.tab-badge');
+    if (!n) {
+      if (b) b.remove();
+      return;
+    }
+    if (!b) {
+      b = el('span', { class: 'tab-badge' });
+      btn.append(b);
+    }
+    b.textContent = String(n);
+    b.setAttribute('aria-label', `${n} selected`);
+  };
+  const derived = new Set(derivedRiskIds(state.profile));
+  const flagged = RISK_FACTORS.filter((f) =>
+    state.risk[f.id] != null ? state.risk[f.id] : derived.has(f.id),
+  ).length;
+  setBadge('risk', flagged);
+  setBadge('prevent', Object.values(state.prevention).filter(Boolean).length);
+  setBadge('export', Object.values(state.medsGiven).filter(Boolean).length);
 }
 
 // ── Dispatch ──────────────────────────────────────────────────────────────────
@@ -923,11 +956,13 @@ document.addEventListener('change', (e) => {
   }
   if (t.dataset.risk) {
     state.risk[t.dataset.risk] = t.checked;
+    updateTabBadges();
     autosave(state);
     return;
   }
   if (t.dataset.med) {
     state.medsGiven[t.dataset.med] = t.checked;
+    updateTabBadges();
     autosave(state);
     return;
   }
@@ -943,6 +978,7 @@ document.addEventListener('change', (e) => {
   }
   if (t.dataset.prev) {
     state.prevention[t.dataset.prev] = t.checked;
+    updateTabBadges();
     autosave(state);
     return;
   }
@@ -979,3 +1015,5 @@ if (saved && saved.profile && saved.profile.ageM != null) {
 }
 renderRefs();
 initA11y(); // user-configurable text size / contrast / motion controls
+wireTablist(showTab); // ARIA tablist + Arrow/Home/End keyboard navigation
+updateTabBadges();
