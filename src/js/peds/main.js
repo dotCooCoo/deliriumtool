@@ -145,6 +145,10 @@ function fillProfileForm() {
   if (dr) dr.hidden = p.baseline !== 'impaired';
   set('#prof-dev', p.delay && p.devM != null ? p.devM : '');
   set('#prof-dev-unit', 'm');
+  const g = $('[data-prof="glasses"]');
+  if (g) g.checked = !!p.glasses;
+  const h = $('[data-prof="hearing"]');
+  if (h) h.checked = !!p.hearing;
 }
 
 function syncAssessed() {
@@ -230,7 +234,9 @@ function deriveScreen() {
   const devM = delay ? (toMonths($('#prof-dev').value, $('#prof-dev-unit').value) ?? ageM) : ageM;
   const weightKg = toMonths($('#prof-weight').value, 'm'); // kg, reuse positive-number parse
 
-  state.profile = { ageM, devM, delay, baseline, weightKg, band: capdBand(devM) };
+  const glasses = !!$('[data-prof="glasses"]')?.checked;
+  const hearing = !!$('[data-prof="hearing"]')?.checked;
+  state.profile = { ageM, devM, delay, baseline, weightKg, band: capdBand(devM), glasses, hearing };
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
   state.alternatives = alternatives;

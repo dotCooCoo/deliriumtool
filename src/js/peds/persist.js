@@ -141,6 +141,8 @@ export const EXAMPLE_SETTINGS = {
   protocol: 'v1.0 — example',
   scale: 'rass',
   freq: 'Once per shift',
+  reviewed: '2026-01-15',
+  nextrev: '2026-07-15',
 };
 
 export const EXAMPLE = {
