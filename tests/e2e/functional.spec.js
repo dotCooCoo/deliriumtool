@@ -264,7 +264,7 @@ test('autosave flushes on page hide so the last edit survives', async ({ page })
   await page.goto('/');
   await page.click('[data-pathway="full"]');
   await page.fill('#facility-input', 'Flush Test Hospital');
-  await page.evaluate(() => window.dispatchEvent(new Event('pagehide'))); // before the 400ms debounce
+  await page.evaluate("dispatchEvent(new Event('pagehide'))"); // before the 400ms debounce
   const saved = await page.evaluate(() => localStorage.getItem('deliriumtool:assessment'));
   expect(saved).toContain('Flush Test Hospital');
 });
