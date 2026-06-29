@@ -126,10 +126,21 @@ function buildReport(doc, state, settings, scale) {
     doc.setTextColor(...INK).text(ascii(String(value)), M + 160 * scale, y);
     y += 15 * scale;
   };
-  const bullet = (text) => {
-    ensure(15 * scale);
-    doc.setTextColor(...INK).text(ascii(`•  ${text}`), M, y);
-    y += 14 * scale;
+  // Two-column bullet list (column-major) — uses the otherwise-wasted right half
+  // so tall lists take roughly half the vertical space.
+  const bullets2 = (items) => {
+    if (!items.length) return;
+    const colW = (W - 2 * M) / 2;
+    const rows = Math.ceil(items.length / 2);
+    ensure(rows * 14 * scale);
+    const top = y;
+    doc.setFontSize(10 * scale).setTextColor(...INK);
+    items.forEach((t, i) => {
+      const col = Math.floor(i / rows);
+      const r = i % rows;
+      doc.text(ascii(`•  ${t}`), M + col * colW, top + r * 14 * scale);
+    });
+    y = top + rows * 14 * scale;
   };
 
   const p = state.profile;
@@ -145,27 +156,27 @@ function buildReport(doc, state, settings, scale) {
         : 'Age-typical',
   );
   if (p.weightKg) row('Weight', `${p.weightKg} kg`);
-  y += 8 * scale;
+  y += 6 * scale;
 
   sectionTitle('Screen', INDIGO);
   row('Instrument', SCREEN_NAMES[state.screen] || '-');
   row('Arousal', state.arousal ? `${state.arousalScale.toUpperCase()} ${state.arousal}` : '-');
   row('Result', resultLine(state));
-  y += 8 * scale;
+  y += 6 * scale;
 
   const derived = new Set(derivedRiskIds(state.profile));
   const flagged = RISK_FACTORS.filter((f) => derived.has(f.id) || (state.risk && state.risk[f.id]));
   if (flagged.length) {
     sectionTitle('Risk factors flagged', AMBER);
-    flagged.forEach((f) => bullet(f.label));
-    y += 8 * scale;
+    bullets2(flagged.map((f) => f.label));
+    y += 6 * scale;
   }
 
   const prev = PREVENTION_ORDER.filter((id) => state.prevention && state.prevention[id]);
   if (prev.length) {
     sectionTitle('Prevention bundle addressed this shift', GREEN);
-    prev.forEach((id) => bullet(PREVENTION_LABELS[id]));
-    y += 8 * scale;
+    bullets2(prev.map((id) => PREVENTION_LABELS[id]));
+    y += 6 * scale;
   }
 
   const given = MEDS.filter((m) => state.medsGiven && state.medsGiven[m.id]);
@@ -201,15 +212,15 @@ function buildReport(doc, state, settings, scale) {
     sectionTitle('References', NAVY);
     doc
       .setFont('helvetica', 'normal')
-      .setFontSize(8 * scale)
+      .setFontSize(7.5 * scale)
       .setTextColor(...SEC);
     uniq.forEach((id, i) => {
       const lines = doc.splitTextToSize(`${i + 1}. ${ascii(REFS[id].c)}  ${REFS[id].u}`, W - 2 * M);
-      ensure(lines.length * 10 * scale + 4);
-      doc.text(lines, M, y);
-      y += lines.length * 10 * scale + 5 * scale;
+      ensure(lines.length * 8.7 * scale + 3);
+      doc.text(lines, M, y, { lineHeightFactor: 1.1 });
+      y += lines.length * 8.7 * scale + 3 * scale;
     });
-    y += 8 * scale;
+    y += 6 * scale;
   }
 
   ensure(48 * scale);
@@ -230,7 +241,9 @@ function buildReport(doc, state, settings, scale) {
 
 export function generateReport(state, settings) {
   const mkDoc = () => new jsPDF({ unit: 'pt', format: 'letter', compress: true });
-  const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, state, settings, scale));
+  const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, state, settings, scale), {
+    scales: [1, 0.95, 0.9, 0.85, 0.82, 0.8, 0.78, 0.76],
+  });
   stampFooter(doc, { generated: formatStamp() });
   doc.save(`pediatric-delirium-summary_${fileStamp()}.pdf`);
 }
