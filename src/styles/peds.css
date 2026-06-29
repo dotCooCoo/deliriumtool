@@ -682,3 +682,28 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 .cite a:hover {
   text-decoration: underline;
 }
+
+/* ── Status icons in verdicts, feature badges, and arousal zones ──────── */
+.scr-badge,
+.fv-badge {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+.ascale-opt > .fa {
+  flex: none;
+  margin-right: 2px;
+  opacity: 0.75;
+}
+.ascale-opt[data-zone='agi'] > .fa {
+  color: #b05130;
+}
+.ascale-opt[data-zone='calm'] > .fa {
+  color: #2d7e61;
+}
+.ascale-opt[data-zone='sed'] > .fa {
+  color: #3f5d93;
+}
+.ascale-opt[data-zone='coma'] > .fa {
+  color: #5f6877;
+}
