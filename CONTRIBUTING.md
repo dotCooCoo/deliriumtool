@@ -20,7 +20,15 @@ npm install
 npm run dev       # Wrangler dev server
 npm run build     # produce dist/
 npm test          # data-accuracy unit tests + Playwright (functional, a11y, visual)
+npm run icons     # regenerate the icon sprites from Font Awesome
 ```
+
+### Icons
+
+Icons are an inline SVG sprite in each page (no runtime request, CSP-safe). The sprites
+are **generated**, not hand-edited, from the vendored `@fortawesome/fontawesome-free`
+package: add or remove a Font Awesome name in the per-page icon list in
+`scripts/gen-sprite.mjs`, run `npm run icons`, and reference it as `#fa-<name>`.
 
 ## Pull requests
 

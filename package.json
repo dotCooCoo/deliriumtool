@@ -21,7 +21,8 @@
     "test:unit": "node --test \"tests/unit/*.test.js\"",
     "test:e2e": "playwright test --grep-invert @visual",
     "test:visual": "playwright test --grep @visual",
-    "test:visual:update": "playwright test --grep @visual --update-snapshots"
+    "test:visual:update": "playwright test --grep @visual --update-snapshots",
+    "icons": "node scripts/gen-sprite.mjs"
   },
   "dependencies": {
     "jspdf": "4.2.1",
