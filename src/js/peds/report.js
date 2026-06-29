@@ -8,8 +8,9 @@
  */
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
-import { evalCapd, evalCam, featurePresent, arousalGate } from './scoring.js';
+import { evalCapd, evalCam, featurePresent, arousalGate, capdItemPoints } from './scoring.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
+import { CAPD_ITEMS } from './data/capd.js';
 import { RISK_FACTORS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
@@ -38,6 +39,17 @@ const INDIGO = [82, 98, 140];
 const GREEN = [70, 122, 92];
 const NAVY = [58, 71, 83];
 const SCREEN_NAMES = { capd: 'CAPD', pcam: 'pCAM-ICU', pscam: 'psCAM-ICU' };
+// Short item labels for the CAPD derivation table in the report.
+const CAPD_SHORT = {
+  eye: 'Eye contact',
+  purpose: 'Purposeful actions',
+  aware: 'Aware of surroundings',
+  comm: 'Communicates needs',
+  restless: 'Restless',
+  inconsolable: 'Inconsolable',
+  underactive: 'Underactive',
+  slow: 'Slow to respond',
+};
 
 function ageText(months) {
   if (months == null) return '-';
@@ -164,6 +176,51 @@ function buildReport(doc, state, settings, scale) {
   row('Instrument', SCREEN_NAMES[state.screen] || '-');
   row('Arousal', state.arousal ? `${state.arousalScale.toUpperCase()} ${state.arousal}` : '-');
   row('Result', resultLine(state));
+  // Derivation — show how the screen result was reached, not just the verdict.
+  const sgate = arousalGate(state.arousalScale, state.arousal);
+  if (sgate && sgate !== 'unable' && state.screen === 'capd') {
+    const rated = CAPD_ITEMS.some((it) => capdItemPoints(it.reverse, state.capd[it.id]) != null);
+    if (rated) {
+      y += 4 * scale;
+      doc
+        .setFont('helvetica', 'italic')
+        .setFontSize(8 * scale)
+        .setTextColor(...SEC)
+        .text('How scored — points per item (0-4; total >= 9 = positive):', M, y);
+      y += 12 * scale;
+      const colW = (W - 2 * M) / 2;
+      const top = y;
+      doc.setFont('helvetica', 'normal').setFontSize(9 * scale);
+      CAPD_ITEMS.forEach((it, i) => {
+        const pts = capdItemPoints(it.reverse, state.capd[it.id]);
+        const x = M + Math.floor(i / 4) * colW;
+        const yy = top + (i % 4) * 12 * scale;
+        doc.setTextColor(...SEC).text(ascii(`${it.n}. ${CAPD_SHORT[it.id]}`), x, yy);
+        doc
+          .setTextColor(...INK)
+          .text(pts == null ? '-' : String(pts), x + colW - 30 * scale, yy, { align: 'right' });
+      });
+      y = top + 4 * 12 * scale;
+    }
+  } else if (sgate && sgate !== 'unable' && CAM_BY_SCREEN[state.screen]) {
+    const data = CAM_BY_SCREEN[state.screen];
+    y += 4 * scale;
+    doc
+      .setFont('helvetica', 'italic')
+      .setFontSize(8 * scale)
+      .setTextColor(...SEC)
+      .text('How scored — features (positive: 1 AND 2 AND (3 OR 4)):', M, y);
+    y += 12 * scale;
+    doc.setFont('helvetica', 'normal').setFontSize(9 * scale);
+    data.features.forEach((f, i) => {
+      const present = featurePresent(f, state.cam[f.id]);
+      const v = present == null ? 'not assessed' : present ? 'present' : 'absent';
+      const name = f.title.replace(/^Feature\s*\d+\s*[—-]\s*/, '');
+      doc.setTextColor(...SEC).text(ascii(`F${i + 1}  ${name}`), M, y);
+      doc.setTextColor(...INK).text(v, M + 250 * scale, y);
+      y += 12 * scale;
+    });
+  }
   y += 6 * scale;
 
   const derived = new Set(derivedRiskIds(state.profile));
@@ -246,7 +303,7 @@ function buildReport(doc, state, settings, scale) {
 export function generateReport(state, settings) {
   const mkDoc = () => new jsPDF({ unit: 'pt', format: 'letter', compress: true });
   const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, state, settings, scale), {
-    scales: [1, 0.95, 0.9, 0.85, 0.82, 0.8, 0.78, 0.76],
+    scales: [1, 0.95, 0.9, 0.85, 0.82, 0.8, 0.78, 0.76, 0.74, 0.72],
   });
   stampFooter(doc, { generated: formatStamp() });
   doc.save(`pediatric-delirium-summary_${fileStamp()}.pdf`);

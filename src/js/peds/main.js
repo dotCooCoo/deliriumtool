@@ -162,7 +162,10 @@ function applyState(snap) {
   if (!snap || !snap.profile || snap.profile.ageM == null) return;
   state.profile = snap.profile;
   state.screen = snap.screen || 'capd';
-  state.alternatives = Array.isArray(snap.alternatives) ? snap.alternatives : [];
+  // Recompute the applicable screens from the profile (incl. the recommended) so a
+  // restored or example assessment can always switch between screens, both ways.
+  const rec = recommendScreen({ chronoMonths: snap.profile.ageM, devMonths: snap.profile.devM });
+  state.alternatives = [rec.recommended, ...rec.alternatives];
   state.arousal = typeof snap.arousal === 'string' ? snap.arousal : '';
   state.arousalScale = snap.arousalScale === 'sbs' ? 'sbs' : 'rass';
   state.capd = snap.capd && typeof snap.capd === 'object' ? snap.capd : {};
@@ -239,7 +242,9 @@ function deriveScreen() {
   state.profile = { ageM, devM, delay, baseline, weightKg, band: capdBand(devM), glasses, hearing };
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
-  state.alternatives = alternatives;
+  // Keep every applicable screen (incl. the recommended) so the header can always
+  // offer the others — switching to an alternative must still let you switch back.
+  state.alternatives = [recommended, ...alternatives];
   state.arousalScale = readSettings().scale === 'sbs' ? 'sbs' : 'rass';
   state.arousal = '';
 
