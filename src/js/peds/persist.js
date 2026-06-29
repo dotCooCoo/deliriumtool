@@ -11,6 +11,7 @@ const SNAPSHOT_KEYS = [
   'profile',
   'assessedAt',
   'assessor',
+  'activeTab',
   'screen',
   'alternatives',
   'arousal',

@@ -18,7 +18,14 @@ test('peds save/load is lossless across reload', async ({ page }) => {
   await med.click(); // net no change → forces a re-save
   await page.waitForTimeout(600);
   const S2 = await page.evaluate(() => localStorage.getItem('deliriumtool:peds'));
-  expect(JSON.parse(S2)).toEqual(JSON.parse(S1));
+  // activeTab is UI position, not assessment data, and the test changes tabs after
+  // reload — compare the assessment payload, which must round-trip losslessly.
+  const assessment = (s) => {
+    const o = JSON.parse(s);
+    delete o.activeTab;
+    return o;
+  };
+  expect(assessment(S2)).toEqual(assessment(S1));
 });
 
 // PEDS — profile incl. sensory aids survives reload.

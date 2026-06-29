@@ -346,6 +346,36 @@ test('loading the example asks before replacing an in-progress assessment', asyn
   expect(asked).toBe(true);
 });
 
+test('the active tab is restored after a reload', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  await page.click('.tab-btn[data-tab="prevent"]');
+  await expect(page.locator('.tab-btn[data-tab="prevent"]')).toHaveClass(/active/);
+  await page.reload();
+  await expect(page.locator('.tab-btn[data-tab="prevent"]')).toHaveClass(/active/);
+});
+
+test('importing a wrong-shape file shows an error instead of failing silently', async ({
+  page,
+}) => {
+  await page.goto('/peds/');
+  let alerted = '';
+  page.on('dialog', (d) => {
+    alerted = d.message();
+    d.accept();
+  });
+  page.on('filechooser', (fc) =>
+    fc.setFiles({
+      name: 'bad.json',
+      mimeType: 'application/json',
+      buffer: Buffer.from('{"not":"a peds assessment"}'),
+    }),
+  );
+  await page.click('[data-act="importJSON"]');
+  await page.waitForTimeout(400);
+  expect(alerted).toContain("isn't a saved pediatric assessment");
+});
+
 test('Documents tab lists medications given and generates a PDF', async ({ page }) => {
   await page.goto('/peds/');
   await page.click('[data-act="loadExample"]');
