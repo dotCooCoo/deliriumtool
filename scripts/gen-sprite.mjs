@@ -36,6 +36,7 @@ const PAGES = [
       'print',
       'triangle-exclamation',
       'xmark',
+      'universal-access',
     ],
   },
   {
@@ -66,6 +67,7 @@ const PAGES = [
       'xmark',
       'syringe',
       'github',
+      'universal-access',
     ],
   },
 ];

@@ -106,3 +106,148 @@ abbr[title] {
 .skip-link:focus {
   top: var(--sp-2);
 }
+
+/* ── Accessibility options (user-configurable; WCAG 2.1 AA) ───────────────── */
+/* Text resize (WCAG 1.4.4) — scales the rem-based layout. */
+html[data-text='large'] {
+  font-size: 112.5%;
+}
+html[data-text='xl'] {
+  font-size: 131.25%;
+}
+
+/* High-contrast mode — near-black text, stronger borders, underlined links. */
+html[data-contrast='high'] {
+  --c-bg: #ffffff;
+  --c-surface: #ffffff;
+  --c-surface-2: #f0f0f0;
+  --c-border: #4a4a4a;
+  --c-border-strong: #1a1a1a;
+  --c-text: #000000;
+  --c-text-2: #161616;
+  --c-text-3: #262626;
+}
+html[data-contrast='high'] a {
+  text-decoration: underline;
+}
+html[data-contrast='high'] :focus-visible {
+  outline-width: 3px;
+  outline-offset: 2px;
+}
+
+/* Reduce-motion toggle — lets users force it regardless of the OS setting (WCAG 2.3.3). */
+html[data-motion='reduce'] *,
+html[data-motion='reduce'] *::before,
+html[data-motion='reduce'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* The control + its panel, mounted in the header. */
+.a11y-wrap {
+  position: relative;
+  margin-left: auto;
+  align-self: center;
+}
+.a11y-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: 8px;
+  background: var(--c-surface);
+  color: var(--c-text-2);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.a11y-btn:hover {
+  background: var(--c-surface-2);
+}
+.a11y-btn .fa {
+  width: 1.05em;
+  height: 1.05em;
+}
+.a11y-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 1000;
+  min-width: 15rem;
+  padding: 12px 14px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: 12px;
+  background: var(--c-surface);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.a11y-heading {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--c-text);
+}
+.a11y-seg {
+  display: inline-flex;
+  align-self: start;
+  border: 1px solid var(--c-border-strong);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.a11y-seg-opt {
+  min-width: 44px;
+  padding: 6px 12px;
+  border: 0;
+  border-left: 1px solid var(--c-border);
+  background: var(--c-surface);
+  color: var(--c-text-2);
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+}
+.a11y-seg-opt:first-child {
+  border-left: 0;
+}
+.a11y-seg-opt[aria-checked='true'] {
+  background: var(--c-primary);
+  color: #fff;
+}
+.a11y-A-default {
+  font-size: 0.85rem;
+}
+.a11y-A-large {
+  font-size: 1.05rem;
+}
+.a11y-A-xl {
+  font-size: 1.3rem;
+}
+.a11y-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--c-text);
+  cursor: pointer;
+}
+.a11y-toggle input {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  accent-color: var(--c-primary);
+}
+@media (max-width: 34rem) {
+  .a11y-btn-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}
+.a11y-panel[hidden] {
+  display: none; /* the hidden attribute must win over display:flex */
+}

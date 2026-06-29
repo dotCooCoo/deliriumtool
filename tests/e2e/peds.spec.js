@@ -393,3 +393,19 @@ test('Documents tab lists medications given and generates a PDF', async ({ page 
     /^pediatric-delirium-summary_\d{4}-\d{2}-\d{2}_\d{4}\.pdf$/,
   );
 });
+
+test('accessibility options apply and persist (text size, contrast, motion)', async ({ page }) => {
+  await page.goto('/peds/');
+  await expect(page.locator('.a11y-panel')).toBeHidden();
+  await page.click('.a11y-btn');
+  await expect(page.locator('.a11y-panel')).toBeVisible();
+  await page.click('.a11y-seg-opt[data-a11y-text="xl"]');
+  await page.check('#a11y-contrast');
+  await page.check('#a11y-motion');
+  await expect(page.locator('html')).toHaveAttribute('data-text', 'xl');
+  await expect(page.locator('html')).toHaveAttribute('data-contrast', 'high');
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'reduce');
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-text', 'xl');
+  await expect(page.locator('html')).toHaveAttribute('data-contrast', 'high');
+});

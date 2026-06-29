@@ -25,6 +25,7 @@ import { REFS } from './data/refs.js';
 import { generateReport } from './report.js';
 import { faIcon } from '../shared/dom.js';
 import { localInput } from '../shared/time.js';
+import { initA11y } from '../shared/a11y.js';
 import {
   autosave,
   flushSave,
@@ -977,3 +978,4 @@ if (saved && saved.profile && saved.profile.ageM != null) {
   decorateHeads();
 }
 renderRefs();
+initA11y(); // user-configurable text size / contrast / motion controls
