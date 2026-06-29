@@ -449,3 +449,46 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
     transition: none;
   }
 }
+
+/* ── Arousal scale toggle (RASS / SBS) + level marker ───────────────── */
+.ascale-tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin: var(--sp-2) 0;
+  padding: 3px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-pill);
+  background: var(--c-surface-2);
+}
+.ascale-tab {
+  min-height: 36px;
+  padding: 4px 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--c-text-2);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+.ascale-tab.is-on {
+  background: var(--c-surface);
+  color: var(--c-primary-strong);
+  box-shadow: var(--shadow-sm);
+}
+.ascale-tab:focus-visible {
+  outline: 3px solid var(--c-primary-weak);
+  outline-offset: 1px;
+}
+.ascale-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.ascale-marker {
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  color: var(--c-text-2);
+}

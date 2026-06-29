@@ -18,7 +18,7 @@ import {
 } from './scoring.js';
 import { CAPD_ITEMS, CAPD_FREQ, CAPD_DEV_DELAY_NOTE } from './data/capd.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
-import { RASS_LEVELS, RASS_COMATOSE } from './data/arousal.js';
+import { AROUSAL_SCALES } from './data/arousal.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -42,7 +42,8 @@ const state = {
   profile: { ageM: null, devM: null, delay: false, weightKg: null, band: null },
   screen: '',
   alternatives: [],
-  rass: '',
+  arousal: '',
+  arousalScale: 'rass',
   capd: {},
   cam: {},
 };
@@ -75,11 +76,12 @@ function deriveScreen() {
   }
   if (errEl) errEl.hidden = true;
 
-  const delay = $('input[data-prof="delay"]').checked;
+  const baseline = $('#prof-baseline').value;
+  const delay = baseline === 'impaired';
   const devM = delay ? (toMonths($('#prof-dev').value, $('#prof-dev-unit').value) ?? ageM) : ageM;
   const weightKg = toMonths($('#prof-weight').value, 'm'); // kg, reuse positive-number parse
 
-  state.profile = { ageM, devM, delay, weightKg, band: capdBand(devM) };
+  state.profile = { ageM, devM, delay, baseline, weightKg, band: capdBand(devM) };
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
   state.alternatives = alternatives;
@@ -106,7 +108,8 @@ function setScreen(key) {
 
 function resetToProfile() {
   state.screen = '';
-  state.rass = '';
+  state.arousal = '';
+  state.arousalScale = 'rass';
   state.capd = {};
   state.cam = {};
   $$('.pseg-opt input, .ascale-opt input').forEach((i) => {
@@ -146,29 +149,55 @@ function renderHeader() {
 }
 
 // ── Control rendering ─────────────────────────────────────────────────────────
-function arousalZone(v) {
+function arousalZone(v, comatose) {
+  if (comatose.includes(String(v))) return 'coma';
   const n = Number(v);
   if (n >= 1) return 'agi';
   if (n === 0) return 'calm';
-  if (n <= -4) return 'coma';
   return 'sed';
 }
 
+function renderArousalToggle() {
+  const wrap = $('#arousal-scale');
+  if (!wrap) return;
+  wrap.replaceChildren(
+    ...Object.values(AROUSAL_SCALES).map((s) => {
+      const on = state.arousalScale === s.id;
+      return el(
+        'button',
+        {
+          type: 'button',
+          class: `ascale-tab${on ? ' is-on' : ''}`,
+          'data-act': 'arousalScale',
+          'data-scale': s.id,
+          'aria-pressed': on ? 'true' : 'false',
+        },
+        s.label,
+      );
+    }),
+  );
+}
+
 function renderArousal() {
+  renderArousalToggle();
   const box = $('#peds-arousal');
   if (!box) return;
+  const scale = AROUSAL_SCALES[state.arousalScale];
   box.replaceChildren(
-    ...RASS_LEVELS.map(({ v, label }) => {
+    ...scale.levels.map(({ v, label, marker }) => {
       const input = el('input', { type: 'radio', name: 'peds-arousal', value: v });
-      input.setAttribute('data-screen-input', 'rass');
+      input.setAttribute('data-screen-input', 'arousal');
+      if (state.arousal === v) input.checked = true;
+      const labelEl = el('span', { class: 'ascale-label' }, el('span', { text: label }));
+      if (marker) labelEl.append(el('span', { class: 'ascale-marker', text: marker }));
       const row = el(
         'label',
-        { class: 'ascale-opt', 'data-zone': arousalZone(v) },
+        { class: 'ascale-opt', 'data-zone': arousalZone(v, scale.comatose) },
         input,
         el('span', { class: 'ascale-v', text: fmtRass(v) }),
-        el('span', { class: 'ascale-label', text: label }),
+        labelEl,
       );
-      if (RASS_COMATOSE.includes(String(v))) {
+      if (scale.comatose.includes(String(v))) {
         row.append(el('span', { class: 'ascale-tag', text: 'unable' }));
       }
       return row;
@@ -349,18 +378,29 @@ function devDelayNote() {
   return state.profile.delay ? [' ', note(CAPD_DEV_DELAY_NOTE)] : [];
 }
 
+// Anchor the result to this child's stated baseline, not a generic norm.
+function baselineQualifier() {
+  const b = state.profile.baseline;
+  if (b === 'impaired') return ' — relative to this child’s own baseline';
+  if (b === 'unknown')
+    return ' — confirm against the child’s usual state (baseline not established)';
+  return '';
+}
+
 function renderResult() {
   const screen = state.screen;
-  const gate = arousalGate('rass', state.rass);
+  const scaleLabel = AROUSAL_SCALES[state.arousalScale].label;
+  const gate = arousalGate(state.arousalScale, state.arousal);
 
   if (gate == null) {
-    return setResult('scr-pending', 'Awaiting', 'Record an arousal level (RASS) to begin.');
+    return setResult('scr-pending', 'Awaiting', 'Record an arousal level to begin.');
   }
   if (gate === 'unable') {
+    const floor = state.arousalScale === 'sbs' ? 'SBS ≥ −1' : 'RASS ≥ −3';
     return setResult(
       'scr-unable',
       'Unable to assess',
-      `RASS ${fmtRass(state.rass)} — comatose / too sedated to screen. Reassess when the child responds to voice (RASS ≥ −3).`,
+      `${scaleLabel} ${fmtRass(state.arousal)} — comatose / too sedated to screen. Reassess when the child responds to voice (${floor}).`,
     );
   }
 
@@ -373,10 +413,15 @@ function renderResult() {
       ? setResult(
           'scr-pos',
           'Positive',
-          `CAPD ${r.score}/32 (≥ 9) — delirium screen positive.`,
+          `CAPD ${r.score}/32 (≥ 9) — delirium screen positive${baselineQualifier()}.`,
           ...devDelayNote(),
         )
-      : setResult('scr-neg', 'Negative', `CAPD ${r.score}/32 (< 9).`, ...devDelayNote());
+      : setResult(
+          'scr-neg',
+          'Negative',
+          `CAPD ${r.score}/32 (< 9)${baselineQualifier()}.`,
+          ...devDelayNote(),
+        );
   }
 
   const tool = SCREEN_NAMES[screen];
@@ -395,9 +440,9 @@ function renderResult() {
     ? setResult(
         'scr-pos',
         'Positive',
-        `${tool} positive — delirium present (Feature 1 + 2 + [3 or 4]).`,
+        `${tool} positive — delirium present (Feature 1 + 2 + [3 or 4])${baselineQualifier()}.`,
       )
-    : setResult('scr-neg', 'Negative', `${tool} negative.`);
+    : setResult('scr-neg', 'Negative', `${tool} negative${baselineQualifier()}.`);
 }
 
 function showTab(tab) {
@@ -413,6 +458,13 @@ document.addEventListener('click', (e) => {
     if (a === 'deriveScreen') return deriveScreen();
     if (a === 'reset') return resetToProfile();
     if (a === 'switchScreen') return setScreen(act.dataset.screen);
+    if (a === 'arousalScale') {
+      state.arousalScale = act.dataset.scale;
+      state.arousal = '';
+      renderArousal();
+      renderResult();
+      return;
+    }
   }
   const errchip = e.target.closest('[data-cam-err]');
   if (errchip) return toggleCamError(errchip.dataset.camErr, Number(errchip.dataset.idx));
@@ -422,13 +474,13 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('change', (e) => {
   const t = e.target;
-  if (t.dataset.prof === 'delay') {
+  if (t.dataset.prof === 'baseline') {
     const row = $('#prof-dev-row');
-    if (row) row.hidden = !t.checked;
+    if (row) row.hidden = t.value !== 'impaired';
     return;
   }
-  if (t.dataset.screenInput === 'rass') {
-    state.rass = t.value;
+  if (t.dataset.screenInput === 'arousal') {
+    state.arousal = t.value;
   } else if (t.dataset.capd != null) {
     state.capd[t.dataset.capd] = t.value;
   } else if (t.dataset.camJudgment) {
