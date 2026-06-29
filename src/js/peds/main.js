@@ -11,7 +11,7 @@
 import { evalCapd, evalCam, arousalGate, recommendScreen, capdBand } from './scoring.js';
 import { CAPD_ITEMS, CAPD_FREQ, CAPD_DEV_DELAY_NOTE } from './data/capd.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
-import { RASS_LEVELS } from './data/arousal.js';
+import { RASS_LEVELS, RASS_COMATOSE } from './data/arousal.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -101,11 +101,9 @@ function resetToProfile() {
   state.rass = '';
   state.capd = {};
   state.cam = {};
-  $$('.pseg-opt input').forEach((i) => {
+  $$('.pseg-opt input, .ascale-opt input').forEach((i) => {
     i.checked = false;
   });
-  const rass = $('#peds-rass');
-  if (rass) rass.value = '';
   delete document.body.dataset.screen;
   $('#workspace').hidden = true;
   $('#pathway-picker').hidden = false;
@@ -140,12 +138,34 @@ function renderHeader() {
 }
 
 // ── Control rendering ─────────────────────────────────────────────────────────
-function renderRass() {
-  const sel = $('#peds-rass');
-  if (!sel) return;
-  for (const { v, label } of RASS_LEVELS) {
-    sel.append(el('option', { value: v, text: `${fmtRass(v)} · ${label}` }));
-  }
+function arousalZone(v) {
+  const n = Number(v);
+  if (n >= 1) return 'agi';
+  if (n === 0) return 'calm';
+  if (n <= -4) return 'coma';
+  return 'sed';
+}
+
+function renderArousal() {
+  const box = $('#peds-arousal');
+  if (!box) return;
+  box.replaceChildren(
+    ...RASS_LEVELS.map(({ v, label }) => {
+      const input = el('input', { type: 'radio', name: 'peds-arousal', value: v });
+      input.setAttribute('data-screen-input', 'rass');
+      const row = el(
+        'label',
+        { class: 'ascale-opt', 'data-zone': arousalZone(v) },
+        input,
+        el('span', { class: 'ascale-v', text: fmtRass(v) }),
+        el('span', { class: 'ascale-label', text: label }),
+      );
+      if (RASS_COMATOSE.includes(String(v))) {
+        row.append(el('span', { class: 'ascale-tag', text: 'unable' }));
+      }
+      return row;
+    }),
+  );
 }
 
 function segRow(legend, name, dataKey, options, hint) {
@@ -299,4 +319,4 @@ document.addEventListener('change', (e) => {
   renderResult();
 });
 
-renderRass();
+renderArousal();

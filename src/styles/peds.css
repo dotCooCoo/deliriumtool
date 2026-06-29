@@ -226,3 +226,107 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   gap: var(--sp-1);
   margin-right: var(--sp-2);
 }
+
+/* ── Arousal scale picker (replaces the dropdown — see the whole scale) ── */
+.ascale {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: var(--sp-2);
+}
+.ascale-opt {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--c-border);
+  border-left-width: 5px;
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+.ascale-opt input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.ascale-v {
+  min-width: 2.2rem;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.ascale-label {
+  color: var(--c-text);
+}
+.ascale-tag {
+  margin-left: auto;
+  padding: 1px 8px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--c-text-2);
+}
+.ascale-opt[data-zone='agi'] {
+  border-left-color: #d98a63;
+}
+.ascale-opt[data-zone='agi'] .ascale-v {
+  color: #b05130;
+}
+.ascale-opt[data-zone='calm'] {
+  border-left-color: #45a385;
+}
+.ascale-opt[data-zone='calm'] .ascale-v {
+  color: #2d7e61;
+}
+.ascale-opt[data-zone='sed'] {
+  border-left-color: #6a8fc0;
+}
+.ascale-opt[data-zone='sed'] .ascale-v {
+  color: #3f5d93;
+}
+.ascale-opt[data-zone='coma'] {
+  border-left-color: #98a0aa;
+  background: var(--c-surface-2);
+}
+.ascale-opt[data-zone='coma'] .ascale-v {
+  color: #5f6877;
+}
+.ascale-opt:hover {
+  border-color: var(--c-primary);
+}
+.ascale-opt:has(input:focus-visible) {
+  outline: 3px solid var(--c-primary-weak);
+  outline-offset: 1px;
+}
+.ascale-opt:has(input:checked) {
+  border-color: var(--c-primary);
+  background: var(--c-primary-weak);
+  box-shadow: var(--shadow-sm);
+}
+.ascale-opt:has(input:checked) .ascale-label {
+  font-weight: 600;
+}
+.ascale-opt:active {
+  transform: scale(0.99);
+}
+
+/* Tab icons */
+.tab-btn .fa {
+  margin-right: 5px;
+  opacity: 0.85;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ascale-opt {
+    transition: none;
+  }
+}

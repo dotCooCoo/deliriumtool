@@ -13,6 +13,9 @@ async function start(page, ageMonths = 36) {
 const nevers = (page) =>
   page.locator('#capd-items label.pseg-opt', { has: page.locator('input[value="0"]') });
 
+const setArousal = (page, v) =>
+  page.locator('#peds-arousal .ascale-opt', { has: page.locator(`input[value="${v}"]`) }).click();
+
 test('peds page routes and carries its own SEO', async ({ page }) => {
   await page.goto('/peds/');
   await expect(page).toHaveTitle(/Pediatric/);
@@ -62,9 +65,9 @@ test('CAPD shows age-filtered anchors and scores positive', async ({ page }) => 
   await start(page, 36);
   // inline developmental anchor for this child's band
   await expect(page.locator('#capd-items .anchor-hint').first()).toContainText('Age-expected');
-  await page.selectOption('#peds-rass', '-5');
+  await setArousal(page, '-5');
   await expect(page.locator('#screen-result')).toContainText('Unable to assess');
-  await page.selectOption('#peds-rass', '0');
+  await setArousal(page, '0');
   const opts = nevers(page);
   await expect(opts).toHaveCount(8);
   for (let i = 0; i < 8; i++) await opts.nth(i).click();
@@ -76,7 +79,7 @@ test('routing offers pCAM-ICU for an older child; it screens positive', async ({
   await start(page, 84); // 7 yr → CAPD recommended, pCAM offered
   await page.click('[data-act="switchScreen"][data-screen="pcam"]');
   await expect(page.locator('#pathway-name')).toHaveText('pCAM-ICU');
-  await page.selectOption('#peds-rass', '0');
+  await setArousal(page, '0');
   for (const f of ['f1', 'f2', 'f3']) {
     await page
       .locator('#cam-features label.pseg-opt', {
