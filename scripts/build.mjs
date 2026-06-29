@@ -117,5 +117,10 @@ for (const name of rootImages) {
 for (const name of ['site.webmanifest', 'robots.txt', 'sitemap.xml']) {
   if (existsSync(join(src, name))) await copyFile(join(src, name), join(dist, name));
 }
+// The pediatric tool has its own manifest so installing from /peds/ gives a
+// pediatric app (its own name, theme, and start_url) rather than the adult one.
+if (existsSync(join(src, 'peds', 'site.webmanifest'))) {
+  await copyFile(join(src, 'peds', 'site.webmanifest'), join(dist, 'peds', 'site.webmanifest'));
+}
 
 console.log(`Built src/ -> dist/  (${jsName}, ${cssName})`);

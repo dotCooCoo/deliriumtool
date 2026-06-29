@@ -42,6 +42,17 @@ test('peds page exposes valid JSON-LD for the peds URL', async ({ page }) => {
   expect(data.url).toBe('https://deliriumtool.com/peds/');
 });
 
+test('peds has its own PWA manifest (installs a pediatric app, not the adult one)', async ({
+  page,
+}) => {
+  await page.goto('/peds/');
+  await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'site.webmanifest');
+  const m = await (await page.request.get('/peds/site.webmanifest')).json();
+  expect(m.start_url).toBe('/peds/');
+  expect(m.scope).toBe('/peds/');
+  expect(m.name).toMatch(/pediatric/i);
+});
+
 test('child profile gate requires age, then derives a screen and shows context', async ({
   page,
 }) => {
