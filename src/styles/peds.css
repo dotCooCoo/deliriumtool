@@ -183,3 +183,46 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   background: var(--c-primary-weak);
   color: var(--c-primary-strong);
 }
+
+/* ── Child profile gate ──────────────────────────────────────────────── */
+.profile-row {
+  margin-bottom: var(--sp-3);
+}
+.profile-age {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+}
+.profile-age .finp {
+  max-width: 8rem;
+}
+.profile-age .fsel {
+  width: auto;
+}
+.profile-weight {
+  max-width: 8rem;
+}
+.err-text {
+  color: var(--c-danger, #b3261e);
+  font-weight: 600;
+}
+
+/* Inline developmental anchor under a CAPD item — the value-add hint. */
+.anchor-hint {
+  margin: 0 0 var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  font-style: italic;
+}
+
+/* Persistent child-context in the screen bar + the alternative-screen buttons. */
+.child-context {
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+  margin-left: var(--sp-2);
+}
+.screen-alts {
+  display: inline-flex;
+  gap: var(--sp-1);
+  margin-right: var(--sp-2);
+}
