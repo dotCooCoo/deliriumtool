@@ -591,3 +591,22 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   font-size: var(--fs-sm);
   color: var(--c-text-2);
 }
+
+/* ── Prevention tab — bundle + measures as a responsive card grid ────── */
+#tab-prevent .card {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: var(--sp-2);
+  align-items: start;
+}
+#tab-prevent .card-head,
+#tab-prevent .card > .note {
+  grid-column: 1 / -1;
+}
+#tab-prevent .chk {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+}
