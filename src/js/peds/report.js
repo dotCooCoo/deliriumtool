@@ -17,7 +17,14 @@ applyPlugin(jsPDF);
 
 const INK = [31, 42, 48];
 const SEC = [92, 107, 116];
-const TEAL = [13, 125, 132];
+const TEAL = [13, 125, 132]; // peds brand teal (header rule)
+// Adult tool's muted section-family palette (src/js/pdf.js), reused for section variety.
+const A_TEAL = [47, 117, 124];
+const CRIM = [164, 80, 90];
+const AMBER = [160, 106, 56];
+const INDIGO = [82, 98, 140];
+const GREEN = [70, 122, 92];
+const NAVY = [58, 71, 83];
 const SCREEN_NAMES = { capd: 'CAPD', pcam: 'pCAM-ICU', pscam: 'psCAM-ICU' };
 
 // jsPDF's built-in Helvetica is WinAnsi-encoded; map the few math/Unicode glyphs
@@ -80,12 +87,12 @@ export function generateReport(state, settings, dateStr) {
     .line(M, y, W - M, y);
   y += 22;
 
-  const sectionTitle = (t) => {
+  const sectionTitle = (t, color = A_TEAL) => {
     ensure(40);
     doc
       .setFont('helvetica', 'bold')
       .setFontSize(11)
-      .setTextColor(...TEAL)
+      .setTextColor(...color)
       .text(t, M, y);
     y += 15;
     doc
@@ -101,7 +108,7 @@ export function generateReport(state, settings, dateStr) {
   };
 
   const p = state.profile;
-  sectionTitle('Child context (de-identified)');
+  sectionTitle('Child context (de-identified)', A_TEAL);
   row('Chronological age', ageText(p.ageM));
   if (p.delay) row('Developmental age', ageText(p.devM));
   row(
@@ -115,7 +122,7 @@ export function generateReport(state, settings, dateStr) {
   if (p.weightKg) row('Weight', `${p.weightKg} kg`);
   y += 8;
 
-  sectionTitle('Screen');
+  sectionTitle('Screen', INDIGO);
   row('Instrument', SCREEN_NAMES[state.screen] || '—');
   row('Arousal', state.arousal ? `${state.arousalScale.toUpperCase()} ${state.arousal}` : '—');
   row('Result', resultLine(state));
@@ -124,7 +131,7 @@ export function generateReport(state, settings, dateStr) {
   const derived = new Set(derivedRiskIds(state.profile));
   const flagged = RISK_FACTORS.filter((f) => derived.has(f.id) || (state.risk && state.risk[f.id]));
   if (flagged.length) {
-    sectionTitle('Risk factors flagged');
+    sectionTitle('Risk factors flagged', AMBER);
     flagged.forEach((f) => {
       ensure(15);
       doc.setTextColor(...INK).text(ascii(`•  ${f.label}`), M, y);
@@ -135,7 +142,7 @@ export function generateReport(state, settings, dateStr) {
 
   const prev = PREVENTION_ORDER.filter((id) => state.prevention && state.prevention[id]);
   if (prev.length) {
-    sectionTitle('Prevention bundle addressed this shift');
+    sectionTitle('Prevention bundle addressed this shift', GREEN);
     prev.forEach((id) => {
       ensure(15);
       doc.setTextColor(...INK).text(ascii(`•  ${PREVENTION_LABELS[id]}`), M, y);
@@ -146,20 +153,20 @@ export function generateReport(state, settings, dateStr) {
 
   const given = MEDS.filter((m) => state.medsGiven && state.medsGiven[m.id]);
   if (given.length) {
-    sectionTitle('Medications given this shift');
+    sectionTitle('Medications given this shift', CRIM);
     doc.autoTable({
       startY: y,
       margin: { left: M, right: M },
       head: [['Agent', 'Starting dose — off-label, verify against formulary']],
       body: given.map((m) => [ascii(m.name), ascii(m.dose)]),
       styles: { font: 'helvetica', fontSize: 9, textColor: INK, cellPadding: 5 },
-      headStyles: { fillColor: TEAL, textColor: [255, 255, 255] },
+      headStyles: { fillColor: CRIM, textColor: [255, 255, 255] },
       theme: 'grid',
     });
     y = doc.lastAutoTable.finalY + 18;
   }
 
-  sectionTitle('Unit governance');
+  sectionTitle('Unit governance', NAVY);
   if (settings.protocol) row('Protocol version', settings.protocol);
   if (settings.attending) row('Attending intensivist', settings.attending);
   if (settings.nurse) row('Nurse leader', settings.nurse);
