@@ -56,3 +56,6 @@ desktop.ini
 *.swp
 *.swo
 *~
+
+# nested reference archives (copyright — never commit)
+references/**/*.pdf
