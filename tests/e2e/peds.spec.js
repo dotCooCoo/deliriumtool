@@ -332,6 +332,20 @@ test('skip-link targets the workspace once a child is loaded, the picker on rese
   await expect(page.locator('#skip-link')).toHaveAttribute('href', '#pathway-picker');
 });
 
+test('loading the example asks before replacing an in-progress assessment', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]'); // fresh — no prompt
+  await expect(page.locator('#workspace')).toBeVisible();
+  await page.click('[data-act="reset"]'); // Edit child → picker (assessment still in state)
+  let asked = false;
+  page.once('dialog', (d) => {
+    asked = true;
+    d.accept();
+  });
+  await page.click('[data-act="loadExample"]'); // now guarded
+  expect(asked).toBe(true);
+});
+
 test('Documents tab lists medications given and generates a PDF', async ({ page }) => {
   await page.goto('/peds/');
   await page.click('[data-act="loadExample"]');

@@ -160,7 +160,9 @@ function syncAssessed() {
 
 function applyState(snap) {
   if (!snap || !snap.profile || snap.profile.ageM == null) return;
-  state.profile = snap.profile;
+  // Recompute the CAPD developmental band from devM rather than trusting a saved or
+  // hand-edited value, so the age-banded anchor hints never silently disappear.
+  state.profile = { ...snap.profile, band: capdBand(snap.profile.devM) };
   state.screen = snap.screen || 'capd';
   // Recompute the applicable screens from the profile (incl. the recommended) so a
   // restored or example assessment can always switch between screens, both ways.
@@ -840,6 +842,12 @@ document.addEventListener('click', (e) => {
       return;
     }
     if (a === 'loadExample') {
+      if (
+        state.profile.ageM != null &&
+        !confirm('Replace the current assessment with the example data?')
+      ) {
+        return;
+      }
       applySettings(EXAMPLE_SETTINGS);
       saveSettings(readSettings());
       applyState(EXAMPLE);
