@@ -265,6 +265,18 @@ test('the workspace has a New child reset that returns to the picker', async ({ 
   await expect(page.locator('#workspace')).toBeHidden();
 });
 
+test('screen switching works both ways (to psCAM-ICU and back to CAPD)', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]'); // CAPD recommended, psCAM-ICU applicable
+  await expect(page.locator('#pathway-name')).toHaveText('CAPD');
+  await page.click('[data-act="switchScreen"][data-screen="pscam"]');
+  await expect(page.locator('#pathway-name')).toHaveText('psCAM-ICU');
+  // the switch back to CAPD must still be offered
+  await expect(page.locator('[data-act="switchScreen"][data-screen="capd"]')).toBeVisible();
+  await page.click('[data-act="switchScreen"][data-screen="capd"]');
+  await expect(page.locator('#pathway-name')).toHaveText('CAPD');
+});
+
 test('Documents tab lists medications given and generates a PDF', async ({ page }) => {
   await page.goto('/peds/');
   await page.click('[data-act="loadExample"]');
