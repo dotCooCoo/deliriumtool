@@ -148,7 +148,16 @@ export const EXAMPLE_SETTINGS = {
 export const EXAMPLE = {
   v: 1,
   assessor: 'J. Rivera, RN',
-  profile: { ageM: 14, devM: 14, delay: false, baseline: 'typical', weightKg: 11, band: '1yr' },
+  profile: {
+    ageM: 14,
+    devM: 14,
+    delay: false,
+    baseline: 'typical',
+    weightKg: 11,
+    band: '1yr',
+    glasses: false,
+    hearing: false,
+  },
   screen: 'capd',
   alternatives: ['pscam'],
   arousal: '0',

@@ -9,12 +9,9 @@
  * Tasks and sources: docs/CLINICAL_METHODOLOGY.md.
  */
 
-export const CAM_RULE = 'Delirium = Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)';
-
 // pCAM-ICU — developmental age ≥ 5 yr (interactive / verbal tasks)
 export const PCAM = {
   tool: 'pCAM-ICU',
-  ageNote: 'developmental age ≥ 5 yr',
   features: [
     {
       id: 'f1',
@@ -60,7 +57,6 @@ export const PCAM = {
 // psCAM-ICU — developmental age 6 mo – 5 yr (observational tasks)
 export const PSCAM = {
   tool: 'psCAM-ICU',
-  ageNote: 'developmental age 6 mo – 5 yr',
   features: [
     {
       id: 'f1',

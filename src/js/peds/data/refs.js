@@ -59,7 +59,7 @@ export const REFS = {
     u: 'https://doi.org/10.1055/s-0041-1736523',
   },
   peds_apsych_sr2025: {
-    c: 'Antipsychotic medications for delirium treatment in the pediatric ICU: a systematic review. Paediatr Drugs. 2025.',
+    c: 'Cavagnero F, et al. Antipsychotic medications for delirium treatment in the pediatric intensive care unit: a systematic review. Paediatr Drugs. 2025;27(6):707-722.',
     u: 'https://doi.org/10.1007/s40272-025-00716-3',
   },
   melatonin_meta2025: {
