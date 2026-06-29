@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
+import { fitToPages } from './shared/pdf-kit.js';
 import { rassTargetSet } from './scoring.js';
 import { DELIRIUM_REFS } from './data/refs.js';
 
@@ -1745,14 +1746,7 @@ function drawMedTile(doc, x, y, w, label, items, color) {
 // near-blank 3rd page, and it self-corrects as content changes. Page count is
 // the reliable fit signal across Node + browser. Returns the chosen doc.
 function buildFullFitted(mkDoc, opts) {
-  var scales = [1, 0.95, 0.9, 0.85];
-  var doc;
-  for (var i = 0; i < scales.length; i++) {
-    doc = mkDoc();
-    buildFull(doc, opts, scales[i]);
-    if (doc.internal.getNumberOfPages() <= 2) break; // fits (last scale wins regardless)
-  }
-  return doc;
+  return fitToPages(mkDoc, (doc, scale) => buildFull(doc, opts, scale), { maxPages: 2 });
 }
 
 // ---- public entry ----
