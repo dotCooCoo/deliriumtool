@@ -89,7 +89,9 @@ const GLOSSARY_SKIP_TAGS = new Set([
 export function applyGlossary(glossary, roots) {
   const terms = Object.keys(glossary).sort((a, b) => b.length - a.length);
   if (!terms.length) return;
-  const re = new RegExp(`(${terms.map((t) => t.replace(/-/g, '\\-')).join('|')})`);
+  // Escape every regex metacharacter in each term before building the alternation.
+  const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`(${terms.map(escapeRe).join('|')})`);
   const walk = (node, done) => {
     for (let n = node.firstChild; n; ) {
       const next = n.nextSibling;
