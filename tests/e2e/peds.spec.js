@@ -210,6 +210,21 @@ test('Prevention selections are wired and persist across reload', async ({ page 
   await expect(page.locator('input[data-prev="E"]')).toBeChecked();
 });
 
+test('structured references render as linked numbered lists with inline superscripts', async ({
+  page,
+}) => {
+  await start(page);
+  await expect(page.locator('#tab-screen .ref-list li')).toHaveCount(5);
+  await expect(page.locator('#tab-screen .ref-list li a').first()).toHaveAttribute(
+    'href',
+    /doi\.org|pubmed/,
+  );
+  await expect(page.locator('#tab-screen .cite a').first()).toHaveText('1');
+  await page.click('.tab-btn[data-tab="meds"]');
+  await expect(page.locator('#tab-meds .ref-list li')).toHaveCount(6);
+  await expect(page.locator('#tab-meds .cite a').first()).toHaveText(/\d/);
+});
+
 test('Autosave restores the assessment after a reload', async ({ page }) => {
   await start(page, 36);
   await setArousal(page, '0');

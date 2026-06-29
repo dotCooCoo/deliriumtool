@@ -21,6 +21,7 @@ import { CAM_BY_SCREEN } from './data/cam.js';
 import { AROUSAL_SCALES } from './data/arousal.js';
 import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
+import { REFS } from './data/refs.js';
 import { generateReport } from './report.js';
 import {
   autosave,
@@ -570,6 +571,44 @@ function renderMedsGiven() {
   );
 }
 
+// Structured references: render each tab's numbered, linked reference list from
+// its data-refs ids, then resolve inline <sup class="cite" data-ref="…"> markers
+// to the matching superscript numbers (anchored to the list). Per-tab numbering.
+function renderRefs() {
+  $$('.tab-panel').forEach((panel) => {
+    const list = panel.querySelector('.ref-list[data-refs]');
+    if (!list) return;
+    const ids = list.dataset.refs
+      .split(',')
+      .map((s) => s.trim())
+      .filter((id) => REFS[id]);
+    const num = {};
+    list.replaceChildren(
+      ...ids.map((id, i) => {
+        num[id] = i + 1;
+        return el(
+          'li',
+          { id: `${panel.id}-ref-${i + 1}` },
+          el('a', { href: REFS[id].u, target: '_blank', rel: 'noopener', text: REFS[id].c }),
+        );
+      }),
+    );
+    panel.querySelectorAll('.cite[data-ref]').forEach((sup) => {
+      const refIds = sup.dataset.ref
+        .split(',')
+        .map((s) => s.trim())
+        .filter((id) => num[id]);
+      if (!refIds.length) return;
+      const kids = [];
+      refIds.forEach((id, j) => {
+        if (j) kids.push(document.createTextNode(','));
+        kids.push(el('a', { href: `#${panel.id}-ref-${num[id]}`, text: String(num[id]) }));
+      });
+      sup.replaceChildren(...kids);
+    });
+  });
+}
+
 // Prevention checkboxes are static markup — reflect saved state onto them.
 function reflectPrevention() {
   $$('[data-prev]').forEach((el) => {
@@ -846,3 +885,4 @@ if (saved && saved.profile && saved.profile.ageM != null) {
   renderArousal();
   decorateHeads();
 }
+renderRefs();
