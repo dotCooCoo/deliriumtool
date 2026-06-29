@@ -75,6 +75,20 @@ test('CAPD shows age-filtered anchors and scores positive', async ({ page }) => 
   await expect(page.locator('#screen-result')).toContainText('/32');
 });
 
+test('arousal scale switches to SBS and applies its own coma floor', async ({ page }) => {
+  await start(page, 8); // infant — SBS is the relevant scale
+  await page.click('[data-act="arousalScale"][data-scale="sbs"]');
+  await expect(page.locator('#peds-arousal .ascale-opt')).toHaveCount(6);
+  await page
+    .locator('#peds-arousal .ascale-opt', { has: page.locator('input[value="-2"]') })
+    .click();
+  await expect(page.locator('#screen-result')).toContainText('Unable to assess');
+  await page
+    .locator('#peds-arousal .ascale-opt', { has: page.locator('input[value="-1"]') })
+    .click();
+  await expect(page.locator('#screen-result')).not.toContainText('Unable to assess');
+});
+
 const camYes = (page, f) =>
   page
     .locator('#cam-features label.pseg-opt', {
