@@ -634,6 +634,20 @@ The pediatric ABCDEF / PICU Liberation bundle, presented as a shift checklist wi
 
 **Sign-off status:** the bundle elements, the SBS comfort-target wording, the "melatonin not established" statement, and the evidence-framing of bundle benefit are **pending pediatric-clinician sign-off**.
 
+### 7.4 Pharmacology (Treatment + Medications)
+
+**Framing (load-bearing):** treat the cause and apply the non-pharmacologic bundle first; drugs are adjunctive. Pharmacologic treatment of symptoms is reserved for short-term, refractory, safety-threatening agitation. All agents are **off-label** in pediatric delirium with **limited (retrospective/observational) evidence**; atypicals are generally preferred over IV haloperidol. The Medications tab opens with a prominent "not an order set — verify against formulary" banner, and every dose carries a pediatric-clinician + pharmacist sign-off gate. Doses are starting points from the literature, not orders; the numeric weight-based values must map to a current pediatric dosing reference (Lexicomp Pediatric / Harriet Lane), with the edition pinned at sign-off.
+
+**Sedation / sleep.** Dexmedetomidine 0.2–1 mcg/kg/hr IV (preferred, delirium-sparing; loading bolus often omitted in the PICU; bradycardia/hypotension; taper to avoid rebound; off-label < 18 yr). Benzodiazepines — limit/avoid as continuous sedation (independent dose-related risk). Melatonin 0.5–3 mg (younger) up to 3–5 mg (older) for sleep/circadian support, **not** a delirium treatment.
+
+**Antipsychotics (enteral unless noted).** Risperidone < 5 yr ~0.1 mg q12–24h, ≥ 5 yr ~0.2 mg q12–24h, ≤ 2 yr ~0.01–0.04 mg/kg/day (Campbell 2020). Quetiapine ~0.43–0.7 mg/kg/dose q8h, reported median ~1.3 mg/kg/day (Joyce 2015) — the previously-drafted unsourced "~6 mg/kg/day cap" was **removed**. Olanzapine age-banded (infants ~0.625 mg, toddlers ~1.25 mg, older ~2.5–5 mg). Haloperidol **reserve**, IV off-label: load ~0.025–0.1 mg/kg/dose, maintenance ~0.015–0.15 mg/kg/dose IV q6–8h — these are **per-dose** figures; an earlier draft's "~0.26 mg/kg/day mean" was a ~10× error (mis-reading a per-dose range maximum as a daily mean; the cited Capino mean is ~0.027 mg/kg/day) and was **corrected** before any publication.
+
+**Monitoring (all antipsychotics).** Baseline 12-lead ECG (QTc), electrolytes, QT-drug review; act on QTc > 450–500 ms or ≥ 25% rise; watch EPS/dystonia (most with haloperidol), NMS, and metabolic effects (olanzapine/quetiapine highest).
+
+**Citations mapped (pediatric Treatment + Medications tabs):** Capino 2020 (PMC7025750); Campbell 2020 risperidone ≤ 2 yr (PMID 31771334); Joyce 2015 quetiapine safety (PMID 26469214); Madden 2021 prescribing/outcomes (PMID 38571986); QTc-effects study (PMC7792149); pediatric ICU delirium systematic review (Pediatr Drugs 2025, PMID 40906237); Phan & Nahata dexmedetomidine (Pediatr Drugs 2008); SCCM PANDEM 2022 (PMID 35119438); plus a pinned pediatric dosing reference (Lexicomp Pediatric / Harriet Lane) for the numeric weight-based values.
+
+**Sign-off status:** every weight-based dose, route, frequency, and maximum — and the haloperidol correction in particular — is **pending pediatric-clinician + pharmacist sign-off** and pinning to a dated dosing reference before the pediatric tool is presented as reviewed.
+
 ---
 
 *This document describes the tool as implemented. Where the application's wording and this document differ, the in-application disclaimers and your institution's policy govern clinical use.*
