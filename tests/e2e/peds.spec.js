@@ -99,3 +99,19 @@ test('Prevention tab lists the ABCDEF bundle + non-pharmacologic measures', asyn
   const boxes = page.locator('#tab-prevent input[type="checkbox"][data-prev]');
   expect(await boxes.count()).toBeGreaterThanOrEqual(10);
 });
+
+test('Treatment + Medications carry off-label framing and the corrected doses', async ({
+  page,
+}) => {
+  await page.goto('/peds/');
+  await page.click('[data-pathway="capd"]');
+  await page.click('.tab-btn[data-tab="treatment"]');
+  await expect(page.locator('#tab-treatment')).toContainText('Off-label');
+  await expect(page.locator('#tab-treatment')).toContainText('[CCO — pending]');
+  await page.click('.tab-btn[data-tab="meds"]');
+  await expect(page.locator('#tab-meds')).toContainText('Not an order set');
+  await expect(page.locator('#tab-meds')).toContainText('Dexmedetomidine');
+  await expect(page.locator('#tab-meds')).toContainText('Haloperidol');
+  // Guard against the ~10x haloperidol dosing error regressing.
+  await expect(page.locator('#tab-meds')).not.toContainText('0.26 mg/kg/day');
+});
