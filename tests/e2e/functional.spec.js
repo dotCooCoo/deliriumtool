@@ -15,6 +15,12 @@ test('starts on the pathway picker, not the workspace', async ({ page }) => {
   await expect(page.locator('#workspace')).toBeHidden();
 });
 
+test('the landing offers a link to the pediatric tool', async ({ page }) => {
+  const card = page.locator('.peds-switch');
+  await expect(card).toBeVisible();
+  await expect(card).toHaveAttribute('href', './peds/');
+});
+
 test('choosing a pathway reveals the workspace', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   await expect(page.locator('#workspace')).toBeVisible();
