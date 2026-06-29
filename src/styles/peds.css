@@ -330,3 +330,122 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
     transition: none;
   }
 }
+
+/* ── CAM-ICU feature tasks (pCAM / psCAM) ───────────────────────────── */
+.cam-feat {
+  margin-bottom: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+}
+.cam-feat-title {
+  margin-bottom: 4px;
+  padding: 0;
+  font-weight: 600;
+}
+.errgrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--sp-2) 0;
+}
+.errchip {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease,
+    transform 0.1s ease;
+}
+.errchip:hover {
+  border-color: var(--c-primary);
+}
+.errchip:focus-visible {
+  outline: 3px solid var(--c-primary-weak);
+  outline-offset: 1px;
+}
+.errchip.is-err {
+  border-color: #c2562f;
+  background: #fbeae2;
+  color: #9a3f1f;
+}
+.errchip:active {
+  transform: scale(0.96);
+}
+.errlist {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: var(--sp-2) 0;
+}
+.errchip-row {
+  justify-content: flex-start;
+  width: 100%;
+  text-align: left;
+  font-weight: 500;
+}
+.errchip-row .errchip-n {
+  min-width: 1.4rem;
+  color: var(--c-text-2);
+}
+.errchip-row.is-err .errchip-n {
+  color: #9a3f1f;
+}
+.cam-parts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: var(--sp-2) 0;
+}
+.cam-perf {
+  margin-top: 4px;
+  font-weight: 600;
+}
+.feat-verdict {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+}
+.fv-badge {
+  padding: 1px 8px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.fv-pending .fv-badge {
+  color: var(--c-text-3);
+}
+.fv-pos .fv-badge {
+  border-color: #e0a48c;
+  background: #faeee8;
+  color: #9a3f1f;
+}
+.fv-neg .fv-badge {
+  border-color: #9cc9b6;
+  background: #e6f4f1;
+  color: #2d7e61;
+}
+@media (prefers-reduced-motion: reduce) {
+  .errchip {
+    transition: none;
+  }
+}

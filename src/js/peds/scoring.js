@@ -50,16 +50,42 @@ export function arousalGate(scale, value) {
 }
 
 /**
- * CAM family (pCAM-ICU / psCAM-ICU): Feature 1 AND Feature 2 AND (Feature 3 OR
- * Feature 4). Each feature is 'yes' | 'no' | unset; arousal is gated separately.
+ * Resolve one CAM feature to present (true) / absent (false) / incomplete (null)
+ * from the input captured for it.
+ *   judgment — 'yes' | 'no' | unset
+ *   errors   — { performed:boolean, errors:number[] }; present at ≥ threshold
+ *   compound — { performed, swc, unaware, inconsolable }; swc OR (unaware AND inconsolable)
+ */
+export function featurePresent(feature, value) {
+  if (!feature) return null;
+  if (feature.type === 'judgment') {
+    if (value === 'yes') return true;
+    if (value === 'no') return false;
+    return null;
+  }
+  if (feature.type === 'errors') {
+    if (!value || !value.performed) return null;
+    const n = Array.isArray(value.errors) ? value.errors.length : 0;
+    return n >= feature.threshold;
+  }
+  if (feature.type === 'compound') {
+    if (!value || !value.performed) return null;
+    return Boolean(value.swc) || (Boolean(value.unaware) && Boolean(value.inconsolable));
+  }
+  return null;
+}
+
+/**
+ * CAM family (pCAM-ICU / psCAM-ICU) result from resolved features, each
+ * true | false | null: Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4).
+ * Arousal is gated separately.
  * @returns {'positive'|'negative'|null} null = incomplete
  */
 export function evalCam({ f1, f2, f3, f4 } = {}) {
-  const set = (x) => x !== undefined && x !== '';
-  if (!set(f1) || !set(f2)) return null;
-  if (f1 !== 'yes' || f2 !== 'yes') return 'negative';
-  if (f3 === 'yes' || f4 === 'yes') return 'positive';
-  if (set(f3) && set(f4)) return 'negative';
+  if (f1 == null || f2 == null) return null;
+  if (!f1 || !f2) return 'negative';
+  if (f3 === true || f4 === true) return 'positive';
+  if (f3 != null && f4 != null) return 'negative';
   return null;
 }
 
