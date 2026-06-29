@@ -19,6 +19,7 @@ import {
 import { CAPD_ITEMS, CAPD_FREQ, CAPD_DEV_DELAY_NOTE } from './data/capd.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
 import { AROUSAL_SCALES } from './data/arousal.js';
+import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -46,6 +47,7 @@ const state = {
   arousalScale: 'rass',
   capd: {},
   cam: {},
+  risk: {},
 };
 
 const fmtRass = (v) => String(v).replace('-', '−');
@@ -103,7 +105,9 @@ function deriveScreen() {
   renderHeader();
   renderCapd();
   renderCam();
+  renderRisk();
   renderResult();
+  decorateHeads();
   window.scrollTo({ top: 0 });
 }
 
@@ -378,6 +382,90 @@ function renderCam() {
   box.replaceChildren(...data.features.map(renderFeature));
 }
 
+// ── Risk (reactive to the child profile) ──────────────────────────────────────
+function riskCard(f, isDerived) {
+  const cb = el('input', { type: 'checkbox' });
+  cb.setAttribute('data-risk', f.id);
+  if (isDerived || state.risk[f.id]) cb.checked = true;
+  const top = el(
+    'label',
+    { class: 'risk-card-top' },
+    cb,
+    el('strong', { class: 'risk-card-label', text: f.label }),
+    el('span', {
+      class: `ev-tag${f.evidence === 'established' ? ' ev-est' : ''}`,
+      text: f.evidence,
+    }),
+  );
+  if (isDerived) top.append(el('span', { class: 'risk-from', text: 'from profile' }));
+  return el(
+    'div',
+    { class: `risk-card${isDerived ? ' is-derived' : ''}` },
+    top,
+    el('p', { class: 'risk-detail', text: f.detail }),
+  );
+}
+
+function renderRisk() {
+  const box = $('#risk-content');
+  if (!box) return;
+  const derived = new Set(derivedRiskIds(state.profile));
+  const kids = [];
+  if (derived.size) {
+    const flagged = RISK_FACTORS.filter((f) => derived.has(f.id));
+    kids.push(
+      el(
+        'div',
+        { class: 'risk-flagged' },
+        el(
+          'div',
+          { class: 'risk-flagged-head' },
+          svgIcon('circle-exclamation'),
+          el('span', { text: " Flagged from this child's profile" }),
+        ),
+        el(
+          'div',
+          { class: 'risk-flagged-list' },
+          ...flagged.map((f) => el('span', { class: 'risk-chip', text: f.label })),
+        ),
+      ),
+    );
+  }
+  for (const g of RISK_GROUPS) {
+    const grid = el(
+      'div',
+      { class: 'risk-grid' },
+      ...RISK_FACTORS.filter((f) => f.group === g.id).map((f) => riskCard(f, derived.has(f.id))),
+    );
+    kids.push(el('div', { class: 'card' }, el('div', { class: 'card-head' }, g.title), grid));
+  }
+  box.replaceChildren(...kids);
+}
+
+// Give every card head a matching icon (decorative) for a consistent visual system.
+const HEAD_ICONS = [
+  [/arousal/i, 'gauge-high'],
+  [/CAPD|pCAM|psCAM|features/i, 'brain'],
+  [/^\s*Result/i, 'circle-check'],
+  [/risk factors/i, 'triangle-exclamation'],
+  [/Modifiable/i, 'triangle-exclamation'],
+  [/Patient/i, 'circle-info'],
+  [/Prevention|bundle/i, 'leaf'],
+  [/Non-pharmacolog/i, 'moon'],
+  [/Treatment/i, 'syringe'],
+  [/monitoring/i, 'gauge-high'],
+  [/Sedation/i, 'pills'],
+  [/Deliriogenic/i, 'triangle-exclamation'],
+  [/Documents/i, 'file-pdf'],
+];
+function decorateHeads() {
+  for (const head of $$('.card-head')) {
+    if (head.querySelector('.fa')) continue;
+    const match = HEAD_ICONS.find(([re]) => re.test(head.textContent));
+    if (match) head.prepend(svgIcon(match[1]));
+  }
+}
+
 // ── Result ────────────────────────────────────────────────────────────────────
 function setResult(badgeCls, badgeText, ...rest) {
   const out = $('#screen-result');
@@ -518,6 +606,10 @@ document.addEventListener('change', (e) => {
     if (row) row.hidden = t.value !== 'impaired';
     return;
   }
+  if (t.dataset.risk) {
+    state.risk[t.dataset.risk] = t.checked;
+    return;
+  }
   if (t.dataset.screenInput === 'arousal') {
     state.arousal = t.value;
   } else if (t.dataset.capd != null) {
@@ -537,3 +629,4 @@ document.addEventListener('change', (e) => {
 });
 
 renderArousal();
+decorateHeads();

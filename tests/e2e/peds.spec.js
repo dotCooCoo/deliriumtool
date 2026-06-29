@@ -134,13 +134,26 @@ test('pCAM-ICU runs as real feature tasks: error tally drives the result', async
   await expect(page.locator('#screen-result')).toContainText('pCAM-ICU');
 });
 
-test('Risk tab lists modifiable + patient risk factors', async ({ page }) => {
-  await start(page);
+test('Risk tab auto-flags profile-derived factors and lists the rest as cards', async ({
+  page,
+}) => {
+  await start(page, 14); // ≤ 2 yr → young age auto-flagged from the profile
   await page.click('.tab-btn[data-tab="risk"]');
+  await expect(page.locator('.risk-flagged')).toContainText("Flagged from this child's profile");
+  await expect(page.locator('.risk-flagged')).toContainText('Young age');
+  await expect(page.locator('.risk-card.is-derived input[data-risk="age"]')).toBeChecked();
   await expect(page.locator('#tab-risk')).toContainText('Benzodiazepine exposure');
   expect(
     await page.locator('#tab-risk input[type="checkbox"][data-risk]').count(),
   ).toBeGreaterThanOrEqual(10);
+});
+
+test('Risk tab shows no profile flag for an older child with typical baseline', async ({
+  page,
+}) => {
+  await start(page, 96); // 8 yr, typical → nothing auto-derived
+  await page.click('.tab-btn[data-tab="risk"]');
+  await expect(page.locator('.risk-flagged')).toHaveCount(0);
 });
 
 test('Prevention tab lists the ABCDEF bundle + non-pharmacologic measures', async ({ page }) => {
