@@ -753,3 +753,23 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
     gap: var(--sp-2);
   }
 }
+
+/* Completion-count badges on the checklist tabs. */
+.tab-btn {
+  position: relative;
+}
+.tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  margin-left: 0.4rem;
+  padding: 0 0.32rem;
+  border-radius: 999px;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}

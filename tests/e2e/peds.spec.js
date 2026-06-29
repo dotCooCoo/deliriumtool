@@ -409,3 +409,25 @@ test('accessibility options apply and persist (text size, contrast, motion)', as
   await expect(page.locator('html')).toHaveAttribute('data-text', 'xl');
   await expect(page.locator('html')).toHaveAttribute('data-contrast', 'high');
 });
+
+test('the peds tabs are an ARIA tablist with arrow-key navigation', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  await expect(page.locator('.tabs-inner')).toHaveAttribute('role', 'tablist');
+  const first = page.locator('.tab-btn[data-tab="screen"]');
+  await expect(first).toHaveAttribute('role', 'tab');
+  await expect(first).toHaveAttribute('aria-selected', 'true');
+  await first.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('.tab-btn[data-tab="risk"]')).toBeFocused();
+  await expect(page.locator('.tab-btn[data-tab="risk"]')).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('#tab-risk')).toBeVisible();
+});
+
+test('the peds checklist tabs show completion-count badges', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  await expect(page.locator('.tab-btn[data-tab="risk"] .tab-badge')).toBeVisible();
+  await expect(page.locator('.tab-btn[data-tab="prevent"] .tab-badge')).toBeVisible();
+  await expect(page.locator('.tab-btn[data-tab="export"] .tab-badge')).toHaveText('2');
+});
