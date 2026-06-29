@@ -277,6 +277,38 @@ test('screen switching works both ways (to psCAM-ICU and back to CAPD)', async (
   await expect(page.locator('#pathway-name')).toHaveText('CAPD');
 });
 
+test('CAM feature entries survive switching screens and back', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  await page.click('[data-act="switchScreen"][data-screen="pscam"]');
+  await page.click('.tab-btn[data-tab="screen"]');
+  await page.locator('label.pseg-opt:has([data-cam-judgment="f1"][value="yes"])').click();
+  await page.click('[data-act="switchScreen"][data-screen="capd"]');
+  await page.click('[data-act="switchScreen"][data-screen="pscam"]');
+  await expect(page.locator('[data-cam-judgment="f1"][value="yes"]')).toBeChecked();
+});
+
+test('New child clears the sensory-aid checkboxes', async ({ page }) => {
+  page.on('dialog', (d) => d.accept());
+  await page.goto('/peds/');
+  await page.fill('#prof-age', '14');
+  await page.check('[data-prof="glasses"]');
+  await page.click('[data-act="deriveScreen"]');
+  await page.click('.pathway-bar [data-act="clearAll"]');
+  await expect(page.locator('[data-prof="glasses"]')).not.toBeChecked();
+});
+
+test('an unchecked profile-derived risk factor stays unchecked across reload', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]'); // 14mo -> "young age" auto-flagged
+  await page.click('.tab-btn[data-tab="risk"]');
+  await expect(page.locator('#tab-risk input[data-risk="age"]')).toBeChecked();
+  await page.uncheck('#tab-risk input[data-risk="age"]');
+  await page.reload();
+  await page.click('.tab-btn[data-tab="risk"]');
+  await expect(page.locator('#tab-risk input[data-risk="age"]')).not.toBeChecked();
+});
+
 test('Documents tab lists medications given and generates a PDF', async ({ page }) => {
   await page.goto('/peds/');
   await page.click('[data-act="loadExample"]');

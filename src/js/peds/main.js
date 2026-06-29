@@ -211,6 +211,10 @@ function clearAll() {
     const e = $(s);
     if (e) e.value = '';
   });
+  ['[data-prof="glasses"]', '[data-prof="hearing"]'].forEach((s) => {
+    const e = $(s);
+    if (e) e.checked = false;
+  });
   const b = $('#prof-baseline');
   if (b) b.value = 'typical';
   const dr = $('#prof-dev-row');
@@ -267,7 +271,8 @@ function deriveScreen() {
 function setScreen(key) {
   if (!SCREEN_NAMES[key]) return;
   state.screen = key;
-  state.cam = {};
+  // Keep entered CAM features when switching screens — the alternatives only ever
+  // offer CAPD plus one applicable CAM screen, so switching must not lose work.
   document.body.dataset.screen = key;
   renderHeader();
   renderCam();
@@ -538,7 +543,8 @@ function renderCam() {
 function riskCard(f, isDerived) {
   const cb = el('input', { type: 'checkbox' });
   cb.setAttribute('data-risk', f.id);
-  if (isDerived || state.risk[f.id]) cb.checked = true;
+  // A profile-derived factor is checked by default, but an explicit uncheck wins.
+  cb.checked = state.risk[f.id] != null ? state.risk[f.id] : isDerived;
   const top = el(
     'label',
     { class: 'risk-card-top' },

@@ -224,7 +224,10 @@ function buildReport(doc, state, settings, scale) {
   y += 6 * scale;
 
   const derived = new Set(derivedRiskIds(state.profile));
-  const flagged = RISK_FACTORS.filter((f) => derived.has(f.id) || (state.risk && state.risk[f.id]));
+  // A profile-derived factor flags by default, but an explicit uncheck removes it.
+  const flagged = RISK_FACTORS.filter((f) =>
+    state.risk && state.risk[f.id] != null ? state.risk[f.id] : derived.has(f.id),
+  );
   if (flagged.length) {
     sectionTitle('Risk factors flagged', AMBER);
     bullets2(flagged.map((f) => f.label));
