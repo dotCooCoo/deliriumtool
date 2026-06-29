@@ -23,6 +23,7 @@ import {
 } from './state.js';
 import { initCitations } from './citations.js';
 import { initA11y } from './shared/a11y.js';
+import { applyGlossary } from './shared/dom.js';
 import {
   initSettings,
   applySettings,
@@ -433,58 +434,8 @@ const GLOSSARY = {
   GFR: 'Glomerular Filtration Rate',
   DTs: 'Delirium Tremens',
 };
-const SKIP_TAGS = new Set([
-  'A',
-  'ABBR',
-  'BUTTON',
-  'SCRIPT',
-  'STYLE',
-  'INPUT',
-  'TEXTAREA',
-  'SELECT',
-  'OPTION',
-  'SUMMARY',
-  'SVG',
-  'USE',
-  'PATH',
-  'G',
-  'SYMBOL',
-  'DEFS',
-  'H1',
-  'CODE',
-]);
-
 function wireGlossary() {
-  const terms = Object.keys(GLOSSARY).sort((a, b) => b.length - a.length);
-  const re = new RegExp(`(${terms.map((t) => t.replace(/-/g, '\\-')).join('|')})`);
-  const walk = (node, done) => {
-    for (let n = node.firstChild; n; ) {
-      const next = n.nextSibling;
-      if (n.nodeType === 3) {
-        const txt = n.nodeValue;
-        const m = re.exec(txt);
-        if (m && !done[m[1]]) {
-          done[m[1]] = 1;
-          const term = m[1];
-          const idx = m.index;
-          const ab = document.createElement('abbr');
-          ab.title = GLOSSARY[term];
-          ab.textContent = term;
-          const frag = document.createDocumentFragment();
-          if (idx > 0) frag.appendChild(document.createTextNode(txt.slice(0, idx)));
-          frag.appendChild(ab);
-          if (idx + term.length < txt.length) {
-            frag.appendChild(document.createTextNode(txt.slice(idx + term.length)));
-          }
-          n.parentNode.replaceChild(frag, n);
-        }
-      } else if (n.nodeType === 1 && !SKIP_TAGS.has(n.tagName.toUpperCase())) {
-        walk(n, done);
-      }
-      n = next;
-    }
-  };
-  document.querySelectorAll('.tab-panel').forEach((p) => walk(p, {}));
+  applyGlossary(GLOSSARY, document.querySelectorAll('.tab-panel'));
 }
 
 // ─── Boot ───────────────────────────────────────────────────────────────────

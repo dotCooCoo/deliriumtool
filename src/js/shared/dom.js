@@ -57,3 +57,65 @@ export function wireTablist(onSwitch) {
     onSwitch(btns[n].dataset.tab);
   });
 }
+
+const GLOSSARY_SKIP_TAGS = new Set([
+  'A',
+  'ABBR',
+  'BUTTON',
+  'SCRIPT',
+  'STYLE',
+  'INPUT',
+  'TEXTAREA',
+  'SELECT',
+  'OPTION',
+  'SUMMARY',
+  'SVG',
+  'USE',
+  'PATH',
+  'G',
+  'SYMBOL',
+  'DEFS',
+  'H1',
+  'CODE',
+]);
+
+/**
+ * applyGlossary — wrap the first occurrence (per root) of each glossary term in an
+ * <abbr title="definition"> so acronyms get a hover/long-press explanation. Walks
+ * text nodes only and skips interactive / icon / heading tags, so it never touches
+ * controls or breaks the markup. `glossary` is term→definition; `roots` is a list
+ * of container elements (typically the tab panels).
+ */
+export function applyGlossary(glossary, roots) {
+  const terms = Object.keys(glossary).sort((a, b) => b.length - a.length);
+  if (!terms.length) return;
+  const re = new RegExp(`(${terms.map((t) => t.replace(/-/g, '\\-')).join('|')})`);
+  const walk = (node, done) => {
+    for (let n = node.firstChild; n; ) {
+      const next = n.nextSibling;
+      if (n.nodeType === 3) {
+        const txt = n.nodeValue;
+        const m = re.exec(txt);
+        if (m && !done[m[1]]) {
+          done[m[1]] = 1;
+          const term = m[1];
+          const idx = m.index;
+          const ab = document.createElement('abbr');
+          ab.title = glossary[term];
+          ab.textContent = term;
+          const frag = document.createDocumentFragment();
+          if (idx > 0) frag.appendChild(document.createTextNode(txt.slice(0, idx)));
+          frag.appendChild(ab);
+          if (idx + term.length < txt.length) {
+            frag.appendChild(document.createTextNode(txt.slice(idx + term.length)));
+          }
+          n.parentNode.replaceChild(frag, n);
+        }
+      } else if (n.nodeType === 1 && !GLOSSARY_SKIP_TAGS.has(n.tagName.toUpperCase())) {
+        walk(n, done);
+      }
+      n = next;
+    }
+  };
+  roots.forEach((p) => walk(p, {}));
+}

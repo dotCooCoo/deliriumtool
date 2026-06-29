@@ -23,7 +23,7 @@ import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { REFS } from './data/refs.js';
 import { generateReport } from './report.js';
-import { faIcon, wireTablist } from '../shared/dom.js';
+import { faIcon, wireTablist, applyGlossary } from '../shared/dom.js';
 import { localInput } from '../shared/time.js';
 import { initA11y } from '../shared/a11y.js';
 import {
@@ -58,6 +58,17 @@ function el(tag, props, ...kids) {
 }
 
 const SCREEN_NAMES = { capd: 'CAPD', pcam: 'pCAM-ICU', pscam: 'psCAM-ICU' };
+
+// Acronym tooltips — the first occurrence per tab is wrapped in <abbr title="…">.
+const PEDS_GLOSSARY = {
+  CAPD: 'Cornell Assessment of Pediatric Delirium',
+  'psCAM-ICU': 'Preschool Confusion Assessment Method for the ICU',
+  'pCAM-ICU': 'Pediatric Confusion Assessment Method for the ICU',
+  RASS: 'Richmond Agitation-Sedation Scale',
+  SBS: 'State Behavioral Scale',
+  'WAT-1': 'Withdrawal Assessment Tool-1',
+  PICU: 'Pediatric Intensive Care Unit',
+};
 
 const state = {
   profile: { ageM: null, devM: null, delay: false, weightKg: null, band: null },
@@ -1038,3 +1049,4 @@ renderRefs();
 initA11y(); // user-configurable text size / contrast / motion controls
 wireTablist(showTab); // ARIA tablist + Arrow/Home/End keyboard navigation
 updateTabBadges();
+applyGlossary(PEDS_GLOSSARY, document.querySelectorAll('.tab-panel'));

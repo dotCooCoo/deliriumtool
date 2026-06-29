@@ -450,3 +450,10 @@ test('glasses or hearing aids default the sensory-aids prevention item on', asyn
   await page.click('.tab-btn[data-tab="prevent"]');
   await expect(page.locator('[data-prev="sensory"]')).toBeChecked();
 });
+
+test('peds acronyms get a glossary tooltip on first use', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  const ab = page.locator('#tab-screen abbr', { hasText: 'CAPD' }).first();
+  await expect(ab).toHaveAttribute('title', /Cornell Assessment of Pediatric Delirium/);
+});
