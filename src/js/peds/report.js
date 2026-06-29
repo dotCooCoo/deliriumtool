@@ -12,6 +12,15 @@ import { CAM_BY_SCREEN } from './data/cam.js';
 import { RISK_FACTORS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
+import { REFS } from './data/refs.js';
+
+const SCREEN_REF = { capd: 'traube2014_capd', pcam: 'smith2011_pcam', pscam: 'smith2016_pscam' };
+const MED_REF = {
+  risperidone: 'campbell2020_risperidone',
+  quetiapine: 'joyce2015_quetiapine',
+  haloperidol: 'haldol_label',
+  melatonin: 'melatonin_meta2025',
+};
 
 applyPlugin(jsPDF);
 
@@ -172,6 +181,28 @@ export function generateReport(state, settings, dateStr) {
   if (settings.nurse) row('Nurse leader', settings.nurse);
   if (settings.pharmacist) row('Pharmacist (dosing)', settings.pharmacist);
   y += 10;
+
+  // References for what this report shows, so a printed sheet stays citable.
+  const refIds = [];
+  if (SCREEN_REF[state.screen]) refIds.push(SCREEN_REF[state.screen]);
+  if (flagged.length) refIds.push('traube2017_outcomes', 'mody2018_benzo');
+  given.forEach((m) => MED_REF[m.id] && refIds.push(MED_REF[m.id]));
+  refIds.push('pandem2022');
+  const uniq = [...new Set(refIds)].filter((id) => REFS[id]);
+  if (uniq.length) {
+    sectionTitle('References', NAVY);
+    doc
+      .setFont('helvetica', 'normal')
+      .setFontSize(8)
+      .setTextColor(...SEC);
+    uniq.forEach((id, i) => {
+      const lines = doc.splitTextToSize(`${i + 1}. ${ascii(REFS[id].c)}  ${REFS[id].u}`, W - 2 * M);
+      ensure(lines.length * 10 + 4);
+      doc.text(lines, M, y);
+      y += lines.length * 10 + 5;
+    });
+    y += 8;
+  }
 
   ensure(48);
   doc
