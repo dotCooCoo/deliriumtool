@@ -21,6 +21,11 @@ Bedside reference for ICU delirium — screening, prevention, and management at 
 - **Medications** — pharmacologic options with cautions, plus a deliriogenic-medication review.
 - **Documents** — print-ready PDFs generated entirely in the browser.
 
+A companion **pediatric ICU tool** lives at `/peds/`
+([deliriumtool.com/peds](https://deliriumtool.com/peds/)): CAPD, pCAM-ICU, and
+psCAM-ICU screening with age-banded developmental anchors, the pediatric prevention
+bundle, weight-based dosing, and an in-browser summary report — same privacy model.
+
 ## Privacy
 
 Everything runs in your browser. The tool captures no patient identifier, sends

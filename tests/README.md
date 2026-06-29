@@ -10,7 +10,7 @@ cannot ship.
   its RASS arousal gate, the inattention cut-point, RASS zones/tones, and the
   checklist completion math.
 - `data-integrity.test.js` — invariants on the static data: 11 medication
-  categories / 104 agents with unique ids and required fields, and every citation
+  categories / 103 agents with unique ids and required fields, and every citation
   carrying a label, citation text, and an http(s) URL.
 - `headers.test.js` — `src/_headers` keeps a strict CSP (`script-src 'self'`,
   `object-src 'none'`, no inline, no external origins) and the expected hardening
