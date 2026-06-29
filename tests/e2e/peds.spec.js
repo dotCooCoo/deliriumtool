@@ -212,3 +212,17 @@ test('New child clears the saved assessment', async ({ page }) => {
   await page.click('[data-act="clearAll"]');
   await expect(page.locator('#prof-age')).toHaveValue('');
 });
+
+test('Documents tab lists medications given and generates a PDF', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  await page.click('.tab-btn[data-tab="export"]');
+  await expect(page.locator('#meds-given')).toContainText('Dexmedetomidine');
+  expect(await page.locator('#meds-given input[data-med]').count()).toBe(7);
+  await expect(page.locator('#meds-given input[data-med="dexmed"]')).toBeChecked();
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.click('[data-act="generateReport"]'),
+  ]);
+  expect(download.suggestedFilename()).toMatch(/\.pdf$/);
+});

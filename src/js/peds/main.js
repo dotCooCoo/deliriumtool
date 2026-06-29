@@ -20,6 +20,8 @@ import { CAPD_ITEMS, CAPD_FREQ, CAPD_DEV_DELAY_NOTE } from './data/capd.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
 import { AROUSAL_SCALES } from './data/arousal.js';
 import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
+import { MEDS } from './data/meds.js';
+import { generateReport } from './report.js';
 import {
   autosave,
   flushSave,
@@ -62,6 +64,7 @@ const state = {
   capd: {},
   cam: {},
   risk: {},
+  medsGiven: {},
 };
 
 const fmtRass = (v) => String(v).replace('-', '−');
@@ -134,6 +137,7 @@ function applyState(snap) {
   state.capd = snap.capd && typeof snap.capd === 'object' ? snap.capd : {};
   state.cam = snap.cam && typeof snap.cam === 'object' ? snap.cam : {};
   state.risk = snap.risk && typeof snap.risk === 'object' ? snap.risk : {};
+  state.medsGiven = snap.medsGiven && typeof snap.medsGiven === 'object' ? snap.medsGiven : {};
   fillProfileForm();
   document.body.dataset.screen = state.screen;
   $('#pathway-picker').hidden = true;
@@ -143,6 +147,7 @@ function applyState(snap) {
   renderCapd();
   renderCam();
   renderRisk();
+  renderMedsGiven();
   renderResult();
   decorateHeads();
 }
@@ -156,6 +161,7 @@ function clearAll() {
   state.capd = {};
   state.cam = {};
   state.risk = {};
+  state.medsGiven = {};
   clearSaved();
   ['#prof-age', '#prof-dev', '#prof-weight'].forEach((s) => {
     const e = $(s);
@@ -201,6 +207,7 @@ function deriveScreen() {
   renderCapd();
   renderCam();
   renderRisk();
+  renderMedsGiven();
   renderResult();
   decorateHeads();
   autosave(state);
@@ -535,6 +542,29 @@ function renderRisk() {
   box.replaceChildren(...kids);
 }
 
+function renderMedsGiven() {
+  const box = $('#meds-given');
+  if (!box) return;
+  box.replaceChildren(
+    ...MEDS.map((m) => {
+      const cb = el('input', { type: 'checkbox' });
+      cb.setAttribute('data-med', m.id);
+      if (state.medsGiven[m.id]) cb.checked = true;
+      return el(
+        'label',
+        { class: 'chk' },
+        cb,
+        el(
+          'span',
+          {},
+          el('strong', { text: m.name }),
+          el('span', { class: 'med-dose', text: ` — ${m.dose}` }),
+        ),
+      );
+    }),
+  );
+}
+
 // Give every card head a matching icon (decorative) for a consistent visual system.
 const HEAD_ICONS = [
   [/arousal/i, 'gauge-high'],
@@ -599,6 +629,14 @@ function positiveActions() {
         svgIcon('hand-holding-heart'),
         el('span', {
           text: ' Next — review and minimize modifiable precipitants in Risk Factors and Prevention.',
+        }),
+      ),
+      el(
+        'p',
+        { class: 'act-next' },
+        svgIcon('file-pdf'),
+        el('span', {
+          text: ' When ready, generate a one-page summary in Generate Documents.',
         }),
       ),
     ),
@@ -714,6 +752,24 @@ document.addEventListener('click', (e) => {
       });
       return;
     }
+    if (a === 'generateReport') {
+      const empty = $('#export-empty');
+      if (state.profile.ageM == null) {
+        if (empty) empty.hidden = false;
+        return;
+      }
+      if (empty) empty.hidden = true;
+      const now = new Date();
+      const dateStr = now.toLocaleString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      generateReport(state, readSettings(), dateStr);
+      return;
+    }
   }
   const errchip = e.target.closest('[data-cam-err]');
   if (errchip) return toggleCamError(errchip.dataset.camErr, Number(errchip.dataset.idx));
@@ -734,6 +790,11 @@ document.addEventListener('change', (e) => {
   }
   if (t.dataset.risk) {
     state.risk[t.dataset.risk] = t.checked;
+    autosave(state);
+    return;
+  }
+  if (t.dataset.med) {
+    state.medsGiven[t.dataset.med] = t.checked;
     autosave(state);
     return;
   }

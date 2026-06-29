@@ -864,7 +864,22 @@
         <section class="tab-panel" id="tab-export">
           <div class="card">
             <div class="card-head">Generate Documents</div>
-            <p class="note">The structured pediatric report is being built.</p>
+            <p class="note">
+              A one-page, de-identified summary of this assessment — child context, screen result,
+              flagged risks, medications given, and your unit governance — generated on this device.
+              No data leaves the browser.
+            </p>
+            <button class="btn btn-primary" data-act="generateReport">Generate report (PDF)</button>
+            <p class="note err-text" id="export-empty" hidden>
+              Enter a child and record an arousal level first.
+            </p>
+          </div>
+          <div class="card">
+            <div class="card-head">Medications given this shift</div>
+            <p class="note">
+              Check any agents in use — they print on the report with their starting dose.
+            </p>
+            <div id="meds-given"></div>
           </div>
         </section>
       </main>
