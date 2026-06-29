@@ -190,8 +190,24 @@ test('Load example data populates a worked assessment with a positive result', a
   await expect(page.locator('#workspace')).toBeVisible();
   await expect(page.locator('#child-context')).toContainText('Age 14 mo');
   await expect(page.locator('#screen-result')).toContainText('Positive');
+  // the example fills every interactive tab, not just the screen
+  await page.click('.tab-btn[data-tab="risk"]');
+  await expect(page.locator('input[data-risk="benzo"]')).toBeChecked();
+  await page.click('.tab-btn[data-tab="prevent"]');
+  await expect(page.locator('input[data-prev="A"]')).toBeChecked();
+  await page.click('.tab-btn[data-tab="export"]');
+  await expect(page.locator('input[data-med="dexmed"]')).toBeChecked();
   await page.click('.tab-btn[data-tab="setup"]');
   await expect(page.locator('#set-hospital')).toHaveValue(/General Children/);
+});
+
+test('Prevention selections are wired and persist across reload', async ({ page }) => {
+  await start(page, 36);
+  await page.click('.tab-btn[data-tab="prevent"]');
+  await page.locator('input[data-prev="E"]').check();
+  await page.reload();
+  await page.click('.tab-btn[data-tab="prevent"]');
+  await expect(page.locator('input[data-prev="E"]')).toBeChecked();
 });
 
 test('Autosave restores the assessment after a reload', async ({ page }) => {
