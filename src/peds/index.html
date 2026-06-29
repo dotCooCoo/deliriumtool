@@ -328,6 +328,11 @@
 
         <button class="btn btn-primary mt-2" data-act="deriveScreen">Recommend a screen →</button>
         <p class="note err-text" id="prof-error" hidden>Enter the child's age to continue.</p>
+        <div class="profile-actions">
+          <button class="btn btn-ghost btn-sm" data-act="loadExample">Load example data</button>
+          <button class="btn btn-ghost btn-sm" data-act="importJSON">Import saved (JSON)</button>
+          <button class="btn btn-ghost btn-sm" data-act="clearAll">New child (clear)</button>
+        </div>
       </div>
     </main>
 
@@ -339,6 +344,7 @@
         <span class="child-context" id="child-context"></span>
         <span class="pathway-bar__spacer"></span>
         <span class="screen-alts" id="screen-alts"></span>
+        <button class="btn btn-ghost btn-sm" data-act="exportJSON">Export</button>
         <button class="btn btn-ghost btn-sm" data-act="reset">Edit child</button>
       </div>
 
@@ -359,6 +365,9 @@
           </button>
           <button class="tab-btn" data-tab="meds">
             <svg class="fa" aria-hidden="true"><use href="#fa-pills" /></svg> Medications
+          </button>
+          <button class="tab-btn" data-tab="setup">
+            <svg class="fa" aria-hidden="true"><use href="#fa-gear" /></svg> Setup
           </button>
           <button class="tab-btn" data-tab="export">
             <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Generate Documents
@@ -737,6 +746,120 @@
             must map to Lexicomp Pediatric / Harriet Lane (edition pinned at sign-off). All doses
             carry a pediatric-clinician + pharmacist sign-off gate.
           </p>
+        </section>
+        <section class="tab-panel" id="tab-setup">
+          <div class="card">
+            <div class="card-head">Institution &amp; unit</div>
+            <p class="note">
+              Facility-level settings — they persist on this device and print on the report, and are
+              kept when you start a new child.
+            </p>
+            <div class="profile-row">
+              <label class="scr-label" for="set-hospital">Hospital / PICU unit</label>
+              <input
+                class="finp"
+                id="set-hospital"
+                type="text"
+                maxlength="120"
+                autocomplete="off"
+                placeholder="e.g. General Children's Hospital — PICU"
+                data-set="hospital"
+              />
+            </div>
+            <div class="profile-row">
+              <label class="scr-label" for="set-protocol">Protocol version</label>
+              <input
+                class="finp"
+                id="set-protocol"
+                type="text"
+                maxlength="60"
+                autocomplete="off"
+                placeholder="e.g. v1.0 — June 2026"
+                data-set="protocol"
+              />
+            </div>
+            <div class="profile-row">
+              <label class="scr-label" for="set-scale">Default arousal scale</label>
+              <select class="fsel" id="set-scale" data-set="scale">
+                <option value="rass">RASS — older / verbal children</option>
+                <option value="sbs">SBS — intubated infants &amp; young children</option>
+              </select>
+            </div>
+            <div class="profile-row">
+              <label class="scr-label" for="set-freq">Screening frequency</label>
+              <select class="fsel" id="set-freq" data-set="freq">
+                <option>Once per shift</option>
+                <option>Every 8 hours (q8h)</option>
+                <option>Every 12 hours (q12h)</option>
+                <option>Once daily</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">Pediatric approvals</div>
+            <p class="note">
+              PICU governance roles. Unlike adult units (medical director + nursing), the off-label
+              weight-based dosing carries a <strong>pediatric pharmacist</strong> sign-off.
+            </p>
+            <div class="profile-row">
+              <label class="scr-label" for="set-attending"
+                >PICU medical director / attending intensivist</label
+              >
+              <input
+                class="finp"
+                id="set-attending"
+                type="text"
+                maxlength="120"
+                autocomplete="off"
+                placeholder="Name and title"
+                data-set="attending"
+              />
+            </div>
+            <div class="profile-row">
+              <label class="scr-label" for="set-nurse">PICU nurse leader</label>
+              <input
+                class="finp"
+                id="set-nurse"
+                type="text"
+                maxlength="120"
+                autocomplete="off"
+                placeholder="Name and title"
+                data-set="nurse"
+              />
+            </div>
+            <div class="profile-row">
+              <label class="scr-label" for="set-pharmacist"
+                >Pediatric pharmacist — dosing sign-off</label
+              >
+              <input
+                class="finp"
+                id="set-pharmacist"
+                type="text"
+                maxlength="120"
+                autocomplete="off"
+                placeholder="Name and title"
+                data-set="pharmacist"
+              />
+            </div>
+            <div class="profile-row">
+              <label class="scr-label" for="set-reviewed">Last reviewed</label>
+              <input class="finp" id="set-reviewed" type="date" data-set="reviewed" />
+            </div>
+            <div class="profile-row">
+              <label class="scr-label" for="set-nextrev">Next review due</label>
+              <input class="finp" id="set-nextrev" type="date" data-set="nextrev" />
+            </div>
+            <div class="profile-actions">
+              <button class="btn btn-ghost btn-sm" data-act="saveSettings">
+                Save settings (JSON)
+              </button>
+              <button class="btn btn-ghost btn-sm" data-act="loadSettings">
+                Load settings (JSON)
+              </button>
+            </div>
+            <p class="note">Settings also auto-save in this browser.</p>
+          </div>
         </section>
         <section class="tab-panel" id="tab-export">
           <div class="card">

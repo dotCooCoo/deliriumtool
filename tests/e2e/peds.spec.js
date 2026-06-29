@@ -174,3 +174,41 @@ test('Treatment + Medications carry off-label framing and the corrected doses', 
   await expect(page.locator('#tab-meds')).toContainText('Dexmedetomidine');
   await expect(page.locator('#tab-meds')).not.toContainText('0.26 mg/kg/day');
 });
+
+test('Setup tab carries pediatric institution settings + approval roles', async ({ page }) => {
+  await start(page);
+  await page.click('.tab-btn[data-tab="setup"]');
+  await expect(page.locator('#tab-setup')).toBeVisible();
+  await expect(page.locator('#set-hospital')).toBeVisible();
+  await expect(page.locator('#tab-setup')).toContainText('attending intensivist');
+  await expect(page.locator('#tab-setup')).toContainText('Pediatric pharmacist');
+});
+
+test('Load example data populates a worked assessment with a positive result', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  await expect(page.locator('#workspace')).toBeVisible();
+  await expect(page.locator('#child-context')).toContainText('Age 14 mo');
+  await expect(page.locator('#screen-result')).toContainText('Positive');
+  await page.click('.tab-btn[data-tab="setup"]');
+  await expect(page.locator('#set-hospital')).toHaveValue(/General Children/);
+});
+
+test('Autosave restores the assessment after a reload', async ({ page }) => {
+  await start(page, 36);
+  await setArousal(page, '0');
+  const opts = nevers(page);
+  for (let i = 0; i < 8; i++) await opts.nth(i).click();
+  await expect(page.locator('#screen-result')).toContainText('Positive');
+  await page.reload();
+  await expect(page.locator('#workspace')).toBeVisible();
+  await expect(page.locator('#screen-result')).toContainText('Positive');
+});
+
+test('New child clears the saved assessment', async ({ page }) => {
+  await start(page, 36);
+  await page.click('[data-act="reset"]'); // Edit child → profile gate (populated)
+  await expect(page.locator('#prof-age')).toHaveValue('36');
+  await page.click('[data-act="clearAll"]');
+  await expect(page.locator('#prof-age')).toHaveValue('');
+});
