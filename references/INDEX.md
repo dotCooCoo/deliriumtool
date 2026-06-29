@@ -60,26 +60,61 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 
 ## Pediatric Delirium (CAPD / pCAM-ICU / psCAM-ICU) — /peds/
 
-PMIDs/DOIs verified against PubMed (per the PubMed MCP). Most are copyright SCCM/Lippincott
-(readable to ground facts, not redistributable); only Madden 2021 is open access (CC BY-NC-ND).
+All PMIDs/DOIs verified against PubMed (via the PubMed MCP). The PDFs/forms below are local copies
+for grounding the pediatric tool's content; most are copyright (SCCM/Lippincott, Thieme,
+Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive — never committed.
+
+### Validated instruments & evidence
 
 | Source | Local file | Canonical URL |
 |---|---|---|
-| Traube 2014 — CAPD validation, CCM 2014;42:656 (PMID 24145848) | **not archived** (fetch pending) | https://doi.org/10.1097/CCM.0b013e3182a66b76 |
-| Traube 2014 — **CAPD scoring form + developmental Anchor Points table** | **not archived** (fetch pending — priority) | https://www.icudelirium.org/medical-professionals/pediatric-delirium |
-| Smith 2011 — pCAM-ICU validation (≥5 yr), CCM 2011;39:150 (PMID 20959783) | **not archived** (fetch pending) | https://doi.org/10.1097/CCM.0b013e3181feb489 |
-| Smith 2016 — psCAM-ICU validation (6 mo–5 yr), CCM 2016;44:592 (PMID 26565631) | **not archived** (fetch pending) | https://doi.org/10.1097/CCM.0000000000001428 |
-| Smith 2022 — SCCM PANDEM guideline, PCCM 2022;23:e74 (PMID 35119438) | `peds/2022_society_of_critical_care_medicine_clinical.15.pdf` | https://doi.org/10.1097/PCC.0000000000002873 |
-| Schieveld 2009 — pediatric delirium diagnostic algorithm (open access), ICM 2009;35:1843 | `peds/134_2009_Article_1652.pdf` | https://doi.org/10.1007/s00134-009-1652-8 |
-| Gupta 2021 — CAPD performance in ventilated children (anchor-point usability critique), JPIC | `peds/10-1055-s-0041-1728784.pdf` | https://doi.org/10.1055/s-0041-1728784 |
-| Traube 2017 — delirium & mortality epidemiology, CCM 2017;45:891 (PMID 28288026) | **not archived** (fetch pending) | https://doi.org/10.1097/CCM.0000000000002324 |
-| Mody 2018 — benzodiazepines & delirium (causal), CCM 2018;46:1486 (PMID 29727363) | `peds/nihms960089.pdf` (NIH author manuscript) | https://doi.org/10.1097/CCM.0000000000003194 |
-| Curley 2006 — State Behavioral Scale (SBS), PCCM 2006;7:107 (PMID 16446601) | **not archived** (fetch pending) | https://doi.org/10.1097/01.PCC.0000200955.40962.38 |
-| Lin 2023 — Pediatric ICU Liberation collaborative, PCCM 2023;24:636 (PMID 37125798) | **not archived** (no PMC — fetch pending) | https://doi.org/10.1097/PCC.0000000000003262 |
-| Capino 2020 — antipsychotics in pediatric ICU delirium, JPPT 2020;25:81 (PMC7025750) | **not archived** (fetch pending) | https://pmc.ncbi.nlm.nih.gov/articles/PMC7025750/ |
-| Campbell 2020 — risperidone dosing ≤2 yr, Ann Pharmacother 2020 (PMID 31771334) | **not archived** (no PMC — fetch pending) | https://doi.org/10.1177/1060028019891969 |
-| Joyce 2015 — quetiapine safety in PICU delirium, JCAP 2015;25:666 (PMID 26469214) | **not archived** (fetch pending) | https://doi.org/10.1089/cap.2015.0093 |
-| Madden 2021 — antipsychotic prescribing across PICUs (open access), JPIC 2021 (PMID 38571986) | **not archived** (fetch pending) | https://doi.org/10.1055/s-0041-1736523 |
+| Traube 2014 — CAPD validation, CCM 2014;42:656 (PMID 24145848) | `peds/traube-2014-capd-validation-ccm.pdf` | https://doi.org/10.1097/CCM.0b013e3182a66b76 |
+| Smith 2016 — psCAM-ICU validation (6 mo–5 yr), CCM 2016;44:592 (PMID 26565631) | `peds/smith-2016-pscam-icu-validation-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000001428 |
+| Curley 2006 — State Behavioral Scale (SBS), PCCM 2006;7:107 (PMID 16446601) | `peds/curley-2006-sbs-validation-pccm.pdf` | https://doi.org/10.1097/01.PCC.0000200955.40962.38 |
+| Traube 2017 — delirium & mortality epidemiology, CCM 2017;45:891 (PMID 28288026) | `peds/traube-2017-delirium-mortality-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000002324 |
+| Mody 2018 — benzodiazepines & delirium (causal), CCM 2018;46:1486 (PMID 29727363) | `peds/mody-2018-benzodiazepines-delirium-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000003194 |
+| Gupta 2021 — CAPD performance in ventilated children (anchor-point usability critique), JPIC | `peds/gupta-2021-capd-performance-mv-jpic.pdf` | https://doi.org/10.1055/s-0041-1728784 |
+| Schieveld 2009 — pediatric delirium diagnostic algorithm (open access), ICM 2009;35:1843 | `peds/schieveld-2009-peds-delirium-algorithm-icm.pdf` | https://doi.org/10.1007/s00134-009-1652-8 |
+
+### Guideline & ICU liberation
+
+| Source | Local file | Canonical URL |
+|---|---|---|
+| Smith 2022 — SCCM PANDEM guideline, PCCM 2022;23:e74 (PMID 35119438) | `peds/smith-2022-pandem-guideline-pccm.pdf` | https://doi.org/10.1097/PCC.0000000000002873 |
+| Waak 2022 — PICUstars nurse-led PICU liberation protocol, BMC Pediatr 2022;22:279 | `peds/waak-2022-picustars-liberation-protocol-bmcpediatrics.pdf` | https://doi.org/10.1186/s12887-022-03232-2 |
+
+### Treatment / medications
+
+| Source | Local file | Canonical URL |
+|---|---|---|
+| Capino 2020 — antipsychotics in pediatric ICU delirium, JPPT 2020;25:81 | `peds/capino-2020-antipsychotics-peds-delirium-jppt.pdf` | https://doi.org/10.5863/1551-6776-25.2.81 |
+| Joyce 2015 — quetiapine safety in PICU delirium, JCAP 2015;25:666 (PMID 26469214) | `peds/joyce-2015-quetiapine-peds-delirium-jcap.pdf` | https://doi.org/10.1089/cap.2015.0093 |
+| Madden 2021 — antipsychotic prescribing across PICUs (open access), JPIC 2021 (PMID 38571986) | `peds/madden-2021-antipsychotic-prescribing-jpic.pdf` | https://doi.org/10.1055/s-0041-1736523 |
+
+### Bedside tools & forms (Vanderbilt / Cornell point-of-care set)
+
+Canonical home: https://www.icudelirium.org/medical-professionals/pediatric-delirium
+
+| Tool / form | Local file |
+|---|---|
+| CAPD scoring form | `peds/capd-form.pdf` |
+| **CAPD developmental Anchor Points** (youngest patients) | `peds/capd-developmental-anchor-points.pdf` |
+| Using the CAPD (2014 guide) | `peds/capd-using-guide-2014.pdf` |
+| pCAM-ICU instruction tool | `peds/pcam-icu-instruction-tool.pdf` |
+| pCAM-ICU pocket cards | `peds/pcam-icu-pocket-cards.pdf` |
+| psCAM-ICU (preschool) worksheet | `peds/pscam-icu-worksheet.pdf` |
+| State Behavioral Scale (SBS) form | `peds/sbs-form.pdf` |
+| RASS scale (picture) | `peds/rass-scale-picture.jpg` |
+| Pediatric delirium card set — RASS (2022) | `peds/peds-delirium-card-set-rass.pdf` |
+| Pediatric delirium card set — SBS (2016) | `peds/peds-delirium-card-set-sbs.pdf` |
+| Coma management algorithm | `peds/peds-coma-management-algorithm.pdf` |
+| Delirium management algorithm (arousable patient) | `peds/peds-delirium-management-algorithm.pdf` |
+| Family education — "Understanding Delirium in My Patient" | `peds/peds-family-education-understanding-delirium.pdf` |
+| Pediatric delirium roadmap | `peds/peds-delirium-roadmap.pdf` |
+| VADIC — Vanderbilt Assessment for Delirium in Infants & Children (2017) | `peds/vadic-form-2017.pdf` |
+| AACAP pediatric delirium flyer | `peds/aacap-pediatric-delirium-flyer.pdf` |
+
+_Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Lin 2023 PICU Liberation collaborative (PCCM 24:636 — PANDEM + Waak cover liberation); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
 
 ## Bonus papers (archived; not yet wired into the tool — useful extras)
 
