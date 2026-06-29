@@ -563,6 +563,7 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   margin-top: var(--sp-2);
 }
 .risk-card {
+  position: relative;
   padding: var(--sp-2) var(--sp-3);
   border: 1px solid var(--c-border);
   border-radius: var(--radius);
@@ -571,6 +572,7 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 .risk-card.is-derived {
   border-color: var(--c-accent);
   background: var(--c-accent-weak);
+  padding-bottom: 1.7rem;
 }
 .risk-card-top {
   display: flex;
@@ -583,11 +585,19 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   flex: 1;
 }
 .risk-from {
-  font-size: var(--fs-xs);
+  position: absolute;
+  right: 9px;
+  bottom: 7px;
+  font-size: 0.58rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   color: #9a3f1f;
+  background: #fbeee6;
+  border: 1px solid #e6c7b5;
+  padding: 0 6px;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 .risk-detail {
   margin: 6px 0 0;
