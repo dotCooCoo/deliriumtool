@@ -23,18 +23,7 @@ import {
 } from './scoring.js';
 import { S } from './state.js';
 import { syncRassTarget } from './settings.js';
-
-// Build a sprite icon element (FontAwesome <use>) for JS-rendered UI — never emoji.
-function faIcon(id, cls) {
-  const ns = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(ns, 'svg');
-  svg.setAttribute('class', cls || 'fa');
-  svg.setAttribute('aria-hidden', 'true');
-  const use = document.createElementNS(ns, 'use');
-  use.setAttribute('href', '#' + id);
-  svg.appendChild(use);
-  return svg;
-}
+import { faIcon } from './shared/dom.js';
 
 const $ = (id) => document.getElementById(id);
 const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
