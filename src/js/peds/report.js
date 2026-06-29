@@ -2,8 +2,9 @@
  * peds/report.js — the printable assessment summary, generated in the browser
  * with jsPDF (no server, no data egress). It prints the coded child context
  * (no name or identifiers), the screen result, flagged risk factors, any
- * medications marked given, and the unit's governance footer. Reference aid only
- * — not an order set.
+ * medications marked given, the unit governance footer, and a references block.
+ * Reference aid only — not an order set. Shrinks to fit one page via the shared
+ * fitToPages primitive.
  */
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
@@ -13,6 +14,9 @@ import { RISK_FACTORS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
 import { REFS } from './data/refs.js';
+import { fitToPages, asciiPdf as ascii } from '../shared/pdf-kit.js';
+
+applyPlugin(jsPDF);
 
 const SCREEN_REF = { capd: 'traube2014_capd', pcam: 'smith2011_pcam', pscam: 'smith2016_pscam' };
 const MED_REF = {
@@ -21,8 +25,6 @@ const MED_REF = {
   haloperidol: 'haldol_label',
   melatonin: 'melatonin_meta2025',
 };
-
-applyPlugin(jsPDF);
 
 const INK = [31, 42, 48];
 const SEC = [92, 107, 116];
@@ -36,38 +38,34 @@ const GREEN = [70, 122, 92];
 const NAVY = [58, 71, 83];
 const SCREEN_NAMES = { capd: 'CAPD', pcam: 'pCAM-ICU', pscam: 'psCAM-ICU' };
 
-// jsPDF's built-in Helvetica is WinAnsi-encoded; map the few math/Unicode glyphs
-// used elsewhere in the app to ASCII so they render correctly in the PDF.
-const ascii = (s) =>
-  String(s).replace(/≥/g, '>=').replace(/≤/g, '<=').replace(/[−–]/g, '-').replace(/≈/g, '~');
-
 function ageText(months) {
-  if (months == null) return '—';
+  if (months == null) return '-';
   if (months < 24) return `${Math.round(months)} months`;
   return `${Math.round(months / 12)} years`;
 }
 
 function resultLine(state) {
   const gate = arousalGate(state.arousalScale, state.arousal);
-  if (gate == null) return 'Not scored — arousal not recorded';
-  if (gate === 'unable') return 'Unable to assess — comatose / too sedated';
+  if (gate == null) return 'Not scored - arousal not recorded';
+  if (gate === 'unable') return 'Unable to assess - comatose / too sedated';
   if (state.screen === 'capd') {
     const r = evalCapd(state.capd);
-    if (!r.complete) return `In progress — ${r.answered}/8 items rated`;
-    return `CAPD ${r.score}/32 — ${r.positive ? 'positive (≥ 9)' : 'negative (< 9)'}`;
+    if (!r.complete) return `In progress - ${r.answered}/8 items rated`;
+    return `CAPD ${r.score}/32 - ${r.positive ? 'positive (>= 9)' : 'negative (< 9)'}`;
   }
   const data = CAM_BY_SCREEN[state.screen];
-  if (!data) return '—';
+  if (!data) return '-';
   const resolved = {};
   for (const f of data.features) resolved[f.id] = featurePresent(f, state.cam[f.id]);
   const res = evalCam(resolved);
   if (res == null) return 'In progress';
-  return `${SCREEN_NAMES[state.screen]} — ${res === 'positive' ? 'positive' : 'negative'}`;
+  return `${SCREEN_NAMES[state.screen]} - ${res === 'positive' ? 'positive' : 'negative'}`;
 }
 
-export function generateReport(state, settings, dateStr) {
-  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
-  const M = 54;
+// Draw the whole report at a scale factor (fonts + spacing + margins all scale),
+// so fitToPages can shrink it onto one page when the assessment is large.
+function buildReport(doc, state, settings, dateStr, scale) {
+  const M = 54 * scale;
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   let y = M;
@@ -80,40 +78,45 @@ export function generateReport(state, settings, dateStr) {
 
   doc
     .setFont('helvetica', 'bold')
-    .setFontSize(16)
-    .setTextColor(...INK);
-  doc.text('Pediatric Delirium Screening — Summary', M, y);
-  y += 18;
+    .setFontSize(16 * scale)
+    .setTextColor(...INK)
+    .text('Pediatric Delirium Screening — Summary', M, y);
+  y += 18 * scale;
   doc
     .setFont('helvetica', 'normal')
-    .setFontSize(10)
-    .setTextColor(...SEC);
-  doc.text(`${(settings.hospital || 'Pediatric ICU').trim()}  ·  ${dateStr}`, M, y);
-  y += 10;
+    .setFontSize(10 * scale)
+    .setTextColor(...SEC)
+    .text(`${(settings.hospital || 'Pediatric ICU').trim()}  ·  ${dateStr}`, M, y);
+  y += 10 * scale;
   doc
     .setDrawColor(...TEAL)
-    .setLineWidth(2)
+    .setLineWidth(2 * scale)
     .line(M, y, W - M, y);
-  y += 22;
+  y += 22 * scale;
 
   const sectionTitle = (t, color = A_TEAL) => {
-    ensure(40);
+    ensure(40 * scale);
     doc
       .setFont('helvetica', 'bold')
-      .setFontSize(11)
+      .setFontSize(11 * scale)
       .setTextColor(...color)
       .text(t, M, y);
-    y += 15;
+    y += 15 * scale;
     doc
       .setFont('helvetica', 'normal')
-      .setFontSize(10)
+      .setFontSize(10 * scale)
       .setTextColor(...INK);
   };
   const row = (label, value) => {
-    ensure(16);
+    ensure(16 * scale);
     doc.setTextColor(...SEC).text(label, M, y);
-    doc.setTextColor(...INK).text(ascii(String(value)), M + 160, y);
-    y += 15;
+    doc.setTextColor(...INK).text(ascii(String(value)), M + 160 * scale, y);
+    y += 15 * scale;
+  };
+  const bullet = (text) => {
+    ensure(15 * scale);
+    doc.setTextColor(...INK).text(ascii(`•  ${text}`), M, y);
+    y += 14 * scale;
   };
 
   const p = state.profile;
@@ -129,35 +132,27 @@ export function generateReport(state, settings, dateStr) {
         : 'Age-typical',
   );
   if (p.weightKg) row('Weight', `${p.weightKg} kg`);
-  y += 8;
+  y += 8 * scale;
 
   sectionTitle('Screen', INDIGO);
-  row('Instrument', SCREEN_NAMES[state.screen] || '—');
-  row('Arousal', state.arousal ? `${state.arousalScale.toUpperCase()} ${state.arousal}` : '—');
+  row('Instrument', SCREEN_NAMES[state.screen] || '-');
+  row('Arousal', state.arousal ? `${state.arousalScale.toUpperCase()} ${state.arousal}` : '-');
   row('Result', resultLine(state));
-  y += 8;
+  y += 8 * scale;
 
   const derived = new Set(derivedRiskIds(state.profile));
   const flagged = RISK_FACTORS.filter((f) => derived.has(f.id) || (state.risk && state.risk[f.id]));
   if (flagged.length) {
     sectionTitle('Risk factors flagged', AMBER);
-    flagged.forEach((f) => {
-      ensure(15);
-      doc.setTextColor(...INK).text(ascii(`•  ${f.label}`), M, y);
-      y += 14;
-    });
-    y += 8;
+    flagged.forEach((f) => bullet(f.label));
+    y += 8 * scale;
   }
 
   const prev = PREVENTION_ORDER.filter((id) => state.prevention && state.prevention[id]);
   if (prev.length) {
     sectionTitle('Prevention bundle addressed this shift', GREEN);
-    prev.forEach((id) => {
-      ensure(15);
-      doc.setTextColor(...INK).text(ascii(`•  ${PREVENTION_LABELS[id]}`), M, y);
-      y += 14;
-    });
-    y += 8;
+    prev.forEach((id) => bullet(PREVENTION_LABELS[id]));
+    y += 8 * scale;
   }
 
   const given = MEDS.filter((m) => state.medsGiven && state.medsGiven[m.id]);
@@ -168,11 +163,11 @@ export function generateReport(state, settings, dateStr) {
       margin: { left: M, right: M },
       head: [['Agent', 'Starting dose — off-label, verify against formulary']],
       body: given.map((m) => [ascii(m.name), ascii(m.dose)]),
-      styles: { font: 'helvetica', fontSize: 9, textColor: INK, cellPadding: 5 },
+      styles: { font: 'helvetica', fontSize: 9 * scale, textColor: INK, cellPadding: 5 * scale },
       headStyles: { fillColor: CRIM, textColor: [255, 255, 255] },
       theme: 'grid',
     });
-    y = doc.lastAutoTable.finalY + 18;
+    y = doc.lastAutoTable.finalY + 18 * scale;
   }
 
   sectionTitle('Unit governance', NAVY);
@@ -180,7 +175,7 @@ export function generateReport(state, settings, dateStr) {
   if (settings.attending) row('Attending intensivist', settings.attending);
   if (settings.nurse) row('Nurse leader', settings.nurse);
   if (settings.pharmacist) row('Pharmacist (dosing)', settings.pharmacist);
-  y += 10;
+  y += 10 * scale;
 
   // References for what this report shows, so a printed sheet stays citable.
   const refIds = [];
@@ -193,31 +188,35 @@ export function generateReport(state, settings, dateStr) {
     sectionTitle('References', NAVY);
     doc
       .setFont('helvetica', 'normal')
-      .setFontSize(8)
+      .setFontSize(8 * scale)
       .setTextColor(...SEC);
     uniq.forEach((id, i) => {
       const lines = doc.splitTextToSize(`${i + 1}. ${ascii(REFS[id].c)}  ${REFS[id].u}`, W - 2 * M);
-      ensure(lines.length * 10 + 4);
+      ensure(lines.length * 10 * scale + 4);
       doc.text(lines, M, y);
-      y += lines.length * 10 + 5;
+      y += lines.length * 10 * scale + 5 * scale;
     });
-    y += 8;
+    y += 8 * scale;
   }
 
-  ensure(48);
+  ensure(48 * scale);
   doc
-    .setDrawColor(...[220, 236, 234])
+    .setDrawColor(220, 236, 234)
     .setLineWidth(1)
     .line(M, y, W - M, y);
-  y += 14;
+  y += 14 * scale;
   doc
     .setFont('helvetica', 'italic')
-    .setFontSize(8)
+    .setFontSize(8 * scale)
     .setTextColor(...SEC);
   const disc =
     'Reference aid only — not a validated decision-support device or an order set. Screening is not a diagnosis. ' +
     'All medication doses are off-label and limited-evidence; verify every weight-based dose against your formulary and a pediatric pharmacist. Generated on this device; no data was transmitted.';
-  doc.text(doc.splitTextToSize(disc, W - 2 * M), M, y);
+  doc.text(doc.splitTextToSize(ascii(disc), W - 2 * M), M, y);
+}
 
+export function generateReport(state, settings, dateStr) {
+  const mkDoc = () => new jsPDF({ unit: 'pt', format: 'letter', compress: true });
+  const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, state, settings, dateStr, scale));
   doc.save('pediatric-delirium-summary.pdf');
 }
