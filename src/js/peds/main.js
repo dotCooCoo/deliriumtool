@@ -62,6 +62,7 @@ const state = {
   profile: { ageM: null, devM: null, delay: false, weightKg: null, band: null },
   assessedAt: '',
   assessor: '',
+  activeTab: 'screen',
   screen: '',
   alternatives: [],
   arousal: '',
@@ -177,6 +178,7 @@ function applyState(snap) {
   state.prevention = snap.prevention && typeof snap.prevention === 'object' ? snap.prevention : {};
   state.assessedAt = snap.assessedAt || localInput();
   state.assessor = typeof snap.assessor === 'string' ? snap.assessor : '';
+  state.activeTab = typeof snap.activeTab === 'string' ? snap.activeTab : 'screen';
   fillProfileForm();
   document.body.dataset.screen = state.screen;
   $('#pathway-picker').hidden = true;
@@ -192,6 +194,7 @@ function applyState(snap) {
   syncAssessed();
   renderResult();
   decorateHeads();
+  showTab(state.activeTab);
 }
 
 function clearAll() {
@@ -210,6 +213,7 @@ function clearAll() {
   clearSaved();
   reflectPrevention();
   syncAssessed();
+  showTab('screen');
   ['#prof-age', '#prof-dev', '#prof-weight'].forEach((s) => {
     const e = $(s);
     if (e) e.value = '';
@@ -823,6 +827,8 @@ function renderResult() {
 function showTab(tab) {
   $$('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
   $$('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === `tab-${tab}`));
+  state.activeTab = tab;
+  if (state.profile.ageM != null) autosave(state); // remember where the user is
 }
 
 // ── Dispatch ──────────────────────────────────────────────────────────────────
@@ -863,20 +869,26 @@ document.addEventListener('click', (e) => {
     if (a === 'exportJSON') return exportJSON(state);
     if (a === 'importJSON') {
       importJSON().then((data) => {
-        if (data && !data.__error) {
-          applyState(data);
-          autosave(state);
+        if (!data || data.__error || !data.profile || data.profile.ageM == null) {
+          alert(
+            "That file isn't a saved pediatric assessment (it may be a settings file or from another tool).",
+          );
+          return;
         }
+        applyState(data);
+        autosave(state);
       });
       return;
     }
     if (a === 'saveSettings') return exportSettings(readSettings());
     if (a === 'loadSettings') {
       importSettings().then((data) => {
-        if (data && !data.__error) {
-          applySettings(data);
-          saveSettings(readSettings());
+        if (!data || data.__error || data.profile) {
+          alert("That file isn't a saved settings file (it looks like a full assessment).");
+          return;
         }
+        applySettings(data);
+        saveSettings(readSettings());
       });
       return;
     }
