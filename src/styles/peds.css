@@ -707,3 +707,36 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 .ascale-opt[data-zone='coma'] > .fa {
   color: #5f6877;
 }
+
+/* ── Layout fixes (UI audit) ──────────────────────────────────────────── */
+/* Cap the Risk grid at 3 columns on wide screens (was a sparse 4-up). */
+@media (min-width: 62rem) {
+  .risk-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Demote the evidence tag inside risk cards to a quiet caption so the factor
+   label is the primary line (reserve color for the FROM PROFILE state). */
+.risk-card .ev-tag,
+.risk-card .ev-tag.ev-est {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--c-text-3);
+  font-weight: 500;
+  text-transform: none;
+}
+/* Prevention non-pharmacologic measures: 2-up (4 items, was a ragged 3+1). */
+@media (min-width: 48rem) {
+  #tab-prevent .prev-measures {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* Compact arousal rows on phones (less dead whitespace pushing items down). */
+@media (max-width: 40rem) {
+  .ascale-opt {
+    min-height: 40px;
+    padding: 6px 10px;
+    gap: var(--sp-2);
+  }
+}
