@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
-import { fitToPages } from './shared/pdf-kit.js';
+import { fitToPages, lighten, darken } from './shared/pdf-kit.js';
 import { rassTargetSet } from './scoring.js';
 import { DELIRIUM_REFS } from './data/refs.js';
 
@@ -55,16 +55,7 @@ var FAMILY_T = [TEAL_T, CRIM_T, AMBER_T, INDIGO_T, GREEN_T, PURPLE_T, STEEL_T, O
 
 // Pastel treatment: header bands are a light tint of the family color with dark
 // same-hue text (deep family color stays as the checkbox outline / text accent).
-function lighten(rgb, f) {
-  return [
-    Math.round(rgb[0] + (255 - rgb[0]) * f),
-    Math.round(rgb[1] + (255 - rgb[1]) * f),
-    Math.round(rgb[2] + (255 - rgb[2]) * f),
-  ];
-}
-function darken(rgb, f) {
-  return [Math.round(rgb[0] * (1 - f)), Math.round(rgb[1] * (1 - f)), Math.round(rgb[2] * (1 - f))];
-}
+// lighten/darken come from pdf-kit (shared with the pediatric report).
 var BAND_F = 0.62; // how light the pastel header band is vs the deep family color
 
 // Page geometry (points)
