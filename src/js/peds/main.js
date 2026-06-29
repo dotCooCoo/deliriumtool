@@ -61,6 +61,7 @@ const SCREEN_NAMES = { capd: 'CAPD', pcam: 'pCAM-ICU', pscam: 'psCAM-ICU' };
 const state = {
   profile: { ageM: null, devM: null, delay: false, weightKg: null, band: null },
   assessedAt: '',
+  assessor: '',
   screen: '',
   alternatives: [],
   arousal: '',
@@ -149,6 +150,8 @@ function fillProfileForm() {
 function syncAssessed() {
   const af = $('#peds-assessed');
   if (af) af.value = state.assessedAt || '';
+  const ab = $('#peds-assessor');
+  if (ab) ab.value = state.assessor || '';
 }
 
 function applyState(snap) {
@@ -164,6 +167,7 @@ function applyState(snap) {
   state.medsGiven = snap.medsGiven && typeof snap.medsGiven === 'object' ? snap.medsGiven : {};
   state.prevention = snap.prevention && typeof snap.prevention === 'object' ? snap.prevention : {};
   state.assessedAt = snap.assessedAt || localInput();
+  state.assessor = typeof snap.assessor === 'string' ? snap.assessor : '';
   fillProfileForm();
   document.body.dataset.screen = state.screen;
   $('#pathway-picker').hidden = true;
@@ -192,6 +196,7 @@ function clearAll() {
   state.medsGiven = {};
   state.prevention = {};
   state.assessedAt = '';
+  state.assessor = '';
   clearSaved();
   reflectPrevention();
   syncAssessed();
@@ -876,6 +881,11 @@ document.addEventListener('change', (e) => {
   }
   if (t.dataset.assessed != null) {
     state.assessedAt = t.value;
+    autosave(state);
+    return;
+  }
+  if (t.dataset.assessor != null) {
+    state.assessor = t.value;
     autosave(state);
     return;
   }

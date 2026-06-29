@@ -180,7 +180,9 @@ function pdfPayload() {
   return {
     facility: ui.getFacilityName(),
     // A full assessment timestamp (date + time): the entered value, or now.
-    dt: ui.formatStamp(assessment.time),
+    dt:
+      ui.formatStamp(assessment.time) +
+      (assessment.assessor ? '   Assessed by: ' + assessment.assessor.trim() : ''),
     meds: ui.selectedMeds(),
     assessment,
     settings: ui.gatherSettings(),
