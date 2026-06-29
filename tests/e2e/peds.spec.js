@@ -251,9 +251,13 @@ test('Documents tab lists medications given and generates a PDF', async ({ page 
   await expect(page.locator('#meds-given')).toContainText('Dexmedetomidine');
   expect(await page.locator('#meds-given input[data-med]').count()).toBe(7);
   await expect(page.locator('#meds-given input[data-med="dexmed"]')).toBeChecked();
+  // the assessment time is seeded to now and the filename is timestamped
+  await expect(page.locator('#peds-assessed')).not.toHaveValue('');
   const [download] = await Promise.all([
     page.waitForEvent('download'),
     page.click('[data-act="generateReport"]'),
   ]);
-  expect(download.suggestedFilename()).toMatch(/\.pdf$/);
+  expect(download.suggestedFilename()).toMatch(
+    /^pediatric-delirium-summary_\d{4}-\d{2}-\d{2}_\d{4}\.pdf$/,
+  );
 });

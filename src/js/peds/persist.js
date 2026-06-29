@@ -9,6 +9,7 @@ const KEY = 'deliriumtool:peds';
 const SETTINGS_KEY = 'deliriumtool:peds:settings';
 const SNAPSHOT_KEYS = [
   'profile',
+  'assessedAt',
   'screen',
   'alternatives',
   'arousal',
