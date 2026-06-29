@@ -114,7 +114,7 @@ function buildReport(doc, state, settings, scale) {
       .setFontSize(9.5 * scale)
       .setTextColor(...darken(color, 0.2))
       .text(t, M + 7 * scale, y + 12 * scale);
-    y += h + 7 * scale;
+    y += h + 12 * scale;
     doc
       .setFont('helvetica', 'normal')
       .setFontSize(10 * scale)
