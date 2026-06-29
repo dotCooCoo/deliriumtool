@@ -107,7 +107,7 @@ test('Treatment + Medications carry off-label framing and the corrected doses', 
   await page.click('[data-pathway="capd"]');
   await page.click('.tab-btn[data-tab="treatment"]');
   await expect(page.locator('#tab-treatment')).toContainText('Off-label');
-  await expect(page.locator('#tab-treatment')).toContainText('[CCO — pending]');
+  await expect(page.locator('#tab-treatment')).toContainText('reassess daily');
   await page.click('.tab-btn[data-tab="meds"]');
   await expect(page.locator('#tab-meds')).toContainText('Not an order set');
   await expect(page.locator('#tab-meds')).toContainText('Dexmedetomidine');
