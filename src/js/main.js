@@ -13,6 +13,7 @@ import {
   S,
   assignKeys,
   autosave,
+  flushSave,
   loadAutosave,
   restore,
   clearAll,
@@ -105,10 +106,14 @@ function hasAssessmentData() {
   return Boolean(
     S.risk > 0 ||
     S.camResult ||
+    S.sub ||
     (S.log && S.log.length) ||
     ui.getFacilityName() ||
+    $('rass')?.value ||
+    $('cam-notes')?.value.trim() ||
+    document.querySelector('[data-role="plan"]')?.value.trim() ||
     document.querySelector(
-      '.rcb:checked, #tab-bundle .bun input:checked, #tab-mnemonic .mnemonic-cell input:checked',
+      '.rcb:checked, #tab-bundle .bun input:checked, #tab-mnemonic .mnemonic-cell input:checked, #tab-treatment .chk input:checked',
     ),
   );
 }
@@ -306,7 +311,10 @@ const onClick = {
 
 const onChange = {
   switchPathway: (el) => switchPathwayTo(el.value),
-  syncRass: () => syncRassTarget(),
+  syncRass: () => {
+    syncRassTarget();
+    ui.updateRass(); // re-color the RASS band/zones relative to the new target
+  },
   risk: () => ui.recalcRisk(),
   bundle: () => ui.updBundle(),
   mnemonic: () => ui.updMnemonic(),
@@ -486,6 +494,8 @@ function init() {
   wireGlossary();
   wireA11y();
   wireDispatch();
+  // Flush the debounced autosave on hide so a quick reload/close never loses the last edit.
+  window.addEventListener('pagehide', () => flushSave(root));
   const shared = readShareUrl();
   initSettings({ shareActive: !!shared }); // a shared #cfg link wins over settings.json
 

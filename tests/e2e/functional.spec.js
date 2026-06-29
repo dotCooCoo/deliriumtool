@@ -259,3 +259,26 @@ test('CAM result status uses a vector sprite icon, not an emoji', async ({ page 
   await page.selectOption('#cam4', 'abnormal'); // → CAM positive
   await expect(page.locator('#cam-res-icon svg use')).toHaveCount(1);
 });
+
+test('autosave flushes on page hide so the last edit survives', async ({ page }) => {
+  await page.goto('/');
+  await page.click('[data-pathway="full"]');
+  await page.fill('#facility-input', 'Flush Test Hospital');
+  await page.evaluate("dispatchEvent(new Event('pagehide'))"); // before the 400ms debounce
+  const saved = await page.evaluate(() => localStorage.getItem('deliriumtool:assessment'));
+  expect(saved).toContain('Flush Test Hospital');
+});
+
+test('auto-fill asks before overwriting notes-only work', async ({ page }) => {
+  await page.goto('/');
+  await page.click('[data-pathway="full"]');
+  await page.click('[data-tab="cam"]');
+  await page.fill('#cam-notes', 'Drowsy overnight; reviewing meds.');
+  let asked = false;
+  page.once('dialog', (d) => {
+    asked = true;
+    d.accept();
+  });
+  await page.click('[data-act="autofill"]');
+  expect(asked).toBe(true);
+});
