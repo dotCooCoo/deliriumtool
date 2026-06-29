@@ -282,3 +282,10 @@ test('auto-fill asks before overwriting notes-only work', async ({ page }) => {
   await page.click('[data-act="autofill"]');
   expect(asked).toBe(true);
 });
+
+test('the accessibility options control is available and opens', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.a11y-btn')).toBeVisible();
+  await page.click('.a11y-btn');
+  await expect(page.locator('.a11y-panel')).toBeVisible();
+});

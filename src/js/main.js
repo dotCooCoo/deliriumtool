@@ -22,6 +22,7 @@ import {
   applyMeds,
 } from './state.js';
 import { initCitations } from './citations.js';
+import { initA11y } from './shared/a11y.js';
 import {
   initSettings,
   applySettings,
@@ -494,6 +495,7 @@ function init() {
   wireGlossary();
   wireA11y();
   wireDispatch();
+  initA11y(); // user-configurable text size / contrast / motion controls
   // Flush the debounced autosave on hide so a quick reload/close never loses the last edit.
   window.addEventListener('pagehide', () => flushSave(root));
   const shared = readShareUrl();
