@@ -14,7 +14,7 @@ import { RISK_FACTORS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
 import { REFS } from './data/refs.js';
-import { fitToPages, asciiPdf as ascii } from '../shared/pdf-kit.js';
+import { fitToPages, asciiPdf as ascii, lighten, darken, stampFooter } from '../shared/pdf-kit.js';
 import { formatStamp, fileStamp } from '../shared/time.js';
 
 applyPlugin(jsPDF);
@@ -88,7 +88,7 @@ function buildReport(doc, state, settings, scale) {
     .setFontSize(10 * scale)
     .setTextColor(...SEC)
     .text(
-      `${(settings.hospital || 'Pediatric ICU').trim()}  ·  Assessed ${formatStamp(state.assessedAt)}  ·  Generated ${formatStamp()}`,
+      `${(settings.hospital || 'Pediatric ICU').trim()}  ·  Assessed ${formatStamp(state.assessedAt)}`,
       M,
       y,
     );
@@ -99,14 +99,18 @@ function buildReport(doc, state, settings, scale) {
     .line(M, y, W - M, y);
   y += 22 * scale;
 
+  // A pastel header band in the section-family color, with the title in a darkened
+  // shade of the same family — mirrors the adult tool's sectionBar.
   const sectionTitle = (t, color = A_TEAL) => {
     ensure(40 * scale);
+    const h = 17 * scale;
+    doc.setFillColor(...lighten(color, 0.62)).rect(M, y, W - 2 * M, h, 'F');
     doc
       .setFont('helvetica', 'bold')
-      .setFontSize(11 * scale)
-      .setTextColor(...color)
-      .text(t, M, y);
-    y += 15 * scale;
+      .setFontSize(9.5 * scale)
+      .setTextColor(...darken(color, 0.2))
+      .text(t, M + 7 * scale, y + 12 * scale);
+    y += h + 7 * scale;
     doc
       .setFont('helvetica', 'normal')
       .setFontSize(10 * scale)
@@ -223,5 +227,6 @@ function buildReport(doc, state, settings, scale) {
 export function generateReport(state, settings) {
   const mkDoc = () => new jsPDF({ unit: 'pt', format: 'letter', compress: true });
   const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, state, settings, scale));
+  stampFooter(doc, { generated: formatStamp() });
   doc.save(`pediatric-delirium-summary_${fileStamp()}.pdf`);
 }
