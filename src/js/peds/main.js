@@ -64,6 +64,7 @@ const state = {
   capd: {},
   cam: {},
   risk: {},
+  prevention: {},
   medsGiven: {},
 };
 
@@ -138,6 +139,7 @@ function applyState(snap) {
   state.cam = snap.cam && typeof snap.cam === 'object' ? snap.cam : {};
   state.risk = snap.risk && typeof snap.risk === 'object' ? snap.risk : {};
   state.medsGiven = snap.medsGiven && typeof snap.medsGiven === 'object' ? snap.medsGiven : {};
+  state.prevention = snap.prevention && typeof snap.prevention === 'object' ? snap.prevention : {};
   fillProfileForm();
   document.body.dataset.screen = state.screen;
   $('#pathway-picker').hidden = true;
@@ -148,6 +150,7 @@ function applyState(snap) {
   renderCam();
   renderRisk();
   renderMedsGiven();
+  reflectPrevention();
   renderResult();
   decorateHeads();
 }
@@ -162,7 +165,9 @@ function clearAll() {
   state.cam = {};
   state.risk = {};
   state.medsGiven = {};
+  state.prevention = {};
   clearSaved();
+  reflectPrevention();
   ['#prof-age', '#prof-dev', '#prof-weight'].forEach((s) => {
     const e = $(s);
     if (e) e.value = '';
@@ -565,6 +570,13 @@ function renderMedsGiven() {
   );
 }
 
+// Prevention checkboxes are static markup — reflect saved state onto them.
+function reflectPrevention() {
+  $$('[data-prev]').forEach((el) => {
+    el.checked = !!state.prevention[el.dataset.prev];
+  });
+}
+
 // Give every card head a matching icon (decorative) for a consistent visual system.
 const HEAD_ICONS = [
   [/arousal/i, 'gauge-high'],
@@ -795,6 +807,11 @@ document.addEventListener('change', (e) => {
   }
   if (t.dataset.med) {
     state.medsGiven[t.dataset.med] = t.checked;
+    autosave(state);
+    return;
+  }
+  if (t.dataset.prev) {
+    state.prevention[t.dataset.prev] = t.checked;
     autosave(state);
     return;
   }

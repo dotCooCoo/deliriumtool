@@ -16,6 +16,7 @@ const SNAPSHOT_KEYS = [
   'capd',
   'cam',
   'risk',
+  'prevention',
   'medsGiven',
 ];
 
@@ -158,6 +159,7 @@ export const EXAMPLE = {
     slow: '2',
   },
   cam: {},
-  risk: {},
+  risk: { benzo: true, vent: true },
+  prevention: { A: true, C: true, D: true, F: true, sleep: true },
   medsGiven: { dexmed: true, melatonin: true },
 };

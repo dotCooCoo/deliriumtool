@@ -11,6 +11,7 @@ import { evalCapd, evalCam, featurePresent, arousalGate } from './scoring.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
 import { RISK_FACTORS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
+import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
 
 applyPlugin(jsPDF);
 
@@ -127,6 +128,17 @@ export function generateReport(state, settings, dateStr) {
     flagged.forEach((f) => {
       ensure(15);
       doc.setTextColor(...INK).text(ascii(`•  ${f.label}`), M, y);
+      y += 14;
+    });
+    y += 8;
+  }
+
+  const prev = PREVENTION_ORDER.filter((id) => state.prevention && state.prevention[id]);
+  if (prev.length) {
+    sectionTitle('Prevention bundle addressed this shift');
+    prev.forEach((id) => {
+      ensure(15);
+      doc.setTextColor(...INK).text(ascii(`•  ${PREVENTION_LABELS[id]}`), M, y);
       y += 14;
     });
     y += 8;
