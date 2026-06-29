@@ -618,3 +618,11 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   color: var(--c-primary);
   opacity: 0.85;
 }
+
+/* Profile + setup action rows */
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}

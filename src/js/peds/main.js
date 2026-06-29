@@ -20,6 +20,20 @@ import { CAPD_ITEMS, CAPD_FREQ, CAPD_DEV_DELAY_NOTE } from './data/capd.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
 import { AROUSAL_SCALES } from './data/arousal.js';
 import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
+import {
+  autosave,
+  flushSave,
+  loadSaved,
+  clearSaved,
+  exportJSON,
+  importJSON,
+  saveSettings,
+  loadSettings,
+  exportSettings,
+  importSettings,
+  EXAMPLE,
+  EXAMPLE_SETTINGS,
+} from './persist.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -78,6 +92,84 @@ function ageLabel(months) {
   return `${Math.round(months / 12)} yr`;
 }
 
+// ── Facility settings (Setup tab; persisted separately, survive "new child") ───
+function readSettings() {
+  const out = {};
+  $$('[data-set]').forEach((el) => {
+    out[el.dataset.set] = el.value;
+  });
+  return out;
+}
+function applySettings(obj) {
+  if (!obj || typeof obj !== 'object') return;
+  $$('[data-set]').forEach((el) => {
+    if (typeof obj[el.dataset.set] === 'string') el.value = obj[el.dataset.set];
+  });
+}
+
+// ── Restore a saved / imported / example assessment onto the workspace ─────────
+function fillProfileForm() {
+  const p = state.profile;
+  const set = (sel, v) => {
+    const e = $(sel);
+    if (e) e.value = v;
+  };
+  set('#prof-age', p.ageM != null ? p.ageM : '');
+  set('#prof-age-unit', 'm');
+  set('#prof-baseline', p.baseline || 'typical');
+  set('#prof-weight', p.weightKg != null ? p.weightKg : '');
+  const dr = $('#prof-dev-row');
+  if (dr) dr.hidden = p.baseline !== 'impaired';
+  set('#prof-dev', p.delay && p.devM != null ? p.devM : '');
+  set('#prof-dev-unit', 'm');
+}
+
+function applyState(snap) {
+  if (!snap || !snap.profile || snap.profile.ageM == null) return;
+  state.profile = snap.profile;
+  state.screen = snap.screen || 'capd';
+  state.alternatives = Array.isArray(snap.alternatives) ? snap.alternatives : [];
+  state.arousal = typeof snap.arousal === 'string' ? snap.arousal : '';
+  state.arousalScale = snap.arousalScale === 'sbs' ? 'sbs' : 'rass';
+  state.capd = snap.capd && typeof snap.capd === 'object' ? snap.capd : {};
+  state.cam = snap.cam && typeof snap.cam === 'object' ? snap.cam : {};
+  state.risk = snap.risk && typeof snap.risk === 'object' ? snap.risk : {};
+  fillProfileForm();
+  document.body.dataset.screen = state.screen;
+  $('#pathway-picker').hidden = true;
+  $('#workspace').hidden = false;
+  renderHeader();
+  renderArousal();
+  renderCapd();
+  renderCam();
+  renderRisk();
+  renderResult();
+  decorateHeads();
+}
+
+function clearAll() {
+  state.profile = { ageM: null, devM: null, delay: false, weightKg: null, band: null };
+  state.screen = '';
+  state.alternatives = [];
+  state.arousal = '';
+  state.arousalScale = 'rass';
+  state.capd = {};
+  state.cam = {};
+  state.risk = {};
+  clearSaved();
+  ['#prof-age', '#prof-dev', '#prof-weight'].forEach((s) => {
+    const e = $(s);
+    if (e) e.value = '';
+  });
+  const b = $('#prof-baseline');
+  if (b) b.value = 'typical';
+  const dr = $('#prof-dev-row');
+  if (dr) dr.hidden = true;
+  delete document.body.dataset.screen;
+  $('#workspace').hidden = true;
+  $('#pathway-picker').hidden = false;
+}
+
 // ── Profile gate ──────────────────────────────────────────────────────────────
 function deriveScreen() {
   const ageM = toMonths($('#prof-age').value, $('#prof-age-unit').value);
@@ -98,16 +190,20 @@ function deriveScreen() {
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
   state.alternatives = alternatives;
+  state.arousalScale = readSettings().scale === 'sbs' ? 'sbs' : 'rass';
+  state.arousal = '';
 
   document.body.dataset.screen = recommended;
   $('#pathway-picker').hidden = true;
   $('#workspace').hidden = false;
   renderHeader();
+  renderArousal();
   renderCapd();
   renderCam();
   renderRisk();
   renderResult();
   decorateHeads();
+  autosave(state);
   window.scrollTo({ top: 0 });
 }
 
@@ -119,18 +215,12 @@ function setScreen(key) {
   renderHeader();
   renderCam();
   renderResult();
+  autosave(state);
 }
 
+// "Edit child" — return to the (populated) profile form, keeping the assessment.
 function resetToProfile() {
-  state.screen = '';
-  state.arousal = '';
-  state.arousalScale = 'rass';
-  state.capd = {};
-  state.cam = {};
-  $$('.pseg-opt input, .ascale-opt input').forEach((i) => {
-    i.checked = false;
-  });
-  delete document.body.dataset.screen;
+  fillProfileForm();
   $('#workspace').hidden = true;
   $('#pathway-picker').hidden = false;
 }
@@ -220,11 +310,12 @@ function renderArousal() {
   );
 }
 
-function segRow(legend, name, dataKey, options, hint) {
+function segRow(legend, name, dataKey, options, hint, selected) {
   const group = el('div', { class: 'pseg', role: 'radiogroup' });
   for (const o of options) {
     const input = el('input', { type: 'radio', name, value: o.value });
     input.setAttribute(`data-${dataKey}`, o.key);
+    if (selected != null && String(o.value) === String(selected)) input.checked = true;
     group.append(el('label', { class: 'pseg-opt' }, input, el('span', { text: o.label })));
   }
   const fs = el(
@@ -251,6 +342,7 @@ function renderCapd() {
         'capd',
         CAPD_FREQ.map((label, i) => ({ value: i, key: item.id, label })),
         hint,
+        state.capd[item.id],
       );
     }),
   );
@@ -268,6 +360,7 @@ function toggleCamError(fid, idx) {
   else f.errors.push(idx);
   renderCam();
   renderResult();
+  autosave(state);
 }
 function checkboxEl(dataKey, dataVal, checked, extra) {
   const c = el('input', { type: 'checkbox' });
@@ -590,6 +683,35 @@ document.addEventListener('click', (e) => {
       state.arousal = '';
       renderArousal();
       renderResult();
+      autosave(state);
+      return;
+    }
+    if (a === 'loadExample') {
+      applySettings(EXAMPLE_SETTINGS);
+      saveSettings(readSettings());
+      applyState(EXAMPLE);
+      autosave(state);
+      return;
+    }
+    if (a === 'clearAll') return clearAll();
+    if (a === 'exportJSON') return exportJSON(state);
+    if (a === 'importJSON') {
+      importJSON().then((data) => {
+        if (data && !data.__error) {
+          applyState(data);
+          autosave(state);
+        }
+      });
+      return;
+    }
+    if (a === 'saveSettings') return exportSettings(readSettings());
+    if (a === 'loadSettings') {
+      importSettings().then((data) => {
+        if (data && !data.__error) {
+          applySettings(data);
+          saveSettings(readSettings());
+        }
+      });
       return;
     }
   }
@@ -606,8 +728,13 @@ document.addEventListener('change', (e) => {
     if (row) row.hidden = t.value !== 'impaired';
     return;
   }
+  if (t.dataset.set) {
+    saveSettings(readSettings());
+    return;
+  }
   if (t.dataset.risk) {
     state.risk[t.dataset.risk] = t.checked;
+    autosave(state);
     return;
   }
   if (t.dataset.screenInput === 'arousal') {
@@ -626,7 +753,18 @@ document.addEventListener('change', (e) => {
     return;
   }
   renderResult();
+  autosave(state);
 });
 
-renderArousal();
-decorateHeads();
+window.addEventListener('pagehide', () => {
+  if (state.profile.ageM != null) flushSave(state);
+});
+
+applySettings(loadSettings());
+const saved = loadSaved();
+if (saved && saved.profile && saved.profile.ageM != null) {
+  applyState(saved);
+} else {
+  renderArousal();
+  decorateHeads();
+}
