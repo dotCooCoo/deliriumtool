@@ -73,6 +73,9 @@ test('CAPD shows age-filtered anchors and scores positive', async ({ page }) => 
   for (let i = 0; i < 8; i++) await opts.nth(i).click();
   await expect(page.locator('#screen-result')).toContainText('Positive');
   await expect(page.locator('#screen-result')).toContainText('/32');
+  // positive routes forward, not a dead-end badge
+  await expect(page.locator('#screen-result')).toContainText('WAT-1');
+  await expect(page.locator('#screen-result')).toContainText('precipitants');
 });
 
 test('baseline mental status anchors the result to this child', async ({ page }) => {
