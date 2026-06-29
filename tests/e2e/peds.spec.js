@@ -309,6 +309,29 @@ test('an unchecked profile-derived risk factor stays unchecked across reload', a
   await expect(page.locator('#tab-risk input[data-risk="age"]')).not.toBeChecked();
 });
 
+test('Edit child then re-derive keeps the recorded arousal', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]'); // arousal RASS 0
+  await page.click('.tab-btn[data-tab="screen"]');
+  await expect(page.locator('input[data-screen-input="arousal"][value="0"]')).toBeChecked();
+  await page.click('[data-act="reset"]'); // Edit child
+  await page.click('[data-act="deriveScreen"]'); // re-derive
+  await page.click('.tab-btn[data-tab="screen"]');
+  await expect(page.locator('input[data-screen-input="arousal"][value="0"]')).toBeChecked();
+});
+
+test('skip-link targets the workspace once a child is loaded, the picker on reset', async ({
+  page,
+}) => {
+  page.on('dialog', (d) => d.accept());
+  await page.goto('/peds/');
+  await expect(page.locator('#skip-link')).toHaveAttribute('href', '#pathway-picker');
+  await page.click('[data-act="loadExample"]');
+  await expect(page.locator('#skip-link')).toHaveAttribute('href', '#workspace');
+  await page.click('.pathway-bar [data-act="clearAll"]');
+  await expect(page.locator('#skip-link')).toHaveAttribute('href', '#pathway-picker');
+});
+
 test('Documents tab lists medications given and generates a PDF', async ({ page }) => {
   await page.goto('/peds/');
   await page.click('[data-act="loadExample"]');
