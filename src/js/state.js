@@ -135,6 +135,16 @@ export function autosave(root) {
   }, 400);
 }
 
+/** Synchronous save (used on page hide so the last edit survives a quick reload). */
+export function flushSave(root) {
+  clearTimeout(saveTimer);
+  try {
+    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(serialize(root)));
+  } catch {
+    /* non-fatal */
+  }
+}
+
 export function loadAutosave() {
   try {
     return JSON.parse(localStorage.getItem(AUTOSAVE_KEY) || 'null');
