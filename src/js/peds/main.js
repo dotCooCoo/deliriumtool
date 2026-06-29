@@ -549,13 +549,14 @@ function riskCard(f, isDerived) {
       text: f.evidence,
     }),
   );
-  if (isDerived) top.append(el('span', { class: 'risk-from', text: 'from profile' }));
-  return el(
+  const card = el(
     'div',
     { class: `risk-card${isDerived ? ' is-derived' : ''}` },
     top,
     el('p', { class: 'risk-detail', text: f.detail }),
   );
+  if (isDerived) card.append(el('span', { class: 'risk-from', text: 'from profile' }));
+  return card;
 }
 
 function renderRisk() {
