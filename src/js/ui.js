@@ -41,25 +41,9 @@ function localStampInput(hour, minute) {
   return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}T${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
 }
 
-// A readable "Jun 27, 2026, 8:30 AM" stamp. Empty input → now; an unparseable
-// legacy value is returned unchanged so old logs still render.
-export function formatStamp(value) {
-  const d = value ? new Date(value) : new Date();
-  if (Number.isNaN(d.getTime())) return value || '';
-  return d.toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
-
-// A filename-safe "YYYY-MM-DD_HHMM" stamp (now) for export filenames.
-export function fileStamp() {
-  const d = new Date();
-  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}_${pad2(d.getHours())}${pad2(d.getMinutes())}`;
-}
+// Readable + filename-safe timestamps, shared with the pediatric tool.
+import { formatStamp, fileStamp } from './shared/time.js';
+export { formatStamp, fileStamp };
 
 // Default the assessment-time field to now when empty (first entry / post-reset).
 export function seedAssessmentTime() {

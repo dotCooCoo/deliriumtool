@@ -24,6 +24,7 @@ import { MEDS } from './data/meds.js';
 import { REFS } from './data/refs.js';
 import { generateReport } from './report.js';
 import { faIcon } from '../shared/dom.js';
+import { localInput } from '../shared/time.js';
 import {
   autosave,
   flushSave,
@@ -59,6 +60,7 @@ const SCREEN_NAMES = { capd: 'CAPD', pcam: 'pCAM-ICU', pscam: 'psCAM-ICU' };
 
 const state = {
   profile: { ageM: null, devM: null, delay: false, weightKg: null, band: null },
+  assessedAt: '',
   screen: '',
   alternatives: [],
   arousal: '',
@@ -144,6 +146,11 @@ function fillProfileForm() {
   set('#prof-dev-unit', 'm');
 }
 
+function syncAssessed() {
+  const af = $('#peds-assessed');
+  if (af) af.value = state.assessedAt || '';
+}
+
 function applyState(snap) {
   if (!snap || !snap.profile || snap.profile.ageM == null) return;
   state.profile = snap.profile;
@@ -156,6 +163,7 @@ function applyState(snap) {
   state.risk = snap.risk && typeof snap.risk === 'object' ? snap.risk : {};
   state.medsGiven = snap.medsGiven && typeof snap.medsGiven === 'object' ? snap.medsGiven : {};
   state.prevention = snap.prevention && typeof snap.prevention === 'object' ? snap.prevention : {};
+  state.assessedAt = snap.assessedAt || localInput();
   fillProfileForm();
   document.body.dataset.screen = state.screen;
   $('#pathway-picker').hidden = true;
@@ -167,6 +175,7 @@ function applyState(snap) {
   renderRisk();
   renderMedsGiven();
   reflectPrevention();
+  syncAssessed();
   renderResult();
   decorateHeads();
 }
@@ -182,8 +191,10 @@ function clearAll() {
   state.risk = {};
   state.medsGiven = {};
   state.prevention = {};
+  state.assessedAt = '';
   clearSaved();
   reflectPrevention();
+  syncAssessed();
   ['#prof-age', '#prof-dev', '#prof-weight'].forEach((s) => {
     const e = $(s);
     if (e) e.value = '';
@@ -207,6 +218,7 @@ function deriveScreen() {
     return;
   }
   if (errEl) errEl.hidden = true;
+  if (!state.assessedAt) state.assessedAt = localInput();
 
   const baseline = $('#prof-baseline').value;
   const delay = baseline === 'impaired';
@@ -229,6 +241,7 @@ function deriveScreen() {
   renderCam();
   renderRisk();
   renderMedsGiven();
+  syncAssessed();
   renderResult();
   decorateHeads();
   autosave(state);
@@ -830,15 +843,7 @@ document.addEventListener('click', (e) => {
         return;
       }
       if (empty) empty.hidden = true;
-      const now = new Date();
-      const dateStr = now.toLocaleString(undefined, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      generateReport(state, readSettings(), dateStr);
+      generateReport(state, readSettings());
       return;
     }
   }
@@ -866,6 +871,11 @@ document.addEventListener('change', (e) => {
   }
   if (t.dataset.med) {
     state.medsGiven[t.dataset.med] = t.checked;
+    autosave(state);
+    return;
+  }
+  if (t.dataset.assessed != null) {
+    state.assessedAt = t.value;
     autosave(state);
     return;
   }

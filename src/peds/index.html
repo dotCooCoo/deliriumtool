@@ -929,6 +929,20 @@
               flagged risks, medications given, and your unit governance — generated on this device.
               No data leaves the browser.
             </p>
+            <div class="profile-row">
+              <label class="scr-label" for="peds-assessed">Assessment time</label>
+              <input
+                class="finp profile-weight"
+                id="peds-assessed"
+                type="datetime-local"
+                data-assessed
+              />
+            </div>
+            <p class="note">
+              The report prints this as <strong>Assessed</strong>, alongside
+              <strong>Generated</strong>
+              (when you create it); the file is named with the generation timestamp.
+            </p>
             <button class="btn btn-primary" data-act="generateReport">
               <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Generate report
               (PDF)

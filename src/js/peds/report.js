@@ -15,6 +15,7 @@ import { MEDS } from './data/meds.js';
 import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
 import { REFS } from './data/refs.js';
 import { fitToPages, asciiPdf as ascii } from '../shared/pdf-kit.js';
+import { formatStamp, fileStamp } from '../shared/time.js';
 
 applyPlugin(jsPDF);
 
@@ -64,7 +65,7 @@ function resultLine(state) {
 
 // Draw the whole report at a scale factor (fonts + spacing + margins all scale),
 // so fitToPages can shrink it onto one page when the assessment is large.
-function buildReport(doc, state, settings, dateStr, scale) {
+function buildReport(doc, state, settings, scale) {
   const M = 54 * scale;
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
@@ -86,7 +87,11 @@ function buildReport(doc, state, settings, dateStr, scale) {
     .setFont('helvetica', 'normal')
     .setFontSize(10 * scale)
     .setTextColor(...SEC)
-    .text(`${(settings.hospital || 'Pediatric ICU').trim()}  ·  ${dateStr}`, M, y);
+    .text(
+      `${(settings.hospital || 'Pediatric ICU').trim()}  ·  Assessed ${formatStamp(state.assessedAt)}  ·  Generated ${formatStamp()}`,
+      M,
+      y,
+    );
   y += 10 * scale;
   doc
     .setDrawColor(...TEAL)
@@ -215,8 +220,8 @@ function buildReport(doc, state, settings, dateStr, scale) {
   doc.text(doc.splitTextToSize(ascii(disc), W - 2 * M), M, y);
 }
 
-export function generateReport(state, settings, dateStr) {
+export function generateReport(state, settings) {
   const mkDoc = () => new jsPDF({ unit: 'pt', format: 'letter', compress: true });
-  const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, state, settings, dateStr, scale));
-  doc.save('pediatric-delirium-summary.pdf');
+  const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, state, settings, scale));
+  doc.save(`pediatric-delirium-summary_${fileStamp()}.pdf`);
 }
