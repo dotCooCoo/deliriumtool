@@ -23,6 +23,7 @@ import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { REFS } from './data/refs.js';
 import { generateReport } from './report.js';
+import { faIcon } from '../shared/dom.js';
 import {
   autosave,
   flushSave,
@@ -96,16 +97,7 @@ const badge = (cls, text) => {
 };
 const note = (text) => el('span', { class: 'note', text });
 
-const SVGNS = 'http://www.w3.org/2000/svg';
-function svgIcon(id) {
-  const svg = document.createElementNS(SVGNS, 'svg');
-  svg.setAttribute('class', 'fa');
-  svg.setAttribute('aria-hidden', 'true');
-  const use = document.createElementNS(SVGNS, 'use');
-  use.setAttribute('href', `#fa-${id}`);
-  svg.append(use);
-  return svg;
-}
+const svgIcon = (id) => faIcon(`fa-${id}`);
 
 function toMonths(value, unit) {
   if (value == null || value === '') return null;
