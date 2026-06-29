@@ -19,6 +19,7 @@ import {
 import { CAPD_ITEMS, CAPD_FREQ, CAPD_DEV_DELAY_NOTE } from './data/capd.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
 import { AROUSAL_SCALES } from './data/arousal.js';
+import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => Array.from(document.querySelectorAll(sel));
@@ -46,6 +47,7 @@ const state = {
   arousalScale: 'rass',
   capd: {},
   cam: {},
+  risk: {},
 };
 
 const fmtRass = (v) => String(v).replace('-', '−');
@@ -103,6 +105,7 @@ function deriveScreen() {
   renderHeader();
   renderCapd();
   renderCam();
+  renderRisk();
   renderResult();
   window.scrollTo({ top: 0 });
 }
@@ -378,6 +381,66 @@ function renderCam() {
   box.replaceChildren(...data.features.map(renderFeature));
 }
 
+// ── Risk (reactive to the child profile) ──────────────────────────────────────
+function riskCard(f, isDerived) {
+  const cb = el('input', { type: 'checkbox' });
+  cb.setAttribute('data-risk', f.id);
+  if (isDerived || state.risk[f.id]) cb.checked = true;
+  const top = el(
+    'label',
+    { class: 'risk-card-top' },
+    cb,
+    el('strong', { class: 'risk-card-label', text: f.label }),
+    el('span', {
+      class: `ev-tag${f.evidence === 'established' ? ' ev-est' : ''}`,
+      text: f.evidence,
+    }),
+  );
+  if (isDerived) top.append(el('span', { class: 'risk-from', text: 'from profile' }));
+  return el(
+    'div',
+    { class: `risk-card${isDerived ? ' is-derived' : ''}` },
+    top,
+    el('p', { class: 'risk-detail', text: f.detail }),
+  );
+}
+
+function renderRisk() {
+  const box = $('#risk-content');
+  if (!box) return;
+  const derived = new Set(derivedRiskIds(state.profile));
+  const kids = [];
+  if (derived.size) {
+    const flagged = RISK_FACTORS.filter((f) => derived.has(f.id));
+    kids.push(
+      el(
+        'div',
+        { class: 'risk-flagged' },
+        el(
+          'div',
+          { class: 'risk-flagged-head' },
+          svgIcon('circle-exclamation'),
+          el('span', { text: " Flagged from this child's profile" }),
+        ),
+        el(
+          'div',
+          { class: 'risk-flagged-list' },
+          ...flagged.map((f) => el('span', { class: 'risk-chip', text: f.label })),
+        ),
+      ),
+    );
+  }
+  for (const g of RISK_GROUPS) {
+    const grid = el(
+      'div',
+      { class: 'risk-grid' },
+      ...RISK_FACTORS.filter((f) => f.group === g.id).map((f) => riskCard(f, derived.has(f.id))),
+    );
+    kids.push(el('div', { class: 'card' }, el('div', { class: 'card-head' }, g.title), grid));
+  }
+  box.replaceChildren(...kids);
+}
+
 // ── Result ────────────────────────────────────────────────────────────────────
 function setResult(badgeCls, badgeText, ...rest) {
   const out = $('#screen-result');
@@ -516,6 +579,10 @@ document.addEventListener('change', (e) => {
   if (t.dataset.prof === 'baseline') {
     const row = $('#prof-dev-row');
     if (row) row.hidden = t.value !== 'impaired';
+    return;
+  }
+  if (t.dataset.risk) {
+    state.risk[t.dataset.risk] = t.checked;
     return;
   }
   if (t.dataset.screenInput === 'arousal') {
