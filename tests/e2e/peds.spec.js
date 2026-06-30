@@ -457,3 +457,25 @@ test('peds acronyms get a glossary tooltip on first use', async ({ page }) => {
   const ab = page.locator('#tab-screen abbr', { hasText: 'CAPD' }).first();
   await expect(ab).toHaveAttribute('title', /Cornell Assessment of Pediatric Delirium/);
 });
+
+test('no horizontal overflow at extreme accessibility settings (largest text on a phone)', async ({
+  page,
+}) => {
+  await page.addInitScript(
+    (v) => localStorage.setItem('deliriumtool:a11y', v),
+    JSON.stringify({ text: 'xl', contrast: 'high', motion: 'reduce' }),
+  );
+  await page.setViewportSize({ width: 360, height: 780 });
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExample"]');
+  const tabs = await page
+    .locator('.tab-btn[data-tab]')
+    .evaluateAll((els) => els.map((e) => e.dataset.tab));
+  for (const t of tabs) {
+    await page.click(`.tab-btn[data-tab="${t}"]`);
+    const over = await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    );
+    expect(over, `horizontal overflow on the ${t} tab`).toBeLessThanOrEqual(2);
+  }
+});
