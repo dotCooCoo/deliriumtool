@@ -265,9 +265,12 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 }
 .ascale-label {
   color: var(--c-text);
+  flex: 1 1 auto;
+  min-width: 0; /* allow the label to wrap so a large-text "unable" tag never overflows */
 }
 .ascale-tag {
   margin-left: auto;
+  flex: none;
   padding: 1px 8px;
   border: 1px solid var(--c-border-strong);
   border-radius: var(--radius-pill);
