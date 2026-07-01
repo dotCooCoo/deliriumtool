@@ -15,3 +15,10 @@ Notable changes to this project, following
 - Pediatric ICU tool at `/peds/`: CAPD, pCAM-ICU, and psCAM-ICU screening with
   age-banded developmental anchors, the pediatric prevention bundle, weight-based
   dosing, and an in-browser summary report.
+- Bedside template designer at `/templates/`: customize and print laminate-ready
+  reference sheets — a per-patient ICU Delirium Rounding Tool (landscape,
+  dry-erase) and a unit-level SPA Quick Reference poster. Sections, single lines,
+  and the deliriogenic-medication list are individually selectable; units can add
+  their own protocol lines and choose the sedation target. Sheet content mirrors
+  the interactive tool's cited clinical content; configurations autosave locally
+  and share as a link or JSON (protocol settings only, never patient data).

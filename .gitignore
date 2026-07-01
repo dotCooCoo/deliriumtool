@@ -60,3 +60,5 @@ desktop.ini
 # nested reference archives (copyright — never commit)
 references/**/*.pdf
 references/peds/
+# local working drafts (source documents for the printable templates)
+references/template_output/

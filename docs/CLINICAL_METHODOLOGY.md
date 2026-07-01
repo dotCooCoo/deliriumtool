@@ -177,6 +177,35 @@ The list is explicitly framed as *"a medication-review prompt, not a list of equ
 
 **Citations mapped (Medications tab):** `beers2023` (AGS Beers Criteria 2023), `acb_boustani` (Anticholinergic Cognitive Burden scale — anchor for the anticholinergic higher-risk flag), `padis2025`, `padis2018`, `haldol_label` (haloperidol prescribing information), `mends2` (MENDS2 dexmedetomidine vs propofol), `mindusa2018`, `promedic2022` (Pro-MEDIC prophylactic-melatonin RCT), `melatonin_meta2025` (2025 ICU melatonin systematic review / meta-analysis).
 
+### 2.9 Printable bedside templates (/templates/)
+
+The template designer produces two laminate-ready sheets — an **ICU Delirium Rounding Tool**
+(per-patient landscape checklist marked with a dry-erase pen) and an **SPA Quick Reference**
+(unit-level portrait poster: Sedation · Pain/Pharmacy · Activity). The designer edits protocol
+configuration only (facility name, section/item selection, medication selection, sedation
+target, added local-protocol lines); no assessment or patient data is entered or printed.
+
+**Content provenance rule:** every clinical statement on the sheets **mirrors the interactive
+tool's cited content** — the sheets introduce no new clinical values. The mapping:
+
+| Sheet block | Mirrors | Citations |
+|---|---|---|
+| Sedation goal / target RASS | §2.3, §2.5 (eCASH light-sedation framing) | `padis2018`, `padis2025`, `icudelirium_satsbt` |
+| CAM-ICU result options (incl. RASS −4/−5 unable-to-assess) | §2.2 | `camicu_worksheet`, `ely2001` |
+| Delirium subtype (hyperactive / hypoactive / mixed) | §2.4 | `lacour2022`, `krewulak2018`, `hayhurst2020` |
+| RASS mini-table (compact grouped rows) | §2.3 | `sessler2002`, `ely2003` |
+| Causative factors — DELIRIUM(S), nine cells | §2.6 (notes shortened to card length; the thiamine dosing detail stays on the web tool, the card says only "thiamine before glucose in at-risk patients") | `icudelirium_mnemonics`, `flaherty2011`, `maldonado2018` |
+| Non-pharmacologic bundle (six bedside groups) | §2.5 items regrouped for bedside scanning (Reorientation / Sensory / Sleep / Mobility / Hydration & Nutrition / Engagement) | `sccm_abcdef`, `pun2019`, `marra2017`, `padis2018`, `inouye1999`, `hshieh2015` |
+| Pharmacologic considerations | §2.7 Step 3 + §2.8; **doses print only when "example starting doses" is switched on** — the default defers to the local order set | `padis2025`, `mindusa2018`, `haldol_label`, `mends2`, `padis2018` |
+| Deliriogenic medications grid | §2.8 registry — the designer's picker toggles the same per-agent flags | `beers2023`, `padis2018`, `acb_boustani` |
+| SPA columns + deeper guidance + escalation ladder | §2.5, §2.7, §2.8 statements recast as poster actions | per-column keys in `src/js/templates/data/content.js` |
+| Nurse care pathway (rounding sheet, step 4) | **Local unit workflow — the only uncited section.** It carries process steps (documentation, handoff, teaching), not clinical values, is flagged "unit workflow — edit to match your local protocol" in the designer, and is fully editable/removable. | — |
+
+Each printed sheet carries the verbatim reference-aid disclaimer and a footer source line
+naming the primary guidelines. Unit tests enforce that every citation key in the template
+content resolves in the registry, that the medication defaults track the shared catalog, and
+that the disclaimer text stays verbatim (`tests/unit/templates-data.test.js`).
+
 ---
 
 ## 3. Citation registry

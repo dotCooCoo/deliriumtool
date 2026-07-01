@@ -26,6 +26,15 @@ A companion **pediatric ICU tool** lives at `/peds/`
 psCAM-ICU screening with age-banded developmental anchors, the pediatric prevention
 bundle, weight-based dosing, and an in-browser summary report — same privacy model.
 
+A **bedside template designer** lives at `/templates/`
+([deliriumtool.com/templates](https://deliriumtool.com/templates/)): customize and
+print laminate-ready reference sheets — a per-patient **ICU Delirium Rounding Tool**
+(landscape, marked with a dry-erase pen) and a unit-level **SPA Quick Reference**
+poster. Pick which sections, lines, and deliriogenic medications print, add your
+unit's own protocol lines, set the sedation target, then print at 100% on Letter
+paper. The configuration autosaves locally and can be shared with colleagues as a
+link or JSON file — it carries protocol settings only, never patient data.
+
 ## Privacy
 
 Everything runs in your browser. The tool captures no patient identifier, sends
