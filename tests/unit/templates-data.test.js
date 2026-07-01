@@ -23,6 +23,7 @@ import {
   RASS_CITES,
 } from '../../src/js/templates/data/content.js';
 import { defaultState, sanitize, isOn } from '../../src/js/templates/state.js';
+import { medDisplayName } from '../../src/js/templates/sheets.js';
 import { toBase64Url, fromBase64Url } from '../../src/js/share.js';
 import { MEDS } from '../../src/js/data/meds.js';
 import { DELIRIUM_REFS } from '../../src/js/data/refs.js';
@@ -124,12 +125,59 @@ test('state: sanitize accepts a valid snapshot unchanged and rejects garbage', (
   });
   assert.equal(junk.template, 'rounding');
   assert.equal(junk.facility, '');
-  assert.equal(junk.fontScale, '100');
+  assert.equal(junk.fontScale, '110');
   assert.deepEqual(junk.items, { ok: false });
   assert.equal(junk.custom.g.length, 1);
   assert.ok(junk.custom.g[0].length <= 160);
   assert.ok(!('not-a-med' in junk.meds));
   assert.equal(isOn(junk.items, 'anything-else'), true);
+});
+
+test('defaults: Large text, generic-only names, clean sans', () => {
+  const s = defaultState();
+  assert.equal(s.fontScale, '110');
+  assert.equal(s.fontFamily, 'sans');
+  assert.equal(s.showBrands, false);
+  assert.equal(s.showDoses, false);
+});
+
+test('medDisplayName strips brand names but keeps clinical qualifiers', () => {
+  assert.equal(medDisplayName('Lorazepam (Ativan)', false), 'Lorazepam');
+  assert.equal(medDisplayName('Solifenacin (VESIcare)', false), 'Solifenacin');
+  assert.equal(medDisplayName('Haloperidol (high dose)', false), 'Haloperidol (high dose)');
+  assert.equal(
+    medDisplayName('Metronidazole (IV, high dose)', false),
+    'Metronidazole (IV, high dose)',
+  );
+  assert.equal(medDisplayName('Pregabalin (Lyrica, high dose)', false), 'Pregabalin (high dose)');
+  assert.equal(
+    medDisplayName('Ondansetron (IV, QTc concern)', false),
+    'Ondansetron (IV, QTc concern)',
+  );
+  assert.equal(medDisplayName('Lorazepam (Ativan)', true), 'Lorazepam (Ativan)');
+});
+
+test('sanitize: reworded lines and custom sections survive; junk is bounded', () => {
+  const s = defaultState();
+  s.fontFamily = 'serif';
+  s.textOverrides['np-clock'] = 'Clock visible from the bed';
+  s.customSections.push({ id: 'cs-1', page: 2, title: 'Unit huddle', lines: ['Review sitters'] });
+  assert.deepEqual(sanitize(JSON.parse(JSON.stringify(s))), s);
+
+  const junk = sanitize({
+    fontFamily: 'comic-sans',
+    textOverrides: { ok: 'fine', bad: 42, huge: 'x'.repeat(999) },
+    customSections: [
+      { id: 'a', page: 9, title: 'T', lines: ['one', 2, 'x'.repeat(999)] },
+      'not-a-section',
+    ],
+  });
+  assert.equal(junk.fontFamily, 'sans');
+  assert.deepEqual(Object.keys(junk.textOverrides).sort(), ['huge', 'ok']);
+  assert.ok(junk.textOverrides.huge.length <= 200);
+  assert.equal(junk.customSections.length, 1);
+  assert.equal(junk.customSections[0].page, 1);
+  assert.equal(junk.customSections[0].lines.length, 2);
 });
 
 test('share codec: base64url round-trips unicode payloads', () => {

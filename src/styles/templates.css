@@ -178,6 +178,59 @@
   font-size: var(--fs-sm);
 }
 
+.item-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-1);
+}
+.item-row .chk {
+  flex: 1;
+  min-width: 0;
+}
+.edit-btn {
+  flex: none;
+  opacity: 0.55;
+}
+.item-row:hover .edit-btn,
+.edit-btn:focus-visible {
+  opacity: 1;
+}
+.edit-input {
+  width: 100%;
+  font-size: var(--fs-sm);
+}
+.sec-ctl-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-1);
+}
+.sec-ctl--custom {
+  background: var(--c-surface-2);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-2) var(--sp-3);
+  margin-top: var(--sp-2);
+}
+.newsec {
+  border-top: 1px solid var(--c-border);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+}
+.newsec-head {
+  font-size: var(--fs-md);
+  margin: 0 0 var(--sp-2);
+}
+.newsec-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.newsec-row .fsel {
+  flex: 1;
+  min-width: 0;
+}
+
 .custom-line {
   display: flex;
   align-items: center;
@@ -254,6 +307,9 @@
   flex: 1;
   min-width: 220px;
 }
+.fit-warn[hidden] {
+  display: none;
+}
 .fit-warn {
   display: flex;
   align-items: center;
@@ -316,6 +372,14 @@
 .sheets.fs-110 .sheet {
   --fs-user: 1.1;
 }
+
+/* Print font options — a small curated set verified to fit at every size. */
+.sheets.ff-classic .sheet {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sheets.ff-serif .sheet {
+  font-family: Georgia, 'Times New Roman', serif;
+}
 /* At the Large size the type grows 10%; tighten leading and micro-spacing so a
    fully-populated sheet still fits its page. */
 .sheets.fs-110 .sheet {
@@ -329,6 +393,15 @@
 }
 .sheets.fs-110 .sheet--portrait .spa-item {
   margin: calc(5pt * var(--fs)) 0;
+}
+.sheets.fs-110 .sheet--portrait {
+  --fs-tpl: 1.09;
+}
+.sheets.fs-110 .sh-bullet {
+  margin: 1pt 0;
+}
+.sheets.fs-110 .sh-group {
+  padding: 2.5pt 4pt;
 }
 
 /* Tones — deep header colour + soft tint used per cell/group. */
@@ -462,6 +535,9 @@
 .sh-small {
   font-size: calc(8.5pt * var(--fs));
 }
+.sh-strong {
+  font-weight: 700;
+}
 
 .sh-rass {
   font-size: calc(8.5pt * var(--fs));
@@ -478,12 +554,24 @@
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
+.sh-rass-row.z-red {
+  color: var(--sh-red);
+}
+.sh-rass-row.z-rust {
+  color: var(--sh-rust);
+}
+.sh-rass-row.z-slate {
+  color: var(--sh-slate);
+}
 .sh-rass-row.is-target {
   color: var(--sh-green);
   font-weight: 700;
 }
 
 .sh-band {
+  display: flex;
+  align-items: center;
+  gap: calc(5pt * var(--fs));
   background: var(--tone);
   color: #fff;
   font-weight: 800;
@@ -492,6 +580,41 @@
   letter-spacing: 0.05em;
   padding: calc(3pt * var(--fs)) calc(8pt * var(--fs));
   border-radius: 2px;
+}
+
+/* Sheet icons — inherit the surrounding text colour, scale with the type. */
+.sh-ico {
+  flex: none;
+  width: calc(9pt * var(--fs));
+  height: calc(9pt * var(--fs));
+  fill: currentColor;
+}
+.sh-band-ico {
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+}
+.sh-group-head .sh-ico,
+.sh-meds-head .sh-ico {
+  vertical-align: -1pt;
+  margin-right: calc(3pt * var(--fs));
+}
+.spa-word .sh-ico {
+  width: calc(11pt * var(--fs));
+  height: calc(11pt * var(--fs));
+  margin-right: calc(4pt * var(--fs));
+  vertical-align: -1.5pt;
+}
+
+/* Unit-authored sections — full-width checklist in three columns. */
+.sh-custom-lines {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 calc(8pt * var(--fs));
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 3px;
+  background: var(--sh-slate-weak);
+  padding: calc(3pt * var(--fs)) calc(6pt * var(--fs));
+  font-size: calc(8.5pt * var(--fs));
 }
 .sh-section {
   display: flex;
@@ -505,7 +628,7 @@
   gap: calc(3pt * var(--fs));
 }
 .sh-mnem-cell {
-  border: 0.8pt solid var(--sh-border);
+  border: 0.9pt solid var(--tone, var(--sh-border));
   border-radius: 3px;
   padding: calc(3pt * var(--fs)) calc(5pt * var(--fs));
 }
@@ -515,9 +638,12 @@
   gap: calc(4pt * var(--fs));
 }
 .sh-mnem-ltr {
-  color: var(--sh-red);
+  color: var(--tone, var(--sh-red));
   font-weight: 800;
   font-size: calc(11pt * var(--fs));
+}
+.sh-mnem-cell .sh-mnem-word {
+  color: var(--tone, var(--sh-ink));
 }
 .sh-mnem-word {
   font-weight: 800;
@@ -644,17 +770,21 @@
   border-radius: 2px;
   overflow: hidden;
 }
+/* The medication grid is a dense reference list — its type gains less from
+   the Large setting than the checklists do, and capping it keeps the full
+   103-agent catalog on the page at every size. */
 .sh-meds-cat {
-  background: var(--sh-slate);
+  background: var(--tone, var(--sh-slate));
   color: #fff;
   font-weight: 700;
-  font-size: calc(7.5pt * var(--fs));
+  font-size: calc(7pt * min(var(--fs), 1.02));
   padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
   display: flex;
   align-items: center;
 }
 .sh-meds-list {
-  font-size: calc(7.5pt * var(--fs));
+  background: var(--tone-weak, #fff);
+  font-size: calc(7pt * min(var(--fs), 1.02));
   padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
 }
 

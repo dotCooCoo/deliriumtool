@@ -35,14 +35,20 @@ export function defaultState() {
     facility: '',
     unit: '',
     rassTarget: '0to-2',
-    fontScale: '100',
+    fontScale: '110',
+    fontFamily: 'sans',
     showActions: true,
     showDoses: false,
+    showBrands: false,
     // Sparse override maps: an id is only present when it differs from the default (on).
     sections: {},
     items: {},
     // Free-text protocol lines the unit adds under a group (never patient data).
     custom: {},
+    // Reworded built-in lines/headings, keyed by item or group id.
+    textOverrides: {},
+    // Unit-authored sections: { id, page, title, lines[] } appended to that page.
+    customSections: [],
     meds: defaultMeds(),
   };
 }
@@ -58,10 +64,12 @@ export function sanitize(raw) {
   if (['rounding', 'spa'].includes(raw.template)) s.template = raw.template;
   if (typeof raw.facility === 'string') s.facility = raw.facility.slice(0, 120);
   if (typeof raw.unit === 'string') s.unit = raw.unit.slice(0, 120);
-  if (['0to-1', '0to-2', '-1to-2'].includes(raw.rassTarget)) s.rassTarget = raw.rassTarget;
+  if (['0to-1', '0to-2', '-3to-4'].includes(raw.rassTarget)) s.rassTarget = raw.rassTarget;
   if (['90', '100', '110'].includes(String(raw.fontScale))) s.fontScale = String(raw.fontScale);
+  if (['sans', 'classic', 'serif'].includes(raw.fontFamily)) s.fontFamily = raw.fontFamily;
   s.showActions = raw.showActions !== false;
   s.showDoses = raw.showDoses === true;
+  s.showBrands = raw.showBrands === true;
   const boolMap = (m) => {
     const out = {};
     if (m && typeof m === 'object') {
@@ -81,6 +89,30 @@ export function sanitize(raw) {
           .slice(0, 8);
         if (lines.length) s.custom[String(k).slice(0, 60)] = lines;
       }
+    }
+  }
+  s.textOverrides = {};
+  if (raw.textOverrides && typeof raw.textOverrides === 'object') {
+    for (const [k, v] of Object.entries(raw.textOverrides)) {
+      if (typeof v === 'string' && v.trim()) {
+        s.textOverrides[String(k).slice(0, 60)] = v.slice(0, 200);
+      }
+    }
+  }
+  s.customSections = [];
+  if (Array.isArray(raw.customSections)) {
+    for (const sec of raw.customSections.slice(0, 4)) {
+      if (!sec || typeof sec !== 'object' || typeof sec.title !== 'string') continue;
+      const lines = (Array.isArray(sec.lines) ? sec.lines : [])
+        .filter((t) => typeof t === 'string' && t.trim())
+        .map((t) => t.slice(0, 160))
+        .slice(0, 8);
+      s.customSections.push({
+        id: typeof sec.id === 'string' ? sec.id.slice(0, 24) : `cs-${s.customSections.length + 1}`,
+        page: sec.page === 2 ? 2 : 1,
+        title: sec.title.slice(0, 60),
+        lines,
+      });
     }
   }
   s.meds = defaultMeds();

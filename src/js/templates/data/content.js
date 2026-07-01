@@ -25,7 +25,7 @@ export const TEMPLATES = [
   {
     id: 'spa',
     name: 'SPA Quick Reference',
-    desc: 'Unit-level Sedation · Pain/Pharmacy · Activity poster with escalation steps — print portrait for all inpatient units.',
+    desc: 'Unit-level Sedation · Pain/Pharmacy · Activity poster with escalation steps — print portrait for adult ICU units.',
     orientation: 'portrait',
     pages: 2,
     defaultTitle: 'SPA Quick Reference — Delirium Prevention & Management',
@@ -45,11 +45,16 @@ export const RASS_ROWS = [
 ];
 export const RASS_CITES = ['sessler2002', 'ely2003'];
 
-/** Selectable sedation targets ("lightest RASS that meets the goal"). */
+/** Selectable sedation targets — the same three bands the interactive tool offers. */
 export const RASS_TARGETS = [
-  { id: '0to-1', label: '0 to −1', scores: ['0', '-1'] },
   { id: '0to-2', label: '0 to −2', scores: ['0', '-1', '-2'] },
-  { id: '-1to-2', label: '−1 to −2', scores: ['-1', '-2'] },
+  { id: '0to-1', label: '0 to −1', scores: ['0', '-1'] },
+  {
+    id: '-3to-4',
+    label: '−3 to −4',
+    scores: ['-3', '-4'],
+    note: 'Deep sedation — documented indication required.',
+  },
 ];
 
 /** Top status strip of the rounding sheet (marked at the bedside). */
@@ -83,54 +88,63 @@ export const MNEMONIC = {
       id: 'mn-d',
       ltr: 'D',
       word: 'Drugs / Withdrawal',
+      tone: 'red',
       note: 'Deliriogenic agents? Dose reduction? Alcohol / benzo / opioid withdrawal — check last use & home meds.',
     },
     {
       id: 'mn-e',
       ltr: 'E',
       word: 'Eyes / Ears / Env',
+      tone: 'rust',
       note: 'Glasses & hearing aids in? Whiteboard updated? Lights on daytime?',
     },
     {
       id: 'mn-l',
       ltr: 'L',
       word: 'Low O₂ / Liver',
+      tone: 'teal',
       note: 'Check SpO₂, Hgb, cardiac/PE events, liver function.',
     },
     {
       id: 'mn-i1',
       ltr: 'I',
       word: 'Infection',
+      tone: 'plum',
       note: 'Fever, leukocytosis, cultures pending? Occult sepsis?',
     },
     {
       id: 'mn-r',
       ltr: 'R',
       word: 'Retention',
+      tone: 'slate',
       note: 'Urinary retention or constipation? Bladder scan; treat if indicated.',
     },
     {
       id: 'mn-i2',
       ltr: 'I',
       word: 'Ictal / Seizure',
+      tone: 'green',
       note: 'Consider non-convulsive seizures — especially unexplained ↓LOC. Consider EEG.',
     },
     {
       id: 'mn-u',
       ltr: 'U',
       word: 'Under-hydration / Nutrition',
+      tone: 'rust',
       note: 'Volume status, intake, electrolytes. Thiamine before glucose in at-risk patients.',
     },
     {
       id: 'mn-m',
       ltr: 'M',
       word: 'Metabolic',
+      tone: 'teal',
       note: 'Na, Mg, Ca, glucose, BUN/Cr, acid–base. Pain / retention / constipation?',
     },
     {
       id: 'mn-s',
       ltr: '(S)',
       word: 'Subdural / Sleep',
+      tone: 'plum',
       note: 'Subdural hematoma (fall or anticoagulation)? Sleep deprivation?',
     },
   ],
@@ -147,6 +161,7 @@ export const NONPHARM = {
       id: 'np-reorient',
       head: 'Reorientation',
       tone: 'green',
+      icon: 'clock',
       items: [
         { id: 'np-clock', text: 'Clock and calendar visible' },
         { id: 'np-board', text: 'Whiteboard updated (date, team, goals)' },
@@ -158,6 +173,7 @@ export const NONPHARM = {
       id: 'np-sensory',
       head: 'Sensory',
       tone: 'teal',
+      icon: 'eye',
       items: [
         { id: 'np-glasses', text: 'Glasses in place' },
         { id: 'np-hearing', text: 'Hearing aids in place' },
@@ -169,6 +185,7 @@ export const NONPHARM = {
       id: 'np-sleep',
       head: 'Sleep',
       tone: 'plum',
+      icon: 'moon',
       items: [
         { id: 'np-night', text: 'Nighttime light/noise reduced (quiet hours)' },
         { id: 'np-mask', text: 'Eye mask & earplugs offered' },
@@ -180,6 +197,7 @@ export const NONPHARM = {
       id: 'np-mobility',
       head: 'Mobility',
       tone: 'rust',
+      icon: 'person-walking',
       items: [
         { id: 'np-pt', text: 'Early mobility / PT–OT performed' },
         { id: 'np-hob', text: 'HOB elevated where able' },
@@ -191,6 +209,7 @@ export const NONPHARM = {
       id: 'np-hydration',
       head: 'Hydration & Nutrition',
       tone: 'slate',
+      icon: 'utensils',
       items: [
         { id: 'np-fluids', text: 'Adequate fluids / nutrition reviewed' },
         { id: 'np-bowel', text: 'Bowel & bladder care addressed' },
@@ -202,6 +221,7 @@ export const NONPHARM = {
       id: 'np-engage',
       head: 'Engagement',
       tone: 'green',
+      icon: 'users',
       items: [
         { id: 'np-cognitive', text: 'Cognitive stimulation offered' },
         { id: 'np-music', text: 'Preferred music / familiar media' },
@@ -226,7 +246,7 @@ export const PHARM = {
     {
       id: 'ph-haldol',
       drug: 'Haloperidol',
-      text: 'IV per local order set · baseline EKG, monitor QTc (caution > 500 ms) · avoid in Parkinson / Lewy body disease',
+      text: 'Per local order set · baseline EKG, monitor QTc (caution > 500 ms) · avoid in Parkinson / Lewy body disease · IV route off-label',
       dose: '0.25–0.5 mg q4–6h PRN',
     },
     {
@@ -267,6 +287,35 @@ export const PHARM = {
 export const MEDS_SECTION = {
   head: 'Deliriogenic medications — review & limit',
   cites: ['beers2023', 'padis2018', 'acb_boustani'],
+};
+
+/** Sheet tone per medication category (colour blocks on the printed grid). */
+export const MED_TONES = {
+  benzo: 'red',
+  opioids: 'rust',
+  antichol: 'plum',
+  sedatives: 'teal',
+  antipsych: 'plum',
+  antidep: 'green',
+  antimicro: 'teal',
+  cardiac: 'slate',
+  steroids: 'green',
+  gi: 'teal',
+  other: 'slate',
+};
+
+/** RASS zone tone per row (agitation warm, targets green, sedation cool). */
+export const RASS_ZONES = {
+  '+4': 'red',
+  '+3': 'red',
+  '+2': 'rust',
+  '+1': 'rust',
+  0: 'ink',
+  '-1': 'ink',
+  '-2': 'ink',
+  '-3': 'slate',
+  '-4': 'slate',
+  '-5': 'slate',
 };
 
 /**
@@ -347,6 +396,7 @@ export const SPA_COLS = [
     ltr: 'S',
     word: 'Sedation',
     tone: 'teal',
+    icon: 'gauge-high',
     tagline: 'Lightest, non-deliriogenic, targeted',
     cites: ['padis2018', 'padis2025', 'mends2', 'icudelirium_satsbt'],
     items: [
@@ -382,6 +432,7 @@ export const SPA_COLS = [
     ltr: 'P',
     word: 'Pain / Pharmacy',
     tone: 'rust',
+    icon: 'pills',
     tagline: 'Multimodal, review meds daily',
     cites: ['padis2018', 'beers2023', 'promedic2022', 'melatonin_meta2025'],
     items: [
@@ -417,6 +468,7 @@ export const SPA_COLS = [
     ltr: 'A',
     word: 'Activity / Awareness',
     tone: 'green',
+    icon: 'person-walking',
     tagline: 'Mobilize, remove devices, orient',
     cites: ['sccm_abcdef', 'hodgson2014', 'icudelirium_mobility', 'hshieh2015', 'inouye1999'],
     items: [
@@ -505,7 +557,7 @@ export const SPA_DEEPER = {
         },
         {
           id: 'dp-a-progression',
-          text: 'Mobility progression: passive ROM → edge of bed → chair → ambulate.',
+          text: 'Mobility progression: passive ROM → active ROM → sit / edge of bed → stand / transfer → ambulate.',
         },
         { id: 'dp-a-tada', text: 'T-A-D-A: Tolerate, Anticipate triggers, Don’t Agitate.' },
         {

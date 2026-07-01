@@ -18,7 +18,13 @@ Notable changes to this project, following
 - Bedside template designer at `/templates/`: customize and print laminate-ready
   reference sheets — a per-patient ICU Delirium Rounding Tool (landscape,
   dry-erase) and a unit-level SPA Quick Reference poster. Sections, single lines,
-  and the deliriogenic-medication list are individually selectable; units can add
-  their own protocol lines and choose the sedation target. Sheet content mirrors
-  the interactive tool's cited clinical content; configurations autosave locally
-  and share as a link or JSON (protocol settings only, never patient data).
+  and the deliriogenic-medication list are individually selectable; any line can
+  be reworded and units can add their own lines and whole sections. Large print
+  text is the default and every combination — including all 103 medications
+  enabled — fits its two pages; a print-font choice (clean sans, Arial, Georgia)
+  is verified to fit throughout. Medication names print generic-only by default
+  with an opt-in for brand names; colour-coded sections, category blocks, and
+  icons aid bedside scanning. Output as browser print or a generated two-page
+  PDF. Sheet content mirrors the interactive tool's cited clinical content;
+  configurations autosave locally and share as a link or JSON (protocol settings
+  only, never patient data).

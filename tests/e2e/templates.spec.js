@@ -138,6 +138,78 @@ test('print media shows only the sheets', async ({ page }) => {
   await page.emulateMedia({ media: 'screen' });
 });
 
+test('defaults to Large text and generic-only names; brand toggle restores them', async ({
+  page,
+}) => {
+  await expect(page.locator('#f-font-scale')).toHaveValue('110');
+  const sheets = page.locator('#sheets');
+  await expect(sheets).toContainText('Lorazepam');
+  await expect(sheets).not.toContainText('(Ativan)');
+  await page.check('#f-brands');
+  await expect(sheets).toContainText('Lorazepam (Ativan)');
+});
+
+test('print font options apply to the sheet and the sheet still fits', async ({ page }) => {
+  await page.selectOption('#f-font-family', 'serif');
+  const family = await page
+    .locator('.sheet')
+    .first()
+    .evaluate((el) => getComputedStyle(el).fontFamily);
+  expect(family).toMatch(/Georgia/);
+  await expect(page.locator('#fit-warn')).toBeHidden();
+});
+
+test('everything enabled fits both pages at Large on both templates', async ({ page }) => {
+  // Enable every medication category (the quick "All" buttons rebuild the panel).
+  await openDetails(page);
+  const catCount = await page.locator('[data-act="medAll"]').count();
+  for (let i = 0; i < catCount; i++) {
+    await openDetails(page);
+    await page.locator('[data-act="medAll"]').nth(i).click();
+  }
+  await expect(page.locator('.sh-meds-row')).toHaveCount(11);
+  for (const tpl of ['rounding', 'spa']) {
+    await page.check(`input[name="template"][value="${tpl}"]`);
+    await expect(page.locator('#fit-warn'), `template ${tpl}`).toBeHidden();
+    const over = await page.evaluate(() =>
+      [...document.querySelectorAll('.sheet')].map((s) => s.scrollHeight - s.clientHeight),
+    );
+    expect(
+      over.every((o) => o <= 0),
+      `template ${tpl} overflow ${over}`,
+    ).toBe(true);
+  }
+});
+
+test('lines can be reworded and custom sections added', async ({ page }) => {
+  await openDetails(page);
+  await page.locator('[data-act="editText"][data-id="np-clock"]').click();
+  const editBox = page.locator('.edit-input');
+  await editBox.fill('Clock visible from the bed');
+  await editBox.press('Enter');
+  await expect(page.locator('#sheets')).toContainText('Clock visible from the bed');
+  await expect(page.locator('#sheets')).not.toContainText('Clock and calendar visible');
+
+  await page.fill('#f-newsec-title', 'Unit huddle checklist');
+  await page.selectOption('#f-newsec-page', '2');
+  await page.click('[data-act="addSection"]');
+  const secBlock = page.locator('.sec-ctl--custom', { hasText: 'Unit huddle checklist' });
+  await secBlock.locator('.custom-add-input').fill('Review sitter needs');
+  await secBlock.locator('[data-act="addSecLine"]').click();
+  await expect(page.locator('.sheet').nth(1)).toContainText('Unit huddle checklist');
+  await expect(page.locator('.sheet').nth(1)).toContainText('Review sitter needs');
+});
+
+test('Save PDF downloads a two-page document for either template', async ({ page }) => {
+  const download = page.waitForEvent('download');
+  await page.click('.preview-bar [data-act="pdf"]');
+  expect((await download).suggestedFilename()).toBe('icu-delirium-rounding-tool.pdf');
+  await page.check('input[name="template"][value="spa"]');
+  const download2 = page.waitForEvent('download');
+  await page.click('.preview-bar [data-act="pdf"]');
+  expect((await download2).suggestedFilename()).toBe('spa-delirium-quick-reference.pdf');
+});
+
 test('designer has no serious accessibility violations (both templates)', async ({ page }) => {
   const seriousViolations = (results) =>
     results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');

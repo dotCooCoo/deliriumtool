@@ -22,6 +22,7 @@ import {
 import { MEDS } from '../data/meds.js';
 import { DELIRIUM_REFS } from '../data/refs.js';
 import { renderSheets } from './sheets.js';
+import { downloadPdf } from './pdf.js';
 import {
   defaultState,
   sanitize,
@@ -79,7 +80,8 @@ function controlGroups(tplId) {
           {
             id: 'mnemonic',
             head: 'DELIRIUM(S) cells',
-            items: MNEMONIC.cells.map((c) => ({ id: c.id, text: `${c.ltr} — ${c.word}` })),
+            fixedHead: true,
+            items: MNEMONIC.cells.map((c) => ({ id: c.id, text: c.word, prefix: `${c.ltr} — ` })),
           },
         ],
       },
@@ -98,8 +100,9 @@ function controlGroups(tplId) {
           {
             id: 'pharm',
             head: 'Guidance rows',
+            fixedHead: true,
             items: [
-              ...PHARM.rows.map((r) => ({ id: r.id, text: r.drug })),
+              ...PHARM.rows.map((r) => ({ id: r.id, text: r.text, prefix: `${r.drug}: ` })),
               ...PHARM.cautions.map((c) => ({ id: c.id, text: c.text })),
             ],
           },
@@ -116,7 +119,7 @@ function controlGroups(tplId) {
       section: 'sec-spa-cols',
       groups: SPA_COLS.map((c) => ({
         id: c.id,
-        head: `${c.ltr} — ${c.word}`,
+        head: c.word,
         items: c.items.map((i) => ({ id: i.id, text: i.head })),
         custom: true,
       })),
@@ -131,6 +134,32 @@ function controlGroups(tplId) {
     },
   ];
 }
+
+/** Default wording for every editable id (items + group headings). */
+function defaultTexts(tplId) {
+  const map = new Map();
+  for (const { groups } of controlGroups(tplId)) {
+    for (const g of groups) {
+      if (!g.fixedHead) map.set(g.id, g.head);
+      for (const item of g.items) map.set(item.id, item.text);
+    }
+  }
+  return map;
+}
+
+const editButton = (id, label) =>
+  el(
+    'button',
+    {
+      type: 'button',
+      class: 'btn btn-ghost btn-xs edit-btn',
+      'data-act': 'editText',
+      'data-id': id,
+      'aria-label': `Reword: ${label}`,
+      title: 'Reword this line',
+    },
+    faIcon('fa-pen'),
+  );
 
 function buildSectionControls() {
   const mount = $('#ctrl-sections');
@@ -170,8 +199,12 @@ function buildSectionControls() {
       const details = el('details', { class: 'sec-ctl-items' }, el('summary', { text: 'Items' }));
       for (const g of groups) {
         const groupEl = el('div', { class: 'sec-ctl-group' });
-        if (groups.length > 1)
-          groupEl.append(el('div', { class: 'sec-ctl-group-head', text: g.head }));
+        if (groups.length > 1) {
+          const gh = el('div', { class: 'sec-ctl-group-head' });
+          gh.append(el('span', { text: state.textOverrides[g.id] || g.head }));
+          if (!g.fixedHead) gh.append(editButton(g.id, g.head));
+          groupEl.append(gh);
+        }
         for (const item of g.items) {
           const inputId = `it-${item.id}`;
           const input = el('input', {
@@ -181,9 +214,19 @@ function buildSectionControls() {
             'data-id': item.id,
           });
           input.checked = isOn(state.items, item.id);
-          groupEl.append(
-            el('label', { class: 'chk', for: inputId }, input, el('span', { text: item.text })),
+          const text = state.textOverrides[item.id] || item.text;
+          const row = el(
+            'div',
+            { class: 'item-row' },
+            el(
+              'label',
+              { class: 'chk', for: inputId },
+              input,
+              el('span', { text: (item.prefix || '') + text }),
+            ),
+            editButton(item.id, text),
           );
+          groupEl.append(row);
         }
         (state.custom[g.id] || []).forEach((line, idx) => {
           groupEl.append(
@@ -231,6 +274,75 @@ function buildSectionControls() {
       }
       wrap.append(details);
     }
+    mount.append(wrap);
+  }
+  // Unit-authored sections.
+  for (const sec of state.customSections) {
+    const wrap = el(
+      'div',
+      { class: 'sec-ctl sec-ctl--custom' },
+      el(
+        'div',
+        { class: 'sec-ctl-head' },
+        el('strong', { text: sec.title }),
+        el(
+          'span',
+          { class: 'sec-ctl-page' },
+          `p.${sec.page} `,
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost btn-xs',
+              'data-act': 'removeSection',
+              'data-sec': sec.id,
+              'aria-label': `Remove section: ${sec.title}`,
+            },
+            faIcon('fa-xmark'),
+          ),
+        ),
+      ),
+    );
+    sec.lines.forEach((line, idx) => {
+      wrap.append(
+        el(
+          'div',
+          { class: 'custom-line' },
+          el('span', { class: 'custom-line-text', text: line }),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost btn-xs',
+              'data-act': 'removeSecLine',
+              'data-sec': sec.id,
+              'data-idx': String(idx),
+              'aria-label': `Remove line: ${line}`,
+            },
+            faIcon('fa-xmark'),
+          ),
+        ),
+      );
+    });
+    const addInput = el('input', {
+      type: 'text',
+      class: 'finp custom-add-input',
+      maxlength: '160',
+      placeholder: 'Add a line…',
+      'aria-label': `Add a line to ${sec.title}`,
+    });
+    wrap.append(
+      el(
+        'div',
+        { class: 'custom-add' },
+        addInput,
+        el(
+          'button',
+          { type: 'button', class: 'btn btn-sm', 'data-act': 'addSecLine', 'data-sec': sec.id },
+          'Add',
+        ),
+      ),
+    );
     mount.append(wrap);
   }
 }
@@ -298,8 +410,10 @@ function reflectFields() {
   $('#f-unit').value = state.unit;
   $('#f-rass-target').value = state.rassTarget;
   $('#f-font-scale').value = state.fontScale;
+  $('#f-font-family').value = state.fontFamily;
   $('#f-actions').checked = state.showActions;
   $('#f-doses').checked = state.showDoses;
+  $('#f-brands').checked = state.showBrands;
   $$('input[name="template"]').forEach((r) => {
     r.checked = r.value === state.template;
   });
@@ -321,7 +435,7 @@ function buildRefs() {
 
 function renderPreview() {
   const mount = $('#sheets');
-  mount.className = `sheets fs-${state.fontScale}`;
+  mount.className = `sheets fs-${state.fontScale} ff-${state.fontFamily}`;
   const sheets = renderSheets(state);
   mount.replaceChildren(
     ...sheets.map((s, i) =>
@@ -358,7 +472,7 @@ function checkFit(sheets) {
   warn.hidden = !over.length;
   if (over.length) {
     $('#fit-warn-text').textContent =
-      `Content overflows page ${over.join(' & ')} — switch off some items or choose Compact text.`;
+      `Content overflows page ${over.join(' & ')} — switch off some items or choose a smaller text size.`;
   }
 }
 
@@ -377,6 +491,36 @@ function update({ rebuildControls = false } = {}) {
   }
   renderPreview();
   autosave(state);
+}
+
+// ── Inline rewording of built-in lines ───────────────────────────────────────
+
+function startEdit(btn) {
+  const id = btn.dataset.id;
+  const defaults = defaultTexts(state.template);
+  const fallback = defaults.get(id) || '';
+  const row = btn.parentElement;
+  const input = el('input', {
+    type: 'text',
+    class: 'finp edit-input',
+    maxlength: '200',
+    'aria-label': 'Reworded text (clear to restore the default)',
+  });
+  input.value = state.textOverrides[id] || fallback;
+  const commit = () => {
+    const v = input.value.trim();
+    if (!v || v === fallback) delete state.textOverrides[id];
+    else state.textOverrides[id] = v.slice(0, 200);
+    update({ rebuildControls: true });
+  };
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') commit();
+    if (e.key === 'Escape') update({ rebuildControls: true });
+  });
+  input.addEventListener('blur', commit);
+  row.replaceChildren(input);
+  input.focus();
+  input.select();
 }
 
 // ── Events ───────────────────────────────────────────────────────────────────
@@ -415,12 +559,20 @@ function onChange(e) {
       state.fontScale = t.value;
       update();
       break;
+    case 'f-font-family':
+      state.fontFamily = t.value;
+      update();
+      break;
     case 'f-actions':
       state.showActions = t.checked;
       update();
       break;
     case 'f-doses':
       state.showDoses = t.checked;
+      update();
+      break;
+    case 'f-brands':
+      state.showBrands = t.checked;
       update();
       break;
   }
@@ -443,6 +595,24 @@ async function onClick(e) {
     case 'print':
       window.print();
       break;
+    case 'pdf':
+      downloadPdf(state);
+      announce('PDF saved.');
+      break;
+    case 'editText':
+      startEdit(btn);
+      break;
+    case 'medAll':
+    case 'medNone': {
+      const cat = MEDS.categories.find((c) => c.id === btn.dataset.cat);
+      if (!cat) break;
+      const on = btn.dataset.act === 'medAll';
+      cat.items.forEach((i) => {
+        state.meds[i.id] = on;
+      });
+      update({ rebuildControls: true });
+      break;
+    }
     case 'share': {
       const url = buildShareUrl(state);
       let ok = true;
@@ -498,6 +668,46 @@ async function onClick(e) {
       const lines = (state.custom[g] || []).filter((_, i) => i !== idx);
       if (lines.length) state.custom[g] = lines;
       else delete state.custom[g];
+      update({ rebuildControls: true });
+      break;
+    }
+    case 'addSection': {
+      const title = ($('#f-newsec-title').value || '').trim().slice(0, 60);
+      if (!title) {
+        announce('Give the section a title first.');
+        break;
+      }
+      if (state.customSections.length >= 4) {
+        announce('Up to four custom sections are supported.');
+        break;
+      }
+      const page = $('#f-newsec-page').value === '2' ? 2 : 1;
+      const id = `cs-${Date.now().toString(36)}`;
+      state.customSections.push({ id, page, title, lines: [] });
+      $('#f-newsec-title').value = '';
+      update({ rebuildControls: true });
+      announce(`Section "${title}" added to page ${page} — now add its lines.`);
+      break;
+    }
+    case 'removeSection':
+      state.customSections = state.customSections.filter((s) => s.id !== btn.dataset.sec);
+      update({ rebuildControls: true });
+      break;
+    case 'addSecLine': {
+      const input = btn.parentElement.querySelector('.custom-add-input');
+      const text = (input.value || '').trim().slice(0, 160);
+      if (!text) break;
+      const sec = state.customSections.find((s) => s.id === btn.dataset.sec);
+      if (!sec) break;
+      sec.lines = [...sec.lines, text].slice(0, 8);
+      input.value = '';
+      update({ rebuildControls: true });
+      break;
+    }
+    case 'removeSecLine': {
+      const sec = state.customSections.find((s) => s.id === btn.dataset.sec);
+      if (!sec) break;
+      sec.lines = sec.lines.filter((_, i) => i !== Number(btn.dataset.idx));
       update({ rebuildControls: true });
       break;
     }

@@ -30,9 +30,11 @@ A **bedside template designer** lives at `/templates/`
 ([deliriumtool.com/templates](https://deliriumtool.com/templates/)): customize and
 print laminate-ready reference sheets — a per-patient **ICU Delirium Rounding Tool**
 (landscape, marked with a dry-erase pen) and a unit-level **SPA Quick Reference**
-poster. Pick which sections, lines, and deliriogenic medications print, add your
-unit's own protocol lines, set the sedation target, then print at 100% on Letter
-paper. The configuration autosaves locally and can be shared with colleagues as a
+poster. Pick which sections, lines, and deliriogenic medications print, reword any
+line, add your unit's own lines and sections, set the sedation target, and choose
+the print size and font — then print at 100% on Letter paper or save a generated
+two-page PDF. Medication names print generic-only by default (brand names are an
+opt-in). The configuration autosaves locally and can be shared with colleagues as a
 link or JSON file — it carries protocol settings only, never patient data.
 
 ## Privacy

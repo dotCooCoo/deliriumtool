@@ -201,10 +201,21 @@ tool's cited content** — the sheets introduce no new clinical values. The mapp
 | SPA columns + deeper guidance + escalation ladder | §2.5, §2.7, §2.8 statements recast as poster actions | per-column keys in `src/js/templates/data/content.js` |
 | Nurse care pathway (rounding sheet, step 4) | **Local unit workflow — the only uncited section.** It carries process steps (documentation, handoff, teaching), not clinical values, is flagged "unit workflow — edit to match your local protocol" in the designer, and is fully editable/removable. | — |
 
+**Presentation rules.** Medication names print **generic-only by default** — brand names in
+the registry are stripped for the sheet (clinical qualifiers such as routes and "high dose"
+always remain) and reappear only when the unit enables "show brand names". The sedation-target
+selector offers exactly the interactive tool's three bands (0 to −2 light/ICU default; 0 to −1
+general ward; −3 to −4 deep, which prints a "documented indication required" caveat). "Save as
+PDF" renders the same content data through a second layout engine (jsPDF), so the PDF cannot
+carry different clinical values than the on-screen sheet. Reworded lines, added lines, and
+unit-authored sections are local protocol content — like the nurse care pathway, they carry no
+citation and are the unit's responsibility.
+
 Each printed sheet carries the verbatim reference-aid disclaimer and a footer source line
 naming the primary guidelines. Unit tests enforce that every citation key in the template
-content resolves in the registry, that the medication defaults track the shared catalog, and
-that the disclaimer text stays verbatim (`tests/unit/templates-data.test.js`).
+content resolves in the registry, that the medication defaults track the shared catalog, that
+brand-name stripping preserves clinical qualifiers, and that the disclaimer text stays
+verbatim (`tests/unit/templates-data.test.js`).
 
 ---
 

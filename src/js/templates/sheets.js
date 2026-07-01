@@ -8,11 +8,13 @@ import {
   TEMPLATES,
   RASS_ROWS,
   RASS_TARGETS,
+  RASS_ZONES,
   STATUS,
   MNEMONIC,
   NONPHARM,
   PHARM,
   MEDS_SECTION,
+  MED_TONES,
   PATHWAY,
   SPA_COLS,
   SPA_DEEPER,
@@ -23,6 +25,7 @@ import {
 import { MEDS } from '../data/meds.js';
 import { DELIRIUM_REFS } from '../data/refs.js';
 import { isOn } from './state.js';
+import { faIcon } from '../shared/dom.js';
 
 function el(tag, props, ...kids) {
   const node = document.createElement(tag);
@@ -37,15 +40,30 @@ function el(tag, props, ...kids) {
   return node;
 }
 
+/**
+ * Short hyphenated tokens (T-A-D-A, CAM-ICU, WAT-1…) must never wrap across
+ * lines on the printed card — swap their hyphens for non-breaking hyphens.
+ */
+const nobreak = (s) =>
+  String(s).replace(/\b(\w{1,4})((?:-\w{1,4})+)\b/g, (m) => m.replace(/-/g, '‑'));
+
 /** A printed check-off square (drawn box — marked with a dry-erase pen). */
 const box = () => el('span', { class: 'sh-box', 'aria-hidden': 'true' });
 /** A write-in blank. */
 const blank = (cls) => el('span', { class: `sh-blank${cls ? ' ' + cls : ''}` });
 
 const checkItem = (text, cls) =>
-  el('div', { class: `sh-item${cls ? ' ' + cls : ''}` }, box(), el('span', { text }));
+  el(
+    'div',
+    { class: `sh-item${cls ? ' ' + cls : ''}` },
+    box(),
+    el('span', { text: nobreak(text) }),
+  );
 
 const facilityLabel = (state) => state.facility.trim() || 'Your facility';
+
+/** Built-in text, unless the unit reworded it in the designer. */
+const ov = (state, id, fallback) => state.textOverrides[id] || fallback;
 
 function tplDef(state) {
   return TEMPLATES.find((t) => t.id === state.template) || TEMPLATES[0];
@@ -53,6 +71,23 @@ function tplDef(state) {
 
 function rassTargetDef(state) {
   return RASS_TARGETS.find((t) => t.id === state.rassTarget) || RASS_TARGETS[1];
+}
+
+/**
+ * Medication display name. Brand names live in parentheses in the registry —
+ * strip them unless the unit enables brand names; clinical qualifiers
+ * (routes, "high dose", risk notes) always stay.
+ */
+export function medDisplayName(name, showBrands) {
+  if (showBrands) return name;
+  return name
+    .replace(/\s*\(([^)]*)\)/g, (m, inner) => {
+      const kept = inner
+        .split(/,\s*/)
+        .filter((tok) => /^(iv|im|po|qtc)\b/i.test(tok) || tok === tok.toLowerCase());
+      return kept.length ? ` (${kept.join(', ')})` : '';
+    })
+    .trim();
 }
 
 /** Sources line for the sheet footer, e.g. "PADIS 2018 · PADIS 2025 · …". */
@@ -81,19 +116,45 @@ function customLines(state, groupId) {
   return (state.custom[groupId] || []).map((t) => checkItem(t, 'sh-item--custom'));
 }
 
+/** Unit-authored sections for one page — full-width titled checklists. */
+function customSections(state, page) {
+  return state.customSections
+    .filter((sec) => sec.page === page && sec.lines.length)
+    .map((sec) =>
+      el(
+        'div',
+        { class: 'sh-section' },
+        band('ink', sec.title),
+        el('div', { class: 'sh-custom-lines' }, ...sec.lines.map((t) => checkItem(t))),
+      ),
+    );
+}
+
 /** deliriogenic categories with at least one selected agent. */
 function selectedMedCats(state) {
   return MEDS.categories
     .map((c) => ({
       id: c.id,
       label: c.label,
-      names: c.items.filter((i) => state.meds[i.id]).map((i) => i.name),
+      tone: MED_TONES[c.id] || 'slate',
+      names: c.items
+        .filter((i) => state.meds[i.id])
+        .map((i) => medDisplayName(i.name, state.showBrands)),
     }))
     .filter((c) => c.names.length);
 }
 
 const secOn = (state, id) => isOn(state.sections, id);
 const itemOn = (state, id) => isOn(state.items, id);
+
+const sheetIcon = (icon, cls) => faIcon(`fa-${icon}`, cls || 'sh-ico');
+
+function band(tone, text, icon) {
+  const b = el('div', { class: `sh-band tone-${tone}` });
+  if (icon) b.append(sheetIcon(icon, 'sh-ico sh-band-ico'));
+  b.append(el('span', { text: nobreak(text) }));
+  return b;
+}
 
 // ── Rounding tool (landscape, per-patient) ───────────────────────────────────
 
@@ -123,9 +184,10 @@ function rassMiniTable(state) {
   const target = rassTargetDef(state);
   const rows = RASS_ROWS.map((r) => {
     const isTarget = r.scores.every((s) => target.scores.includes(s));
+    const zone = RASS_ZONES[r.scores[0]] || 'ink';
     return el(
       'div',
-      { class: `sh-rass-row${isTarget ? ' is-target' : ''}` },
+      { class: `sh-rass-row z-${zone}${isTarget ? ' is-target' : ''}` },
       el('span', { class: 'sh-rass-score', text: r.label }),
       el('span', { class: 'sh-rass-desc', text: r.desc + (isTarget ? '  ✓ TARGET' : '') }),
     );
@@ -148,6 +210,7 @@ function statusStrip(state) {
     cell('teal', 'Sedation goal', [
       el('div', { class: 'sh-goal', text: `Target RASS: ${target.label}` }),
       ...STATUS.sedation.lines.map((t) => el('div', { class: 'sh-small', text: t })),
+      target.note ? el('div', { class: 'sh-small sh-strong', text: target.note }) : null,
     ]),
     cell(
       'plum',
@@ -163,8 +226,6 @@ function statusStrip(state) {
   );
 }
 
-const band = (tone, text) => el('div', { class: `sh-band tone-${tone}`, text });
-
 function mnemonicSection(state) {
   const cells = MNEMONIC.cells.filter((c) => itemOn(state, c.id));
   if (!cells.length) return null;
@@ -172,15 +233,15 @@ function mnemonicSection(state) {
   cells.forEach((c) => {
     const cellEl = el(
       'div',
-      { class: 'sh-mnem-cell' },
+      { class: `sh-mnem-cell tone-${c.tone}` },
       el(
         'div',
         { class: 'sh-mnem-head' },
         el('span', { class: 'sh-mnem-ltr', text: c.ltr }),
-        el('span', { class: 'sh-mnem-word', text: c.word }),
+        el('span', { class: 'sh-mnem-word', text: nobreak(ov(state, c.id, c.word)) }),
       ),
       checkItem('Reviewed', 'sh-item--tight'),
-      el('div', { class: 'sh-note', text: c.note }),
+      el('div', { class: 'sh-note', text: nobreak(c.note) }),
     );
     if (state.showActions) cellEl.append(el('div', { class: 'sh-action' }, 'Action: ', blank()));
     grid.append(cellEl);
@@ -188,7 +249,7 @@ function mnemonicSection(state) {
   return el(
     'div',
     { class: 'sh-section' },
-    band('ink', 'Step 1 · Identify & address causative factors — DELIRIUM(S)'),
+    band('ink', 'Step 1 · Identify & address causative factors — DELIRIUM(S)', 'magnifying-glass'),
     grid,
   );
 }
@@ -199,11 +260,14 @@ function nonpharmSection(state) {
       const items = g.items.filter((i) => itemOn(state, i.id));
       const custom = customLines(state, g.id);
       if (!items.length && !custom.length) return null;
+      const head = el('div', { class: 'sh-group-head' });
+      if (g.icon) head.append(sheetIcon(g.icon));
+      head.append(el('span', { text: nobreak(ov(state, g.id, g.head)) }));
       return el(
         'div',
         { class: `sh-group tone-${g.tone}` },
-        el('div', { class: 'sh-group-head', text: g.head }),
-        ...items.map((i) => checkItem(i.text)),
+        head,
+        ...items.map((i) => checkItem(ov(state, i.id, i.text))),
         ...custom,
       );
     })
@@ -212,7 +276,7 @@ function nonpharmSection(state) {
   return el(
     'div',
     { class: 'sh-section' },
-    band('green', 'Step 2 · Non-pharmacologic bundle — first-line, apply to all patients'),
+    band('green', 'Step 2 · Non-pharmacologic bundle — first-line, apply to all patients', 'leaf'),
     el('div', { class: 'sh-group-grid' }, ...groups),
   );
 }
@@ -231,13 +295,19 @@ function pharmCard(state) {
   rows.forEach((r) => {
     const line = el('div', { class: `sh-pharm-row${r.warn ? ' is-warn' : ''}` });
     line.append(el('strong', {}, `${r.drug}: `));
+    const text = ov(state, r.id, r.text);
     line.append(
-      document.createTextNode(state.showDoses && r.dose ? `${r.dose} · ${r.text}` : r.text),
+      document.createTextNode(nobreak(state.showDoses && r.dose ? `${r.dose} · ${text}` : text)),
     );
     kids.push(line);
   });
   cautions.forEach((c) =>
-    kids.push(el('div', { class: `sh-pharm-caution${c.stop ? ' is-stop' : ''}`, text: c.text })),
+    kids.push(
+      el('div', {
+        class: `sh-pharm-caution${c.stop ? ' is-stop' : ''}`,
+        text: nobreak(ov(state, c.id, c.text)),
+      }),
+    ),
   );
   if (state.showDoses) kids.push(el('div', { class: 'sh-note', text: PHARM.doseNote }));
   return el('div', { class: 'sh-pharm-card' }, ...kids);
@@ -251,7 +321,7 @@ function medsGrid(state) {
     grid.append(
       el(
         'div',
-        { class: 'sh-meds-row' },
+        { class: `sh-meds-row tone-${c.tone}` },
         el('div', { class: 'sh-meds-cat', text: c.label }),
         el('div', { class: 'sh-meds-list', text: c.names.join(' · ') }),
       ),
@@ -260,7 +330,12 @@ function medsGrid(state) {
   return el(
     'div',
     { class: 'sh-meds' },
-    el('div', { class: 'sh-meds-head', text: MEDS_SECTION.head }),
+    el(
+      'div',
+      { class: 'sh-meds-head' },
+      sheetIcon('pills'),
+      el('span', { text: MEDS_SECTION.head }),
+    ),
     grid,
   );
 }
@@ -278,7 +353,7 @@ function pharmSection(state) {
   return el(
     'div',
     { class: 'sh-section' },
-    band('rust', 'Step 3 · Pharmacologic considerations'),
+    band('rust', 'Step 3 · Pharmacologic considerations', 'pills'),
     row,
   );
 }
@@ -292,8 +367,11 @@ function pathwaySection(state) {
       return el(
         'div',
         { class: `sh-group tone-${col.tone}` },
-        el('div', { class: 'sh-group-head sh-group-head--bar', text: col.head }),
-        ...items.map((i) => checkItem(i.text)),
+        el('div', {
+          class: 'sh-group-head sh-group-head--bar',
+          text: nobreak(ov(state, col.id, col.head)),
+        }),
+        ...items.map((i) => checkItem(ov(state, i.id, i.text))),
         ...custom,
       );
     })
@@ -302,7 +380,7 @@ function pathwaySection(state) {
   return el(
     'div',
     { class: 'sh-section' },
-    band('slate', `Step 4 · ${PATHWAY.head}`),
+    band('slate', `Step 4 · ${PATHWAY.head}`, 'clipboard-list'),
     el('div', { class: 'sh-group-grid sh-group-grid--5' }, ...cols),
   );
 }
@@ -315,6 +393,7 @@ function renderRounding(state) {
     statusStrip(state),
     secOn(state, 'sec-mnemonic') ? mnemonicSection(state) : null,
     secOn(state, 'sec-nonpharm') ? nonpharmSection(state) : null,
+    ...customSections(state, 1),
     secOn(state, 'sec-notes') ? notesSection() : null,
     sheetFooter(state, 1, 2),
   );
@@ -323,6 +402,7 @@ function renderRounding(state) {
     { class: 'sheet sheet--landscape' },
     pharmSection(state),
     secOn(state, 'sec-pathway') ? pathwaySection(state) : null,
+    ...customSections(state, 2),
     sheetFooter(state, 2, 2),
   );
   return [page1, page2];
@@ -332,7 +412,7 @@ function renderRounding(state) {
 
 function spaHead(state, deeper) {
   const t = tplDef(state);
-  const unit = state.unit.trim() || 'For all inpatient units';
+  const unit = state.unit.trim() || 'For adult ICU patients';
   return el(
     'div',
     { class: 'sh-head' },
@@ -353,6 +433,9 @@ function spaColumns(state) {
     const items = col.items.filter((i) => itemOn(state, i.id));
     const custom = customLines(state, col.id);
     if (!items.length && !custom.length) return null;
+    const wordRow = el('div', { class: 'spa-word' });
+    if (col.icon) wordRow.append(sheetIcon(col.icon));
+    wordRow.append(el('span', { text: nobreak(ov(state, col.id, col.word)) }));
     return el(
       'div',
       { class: `spa-col tone-${col.tone}` },
@@ -360,12 +443,7 @@ function spaColumns(state) {
         'div',
         { class: 'spa-col-head' },
         el('span', { class: 'spa-ltr', text: col.ltr }),
-        el(
-          'div',
-          {},
-          el('div', { class: 'spa-word', text: col.word }),
-          el('div', { class: 'spa-tagline', text: col.tagline }),
-        ),
+        el('div', {}, wordRow, el('div', { class: 'spa-tagline', text: col.tagline })),
       ),
       ...items.map((i) =>
         el(
@@ -375,8 +453,8 @@ function spaColumns(state) {
           el(
             'div',
             {},
-            el('div', { class: 'spa-item-head', text: i.head }),
-            el('div', { class: 'spa-item-desc', text: i.desc }),
+            el('div', { class: 'spa-item-head', text: nobreak(ov(state, i.id, i.head)) }),
+            el('div', { class: 'spa-item-desc', text: nobreak(i.desc) }),
           ),
         ),
       ),
@@ -407,16 +485,19 @@ function spaRassRow(state) {
         el('div', { class: 'sh-goal', text: `Target RASS: ${rassTargetDef(state).label}` }),
         ...STATUS.sedation.lines.map((t) => el('div', { class: 'sh-small', text: t })),
         el('div', { class: 'sh-small', text: 'Document goal each shift.' }),
+        rassTargetDef(state).note
+          ? el('div', { class: 'sh-small sh-strong', text: rassTargetDef(state).note })
+          : null,
       ),
     ),
   );
 }
 
 function spaDeeper(state) {
-  const doseFor = (id) =>
-    state.showDoses
-      ? { haldolDose: '0.25–0.5 mg IV q4–6h PRN ', quetiapineDose: '12.5–25 mg PO q12h ' }[id] || ''
-      : '(per local order set) ';
+  const doses = {
+    haldolDose: state.showDoses ? '0.25–0.5 mg q4–6h PRN ' : '(per local order set) ',
+    quetiapineDose: state.showDoses ? '12.5–25 mg PO q12h ' : '(per local order set) ',
+  };
   const cols = SPA_DEEPER.cols
     .map((col) => {
       const items = col.items.filter((i) => itemOn(state, i.id));
@@ -424,12 +505,15 @@ function spaDeeper(state) {
       return el(
         'div',
         { class: `sh-group tone-${col.tone}` },
-        el('div', { class: 'sh-group-head sh-group-head--bar', text: col.head }),
+        el('div', {
+          class: 'sh-group-head sh-group-head--bar',
+          text: nobreak(ov(state, col.id, col.head)),
+        }),
         ...items.map((i) => {
-          const text = i.text
-            .replace('{haldolDose}', doseFor('haldolDose'))
-            .replace('{quetiapineDose}', doseFor('quetiapineDose'));
-          return el('div', { class: 'sh-bullet', text: `• ${text}` });
+          const text = ov(state, i.id, i.text)
+            .replace('{haldolDose}', doses.haldolDose)
+            .replace('{quetiapineDose}', doses.quetiapineDose);
+          return el('div', { class: 'sh-bullet', text: nobreak(`• ${text}`) });
         }),
       );
     })
@@ -448,8 +532,13 @@ function escalationSection(state) {
       return el(
         'div',
         { class: `sh-group tone-${s.tone}` },
-        el('div', { class: 'sh-group-head sh-group-head--bar', text: s.head }),
-        ...items.map((i) => el('div', { class: 'sh-bullet', text: `• ${i.text}` })),
+        el('div', {
+          class: 'sh-group-head sh-group-head--bar',
+          text: nobreak(ov(state, s.id, s.head)),
+        }),
+        ...items.map((i) =>
+          el('div', { class: 'sh-bullet', text: nobreak(`• ${ov(state, i.id, i.text)}`) }),
+        ),
       );
     })
     .filter(Boolean);
@@ -469,6 +558,7 @@ function renderSpa(state) {
     spaHead(state, false),
     secOn(state, 'sec-spa-cols') ? spaColumns(state) : null,
     secOn(state, 'sec-rass') ? spaRassRow(state) : null,
+    ...customSections(state, 1),
     sheetFooter(state, 1, 2),
   );
   const page2 = el(
@@ -478,6 +568,7 @@ function renderSpa(state) {
     secOn(state, 'sec-deeper') ? spaDeeper(state) : null,
     secOn(state, 'sec-meds') ? medsGrid(state) : null,
     secOn(state, 'sec-escalation') ? escalationSection(state) : null,
+    ...customSections(state, 2),
     sheetFooter(state, 2, 2),
   );
   return [page1, page2];
