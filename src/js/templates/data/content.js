@@ -289,20 +289,25 @@ export const MEDS_SECTION = {
   cites: ['beers2023', 'padis2018', 'acb_boustani'],
 };
 
-/** Sheet tone per medication category (colour blocks on the printed grid). */
+/** Sheet tone per medication category — one distinct colour block each. */
 export const MED_TONES = {
   benzo: 'red',
   opioids: 'rust',
   antichol: 'plum',
-  sedatives: 'teal',
-  antipsych: 'plum',
-  antidep: 'green',
+  sedatives: 'navy',
+  antipsych: 'violet',
+  antidep: 'berry',
   antimicro: 'teal',
   cardiac: 'slate',
   steroids: 'green',
-  gi: 'teal',
-  other: 'slate',
+  gi: 'azure',
+  other: 'olive',
 };
+
+/** Categories that print a warning marker (antipsychotics: also a Step-3
+ *  treatment option — the deliriogenic entries are the high-dose / typical
+ *  agents, see the Step-3 cautions). */
+export const MED_WARN = ['antipsych'];
 
 /** RASS zone tone per row (agitation warm, targets green, sedation cool). */
 export const RASS_ZONES = {

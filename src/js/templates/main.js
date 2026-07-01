@@ -196,7 +196,15 @@ function buildSectionControls() {
     }
     const groups = groupsBySection.get(sec.id);
     if (groups && groups.length) {
-      const details = el('details', { class: 'sec-ctl-items' }, el('summary', { text: 'Items' }));
+      const allItems = groups.flatMap((g) => g.items);
+      const onCount = allItems.filter((i) => isOn(state.items, i.id)).length;
+      const details = el(
+        'details',
+        { class: 'sec-ctl-items' },
+        el('summary', {
+          text: `Show lines (${onCount}/${allItems.length} on) — switch · reword · add`,
+        }),
+      );
       for (const g of groups) {
         const groupEl = el('div', { class: 'sec-ctl-group' });
         if (groups.length > 1) {

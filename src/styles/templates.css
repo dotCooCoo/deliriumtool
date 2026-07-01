@@ -35,6 +35,17 @@
   --sh-green-weak: #d4ede0;
   --sh-red-weak: #f7e2e6;
   --sh-slate-weak: #f2f6f8;
+  /* Extended tones so each medication category gets its own colour block. */
+  --sh-navy: #274b8f;
+  --sh-navy-weak: #e3ebfa;
+  --sh-violet: #7b2d8e;
+  --sh-violet-weak: #f3e5f7;
+  --sh-berry: #a02c5e;
+  --sh-berry-weak: #fae3ee;
+  --sh-azure: #0f5e8a;
+  --sh-azure-weak: #ddeef8;
+  --sh-olive: #5c661b;
+  --sh-olive-weak: #eef0da;
   --sh-border: #c8d8df;
 }
 
@@ -157,8 +168,45 @@
 .sec-ctl-items {
   margin: var(--sp-1) 0 0 26px;
 }
-.sec-ctl-items > summary {
+
+/* Disclosure rows read as buttons: chip background + a chevron that rotates
+   open, so it's obvious the sections and medication categories expand. */
+.sec-ctl-items > summary,
+.med-cat > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
   cursor: pointer;
+  user-select: none;
+  list-style: none;
+  background: var(--c-surface-2);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-1) var(--sp-2);
+  transition: background var(--t-fast);
+}
+.sec-ctl-items > summary:hover,
+.med-cat > summary:hover {
+  background: var(--c-primary-weak);
+}
+.sec-ctl-items > summary::-webkit-details-marker,
+.med-cat > summary::-webkit-details-marker {
+  display: none;
+}
+.sec-ctl-items > summary::before,
+.med-cat > summary::before {
+  content: '';
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 6px solid var(--c-primary);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform var(--t-fast);
+}
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+.sec-ctl-items > summary {
   color: var(--c-primary);
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -264,13 +312,12 @@
   border-top: 0;
 }
 .med-cat > summary {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-2);
   font-weight: 600;
   font-size: var(--fs-sm);
+}
+.med-cat > summary > span:first-of-type {
+  flex: 1;
+  min-width: 0;
 }
 .med-count {
   color: var(--c-text-3);
@@ -428,6 +475,26 @@
 .tone-ink {
   --tone: var(--sh-ink);
   --tone-weak: var(--sh-slate-weak);
+}
+.tone-navy {
+  --tone: var(--sh-navy);
+  --tone-weak: var(--sh-navy-weak);
+}
+.tone-violet {
+  --tone: var(--sh-violet);
+  --tone-weak: var(--sh-violet-weak);
+}
+.tone-berry {
+  --tone: var(--sh-berry);
+  --tone-weak: var(--sh-berry-weak);
+}
+.tone-azure {
+  --tone: var(--sh-azure);
+  --tone-weak: var(--sh-azure-weak);
+}
+.tone-olive {
+  --tone: var(--sh-olive);
+  --tone-weak: var(--sh-olive-weak);
 }
 
 .sh-head {
@@ -781,6 +848,11 @@
   padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
   display: flex;
   align-items: center;
+  gap: calc(3pt * var(--fs));
+}
+.sh-warn-ico {
+  width: calc(8pt * var(--fs));
+  height: calc(8pt * var(--fs));
 }
 .sh-meds-list {
   background: var(--tone-weak, #fff);

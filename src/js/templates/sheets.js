@@ -15,6 +15,7 @@ import {
   PHARM,
   MEDS_SECTION,
   MED_TONES,
+  MED_WARN,
   PATHWAY,
   SPA_COLS,
   SPA_DEEPER,
@@ -137,6 +138,7 @@ function selectedMedCats(state) {
       id: c.id,
       label: c.label,
       tone: MED_TONES[c.id] || 'slate',
+      warn: MED_WARN.includes(c.id),
       names: c.items
         .filter((i) => state.meds[i.id])
         .map((i) => medDisplayName(i.name, state.showBrands)),
@@ -318,11 +320,14 @@ function medsGrid(state) {
   if (!cats.length) return null;
   const grid = el('div', { class: 'sh-meds-grid' });
   cats.forEach((c) => {
+    const cat = el('div', { class: 'sh-meds-cat' });
+    if (c.warn) cat.append(sheetIcon('triangle-exclamation', 'sh-ico sh-warn-ico'));
+    cat.append(el('span', { text: c.label }));
     grid.append(
       el(
         'div',
         { class: `sh-meds-row tone-${c.tone}` },
-        el('div', { class: 'sh-meds-cat', text: c.label }),
+        cat,
         el('div', { class: 'sh-meds-list', text: c.names.join(' · ') }),
       ),
     );

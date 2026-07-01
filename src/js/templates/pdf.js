@@ -18,6 +18,7 @@ import {
   PHARM,
   MEDS_SECTION,
   MED_TONES,
+  MED_WARN,
   PATHWAY,
   SPA_COLS,
   SPA_DEEPER,
@@ -39,6 +40,11 @@ const TONE = {
   green: [45, 107, 67],
   red: [139, 30, 47],
   slate: [68, 85, 96],
+  navy: [39, 75, 143],
+  violet: [123, 45, 142],
+  berry: [160, 44, 94],
+  azure: [15, 94, 138],
+  olive: [92, 102, 27],
 };
 const WEAK = {
   ink: [236, 240, 243],
@@ -48,6 +54,11 @@ const WEAK = {
   green: [212, 237, 224],
   red: [247, 226, 230],
   slate: [242, 246, 248],
+  navy: [227, 235, 250],
+  violet: [243, 229, 247],
+  berry: [250, 227, 238],
+  azure: [221, 238, 248],
+  olive: [238, 240, 218],
 };
 const SUB = [160, 184, 196];
 const M = 18; // page margin (pt)
@@ -246,11 +257,23 @@ function medCats(state) {
     .map((c) => ({
       label: c.label,
       tone: MED_TONES[c.id] || 'slate',
+      warn: MED_WARN.includes(c.id),
       names: c.items
         .filter((i) => state.meds[i.id])
         .map((i) => medDisplayName(i.name, state.showBrands)),
     }))
     .filter((c) => c.names.length);
+}
+
+/** Small warning triangle (white, "!" in the category tone) on a colour block. */
+function warnTriangle(p, x, y, size, tone) {
+  p.doc.setFillColor(255, 255, 255);
+  p.doc.triangle(x, y + size, x + size / 2, y, x + size, y + size, 'F');
+  p.doc
+    .setFont(FONT, 'bold')
+    .setFontSize(size * 0.72)
+    .setTextColor(...TONE[tone]);
+  p.doc.text('!', x + size / 2, y + size - size * 0.16, { align: 'center' });
 }
 
 function drawMedsGrid(p, y, state, wOverride) {
@@ -262,8 +285,9 @@ function drawMedsGrid(p, y, state, wOverride) {
   y += p.fs(10);
   const labelW = p.fs(78);
   for (const c of cats) {
+    const warnPad = c.warn ? p.fs(10) : 0;
     const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), 6.8);
-    const catLines = p.wrap(c.label, labelW - 6, 6.6, true);
+    const catLines = p.wrap(c.label, labelW - 6 - warnPad, 6.6, true);
     const rowH = Math.max(
       p.fs(11),
       lines.length * p.fs(6.8) * 1.18 + p.fs(5),
@@ -271,8 +295,9 @@ function drawMedsGrid(p, y, state, wOverride) {
     );
     p.doc.setFillColor(...TONE[c.tone]).rect(x, y, labelW, rowH, 'F');
     p.doc.setFillColor(...WEAK[c.tone]).rect(x + labelW, y, w - labelW, rowH, 'F');
+    if (c.warn) warnTriangle(p, x + 3, y + p.fs(2.6), p.fs(7), c.tone);
     p.doc.setFont(FONT, 'bold').setFontSize(p.fs(6.6)).setTextColor(255, 255, 255);
-    p.doc.text(catLines, x + 3, y + p.fs(7));
+    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(7));
     p.doc
       .setFont(FONT, 'normal')
       .setFontSize(p.fs(6.8))
@@ -596,8 +621,9 @@ function drawMedsGridAt(p, y, state, x, w) {
   y += p.fs(10);
   const labelW = p.fs(72);
   for (const c of cats) {
+    const warnPad = c.warn ? p.fs(9) : 0;
     const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), 6.6);
-    const catLines = p.wrap(c.label, labelW - 6, 6.2, true);
+    const catLines = p.wrap(c.label, labelW - 6 - warnPad, 6.2, true);
     const rowH = Math.max(
       p.fs(11),
       lines.length * p.fs(6.6) * 1.18 + p.fs(5),
@@ -605,8 +631,9 @@ function drawMedsGridAt(p, y, state, x, w) {
     );
     p.doc.setFillColor(...TONE[c.tone]).rect(x, y, labelW, rowH, 'F');
     p.doc.setFillColor(...WEAK[c.tone]).rect(x + labelW, y, w - labelW, rowH, 'F');
+    if (c.warn) warnTriangle(p, x + 3, y + p.fs(2.4), p.fs(6.4), c.tone);
     p.doc.setFont(FONT, 'bold').setFontSize(p.fs(6.2)).setTextColor(255, 255, 255);
-    p.doc.text(catLines, x + 3, y + p.fs(6.6));
+    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(6.6));
     p.doc
       .setFont(FONT, 'normal')
       .setFontSize(p.fs(6.6))
