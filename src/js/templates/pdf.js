@@ -18,7 +18,6 @@ import {
   PHARM,
   MEDS_SECTION,
   MED_TONES,
-  MED_WARN,
   PATHWAY,
   SPA_COLS,
   SPA_DEEPER,
@@ -257,7 +256,6 @@ function medCats(state) {
     .map((c) => ({
       label: c.label,
       tone: MED_TONES[c.id] || 'slate',
-      warn: MED_WARN.includes(c.id),
       names: c.items
         .filter((i) => state.meds[i.id])
         .map((i) => medDisplayName(i.name, state.showBrands)),
@@ -265,15 +263,50 @@ function medCats(state) {
     .filter((c) => c.names.length);
 }
 
-/** Small warning triangle (white, "!" in the category tone) on a colour block. */
-function warnTriangle(p, x, y, size, tone) {
-  p.doc.setFillColor(255, 255, 255);
+/** Small warning triangle (red, white "!") beside a caution line. */
+function warnTriangle(p, x, y, size) {
+  p.doc.setFillColor(...TONE.red);
   p.doc.triangle(x, y + size, x + size / 2, y, x + size, y + size, 'F');
   p.doc
     .setFont(FONT, 'bold')
     .setFontSize(size * 0.72)
-    .setTextColor(...TONE[tone]);
+    .setTextColor(255, 255, 255);
   p.doc.text('!', x + size / 2, y + size - size * 0.16, { align: 'center' });
+}
+
+/** Type tier for the medication grid — fewer selected agents print larger. */
+function medDensity(cats) {
+  const count = cats.reduce((a, c) => a + c.names.length, 0);
+  if (count <= 30) return { cards: true, list: 8.4, cat: 8, labelW: 96, pad: 6 };
+  if (count <= 60) return { list: 7.4, cat: 7, labelW: 86, pad: 5.5 };
+  return { list: 6.8, cat: 6.6, labelW: 78, pad: 5 };
+}
+
+/**
+ * Mosaic layout for short selections: one-medication-per-line colour cards,
+ * greedily packed into the shortest column so different-sized categories
+ * re-flow to fill the segment. Returns the new y.
+ */
+function drawMedCards(p, x, y, w, cats) {
+  const gap = p.fs(4);
+  const cols = Math.max(2, Math.min(4, Math.floor(w / p.fs(150))));
+  const colW = (w - gap * (cols - 1)) / cols;
+  const colY = Array(cols).fill(y);
+  for (const c of cats) {
+    let ci = 0;
+    for (let i = 1; i < cols; i++) if (colY[i] < colY[ci] - 0.5) ci = i;
+    const h = drawGroupCard(p, x + ci * (colW + gap), colY[ci], colW, {
+      tone: c.tone,
+      head: c.label,
+      headBar: true,
+      items: c.names,
+      bullets: true,
+      size: 8,
+    });
+    colY[ci] += h + gap;
+    p.guard(colY[ci]);
+  }
+  return Math.max(...colY);
 }
 
 function drawMedsGrid(p, y, state, wOverride) {
@@ -281,28 +314,29 @@ function drawMedsGrid(p, y, state, wOverride) {
   if (!cats.length) return y;
   const x = M;
   const w = wOverride || p.cw;
+  const dz = medDensity(cats);
   p.text(MEDS_SECTION.head, x, y + p.fs(6), { size: 8.4, bold: true, color: TONE.red });
   y += p.fs(10);
-  const labelW = p.fs(78);
+  if (dz.cards) return drawMedCards(p, x, y, w, cats) + p.fs(2);
+  const labelW = p.fs(dz.labelW);
   for (const c of cats) {
-    const warnPad = c.warn ? p.fs(10) : 0;
-    const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), 6.8);
-    const catLines = p.wrap(c.label, labelW - 6 - warnPad, 6.6, true);
+    const warnPad = 0;
+    const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), dz.list);
+    const catLines = p.wrap(c.label, labelW - 6 - warnPad, dz.cat, true);
     const rowH = Math.max(
       p.fs(11),
-      lines.length * p.fs(6.8) * 1.18 + p.fs(5),
-      catLines.length * p.fs(6.6) * 1.18 + p.fs(5),
+      lines.length * p.fs(dz.list) * 1.18 + p.fs(dz.pad),
+      catLines.length * p.fs(dz.cat) * 1.18 + p.fs(dz.pad),
     );
     p.doc.setFillColor(...TONE[c.tone]).rect(x, y, labelW, rowH, 'F');
     p.doc.setFillColor(...WEAK[c.tone]).rect(x + labelW, y, w - labelW, rowH, 'F');
-    if (c.warn) warnTriangle(p, x + 3, y + p.fs(2.6), p.fs(7), c.tone);
-    p.doc.setFont(FONT, 'bold').setFontSize(p.fs(6.6)).setTextColor(255, 255, 255);
-    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(7));
+    p.doc.setFont(FONT, 'bold').setFontSize(p.fs(dz.cat)).setTextColor(255, 255, 255);
+    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(dz.cat + 0.6));
     p.doc
       .setFont(FONT, 'normal')
-      .setFontSize(p.fs(6.8))
+      .setFontSize(p.fs(dz.list))
       .setTextColor(...TONE.ink);
-    p.doc.text(lines, x + labelW + p.fs(4), y + p.fs(7));
+    p.doc.text(lines, x + labelW + p.fs(4), y + p.fs(dz.cat + 0.6));
     y += rowH + p.fs(1.6);
     p.guard(y);
   }
@@ -549,17 +583,21 @@ function buildRounding(doc, state, k) {
       cy2 += noteLines.length * p.fs(7.6) + p.fs(2);
       for (const r of rows) {
         const body = `${state.showDoses && r.dose ? `${r.dose} · ` : ''}${ov(state, r.id, r.text)}`;
-        const lines = p.wrap(`${r.drug}: ${body}`, innerW, 7);
+        const warnPad = r.warn ? p.fs(9) : 0;
+        if (r.warn) warnTriangle(p, M + pad, cy2 - p.fs(5.6), p.fs(6.6));
+        const lines = p.wrap(`${r.drug}: ${body}`, innerW - warnPad, 7);
         doc.setFont(FONT, r.warn ? 'bold' : 'normal').setFontSize(p.fs(7));
         doc.setTextColor(...(r.warn ? TONE.red : TONE.ink));
-        doc.text(lines, M + pad, cy2);
+        doc.text(lines, M + pad + warnPad, cy2);
         cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
       }
       for (const c of cautions) {
-        const lines = p.wrap(ov(state, c.id, c.text), innerW, 7);
+        const warnPad = c.stop ? p.fs(9) : 0;
+        if (c.stop) warnTriangle(p, M + pad, cy2 - p.fs(5.6), p.fs(6.6));
+        const lines = p.wrap(ov(state, c.id, c.text), innerW - warnPad, 7);
         doc.setFont(FONT, 'bold').setFontSize(p.fs(7));
         doc.setTextColor(...(c.stop ? TONE.red : TONE.ink));
-        doc.text(lines, M + pad, cy2);
+        doc.text(lines, M + pad + warnPad, cy2);
         cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
       }
       if (state.showDoses) {
@@ -617,28 +655,32 @@ function buildRounding(doc, state, k) {
 function drawMedsGridAt(p, y, state, x, w) {
   const cats = medCats(state);
   if (!cats.length) return y;
+  // Same density tiers, slightly tighter — this variant shares its page half.
+  const dz = medDensity(cats);
+  const listSize = dz.list - 0.2;
+  const catSize = dz.cat - 0.2;
   p.text(MEDS_SECTION.head, x, y + p.fs(6), { size: 8.4, bold: true, color: TONE.red });
   y += p.fs(10);
-  const labelW = p.fs(72);
+  if (dz.cards) return drawMedCards(p, x, y, w, cats);
+  const labelW = p.fs(dz.labelW - 6);
   for (const c of cats) {
-    const warnPad = c.warn ? p.fs(9) : 0;
-    const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), 6.6);
-    const catLines = p.wrap(c.label, labelW - 6 - warnPad, 6.2, true);
+    const warnPad = 0;
+    const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), listSize);
+    const catLines = p.wrap(c.label, labelW - 6 - warnPad, catSize, true);
     const rowH = Math.max(
       p.fs(11),
-      lines.length * p.fs(6.6) * 1.18 + p.fs(5),
-      catLines.length * p.fs(6.2) * 1.18 + p.fs(5),
+      lines.length * p.fs(listSize) * 1.18 + p.fs(dz.pad),
+      catLines.length * p.fs(catSize) * 1.18 + p.fs(dz.pad),
     );
     p.doc.setFillColor(...TONE[c.tone]).rect(x, y, labelW, rowH, 'F');
     p.doc.setFillColor(...WEAK[c.tone]).rect(x + labelW, y, w - labelW, rowH, 'F');
-    if (c.warn) warnTriangle(p, x + 3, y + p.fs(2.4), p.fs(6.4), c.tone);
-    p.doc.setFont(FONT, 'bold').setFontSize(p.fs(6.2)).setTextColor(255, 255, 255);
-    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(6.6));
+    p.doc.setFont(FONT, 'bold').setFontSize(p.fs(catSize)).setTextColor(255, 255, 255);
+    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(catSize + 0.6));
     p.doc
       .setFont(FONT, 'normal')
-      .setFontSize(p.fs(6.6))
+      .setFontSize(p.fs(listSize))
       .setTextColor(...TONE.ink);
-    p.doc.text(lines, x + labelW + p.fs(4), y + p.fs(6.6));
+    p.doc.text(lines, x + labelW + p.fs(4), y + p.fs(catSize + 0.6));
     y += rowH + p.fs(1.6);
     p.guard(y);
   }

@@ -304,11 +304,6 @@ export const MED_TONES = {
   other: 'olive',
 };
 
-/** Categories that print a warning marker (antipsychotics: also a Step-3
- *  treatment option — the deliriogenic entries are the high-dose / typical
- *  agents, see the Step-3 cautions). */
-export const MED_WARN = ['antipsych'];
-
 /** RASS zone tone per row (agitation warm, targets green, sedation cool). */
 export const RASS_ZONES = {
   '+4': 'red',

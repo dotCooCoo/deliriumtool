@@ -19,10 +19,13 @@ export const FONT_SCALES = [
 ];
 
 export function defaultMeds() {
+  // Print space is precious: only the citation-backed higher-risk agents
+  // (benzodiazepines, strong anticholinergics, meperidine) start selected;
+  // everything else in the shared catalog is opt-in.
   const meds = {};
   MEDS.categories.forEach((c) =>
     c.items.forEach((i) => {
-      meds[i.id] = !!i.on;
+      meds[i.id] = i.risk === 'high';
     }),
   );
   return meds;

@@ -15,7 +15,6 @@ import {
   PHARM,
   MEDS_SECTION,
   MED_TONES,
-  MED_WARN,
   PATHWAY,
   SPA_COLS,
   SPA_DEEPER,
@@ -138,7 +137,6 @@ function selectedMedCats(state) {
       id: c.id,
       label: c.label,
       tone: MED_TONES[c.id] || 'slate',
-      warn: MED_WARN.includes(c.id),
       names: c.items
         .filter((i) => state.meds[i.id])
         .map((i) => medDisplayName(i.name, state.showBrands)),
@@ -296,6 +294,7 @@ function pharmCard(state) {
   ];
   rows.forEach((r) => {
     const line = el('div', { class: `sh-pharm-row${r.warn ? ' is-warn' : ''}` });
+    if (r.warn) line.append(sheetIcon('triangle-exclamation', 'sh-ico sh-warn-inline'));
     line.append(el('strong', {}, `${r.drug}: `));
     const text = ov(state, r.id, r.text);
     line.append(
@@ -303,14 +302,12 @@ function pharmCard(state) {
     );
     kids.push(line);
   });
-  cautions.forEach((c) =>
-    kids.push(
-      el('div', {
-        class: `sh-pharm-caution${c.stop ? ' is-stop' : ''}`,
-        text: nobreak(ov(state, c.id, c.text)),
-      }),
-    ),
-  );
+  cautions.forEach((c) => {
+    const line = el('div', { class: `sh-pharm-caution${c.stop ? ' is-stop' : ''}` });
+    if (c.stop) line.append(sheetIcon('triangle-exclamation', 'sh-ico sh-warn-inline'));
+    line.append(el('span', { text: nobreak(ov(state, c.id, c.text)) }));
+    kids.push(line);
+  });
   if (state.showDoses) kids.push(el('div', { class: 'sh-note', text: PHARM.doseNote }));
   return el('div', { class: 'sh-pharm-card' }, ...kids);
 }
@@ -318,23 +315,40 @@ function pharmCard(state) {
 function medsGrid(state) {
   const cats = selectedMedCats(state);
   if (!cats.length) return null;
-  const grid = el('div', { class: 'sh-meds-grid' });
-  cats.forEach((c) => {
-    const cat = el('div', { class: 'sh-meds-cat' });
-    if (c.warn) cat.append(sheetIcon('triangle-exclamation', 'sh-ico sh-warn-ico'));
-    cat.append(el('span', { text: c.label }));
-    grid.append(
-      el(
-        'div',
-        { class: `sh-meds-row tone-${c.tone}` },
-        cat,
-        el('div', { class: 'sh-meds-list', text: c.names.join(' · ') }),
+  // Fewer selected agents → larger type; short selections switch from the
+  // compact category rows to side-by-side cards, one medication per line.
+  const count = cats.reduce((a, c) => a + c.names.length, 0);
+  const density = count <= 30 ? 'lg' : count <= 60 ? 'md' : 'sm';
+  let grid;
+  if (density === 'lg') {
+    grid = el(
+      'div',
+      { class: 'sh-meds-cards' },
+      ...cats.map((c) =>
+        el(
+          'div',
+          { class: `sh-med-card tone-${c.tone}` },
+          el('div', { class: 'sh-med-card-head', text: c.label }),
+          ...c.names.map((n) => el('div', { class: 'sh-med-line', text: n })),
+        ),
       ),
     );
-  });
+  } else {
+    grid = el('div', { class: 'sh-meds-grid' });
+    cats.forEach((c) => {
+      grid.append(
+        el(
+          'div',
+          { class: `sh-meds-row tone-${c.tone}` },
+          el('div', { class: 'sh-meds-cat', text: c.label }),
+          el('div', { class: 'sh-meds-list', text: c.names.join(' · ') }),
+        ),
+      );
+    });
+  }
   return el(
     'div',
-    { class: 'sh-meds' },
+    { class: `sh-meds meds-${density}` },
     el(
       'div',
       { class: 'sh-meds-head' },

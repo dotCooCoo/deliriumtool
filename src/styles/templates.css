@@ -476,6 +476,10 @@ details[open] > summary::before {
   --tone: var(--sh-ink);
   --tone-weak: var(--sh-slate-weak);
 }
+.tone-red {
+  --tone: var(--sh-red);
+  --tone-weak: var(--sh-red-weak);
+}
 .tone-navy {
   --tone: var(--sh-navy);
   --tone-weak: var(--sh-navy-weak);
@@ -837,9 +841,46 @@ details[open] > summary::before {
   border-radius: 2px;
   overflow: hidden;
 }
-/* The medication grid is a dense reference list — its type gains less from
-   the Large setting than the checklists do, and capping it keeps the full
-   103-agent catalog on the page at every size. */
+/* The medication grid sizes to its selection: a short, curated list prints
+   as side-by-side colour cards with one medication per line; the full
+   103-agent catalog compacts to category rows (capped so it always fits). */
+/* Mosaic: cards of different heights pack into balanced columns and re-flow
+   to whatever space the segment offers. */
+.sh-meds-cards {
+  column-width: 2.05in;
+  column-gap: calc(4pt * var(--fs));
+}
+.sh-med-card {
+  break-inside: avoid;
+  margin-bottom: calc(4pt * var(--fs));
+  border: 0.8pt solid var(--tone);
+  border-radius: 3px;
+  background: var(--tone-weak);
+  overflow: hidden;
+}
+.sh-med-card-head {
+  background: var(--tone);
+  color: #fff;
+  font-weight: 700;
+  font-size: calc(8.6pt * var(--fs));
+  padding: calc(2.5pt * var(--fs)) calc(5pt * var(--fs));
+}
+.sh-med-line {
+  font-size: calc(8.6pt * var(--fs));
+  padding: calc(1pt * var(--fs)) calc(6pt * var(--fs));
+}
+.sh-med-line::before {
+  content: '• ';
+  color: var(--tone);
+  font-weight: 700;
+}
+.meds-md .sh-meds-cat,
+.meds-md .sh-meds-list {
+  font-size: calc(7.6pt * min(var(--fs), 1.06));
+}
+.meds-md .sh-meds-row {
+  grid-template-columns: 1.65in 1fr;
+}
 .sh-meds-cat {
   background: var(--tone, var(--sh-slate));
   color: #fff;
@@ -850,9 +891,12 @@ details[open] > summary::before {
   align-items: center;
   gap: calc(3pt * var(--fs));
 }
-.sh-warn-ico {
-  width: calc(8pt * var(--fs));
-  height: calc(8pt * var(--fs));
+.sh-warn-inline {
+  width: calc(9pt * var(--fs));
+  height: calc(9pt * var(--fs));
+  margin-right: calc(3pt * var(--fs));
+  vertical-align: -1pt;
+  color: var(--sh-red);
 }
 .sh-meds-list {
   background: var(--tone-weak, #fff);

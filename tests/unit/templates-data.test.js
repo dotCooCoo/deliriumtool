@@ -97,13 +97,21 @@ test('templates: RASS rows cover −5..+4 and each target maps onto real rows', 
   for (const t of RASS_TARGETS) for (const s of t.scores) assert.ok(all.has(s));
 });
 
-test('state: medication defaults exactly track the shared catalog', () => {
+test('state: medication defaults are the higher-risk agents only', () => {
   const s = defaultState();
   const catalog = MEDS.categories.flatMap((c) => c.items);
   assert.deepEqual(Object.keys(s.meds).sort(), catalog.map((i) => i.id).sort());
   for (const item of catalog) {
-    assert.equal(s.meds[item.id], !!item.on, `default for ${item.id} tracks the catalog`);
+    assert.equal(
+      s.meds[item.id],
+      item.risk === 'high',
+      `default for ${item.id} tracks the higher-risk flag`,
+    );
   }
+  // Sanity: benzodiazepines and meperidine start on; routine opioids start off.
+  assert.equal(s.meds['benzo-lorazepam'], true);
+  assert.equal(s.meds['opi-meperidine'], true);
+  assert.equal(s.meds['opi-morphine'], false);
 });
 
 test('state: sanitize accepts a valid snapshot unchanged and rejects garbage', () => {

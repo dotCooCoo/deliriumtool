@@ -23,8 +23,12 @@ Notable changes to this project, following
   text is the default and every combination — including all 103 medications
   enabled — fits its two pages; a print-font choice (clean sans, Arial, Georgia)
   is verified to fit throughout. Medication names print generic-only by default
-  with an opt-in for brand names; colour-coded sections, category blocks, and
-  icons aid bedside scanning. Output as browser print or a generated two-page
-  PDF. Sheet content mirrors the interactive tool's cited clinical content;
+  with an opt-in for brand names; the default selection is the higher-risk
+  agents (benzodiazepines, strong anticholinergics, meperidine) with the rest of
+  the catalog opt-in, and the grid prints larger when fewer agents are selected.
+  Colour-coded sections, one colour block per medication category, warning
+  markers on the key pharmacology cautions, and icons aid bedside scanning.
+  Output as browser print or a generated two-page PDF. Sheet content mirrors
+  the interactive tool's cited clinical content;
   configurations autosave locally and share as a link or JSON (protocol settings
   only, never patient data).

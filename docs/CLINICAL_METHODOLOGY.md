@@ -203,7 +203,14 @@ tool's cited content** — the sheets introduce no new clinical values. The mapp
 
 **Presentation rules.** Medication names print **generic-only by default** — brand names in
 the registry are stripped for the sheet (clinical qualifiers such as routes and "high dose"
-always remain) and reappear only when the unit enables "show brand names". The sedation-target
+always remain) and reappear only when the unit enables "show brand names". The designer's
+default medication selection is the **citation-backed higher-risk set** (benzodiazepines,
+strong anticholinergics, meperidine — the agents carrying the registry's higher-risk flag);
+the rest of the shared catalog is opt-in, and the printed grid scales its type to the
+selection (a short curated list prints large; the full catalog compacts to guarantee fit).
+The two pharmacology caution lines with the strongest bedside consequence — benzodiazepines
+as withdrawal rescue only, and no antipsychotics at discharge without a psychiatric
+indication — carry a printed warning marker. The sedation-target
 selector offers exactly the interactive tool's three bands (0 to −2 light/ICU default; 0 to −1
 general ward; −3 to −4 deep, which prints a "documented indication required" caveat). "Save as
 PDF" renders the same content data through a second layout engine (jsPDF), so the PDF cannot
