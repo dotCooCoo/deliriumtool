@@ -202,15 +202,17 @@ test('serves the strict security headers from the _headers policy', async ({ pag
   expect(h['x-content-type-options']).toBe('nosniff');
 });
 
-test('risk tally reaches 16/16 and fills the progress bar', async ({ page }) => {
+test('risk tally reaches 15/15 and fills the progress bar', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   const boxes = page.locator('#tab-risk .rcb');
   const n = await boxes.count();
-  expect(n).toBe(16); // the maximum the readout (/16) and methodology assume
+  // 15 factors: mechanical ventilation was removed (PADIS 2018 — strong
+  // evidence it does not alter delirium risk).
+  expect(n).toBe(15);
   for (let i = 0; i < n; i++) await boxes.nth(i).check();
-  await expect(page.locator('#rscore')).toHaveText('16');
+  await expect(page.locator('#rscore')).toHaveText('15');
   const width = await page.locator('#rprog').evaluate((el) => el.style.width);
-  expect(width).toBe('100%'); // was ~94% when the denominator was a stale 17
+  expect(width).toBe('100%');
 });
 
 test('auto-fill example populates the medication and setup tabs too', async ({ page }) => {

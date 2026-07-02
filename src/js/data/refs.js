@@ -74,6 +74,21 @@ export const DELIRIUM_REFS = {
     c: 'Walsh TS, Aitken LM, McKenzie CA, et al. Dexmedetomidine- or clonidine-based sedation compared with propofol in critically ill patients: the A2B randomized clinical trial. JAMA. 2025;334(1):32-45. (No extubation benefit vs propofol; more agitation and severe bradycardia with alpha-2 agonists.)',
     u: 'https://doi.org/10.1001/jama.2025.7200',
   },
+  girard2008: {
+    l: 'ABC trial 2008',
+    c: 'Girard TD, Kress JP, Fuchs BD, et al. Efficacy and safety of a paired sedation and ventilator weaning protocol for mechanically ventilated patients in intensive care (Awakening and Breathing Controlled trial): a randomised controlled trial. Lancet. 2008;371(9607):126-134.',
+    u: 'https://pubmed.ncbi.nlm.nih.gov/18191684/',
+  },
+  awissi2013: {
+    l: 'Awissi 2013',
+    c: 'Awissi DK, Lebrun G, Coursin DB, Riker RR, Skrobik Y. Alcohol withdrawal and delirium tremens in the critically ill: a systematic review and commentary. Intensive Care Med. 2013;39(1):16-30. (No withdrawal scale, including CIWA-Ar, is validated in ICU patients.)',
+    u: 'https://pubmed.ncbi.nlm.nih.gov/23184039/',
+  },
+  flaherty_little2011: {
+    l: 'Flaherty & Little 2011',
+    c: 'Flaherty JH, Little MO. Matching the environment to patients with delirium: lessons learned from the delirium room, a restraint-free environment for older hospitalized adults with delirium. J Am Geriatr Soc. 2011;59(Suppl 2):S295-S300. (The T-A-D-A method: Tolerate, Anticipate, Don’t Agitate.)',
+    u: 'https://pubmed.ncbi.nlm.nih.gov/22091576/',
+  },
   kollef1998: {
     l: 'Kollef 1998',
     c: 'Kollef MH, Levy NT, Ahrens TS, Schaiff R, Prentice D, Sherman G. The use of continuous IV sedation is associated with prolongation of mechanical ventilation. Chest. 1998;114(2):541-548. (Observational cohort — not a guideline recommendation.)',

@@ -393,17 +393,31 @@ export function updateRass() {
     }
   }
 
+  // Advisory wording follows the cited sources: agitation prompts are
+  // nonpharm-first per PADIS (pharmacologic control is reserved for danger to
+  // the patient or staff), reassessment intervals defer to unit protocol
+  // (none is source-defined), deep-sedation harm is stated as an association,
+  // and RASS −4/−5 carries the instrument's own stop-and-recheck directive.
   const messages = {
     '+4': ['a-danger', 'Immediate intervention required.'],
-    '+3': ['a-danger', 'High agitation — assess for pharmacologic intervention.'],
+    '+3': [
+      'a-danger',
+      'Very agitated — ensure safety; treat pain and other causes, non-pharmacologic measures first. Reserve short-term pharmacologic control for danger to the patient or staff.',
+    ],
     '+2': ['a-warn', 'Agitated — intensify non-pharmacologic measures first.'],
-    '+1': ['a-warn', 'Monitor closely — reassess in 1 hour.'],
+    '+1': ['a-warn', "Restless — monitor closely; reassess at the unit's standard interval."],
     0: ['a-green', 'Goal achieved — continue current management.'],
     '-1': ['a-teal', 'Within acceptable light-sedation range.'],
     '-2': ['a-teal', 'Light sedation — ensure SAT/SBT still being performed.'],
     '-3': ['a-warn', 'Moderate sedation — review necessity daily.'],
-    '-4': ['a-danger', 'Deep sedation — SAT indicated; deep sedation increases delirium risk.'],
-    '-5': ['a-danger', 'Unarousable — neurological assessment needed.'],
+    '-4': [
+      'a-danger',
+      'Deep sedation — reassess need daily (SAT unless deeper sedation is clinically indicated); deeper sedation is associated with more delirium, delayed extubation, and higher mortality.',
+    ],
+    '-5': [
+      'a-danger',
+      'Unarousable — CAM-ICU unable to assess; recheck when arousal improves. If unresponsiveness is not explained by sedation, evaluate for coma or a neurologic cause.',
+    ],
   };
   const note = $('rass-note');
   if (note) {

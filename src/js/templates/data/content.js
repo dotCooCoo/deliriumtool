@@ -94,16 +94,16 @@ export const MNEMONIC = {
     {
       id: 'mn-e',
       ltr: 'E',
-      word: 'Eyes / Ears / Env',
+      word: 'Eyes / Ears (sensory)',
       tone: 'rust',
-      note: 'Glasses & hearing aids in? Whiteboard updated? Lights on daytime?',
+      note: 'Glasses & hearing aids in? Other sensory deficits addressed?',
     },
     {
       id: 'mn-l',
       ltr: 'L',
-      word: 'Low O₂ / Liver',
+      word: 'Low O₂ states',
       tone: 'teal',
-      note: 'Check SpO₂, Hgb, cardiac/PE events, liver function.',
+      note: 'Check SpO₂, Hgb; MI, stroke, pulmonary embolism.',
     },
     {
       id: 'mn-i1',
@@ -138,7 +138,7 @@ export const MNEMONIC = {
       ltr: 'M',
       word: 'Metabolic',
       tone: 'teal',
-      note: 'Na, Mg, Ca, glucose, BUN/Cr, acid–base. Pain / retention / constipation?',
+      note: 'Na, Mg, Ca, glucose, BUN/Cr, acid–base, liver function.',
     },
     {
       id: 'mn-s',

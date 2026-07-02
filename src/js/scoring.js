@@ -17,7 +17,7 @@
 // counts +1 (a flat checklist, no implied weighting). Band cut-points are
 // heuristic; for a validated ICU model the UI points to PRE-DELIRIC /
 // E-PRE-DELIRIC. See docs/CLINICAL_METHODOLOGY.md §2.1.
-export const RISK_MAX = 16;
+export const RISK_MAX = 15;
 
 /**
  * Map a risk tally to its band.

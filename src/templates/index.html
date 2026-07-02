@@ -274,7 +274,7 @@
         </section>
 
         <section class="ctrl-block" aria-labelledby="h-header">
-          <h2 id="h-header">Unit &amp; options</h2>
+          <h2 id="h-header">Your unit</h2>
           <div class="frow">
             <label class="flbl" for="f-facility">Facility name</label>
             <input
@@ -298,41 +298,6 @@
               <option value="-3to-4">−3 to −4 (deep — indication required)</option>
             </select>
           </div>
-          <div class="frow">
-            <label class="flbl" for="f-font-scale">Print text size</label>
-            <select class="fsel" id="f-font-scale">
-              <option value="90">Compact</option>
-              <option value="100">Standard</option>
-              <option value="110" selected>Large</option>
-            </select>
-          </div>
-          <div class="frow">
-            <label class="flbl" for="f-font-family">Print font</label>
-            <select class="fsel" id="f-font-family">
-              <option value="sans" selected>Clean sans (recommended)</option>
-              <option value="classic">Classic sans (Arial)</option>
-              <option value="serif">Serif (Georgia)</option>
-            </select>
-          </div>
-          <label class="chk">
-            <input type="checkbox" id="f-actions" checked />
-            <span>"Action: ___" write-in lines in the causative-factor cells</span>
-          </label>
-          <label class="chk">
-            <input type="checkbox" id="f-doses" />
-            <span>Print example starting doses (otherwise doses defer to your order set)</span>
-          </label>
-          <div class="frow">
-            <label class="flbl" for="f-med-layout">Medication list style</label>
-            <select class="fsel" id="f-med-layout">
-              <option value="mosaic" selected>Mosaic cards (recommended)</option>
-              <option value="rows">Category rows</option>
-            </select>
-          </div>
-          <label class="chk">
-            <input type="checkbox" id="f-brands" />
-            <span>Show medication brand names (generic-only by default)</span>
-          </label>
         </section>
 
         <section class="ctrl-block" aria-labelledby="h-sections">
@@ -342,6 +307,10 @@
             and add your own protocol lines where the unit's workflow differs.
           </p>
           <div id="ctrl-sections"></div>
+          <label class="chk">
+            <input type="checkbox" id="f-actions" checked />
+            <span>"Action: ___" write-in lines in the causative-factor cells</span>
+          </label>
           <div class="newsec">
             <h3 class="newsec-head">Add your own section</h3>
             <div class="frow">
@@ -382,6 +351,41 @@
             </button>
           </div>
           <div id="ctrl-meds"></div>
+          <div class="frow">
+            <label class="flbl" for="f-med-layout">Medication list style</label>
+            <select class="fsel" id="f-med-layout">
+              <option value="mosaic" selected>Mosaic cards (recommended)</option>
+              <option value="rows">Category rows</option>
+            </select>
+          </div>
+          <label class="chk">
+            <input type="checkbox" id="f-brands" />
+            <span>Show medication brand names (generic-only by default)</span>
+          </label>
+          <label class="chk">
+            <input type="checkbox" id="f-doses" />
+            <span>Print example starting doses (otherwise doses defer to your order set)</span>
+          </label>
+        </section>
+
+        <section class="ctrl-block" aria-labelledby="h-print">
+          <h2 id="h-print">Print appearance</h2>
+          <div class="frow">
+            <label class="flbl" for="f-font-scale">Print text size</label>
+            <select class="fsel" id="f-font-scale">
+              <option value="90">Compact</option>
+              <option value="100">Standard</option>
+              <option value="110" selected>Large</option>
+            </select>
+          </div>
+          <div class="frow">
+            <label class="flbl" for="f-font-family">Print font</label>
+            <select class="fsel" id="f-font-family">
+              <option value="sans" selected>Clean sans (recommended)</option>
+              <option value="classic">Classic sans (Arial)</option>
+              <option value="serif">Serif (Georgia)</option>
+            </select>
+          </div>
         </section>
       </aside>
 

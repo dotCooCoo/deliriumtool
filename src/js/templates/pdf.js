@@ -196,8 +196,11 @@ function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size =
   const pad = p.fs(4);
   const innerW = w - 2 * pad;
   const prefix = bullets === 'plain' ? '' : '• ';
+  // Long category labels wrap instead of clipping at the card edge.
+  const headLines = p.wrap(headBar ? head : head.toUpperCase(), innerW, headBar ? 7.6 : 7.4, true);
+  const barH = p.fs(4.2) + headLines.length * p.fs(7.6) * 1.18;
   // measure
-  let h = pad + p.fs(9);
+  let h = headBar ? barH + pad + p.fs(2.4) : pad + p.fs(5.4) + headLines.length * p.fs(8);
   for (const it of items) {
     const lines = p.wrap(
       bullets ? `${prefix}${it}` : it,
@@ -216,12 +219,17 @@ function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size =
   // heading
   let cy = y + pad + p.fs(5.4);
   if (headBar) {
-    p.doc.setFillColor(...TONE[tone]).rect(x, y, w, p.fs(10.5), 'F');
-    p.text(head, x + pad, y + p.fs(7.6), { size: 7.6, bold: true, color: [255, 255, 255] });
-    cy = y + p.fs(10.5) + pad + p.fs(2.4);
+    p.doc.setFillColor(...TONE[tone]).rect(x, y, w, barH, 'F');
+    p.doc.setFont(FONT, 'bold').setFontSize(p.fs(7.6)).setTextColor(255, 255, 255);
+    p.doc.text(headLines, x + pad, y + p.fs(7.6));
+    cy = y + barH + pad + p.fs(2.4);
   } else {
-    p.text(head.toUpperCase(), x + pad, cy, { size: 7.4, bold: true, color: TONE[tone] });
-    cy += p.fs(8);
+    p.doc
+      .setFont(FONT, 'bold')
+      .setFontSize(p.fs(7.4))
+      .setTextColor(...TONE[tone]);
+    p.doc.text(headLines, x + pad, cy);
+    cy += headLines.length * p.fs(8);
   }
   for (const it of items) {
     cy = bullets
@@ -314,8 +322,9 @@ function drawPharmCardAt(p, x, y, w, state) {
   const cautions = PHARM.cautions.filter((c) => itemOn(state, c.id));
   const pad = p.fs(5);
   const innerW = w - pad * 2;
+  const leadLines = p.wrap(PHARM.lead, innerW, 8.8, true);
   const measure = () => {
-    let h = pad + p.fs(9) + p.fs(9);
+    let h = pad + leadLines.length * p.fs(9) + p.fs(9);
     const all = [
       ...rows.map(
         (r) =>
@@ -334,8 +343,12 @@ function drawPharmCardAt(p, x, y, w, state) {
     .setLineWidth(0.7);
   doc.rect(x, y, w, cardH, 'FD');
   let cy2 = y + pad + p.fs(7);
-  p.text(PHARM.lead, x + pad, cy2, { size: 8.8, bold: true, color: TONE.red });
-  cy2 += p.fs(8.5);
+  doc
+    .setFont(FONT, 'bold')
+    .setFontSize(p.fs(8.8))
+    .setTextColor(...TONE.red);
+  doc.text(leadLines, x + pad, cy2);
+  cy2 += leadLines.length * p.fs(8.5);
   const noteLines = p.wrap(PHARM.leadNote, innerW, 6.6);
   doc
     .setFont(FONT, 'normal')

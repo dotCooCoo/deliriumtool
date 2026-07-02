@@ -82,6 +82,10 @@ export const REFS = {
     c: 'Kudchadkar SR, et al. PICU Up! multicenter early mobility trial (protocol: Azamfirei R, et al. Trials. 2023;24(1):191). NCT04989790.',
     u: 'https://clinicaltrials.gov/study/NCT04989790',
   },
+  gupta2021_capd_mv: {
+    c: 'Gupta N, et al. Performance of the Cornell Assessment of Pediatric Delirium scale in mechanically ventilated children. J Pediatr Intensive Care. 2023;12(1):24–30 (online 2021). (At CAPD ≥ 9: overall specificity 44.8%; 16.5% with developmental delay.)',
+    u: 'https://doi.org/10.1055/s-0041-1728784',
+  },
   haldol_label: {
     c: 'Haloperidol prescribing information (boxed warnings; QTc / torsades). DailyMed, U.S. NLM.',
     u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f',

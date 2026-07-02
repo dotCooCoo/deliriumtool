@@ -277,7 +277,7 @@
             <div>
               <div id="risk-disp" class="score-box risk-low">
                 <div class="score-num">
-                  <span id="rscore">0</span><span class="muted">/16</span>
+                  <span id="rscore">0</span><span class="muted">/15</span>
                 </div>
                 <div class="score-info">
                   <div class="score-lbl">Risk factor tally</div>
@@ -342,7 +342,7 @@
                 >
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
-                  <span>Severe illness (APACHE &gt; 16) (+1)</span></label
+                  <span>Severe illness (high APACHE-II) (+1)</span></label
                 >
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
@@ -362,10 +362,6 @@
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
                   <span>Surgery / general anesthesia (+1)</span></label
-                >
-                <label class="chk"
-                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
-                  <span>Mechanical ventilation (+1)</span></label
                 >
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
@@ -390,7 +386,7 @@
             <span class="ref-bar-label">References</span>
             <ol
               class="auto-refs"
-              data-refs="inouye1993,marcantonio1994,inouye_charpentier1996,predeliric2012,epredeliric2015,pisani2009"
+              data-refs="inouye1993,marcantonio1994,inouye_charpentier1996,predeliric2012,epredeliric2015,pisani2009,nice_cg103,padis2018"
             ></ol>
           </div>
         </section>
@@ -773,27 +769,44 @@
                   <p>
                     <strong>SAT — do NOT interrupt sedation if:</strong> active seizures · alcohol
                     withdrawal on sedation · escalating sedation for agitation · neuromuscular
-                    blockade · MI in prior 24 h · raised ICP.
+                    blockade · MI in prior 24 h · raised ICP.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a
+                    ><a class="cite" data-ref="icudelirium_satsbt"></a>
                   </p>
                   <p>
                     <strong
                       >SAT failure → stop SAT, restart sedation at HALF the prior dose if:</strong
                     >
                     sustained anxiety/agitation/pain · RR &gt;35 for &gt;5 min · SpO₂ &lt;88% for
-                    &gt;5 min · acute dysrhythmia · ≥2 signs of respiratory distress.
+                    &gt;5 min · acute dysrhythmia · ≥2 signs of respiratory distress.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a>
                   </p>
                   <p>
-                    <strong>SBT — proceed only if:</strong> SpO₂ &gt;88% on FiO₂ &lt;50% &amp; PEEP
-                    &lt;8 · pH &gt;7.15 · no agitation · no ischemia in 24 h · hemodynamically
-                    stable · no raised ICP.
+                    <strong>SBT — proceed only if:</strong> SpO₂ ≥88% on FiO₂ ≤50% &amp; PEEP ≤7.5 ·
+                    no agitation · no ischemia in 24 h · hemodynamically stable · no raised ICP.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a
+                    ><a class="cite" data-ref="icudelirium_satsbt"></a>
                   </p>
                   <p>
                     <strong>SBT failure → abort, resume support if:</strong> RR &gt;35 or &lt;8 ·
-                    SpO₂ &lt;88% · abrupt mental-status change · dysrhythmia · ≥2 distress signs.
+                    SpO₂ &lt;88% · abrupt mental-status change · dysrhythmia · ≥2 distress signs.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a>
                   </p>
                   <p>
-                    <strong>Loop:</strong> pass SAT → proceed to SBT; fail either → restart sedation
-                    at half the prior dose, re-screen in 24 h.
+                    <strong>Loop:</strong> pass SAT → proceed to SBT; fail SAT → restart sedation at
+                    half the prior dose; fail SBT → resume full ventilatory support (restart
+                    sedation at half the prior dose if needed); re-screen in 24 h.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a>
                   </p>
                 </div>
               </details>
@@ -1007,13 +1020,14 @@
             </div>
             <div class="mnemonic-cell">
               <div class="mnemonic-ltr">E</div>
-              <div class="mnemonic-word">Eyes / Ears / Env</div>
+              <div class="mnemonic-word">Eyes / Ears (sensory)</div>
               <div class="mnemonic-body">
                 <label class="chk"
                   ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
                 >
                 <p class="mnem-note">
-                  Glasses &amp; hearing aids in? Whiteboard updated? Lights on daytime?
+                  Glasses &amp; hearing aids in? Other sensory deficits addressed? (Environment —
+                  whiteboard, daytime lights — lives under Dr.&nbsp;DRE on the Treatment tab.)
                 </p>
                 <textarea
                   class="fta mnem-action"
@@ -1024,12 +1038,12 @@
             </div>
             <div class="mnemonic-cell">
               <div class="mnemonic-ltr">L</div>
-              <div class="mnemonic-word">Low O₂ / Liver</div>
+              <div class="mnemonic-word">Low O₂ states</div>
               <div class="mnemonic-body">
                 <label class="chk"
                   ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
                 >
-                <p class="mnem-note">Check SpO₂, Hgb, cardiac/PE events, liver function.</p>
+                <p class="mnem-note">Check SpO₂, Hgb; MI, stroke, pulmonary embolism.</p>
                 <textarea
                   class="fta mnem-action"
                   placeholder="Action…"
@@ -1121,7 +1135,8 @@
                   ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
                 >
                 <p class="mnem-note">
-                  Na, Mg, Ca, glucose, BUN/Cr, acid-base. Pain/retention/constipation?
+                  Na, Mg, Ca, glucose, BUN/Cr, acid-base, liver function.
+                  Pain/retention/constipation?
                 </p>
                 <textarea
                   class="fta mnem-action"
@@ -1189,7 +1204,7 @@
                 <div class="dnode dn-step">
                   <span class="dn-h"
                     >2 · Verbal de-escalation first<a class="cite" data-ref="projectbeta"></a></span
-                  >Respect ~2 arms' length of space · one clinician speaks calmly · short, simple
+                  >Respect ≥2 arms' lengths of space · one clinician speaks calmly · short, simple
                   sentences · identify what the patient wants · offer realistic choices (medication
                   as an offer, not a threat) · set clear limits.
                 </div>
@@ -1202,7 +1217,7 @@
                   <span class="dn-h"
                     >Dr. DRE — treat reversible causes<a
                       class="cite"
-                      data-ref="hayhurst2016"
+                      data-ref="icudelirium_mnemonics"
                     ></a></span
                   ><strong>D</strong>iseases (sepsis, hypoxia, metabolic) · <strong>D</strong>rug
                   removal (deliriogenic agents; withdrawal) · <strong>R</strong>emove
@@ -1265,11 +1280,10 @@
               <label class="chk"
                 ><input type="checkbox" />
                 <span
-                  >Review for alcohol / benzo withdrawal — in the ICU titrate to RASS (CIWA-Ar is
-                  not validated in intubated / sedated / delirious patients)<a
-                    class="cite"
-                    data-ref="ciwa_mdcalc"
-                  ></a></span
+                  >Review for alcohol / benzo withdrawal — in the ICU titrate to RASS (no withdrawal
+                  scale, including CIWA-Ar, is validated in intubated / sedated / delirious ICU
+                  patients)<a class="cite" data-ref="awissi2013"></a
+                  ><a class="cite" data-ref="ciwa_mdcalc"></a></span
               ></label>
               <label class="chk"
                 ><input type="checkbox" />
@@ -1404,7 +1418,10 @@
               <span class="card-icon"
                 ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-leaf" /></svg
               ></span>
-              T-A-D-A — Behavioral Approach to Agitation
+              T-A-D-A — Behavioral Approach to Agitation<a
+                class="cite"
+                data-ref="flaherty_little2011"
+              ></a>
             </div>
             <div class="tada-grid">
               <div class="tada-cell">
@@ -1422,7 +1439,11 @@
             </div>
             <p class="dnode-sub mt-3">
               Restraints are the last resort after de-escalation, environment, device removal, and
-              1:1 observation — re-evaluate daily.<a class="cite" data-ref="nice_ng10"></a>
+              1:1 observation — use the least-restrictive option, re-evaluate per institutional
+              policy, and discontinue at the earliest possible time.<a
+                class="cite"
+                data-ref="nice_ng10"
+              ></a>
             </p>
           </div>
           <div class="card">
@@ -1525,7 +1546,7 @@
             <span class="ref-bar-label">References</span>
             <ol
               class="auto-refs"
-              data-refs="padis2018,padis2025,mindusa2018,projectbeta,nice_ng10,hshieh2015,balas2014,ciwa_mdcalc,hayhurst2016"
+              data-refs="padis2018,padis2025,mindusa2018,projectbeta,icudelirium_mnemonics,flaherty_little2011,nice_ng10,hshieh2015,balas2014,awissi2013,ciwa_mdcalc,hayhurst2016"
             ></ol>
           </div>
         </section>
@@ -1719,6 +1740,12 @@
                   <option>CAM-ICU</option>
                   <option>ICDSC</option>
                 </select>
+                <p class="note mt-1">
+                  This label prints on the protocol documents. The Screening tab itself implements
+                  the CAM-ICU only — units using the ICDSC (8 items over the shift; total ≥ 4 =
+                  positive<a class="cite" data-ref="icdsc_bergeron"></a>) score it on their own
+                  worksheet and use this tool for the prevention, review, and treatment content.
+                </p>
               </div>
               <div class="frow">
                 <label class="flbl" for="set-camfreq">CAM Frequency</label>

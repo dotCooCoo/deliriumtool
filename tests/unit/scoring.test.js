@@ -15,8 +15,10 @@ import {
   RISK_MAX,
 } from '../../src/js/scoring.js';
 
-test('risk tally maxes at 16 (flat +1 per factor)', () => {
-  assert.equal(RISK_MAX, 16);
+test('risk tally maxes at 15 (flat +1 per factor)', () => {
+  // Mechanical ventilation was removed from the tally (PADIS 2018: strong
+  // evidence it does not alter delirium risk), leaving 15 factors.
+  assert.equal(RISK_MAX, 15);
 });
 
 test('risk tier band boundaries: Few 0-3 / Several 4-6 / Many 7-10 / Very many 11+', () => {
@@ -27,7 +29,7 @@ test('risk tier band boundaries: Few 0-3 / Several 4-6 / Many 7-10 / Very many 1
   assert.equal(riskTier(7).tier, 'Many');
   assert.equal(riskTier(10).tier, 'Many');
   assert.equal(riskTier(11).tier, 'Very many');
-  assert.equal(riskTier(16).tier, 'Very many');
+  assert.equal(riskTier(15).tier, 'Very many');
   assert.equal(riskTier(2).band, 'low');
   assert.equal(riskTier(11).band, 'crit');
 });

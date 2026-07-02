@@ -562,8 +562,8 @@ var DLM_DOMAINS = [
     'D — Drugs / Withdrawal',
     'Deliriogenic agents? Dose reduction? Withdrawal (alcohol/benzo/opioid) — treat to RASS, not CIWA, in the ICU.',
   ],
-  ['E — Eyes/Ears/Env', 'Glasses & hearing aids in? Whiteboard updated? Daytime lights?'],
-  ['L — Low O2/Liver', 'Check SpO2, Hgb, cardiac/PE events, liver function.'],
+  ['E — Eyes/Ears (sensory)', 'Glasses & hearing aids in? Other sensory deficits addressed?'],
+  ['L — Low O2 states', 'Check SpO2, Hgb; MI, stroke, pulmonary embolism.'],
   ['I — Infection', 'Fever, leukocytosis, cultures pending? Occult sepsis?'],
   [
     'R — Retention',
@@ -766,7 +766,7 @@ function buildFull(doc, opts, k) {
         [
           'Risk factors:\n' +
             (ASMT.risk || 0) +
-            '/16 (' +
+            '/15 (' +
             (ASMT.riskTier || '-') +
             ') — count of present factors, not a validated score',
           'ABCDEF bundle:\n' + (ASMT.bundleOn || 0) + '/' + (ASMT.bundleAll || 0),
@@ -1582,7 +1582,7 @@ function buildRecord(doc, opts) {
             content:
               'RISK & PREVENTION\n\nRisk factors: ' +
               (ASMT.risk || 0) +
-              '/16 (' +
+              '/15 (' +
               (ASMT.riskTier || '-') +
               ') — count of present factors, not a validated score\nABCDEF bundle: ' +
               (ASMT.bundleOn || 0) +

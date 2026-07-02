@@ -80,6 +80,29 @@ test('adult save/load is lossless across reload', async ({ page }) => {
   expect(JSON.parse(S2)).toEqual(JSON.parse(S1));
 });
 
+// ADULT — a stored CAM verdict is re-derived from features + RASS on restore,
+// so a hand-edited or stale save cannot display a result its inputs don't support.
+test('adult restore re-derives the CAM verdict from its features', async ({ page }) => {
+  // Seed the autosave before any app instance runs (a live page's pagehide
+  // flush would overwrite a value injected after load).
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'deliriumtool:assessment',
+      JSON.stringify({
+        v: 1,
+        pathway: 'full',
+        s: { cam: { 1: 'no', 2: 'no' }, camResult: 'positive', rass: '0' },
+        controls: {},
+      }),
+    );
+  });
+  await page.goto('/');
+  // The tab strip can sit off-screen on the mobile profile — activate via DOM.
+  await page.locator('[data-tab="cam"]').evaluate((el) => el.click());
+  // Feature 1 and 2 are both "no" → the verdict must be Negative, not the stored "positive".
+  await expect(page.locator('#cam-res-txt')).toContainText('Negative');
+});
+
 // ADULT — assessor round-trip (probe whether it persists).
 test('adult assessor persists across reload', async ({ page }) => {
   page.on('dialog', (d) => d.accept());

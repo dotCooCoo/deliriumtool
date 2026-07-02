@@ -29,6 +29,9 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | AGS CoCare HELP reference list | `ags-cocare-help-reference-list.pdf` | https://help.agscocare.org/ |
 | NICE CG103 — Delirium guideline | `nice-cg103-delirium.pdf` | https://www.nice.org.uk/guidance/cg103 |
 | Vincent 2016 — eCASH concept, ICM 2016;42:962 | **not archived** | https://doi.org/10.1007/s00134-016-4297-4 |
+| Girard 2008 — ABC trial (paired SAT+SBT), Lancet 2008;371:126 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/18191684/ |
+| Awissi 2013 — alcohol withdrawal & DT in the critically ill (CIWA not ICU-validated), ICM 2013;39:16 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/23184039/ |
+| Flaherty & Little 2011 — the delirium room / T-A-D-A method, JAGS 2011;59:S295 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/22091576/ |
 | Kollef 1998 — continuous IV sedation & ventilation duration (observational), Chest 1998;114:541 | **not archived** | https://doi.org/10.1378/chest.114.2.541 |
 
 ## DELIRIUM Factors (subtypes / mnemonic)
