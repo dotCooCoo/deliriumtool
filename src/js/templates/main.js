@@ -540,7 +540,9 @@ function autoFitMeds(sheets) {
       }
       return m;
     };
-    const over = () => contentBottom() > limit() + 2 || sheet.scrollHeight > sheet.clientHeight + 2;
+    // Strict: platform font metrics differ by a pixel or two — shrink until
+    // the content is fully inside the page on every platform.
+    const over = () => contentBottom() > limit() || sheet.scrollHeight > sheet.clientHeight;
     let guard = 40;
     while (over() && guard-- > 0) {
       if (meds) {
