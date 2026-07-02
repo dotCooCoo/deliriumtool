@@ -609,15 +609,23 @@ const KAWAII = {
   'stim-fish': () =>
     svg([
       [
-        'circle',
-        { cx: '46', cy: '52', r: '28', fill: '#8fd0f2', stroke: '#4d9fd1', 'stroke-width': '3' },
+        'ellipse',
+        {
+          cx: '44',
+          cy: '52',
+          rx: '30',
+          ry: '21',
+          fill: '#8fd0f2',
+          stroke: '#4d9fd1',
+          'stroke-width': '3',
+        },
       ],
       [
         'path',
         {
-          d: 'M72 52 Q86 40 88 36 Q90 52 88 68 Q86 64 72 52Z',
-          fill: '#ffd66b',
-          stroke: '#e8a63a',
+          d: 'M72 52 Q88 38 92 34 Q92 52 92 70 Q88 66 72 52Z',
+          fill: '#ffb3c2',
+          stroke: '#e0708c',
           'stroke-width': '2.5',
           'stroke-linejoin': 'round',
         },
@@ -625,31 +633,43 @@ const KAWAII = {
       [
         'path',
         {
-          d: 'M40 26 Q46 16 54 24 L48 30 Z',
-          fill: '#ffd66b',
-          stroke: '#e8a63a',
-          'stroke-width': '2',
+          d: 'M36 32 Q44 20 54 29 L46 38 Z',
+          fill: '#ffb3c2',
+          stroke: '#e0708c',
+          'stroke-width': '2.5',
           'stroke-linejoin': 'round',
         },
-      ],
-      ...kFace(42, 50, 0.9, { blush: '#ff9eb0' }),
-      [
-        'circle',
-        { cx: '16', cy: '26', r: '3', fill: 'none', stroke: '#bfe1f5', 'stroke-width': '2' },
-      ],
-      [
-        'circle',
-        { cx: '10', cy: '16', r: '2', fill: 'none', stroke: '#bfe1f5', 'stroke-width': '2' },
       ],
       [
         'path',
         {
-          d: 'M60 66 Q64 70 60 74',
-          fill: 'none',
+          d: 'M44 62 Q52 66 50 74 Q42 72 40 66 Z',
+          fill: '#bfe1f5',
           stroke: '#4d9fd1',
+          'stroke-width': '2',
+          'stroke-linejoin': 'round',
+        },
+      ],
+      ['circle', { cx: '28', cy: '48', r: '4.6', fill: '#3a2e39' }],
+      ['circle', { cx: '29.6', cy: '46.4', r: '1.6', fill: '#fff' }],
+      [
+        'path',
+        {
+          d: 'M20 58 Q24 61.5 28 58',
+          fill: 'none',
+          stroke: '#3a2e39',
           'stroke-width': '2',
           'stroke-linecap': 'round',
         },
+      ],
+      ['ellipse', { cx: '35', cy: '58', rx: '3.6', ry: '2.2', fill: '#ff9eb0', opacity: '.8' }],
+      [
+        'circle',
+        { cx: '13', cy: '28', r: '3', fill: 'none', stroke: '#bfe1f5', 'stroke-width': '2' },
+      ],
+      [
+        'circle',
+        { cx: '8', cy: '18', r: '2', fill: 'none', stroke: '#bfe1f5', 'stroke-width': '2' },
       ],
     ]),
 
@@ -684,33 +704,38 @@ const KAWAII = {
   'stim-duck': () =>
     svg([
       [
-        'circle',
-        { cx: '50', cy: '58', r: '30', fill: '#ffe08a', stroke: '#e3b23f', 'stroke-width': '3' },
+        'ellipse',
+        {
+          cx: '46',
+          cy: '62',
+          rx: '30',
+          ry: '20',
+          fill: '#ffe08a',
+          stroke: '#e3b23f',
+          'stroke-width': '3',
+        },
       ],
       [
         'circle',
-        { cx: '50', cy: '34', r: '19', fill: '#ffe9a8', stroke: '#e3b23f', 'stroke-width': '3' },
+        { cx: '66', cy: '34', r: '17', fill: '#ffe9a8', stroke: '#e3b23f', 'stroke-width': '3' },
       ],
       [
         'path',
         {
-          d: 'M43 36 Q50 43 57 36 Q54 44 50 44 Q46 44 43 36Z',
+          d: 'M81 32 Q94 32 95 37 Q94 42 81 41 Q84 36.5 81 32Z',
           fill: '#ff9d45',
           stroke: '#d97a22',
-          'stroke-width': '2',
+          'stroke-width': '2.5',
           'stroke-linejoin': 'round',
         },
       ],
-      ['circle', { cx: '42', cy: '30', r: '3.2', fill: '#3a2e39' }],
-      ['circle', { cx: '43.2', cy: '28.8', r: '1.1', fill: '#fff' }],
-      ['circle', { cx: '58', cy: '30', r: '3.2', fill: '#3a2e39' }],
-      ['circle', { cx: '59.2', cy: '28.8', r: '1.1', fill: '#fff' }],
-      ['ellipse', { cx: '33', cy: '36', rx: '3.4', ry: '2.1', fill: '#ff9eb0', opacity: '.75' }],
-      ['ellipse', { cx: '67', cy: '36', rx: '3.4', ry: '2.1', fill: '#ff9eb0', opacity: '.75' }],
+      ['circle', { cx: '66', cy: '31', r: '4.2', fill: '#3a2e39' }],
+      ['circle', { cx: '67.6', cy: '29.4', r: '1.5', fill: '#fff' }],
+      ['ellipse', { cx: '74', cy: '39', rx: '3.4', ry: '2.1', fill: '#ff9eb0', opacity: '.8' }],
       [
         'path',
         {
-          d: 'M26 58 Q18 64 24 72 Q33 71 34 62 Z',
+          d: 'M38 58 C30 54 26 62 32 68 C38 72 46 68 46 62 C44 58 41 57 38 58Z',
           fill: '#ffd66b',
           stroke: '#e3b23f',
           'stroke-width': '2.5',
@@ -720,7 +745,17 @@ const KAWAII = {
       [
         'path',
         {
-          d: 'M20 88 Q50 95 80 88',
+          d: 'M18 56 Q10 60 12 68 Q20 68 24 62 Z',
+          fill: '#ffe9a8',
+          stroke: '#e3b23f',
+          'stroke-width': '2.5',
+          'stroke-linejoin': 'round',
+        },
+      ],
+      [
+        'path',
+        {
+          d: 'M14 90 Q30 85 46 90 T78 90',
           fill: 'none',
           stroke: '#8fd0f2',
           'stroke-width': '3.5',
