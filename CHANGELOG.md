@@ -7,6 +7,10 @@ Notable changes to this project, following
 
 ### Added
 
+- On wide screens the designer's preview and options columns scroll
+  independently — scrolling the print preview no longer moves the
+  customization sidebar, and vice versa.
+
 - Peds card set options: the attention picture cards can print **one picture
   per page** (hold the page itself up to the child) or 4-up with cut guides,
   and in two art styles — **Set A (classic)** or **Set B (kawaii)**. The card

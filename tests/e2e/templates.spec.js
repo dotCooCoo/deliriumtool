@@ -432,6 +432,23 @@ test('Design B swaps the adult sheet design from the dropdown and fits everythin
   await expect(page.locator('#sheets')).toHaveClass(/design-b/);
 });
 
+test('preview and options panes scroll independently on wide screens', async ({ page }) => {
+  const width = page.viewportSize().width;
+  test.skip(width < 981, 'single-column layout scrolls as one document');
+  const before = await page.$eval('.ctrl', (el) => el.scrollTop);
+  await page.locator('.preview').hover();
+  await page.mouse.wheel(0, 1500);
+  await page.waitForTimeout(200);
+  expect(await page.$eval('.preview', (el) => el.scrollTop)).toBeGreaterThan(0);
+  expect(await page.$eval('.ctrl', (el) => el.scrollTop)).toBe(before);
+  const pBefore = await page.$eval('.preview', (el) => el.scrollTop);
+  await page.locator('.ctrl').hover();
+  await page.mouse.wheel(0, 1200);
+  await page.waitForTimeout(200);
+  expect(await page.$eval('.ctrl', (el) => el.scrollTop)).toBeGreaterThan(0);
+  expect(await page.$eval('.preview', (el) => el.scrollTop)).toBe(pBefore);
+});
+
 test('peds cards are landscape pages that fit at every size, font, and scale', async ({ page }) => {
   await page.check('input[name="template"][value="peds-cards"]');
   for (const scale of ['rass', 'sbs']) {

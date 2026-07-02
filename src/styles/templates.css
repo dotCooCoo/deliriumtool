@@ -82,6 +82,20 @@
     grid-template-columns: 1fr;
   }
 }
+@media (min-width: 981px) {
+  .designer > .ctrl,
+  .designer > .preview {
+    position: sticky;
+    top: var(--sp-4);
+    max-height: calc(100vh - 2 * var(--sp-4));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+  .designer > .ctrl {
+    padding-right: var(--sp-2);
+  }
+}
 
 /* ── Controls rail ─────────────────────────────────────────────────────── */
 
@@ -1163,9 +1177,12 @@ details[open] > summary::before {
 }
 
 /* ── Design B — modernized sheet design (selectable per unit) ───────────────
-   Same layout metrics as Design A (auto-fit composes identically); the swap
-   is surface language: white cards with accent borders instead of tinted
-   fills, sentence-case tone-colored headings instead of solid caps bars.
+   A surface-language swap over the same components: white cards with accent
+   borders instead of tinted fills, sentence-case tone-colored headings
+   instead of solid caps bars. Headings run slightly larger, so B consumes a
+   little more height than A — the auto-fit machinery absorbs it (verified to
+   fit with everything enabled at every size/font), but B sits closer to the
+   fit floor on very dense custom configs.
    Borders are explicit longhands — Chromium drops shorthand+override pairs
    from the serialized cssText the PDF capture re-parses. */
 
