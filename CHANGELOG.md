@@ -7,6 +7,10 @@ Notable changes to this project, following
 
 ### Fixed
 
+- The RASS levels in the saved template PDF are a radio-button group: picking
+  a level marks it with a dot and clears the others, instead of allowing
+  several independent check marks on a mutually exclusive scale.
+
 - Ticking a checkbox in the saved template PDF now shows a visible check mark —
   the check glyph was previously rendered far outside its box, so marking a
   field looked like nothing happened.
