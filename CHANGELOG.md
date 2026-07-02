@@ -5,6 +5,17 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Changed
+
+- "Save PDF" now captures the sheet itself: the PDF embeds a print-resolution
+  image of the exact on-screen sheet (identical to the browser print output —
+  fonts, icons, spacing and auto-scaling included) with the interactive
+  checkboxes, RASS radio group, and write-in text fields overlaid at their
+  rendered positions. Sheet and PDF can no longer differ.
+- The "Date created" field defaults to the day the configuration was created
+  (still editable), and the saved filename uses readable segments, e.g.
+  `icu-delirium-rounding-tool_Rev-B_2026-07-02.pdf`.
+
 ### Fixed
 
 - The RASS levels in the saved template PDF are a radio-button group: picking

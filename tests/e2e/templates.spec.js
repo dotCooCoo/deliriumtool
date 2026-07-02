@@ -264,13 +264,18 @@ test('lines can be reworded and custom sections added', async ({ page }) => {
 });
 
 test('Save PDF downloads a two-page document for either template', async ({ page }) => {
+  // The creation date defaults to today and rides along in the filename.
   const download = page.waitForEvent('download');
   await page.click('.preview-bar [data-act="pdf"]');
-  expect((await download).suggestedFilename()).toBe('icu-delirium-rounding-tool.pdf');
+  expect((await download).suggestedFilename()).toMatch(
+    /^icu-delirium-rounding-tool_\d{4}-\d{2}-\d{2}\.pdf$/,
+  );
   await page.check('input[name="template"][value="spa"]');
   const download2 = page.waitForEvent('download');
   await page.click('.preview-bar [data-act="pdf"]');
-  expect((await download2).suggestedFilename()).toBe('spa-delirium-quick-reference.pdf');
+  expect((await download2).suggestedFilename()).toMatch(
+    /^spa-delirium-quick-reference_\d{4}-\d{2}-\d{2}\.pdf$/,
+  );
 });
 
 test('designer has no serious accessibility violations (both templates)', async ({ page }) => {

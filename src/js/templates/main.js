@@ -751,7 +751,7 @@ async function onClick(e) {
       window.print();
       break;
     case 'pdf':
-      downloadPdf(state);
+      await downloadPdf(state);
       announce('PDF saved.');
       break;
     case 'editText':

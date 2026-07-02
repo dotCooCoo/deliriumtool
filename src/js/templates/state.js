@@ -38,7 +38,7 @@ export function defaultState() {
     template: 'rounding',
     facility: '',
     unit: '',
-    docDate: '',
+    docDate: new Date().toISOString().slice(0, 10), // creation date, editable
     docRev: '',
     rassTarget: '0to-2',
     fontScale: '110',
