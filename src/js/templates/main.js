@@ -318,6 +318,14 @@ function buildSectionControls() {
         ),
       ),
     );
+    if (!sec.lines.length) {
+      wrap.append(
+        el('p', {
+          class: 'sec-ctl-note',
+          text: 'Empty sections don’t print — add a line below to put it on the sheet.',
+        }),
+      );
+    }
     sec.lines.forEach((line, idx) => {
       wrap.append(
         el(
@@ -464,16 +472,54 @@ function renderPreview() {
       ),
     ),
   );
+  packUnifiedMosaic(sheets);
   autoFitMeds(sheets);
   rescale();
   checkFit(sheets);
 }
 
 /**
+ * The unified Step-3 mosaic packs like the PDF: explicit columns, the guidance
+ * card first, then each medication card into the currently shortest column —
+ * so the space beneath the guidance card is actually used (CSS multicol
+ * balances columns and leaves it empty). Runs post-mount because packing
+ * needs measured card heights.
+ */
+function packUnifiedMosaic(sheets) {
+  for (const sheet of sheets) {
+    const host = sheet.querySelector('.sh-pharm-mosaic');
+    if (!host) continue;
+    const cards = [...host.children];
+    const nCols = Math.min(
+      parseInt(host.style.getPropertyValue('--med-cols'), 10) || 4,
+      Math.max(
+        2,
+        Math.floor(
+          host.clientWidth /
+            ((parseFloat(host.style.getPropertyValue('--med-colw')) || 2.35) * 96 * 0.9),
+        ),
+      ),
+    );
+    const cols = Array.from({ length: nCols }, () => el('div', { class: 'sh-mos-col' }));
+    host.classList.add('packed');
+    host.replaceChildren(...cols);
+    const heights = cols.map(() => 0);
+    for (const card of cards) {
+      let ci = 0;
+      for (let i = 1; i < nCols; i++) if (heights[i] < heights[ci] - 4) ci = i;
+      cols[ci].append(card);
+      heights[ci] = cols[ci].offsetHeight;
+    }
+  }
+}
+
+/**
  * Self-correcting fit, mirroring the PDF's shrink-until-fit: an overflowing
  * page first compacts its medication mosaic (type + column width), then steps
  * the whole page's type scale down to a floor — so a customized protocol keeps
- * fitting its two pages, and the warning only fires past the floor.
+ * fitting its two pages, and the warning only fires past the floor. When a
+ * page has slack instead, the medication type grows to use it (capped so it
+ * never dwarfs the rest of the sheet).
  */
 function autoFitMeds(sheets) {
   for (const sheet of sheets) {
@@ -493,6 +539,35 @@ function autoFitMeds(sheets) {
       const fit = parseFloat(sheet.style.getPropertyValue('--fs-fit')) || 1;
       if (fit <= 0.86) break;
       sheet.style.setProperty('--fs-fit', (fit - 0.02).toFixed(2));
+    }
+    // Grow phase: give free space back to the medication list — capped near
+    // the neighboring sections' type size so the sheet reads uniformly (extra
+    // slack becomes line padding, not ever-larger names). The revert check
+    // allows no slack, so growth can never leave the page even a pixel past
+    // its edge.
+    const snug = () => sheet.scrollHeight > sheet.clientHeight;
+    if (meds && !snug()) {
+      let grow = 12;
+      while (grow-- > 0) {
+        const cur = parseFloat(meds.style.getPropertyValue('--med-shrink')) || 1;
+        if (cur >= 1.12) break;
+        meds.style.setProperty('--med-shrink', (cur + 0.04).toFixed(2));
+        if (snug()) {
+          meds.style.setProperty('--med-shrink', cur.toFixed(2));
+          break;
+        }
+      }
+      // Remaining slack becomes breathing room between check-off lines.
+      let pad = 8;
+      while (pad-- > 0) {
+        const cur = parseFloat(meds.style.getPropertyValue('--med-pad')) || 1;
+        if (cur >= 2.2) break;
+        meds.style.setProperty('--med-pad', (cur + 0.15).toFixed(2));
+        if (snug()) {
+          meds.style.setProperty('--med-pad', cur.toFixed(2));
+          break;
+        }
+      }
     }
   }
 }

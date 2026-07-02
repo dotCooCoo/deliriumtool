@@ -134,6 +134,10 @@ test('print media shows only the sheets', async ({ page }) => {
   await page.emulateMedia({ media: 'print' });
   await expect(page.locator('.ctrl')).toBeHidden();
   await expect(page.locator('.app-header')).toBeHidden();
+  await expect(page.locator('.preview-bar')).toBeHidden();
+  await expect(page.locator('.preview-note')).toBeHidden();
+  await expect(page.locator('.tpl-lead')).toBeHidden();
+  await expect(page.locator('.tpl-footer')).toBeHidden();
   await expect(page.locator('.sheet').first()).toBeVisible();
   await page.emulateMedia({ media: 'screen' });
 });

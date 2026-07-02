@@ -439,7 +439,7 @@ details[open] > summary::before {
   line-height: 1.16;
 }
 .sheets.fs-110 .sh-item {
-  margin: 1pt 0;
+  margin: 1.6pt 0;
 }
 .sheets.fs-110 .sh-cell-body {
   padding: 3pt 5pt;
@@ -451,10 +451,10 @@ details[open] > summary::before {
   --fs-tpl: 1.09;
 }
 .sheets.fs-110 .sh-bullet {
-  margin: 1pt 0;
+  margin: 1.6pt 0;
 }
 .sheets.fs-110 .sh-group {
-  padding: 2.5pt 4pt;
+  padding: 3pt 4.5pt;
 }
 
 /* Tones — deep header colour + soft tint used per cell/group. */
@@ -727,13 +727,13 @@ details[open] > summary::before {
   font-size: calc(8.5pt * var(--fs));
 }
 .sh-note {
-  font-size: calc(7.5pt * var(--fs));
+  font-size: calc(8pt * var(--fs));
   color: var(--sh-slate);
 }
 .sh-action {
   display: flex;
   gap: 3pt;
-  font-size: calc(8pt * var(--fs));
+  font-size: calc(8.5pt * var(--fs));
   color: var(--sh-slate);
   margin-top: calc(2pt * var(--fs));
 }
@@ -759,8 +759,8 @@ details[open] > summary::before {
   border: 0.8pt solid var(--tone);
   border-radius: 3px;
   background: var(--tone-weak);
-  padding: calc(3pt * var(--fs)) calc(5pt * var(--fs));
-  font-size: calc(8pt * var(--fs));
+  padding: calc(3.5pt * var(--fs)) calc(5.5pt * var(--fs));
+  font-size: calc(8.5pt * var(--fs));
 }
 .sh-group-head {
   color: var(--tone);
@@ -855,6 +855,9 @@ details[open] > summary::before {
    (--med-colw) so short lists get wider cards and long lists more columns. */
 .sh-meds-cards {
   column-width: var(--med-colw, 2.05in);
+  /* With both width and count set, count acts as a maximum — small selections
+     form a few full columns instead of balancing across the whole width. */
+  column-count: var(--med-cols, auto);
   column-gap: calc(4pt * var(--fs));
 }
 .sh-med-card {
@@ -885,7 +888,9 @@ details[open] > summary::before {
   align-items: center;
   gap: calc(3.5pt * var(--med-k, 1));
   font-size: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1));
-  padding: calc(0.8pt * var(--med-k, 1)) calc(5pt * var(--med-k, 1));
+  /* --med-pad grows when the page has slack — breathing room between lines
+     makes each check-off easier to mark without inflating the type. */
+  padding: calc(0.8pt * var(--med-k, 1) * var(--med-pad, 1)) calc(5pt * var(--med-k, 1));
 }
 /* A small printed square beside every medication — mark it with the pen. */
 .sh-med-box {
@@ -900,7 +905,21 @@ details[open] > summary::before {
    cards flow after it, claiming the space beneath. */
 .sh-pharm-mosaic {
   column-width: var(--med-colw, 2.45in);
+  column-count: var(--med-cols, auto);
   column-gap: calc(4pt * var(--fs));
+}
+/* Packed variant (set post-mount): explicit columns like the PDF masonry, so
+   medication cards fill the space beneath the pinned guidance card. */
+.sh-pharm-mosaic.packed {
+  column-width: auto;
+  column-count: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: calc(4pt * var(--fs));
+}
+.sh-mos-col {
+  flex: 1 1 0;
+  min-width: 0;
 }
 .sh-pharm-mosaic .sh-pharm-card {
   break-inside: avoid;
@@ -938,7 +957,7 @@ details[open] > summary::before {
   background: var(--tone, var(--sh-slate));
   color: #fff;
   font-weight: 700;
-  font-size: calc(7pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
+  font-size: calc(7.4pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
   padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
   display: flex;
   align-items: center;
@@ -953,11 +972,11 @@ details[open] > summary::before {
 }
 .sh-meds-list {
   background: var(--tone-weak, #fff);
-  font-size: calc(7pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
+  font-size: calc(7.4pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
   padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
   display: flex;
   flex-wrap: wrap;
-  gap: calc(1.5pt * var(--fs)) calc(8pt * var(--fs));
+  gap: calc(2pt * var(--fs) * var(--med-pad, 1)) calc(8pt * var(--fs));
   align-content: flex-start;
 }
 /* Category rows are checkable too: each agent is a box + name pair. */
@@ -1090,6 +1109,7 @@ details[open] > summary::before {
   .tpl-lead,
   .ctrl,
   .preview-bar,
+  .preview-note,
   .tpl-footer,
   .site-footer,
   .skip-link {

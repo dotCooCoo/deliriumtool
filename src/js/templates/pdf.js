@@ -393,7 +393,14 @@ function medDensity(cats) {
 function drawMedCards(p, x, y, w, cats, spec, startCol0 = null) {
   const gap = p.fs(4);
   const colWTarget = (spec.minColw ? Math.max(spec.colw, spec.minColw) : spec.colw) * 72;
-  const cols = Math.max(2, Math.min(5, Math.floor(w / colWTarget)));
+  // Width decides how many columns fit; the content cap keeps a small
+  // selection in a few full columns — the same rule as the sheet's
+  // column-count cap (the unified cap counts the pinned guidance card).
+  const contentCap = (startCol0 !== null ? spec.colsUnified : spec.cols) || 5;
+  const cols = Math.max(
+    startCol0 !== null ? 2 : 1,
+    Math.min(5, Math.floor(w / colWTarget), contentCap),
+  );
   const colW = (w - gap * (cols - 1)) / cols;
   const colY = Array(cols).fill(y);
   if (startCol0 !== null) colY[0] = startCol0;

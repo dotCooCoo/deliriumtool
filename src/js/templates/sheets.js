@@ -324,7 +324,15 @@ export function medMosaicSpec(cats) {
   // the font and the column width both scale down as the selection grows.
   const colw = Math.max(1.5, Math.min(2.7, Math.round((2.7 - (count - 12) * 0.015) * 100) / 100));
   const size = Math.max(6.4, Math.min(8.6, Math.round((8.6 - (count - 30) * 0.03) * 10) / 10));
-  return { mode: 'lines', size, cls: count <= 30 ? 'lg' : 'dyn', colw, count };
+  // Cap the column count by the content (~13 lines per column incl. each
+  // card's heading) so a small selection forms a few full columns instead of
+  // being balanced thinly across every column the width could fit. The
+  // unified cap counts the pinned guidance card as ~12 lines of column 0, so
+  // medications start flowing beneath it as the selection grows.
+  const units = count + cats.length * 2;
+  const cols = Math.max(1, Math.ceil(units / 13));
+  const colsUnified = Math.max(2, Math.ceil((units + 12) / 13));
+  return { mode: 'lines', size, cls: count <= 30 ? 'lg' : 'dyn', colw, cols, colsUnified, count };
 }
 
 /** The colour cards of the mosaic — one check-off line per medication. */
@@ -386,6 +394,7 @@ function medsGrid(state) {
   const wrap = el('div', { class: `sh-meds meds-${spec.cls}` }, medsHead(), grid);
   wrap.style.setProperty('--med-fs', `${spec.size}pt`);
   wrap.style.setProperty('--med-colw', `${spec.colw}in`);
+  wrap.style.setProperty('--med-cols', spec.cols);
   return wrap;
 }
 
@@ -414,6 +423,7 @@ function pharmSection(state) {
     body.style.setProperty('--med-fs', `${spec.size}pt`);
     // The guidance card needs reading width — never narrower than 2.35in.
     body.style.setProperty('--med-colw', `${Math.max(spec.colw, 2.35)}in`);
+    body.style.setProperty('--med-cols', spec.colsUnified);
   } else {
     body = el('div', { class: 'sh-pharm-grid' });
     if (showPharm) body.append(pharmCard(state));
