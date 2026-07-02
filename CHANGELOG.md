@@ -3,6 +3,17 @@
 Notable changes to this project, following
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+
+- The saved template PDF now mirrors the on-screen sheet: leftover page space
+  becomes padding between the check rows and slightly larger medication type
+  (exactly like the live preview), card rows share equal heights, the
+  DELIRIUM(S) cells use the sheet's white-card style with the colored letter
+  and bottom-aligned Action blanks, target RASS rows carry the same green
+  "TARGET" check marks, and long headings wrap instead of clipping.
+
 ## [0.1.0] - 2026-07-02
 
 ### Changed — clinical accuracy

@@ -82,7 +82,7 @@ const rassTargetDef = (state) =>
 
 /** Cursor-based page painter with overflow detection for the fit loop. */
 class Painter {
-  constructor(doc, k) {
+  constructor(doc, k, padByPage) {
     this.doc = doc;
     this.k = k; // global type scale
     this.overflowed = false;
@@ -90,6 +90,27 @@ class Painter {
     this.H = doc.internal.pageSize.getHeight();
     this.cw = this.W - 2 * M;
     this.seq = 0; // unique AcroForm field names within this document
+    // Slack-to-padding, mirroring the sheet: line gaps stretch by a per-page
+    // factor chosen after a measurement pass, so the page fills like the DOM.
+    this.padByPage = padByPage || {};
+    this.gapUnits = {}; // pad-scalable points drawn per page (at factor 1)
+    this.bottoms = {}; // content bottom per page (before the footer)
+  }
+  page() {
+    return this.doc.internal.getCurrentPageInfo().pageNumber;
+  }
+  padK() {
+    return this.padByPage[this.page()] || 1;
+  }
+  /** A pad-scalable gap: records its base size and returns the scaled gap. */
+  padGap(base) {
+    const pg = this.page();
+    this.gapUnits[pg] = (this.gapUnits[pg] || 0) + base;
+    return base * this.padK();
+  }
+  /** Builders call this with the final content y of the page. */
+  endPage(y) {
+    this.bottoms[this.page()] = y;
   }
   /** Interactive checkbox over a drawn check square — the saved PDF is fillable. */
   fieldBox(x, y, size) {
@@ -151,7 +172,11 @@ class Painter {
       bold: true,
       color: [255, 255, 255],
     });
-    return y + h + this.fs(3);
+    return y + h + this.padGap(this.fs(3));
+  }
+  /** Medication type grows a little with the pad factor (mirrors the sheet). */
+  medGrowK() {
+    return Math.min(1.12, 1 + (this.padK() - 1) * 0.12);
   }
   /** One check-off line, wrapped; returns the new y. */
   checkLine(x, y, w, str, { size = 7.2, color = TONE.ink } = {}) {
@@ -163,7 +188,7 @@ class Painter {
       .setFontSize(this.fs(size))
       .setTextColor(...TONE.ink);
     this.doc.text(lines, x + bs + 3.5, y);
-    return y + lines.length * this.fs(size) * 1.18 + this.fs(1.6);
+    return y + lines.length * this.fs(size) * 1.18 + this.padGap(this.fs(1.6));
   }
   bulletLine(x, y, w, str, { size = 7.2, prefix = '• ' } = {}) {
     const lines = this.wrap(`${prefix}${str}`, w, size);
@@ -172,7 +197,7 @@ class Painter {
       .setFontSize(this.fs(size))
       .setTextColor(...TONE.ink);
     this.doc.text(lines, x, y);
-    return y + lines.length * this.fs(size) * 1.18 + this.fs(1.6);
+    return y + lines.length * this.fs(size) * 1.18 + this.padGap(this.fs(1.6));
   }
   footer(state, page, pages) {
     // The footer is fixed page chrome — it does not scale with the content.
@@ -229,15 +254,13 @@ class Painter {
   }
 }
 
-/** Measure-then-draw a titled card of check lines; returns its height. */
-function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size = 7 }) {
+/** Height of a titled card of check lines at the current pad factor. */
+function measureGroupCard(p, w, { head, headBar, items, bullets, size = 7 }) {
   const pad = p.fs(4);
   const innerW = w - 2 * pad;
   const prefix = bullets === 'plain' ? '' : '• ';
-  // Long category labels wrap instead of clipping at the card edge.
   const headLines = p.wrap(headBar ? head : head.toUpperCase(), innerW, headBar ? 7.6 : 7.4, true);
   const barH = p.fs(4.2) + headLines.length * p.fs(7.6) * 1.18;
-  // measure
   let h = headBar ? barH + pad + p.fs(2.4) : pad + p.fs(5.4) + headLines.length * p.fs(8);
   for (const it of items) {
     const lines = p.wrap(
@@ -245,9 +268,21 @@ function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size =
       innerW - (bullets ? 0 : p.fs(6.4) + 4),
       size,
     );
-    h += lines.length * p.fs(size) * 1.18 + p.fs(1.6);
+    h += lines.length * p.fs(size) * 1.18 + p.fs(1.6) * p.padK();
   }
-  h += pad * 0.7;
+  return h + pad * 0.7;
+}
+
+/** Measure-then-draw a titled card of check lines; returns its height. */
+function drawGroupCard(p, x, y, w, opts) {
+  const { tone, head, headBar, items, bullets, size = 7, minH = 0 } = opts;
+  const pad = p.fs(4);
+  const innerW = w - 2 * pad;
+  const prefix = bullets === 'plain' ? '' : '• ';
+  // Long category labels wrap instead of clipping at the card edge.
+  const headLines = p.wrap(headBar ? head : head.toUpperCase(), innerW, headBar ? 7.6 : 7.4, true);
+  const barH = p.fs(4.2) + headLines.length * p.fs(7.6) * 1.18;
+  const h = Math.max(measureGroupCard(p, w, opts), minH);
   // frame
   p.doc
     .setFillColor(...WEAK[tone])
@@ -277,7 +312,7 @@ function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size =
       p.doc.setDrawColor(...TONE[tone]).setLineWidth(0.6);
       p.doc.line(lx, cy + 1, x + w - pad, cy + 1);
       p.fieldText(lx, cy - p.fs(size), x + w - pad - lx, p.fs(size + 2));
-      cy += p.fs(size) * 1.18 + p.fs(1.6);
+      cy += p.fs(size) * 1.18 + p.padGap(p.fs(1.6));
       continue;
     }
     cy = bullets
@@ -291,25 +326,35 @@ function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size =
 function cardRow(p, y, cards, cols) {
   const gap = p.fs(4);
   const w = (p.cw - gap * (cols - 1)) / cols;
-  let maxH = 0;
+  // Equal-height rows like the sheet's grid: measure every card first.
+  const rowH = Math.max(...cards.map((c) => measureGroupCard(p, w, c)));
   cards.forEach((c, i) => {
-    const h = drawGroupCard(p, M + i * (w + gap), y, w, c);
-    maxH = Math.max(maxH, h);
+    drawGroupCard(p, M + i * (w + gap), y, w, { ...c, minH: rowH });
   });
-  return y + maxH + p.fs(4);
+  return y + rowH + p.padGap(p.fs(4));
 }
 
 function rassLines(state) {
   const target = rassTargetDef(state);
   return RASS_ROWS.map((r) => {
-    const isTarget = r.scores.every((s) => target.scores.includes(s));
+    const isTarget = target.scores.length > 0 && r.scores.every((s) => target.scores.includes(s));
     return {
       label: r.label,
-      desc: r.desc + (isTarget ? '  - TARGET' : ''),
+      desc: r.desc,
+      target: isTarget,
       zone: isTarget ? 'green' : RASS_ZONES[r.scores[0]] || 'ink',
       bold: isTarget,
     };
   });
+}
+
+/** "✓ TARGET" marker after a target row's description (ZapfDingbats check). */
+function targetMark(p, x, y, size) {
+  p.doc.setFont('zapfdingbats', 'normal').setFontSize(p.fs(size));
+  p.doc.setTextColor(...TONE.green);
+  p.doc.text('4', x, y);
+  p.doc.setFont(FONT, 'bold').setFontSize(p.fs(size));
+  p.doc.text('TARGET', x + p.fs(size) * 0.9, y);
 }
 
 function medCats(state) {
@@ -381,7 +426,7 @@ function drawPharmCardAt(p, x, y, w, state) {
       ...cautions.map((c) => ov(state, c.id, c.text)),
       ...(state.showDoses ? [PHARM.doseNote] : []),
     ];
-    for (const s of all) h += p.wrap(s, innerW, 7).length * p.fs(7) * 1.2 + p.fs(2.4);
+    for (const s of all) h += p.wrap(s, innerW, 7).length * p.fs(7) * 1.2 + p.fs(2.4) * p.padK();
     return h + pad;
   };
   const cardH = measure() + p.fs(8);
@@ -412,7 +457,7 @@ function drawPharmCardAt(p, x, y, w, state) {
     doc.setFont(FONT, r.warn ? 'bold' : 'normal').setFontSize(p.fs(7));
     doc.setTextColor(...(r.warn ? TONE.red : TONE.ink));
     doc.text(lines, x + pad + warnPad, cy2);
-    cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
+    cy2 += lines.length * p.fs(7) * 1.2 + p.padGap(p.fs(2.4));
   }
   for (const c of cautions) {
     const warnPad = c.stop ? p.fs(9) : 0;
@@ -421,7 +466,7 @@ function drawPharmCardAt(p, x, y, w, state) {
     doc.setFont(FONT, 'bold').setFontSize(p.fs(7));
     doc.setTextColor(...(c.stop ? TONE.red : TONE.ink));
     doc.text(lines, x + pad + warnPad, cy2);
-    cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
+    cy2 += lines.length * p.fs(7) * 1.2 + p.padGap(p.fs(2.4));
   }
   if (state.showDoses) {
     const lines = p.wrap(PHARM.doseNote, innerW, 6.4);
@@ -466,8 +511,10 @@ function drawMedCards(p, x, y, w, cats, spec, startCol0 = null) {
   const colY = Array(cols).fill(y);
   if (startCol0 !== null) colY[0] = startCol0;
   // Dense selections stop growing with the Large setting so the full catalog
-  // keeps fitting (mirrors the sheet's --med-k cap).
-  const sizeEff = spec.cls === 'dyn' ? spec.size * (Math.min(p.k, 1.04) / p.k) : spec.size;
+  // keeps fitting (mirrors the sheet's --med-k cap); slack grows the type a
+  // little, like the sheet's grow phase.
+  const sizeEff =
+    (spec.cls === 'dyn' ? spec.size * (Math.min(p.k, 1.04) / p.k) : spec.size) * p.medGrowK();
   for (const c of cats) {
     let ci = 0;
     for (let i = 1; i < cols; i++) if (colY[i] < colY[ci] - 0.5) ci = i;
@@ -550,8 +597,78 @@ function drawCustomSections(p, y, state, page) {
 
 // ── Rounding tool (landscape) ────────────────────────────────────────────────
 
-function buildRounding(doc, state, k) {
-  const p = new Painter(doc, k);
+/**
+ * DELIRIUM(S) cells styled like the sheet: white card with a tone border, the
+ * big tone letter beside the title-case word, a bold Reviewed check, a slate
+ * note, and the Action write-in bottom-justified so the blanks align across
+ * the row.
+ */
+function drawMnemonicRow(p, y, cells, cols, state) {
+  const gap = p.fs(4);
+  const w = (p.cw - gap * (cols - 1)) / cols;
+  const pad = p.fs(4);
+  const innerW = w - 2 * pad;
+  const meas = cells.map((c) => {
+    const word = ov(state, c.id, c.word);
+    const headLines = p.wrap(word, innerW - p.fs(14), 7.8, true);
+    const noteLines = p.wrap(c.note, innerW, 6.6);
+    const h =
+      pad +
+      Math.max(headLines.length * p.fs(7.8) * 1.12, p.fs(9)) +
+      p.fs(3) +
+      p.fs(8.5) + // Reviewed row
+      p.fs(1.5) * p.padK() +
+      noteLines.length * p.fs(6.6) * 1.2 +
+      p.fs(3) * p.padK() +
+      (state.showActions ? p.fs(9) : 0) +
+      pad;
+    return { word, headLines, noteLines, h };
+  });
+  const rowH = Math.max(...meas.map((m) => m.h));
+  cells.forEach((c, i) => {
+    const x = M + i * (w + gap);
+    const m = meas[i];
+    p.doc
+      .setFillColor(255, 255, 255)
+      .setDrawColor(...TONE[c.tone])
+      .setLineWidth(0.9);
+    p.doc.rect(x, y, w, rowH, 'FD');
+    let cy = y + pad + p.fs(6.4);
+    // Big tone letter + the word beside it, both in the cell's tone.
+    p.text(c.ltr, x + pad, cy, { size: 9.5, bold: true, color: TONE[c.tone] });
+    p.doc.setFont(FONT, 'bold').setFontSize(p.fs(9.5));
+    const ltrW = Math.max(p.fs(9), p.doc.getTextWidth(pd(c.ltr)) + p.fs(3));
+    p.doc
+      .setFont(FONT, 'bold')
+      .setFontSize(p.fs(7.8))
+      .setTextColor(...TONE[c.tone]);
+    p.doc.text(m.headLines, x + pad + ltrW, cy);
+    cy += Math.max(m.headLines.length * p.fs(7.8) * 1.12, p.fs(9)) + p.fs(3);
+    // Reviewed — bold, with a tone check square.
+    const bs = p.fs(6);
+    p.box(x + pad, cy - bs + 1, bs, TONE[c.tone]);
+    p.text('Reviewed', x + pad + bs + 3.5, cy, { size: 7, bold: true });
+    cy += p.fs(8.5) + p.padGap(p.fs(1.5));
+    p.doc
+      .setFont(FONT, 'normal')
+      .setFontSize(p.fs(6.6))
+      .setTextColor(...TONE.slate);
+    p.doc.text(m.noteLines, x + pad, cy);
+    if (state.showActions) {
+      // Bottom-justified write-in so the blanks align across the row.
+      const ay = y + rowH - pad - 1;
+      p.text('Action:', x + pad, ay, { size: 6.6, color: TONE.slate });
+      const lx = x + pad + p.fs(22);
+      p.doc.setDrawColor(...TONE[c.tone]).setLineWidth(0.6);
+      p.doc.line(lx, ay + 1, x + w - pad, ay + 1);
+      p.fieldText(lx, ay - p.fs(7), x + w - pad - lx, p.fs(8.5));
+    }
+  });
+  return y + rowH + p.padGap(p.fs(4));
+}
+
+function buildRounding(doc, state, k, padByPage) {
+  const p = new Painter(doc, k, padByPage);
   const t = TEMPLATES[0];
 
   // Page 1 header
@@ -586,7 +703,7 @@ function buildRounding(doc, state, k) {
 
   // Status strip — four cells sized to the tallest.
   const gap = p.fs(4);
-  const widths = [0.22, 0.25, 0.25, 0.28].map((f) => (p.cw - 3 * gap) * f);
+  const widths = [0.192, 0.235, 0.274, 0.299].map((f) => (p.cw - 3 * gap) * f);
   const xs = [
     M,
     M + widths[0] + gap,
@@ -607,12 +724,14 @@ function buildRounding(doc, state, k) {
   const measList = (items, w, size) =>
     items.reduce(
       (a, s) =>
-        a + p.wrap(s, w - p.fs(6.4) - 4 - cellPad * 2, size).length * p.fs(size) * 1.2 + p.fs(2.4),
+        a +
+        p.wrap(s, w - p.fs(6.4) - 4 - cellPad * 2, size).length * p.fs(size) * 1.2 +
+        p.fs(2.4) * p.padK(),
       cellPad * 2,
     );
   const camH = measList(camItems, widths[1], 8);
   const subH = measList(subItems, widths[2], 7.4);
-  const rassH = rass.length * p.fs(8.2) + cellPad * 2;
+  const rassH = rass.length * (p.fs(8.2) + p.fs(0.6) * p.padK()) + cellPad * 2 + p.fs(2);
   const bodyH = Math.max(sedH, camH, subH, rassH);
   const cellHeads = ['Sedation goal', 'CAM-ICU result', 'Delirium subtype', 'RASS this assessment'];
   const cellTones = ['teal', 'plum', 'slate', 'rust'];
@@ -666,14 +785,19 @@ function buildRounding(doc, state, k) {
     const bs = p.fs(5.4);
     p.circleBox(xs[3] + cellPad, c3 - bs + 1, bs, TONE[r.zone]);
     p.text(r.label, xs[3] + cellPad + bs + 3, c3, { size: 7.2, bold: true, color: TONE[r.zone] });
-    p.text(r.desc, xs[3] + cellPad + bs + 3 + p.fs(30), c3, {
+    const dx = xs[3] + cellPad + bs + 3 + p.fs(30);
+    p.text(r.desc, dx, c3, {
       size: 7.2,
       bold: r.bold,
       color: TONE[r.zone],
     });
-    c3 += p.fs(8.2);
+    if (r.target) {
+      p.doc.setFont(FONT, r.bold ? 'bold' : 'normal').setFontSize(p.fs(7.2));
+      targetMark(p, dx + p.doc.getTextWidth(pd(r.desc)) + 4, c3, 7.2);
+    }
+    c3 += p.fs(8.2) + p.padGap(p.fs(0.6));
   }
-  y += headBarH + bodyH + p.fs(5);
+  y += headBarH + bodyH + p.padGap(p.fs(5));
 
   // Step 1 — DELIRIUM(S)
   if (secOn(state, 'sec-mnemonic')) {
@@ -682,19 +806,7 @@ function buildRounding(doc, state, k) {
       y = p.band(y, 'Step 1 · Identify & address causative factors — DELIRIUM(S)', 'ink');
       const cols = 5;
       for (let r = 0; r < cells.length; r += cols) {
-        const row = cells.slice(r, r + cols);
-        y = cardRow(
-          p,
-          y,
-          row.map((c) => ({
-            tone: c.tone,
-            head: `${c.ltr}  ${ov(state, c.id, c.word)}`,
-            items: ['Reviewed', c.note, ...(state.showActions ? ['Action: ______________'] : [])],
-            bullets: false,
-            size: 6.6,
-          })),
-          cols,
-        );
+        y = drawMnemonicRow(p, y, cells.slice(r, r + cols), cols, state);
       }
     }
   }
@@ -736,6 +848,7 @@ function buildRounding(doc, state, k) {
     y += p.fs(13);
   }
   p.guard(y);
+  p.endPage(y);
   p.footer(state, 1, 2);
 
   // Page 2
@@ -802,6 +915,7 @@ function buildRounding(doc, state, k) {
   }
   y = drawCustomSections(p, y, state, 2);
   p.guard(y);
+  p.endPage(y);
   p.footer(state, 2, 2);
   return p;
 }
@@ -850,8 +964,8 @@ function drawMedsGridAt(p, y, state, x, w) {
 
 // ── SPA quick reference (portrait) ───────────────────────────────────────────
 
-function buildSpa(doc, state, k) {
-  const p = new Painter(doc, k);
+function buildSpa(doc, state, k, padByPage) {
+  const p = new Painter(doc, k, padByPage);
   const t = TEMPLATES[1];
 
   const header = (title, sub) => {
@@ -878,13 +992,18 @@ function buildSpa(doc, state, k) {
       const pad = p.fs(5);
       const innerW = w - pad * 2;
       // Row-aligned layout: every row takes the height of its tallest item so
-      // the check squares line up across the three columns.
+      // the check squares line up across the three columns. Heads wrap, and
+      // the row padding stretches with the page's pad factor.
+      const headLines = (it) => p.wrap(ov(state, it.id, it.head), innerW - p.fs(8), 8.6, true);
       const itemH = (it) =>
-        p.fs(9.2) + p.wrap(it.desc, innerW - p.fs(8), 7.4).length * p.fs(7.4) * 1.2 + p.fs(5.5);
+        headLines(it).length * p.fs(9.2) +
+        p.wrap(it.desc, innerW - p.fs(8), 7.4).length * p.fs(7.4) * 1.2 +
+        p.fs(5.5) * p.padK();
       const rows = Math.max(...cols.map((c) => c.items.length));
       const rowHs = [];
       for (let r = 0; r < rows; r++) {
         rowHs.push(Math.max(...cols.map((c) => (c.items[r] ? itemH(c.items[r]) : 0))));
+        p.padGap(p.fs(5.5)); // register the row's stretchable padding
       }
       const customHs = cols.map((c) =>
         c.custom.reduce(
@@ -919,13 +1038,18 @@ function buildSpa(doc, state, k) {
         items.forEach((it, r) => {
           const bs = p.fs(7);
           p.box(x + pad, cy - bs + 1, bs, TONE[col.tone]);
-          p.text(ov(state, it.id, it.head), x + pad + bs + 4, cy, { size: 8.6, bold: true });
+          const hl = headLines(it);
+          doc
+            .setFont(FONT, 'bold')
+            .setFontSize(p.fs(8.6))
+            .setTextColor(...TONE.ink);
+          doc.text(hl, x + pad + bs + 4, cy);
           const lines = p.wrap(it.desc, innerW - p.fs(8), 7.4);
           doc
             .setFont(FONT, 'normal')
             .setFontSize(p.fs(7.4))
             .setTextColor(...TONE.slate);
-          doc.text(lines, x + pad + bs + 4, cy + p.fs(9.2));
+          doc.text(lines, x + pad + bs + 4, cy + hl.length * p.fs(9.2));
           cy += rowHs[r];
         });
         for (const cline of custom) {
@@ -934,7 +1058,7 @@ function buildSpa(doc, state, k) {
         }
         p.guard(cy);
       });
-      y += cardH + p.fs(6);
+      y += cardH + p.padGap(p.fs(6));
     }
   }
 
@@ -970,11 +1094,16 @@ function buildSpa(doc, state, k) {
       const bs = p.fs(6);
       p.circleBox(M + 6, ry - bs + 1, bs, TONE[r.zone]);
       p.text(r.label, M + 6 + bs + 3, ry, { size: 8.4, bold: true, color: TONE[r.zone] });
-      p.text(r.desc, M + 6 + bs + 3 + p.fs(38), ry, {
+      const dx = M + 6 + bs + 3 + p.fs(38);
+      p.text(r.desc, dx, ry, {
         size: 8.4,
         bold: r.bold,
         color: TONE[r.zone],
       });
+      if (r.target) {
+        p.doc.setFont(FONT, r.bold ? 'bold' : 'normal').setFontSize(p.fs(8.4));
+        targetMark(p, dx + p.doc.getTextWidth(pd(r.desc)) + 4, ry, 8.4);
+      }
       ry += p.fs(10);
     }
     // goal cell
@@ -1009,10 +1138,11 @@ function buildSpa(doc, state, k) {
       p.text(line, x2 + 6, gy, { size: 7.6, bold: line === targetNote });
       gy += p.fs(9);
     }
-    y += h + p.fs(6);
+    y += h + p.padGap(p.fs(6));
   }
   y = drawCustomSections(p, y, state, 1);
   p.guard(y);
+  p.endPage(y);
   p.footer(state, 1, 2);
 
   // Page 2
@@ -1071,6 +1201,7 @@ function buildSpa(doc, state, k) {
   }
   y = drawCustomSections(p, y, state, 2);
   p.guard(y);
+  p.endPage(y);
   p.footer(state, 2, 2);
   return p;
 }
@@ -1082,13 +1213,48 @@ export function downloadPdf(state) {
   FONT = state.fontFamily === 'serif' ? 'times' : 'helvetica';
   // User text-size choice × template factor — the same composition as the CSS.
   const base = (Number(state.fontScale) / 100) * (rounding ? 1 : 1.15);
-  let doc;
-  for (const shrink of [1, 0.94, 0.88, 0.82, 0.76]) {
-    doc = new jsPDF({ unit: 'pt', format: 'letter', orientation });
+  const build = (k, padByPage) => {
+    const d = new jsPDF({ unit: 'pt', format: 'letter', orientation });
     const painter = rounding
-      ? buildRounding(doc, state, base * shrink)
-      : buildSpa(doc, state, base * shrink);
-    if (!painter.overflowed) break;
+      ? buildRounding(d, state, k, padByPage)
+      : buildSpa(d, state, k, padByPage);
+    return { d, painter };
+  };
+  let doc;
+  let fitted = null;
+  for (const shrink of [1, 0.94, 0.88, 0.82, 0.76]) {
+    fitted = build(base * shrink);
+    doc = fitted.d;
+    if (!fitted.painter.overflowed) {
+      // Grow phase (mirrors the sheet): leftover page space becomes padding
+      // between the check rows. Gaps scale linearly and never re-wrap text,
+      // so one measurement pass gives the exact per-page factor.
+      if (shrink === 1) {
+        const m = fitted.painter;
+        const usable = m.H - M - 14; // above the footer chrome
+        const padByPage = {};
+        let grew = false;
+        for (const pg of Object.keys(m.bottoms)) {
+          const slack = usable - m.bottoms[pg] - 4;
+          const units = m.gapUnits[pg] || 0;
+          if (slack > 4 && units > 0) {
+            padByPage[pg] = Math.min(3.2, 1 + slack / units);
+            grew = true;
+          }
+        }
+        if (grew) {
+          let padded = build(base, padByPage);
+          if (padded.painter.overflowed) {
+            // Type growth can re-wrap a line — halve the growth and retry once.
+            const halved = {};
+            for (const pg of Object.keys(padByPage)) halved[pg] = 1 + (padByPage[pg] - 1) / 2;
+            padded = build(base, halved);
+          }
+          if (!padded.painter.overflowed) doc = padded.d;
+        }
+      }
+      break;
+    }
   }
   doc.setProperties({
     title: rounding ? 'ICU Delirium Rounding Tool' : 'SPA Quick Reference',
