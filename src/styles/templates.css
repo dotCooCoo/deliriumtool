@@ -1265,10 +1265,9 @@ details[open] > summary::before {
    --fs so the auto-fit and size controls compose. */
 
 .sheet--card {
-  /* Portrait card page — 8.5x11in letter minus the 0.25in @page margin. */
-  width: 8in;
-  height: 10.46in;
-  gap: calc(8pt * var(--fs));
+  /* Landscape card page (the bedside ring-deck format) — inherits the base
+     landscape sheet dimensions. */
+  gap: calc(7pt * var(--fs));
 }
 
 .pc-head {
@@ -1634,7 +1633,7 @@ details[open] > summary::before {
 }
 .pc-capd-row {
   display: grid;
-  grid-template-columns: calc(14pt * var(--fs)) 1fr calc(52pt * var(--fs)) calc(34pt * var(--fs));
+  grid-template-columns: calc(14pt * var(--fs)) 1fr calc(52pt * var(--fs)) calc(72pt * var(--fs));
   align-items: center;
   gap: calc(6pt * var(--fs));
   border: 0.8pt solid var(--sh-border);
@@ -1675,15 +1674,29 @@ details[open] > summary::before {
 }
 .pc-capd-score {
   display: flex;
+  align-items: flex-end;
   justify-content: flex-end;
+  gap: calc(3pt * var(--fs));
+}
+.pc-capd-score .sh-blank {
+  flex: 1;
+  max-width: 0.7in;
+  height: 0.85em;
 }
 .pc-capd-total {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: calc(8pt * var(--fs));
   font-size: calc(11pt * var(--fs));
   font-weight: 800;
   color: var(--sh-ink);
+}
+.pc-capd-total .sh-blank {
+  height: 0.85em;
+  min-width: 0.9in;
+}
+.pc-capd-total .pc-chip {
+  align-self: center;
 }
 
 /* Act + prevention */
@@ -1841,6 +1854,19 @@ details[open] > summary::before {
   font-style: italic;
   color: var(--sh-slate);
   margin-top: auto;
+}
+
+/* Full-page picture cards (one picture per page) */
+.pc-stimfull {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.pc-stimfull .pc-stim {
+  flex: 1;
+}
+.pc-stimfull .pc-stim-art svg {
+  max-height: 100%;
 }
 
 /* Workflow poster */

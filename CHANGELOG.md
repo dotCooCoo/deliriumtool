@@ -7,6 +7,12 @@ Notable changes to this project, following
 
 ### Added
 
+- Peds card set options: the attention picture cards can print **one picture
+  per page** (hold the page itself up to the child) or 4-up with cut guides,
+  and in two art styles — **Set A (classic)** or **Set B (kawaii)**. The card
+  set prints landscape (the bedside ring-deck format), and the CAPD card's
+  per-item score blanks and total line now sit as proper write-on underlines.
+
 - A "Sheet design" dropdown for the adult templates: **Design A — classic**
   (the current look) or **Design B — modern** — white cards with accent
   borders and sentence-case tone headings in place of tinted fills and caps
