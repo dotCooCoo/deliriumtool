@@ -12,8 +12,9 @@ Notable changes to this project, following
   fonts, icons, spacing and auto-scaling included) with the interactive
   checkboxes, RASS radio group, and write-in text fields overlaid at their
   rendered positions. Sheet and PDF can no longer differ.
-- The "Date created" field defaults to the day the configuration was created
-  (still editable), and the saved filename uses readable segments, e.g.
+- The "Date created" field auto-fills with today's date when the designer
+  loads (still optional — clear it and the footer and filename omit it), and
+  the saved filename uses readable segments, e.g.
   `icu-delirium-rounding-tool_Rev-B_2026-07-02.pdf`.
 
 ### Fixed
