@@ -529,6 +529,8 @@ function reflectFields() {
   $('#f-med-layout').value = state.medLayout;
   $('#f-peds-scale').value = state.pedsScale;
   $('#f-design').value = state.design;
+  $('#f-stim-layout').value = state.stimLayout;
+  $('#f-stim-style').value = state.stimStyle;
   $$('input[name="template"]').forEach((r) => {
     r.checked = r.value === state.template;
   });
@@ -796,6 +798,16 @@ function onChange(e) {
   }
   if (t.id === 'f-design') {
     state.design = t.value;
+    update();
+    return;
+  }
+  if (t.id === 'f-stim-layout') {
+    state.stimLayout = t.value;
+    update();
+    return;
+  }
+  if (t.id === 'f-stim-style') {
+    state.stimStyle = t.value;
     update();
     return;
   }

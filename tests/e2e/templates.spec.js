@@ -432,7 +432,7 @@ test('Design B swaps the adult sheet design from the dropdown and fits everythin
   await expect(page.locator('#sheets')).toHaveClass(/design-b/);
 });
 
-test('peds cards are portrait pages that fit at every size, font, and scale', async ({ page }) => {
+test('peds cards are landscape pages that fit at every size, font, and scale', async ({ page }) => {
   await page.check('input[name="template"][value="peds-cards"]');
   for (const scale of ['rass', 'sbs']) {
     await page.selectOption('#f-peds-scale', scale);
@@ -443,14 +443,32 @@ test('peds cards are portrait pages that fit at every size, font, and scale', as
         sheets
           .map((sh, i) => ({
             i,
-            portrait: sh.offsetHeight > sh.offsetWidth,
+            landscape: sh.offsetWidth > sh.offsetHeight,
             overflow: sh.scrollHeight > sh.clientHeight + 2,
           }))
-          .filter((r) => !r.portrait || r.overflow),
+          .filter((r) => !r.landscape || r.overflow),
       );
       expect(bad, `scale=${scale} fs=${fs}: ${JSON.stringify(bad)}`).toEqual([]);
     }
   }
+});
+
+test('picture cards offer one-per-page layout and the kawaii style set', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await expect(page.locator('.sheet')).toHaveCount(10);
+  // One picture per page: instructions page + 10 picture pages.
+  await page.selectOption('#f-stim-layout', 'full');
+  await expect(page.locator('.sheet')).toHaveCount(18);
+  await expect(page.locator('.pc-stimfull')).toHaveCount(10);
+  // Style set B redraws every picture; the count and pages stay identical.
+  await page.selectOption('#f-stim-style', 'b');
+  await expect(page.locator('.sheet')).toHaveCount(18);
+  await page.selectOption('#f-stim-layout', 'grid');
+  await expect(page.locator('.sheet')).toHaveCount(10);
+  // The choices persist across reload.
+  await page.waitForTimeout(700);
+  await page.reload();
+  await expect(page.locator('#f-stim-style')).toHaveValue('b');
 });
 
 test('workflow poster section switch removes the poster', async ({ page }) => {

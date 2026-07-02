@@ -34,8 +34,8 @@ export const TEMPLATES = [
   {
     id: 'peds-cards',
     name: 'Peds Delirium Card Set',
-    desc: 'PICU bedside card set — arousal gate, screen routing, CAPD, ps/pCAM-ICU, action cards, and attention picture cards. Print portrait, laminate, ring-bind.',
-    orientation: 'portrait',
+    desc: 'PICU bedside card set — arousal gate, screen routing, CAPD, ps/pCAM-ICU, action cards, and attention picture cards. Print landscape, laminate, ring-bind.',
+    orientation: 'landscape',
     pages: 10,
     defaultTitle: 'Pediatric Delirium Card Set',
     defaultSubtitle: 'PICU bedside screening & action cards',

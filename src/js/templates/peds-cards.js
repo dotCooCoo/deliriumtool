@@ -54,7 +54,7 @@ import { stimArt } from './stim-art.js';
 // ── Shared card chrome ───────────────────────────────────────────────────────
 
 function card(cls, ...kids) {
-  return el('div', { class: `sheet sheet--card ${cls || ''}` }, ...kids);
+  return el('div', { class: `sheet sheet--landscape sheet--card ${cls || ''}` }, ...kids);
 }
 
 /** Card header: step chip + title + one-line purpose. */
@@ -596,18 +596,54 @@ function stimInstructionCell() {
   );
 }
 
-function stimCell(entry) {
+function stimCell(entry, style) {
   // Picture only — naming the object or marking its set on the face would cue
   // the recognition task's answer. Set membership lives on the instructions
   // cell (and in the clinician's hands via the card order).
-  return el('div', { class: 'pc-stim' }, el('div', { class: 'pc-stim-art' }, stimArt(entry.id)));
+  return el(
+    'div',
+    { class: 'pc-stim' },
+    el('div', { class: 'pc-stim-art' }, stimArt(entry.id, style)),
+  );
 }
 
-function stimPages() {
-  const cells = [stimInstructionCell(), ...STIM_DECK.map(stimCell)];
+function stimPages(state) {
+  const style = state.stimStyle === 'b' ? 'b' : 'a';
+  const cells = () => STIM_DECK.map((entry) => stimCell(entry, style));
+  if (state.stimLayout === 'full') {
+    // One picture per page — hold the card itself up to the child.
+    const pages = [
+      card(
+        'pc-stimpage',
+        cardHead(
+          'azure',
+          'Pictures',
+          'Attention picture cards',
+          'One picture per page. Laminate for bedside reuse.',
+          'eye',
+        ),
+        el('div', { class: 'pc-body' }, el('div', { class: 'pc-stimgrid' }, stimInstructionCell())),
+      ),
+      ...cells().map((cell, i) =>
+        card(
+          'pc-stimpage',
+          cardHead(
+            'azure',
+            'Pictures',
+            `Picture ${i + 1} of ${STIM_DECK.length}`,
+            'Laminate for bedside reuse.',
+            'eye',
+          ),
+          el('div', { class: 'pc-body' }, el('div', { class: 'pc-stimfull' }, cell)),
+        ),
+      ),
+    ];
+    return pages;
+  }
+  const all = [stimInstructionCell(), ...cells()];
   const pages = [];
-  for (let i = 0; i < cells.length; i += 4) {
-    pages.push(el('div', { class: 'pc-stimgrid' }, ...cells.slice(i, i + 4)));
+  for (let i = 0; i < all.length; i += 4) {
+    pages.push(el('div', { class: 'pc-stimgrid' }, ...all.slice(i, i + 4)));
   }
   return pages.map((grid, i) =>
     card(
@@ -644,7 +680,7 @@ export function renderPedsCards(state) {
       ),
     );
   }
-  if (secOn(state, 'sec-pc-stim')) sheets.push(...stimPages());
+  if (secOn(state, 'sec-pc-stim')) sheets.push(...stimPages(state));
   const pages = sheets.length;
   sheets.forEach((s, i) => s.append(sheetFooter(state, i + 1, pages)));
   return sheets;

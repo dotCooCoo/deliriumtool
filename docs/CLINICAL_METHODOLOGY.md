@@ -259,8 +259,8 @@ card). Validated-instrument text is deliberately **not** unit-editable in the de
 On the workflow poster, protocol lines are unit-editable like the adult sheets, but the
 lines carrying validated values — the comatose floors, the age routing, and the positivity
 thresholds — are locked: always printed, never editable, and interpolated from the tool's
-constants so they cannot drift. The card set prints as portrait Letter pages; the poster
-prints landscape.
+constants so they cannot drift. The card set and the poster print as landscape Letter pages (the bedside
+ring-deck format).
 
 The attention picture cards are **original artwork** (drawn for this site as inline SVG).
 The card faces are deliberately picture-only — naming the object or marking its set on the

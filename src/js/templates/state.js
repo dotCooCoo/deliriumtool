@@ -46,6 +46,8 @@ export function defaultState() {
     template: 'rounding',
     pedsScale: 'rass', // arousal scale on the peds cards (RASS or SBS)
     design: 'a', // adult sheet design: 'a' classic, 'b' modern
+    stimLayout: 'grid', // picture cards: 'grid' 4-up with cut guides, 'full' one per page
+    stimStyle: 'a', // picture art: 'a' classic, 'b' kawaii
     facility: '',
     unit: '',
     docDate: localDateISO(), // creation date (local timezone), editable
@@ -89,6 +91,8 @@ export function sanitize(raw) {
     s.template = raw.template;
   if (['rass', 'sbs'].includes(raw.pedsScale)) s.pedsScale = raw.pedsScale;
   if (['a', 'b'].includes(raw.design)) s.design = raw.design;
+  if (['grid', 'full'].includes(raw.stimLayout)) s.stimLayout = raw.stimLayout;
+  if (['a', 'b'].includes(raw.stimStyle)) s.stimStyle = raw.stimStyle;
   if (typeof raw.facility === 'string') s.facility = raw.facility.slice(0, 120);
   if (typeof raw.unit === 'string') s.unit = raw.unit.slice(0, 120);
   // An empty stored date keeps the default (today) — the field auto-fills so
