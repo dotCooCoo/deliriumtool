@@ -151,8 +151,6 @@ export const STIM_INSTRUCTIONS = {
   pscam: printTask(PSCAM.features.find((f) => f.id === 'f2').task),
   pcamHead: 'pCAM-ICU — memory-pictures alternative',
   pcam: 'Say: “Here are some pictures. You need to remember them.” Show the 5 memory-set pictures, 2–3 seconds each. Then say: “Here are some more pictures. Tell me yes or no (or nod) if the picture you see was one you needed to remember.” Show all 10 pictures, saying the name of each and showing it 2–3 seconds. An error is “no” to a memory picture or “yes” to an other-set picture; same ≥ 3-error cut as the letters task.',
-  memoryList: 'Memory set: Heart · Star · Fish · Sun · Duck',
-  otherList: 'Other set: Balloons · Flower · Ball · Butterfly · Sailboat',
   note: 'Original artwork — units may substitute their validated picture set per local practice. Set membership is deliberately not printed on the card faces.',
 };
 

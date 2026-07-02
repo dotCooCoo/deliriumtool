@@ -477,15 +477,20 @@ test('picture cards offer one-per-page layout and the kawaii style set', async (
   await page.selectOption('#f-stim-layout', 'full');
   await expect(page.locator('.sheet')).toHaveCount(18);
   await expect(page.locator('.pc-stimfull')).toHaveCount(10);
-  // Style set B redraws every picture; the count and pages stay identical.
-  await page.selectOption('#f-stim-style', 'b');
+  // Kawaii is the default; the classic set redraws every picture with the
+  // count and pages identical.
+  await expect(page.locator('#f-stim-style')).toHaveValue('b');
+  await page.selectOption('#f-stim-style', 'a');
   await expect(page.locator('.sheet')).toHaveCount(18);
   await page.selectOption('#f-stim-layout', 'grid');
   await expect(page.locator('.sheet')).toHaveCount(10);
+  // The instructions card keys both sets with labeled miniatures.
+  await expect(page.locator('.pc-stim-mini')).toHaveCount(10);
+  await expect(page.locator('.pc-stim-setlbl').first()).toContainText('show these five first');
   // The choices persist across reload.
   await page.waitForTimeout(700);
   await page.reload();
-  await expect(page.locator('#f-stim-style')).toHaveValue('b');
+  await expect(page.locator('#f-stim-style')).toHaveValue('a');
 });
 
 test('workflow poster section switch removes the poster', async ({ page }) => {
