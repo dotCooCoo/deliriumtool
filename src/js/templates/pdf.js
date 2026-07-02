@@ -61,6 +61,7 @@ const WEAK = {
 };
 const SUB = [160, 184, 196];
 const M = 18; // page margin (pt)
+const LH = 1.18; // line-height factor — set on the doc and used by every text advance
 // jsPDF built-in font family — set per document from the chosen print font.
 let FONT = 'helvetica';
 
@@ -84,6 +85,7 @@ const rassTargetDef = (state) =>
 class Painter {
   constructor(doc, k, padByPage) {
     this.doc = doc;
+    doc.setLineHeightFactor(LH);
     this.k = k; // global type scale
     this.overflowed = false;
     this.W = doc.internal.pageSize.getWidth();
@@ -118,6 +120,11 @@ class Painter {
       const cb = new AcroFormCheckBox();
       cb.fieldName = `chk_${++this.seq}`;
       cb.Rect = [x, y, size, size];
+      // An explicit font size keeps the check glyph inside the box — with the
+      // default "auto" size jsPDF renders a giant off-box glyph, so ticking a
+      // box looks like nothing happened in most viewers.
+      cb.fontSize = Math.max(4, size * 0.85);
+      cb.value = 'Off';
       cb.appearanceState = 'Off';
       cb.showWhenPrinted = true;
       this.doc.addField(cb);
@@ -188,7 +195,7 @@ class Painter {
       .setFontSize(this.fs(size))
       .setTextColor(...TONE.ink);
     this.doc.text(lines, x + bs + 3.5, y);
-    return y + lines.length * this.fs(size) * 1.18 + this.padGap(this.fs(1.6));
+    return y + lines.length * this.fs(size) * LH + this.padGap(this.fs(1.6));
   }
   bulletLine(x, y, w, str, { size = 7.2, prefix = '• ' } = {}) {
     const lines = this.wrap(`${prefix}${str}`, w, size);
@@ -197,7 +204,7 @@ class Painter {
       .setFontSize(this.fs(size))
       .setTextColor(...TONE.ink);
     this.doc.text(lines, x, y);
-    return y + lines.length * this.fs(size) * 1.18 + this.padGap(this.fs(1.6));
+    return y + lines.length * this.fs(size) * LH + this.padGap(this.fs(1.6));
   }
   footer(state, page, pages) {
     // The footer is fixed page chrome — it does not scale with the content.
@@ -260,15 +267,17 @@ function measureGroupCard(p, w, { head, headBar, items, bullets, size = 7 }) {
   const innerW = w - 2 * pad;
   const prefix = bullets === 'plain' ? '' : '• ';
   const headLines = p.wrap(headBar ? head : head.toUpperCase(), innerW, headBar ? 7.6 : 7.4, true);
-  const barH = p.fs(4.2) + headLines.length * p.fs(7.6) * 1.18;
-  let h = headBar ? barH + pad + p.fs(2.4) : pad + p.fs(5.4) + headLines.length * p.fs(8);
+  const barH = p.fs(4.2) + headLines.length * p.fs(7.6) * LH;
+  let h = headBar
+    ? barH + pad + p.fs(4.5)
+    : pad + p.fs(5.4) + headLines.length * p.fs(7.4) * LH + p.fs(1.5);
   for (const it of items) {
     const lines = p.wrap(
       bullets ? `${prefix}${it}` : it,
       innerW - (bullets ? 0 : p.fs(6.4) + 4),
       size,
     );
-    h += lines.length * p.fs(size) * 1.18 + p.fs(1.6) * p.padK();
+    h += lines.length * p.fs(size) * LH + p.fs(1.6) * p.padK();
   }
   return h + pad * 0.7;
 }
@@ -281,7 +290,7 @@ function drawGroupCard(p, x, y, w, opts) {
   const prefix = bullets === 'plain' ? '' : '• ';
   // Long category labels wrap instead of clipping at the card edge.
   const headLines = p.wrap(headBar ? head : head.toUpperCase(), innerW, headBar ? 7.6 : 7.4, true);
-  const barH = p.fs(4.2) + headLines.length * p.fs(7.6) * 1.18;
+  const barH = p.fs(4.2) + headLines.length * p.fs(7.6) * LH;
   const h = Math.max(measureGroupCard(p, w, opts), minH);
   // frame
   p.doc
@@ -295,14 +304,14 @@ function drawGroupCard(p, x, y, w, opts) {
     p.doc.setFillColor(...TONE[tone]).rect(x, y, w, barH, 'F');
     p.doc.setFont(FONT, 'bold').setFontSize(p.fs(7.6)).setTextColor(255, 255, 255);
     p.doc.text(headLines, x + pad, y + p.fs(7.6));
-    cy = y + barH + pad + p.fs(2.4);
+    cy = y + barH + pad + p.fs(4.5);
   } else {
     p.doc
       .setFont(FONT, 'bold')
       .setFontSize(p.fs(7.4))
       .setTextColor(...TONE[tone]);
     p.doc.text(headLines, x + pad, cy);
-    cy += headLines.length * p.fs(8);
+    cy += headLines.length * p.fs(7.4) * LH + p.fs(1.5);
   }
   for (const it of items) {
     if (/^Action: _+$/.test(it)) {
@@ -312,7 +321,7 @@ function drawGroupCard(p, x, y, w, opts) {
       p.doc.setDrawColor(...TONE[tone]).setLineWidth(0.6);
       p.doc.line(lx, cy + 1, x + w - pad, cy + 1);
       p.fieldText(lx, cy - p.fs(size), x + w - pad - lx, p.fs(size + 2));
-      cy += p.fs(size) * 1.18 + p.padGap(p.fs(1.6));
+      cy += p.fs(size) * LH + p.padGap(p.fs(1.6));
       continue;
     }
     cy = bullets
@@ -417,7 +426,7 @@ function drawPharmCardAt(p, x, y, w, state) {
   const innerW = w - pad * 2;
   const leadLines = p.wrap(PHARM.lead, innerW, 8.8, true);
   const measure = () => {
-    let h = pad + leadLines.length * p.fs(9) + p.fs(9);
+    let h = pad + leadLines.length * p.fs(8.8) * LH + p.fs(10);
     const all = [
       ...rows.map(
         (r) =>
@@ -441,7 +450,7 @@ function drawPharmCardAt(p, x, y, w, state) {
     .setFontSize(p.fs(8.8))
     .setTextColor(...TONE.red);
   doc.text(leadLines, x + pad, cy2);
-  cy2 += leadLines.length * p.fs(8.5);
+  cy2 += leadLines.length * p.fs(8.8) * LH + p.fs(1);
   const noteLines = p.wrap(PHARM.leadNote, innerW, 6.6);
   doc
     .setFont(FONT, 'normal')
@@ -614,7 +623,7 @@ function drawMnemonicRow(p, y, cells, cols, state) {
     const noteLines = p.wrap(c.note, innerW, 6.6);
     const h =
       pad +
-      Math.max(headLines.length * p.fs(7.8) * 1.12, p.fs(9)) +
+      Math.max(headLines.length * p.fs(7.8) * LH, p.fs(9)) +
       p.fs(3) +
       p.fs(8.5) + // Reviewed row
       p.fs(1.5) * p.padK() +
@@ -643,7 +652,7 @@ function drawMnemonicRow(p, y, cells, cols, state) {
       .setFontSize(p.fs(7.8))
       .setTextColor(...TONE[c.tone]);
     p.doc.text(m.headLines, x + pad + ltrW, cy);
-    cy += Math.max(m.headLines.length * p.fs(7.8) * 1.12, p.fs(9)) + p.fs(3);
+    cy += Math.max(m.headLines.length * p.fs(7.8) * LH, p.fs(9)) + p.fs(3);
     // Reviewed — bold, with a tone check square.
     const bs = p.fs(6);
     p.box(x + pad, cy - bs + 1, bs, TONE[c.tone]);
@@ -725,7 +734,7 @@ function buildRounding(doc, state, k, padByPage) {
     items.reduce(
       (a, s) =>
         a +
-        p.wrap(s, w - p.fs(6.4) - 4 - cellPad * 2, size).length * p.fs(size) * 1.2 +
+        p.wrap(s, w - p.fs(6.4) - 4 - cellPad * 2, size).length * p.fs(size) * LH +
         p.fs(2.4) * p.padK(),
       cellPad * 2,
     );
@@ -995,9 +1004,11 @@ function buildSpa(doc, state, k, padByPage) {
       // the check squares line up across the three columns. Heads wrap, and
       // the row padding stretches with the page's pad factor.
       const headLines = (it) => p.wrap(ov(state, it.id, it.head), innerW - p.fs(8), 8.6, true);
+      const headAdv = p.fs(8.6) * LH;
       const itemH = (it) =>
-        headLines(it).length * p.fs(9.2) +
-        p.wrap(it.desc, innerW - p.fs(8), 7.4).length * p.fs(7.4) * 1.2 +
+        headLines(it).length * headAdv +
+        p.fs(1) +
+        p.wrap(it.desc, innerW - p.fs(8), 7.4).length * p.fs(7.4) * LH +
         p.fs(5.5) * p.padK();
       const rows = Math.max(...cols.map((c) => c.items.length));
       const rowHs = [];
@@ -1049,7 +1060,7 @@ function buildSpa(doc, state, k, padByPage) {
             .setFont(FONT, 'normal')
             .setFontSize(p.fs(7.4))
             .setTextColor(...TONE.slate);
-          doc.text(lines, x + pad + bs + 4, cy + hl.length * p.fs(9.2));
+          doc.text(lines, x + pad + bs + 4, cy + hl.length * headAdv + p.fs(1));
           cy += rowHs[r];
         });
         for (const cline of custom) {
