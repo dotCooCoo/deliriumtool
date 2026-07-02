@@ -18,8 +18,9 @@
   max-width: 52rem;
   margin: 1.25rem auto 0;
   padding: 0.85rem 1.25rem;
-  border: 1px solid #b8dcde;
-  border-left: 4px solid #0d7d84;
+  border-style: solid;
+  border-color: #b8dcde #b8dcde #b8dcde #0d7d84;
+  border-width: 1px 1px 1px 4px;
   border-radius: 12px;
   background: linear-gradient(90deg, #eef9f9, #ffffff);
   text-decoration: none;
