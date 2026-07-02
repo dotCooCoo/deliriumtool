@@ -34,6 +34,9 @@ Notable changes to this project, following
 
 ### Changed
 
+- The "Print appearance" controls (sheet design, text size, font) sit above
+  the Sections panel in the designer sidebar.
+
 - "Save PDF" now captures the sheet itself: the PDF embeds a print-resolution
   image of the exact on-screen sheet (identical to the browser print output —
   fonts, icons, spacing and auto-scaling included) with the interactive
