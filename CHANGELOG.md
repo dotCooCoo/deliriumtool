@@ -7,6 +7,12 @@ Notable changes to this project, following
 
 ### Added
 
+- A "Sheet design" dropdown for the adult templates: **Design A — classic**
+  (the current look) or **Design B — modern** — white cards with accent
+  borders and sentence-case tone headings in place of tinted fills and caps
+  bars, matching the pediatric card system. The choice prints, saves to the
+  PDF, and shares with the rest of the unit configuration.
+
 - Pediatric bedside templates in the designer: a **Peds Delirium Card Set**
   (arousal gate card with RASS or SBS, screen-routing card, CAPD card,
   psCAM-ICU and pCAM-ICU cards, act-on-a-positive and prevention-bundle

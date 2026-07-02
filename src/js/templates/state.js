@@ -45,6 +45,7 @@ export function defaultState() {
     v: 1,
     template: 'rounding',
     pedsScale: 'rass', // arousal scale on the peds cards (RASS or SBS)
+    design: 'a', // adult sheet design: 'a' classic, 'b' modern
     facility: '',
     unit: '',
     docDate: localDateISO(), // creation date (local timezone), editable
@@ -87,6 +88,7 @@ export function sanitize(raw) {
   if (['rounding', 'spa', 'peds-cards', 'peds-workflow'].includes(raw.template))
     s.template = raw.template;
   if (['rass', 'sbs'].includes(raw.pedsScale)) s.pedsScale = raw.pedsScale;
+  if (['a', 'b'].includes(raw.design)) s.design = raw.design;
   if (typeof raw.facility === 'string') s.facility = raw.facility.slice(0, 120);
   if (typeof raw.unit === 'string') s.unit = raw.unit.slice(0, 120);
   // An empty stored date keeps the default (today) — the field auto-fills so
