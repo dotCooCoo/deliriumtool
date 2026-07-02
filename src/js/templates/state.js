@@ -124,7 +124,7 @@ export function sanitize(raw) {
         .slice(0, 8);
       s.customSections.push({
         id: typeof sec.id === 'string' ? sec.id.slice(0, 24) : `cs-${s.customSections.length + 1}`,
-        page: sec.page === 2 ? 2 : 1,
+        page: sec.page === 2 ? 2 : sec.page === 0 ? 0 : 1,
         title: sec.title.slice(0, 60),
         lines,
       });

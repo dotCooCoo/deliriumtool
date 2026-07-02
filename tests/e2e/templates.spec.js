@@ -312,8 +312,64 @@ test('peds card set renders all ten pages with the arousal gate and picture deck
   // Picture deck: 10 stimulus cards + the instructions cell across 3 pages.
   await expect(page.locator('.pc-stim')).toHaveCount(11);
   await expect(page.locator('.pc-stim--instr')).toHaveCount(1);
-  // Validated-instrument content is not unit-editable: no per-item toggles.
-  await expect(page.locator('#ctrl-sections details')).toHaveCount(0);
+  // Protocol content is editable; validated-instrument text is not — the
+  // sidebar offers act/prevention/picture toggles but nothing for the CAPD
+  // items, CAM features, or arousal rows.
+  await expect(page.locator('#ctrl-sections details')).toHaveCount(3);
+  await expect(page.locator('input[data-act="itemToggle"][data-id="stim-heart"]')).toBeAttached();
+  await expect(page.locator('button[data-act="editText"][data-id="act-consult"]')).toBeAttached();
+  expect(await page.locator('input[data-act="itemToggle"][data-id^="capd"]').count()).toBe(0);
+  // Picture cards toggle but are not reword-able.
+  expect(await page.locator('button[data-act="editText"][data-id^="stim-"]').count()).toBe(0);
+});
+
+test('peds card set is a full builder: toggles, rewording, unit lines, own-card sections', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  // Toggle a picture off.
+  await page
+    .locator('input[data-act="itemToggle"][data-id="stim-boat"]')
+    .evaluate((el) => el.click());
+  await expect(page.locator('.pc-stim')).toHaveCount(10);
+  // Reword an act line inline (the group lives in a collapsed disclosure).
+  await page
+    .locator('#ctrl-sections details')
+    .first()
+    .evaluate((d) => {
+      d.open = true;
+    });
+  await page
+    .locator('button[data-act="editText"][data-id="act-consult"]')
+    .evaluate((el) => el.click());
+  await page.locator('.edit-input').fill('Call the PICU delirium champion first.');
+  await page.locator('.edit-input').press('Enter');
+  await expect(page.locator('.pc-act').last()).toContainText('delirium champion');
+  // Add a unit line to a block.
+  const addLine = page.locator('button[data-act="addLine"][data-group="act-first"]');
+  await addLine.evaluate((b, v) => {
+    b.parentElement.querySelector('.custom-add-input').value = v;
+  }, 'Page the fellow if CAPD ≥ 9 twice.');
+  await addLine.evaluate((b) => b.click());
+  await expect(page.locator('.pc-act').first()).toContainText('Page the fellow');
+  // A custom section prints as its own card page.
+  await page.fill('#f-newsec-title', 'Unit huddle checklist');
+  await page.click('[data-act="addSection"]');
+  const secBtn = page.locator('button[data-act="addSecLine"]').first();
+  await secBtn.evaluate((b, v) => {
+    b.parentElement.querySelector('.custom-add-input').value = v;
+  }, 'Confirm CAPD documented in EHR');
+  await secBtn.evaluate((b) => b.click());
+  await expect(page.locator('.sheet')).toHaveCount(11);
+  await expect(page.locator('.pc-custom')).toContainText('Unit huddle checklist');
+});
+
+test('workflow poster lines toggle and reword like the sheets', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await page
+    .locator('input[data-act="itemToggle"][data-id="wf-screen-l1"]')
+    .evaluate((el) => el.click());
+  await expect(page.locator('.pc-stage').first()).not.toContainText('point prevalence');
 });
 
 test('peds arousal card switches to SBS with its own gate values', async ({ page }) => {

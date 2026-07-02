@@ -24,6 +24,14 @@ import { DELIRIUM_REFS } from '../data/refs.js';
 import { renderSheets } from './sheets.js';
 import { downloadPdf } from './pdf.js';
 import {
+  ACT_POSITIVE,
+  PREVENT_BUNDLE,
+  PREVENT_MEASURES,
+  STIM_DECK,
+  WORKFLOW_STAGES,
+  ROUNDS_SCRIPT,
+} from './data/peds-content.js';
+import {
   defaultState,
   sanitize,
   isOn,
@@ -72,7 +80,93 @@ let shared = false;
 
 /** Group descriptors for the active template's per-item controls. */
 function controlGroups(tplId) {
-  if (tplId.startsWith('peds')) return [];
+  if (tplId === 'peds-cards') {
+    // Protocol content is fully editable; validated instrument text (arousal
+    // rows, CAPD items, CAM features/scripts/thresholds, age routing) is not.
+    return [
+      {
+        section: 'sec-pc-act',
+        groups: [
+          {
+            id: 'act-first',
+            head: 'First — same hour',
+            fixedHead: true,
+            items: ACT_POSITIVE.first,
+            custom: true,
+          },
+          {
+            id: 'act-bundle',
+            head: 'Bundle levers',
+            fixedHead: true,
+            items: ACT_POSITIVE.bundle,
+            custom: true,
+          },
+          {
+            id: 'act-escalate',
+            head: 'Escalation',
+            fixedHead: true,
+            items: ACT_POSITIVE.escalate,
+            custom: true,
+          },
+        ],
+      },
+      {
+        section: 'sec-pc-prevent',
+        groups: [
+          {
+            id: 'prev-bundle',
+            head: 'ABCDEF bundle cells',
+            fixedHead: true,
+            items: PREVENT_BUNDLE.map((c) => ({ id: c.id, text: c.text, prefix: `${c.ltr} — ` })),
+          },
+          {
+            id: 'prev-measures',
+            head: 'Non-pharmacologic measures',
+            fixedHead: true,
+            items: PREVENT_MEASURES,
+            custom: true,
+          },
+        ],
+      },
+      {
+        section: 'sec-pc-stim',
+        groups: [
+          {
+            id: 'stim-deck',
+            head: 'Picture cards',
+            fixedHead: true,
+            noEdit: true,
+            items: STIM_DECK.map((c) => ({
+              id: c.id,
+              text: `${c.name} (${c.set === 'memory' ? 'memory set' : 'other set'})`,
+            })),
+          },
+        ],
+      },
+    ];
+  }
+  if (tplId === 'peds-workflow') {
+    return [
+      {
+        section: 'sec-wf-poster',
+        groups: [
+          ...WORKFLOW_STAGES.map((st) => ({
+            id: st.id,
+            head: st.head,
+            fixedHead: true,
+            items: st.lines.map((text, i) => ({ id: `${st.id}-l${i}`, text })),
+            custom: true,
+          })),
+          {
+            id: 'rounds-script',
+            head: 'Rounds script',
+            fixedHead: true,
+            items: ROUNDS_SCRIPT,
+          },
+        ],
+      },
+    ];
+  }
   if (tplId === 'rounding') {
     return [
       {
@@ -240,7 +334,7 @@ function buildSectionControls() {
               input,
               el('span', { text: (item.prefix || '') + text }),
             ),
-            editButton(item.id, text),
+            g.noEdit ? null : editButton(item.id, text),
           );
           groupEl.append(row);
         }
@@ -304,7 +398,7 @@ function buildSectionControls() {
         el(
           'span',
           { class: 'sec-ctl-page' },
-          `p.${sec.page} `,
+          sec.page === 0 ? 'own card ' : `p.${sec.page} `,
           el(
             'button',
             {
@@ -455,6 +549,9 @@ function reflectFields() {
   });
   $$('[data-adult]').forEach((n) => {
     n.hidden = peds;
+  });
+  $$('[data-no-poster]').forEach((n) => {
+    n.hidden = state.template === 'peds-workflow';
   });
 }
 
@@ -865,12 +962,17 @@ async function onClick(e) {
         announce('Up to four custom sections are supported.');
         break;
       }
-      const page = $('#f-newsec-page').value === '2' ? 2 : 1;
+      const ownPage = state.template === 'peds-cards';
+      const page = ownPage ? 0 : $('#f-newsec-page').value === '2' ? 2 : 1;
       const id = `cs-${Date.now().toString(36)}`;
       state.customSections.push({ id, page, title, lines: [] });
       $('#f-newsec-title').value = '';
       update({ rebuildControls: true });
-      announce(`Section "${title}" added to page ${page} — now add its lines.`);
+      announce(
+        ownPage
+          ? `Section "${title}" added as its own card — now add its lines.`
+          : `Section "${title}" added to page ${page} — now add its lines.`,
+      );
       break;
     }
     case 'removeSection':

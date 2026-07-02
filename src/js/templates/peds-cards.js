@@ -17,10 +17,12 @@ import {
   circleBox,
   blank,
   checkItem,
-  sheetFooter,
-  sheetIcon,
+  ov,
   secOn,
-} from './sheets.js';
+  itemOn,
+  customLines,
+} from './primitives.js';
+import { sheetFooter, sheetIcon } from './sheets.js';
 import {
   RASS_LEVELS,
   SBS_LEVELS,
@@ -484,19 +486,22 @@ function capdCard(state) {
 // ── Card 6 · Act on a positive ───────────────────────────────────────────────
 
 function actCard(state) {
-  const block = (tone, head, items) =>
+  const block = (tone, groupId, head, items) =>
     el(
       'div',
       { class: `pc-act tone-${tone}` },
       el('div', { class: 'pc-act-head', text: head }),
-      ...items.map((it) => checkItem(it.text)),
+      ...items
+        .filter((it) => itemOn(state, it.id))
+        .map((it) => checkItem(ov(state, it.id, it.text))),
+      ...customLines(state, groupId),
     );
   const body = el(
     'div',
     { class: 'pc-body' },
-    block('rust', 'First — same hour', ACT_POSITIVE.first),
-    block('green', 'Bundle levers — this is the treatment', ACT_POSITIVE.bundle),
-    block('red', 'Escalation — drugs treat symptoms only', ACT_POSITIVE.escalate),
+    block('rust', 'act-first', 'First — same hour', ACT_POSITIVE.first),
+    block('green', 'act-bundle', 'Bundle levers — this is the treatment', ACT_POSITIVE.bundle),
+    block('red', 'act-escalate', 'Escalation — drugs treat symptoms only', ACT_POSITIVE.escalate),
     el(
       'div',
       { class: 'pc-act-contact' },
@@ -527,7 +532,7 @@ function preventCard(state) {
     el(
       'div',
       { class: 'pc-bundle' },
-      ...PREVENT_BUNDLE.map((b) =>
+      ...PREVENT_BUNDLE.filter((b) => itemOn(state, b.id)).map((b) =>
         el(
           'div',
           { class: `pc-bcell tone-${b.tone}` },
@@ -537,12 +542,19 @@ function preventCard(state) {
             el('span', { class: 'pc-bltr', text: b.ltr }),
             el('span', { text: nobreak(b.head) }),
           ),
-          el('div', { class: 'pc-btext', text: nobreak(b.text) }),
+          el('div', { class: 'pc-btext', text: nobreak(ov(state, b.id, b.text)) }),
           checkItem('Addressed this shift'),
         ),
       ),
     ),
-    el('div', { class: 'pc-measures' }, ...PREVENT_MEASURES.map((m) => checkItem(m.text))),
+    el(
+      'div',
+      { class: 'pc-measures' },
+      ...PREVENT_MEASURES.filter((m) => itemOn(state, m.id)).map((m) =>
+        checkItem(ov(state, m.id, m.text)),
+      ),
+      ...customLines(state, 'prev-measures'),
+    ),
     el('div', {
       class: 'pc-note',
       text: 'Non-pharmacologic, multicomponent prevention is first-line; routine pharmacologic prophylaxis is not recommended. Sleep aids (e.g. melatonin) are not established for delirium prevention in children.',
@@ -595,7 +607,10 @@ function stimCell(entry) {
 }
 
 function stimPages(state) {
-  const cells = [stimInstructionCell(), ...STIM_DECK.map(stimCell)];
+  const cells = [
+    stimInstructionCell(),
+    ...STIM_DECK.filter((c) => itemOn(state, c.id)).map(stimCell),
+  ];
   const pages = [];
   for (let i = 0; i < cells.length; i += 4) {
     pages.push(el('div', { class: 'pc-stimgrid' }, ...cells.slice(i, i + 4)));
@@ -627,6 +642,16 @@ export function renderPedsCards(state) {
   if (secOn(state, 'sec-pc-pcam')) sheets.push(pcamCard(state));
   if (secOn(state, 'sec-pc-act')) sheets.push(actCard(state));
   if (secOn(state, 'sec-pc-prevent')) sheets.push(preventCard(state));
+  for (const sec of state.customSections.filter((x) => x.lines.length)) {
+    sheets.push(
+      card(
+        state,
+        'pc-custom',
+        cardHead('ink', 'Unit', sec.title, 'Local protocol content — the unit’s responsibility.'),
+        el('div', { class: 'pc-body pc-custom-lines' }, ...sec.lines.map((t) => checkItem(t))),
+      ),
+    );
+  }
   if (secOn(state, 'sec-pc-stim')) sheets.push(...stimPages(state));
   const pages = sheets.length;
   sheets.forEach((s, i) => s.append(sheetFooter(state, i + 1, pages)));
@@ -649,7 +674,13 @@ export function renderPedsWorkflow(state) {
           el('span', { class: 'pc-stage-n', text: st.n }),
           el('span', { text: nobreak(st.head) }),
         ),
-        ...st.lines.map((l) => el('div', { class: 'pc-stage-line', text: nobreak(l) })),
+        ...st.lines
+          .map((l, i) => ({ id: `${st.id}-l${i}`, text: l }))
+          .filter((l) => itemOn(state, l.id))
+          .map((l) =>
+            el('div', { class: 'pc-stage-line', text: nobreak(ov(state, l.id, l.text)) }),
+          ),
+        ...customLines(state, st.id),
       );
       return i < WORKFLOW_STAGES.length - 1
         ? [stage, el('div', { class: 'pc-flow-arrow', text: '→' })]
@@ -670,7 +701,13 @@ export function renderPedsWorkflow(state) {
     'div',
     { class: 'pc-rounds tone-navy' },
     el('div', { class: 'pc-act-head', text: 'On rounds — say these four things (10 seconds)' }),
-    el('ol', { class: 'pc-qs' }, ...ROUNDS_SCRIPT.map((r) => el('li', { text: nobreak(r.text) }))),
+    el(
+      'ol',
+      { class: 'pc-qs' },
+      ...ROUNDS_SCRIPT.filter((r) => itemOn(state, r.id)).map((r) =>
+        el('li', { text: nobreak(ov(state, r.id, r.text)) }),
+      ),
+    ),
   );
 
   const positive = el(
