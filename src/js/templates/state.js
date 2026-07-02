@@ -71,7 +71,9 @@ export function sanitize(raw) {
   if (['rounding', 'spa'].includes(raw.template)) s.template = raw.template;
   if (typeof raw.facility === 'string') s.facility = raw.facility.slice(0, 120);
   if (typeof raw.unit === 'string') s.unit = raw.unit.slice(0, 120);
-  if (typeof raw.docDate === 'string') s.docDate = raw.docDate.slice(0, 20);
+  // An empty stored date keeps the default (today) — the field auto-fills so
+  // every sheet carries a creation date unless the unit sets its own.
+  if (typeof raw.docDate === 'string' && raw.docDate.trim()) s.docDate = raw.docDate.slice(0, 20);
   if (typeof raw.docRev === 'string') s.docRev = raw.docRev.slice(0, 24);
   if (['0to-1', '0to-2', '-3to-4', 'none'].includes(raw.rassTarget)) s.rassTarget = raw.rassTarget;
   if (['90', '100', '110'].includes(String(raw.fontScale))) s.fontScale = String(raw.fontScale);
