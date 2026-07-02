@@ -64,6 +64,31 @@ export const DELIRIUM_REFS = {
     c: 'Lewis K, Balas MC, Stollings JL, et al. A focused update to the PADIS guidelines (adds Anxiety). Crit Care Med. 2025;53(3):e711-e727.',
     u: 'https://doi.org/10.1097/CCM.0000000000006574',
   },
+  ecash2016: {
+    l: 'eCASH 2016',
+    c: 'Vincent JL, Shehabi Y, Walsh TS, et al. Comfort and patient-centred care without excessive sedation: the eCASH concept. Intensive Care Med. 2016;42(6):962-971.',
+    u: 'https://doi.org/10.1007/s00134-016-4297-4',
+  },
+  a2b2025: {
+    l: 'A2B 2025',
+    c: 'Walsh TS, Aitken LM, McKenzie CA, et al. Dexmedetomidine- or clonidine-based sedation compared with propofol in critically ill patients: the A2B randomized clinical trial. JAMA. 2025;334(1):32-45. (No extubation benefit vs propofol; more agitation and severe bradycardia with alpha-2 agonists.)',
+    u: 'https://doi.org/10.1001/jama.2025.7200',
+  },
+  kollef1998: {
+    l: 'Kollef 1998',
+    c: 'Kollef MH, Levy NT, Ahrens TS, Schaiff R, Prentice D, Sherman G. The use of continuous IV sedation is associated with prolongation of mechanical ventilation. Chest. 1998;114(2):541-548. (Observational cohort — not a guideline recommendation.)',
+    u: 'https://doi.org/10.1378/chest.114.2.541',
+  },
+  dean2004_renal: {
+    l: 'Dean 2004',
+    c: 'Dean M. Opioids in renal failure and dialysis patients. J Pain Symptom Manage. 2004;28(5):497-504. (Morphine and hydromorphone glucuronide metabolites accumulate in renal impairment with neuroexcitatory toxicity.)',
+    u: 'https://doi.org/10.1016/j.jpainsymman.2004.02.021',
+  },
+  beers_alt2025: {
+    l: 'Beers Alternatives 2025',
+    c: 'American Geriatrics Society Beers Criteria Alternatives Panel. Alternative treatments to selected medications in the 2023 AGS Beers Criteria. J Am Geriatr Soc. 2025;73(9):2657-2677.',
+    u: 'https://doi.org/10.1111/jgs.19500',
+  },
   inouye1999: {
     l: 'Inouye 1999',
     c: 'Inouye SK, Bogardus ST Jr, Charpentier PA, et al. A multicomponent intervention to prevent delirium in hospitalized older patients (HELP). N Engl J Med. 1999;340(9):669-676.',
@@ -143,6 +168,11 @@ export const DELIRIUM_REFS = {
     l: 'Haloperidol PI',
     c: 'Haloperidol prescribing information (boxed warnings, QTc/Torsades, Parkinson/Lewy). DailyMed, U.S. NLM.',
     u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f',
+  },
+  dex_label: {
+    l: 'Dexmedetomidine PI',
+    c: 'Precedex (dexmedetomidine hydrochloride) prescribing information — ICU sedation maintenance infusion 0.2-0.7 mcg/kg/hour. DailyMed, U.S. NLM.',
+    u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74',
   },
   mends2: {
     l: 'MENDS2 2021',

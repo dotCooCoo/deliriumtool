@@ -33,7 +33,7 @@ export const MEDS = [
     id: 'quetiapine',
     group: 'Antipsychotic (off-label)',
     name: 'Quetiapine',
-    dose: '~0.43–0.7 mg/kg/dose q8h (≈ 1.5 mg/kg/day)',
+    dose: '~0.43–0.7 mg/kg/dose q8h (initiation ≈ 1.5 mg/kg/day; reported median 1.3 mg/kg/day)',
   },
   {
     id: 'olanzapine',

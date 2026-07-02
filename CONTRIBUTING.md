@@ -5,9 +5,14 @@ Thanks for helping improve a tool clinicians rely on. Issues and pull requests a
 ## Ground rules
 
 - **Clinical changes must cite a primary source and add a test.** Any change to a
-  score, threshold, dose, criterion, or recommendation needs a citation
-  (DOI/PubMed), a golden-value test, and a matching update to
-  `docs/CLINICAL_METHODOLOGY.md`.
+  score, threshold, dose, criterion, or recommendation — in the adult tool, the
+  pediatric tool (`/peds/`), or the template designer (`/templates/`) — needs a
+  citation (DOI/PubMed), a golden-value test, a matching update to
+  `docs/CLINICAL_METHODOLOGY.md`, and a row in that document's change log (§6.5).
+  Never change a clinical number without changing its citation together with it.
+- **Print surfaces must match the screen.** The PDFs and template sheets are the
+  artifacts that travel; a caution or correction that lands on screen must land on
+  every surface that prints the same content.
 - **No PHI, ever.** Don't put patient data in issues, screenshots, test fixtures, or commits.
 - **Keep it client-side.** No analytics, no third-party runtime requests, no server
   dependency for core function.

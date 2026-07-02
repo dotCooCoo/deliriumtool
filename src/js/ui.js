@@ -246,9 +246,28 @@ export function updateCam2() {
   setCam(2, inattentionPositive(v) ? 'yes' : 'no');
 }
 
-export function updateCam4() {
-  const v = $('cam4').value;
-  if (v) setCam(4, v === 'abnormal' ? 'yes' : 'no');
+// Feature 3 (altered level of consciousness): positive if the actual RASS is
+// anything other than 0 (worksheet operationalization).
+export function updateCamLoc() {
+  const v = $('cam-loc').value;
+  if (v) setCam(3, v === 'abnormal' ? 'yes' : 'no');
+}
+
+// Keep the Feature-3 card in step with the documented RASS: show what the
+// worksheet derivation says so the two entries can be cross-checked.
+function updateCamLocHint() {
+  const hint = $('cam-loc-hint');
+  if (!hint) return;
+  const v = S.rass;
+  if (!v) {
+    hint.textContent = '';
+  } else if (v === '-4' || v === '-5') {
+    hint.textContent = `Documented RASS ${v}: too sedated — CAM-ICU is "unable to assess".`;
+  } else if (v === '0') {
+    hint.textContent = 'Documented RASS 0 → Feature 3 negative.';
+  } else {
+    hint.textContent = `Documented RASS ${v} → Feature 3 positive.`;
+  }
 }
 
 function updateCamStrip() {
@@ -325,14 +344,17 @@ export function evalCam() {
     );
   } else {
     // incomplete
+    const needRass = !S.rass;
     const needBoth = S.cam[1] === undefined || S.cam[2] === undefined;
     show(
       'neutral',
       'fa-minus',
       'Incomplete',
-      needBoth
-        ? 'Answer Features 1 and 2 first'
-        : 'Features 1 & 2 positive — assess Feature 3 or 4',
+      needRass
+        ? 'Document the RASS first — the CAM-ICU starts with level of consciousness'
+        : needBoth
+          ? 'Answer Features 1 and 2 first'
+          : 'Features 1 & 2 positive — assess Feature 3 or 4',
       '',
       '',
     );
@@ -342,6 +364,8 @@ export function evalCam() {
 export function updateRass() {
   const v = $('rass').value;
   S.rass = v;
+  updateCamLocHint();
+  evalCam(); // a newly documented (or cleared) RASS changes the CAM verdict gating
   const target = $('set-rass')?.value;
 
   const band = $('rass-band');
@@ -833,18 +857,18 @@ export function autofillExample() {
   });
   recalcRisk();
 
+  const rass = $('rass');
+  if (rass) rass.value = '-1';
+  updateRass();
+
   setCam(1, 'yes');
   const err = $('cam2-err');
   if (err) err.value = '3';
   updateCam2();
-  const loc = $('cam4');
-  if (loc) loc.value = 'abnormal';
-  updateCam4();
-  setCam(3, 'yes');
-
-  const rass = $('rass');
-  if (rass) rass.value = '-1';
-  updateRass();
+  const loc = $('cam-loc');
+  if (loc) loc.value = 'abnormal'; // matches the example's RASS −1 (≠ 0 → positive)
+  updateCamLoc();
+  setCam(4, 'yes');
   setSub('hypo');
   const ct = $('cam-time');
   if (ct && !ct.value) ct.value = localStampInput(8, 30);

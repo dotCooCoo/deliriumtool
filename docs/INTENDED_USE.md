@@ -8,6 +8,8 @@
 
 This tool is an **electronic bedside reference aid** for the recognition, prevention, and supportive management of **delirium in critically ill adults**. It assembles validated screening instruments (CAM-ICU, RASS), a prevention bundle (ABCDEF / ICU Liberation), a structured causative-factor review (DELIRIUM(S)), and cited reference material into a single bedside surface, and produces a printable summary for the chart-adjacent workflow.
 
+Two sibling surfaces share this intended-use framing with their own scopes: the **pediatric ICU tool** at `/peds/` (CAPD, pCAM-ICU, psCAM-ICU with an SBS/RASS arousal gate — the validated pediatric instruments, for clinicians caring for PICU patients) and the **bedside template designer** at `/templates/` (a protocol-configuration tool that prints laminate-ready checklists mirroring this tool's cited content; it takes no patient data at all).
+
 It is intended to **support** the clinical reasoning of a qualified clinician — never to make, direct, or automate a clinical decision. The clinician's independent judgment, the institution's local protocol, and prescriber/pharmacy review govern every action. The user is expected to be able to review, and to choose not to rely on, any suggestion the tool surfaces.
 
 ## 2. Intended users
@@ -49,7 +51,7 @@ In every case, **the clinician's independent assessment, local protocol, and pre
 
 The tool has **not** been designed or validated for, and must not be transplanted unmodified onto, the following. Use a setting- and population-appropriate, locally validated instrument instead.
 
-- **Paediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content are adult instruments. (Paediatric ICU delirium has its own validated tools, e.g., CAPD/pCAM-ICU/psCAM-ICU, RASS-adapted scales — not implemented here.)
+- **Paediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Paediatric ICU delirium has its own validated tools — CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate — implemented in the sibling pediatric tool at `/peds/`, which carries its own sign-off gates.
 - **Pregnancy and the peripartum patient.** Drug-safety, dosing, and risk content are not adjusted for pregnancy or lactation.
 - **General medical/surgical ward and step-down patients.** CAM-ICU/RASS/ABCDEF are not validated outside the ICU; on the ward, use a ward-validated screen (**4AT / 3D-CAM**), as the tool advises.
 - **Peri-operative ward / PACU and procedural sedation** outside the ICU context.
@@ -66,7 +68,7 @@ So that the tool **supports rather than directs**:
 
 ## 9. Pharmacologic note
 
-**No agent is FDA-approved to prevent or treat delirium.** Non-pharmacologic measures are first-line. Antipsychotics **do not treat or shorten delirium** (PADIS gives no recommendation for or against; MIND-USA was negative); where used, they are reserved for **short-term control of dangerous agitation** with a documented safety indication, baseline/serial QTc monitoring, the lowest effective dose, daily reassessment for discontinuation, and no continuation at discharge without a psychiatric indication. Dexmedetomidine is framed to its ventilated-patient sedation niche. All doses shown are **generic starting-point references**, not orders, and must be reconciled with the patient and local policy.
+**No agent is FDA-approved to prevent or treat delirium.** Non-pharmacologic measures are first-line. Antipsychotics **do not treat or shorten delirium** (MIND-USA was negative; PADIS 2025 was unable to recommend for or against); where used, they are reserved for **short-term control of dangerous agitation** with a documented safety indication, baseline/serial QTc monitoring, the lowest effective dose, daily reassessment for discontinuation, and no continuation at discharge without a psychiatric indication. Dexmedetomidine is framed to its ventilated-patient sedation niche. All doses shown are **generic starting-point references**, not orders, and must be reconciled with the patient and local policy.
 
 ## 10. Regulatory posture (device / non-device)
 

@@ -238,7 +238,7 @@ export const NONPHARM = {
  * default defers to the local order set.
  */
 export const PHARM = {
-  cites: ['padis2025', 'mindusa2018', 'haldol_label', 'mends2', 'padis2018'],
+  cites: ['padis2025', 'mindusa2018', 'haldol_label', 'dex_label', 'mends2', 'padis2018'],
   lead: 'Reserve for severe distress or imminent safety risk only',
   leadNote:
     'Antipsychotics do not treat or shorten delirium — medication does not treat the underlying cause.',
@@ -246,7 +246,7 @@ export const PHARM = {
     {
       id: 'ph-haldol',
       drug: 'Haloperidol',
-      text: 'Per local order set · baseline EKG, monitor QTc (caution > 500 ms) · avoid in Parkinson / Lewy body disease · IV route off-label',
+      text: 'Per local order set · baseline EKG, monitor QTc (caution > 500 ms) · avoid in Parkinson / Lewy body disease · IV route off-label — prefer PO/IM, continuous ECG if IV',
       dose: '0.25–0.5 mg q4–6h PRN',
     },
     {
@@ -258,7 +258,7 @@ export const PHARM = {
     {
       id: 'ph-dexmed',
       drug: 'Dexmedetomidine',
-      text: 'Ventilated patients when agitation prevents weaning · monitor bradycardia / hypotension',
+      text: 'Ventilated patients — agitation precluding weaning, or when light sedation / delirium reduction is the priority · monitor bradycardia / hypotension',
       dose: '0.2–0.7 mcg/kg/hr',
     },
     {
@@ -529,7 +529,7 @@ export const SPA_DEEPER = {
       items: [
         {
           id: 'dp-p-haldol',
-          text: 'Haloperidol {haldolDose}for hyperactive delirium with safety risk — baseline EKG, monitor QTc; avoid in Parkinson / Lewy body disease.',
+          text: 'Haloperidol {haldolDose}for hyperactive delirium with safety risk — baseline EKG, monitor QTc; IV route off-label, prefer PO/IM; avoid in Parkinson / Lewy body disease.',
         },
         {
           id: 'dp-p-quetiapine',

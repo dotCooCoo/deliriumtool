@@ -179,10 +179,11 @@ export const MEDS = {
           risk: 'high',
         },
         {
+          // Quaternary ammonium, minimal CNS penetration — review-prompt only;
+          // absent from Beers 2023 Table 7 and the ACB scale, so no higher-risk flag.
           id: 'ach-glycopyrrolate',
           name: 'Glycopyrrolate',
           on: true,
-          risk: 'high',
         },
         {
           id: 'ach-benztropine',

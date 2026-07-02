@@ -537,6 +537,16 @@ function renderFeature(f) {
       grid.append(chip);
     });
     fs.append(grid);
+    if (f.alt) {
+      fs.append(
+        el(
+          'label',
+          { class: 'chk' },
+          checkboxEl('cam-part', f.id, Boolean(cur[f.alt.id]), { 'data-part': f.alt.id }),
+          el('span', { text: f.alt.label }),
+        ),
+      );
+    }
     const n = cur.errors.length;
     fs.append(
       el(

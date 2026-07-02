@@ -8,34 +8,41 @@ Bedside reference for ICU delirium — screening, prevention, and management at 
 > recommendation against the cited primary sources and your institution's policy.
 > Provided "as is", without warranty.
 
-## What it does
+## The three tools
+
+**Adult ICU tool** ([deliriumtool.com](https://deliriumtool.com/)) — the main
+bedside reference:
 
 - **Risk factors** — a predisposing + precipitating checklist. The tally is a
   non-validated heuristic and points you to the validated PRE-DELIRIC /
   E-PRE-DELIRIC models.
-- **CAM-ICU + RASS** — the four-feature CAM-ICU flow with RASS level and motor-subtype.
+- **CAM-ICU + RASS** — the two-step CAM-ICU flow (document the RASS, then the four
+  features; Feature 3 derives from the documented RASS per the Vanderbilt
+  worksheet) with motor-subtype classification.
 - **ABCDEF bundle** — the ICU Liberation prevention bundle as a working checklist.
 - **DELIRIUM(S)** — a causative-factor review mnemonic.
-- **Treatment** — the CAM-positive algorithm: treat causes → intensify non-pharm →
-  pharmacologic safety options.
-- **Medications** — pharmacologic options with cautions, plus a deliriogenic-medication review.
+- **Treatment** — the CAM-positive algorithm: treat causes → intensify
+  non-pharmacologic measures → pharmacologic safety options.
+- **Medications** — pharmacologic options with cautions, plus a
+  deliriogenic-medication review with per-agent toggles.
 - **Documents** — print-ready PDFs generated entirely in the browser.
 
-A companion **pediatric ICU tool** lives at `/peds/`
-([deliriumtool.com/peds](https://deliriumtool.com/peds/)): CAPD, pCAM-ICU, and
-psCAM-ICU screening with age-banded developmental anchors, the pediatric prevention
-bundle, weight-based dosing, and an in-browser summary report — same privacy model.
+**Pediatric ICU tool** ([deliriumtool.com/peds](https://deliriumtool.com/peds/)) —
+CAPD, pCAM-ICU, and psCAM-ICU screening with age-banded developmental anchors and
+an SBS/RASS arousal gate, the pediatric prevention bundle, weight-based dosing
+references, and an in-browser summary report. Same privacy model.
 
-A **bedside template designer** lives at `/templates/`
-([deliriumtool.com/templates](https://deliriumtool.com/templates/)): customize and
-print laminate-ready reference sheets — a per-patient **ICU Delirium Rounding Tool**
-(landscape, marked with a dry-erase pen) and a unit-level **SPA Quick Reference**
-poster. Pick which sections, lines, and deliriogenic medications print, reword any
-line, add your unit's own lines and sections, set the sedation target, and choose
-the print size and font — then print at 100% on Letter paper or save a generated
-two-page PDF. Medication names print generic-only by default (brand names are an
-opt-in). The configuration autosaves locally and can be shared with colleagues as a
-link or JSON file — it carries protocol settings only, never patient data.
+**Bedside template designer**
+([deliriumtool.com/templates](https://deliriumtool.com/templates/)) — customize
+and print laminate-ready reference sheets: a per-patient **ICU Delirium Rounding
+Tool** (landscape, marked with a dry-erase pen) and a unit-level **SPA Quick
+Reference** poster. Pick which sections, lines, and deliriogenic medications
+print, reword any line, add your unit's own lines and sections, set the sedation
+target, and choose the print size and font — then print at 100% on Letter paper or
+save a generated two-page PDF. Every medication prints with its own check-off
+square at any selection size; names are generic-only by default (brand names are
+an opt-in). The configuration autosaves locally and can be shared as a link or
+JSON file — it carries protocol settings only, never patient data.
 
 ## Privacy
 
@@ -78,6 +85,11 @@ npm run test:unit
 npm run test:e2e
 ```
 
+The unit suite pins every clinical cut-point, band, and dose string to its cited
+value (a wrong threshold is treated as a patient-safety bug); the Playwright suite
+covers keyboard operation, screen-reader semantics, print/PDF output, and visual
+regressions for all three tools.
+
 ## Deploy (Cloudflare)
 
 A static site served by Cloudflare Workers (Static Assets), via Wrangler.
@@ -88,19 +100,22 @@ npm run deploy   # or connect the repository for push-to-main deploys
 
 ## Clinical basis
 
-Instruments, thresholds, and citations are documented in
-[docs/CLINICAL_METHODOLOGY.md](docs/CLINICAL_METHODOLOGY.md), with a citation index
-in [references/INDEX.md](references/INDEX.md). Corrections backed by a primary
-source are very welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+Every instrument, threshold, score band, and dose — and the primary source it maps
+to — is documented in
+[docs/CLINICAL_METHODOLOGY.md](docs/CLINICAL_METHODOLOGY.md), with the source
+archive indexed in [references/INDEX.md](references/INDEX.md). The methodology
+document also records the governance model (clinical content ownership, review
+cadence, change log, and instrument-deviation register). Corrections backed by a
+primary source are very welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License & attribution
 
 This repository's own code and documentation are released under the
 [MIT License](LICENSE) (© 2026 dotCooCoo) — free to use, modify, and distribute,
 provided the copyright and licence notice are retained. The clinical instruments
-it references (CAM-ICU, RASS, ICDSC, the ABCDEF/ICU Liberation bundle,
-PRE-DELIRIC, and others) are the work and copyright of their respective authors
-and are used as cited; see
+it references (CAM-ICU, RASS, ICDSC, CAPD, pCAM-ICU, psCAM-ICU, SBS, the
+ABCDEF/ICU Liberation bundle, PRE-DELIRIC, and others) are the work and copyright
+of their respective authors and are used as cited; see
 [docs/CLINICAL_METHODOLOGY.md](docs/CLINICAL_METHODOLOGY.md). The MIT "as is, no
 warranty" terms are separate from — and do not replace — the clinical disclaimer
 that this is a reference aid only, not a validated decision-support device.

@@ -24,7 +24,7 @@ export const PCAM = {
       type: 'errors',
       threshold: 3,
       title: 'Feature 2 — Inattention',
-      task: 'Read the letters aloud, about one per second. The child squeezes your hand on every “A”. Tap each miss — a squeeze on a non-A, or a failure to squeeze on an A.',
+      task: 'Read the letters aloud, about one per second. The child squeezes your hand on every “A”. Tap each miss — a squeeze on a non-A, or a failure to squeeze on an A. (Alternative for children who cannot squeeze: the memory-pictures version — show 5 pictures to memorize, then 10 yes/no recognition pictures; same ≥ 3-error cut.)',
       items: ['A', 'B', 'A', 'D', 'B', 'A', 'D', 'A', 'A', 'Y'],
       itemKind: 'letter',
       verdict: '≥ 3 errors → inattention present',
@@ -40,13 +40,13 @@ export const PCAM = {
       type: 'errors',
       threshold: 2,
       title: 'Feature 4 — Disorganized thinking',
-      task: 'Ask each question; tap each wrong answer. Then give the 2-step command and tap it if not completed.',
+      task: 'Ask each question (alternate set: Is a rock hard? / Do rabbits fly? / Is ice cream cold? / Is a giraffe smaller than a mouse?); tap each wrong answer. Then give the 2-step command and tap it if not completed.',
       items: [
         'Is sugar sweet?',
         'Is ice cream hot?',
         'Do birds fly?',
         'Is an ant bigger than an elephant?',
-        '2-step command: “hold up this many fingers” (show 2), then “now do that with the other hand.”',
+        '2-step command: “hold up this many fingers” (show 2), then “now do that with the other hand” — do not repeat the number of fingers; if the child cannot use both hands, ask them to “add one more finger.”',
       ],
       itemKind: 'prompt',
       verdict: '≥ 2 errors → disorganized thinking present',
@@ -69,10 +69,19 @@ export const PSCAM = {
       type: 'errors',
       threshold: 3,
       title: 'Feature 2 — Inattention',
-      task: 'Move a picture, mirror, or favorite toy side-to-side across the child’s face, ten times. Tap each presentation the child does NOT make eye contact with.',
+      task: 'Move a picture, mirror, or favorite toy side-to-side across the child’s face, ten times, talking to the child throughout as ongoing stimulation. Tap each presentation the child does NOT make eye contact with.',
       items: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
       itemKind: 'count',
-      verdict: '≥ 3 presentations with no eye contact → inattention present',
+      // Second validated positivity path (Smith 2016 Fig. 2 / worksheet criterion 2):
+      // eye contact on 8+ presentations still scores present if the child cannot
+      // keep their eyes open without continual verbal prompting.
+      alt: {
+        id: 'eyeOpen',
+        label:
+          'Eye contact on 8+ presentations BUT unable to maintain sustained eye opening for at least half the assessment despite verbal prompts',
+      },
+      verdict:
+        '≥ 3 presentations with no eye contact, OR unable to maintain eye opening despite prompts → inattention present',
     },
     {
       id: 'f3',

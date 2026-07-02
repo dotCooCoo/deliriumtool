@@ -83,8 +83,11 @@ export function inattentionPositive(errors) {
 /**
  * Evaluate the CAM-ICU result from the four features and the current RASS.
  *
- * Arousal gate: RASS -4/-5 → 'unable' (too sedated to assess). Otherwise the
- * standard rule — Positive if Feature 1 AND Feature 2 AND (Feature 3 OR 4).
+ * The instrument is a two-step assessment: level of consciousness (RASS)
+ * first, features second — so no definitive verdict is returned until a RASS
+ * is documented. Arousal gate: RASS -4/-5 → 'unable' (too sedated to assess).
+ * Otherwise the standard rule — Positive if Feature 1 AND Feature 2 AND
+ * (Feature 3 OR 4).
  *
  * @param {{f1?:string,f2?:string,f3?:string,f4?:string,rass?:string}} features
  *   each feature is 'yes' | 'no' | undefined (not yet assessed)
@@ -92,6 +95,7 @@ export function inattentionPositive(errors) {
  */
 export function evalCam({ f1, f2, f3, f4, rass } = {}) {
   if (rass === '-4' || rass === '-5') return 'unable';
+  if (rass === undefined || rass === null || rass === '') return null; // document RASS first
 
   const f1Set = f1 !== undefined,
     f2Set = f2 !== undefined;

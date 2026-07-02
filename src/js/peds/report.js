@@ -22,10 +22,12 @@ applyPlugin(jsPDF);
 
 const SCREEN_REF = { capd: 'traube2014_capd', pcam: 'smith2011_pcam', pscam: 'smith2016_pscam' };
 const MED_REF = {
-  risperidone: 'campbell2020_risperidone',
+  dexmed: 'phan2008_dexmed',
+  risperidone: 'capino2020',
   quetiapine: 'joyce2015_quetiapine',
-  haloperidol: 'haldol_label',
-  melatonin: 'melatonin_meta2025',
+  olanzapine: 'capino2020',
+  haloperidol: 'capino2020',
+  melatonin: 'bruni2015_melatonin',
 };
 
 const INK = [31, 42, 48];

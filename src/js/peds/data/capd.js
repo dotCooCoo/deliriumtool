@@ -11,15 +11,19 @@ export const CAPD_FREQ = ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'];
 
 // Surfaced at the result when baseline developmental delay is flagged.
 export const CAPD_DEV_DELAY_NOTE =
-  'In developmental delay, specificity at ≥ 9 falls; interpret against the child’s own baseline.';
+  'In developmental delay, specificity at ≥ 9 falls to ~51% (Traube 2014: 51.2%); interpret against the child’s own baseline and consider a higher cut point (per Traube 2014, delayed children scoring > 9 warrant psychiatric assessment).';
 
-// Developmental-age bands for the anchor table. The dev-age → band cut points are
-// pragmatic (for showing the right inline hint) and do not change any score.
+// Developmental-age bands for the anchor table. The source defines point-age
+// columns (NB, 4 wk, 6 wk, 8 wk, 28 wk, 1 yr, 2 yr), so each band starts at the
+// labeled age it represents — a child at or past a labeled age sees that
+// column's anchors (cuts at 4 wk ≈ 0.92 mo, 6 wk ≈ 1.38, 8 wk ≈ 1.84,
+// 28 wk ≈ 6.44 mo; weeks converted at 7/30.44 days per month). Score-neutral:
+// the band only picks which inline hint is shown.
 export const CAPD_BANDS = [
-  { id: 'nb', label: 'Newborn', maxMonths: 1 },
-  { id: '4wk', label: '4 weeks', maxMonths: 1.5 },
-  { id: '6wk', label: '6 weeks', maxMonths: 2 },
-  { id: '8wk', label: '8 weeks', maxMonths: 7 },
+  { id: 'nb', label: 'Newborn', maxMonths: 0.92 },
+  { id: '4wk', label: '4 weeks', maxMonths: 1.38 },
+  { id: '6wk', label: '6 weeks', maxMonths: 1.84 },
+  { id: '8wk', label: '8 weeks', maxMonths: 6.44 },
   { id: '28wk', label: '28 weeks', maxMonths: 12 },
   { id: '1yr', label: '1 year', maxMonths: 24 },
   { id: '2yr', label: '2 years+', maxMonths: Infinity },

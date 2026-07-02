@@ -75,6 +75,17 @@ test('capdBand maps developmental age (months) to the anchor band', () => {
   assert.equal(capdBand(null), null);
 });
 
+test('capdBand: a child at a labeled anchor age sees that column, not the previous one', () => {
+  // The source defines point-age columns (28 wk ≈ 6.44 mo, etc.); each band
+  // starts at the age it is labeled with.
+  assert.equal(capdBand(6.5), '28wk'); // ~28-week-old gets the 28-week anchors
+  assert.equal(capdBand(1), '4wk'); // ~4 weeks
+  assert.equal(capdBand(1.4), '6wk'); // ~6 weeks
+  assert.equal(capdBand(1.9), '8wk'); // ~8 weeks
+  assert.equal(capdBand(12), '1yr');
+  assert.equal(capdBand(24), '2yr');
+});
+
 test('CAM algorithm over resolved features: F1 AND F2 AND (F3 OR F4)', () => {
   assert.equal(evalCam({ f1: true, f2: true, f3: true }), 'positive');
   assert.equal(evalCam({ f1: true, f2: true, f3: false, f4: true }), 'positive');
@@ -94,6 +105,13 @@ test('featurePresent resolves judgment / error-tally / compound features', () =>
   assert.equal(featurePresent(err, { performed: true, errors: [0, 1] }), false);
   assert.equal(featurePresent(err, { performed: false, errors: [0, 1, 2] }), null); // not performed
   assert.equal(featurePresent(err, null), null);
+
+  // psCAM Feature 2's second positivity path (Smith 2016): eye contact kept on
+  // 8+ presentations but eye opening not sustained without verbal prompts.
+  const errAlt = { type: 'errors', threshold: 3, alt: { id: 'eyeOpen' } };
+  assert.equal(featurePresent(errAlt, { performed: true, errors: [0], eyeOpen: true }), true);
+  assert.equal(featurePresent(errAlt, { performed: true, errors: [0], eyeOpen: false }), false);
+  assert.equal(featurePresent(errAlt, { performed: false, errors: [], eyeOpen: true }), null);
 
   const comp = { type: 'compound' };
   assert.equal(featurePresent(comp, { performed: true, swc: true }), true);
