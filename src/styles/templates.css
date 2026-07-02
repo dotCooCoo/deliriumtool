@@ -387,6 +387,7 @@ details[open] > summary::before {
 /* ── The sheets (shared print design system) ───────────────────────────── */
 
 .sheet {
+  position: relative; /* children's offsetTop is sheet-relative for the fit math */
   /* Effective type scale = user text-size choice × per-template factor ×
      auto-fit factor (stepped down only when a page would overflow). Every
      size on the sheet is a pt value multiplied by --fs, so all compose. */
@@ -439,7 +440,7 @@ details[open] > summary::before {
   line-height: 1.16;
 }
 .sheets.fs-110 .sh-item {
-  margin: 1.6pt 0;
+  margin: calc(1.6pt * var(--item-pad, 1)) 0;
 }
 .sheets.fs-110 .sh-cell-body {
   padding: 3pt 5pt;
@@ -526,12 +527,29 @@ details[open] > summary::before {
   color: #a0b8c4;
   font-size: calc(9pt * var(--fs));
 }
-.sh-head-fields {
+/* Patient / Room / Date on a light row under the title band — a printed
+   sheet takes a dark pen, and the patient blank stretches for a full name. */
+.sh-head-meta {
   display: flex;
-  gap: 0.18in;
-  color: #a0b8c4;
+  gap: 0.25in;
+  align-items: baseline;
+  color: var(--sh-ink);
   font-size: calc(9.5pt * var(--fs));
+  font-weight: 600;
+  padding: calc(2pt * var(--fs)) calc(2pt * var(--fs)) 0;
   white-space: nowrap;
+}
+.sh-head-meta > span:first-child {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: calc(4pt * var(--fs));
+}
+.sh-head-meta .sh-blank {
+  border-bottom-color: var(--sh-ink);
+}
+.sh-head-meta .sh-blank.grow {
+  flex: 1;
 }
 
 .sh-blank {
@@ -566,11 +584,22 @@ details[open] > summary::before {
   display: flex;
   gap: calc(4pt * var(--fs));
   align-items: flex-start;
-  margin: calc(2pt * var(--fs)) 0;
+  /* --item-pad grows when the page has slack — the check rows across every
+     section gain breathing room instead of leaving dead space. */
+  margin: calc(2pt * var(--fs) * var(--item-pad, 1)) 0;
 }
+/* Status-strip options (CAM result + subtype) share one size; the CAM
+   options keep the heavier weight as the primary result. Both get roomier
+   spacing between rows via --item-pad. */
 .sh-item--lg {
-  font-size: calc(10.5pt * var(--fs));
+  font-size: calc(9pt * var(--fs));
   font-weight: 600;
+}
+.sh-item--md {
+  font-size: calc(9pt * var(--fs));
+}
+.sh-cell-body .sh-item {
+  margin: calc(3pt * var(--fs) * var(--item-pad, 1)) 0;
 }
 .sh-item--tight {
   margin: 0;
@@ -582,7 +611,8 @@ details[open] > summary::before {
 
 .sh-strip {
   display: grid;
-  grid-template-columns: 1fr 1.05fr 1.15fr 1.5fr;
+  /* Subtype gets the widest text — sized so its options hold one line. */
+  grid-template-columns: 0.9fr 1.1fr 1.28fr 1.4fr;
   gap: calc(4pt * var(--fs));
 }
 .sh-cell {
@@ -705,6 +735,8 @@ details[open] > summary::before {
   gap: calc(3pt * var(--fs));
 }
 .sh-mnem-cell {
+  display: flex;
+  flex-direction: column;
   border: 0.9pt solid var(--tone, var(--sh-border));
   border-radius: 3px;
   padding: calc(3pt * var(--fs)) calc(5pt * var(--fs));
@@ -735,7 +767,9 @@ details[open] > summary::before {
   gap: 3pt;
   font-size: calc(8.5pt * var(--fs));
   color: var(--sh-slate);
-  margin-top: calc(2pt * var(--fs));
+  /* Bottom-justified so the write-in blanks align across the row of cells. */
+  margin-top: auto;
+  padding-top: calc(2pt * var(--fs));
 }
 .sh-action .sh-blank {
   flex: 1;

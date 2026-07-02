@@ -524,7 +524,23 @@ function packUnifiedMosaic(sheets) {
 function autoFitMeds(sheets) {
   for (const sheet of sheets) {
     const meds = sheet.querySelector('.sh-meds');
-    const over = () => sheet.scrollHeight > sheet.clientHeight + 2;
+    // Fit is judged in the sheet's own coordinate space (offsetTop is immune
+    // to the preview transform, and unlike scrollHeight it also reports free
+    // space below the content, not just overflow past the edge).
+    const padB = parseFloat(getComputedStyle(sheet).paddingBottom) || 0;
+    // The footer rides at the page bottom (margin-top auto) — exclude it and
+    // treat its top edge as the limit the content may grow to.
+    const foot = sheet.querySelector(':scope > .sh-foot');
+    const limit = () => sheet.clientHeight - padB - (foot ? foot.offsetHeight + 2 : 0);
+    const contentBottom = () => {
+      let m = 0;
+      for (const c of sheet.children) {
+        if (c === foot) continue;
+        m = Math.max(m, c.offsetTop + c.offsetHeight);
+      }
+      return m;
+    };
+    const over = () => contentBottom() > limit() + 2 || sheet.scrollHeight > sheet.clientHeight + 2;
     let guard = 40;
     while (over() && guard-- > 0) {
       if (meds) {
@@ -542,33 +558,29 @@ function autoFitMeds(sheets) {
     }
     // Grow phase: give free space back to the medication list — capped near
     // the neighboring sections' type size so the sheet reads uniformly (extra
-    // slack becomes line padding, not ever-larger names). The revert check
-    // allows no slack, so growth can never leave the page even a pixel past
-    // its edge.
-    const snug = () => sheet.scrollHeight > sheet.clientHeight;
+    // slack becomes line padding, not ever-larger names). Growth keeps 4px of
+    // headroom so platform font-rounding differences can never push the page
+    // past its edge.
+    const snug = () => contentBottom() > limit() - 4;
+    const growVar = (target, name, step, cap) => {
+      let g = 10;
+      while (g-- > 0) {
+        const cur = parseFloat(target.style.getPropertyValue(name)) || 1;
+        if (cur >= cap) break;
+        target.style.setProperty(name, (cur + step).toFixed(2));
+        if (snug()) {
+          target.style.setProperty(name, cur.toFixed(2));
+          break;
+        }
+      }
+    };
     if (meds && !snug()) {
-      let grow = 12;
-      while (grow-- > 0) {
-        const cur = parseFloat(meds.style.getPropertyValue('--med-shrink')) || 1;
-        if (cur >= 1.12) break;
-        meds.style.setProperty('--med-shrink', (cur + 0.04).toFixed(2));
-        if (snug()) {
-          meds.style.setProperty('--med-shrink', cur.toFixed(2));
-          break;
-        }
-      }
+      growVar(meds, '--med-shrink', 0.04, 1.12);
       // Remaining slack becomes breathing room between check-off lines.
-      let pad = 8;
-      while (pad-- > 0) {
-        const cur = parseFloat(meds.style.getPropertyValue('--med-pad')) || 1;
-        if (cur >= 2.2) break;
-        meds.style.setProperty('--med-pad', (cur + 0.15).toFixed(2));
-        if (snug()) {
-          meds.style.setProperty('--med-pad', cur.toFixed(2));
-          break;
-        }
-      }
+      growVar(meds, '--med-pad', 0.15, 2.2);
     }
+    // Every section's check rows share the leftover space as padding.
+    if (!snug()) growVar(sheet, '--item-pad', 0.12, 2);
   }
 }
 

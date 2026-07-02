@@ -161,23 +161,27 @@ function band(tone, text, icon) {
 function roundingHead(state) {
   const t = tplDef(state);
   const unit = state.unit.trim();
-  return el(
-    'div',
-    { class: 'sh-head' },
+  // Patient / Room / Date live on a light row under the title band so the
+  // printed sheet takes a dark pen.
+  return [
     el(
       'div',
-      { class: 'sh-head-titles' },
-      el('div', { class: 'sh-title', text: t.defaultTitle }),
-      el('div', { class: 'sh-sub', text: t.defaultSubtitle + (unit ? ` · ${unit}` : '') }),
+      { class: 'sh-head' },
+      el(
+        'div',
+        { class: 'sh-head-titles' },
+        el('div', { class: 'sh-title', text: t.defaultTitle }),
+        el('div', { class: 'sh-sub', text: t.defaultSubtitle + (unit ? ` · ${unit}` : '') }),
+      ),
     ),
     el(
       'div',
-      { class: 'sh-head-fields' },
-      el('span', {}, 'Patient: ', blank('w-lg')),
+      { class: 'sh-head-meta' },
+      el('span', {}, 'Patient: ', blank('w-lg grow')),
       el('span', {}, 'Room: ', blank('w-sm')),
       el('span', {}, 'Date: ', blank('w-md')),
     ),
-  );
+  ];
 }
 
 function rassMiniTable(state) {
@@ -220,7 +224,7 @@ function statusStrip(state) {
     cell(
       'slate',
       'Delirium subtype',
-      STATUS.subtype.options.map((t) => checkItem(t)),
+      STATUS.subtype.options.map((t) => checkItem(t, 'sh-item--md')),
     ),
     cell('rust', 'RASS this assessment', [rassMiniTable(state)]),
   );
@@ -477,7 +481,7 @@ function renderRounding(state) {
   const page1 = el(
     'div',
     { class: 'sheet sheet--landscape' },
-    roundingHead(state),
+    ...roundingHead(state),
     statusStrip(state),
     secOn(state, 'sec-mnemonic') ? mnemonicSection(state) : null,
     secOn(state, 'sec-nonpharm') ? nonpharmSection(state) : null,
