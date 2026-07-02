@@ -121,7 +121,7 @@ function addFields(doc, sheet, pageW, pageH, seq) {
   if (circles.length) {
     try {
       const group = new AcroFormRadioButton();
-      group.fieldName = `rass_${++seq}`;
+      group.fieldName = `arousal_${++seq}`;
       group.value = '';
       doc.addField(group);
       circles.forEach((el, i) => {
@@ -159,8 +159,8 @@ function addFields(doc, sheet, pageW, pageH, seq) {
 export async function downloadPdf(state) {
   const sheets = [...document.querySelectorAll('#sheets .sheet')];
   if (!sheets.length) return;
-  const rounding = state.template !== 'spa';
-  const orientation = rounding ? 'landscape' : 'portrait';
+  const t = TEMPLATES.find((x) => x.id === state.template) || TEMPLATES[0];
+  const orientation = t.orientation;
   const wrapClass = document.getElementById('sheets').className;
   const doc = new jsPDF({ unit: 'pt', format: 'letter', orientation });
   const pageW = doc.internal.pageSize.getWidth();
@@ -172,9 +172,10 @@ export async function downloadPdf(state) {
     doc.addImage(png, 'JPEG', 0, 0, pageW, pageH);
     seq = addFields(doc, sheets[i], pageW, pageH, seq);
   }
-  const t = TEMPLATES.find((x) => x.id === state.template) || TEMPLATES[0];
+  const scaleTag =
+    state.template === 'peds-cards' ? ` (${state.pedsScale === 'sbs' ? 'SBS' : 'RASS'})` : '';
   doc.setProperties({
-    title: t.name,
+    title: t.name + scaleTag,
     subject: 'Bedside delirium reference sheet — reference aid only',
     keywords: 'delirium, CAM-ICU, RASS, ABCDEF, ICU, reference aid',
   });
@@ -190,6 +191,12 @@ export async function downloadPdf(state) {
     .map((v) => slug(v || ''))
     .filter(Boolean)
     .join('_');
-  const fname = rounding ? 'icu-delirium-rounding-tool' : 'spa-delirium-quick-reference';
+  const fname =
+    {
+      rounding: 'icu-delirium-rounding-tool',
+      spa: 'spa-delirium-quick-reference',
+      'peds-cards': `peds-delirium-card-set-${state.pedsScale === 'sbs' ? 'sbs' : 'rass'}`,
+      'peds-workflow': 'picu-delirium-workflow',
+    }[state.template] || 'delirium-template';
   doc.save(`${fname}${suffix ? `_${suffix}` : ''}.pdf`);
 }

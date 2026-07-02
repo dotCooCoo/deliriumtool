@@ -24,6 +24,15 @@ import { DELIRIUM_REFS } from '../data/refs.js';
 import { renderSheets } from './sheets.js';
 import { downloadPdf } from './pdf.js';
 import {
+  ACT_POSITIVE,
+  PREVENT_BUNDLE,
+  PREVENT_MEASURES,
+  WORKFLOW_STAGES,
+  ROUNDS_SCRIPT,
+  PEDS_FOOTER_CITES,
+  PEDS_REFS,
+} from './data/peds-content.js';
+import {
   defaultState,
   sanitize,
   isOn,
@@ -72,6 +81,79 @@ let shared = false;
 
 /** Group descriptors for the active template's per-item controls. */
 function controlGroups(tplId) {
+  if (tplId === 'peds-cards') {
+    // Protocol content is fully editable; validated instrument text (arousal
+    // rows, CAPD items, CAM features/scripts/thresholds, age routing) is not.
+    return [
+      {
+        section: 'sec-pc-act',
+        groups: [
+          {
+            id: 'act-first',
+            head: 'First — same hour',
+            fixedHead: true,
+            items: ACT_POSITIVE.first,
+            custom: true,
+          },
+          {
+            id: 'act-bundle',
+            head: 'Bundle levers',
+            fixedHead: true,
+            items: ACT_POSITIVE.bundle,
+            custom: true,
+          },
+          {
+            id: 'act-escalate',
+            head: 'Escalation',
+            fixedHead: true,
+            items: ACT_POSITIVE.escalate,
+            custom: true,
+          },
+        ],
+      },
+      {
+        section: 'sec-pc-prevent',
+        groups: [
+          {
+            id: 'prev-bundle',
+            head: 'ABCDEF bundle cells',
+            fixedHead: true,
+            items: PREVENT_BUNDLE.map((c) => ({ id: c.id, text: c.text, prefix: `${c.ltr} — ` })),
+          },
+          {
+            id: 'prev-measures',
+            head: 'Non-pharmacologic measures',
+            fixedHead: true,
+            items: PREVENT_MEASURES,
+            custom: true,
+          },
+        ],
+      },
+    ];
+  }
+  if (tplId === 'peds-workflow') {
+    return [
+      {
+        section: 'sec-wf-poster',
+        groups: [
+          ...WORKFLOW_STAGES.map((st) => ({
+            id: st.id,
+            head: st.head,
+            fixedHead: true,
+            // Locked lines carry validated values — never editable.
+            items: st.lines.filter((l) => !l.locked),
+            custom: true,
+          })),
+          {
+            id: 'rounds-script',
+            head: 'Rounds script',
+            fixedHead: true,
+            items: ROUNDS_SCRIPT,
+          },
+        ],
+      },
+    ];
+  }
   if (tplId === 'rounding') {
     return [
       {
@@ -189,7 +271,10 @@ function buildSectionControls() {
         swInput,
         el('span', {}, el('strong', { text: sec.label })),
       ),
-      el('span', { class: 'sec-ctl-page', text: `p.${sec.page}` }),
+      el('span', {
+        class: 'sec-ctl-page',
+        text: state.template.startsWith('peds') ? '' : `p.${sec.page}`,
+      }),
     );
     const wrap = el('div', { class: 'sec-ctl' }, head);
     if (sec.local) {
@@ -239,7 +324,7 @@ function buildSectionControls() {
               input,
               el('span', { text: (item.prefix || '') + text }),
             ),
-            editButton(item.id, text),
+            g.noEdit ? null : editButton(item.id, text),
           );
           groupEl.append(row);
         }
@@ -303,7 +388,7 @@ function buildSectionControls() {
         el(
           'span',
           { class: 'sec-ctl-page' },
-          `p.${sec.page} `,
+          sec.page === 0 ? 'own card ' : `p.${sec.page} `,
           el(
             'button',
             {
@@ -442,8 +527,21 @@ function reflectFields() {
   $('#f-doses').checked = state.showDoses;
   $('#f-brands').checked = state.showBrands;
   $('#f-med-layout').value = state.medLayout;
+  $('#f-peds-scale').value = state.pedsScale;
   $$('input[name="template"]').forEach((r) => {
     r.checked = r.value === state.template;
+  });
+  // Controls scoped to one template (data-tpl) hide elsewhere; adult-only
+  // controls (data-adult) hide on the peds templates.
+  const peds = state.template.startsWith('peds');
+  $$('[data-tpl]').forEach((n) => {
+    n.hidden = n.dataset.tpl !== state.template;
+  });
+  $$('[data-adult]').forEach((n) => {
+    n.hidden = peds;
+  });
+  $$('[data-no-poster]').forEach((n) => {
+    n.hidden = state.template === 'peds-workflow';
   });
 }
 
@@ -451,9 +549,16 @@ function buildRefs() {
   const mount = $('#tpl-refs');
   if (!mount) return;
   mount.replaceChildren();
-  const keys = [...new Set([...FOOTER_CITES.rounding, ...FOOTER_CITES.spa])];
+  const keys = [
+    ...new Set([
+      ...FOOTER_CITES.rounding,
+      ...FOOTER_CITES.spa,
+      ...PEDS_FOOTER_CITES['peds-cards'],
+      ...PEDS_FOOTER_CITES['peds-workflow'],
+    ]),
+  ];
   for (const k of keys) {
-    const ref = DELIRIUM_REFS[k];
+    const ref = DELIRIUM_REFS[k] || PEDS_REFS[k];
     if (!ref) continue;
     mount.append(el('li', {}, el('a', { href: ref.u, target: '_blank', rel: 'noopener' }, ref.c)));
   }
@@ -676,7 +781,13 @@ function onChange(e) {
   const act = t.dataset.act;
   if (t.name === 'template') {
     state.template = t.value;
+    reflectFields();
     update({ rebuildControls: true });
+    return;
+  }
+  if (t.id === 'f-peds-scale') {
+    state.pedsScale = t.value;
+    update();
     return;
   }
   if (act === 'secToggle') {
@@ -848,12 +959,17 @@ async function onClick(e) {
         announce('Up to four custom sections are supported.');
         break;
       }
-      const page = $('#f-newsec-page').value === '2' ? 2 : 1;
+      const ownPage = state.template === 'peds-cards';
+      const page = ownPage ? 0 : $('#f-newsec-page').value === '2' ? 2 : 1;
       const id = `cs-${Date.now().toString(36)}`;
       state.customSections.push({ id, page, title, lines: [] });
       $('#f-newsec-title').value = '';
       update({ rebuildControls: true });
-      announce(`Section "${title}" added to page ${page} — now add its lines.`);
+      announce(
+        ownPage
+          ? `Section "${title}" added as its own card — now add its lines.`
+          : `Section "${title}" added to page ${page} — now add its lines.`,
+      );
       break;
     }
     case 'removeSection':

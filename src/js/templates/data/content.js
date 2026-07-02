@@ -31,6 +31,24 @@ export const TEMPLATES = [
     defaultTitle: 'SPA Quick Reference — Delirium Prevention & Management',
     defaultSubtitle: 'High-impact, high-frequency actions for delirium prevention & management',
   },
+  {
+    id: 'peds-cards',
+    name: 'Peds Delirium Card Set',
+    desc: 'PICU bedside card set — arousal gate, screen routing, CAPD, ps/pCAM-ICU, action cards, and attention picture cards. Print portrait, laminate, ring-bind.',
+    orientation: 'portrait',
+    pages: 10,
+    defaultTitle: 'Pediatric Delirium Card Set',
+    defaultSubtitle: 'PICU bedside screening & action cards',
+  },
+  {
+    id: 'peds-workflow',
+    name: 'PICU Delirium Workflow',
+    desc: 'Unit workflow poster — screen → arousal gate → score → act, with the 10-second rounds script. Print landscape for the charting station.',
+    orientation: 'landscape',
+    pages: 1,
+    defaultTitle: 'Pediatric Delirium Workflow',
+    defaultSubtitle: 'Screen · gate · score · act — every child, every shift',
+  },
 ];
 
 /** RASS rows in the compact grouped form used on the printed sheets. */
@@ -645,6 +663,17 @@ export const SECTIONS = {
     { id: 'sec-meds', label: 'Deliriogenic medications', page: 2 },
     { id: 'sec-escalation', label: 'Escalation ladder', page: 2 },
   ],
+  'peds-cards': [
+    { id: 'sec-pc-arousal', label: 'Arousal card (RASS / SBS gate)', page: 1 },
+    { id: 'sec-pc-router', label: 'Choose-the-screen card', page: 2 },
+    { id: 'sec-pc-capd', label: 'CAPD card', page: 3 },
+    { id: 'sec-pc-pscam', label: 'psCAM-ICU card', page: 4 },
+    { id: 'sec-pc-pcam', label: 'pCAM-ICU card', page: 5 },
+    { id: 'sec-pc-act', label: 'Act-on-a-positive card', page: 6 },
+    { id: 'sec-pc-prevent', label: 'Prevention bundle card', page: 7 },
+    { id: 'sec-pc-stim', label: 'Attention picture cards', page: 8 },
+  ],
+  'peds-workflow': [{ id: 'sec-wf-poster', label: 'Workflow poster', page: 1 }],
 };
 
 /** Footer source-line citation keys, per template (labels resolve in refs.js). */

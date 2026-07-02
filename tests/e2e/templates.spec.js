@@ -295,3 +295,175 @@ test('designer has no serious accessibility violations (both templates)', async 
       .join(', '),
   ).toBe('');
 });
+
+// ── Peds card set + workflow poster ──────────────────────────────────────────
+
+test('peds card set renders all ten pages with the arousal gate and picture deck', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await expect(page.locator('.sheet')).toHaveCount(10);
+  // Arousal card: full RASS ladder with fillable circles and both gate bars.
+  const arousal = page.locator('.sheet').first();
+  await expect(arousal.locator('.pc-lrow')).toHaveCount(10);
+  await expect(arousal.locator('.sh-rass-box')).toHaveCount(10);
+  await expect(arousal.locator('.pc-gate--go')).toContainText('RASS ≥ −3');
+  await expect(arousal.locator('.pc-gate--stop')).toContainText('unable to assess');
+  // Picture deck: 10 stimulus cards + the instructions cell across 3 pages.
+  await expect(page.locator('.pc-stim')).toHaveCount(11);
+  await expect(page.locator('.pc-stim--instr')).toHaveCount(1);
+  // Protocol content is editable; validated-instrument text is not — the
+  // sidebar offers act/prevention/picture toggles but nothing for the CAPD
+  // items, CAM features, or arousal rows.
+  await expect(page.locator('#ctrl-sections details')).toHaveCount(2);
+  await expect(page.locator('button[data-act="editText"][data-id="act-consult"]')).toBeAttached();
+  expect(await page.locator('input[data-act="itemToggle"][data-id^="capd"]').count()).toBe(0);
+  // Picture cards toggle but are not reword-able.
+  expect(await page.locator('button[data-act="editText"][data-id^="stim-"]').count()).toBe(0);
+});
+
+test('peds card set is a full builder: toggles, rewording, unit lines, own-card sections', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  // The picture deck is fixed — the printed procedure needs all ten pictures.
+  await expect(page.locator('.pc-stim')).toHaveCount(11);
+  expect(await page.locator('input[data-act="itemToggle"][data-id^="stim-"]').count()).toBe(0);
+  // Reword an act line inline (the group lives in a collapsed disclosure).
+  await page
+    .locator('#ctrl-sections details')
+    .first()
+    .evaluate((d) => {
+      d.open = true;
+    });
+  await page
+    .locator('button[data-act="editText"][data-id="act-consult"]')
+    .evaluate((el) => el.click());
+  await page.locator('.edit-input').fill('Call the PICU delirium champion first.');
+  await page.locator('.edit-input').press('Enter');
+  await expect(page.locator('.pc-act').last()).toContainText('delirium champion');
+  // Add a unit line to a block.
+  const addLine = page.locator('button[data-act="addLine"][data-group="act-first"]');
+  await addLine.evaluate((b, v) => {
+    b.parentElement.querySelector('.custom-add-input').value = v;
+  }, 'Page the fellow if CAPD ≥ 9 twice.');
+  await addLine.evaluate((b) => b.click());
+  await expect(page.locator('.pc-act').first()).toContainText('Page the fellow');
+  // A custom section prints as its own card page.
+  await page.fill('#f-newsec-title', 'Unit huddle checklist');
+  await page.click('[data-act="addSection"]');
+  const secBtn = page.locator('button[data-act="addSecLine"]').first();
+  await secBtn.evaluate((b, v) => {
+    b.parentElement.querySelector('.custom-add-input').value = v;
+  }, 'Confirm CAPD documented in EHR');
+  await secBtn.evaluate((b) => b.click());
+  await expect(page.locator('.sheet')).toHaveCount(11);
+  await expect(page.locator('.pc-custom')).toContainText('Unit huddle checklist');
+});
+
+test('workflow poster lines toggle and reword like the sheets', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await page
+    .locator('input[data-act="itemToggle"][data-id="wf-screen-why"]')
+    .evaluate((el) => el.click());
+  await expect(page.locator('.pc-stage').first()).not.toContainText('point prevalence');
+});
+
+test('peds arousal card switches to SBS with its own gate values', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await page.selectOption('#f-peds-scale', 'sbs');
+  const arousal = page.locator('.sheet').first();
+  await expect(arousal.locator('.pc-lrow')).toHaveCount(6);
+  await expect(arousal.locator('.pc-gate--go')).toContainText('SBS ≥ −1');
+  await expect(arousal.locator('.pc-gate--stop')).toContainText('SBS −2 / −3');
+});
+
+test('peds templates hide adult-only controls and show the scale picker', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await expect(page.locator('#f-peds-scale')).toBeVisible();
+  await expect(page.locator('section[aria-labelledby="h-meds"]')).toBeHidden();
+  await expect(page.locator('#f-rass-target')).toBeHidden();
+  await page.check('input[name="template"][value="rounding"]');
+  await expect(page.locator('#f-peds-scale')).toBeHidden();
+  await expect(page.locator('section[aria-labelledby="h-meds"]')).toBeVisible();
+});
+
+test('PICU workflow poster renders one landscape page with the rounds script', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+  await expect(page.locator('.sheet')).toHaveClass(/sheet--landscape/);
+  await expect(page.locator('.pc-stage')).toHaveCount(4);
+  await expect(page.locator('.pc-rounds').first()).toContainText('say these four things');
+});
+
+test('peds card set saves a PDF named for the card set', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  const download = page.waitForEvent('download');
+  await page.click('.preview-bar [data-act="pdf"]');
+  expect((await download).suggestedFilename()).toMatch(
+    /^peds-delirium-card-set-rass_\d{4}-\d{2}-\d{2}\.pdf$/,
+  );
+});
+
+test('peds cards are portrait pages that fit at every size, font, and scale', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  for (const scale of ['rass', 'sbs']) {
+    await page.selectOption('#f-peds-scale', scale);
+    for (const fs of ['90', '100', '110']) {
+      await page.selectOption('#f-font-scale', fs);
+      await page.waitForTimeout(250);
+      const bad = await page.$$eval('.sheet', (sheets) =>
+        sheets
+          .map((sh, i) => ({
+            i,
+            portrait: sh.offsetHeight > sh.offsetWidth,
+            overflow: sh.scrollHeight > sh.clientHeight + 2,
+          }))
+          .filter((r) => !r.portrait || r.overflow),
+      );
+      expect(bad, `scale=${scale} fs=${fs}: ${JSON.stringify(bad)}`).toEqual([]);
+    }
+  }
+});
+
+test('workflow poster section switch removes the poster', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+  await page.uncheck('#sw-sec-wf-poster');
+  await expect(page.locator('.sheet')).toHaveCount(0);
+  await page.check('#sw-sec-wf-poster');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+});
+
+test('workflow poster validated lines are locked (no toggle, no reword)', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  expect(await page.locator('[data-id="wf-score-positive"]').count()).toBe(0);
+  expect(await page.locator('[data-id="wf-gate-floor"]').count()).toBe(0);
+  await expect(page.locator('.pc-stage-line', { hasText: 'CAPD ≥ 9' })).toBeVisible();
+});
+
+test('peds selections survive reload and the poster passes the axe scan', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await page.selectOption('#f-peds-scale', 'sbs');
+  await page.waitForTimeout(700);
+  await page.reload();
+  await expect(page.locator('input[name="template"][value="peds-cards"]')).toBeChecked();
+  await expect(page.locator('#f-peds-scale')).toHaveValue('sbs');
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await page.waitForTimeout(400);
+  const results = await new AxeBuilder({ page }).analyze();
+  const serious = results.violations.filter(
+    (v) => v.impact === 'serious' || v.impact === 'critical',
+  );
+  expect(serious.map((v) => v.id).join(', ')).toBe('');
+});
+
+test('peds card set has no serious accessibility violations', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await page.waitForTimeout(400);
+  const results = await new AxeBuilder({ page }).analyze();
+  const serious = results.violations.filter(
+    (v) => v.impact === 'serious' || v.impact === 'critical',
+  );
+  expect(serious.map((v) => v.id).join(', ')).toBe('');
+});

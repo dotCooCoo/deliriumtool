@@ -23,64 +23,25 @@ import {
   SHEET_DISCLAIMER,
 } from './data/content.js';
 import { MEDS } from '../data/meds.js';
+import { PEDS_FOOTER_CITES, PEDS_CITE_LABELS } from './data/peds-content.js';
+import { renderPedsCards, renderPedsWorkflow } from './peds-cards.js';
 import { DELIRIUM_REFS } from '../data/refs.js';
-import { isOn } from './state.js';
 import { faIcon } from '../shared/dom.js';
-
-function el(tag, props, ...kids) {
-  const node = document.createElement(tag);
-  if (props) {
-    for (const [k, v] of Object.entries(props)) {
-      if (k === 'class') node.className = v;
-      else if (k === 'text') node.textContent = v;
-      else node.setAttribute(k, String(v));
-    }
-  }
-  for (const kid of kids) if (kid != null) node.append(kid);
-  return node;
-}
-
-/**
- * Short hyphenated tokens (T-A-D-A, CAM-ICU, WAT-1…) must never wrap across
- * lines on the printed card — swap their hyphens for non-breaking hyphens.
- */
-const nobreak = (s) =>
-  String(s).replace(/\b(\w{1,4})((?:-\w{1,4})+)\b/g, (m) => m.replace(/-/g, '‑'));
-
-/** A printed check-off square (drawn box — marked with a dry-erase pen). */
-const box = () => el('span', { class: 'sh-box', 'aria-hidden': 'true' });
-/** A round check mark as SVG — stays perfectly circular under the preview scale. */
-function circleBox() {
-  const NS = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(NS, 'svg');
-  svg.setAttribute('viewBox', '0 0 10 10');
-  svg.setAttribute('class', 'sh-rass-box');
-  svg.setAttribute('aria-hidden', 'true');
-  const c = document.createElementNS(NS, 'circle');
-  c.setAttribute('cx', '5');
-  c.setAttribute('cy', '5');
-  c.setAttribute('r', '4.2');
-  c.setAttribute('fill', 'none');
-  c.setAttribute('stroke', 'currentColor');
-  c.setAttribute('stroke-width', '1.3');
-  svg.append(c);
-  return svg;
-}
-/** A write-in blank. */
-const blank = (cls) => el('span', { class: `sh-blank${cls ? ' ' + cls : ''}` });
-
-const checkItem = (text, cls) =>
-  el(
-    'div',
-    { class: `sh-item${cls ? ' ' + cls : ''}` },
-    box(),
-    el('span', { text: nobreak(text) }),
-  );
+import {
+  el,
+  nobreak,
+  box,
+  circleBox,
+  blank,
+  checkItem,
+  ov,
+  secOn,
+  itemOn,
+  customLines,
+} from './primitives.js';
+export { el, nobreak, box, circleBox, blank, checkItem, ov, secOn, itemOn };
 
 const facilityLabel = (state) => state.facility.trim() || 'Your facility';
-
-/** Built-in text, unless the unit reworded it in the designer. */
-const ov = (state, id, fallback) => state.textOverrides[id] || fallback;
 
 function tplDef(state) {
   return TEMPLATES.find((t) => t.id === state.template) || TEMPLATES[0];
@@ -109,14 +70,15 @@ export function medDisplayName(name, showBrands) {
 
 /** Sources line for the sheet footer, e.g. "PADIS 2018 · PADIS 2025 · …". */
 function sourcesLine(state) {
-  const keys = FOOTER_CITES[state.template] || [];
+  const keys = FOOTER_CITES[state.template] || PEDS_FOOTER_CITES[state.template] || [];
   return keys
-    .map((k) => (DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : ''))
+    .map((k) => (DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : PEDS_CITE_LABELS[k] || ''))
     .filter(Boolean)
+    .map((label) => label.replace(/ /g, '\u00a0'))
     .join(' · ');
 }
 
-function sheetFooter(state, page, pages) {
+export function sheetFooter(state, page, pages) {
   const stamp = [state.docRev.trim(), state.docDate.trim()].filter(Boolean).join(' · ');
   return el(
     'div',
@@ -135,14 +97,12 @@ function sheetFooter(state, page, pages) {
   );
 }
 
-function customLines(state, groupId) {
-  return (state.custom[groupId] || []).map((t) => checkItem(t, 'sh-item--custom'));
-}
-
 /** Unit-authored sections for one page — full-width titled checklists. */
 function customSections(state, page) {
+  // Own-card sections authored on the peds card set (page 0) fold onto the
+  // adult sheets' page 2 so switching templates never silently drops content.
   return state.customSections
-    .filter((sec) => sec.page === page && sec.lines.length)
+    .filter((sec) => (sec.page === page || (page === 2 && sec.page === 0)) && sec.lines.length)
     .map((sec) =>
       el(
         'div',
@@ -167,12 +127,9 @@ function selectedMedCats(state) {
     .filter((c) => c.names.length);
 }
 
-const secOn = (state, id) => isOn(state.sections, id);
-const itemOn = (state, id) => isOn(state.items, id);
+export const sheetIcon = (icon, cls) => faIcon(`fa-${icon}`, cls || 'sh-ico');
 
-const sheetIcon = (icon, cls) => faIcon(`fa-${icon}`, cls || 'sh-ico');
-
-function band(tone, text, icon) {
+export function band(tone, text, icon) {
   const b = el('div', { class: `sh-band tone-${tone}` });
   if (icon) b.append(sheetIcon(icon, 'sh-ico sh-band-ico'));
   b.append(el('span', { text: nobreak(text) }));
@@ -695,5 +652,7 @@ function renderSpa(state) {
 
 /** Render the active template's sheets (array of .sheet elements). */
 export function renderSheets(state) {
+  if (state.template === 'peds-cards') return renderPedsCards(state);
+  if (state.template === 'peds-workflow') return renderPedsWorkflow(state);
   return state.template === 'spa' ? renderSpa(state) : renderRounding(state);
 }

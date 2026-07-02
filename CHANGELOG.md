@@ -5,6 +5,17 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Added
+
+- Pediatric bedside templates in the designer: a **Peds Delirium Card Set**
+  (arousal gate card with RASS or SBS, screen-routing card, CAPD card,
+  psCAM-ICU and pCAM-ICU cards, act-on-a-positive and prevention-bundle
+  cards, plus attention picture cards with cut guides — original colorful
+  artwork) and a **PICU Delirium Workflow** poster (screen → gate → score →
+  act, with the 10-second rounds script). Card content imports directly from
+  the pediatric tool's data modules, so the printed cards and the interactive
+  tool cannot disagree; validated-instrument text is not editable.
+
 ### Changed
 
 - "Save PDF" now captures the sheet itself: the PDF embeds a print-resolution
