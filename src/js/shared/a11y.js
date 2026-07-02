@@ -150,6 +150,14 @@ export function initA11y() {
   const setOpen = (open) => {
     panel.hidden = !open;
     btn.setAttribute('aria-expanded', String(open));
+    if (open) {
+      // The panel anchors to the button's right edge; on narrow screens that
+      // can push it past the left viewport edge — shift it back on-screen.
+      panel.style.marginRight = '';
+      const r = panel.getBoundingClientRect();
+      const off = 8 - r.left;
+      if (off > 0) panel.style.marginRight = `${-off}px`;
+    }
   };
   btn.addEventListener('click', () => setOpen(panel.hidden));
   document.addEventListener('click', (e) => {
