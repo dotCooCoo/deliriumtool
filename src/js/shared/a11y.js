@@ -65,7 +65,10 @@ function icon(id) {
 
 /** Build the accessibility control + panel and mount it in the header. */
 export function initA11y() {
-  const mount = document.querySelector('.app-header-inner');
+  // Join the header's action cluster where one exists (keeps the button on
+  // the controls row instead of wrapping onto an orphan line of its own).
+  const mount =
+    document.querySelector('.app-header-actions') || document.querySelector('.app-header-inner');
   if (!mount || mount.querySelector('.a11y-wrap')) return;
 
   const panelId = 'a11y-panel';

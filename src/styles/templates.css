@@ -68,6 +68,12 @@
   font-size: var(--fs-md);
 }
 
+/* The hidden attribute always wins — template-scoped controls (data-tpl /
+   data-adult) are hidden by JS and must not be resurrected by display rules. */
+[hidden] {
+  display: none !important;
+}
+
 .designer {
   display: grid;
   grid-template-columns: 400px minmax(0, 1fr);
