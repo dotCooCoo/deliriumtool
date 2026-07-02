@@ -312,28 +312,52 @@ function pharmCard(state) {
   return el('div', { class: 'sh-pharm-card' }, ...kids);
 }
 
+/**
+ * Sizing model for the medication mosaic: one medication per line whenever it
+ * can stay legible, with the font scaling down continuously as the selection
+ * grows (8.6pt at ≤30 agents → 6.5pt floor at ~72); beyond that each card
+ * wraps its list so even the full catalog fits.
+ */
+export function medMosaicSpec(cats) {
+  const count = cats.reduce((a, c) => a + c.names.length, 0);
+  // Always one medication per line so each agent keeps a check-off square —
+  // the font and the column width both scale down as the selection grows.
+  const colw = Math.max(1.5, Math.min(2.7, Math.round((2.7 - (count - 12) * 0.015) * 100) / 100));
+  const size = Math.max(6.4, Math.min(8.6, Math.round((8.6 - (count - 30) * 0.03) * 10) / 10));
+  return { mode: 'lines', size, cls: count <= 30 ? 'lg' : 'dyn', colw, count };
+}
+
+/** The colour cards of the mosaic — one check-off line per medication. */
+function medCardEls(cats, spec) {
+  void spec;
+  return cats.map((c) =>
+    el(
+      'div',
+      { class: `sh-med-card tone-${c.tone}` },
+      el('div', { class: 'sh-med-card-head', text: c.label }),
+      ...c.names.map((n) =>
+        el(
+          'div',
+          { class: 'sh-med-line' },
+          el('span', { class: 'sh-med-box', 'aria-hidden': 'true' }),
+          el('span', { text: n }),
+        ),
+      ),
+    ),
+  );
+}
+
+const medsHead = () =>
+  el('div', { class: 'sh-meds-head' }, sheetIcon('pills'), el('span', { text: MEDS_SECTION.head }));
+
 function medsGrid(state) {
   const cats = selectedMedCats(state);
   if (!cats.length) return null;
-  // Fewer selected agents → larger type; short selections switch from the
-  // compact category rows to side-by-side cards, one medication per line.
-  const count = cats.reduce((a, c) => a + c.names.length, 0);
-  const density = count <= 30 ? 'lg' : count <= 60 ? 'md' : 'sm';
+  // Fewer selected agents → larger type. The mosaic (default) packs colour
+  // cards into balanced columns; "Category rows" is the classic layout.
+  const spec = medMosaicSpec(cats);
   let grid;
-  if (density === 'lg') {
-    grid = el(
-      'div',
-      { class: 'sh-meds-cards' },
-      ...cats.map((c) =>
-        el(
-          'div',
-          { class: `sh-med-card tone-${c.tone}` },
-          el('div', { class: 'sh-med-card-head', text: c.label }),
-          ...c.names.map((n) => el('div', { class: 'sh-med-line', text: n })),
-        ),
-      ),
-    );
-  } else {
+  if (state.medLayout === 'rows') {
     grid = el('div', { class: 'sh-meds-grid' });
     cats.forEach((c) => {
       grid.append(
@@ -341,39 +365,74 @@ function medsGrid(state) {
           'div',
           { class: `sh-meds-row tone-${c.tone}` },
           el('div', { class: 'sh-meds-cat', text: c.label }),
-          el('div', { class: 'sh-meds-list', text: c.names.join(' · ') }),
+          el(
+            'div',
+            { class: 'sh-meds-list' },
+            ...c.names.map((n) =>
+              el(
+                'span',
+                { class: 'sh-med-inline' },
+                el('span', { class: 'sh-med-box', 'aria-hidden': 'true' }),
+                el('span', { text: n }),
+              ),
+            ),
+          ),
         ),
       );
     });
+  } else {
+    grid = el('div', { class: 'sh-meds-cards' }, ...medCardEls(cats, spec));
   }
-  return el(
-    'div',
-    { class: `sh-meds meds-${density}` },
-    el(
-      'div',
-      { class: 'sh-meds-head' },
-      sheetIcon('pills'),
-      el('span', { text: MEDS_SECTION.head }),
-    ),
-    grid,
-  );
+  const wrap = el('div', { class: `sh-meds meds-${spec.cls}` }, medsHead(), grid);
+  wrap.style.setProperty('--med-fs', `${spec.size}pt`);
+  wrap.style.setProperty('--med-colw', `${spec.colw}in`);
+  return wrap;
 }
 
 function pharmSection(state) {
   const showPharm = secOn(state, 'sec-pharm');
   const showMeds = secOn(state, 'sec-meds');
   if (!showPharm && !showMeds) return null;
-  const row = el('div', { class: 'sh-pharm-grid' });
-  if (showPharm) row.append(pharmCard(state));
-  if (showMeds) {
-    const grid = medsGrid(state);
-    if (grid) row.append(grid);
+  const cats = showMeds ? selectedMedCats(state) : [];
+  let body;
+  // Unify only while the guidance card's wide columns don't cost the (larger)
+  // medication list too much width; big selections separate again so the meds
+  // can use narrow columns.
+  const unified =
+    state.medLayout !== 'rows' && showPharm && cats.length > 0 && medMosaicSpec(cats).count <= 60;
+  if (unified) {
+    // One unified mosaic: the guidance card is pinned top-left and the
+    // medication cards flow after it, filling the space beneath. The meds
+    // heading lives in the band so it can't land mid-column.
+    const spec = medMosaicSpec(cats);
+    body = el(
+      'div',
+      { class: `sh-meds sh-pharm-mosaic meds-${spec.cls}` },
+      pharmCard(state),
+      ...medCardEls(cats, spec),
+    );
+    body.style.setProperty('--med-fs', `${spec.size}pt`);
+    // The guidance card needs reading width — never narrower than 2.35in.
+    body.style.setProperty('--med-colw', `${Math.max(spec.colw, 2.35)}in`);
+  } else {
+    body = el('div', { class: 'sh-pharm-grid' });
+    if (showPharm) body.append(pharmCard(state));
+    if (showMeds) {
+      const grid = medsGrid(state);
+      if (grid) body.append(grid);
+    }
   }
   return el(
     'div',
     { class: 'sh-section' },
-    band('rust', 'Step 3 · Pharmacologic considerations', 'pills'),
-    row,
+    band(
+      'rust',
+      unified
+        ? `Step 3 · Pharmacologic considerations · ${MEDS_SECTION.head}`
+        : 'Step 3 · Pharmacologic considerations',
+      'pills',
+    ),
+    body,
   );
 }
 
@@ -528,12 +587,13 @@ function spaDeeper(state) {
           class: 'sh-group-head sh-group-head--bar',
           text: nobreak(ov(state, col.id, col.head)),
         }),
-        ...items.map((i) => {
-          const text = ov(state, i.id, i.text)
-            .replace('{haldolDose}', doses.haldolDose)
-            .replace('{quetiapineDose}', doses.quetiapineDose);
-          return el('div', { class: 'sh-bullet', text: nobreak(`• ${text}`) });
-        }),
+        ...items.map((i) =>
+          checkItem(
+            ov(state, i.id, i.text)
+              .replace('{haldolDose}', doses.haldolDose)
+              .replace('{quetiapineDose}', doses.quetiapineDose),
+          ),
+        ),
       );
     })
     .filter(Boolean);
@@ -555,9 +615,7 @@ function escalationSection(state) {
           class: 'sh-group-head sh-group-head--bar',
           text: nobreak(ov(state, s.id, s.head)),
         }),
-        ...items.map((i) =>
-          el('div', { class: 'sh-bullet', text: nobreak(`• ${ov(state, i.id, i.text)}`) }),
-        ),
+        ...items.map((i) => checkItem(ov(state, i.id, i.text))),
       );
     })
     .filter(Boolean);

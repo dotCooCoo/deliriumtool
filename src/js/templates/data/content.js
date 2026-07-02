@@ -434,7 +434,7 @@ export const SPA_COLS = [
     tone: 'rust',
     icon: 'pills',
     tagline: 'Multimodal, review meds daily',
-    cites: ['padis2018', 'beers2023', 'promedic2022', 'melatonin_meta2025'],
+    cites: ['padis2018', 'padis2025', 'beers2023', 'promedic2022', 'melatonin_meta2025'],
     items: [
       {
         id: 'p-multimodal',
@@ -458,8 +458,8 @@ export const SPA_COLS = [
       },
       {
         id: 'p-melatonin',
-        head: 'Melatonin — evidence mixed',
-        desc: 'May support sleep; delirium-prevention evidence is low-certainty. Follow local practice.',
+        head: 'Melatonin — consider for prevention',
+        desc: 'PADIS 2025 conditionally suggests melatonin to reduce delirium (low-certainty evidence); dose per local practice.',
       },
     ],
   },

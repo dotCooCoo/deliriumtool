@@ -228,12 +228,6 @@
             ><svg class="fa" aria-hidden="true"><use href="#fa-arrow-left" /></svg> Adult tool</a
           >
           <a class="btn btn-ghost btn-sm" href="/peds/">Pediatric tool</a>
-          <button type="button" class="btn btn-sec btn-sm" data-act="pdf">
-            <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Save PDF
-          </button>
-          <button type="button" class="btn btn-primary btn-sm" data-act="print">
-            <svg class="fa" aria-hidden="true"><use href="#fa-print" /></svg> Print
-          </button>
         </div>
       </div>
     </header>
@@ -328,6 +322,13 @@
             <input type="checkbox" id="f-doses" />
             <span>Print example starting doses (otherwise doses defer to your order set)</span>
           </label>
+          <div class="frow">
+            <label class="flbl" for="f-med-layout">Medication list style</label>
+            <select class="fsel" id="f-med-layout">
+              <option value="mosaic" selected>Mosaic cards (recommended)</option>
+              <option value="rows">Category rows</option>
+            </select>
+          </div>
           <label class="chk">
             <input type="checkbox" id="f-brands" />
             <span>Show medication brand names (generic-only by default)</span>
@@ -372,49 +373,48 @@
             Choose which deliriogenic agents print in the review-and-limit list — match it to your
             formulary.
           </p>
-          <div id="ctrl-meds"></div>
-        </section>
-
-        <section class="ctrl-block" aria-labelledby="h-save">
-          <h2 id="h-save">Save &amp; share</h2>
-          <p class="note">
-            Your customization autosaves on this device only. The share link carries the
-            configuration — never patient data.
-          </p>
-          <div class="ctrl-actions">
-            <button type="button" class="btn btn-sec btn-sm" data-act="share">
-              <svg class="fa" aria-hidden="true"><use href="#fa-link" /></svg> Copy share link
+          <div class="med-global">
+            <button type="button" class="btn btn-sec btn-sm" data-act="medAllGlobal">
+              Select all
             </button>
-            <button type="button" class="btn btn-sec btn-sm" data-act="export">
-              <svg class="fa" aria-hidden="true"><use href="#fa-download" /></svg> Export JSON
-            </button>
-            <button type="button" class="btn btn-sec btn-sm" data-act="import">
-              <svg class="fa" aria-hidden="true"><use href="#fa-upload" /></svg> Import JSON
-            </button>
-            <button type="button" class="btn btn-ghost btn-sm" data-act="reset">
-              <svg class="fa" aria-hidden="true"><use href="#fa-rotate-left" /></svg> Reset
+            <button type="button" class="btn btn-ghost btn-sm" data-act="medNoneGlobal">
+              Select none
             </button>
           </div>
+          <div id="ctrl-meds"></div>
         </section>
       </aside>
 
       <section class="preview" aria-label="Print preview">
-        <div class="preview-bar">
-          <span class="preview-hint"
-            >US Letter · print at 100% scale (rounding tool prints landscape) · laminate for
-            dry-erase use</span
-          >
+        <div class="preview-bar" role="toolbar" aria-label="Output and sharing">
+          <button type="button" class="btn btn-primary btn-sm" data-act="print">
+            <svg class="fa" aria-hidden="true"><use href="#fa-print" /></svg> Print
+          </button>
+          <button type="button" class="btn btn-sec btn-sm" data-act="pdf">
+            <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Save PDF
+          </button>
+          <button type="button" class="btn btn-sec btn-sm" data-act="share">
+            <svg class="fa" aria-hidden="true"><use href="#fa-link" /></svg> Copy share link
+          </button>
+          <button type="button" class="btn btn-sec btn-sm" data-act="export">
+            <svg class="fa" aria-hidden="true"><use href="#fa-download" /></svg> Export JSON
+          </button>
+          <button type="button" class="btn btn-sec btn-sm" data-act="import">
+            <svg class="fa" aria-hidden="true"><use href="#fa-upload" /></svg> Import JSON
+          </button>
+          <button type="button" class="btn btn-ghost btn-sm" data-act="reset">
+            <svg class="fa" aria-hidden="true"><use href="#fa-rotate-left" /></svg> Reset
+          </button>
           <p class="fit-warn" id="fit-warn" hidden>
             <svg class="fa" aria-hidden="true"><use href="#fa-triangle-exclamation" /></svg>
             <span id="fit-warn-text"></span>
           </p>
-          <button type="button" class="btn btn-sec btn-sm" data-act="pdf">
-            <svg class="fa" aria-hidden="true"><use href="#fa-file-pdf" /></svg> Save PDF
-          </button>
-          <button type="button" class="btn btn-primary btn-sm" data-act="print">
-            <svg class="fa" aria-hidden="true"><use href="#fa-print" /></svg> Print
-          </button>
         </div>
+        <p class="preview-note">
+          US Letter · print at 100% scale (the rounding tool prints landscape) · laminate for
+          dry-erase use. Your customization autosaves on this device only; the share link carries
+          the configuration — never patient data.
+        </p>
         <div id="sheets" class="sheets"></div>
       </section>
     </main>

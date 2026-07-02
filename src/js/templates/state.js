@@ -19,13 +19,14 @@ export const FONT_SCALES = [
 ];
 
 export function defaultMeds() {
-  // Print space is precious: only the citation-backed higher-risk agents
-  // (benzodiazepines, strong anticholinergics, meperidine) start selected;
-  // everything else in the shared catalog is opt-in.
+  // The shared catalog's documented defaults: the three classes with the
+  // strongest, most actionable ICU delirium signal — benzodiazepines, opioids,
+  // and anticholinergics (PADIS 2018; AGS Beers 2023 / ACB) — start selected;
+  // the rest of the catalog is opt-in. Matches the interactive tool.
   const meds = {};
   MEDS.categories.forEach((c) =>
     c.items.forEach((i) => {
-      meds[i.id] = i.risk === 'high';
+      meds[i.id] = !!i.on;
     }),
   );
   return meds;
@@ -43,6 +44,7 @@ export function defaultState() {
     showActions: true,
     showDoses: false,
     showBrands: false,
+    medLayout: 'mosaic',
     // Sparse override maps: an id is only present when it differs from the default (on).
     sections: {},
     items: {},
@@ -73,6 +75,7 @@ export function sanitize(raw) {
   s.showActions = raw.showActions !== false;
   s.showDoses = raw.showDoses === true;
   s.showBrands = raw.showBrands === true;
+  if (['mosaic', 'rows'].includes(raw.medLayout)) s.medLayout = raw.medLayout;
   const boolMap = (m) => {
     const out = {};
     if (m && typeof m === 'object') {

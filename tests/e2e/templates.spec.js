@@ -149,6 +149,65 @@ test('defaults to Large text and generic-only names; brand toggle restores them'
   await expect(sheets).toContainText('Lorazepam (Ativan)');
 });
 
+test('disclosure groups stay open and keep focus when toggling inside them', async ({ page }) => {
+  // Medication category: open it, toggle an agent — the menu must stay open.
+  const benzo = page.locator('.med-cat[data-key="benzo"]');
+  await benzo.locator('summary').click();
+  await page.uncheck('#med-benzo-lorazepam');
+  await expect(benzo).toHaveAttribute('open', '');
+  await expect(page.locator('#med-benzo-lorazepam')).toBeVisible();
+  await expect(page.locator('#med-benzo-lorazepam')).toBeFocused();
+  // The All/None quick buttons keep it open too.
+  await benzo.locator('[data-act="medNone"]').click();
+  await expect(page.locator('.med-cat[data-key="benzo"]')).toHaveAttribute('open', '');
+  // Section line lists behave the same.
+  const sec = page.locator('.sec-ctl-items[data-key="sec-nonpharm"]');
+  await sec.locator('summary').click();
+  await page.uncheck('#it-np-clock');
+  await expect(page.locator('.sec-ctl-items[data-key="sec-nonpharm"]')).toHaveAttribute('open', '');
+});
+
+test('medication list defaults to mosaic cards and can switch to category rows', async ({
+  page,
+}) => {
+  await expect(page.locator('#f-med-layout')).toHaveValue('mosaic');
+  await expect(page.locator('.sh-med-card').first()).toBeVisible();
+  await expect(page.locator('.sh-meds-row')).toHaveCount(0);
+  await page.selectOption('#f-med-layout', 'rows');
+  await expect(page.locator('.sh-meds-row').first()).toBeVisible();
+  await expect(page.locator('.sh-med-card')).toHaveCount(0);
+  await expect(page.locator('#fit-warn')).toBeHidden();
+});
+
+test('global select all/none and the meds heading behave on both templates', async ({ page }) => {
+  for (const tpl of ['rounding', 'spa']) {
+    await page.check(`input[name="template"][value="${tpl}"]`);
+    await page.click('[data-act="medNoneGlobal"]');
+    await expect(page.locator('.sh-med-card'), `${tpl}: none selected`).toHaveCount(0);
+    await page.click('[data-act="medAllGlobal"]');
+    await expect(page.locator('.sh-med-card'), `${tpl}: all selected`).toHaveCount(11);
+    await expect(page.locator('#fit-warn'), `${tpl}: fits with all`).toBeHidden();
+  }
+  // At full selection the rounding layout separates so the medications get
+  // narrow columns — they keep their own heading.
+  await page.check('input[name="template"][value="rounding"]');
+  await expect(page.locator('.sheet .sh-meds-head', { hasText: 'review & limit' })).toHaveCount(1);
+  // At the default selection the rounding sheet unifies: the guidance card is
+  // pinned top-left and the meds heading moves into the Step-3 band so it can
+  // never land mid-column.
+  await openDetails(page);
+  await page.click('[data-act="medNoneGlobal"]');
+  for (const cat of ['benzo', 'opioids', 'antichol']) {
+    await openDetails(page);
+    await page.click(`[data-act="medAll"][data-cat="${cat}"]`);
+  }
+  await expect(page.locator('.sh-band', { hasText: 'review & limit' })).toBeVisible();
+  await expect(page.locator('.sheet .sh-meds-head', { hasText: 'review & limit' })).toHaveCount(0);
+  // SPA always keeps its own heading above the cards.
+  await page.check('input[name="template"][value="spa"]');
+  await expect(page.locator('.sheet .sh-meds-head', { hasText: 'review & limit' })).toHaveCount(1);
+});
+
 test('print font options apply to the sheet and the sheet still fits', async ({ page }) => {
   await page.selectOption('#f-font-family', 'serif');
   const family = await page
@@ -167,7 +226,7 @@ test('everything enabled fits both pages at Large on both templates', async ({ p
     await openDetails(page);
     await page.locator('[data-act="medAll"]').nth(i).click();
   }
-  await expect(page.locator('.sh-meds-row')).toHaveCount(11);
+  await expect(page.locator('.sh-med-card')).toHaveCount(11);
   for (const tpl of ['rounding', 'spa']) {
     await page.check(`input[name="template"][value="${tpl}"]`);
     await expect(page.locator('#fit-warn'), `template ${tpl}`).toBeHidden();

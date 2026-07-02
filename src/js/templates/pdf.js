@@ -28,7 +28,7 @@ import {
 import { MEDS } from '../data/meds.js';
 import { DELIRIUM_REFS } from '../data/refs.js';
 import { isOn } from './state.js';
-import { medDisplayName } from './sheets.js';
+import { medDisplayName, medMosaicSpec } from './sheets.js';
 import { asciiPdf } from '../shared/pdf-kit.js';
 
 const TONE = {
@@ -121,7 +121,7 @@ class Painter {
   }
   /** One check-off line, wrapped; returns the new y. */
   checkLine(x, y, w, str, { size = 7.2, color = TONE.ink } = {}) {
-    const bs = this.fs(6.4);
+    const bs = this.fs(Math.min(6.4, size * 0.9));
     const lines = this.wrap(str, w - bs - 4, size);
     this.box(x, y - bs + 1, bs, color);
     this.doc
@@ -131,8 +131,8 @@ class Painter {
     this.doc.text(lines, x + bs + 3.5, y);
     return y + lines.length * this.fs(size) * 1.18 + this.fs(1.6);
   }
-  bulletLine(x, y, w, str, { size = 7.2 } = {}) {
-    const lines = this.wrap(`• ${str}`, w, size);
+  bulletLine(x, y, w, str, { size = 7.2, prefix = '• ' } = {}) {
+    const lines = this.wrap(`${prefix}${str}`, w, size);
     this.doc
       .setFont(FONT, 'normal')
       .setFontSize(this.fs(size))
@@ -195,10 +195,15 @@ class Painter {
 function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size = 7 }) {
   const pad = p.fs(4);
   const innerW = w - 2 * pad;
+  const prefix = bullets === 'plain' ? '' : '• ';
   // measure
   let h = pad + p.fs(9);
   for (const it of items) {
-    const lines = p.wrap(it, innerW - (bullets ? 0 : p.fs(6.4) + 4), size);
+    const lines = p.wrap(
+      bullets ? `${prefix}${it}` : it,
+      innerW - (bullets ? 0 : p.fs(6.4) + 4),
+      size,
+    );
     h += lines.length * p.fs(size) * 1.18 + p.fs(1.6);
   }
   h += pad * 0.7;
@@ -220,7 +225,7 @@ function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size =
   }
   for (const it of items) {
     cy = bullets
-      ? p.bulletLine(x + pad, cy, innerW, it, { size })
+      ? p.bulletLine(x + pad, cy, innerW, it, { size, prefix })
       : p.checkLine(x + pad, cy, innerW, it, { size, color: TONE[tone] });
   }
   return Math.max(h, cy - y + pad * 0.4);
@@ -263,6 +268,34 @@ function medCats(state) {
     .filter((c) => c.names.length);
 }
 
+/** Inline box+name pairs wrapping within a width; returns the height used. */
+function drawInlineMeds(p, x, y, w, names, size, tone, dryRun) {
+  const bs = p.fs(Math.min(6, size * 0.85));
+  const gapX = p.fs(6);
+  const lineH = p.fs(size) * 1.35;
+  p.doc.setFont(FONT, 'normal').setFontSize(p.fs(size));
+  let cx = x;
+  let cy = y;
+  for (const n of names) {
+    const tw = p.doc.getTextWidth(pd(n));
+    const itemW = bs + 3 + tw;
+    if (cx + itemW > x + w && cx > x) {
+      cx = x;
+      cy += lineH;
+    }
+    if (!dryRun) {
+      p.box(cx, cy - bs + 1, bs, TONE[tone]);
+      p.doc
+        .setFont(FONT, 'normal')
+        .setFontSize(p.fs(size))
+        .setTextColor(...TONE.ink);
+      p.doc.text(pd(n), cx + bs + 3, cy);
+    }
+    cx += itemW + gapX;
+  }
+  return cy - y + lineH * 0.5;
+}
+
 /** Small warning triangle (red, white "!") beside a caution line. */
 function warnTriangle(p, x, y, size) {
   p.doc.setFillColor(...TONE.red);
@@ -274,6 +307,73 @@ function warnTriangle(p, x, y, size) {
   p.doc.text('!', x + size / 2, y + size - size * 0.16, { align: 'center' });
 }
 
+/** The Step-3 guidance card ("Reserve for severe distress…"); returns its height. */
+function drawPharmCardAt(p, x, y, w, state) {
+  const doc = p.doc;
+  const rows = PHARM.rows.filter((r) => itemOn(state, r.id));
+  const cautions = PHARM.cautions.filter((c) => itemOn(state, c.id));
+  const pad = p.fs(5);
+  const innerW = w - pad * 2;
+  const measure = () => {
+    let h = pad + p.fs(9) + p.fs(9);
+    const all = [
+      ...rows.map(
+        (r) =>
+          `${r.drug}: ${state.showDoses && r.dose ? `${r.dose} · ` : ''}${ov(state, r.id, r.text)}`,
+      ),
+      ...cautions.map((c) => ov(state, c.id, c.text)),
+      ...(state.showDoses ? [PHARM.doseNote] : []),
+    ];
+    for (const s of all) h += p.wrap(s, innerW, 7).length * p.fs(7) * 1.2 + p.fs(2.4);
+    return h + pad;
+  };
+  const cardH = measure() + p.fs(8);
+  doc
+    .setFillColor(...WEAK.rust)
+    .setDrawColor(...TONE.rust)
+    .setLineWidth(0.7);
+  doc.rect(x, y, w, cardH, 'FD');
+  let cy2 = y + pad + p.fs(7);
+  p.text(PHARM.lead, x + pad, cy2, { size: 8.8, bold: true, color: TONE.red });
+  cy2 += p.fs(8.5);
+  const noteLines = p.wrap(PHARM.leadNote, innerW, 6.6);
+  doc
+    .setFont(FONT, 'normal')
+    .setFontSize(p.fs(6.6))
+    .setTextColor(...TONE.slate);
+  doc.text(noteLines, x + pad, cy2);
+  cy2 += noteLines.length * p.fs(7.6) + p.fs(2);
+  for (const r of rows) {
+    const body = `${state.showDoses && r.dose ? `${r.dose} · ` : ''}${ov(state, r.id, r.text)}`;
+    const warnPad = r.warn ? p.fs(9) : 0;
+    if (r.warn) warnTriangle(p, x + pad, cy2 - p.fs(5.6), p.fs(6.6));
+    const lines = p.wrap(`${r.drug}: ${body}`, innerW - warnPad, 7);
+    doc.setFont(FONT, r.warn ? 'bold' : 'normal').setFontSize(p.fs(7));
+    doc.setTextColor(...(r.warn ? TONE.red : TONE.ink));
+    doc.text(lines, x + pad + warnPad, cy2);
+    cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
+  }
+  for (const c of cautions) {
+    const warnPad = c.stop ? p.fs(9) : 0;
+    if (c.stop) warnTriangle(p, x + pad, cy2 - p.fs(5.6), p.fs(6.6));
+    const lines = p.wrap(ov(state, c.id, c.text), innerW - warnPad, 7);
+    doc.setFont(FONT, 'bold').setFontSize(p.fs(7));
+    doc.setTextColor(...(c.stop ? TONE.red : TONE.ink));
+    doc.text(lines, x + pad + warnPad, cy2);
+    cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
+  }
+  if (state.showDoses) {
+    const lines = p.wrap(PHARM.doseNote, innerW, 6.4);
+    doc
+      .setFont(FONT, 'normal')
+      .setFontSize(p.fs(6.4))
+      .setTextColor(...TONE.slate);
+    doc.text(lines, x + pad, cy2);
+    cy2 += lines.length * p.fs(7.4);
+  }
+  return Math.max(cardH, cy2 - y);
+}
+
 /** Type tier for the medication grid — fewer selected agents print larger. */
 function medDensity(cats) {
   const count = cats.reduce((a, c) => a + c.names.length, 0);
@@ -283,25 +383,34 @@ function medDensity(cats) {
 }
 
 /**
- * Mosaic layout for short selections: one-medication-per-line colour cards,
- * greedily packed into the shortest column so different-sized categories
- * re-flow to fill the segment. Returns the new y.
+ * Medication mosaic: colour cards greedily packed into the shortest column so
+ * different-sized categories re-flow to fill the segment. Font size and
+ * column count both follow the selection (medMosaicSpec); short selections
+ * list one medication per line, dense ones wrap each card's list.
+ * `startCol0` reserves column 0 from that y (used when the pharmacology
+ * guidance card is pinned top-left). Returns the new y.
  */
-function drawMedCards(p, x, y, w, cats) {
+function drawMedCards(p, x, y, w, cats, spec, startCol0 = null) {
   const gap = p.fs(4);
-  const cols = Math.max(2, Math.min(4, Math.floor(w / p.fs(150))));
+  const colWTarget = (spec.minColw ? Math.max(spec.colw, spec.minColw) : spec.colw) * 72;
+  const cols = Math.max(2, Math.min(5, Math.floor(w / colWTarget)));
   const colW = (w - gap * (cols - 1)) / cols;
   const colY = Array(cols).fill(y);
+  if (startCol0 !== null) colY[0] = startCol0;
+  // Dense selections stop growing with the Large setting so the full catalog
+  // keeps fitting (mirrors the sheet's --med-k cap).
+  const sizeEff = spec.cls === 'dyn' ? spec.size * (Math.min(p.k, 1.04) / p.k) : spec.size;
   for (const c of cats) {
     let ci = 0;
     for (let i = 1; i < cols; i++) if (colY[i] < colY[ci] - 0.5) ci = i;
+    // One check-off line per medication (a drawn square beside every name).
     const h = drawGroupCard(p, x + ci * (colW + gap), colY[ci], colW, {
       tone: c.tone,
       head: c.label,
       headBar: true,
       items: c.names,
-      bullets: true,
-      size: 8,
+      bullets: false,
+      size: sizeEff,
     });
     colY[ci] += h + gap;
     p.guard(colY[ci]);
@@ -317,26 +426,34 @@ function drawMedsGrid(p, y, state, wOverride) {
   const dz = medDensity(cats);
   p.text(MEDS_SECTION.head, x, y + p.fs(6), { size: 8.4, bold: true, color: TONE.red });
   y += p.fs(10);
-  if (dz.cards) return drawMedCards(p, x, y, w, cats) + p.fs(2);
+  if (state.medLayout !== 'rows') {
+    return drawMedCards(p, x, y, w, cats, medMosaicSpec(cats)) + p.fs(2);
+  }
   const labelW = p.fs(dz.labelW);
   for (const c of cats) {
-    const warnPad = 0;
-    const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), dz.list);
-    const catLines = p.wrap(c.label, labelW - 6 - warnPad, dz.cat, true);
+    const listX = x + labelW + p.fs(4);
+    const listW = w - labelW - p.fs(10);
+    const listH = drawInlineMeds(
+      p,
+      listX,
+      y + p.fs(dz.cat + 0.6),
+      listW,
+      c.names,
+      dz.list,
+      c.tone,
+      true,
+    );
+    const catLines = p.wrap(c.label, labelW - 6, dz.cat, true);
     const rowH = Math.max(
       p.fs(11),
-      lines.length * p.fs(dz.list) * 1.18 + p.fs(dz.pad),
+      listH + p.fs(dz.pad),
       catLines.length * p.fs(dz.cat) * 1.18 + p.fs(dz.pad),
     );
     p.doc.setFillColor(...TONE[c.tone]).rect(x, y, labelW, rowH, 'F');
     p.doc.setFillColor(...WEAK[c.tone]).rect(x + labelW, y, w - labelW, rowH, 'F');
     p.doc.setFont(FONT, 'bold').setFontSize(p.fs(dz.cat)).setTextColor(255, 255, 255);
-    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(dz.cat + 0.6));
-    p.doc
-      .setFont(FONT, 'normal')
-      .setFontSize(p.fs(dz.list))
-      .setTextColor(...TONE.ink);
-    p.doc.text(lines, x + labelW + p.fs(4), y + p.fs(dz.cat + 0.6));
+    p.doc.text(catLines, x + 3, y + p.fs(dz.cat + 0.6));
+    drawInlineMeds(p, listX, y + p.fs(dz.cat + 0.6), listW, c.names, dz.list, c.tone, false);
     y += rowH + p.fs(1.6);
     p.guard(y);
   }
@@ -542,85 +659,40 @@ function buildRounding(doc, state, k) {
   doc.addPage('letter', 'landscape');
   y = M;
   if (secOn(state, 'sec-pharm') || secOn(state, 'sec-meds')) {
-    y = p.band(y, 'Step 3 · Pharmacologic considerations', 'rust');
-    const leftW = secOn(state, 'sec-meds') ? p.cw * 0.4 : p.cw;
-    let leftY = y;
-    if (secOn(state, 'sec-pharm')) {
-      const rows = PHARM.rows.filter((r) => itemOn(state, r.id));
-      const cautions = PHARM.cautions.filter((c) => itemOn(state, c.id));
-      const pad = p.fs(5);
-      const innerW = leftW - pad * 2;
-      let cy2 = y + pad + p.fs(7);
-      const startY = y;
-      // measure by drawing after frame: draw frame later using a first pass measurement
-      const measure = () => {
-        let h = pad + p.fs(9) + p.fs(9);
-        const all = [
-          ...rows.map(
-            (r) =>
-              `${r.drug}: ${state.showDoses && r.dose ? `${r.dose} · ` : ''}${ov(state, r.id, r.text)}`,
-          ),
-          ...cautions.map((c) => ov(state, c.id, c.text)),
-          ...(state.showDoses ? [PHARM.doseNote] : []),
-        ];
-        for (const s of all) h += p.wrap(s, innerW, 7).length * p.fs(7) * 1.2 + p.fs(2.4);
-        return h + pad;
-      };
-      const cardH = measure() + p.fs(8);
-      doc
-        .setFillColor(...WEAK.rust)
-        .setDrawColor(...TONE.rust)
-        .setLineWidth(0.7);
-      doc.rect(M, y, leftW, cardH, 'FD');
-      p.text(PHARM.lead, M + pad, cy2, { size: 8.8, bold: true, color: TONE.red });
-      cy2 += p.fs(8.5);
-      const noteLines = p.wrap(PHARM.leadNote, innerW, 6.6);
-      doc
-        .setFont(FONT, 'normal')
-        .setFontSize(p.fs(6.6))
-        .setTextColor(...TONE.slate);
-      doc.text(noteLines, M + pad, cy2);
-      cy2 += noteLines.length * p.fs(7.6) + p.fs(2);
-      for (const r of rows) {
-        const body = `${state.showDoses && r.dose ? `${r.dose} · ` : ''}${ov(state, r.id, r.text)}`;
-        const warnPad = r.warn ? p.fs(9) : 0;
-        if (r.warn) warnTriangle(p, M + pad, cy2 - p.fs(5.6), p.fs(6.6));
-        const lines = p.wrap(`${r.drug}: ${body}`, innerW - warnPad, 7);
-        doc.setFont(FONT, r.warn ? 'bold' : 'normal').setFontSize(p.fs(7));
-        doc.setTextColor(...(r.warn ? TONE.red : TONE.ink));
-        doc.text(lines, M + pad + warnPad, cy2);
-        cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
-      }
-      for (const c of cautions) {
-        const warnPad = c.stop ? p.fs(9) : 0;
-        if (c.stop) warnTriangle(p, M + pad, cy2 - p.fs(5.6), p.fs(6.6));
-        const lines = p.wrap(ov(state, c.id, c.text), innerW - warnPad, 7);
-        doc.setFont(FONT, 'bold').setFontSize(p.fs(7));
-        doc.setTextColor(...(c.stop ? TONE.red : TONE.ink));
-        doc.text(lines, M + pad + warnPad, cy2);
-        cy2 += lines.length * p.fs(7) * 1.2 + p.fs(2.4);
-      }
-      if (state.showDoses) {
-        const lines = p.wrap(PHARM.doseNote, innerW, 6.4);
-        doc
-          .setFont(FONT, 'normal')
-          .setFontSize(p.fs(6.4))
-          .setTextColor(...TONE.slate);
-        doc.text(lines, M + pad, cy2);
-        cy2 += lines.length * p.fs(7.4);
-      }
-      leftY = Math.max(startY + cardH, cy2) + p.fs(5);
-    }
-    if (secOn(state, 'sec-meds')) {
-      const x0 = secOn(state, 'sec-pharm') ? M + leftW + p.fs(6) : M;
-      const w = secOn(state, 'sec-pharm') ? p.cw - leftW - p.fs(6) : p.cw;
-      // temporarily shift margin for the grid
-      const oldM = M;
-      const gridY = drawMedsGridAt(p, y, state, x0, w);
-      y = Math.max(leftY, gridY) + p.fs(2);
-      void oldM;
+    const showPharm = secOn(state, 'sec-pharm');
+    const cats = secOn(state, 'sec-meds') ? medCats(state) : [];
+    const unified =
+      state.medLayout !== 'rows' && showPharm && cats.length > 0 && medMosaicSpec(cats).count <= 60;
+    y = p.band(
+      y,
+      unified
+        ? `Step 3 · Pharmacologic considerations · ${MEDS_SECTION.head}`
+        : 'Step 3 · Pharmacologic considerations',
+      'rust',
+    );
+    if (unified) {
+      // Unified mosaic: the guidance card is pinned top-left; the medication
+      // cards pack around it, using the space beneath.
+      const spec = medMosaicSpec(cats);
+      spec.minColw = 2.35;
+      const gap = p.fs(4);
+      const colWTarget = Math.max(spec.colw, spec.minColw) * 72;
+      const cols = Math.max(2, Math.min(5, Math.floor(p.cw / colWTarget)));
+      const colW = (p.cw - gap * (cols - 1)) / cols;
+      const ph = drawPharmCardAt(p, M, y, colW, state);
+      y = drawMedCards(p, M, y, p.cw, cats, spec, y + ph + gap) + p.fs(2);
     } else {
-      y = leftY;
+      const leftW = cats.length ? p.cw * 0.4 : p.cw;
+      let leftY = y;
+      if (showPharm) leftY = y + drawPharmCardAt(p, M, y, leftW, state) + p.fs(5);
+      if (cats.length) {
+        const x0 = showPharm ? M + leftW + p.fs(6) : M;
+        const w = showPharm ? p.cw - leftW - p.fs(6) : p.cw;
+        const gridY = drawMedsGridAt(p, y, state, x0, w);
+        y = Math.max(leftY, gridY) + p.fs(2);
+      } else {
+        y = leftY;
+      }
     }
   }
   if (secOn(state, 'sec-pathway')) {
@@ -661,26 +733,32 @@ function drawMedsGridAt(p, y, state, x, w) {
   const catSize = dz.cat - 0.2;
   p.text(MEDS_SECTION.head, x, y + p.fs(6), { size: 8.4, bold: true, color: TONE.red });
   y += p.fs(10);
-  if (dz.cards) return drawMedCards(p, x, y, w, cats);
+  if (state.medLayout !== 'rows') return drawMedCards(p, x, y, w, cats, medMosaicSpec(cats));
   const labelW = p.fs(dz.labelW - 6);
   for (const c of cats) {
-    const warnPad = 0;
-    const lines = p.wrap(c.names.join(' · '), w - labelW - p.fs(8), listSize);
-    const catLines = p.wrap(c.label, labelW - 6 - warnPad, catSize, true);
+    const listX = x + labelW + p.fs(4);
+    const listW = w - labelW - p.fs(10);
+    const listH = drawInlineMeds(
+      p,
+      listX,
+      y + p.fs(catSize + 0.6),
+      listW,
+      c.names,
+      listSize,
+      c.tone,
+      true,
+    );
+    const catLines = p.wrap(c.label, labelW - 6, catSize, true);
     const rowH = Math.max(
       p.fs(11),
-      lines.length * p.fs(listSize) * 1.18 + p.fs(dz.pad),
+      listH + p.fs(dz.pad),
       catLines.length * p.fs(catSize) * 1.18 + p.fs(dz.pad),
     );
     p.doc.setFillColor(...TONE[c.tone]).rect(x, y, labelW, rowH, 'F');
     p.doc.setFillColor(...WEAK[c.tone]).rect(x + labelW, y, w - labelW, rowH, 'F');
     p.doc.setFont(FONT, 'bold').setFontSize(p.fs(catSize)).setTextColor(255, 255, 255);
-    p.doc.text(catLines, x + 3 + warnPad, y + p.fs(catSize + 0.6));
-    p.doc
-      .setFont(FONT, 'normal')
-      .setFontSize(p.fs(listSize))
-      .setTextColor(...TONE.ink);
-    p.doc.text(lines, x + labelW + p.fs(4), y + p.fs(catSize + 0.6));
+    p.doc.text(catLines, x + 3, y + p.fs(catSize + 0.6));
+    drawInlineMeds(p, listX, y + p.fs(catSize + 0.6), listW, c.names, listSize, c.tone, false);
     y += rowH + p.fs(1.6);
     p.guard(y);
   }
@@ -714,22 +792,28 @@ function buildSpa(doc, state, k) {
     if (cols.length) {
       const gap = p.fs(5);
       const w = (p.cw - gap * (cols.length - 1)) / cols.length;
-      let maxH = 0;
+      const pad = p.fs(5);
+      const innerW = w - pad * 2;
+      // Row-aligned layout: every row takes the height of its tallest item so
+      // the check squares line up across the three columns.
+      const itemH = (it) =>
+        p.fs(9.2) + p.wrap(it.desc, innerW - p.fs(8), 7.4).length * p.fs(7.4) * 1.2 + p.fs(5.5);
+      const rows = Math.max(...cols.map((c) => c.items.length));
+      const rowHs = [];
+      for (let r = 0; r < rows; r++) {
+        rowHs.push(Math.max(...cols.map((c) => (c.items[r] ? itemH(c.items[r]) : 0))));
+      }
+      const customHs = cols.map((c) =>
+        c.custom.reduce(
+          (a, cl) => a + p.wrap(cl, innerW - p.fs(8), 8).length * p.fs(8) * 1.2 + p.fs(4),
+          0,
+        ),
+      );
+      const cardH =
+        pad + p.fs(26) + rowHs.reduce((a, b) => a + b, 0) + Math.max(...customHs, 0) + pad;
       cols.forEach(({ col, items, custom }, i) => {
         const x = M + i * (w + gap);
-        const pad = p.fs(5);
-        const innerW = w - pad * 2;
-        // measure
-        let h = pad + p.fs(22);
-        for (const it of items) {
-          h += p.fs(9.6);
-          h += p.wrap(it.desc, innerW - p.fs(8), 7.4).length * p.fs(7.4) * 1.2 + p.fs(5.5);
-        }
-        for (const cline of custom) {
-          h += p.wrap(cline, innerW - p.fs(8), 8).length * p.fs(8) * 1.2 + p.fs(5.5);
-        }
-        h += pad;
-        doc.setFillColor(...WEAK[col.tone]).rect(x, y, w, h, 'F');
+        doc.setFillColor(...WEAK[col.tone]).rect(x, y, w, cardH, 'F');
         // letter disc + word
         doc
           .setFillColor(...TONE[col.tone])
@@ -749,26 +833,25 @@ function buildSpa(doc, state, k) {
           color: TONE.slate,
         });
         let cy = y + pad + p.fs(26);
-        for (const it of items) {
+        items.forEach((it, r) => {
           const bs = p.fs(7);
           p.box(x + pad, cy - bs + 1, bs, TONE[col.tone]);
           p.text(ov(state, it.id, it.head), x + pad + bs + 4, cy, { size: 8.6, bold: true });
-          cy += p.fs(9.2);
           const lines = p.wrap(it.desc, innerW - p.fs(8), 7.4);
           doc
             .setFont(FONT, 'normal')
             .setFontSize(p.fs(7.4))
             .setTextColor(...TONE.slate);
-          doc.text(lines, x + pad + bs + 4, cy);
-          cy += lines.length * p.fs(7.4) * 1.2 + p.fs(5.5);
-        }
+          doc.text(lines, x + pad + bs + 4, cy + p.fs(9.2));
+          cy += rowHs[r];
+        });
         for (const cline of custom) {
           cy = p.checkLine(x + pad, cy, innerW, cline, { size: 8, color: TONE[col.tone] });
           cy += p.fs(2);
         }
-        maxH = Math.max(maxH, Math.max(h, cy - y + pad * 0.5));
+        p.guard(cy);
       });
-      y += maxH + p.fs(6);
+      y += cardH + p.fs(6);
     }
   }
 
@@ -858,7 +941,7 @@ function buildSpa(doc, state, k) {
           head: ov(state, col.id, col.head),
           headBar: true,
           items,
-          bullets: true,
+          bullets: false,
           size: 7,
         };
       })
@@ -878,7 +961,7 @@ function buildSpa(doc, state, k) {
           head: ov(state, s.id, s.head),
           headBar: true,
           items,
-          bullets: true,
+          bullets: false,
           size: 7,
         };
       })

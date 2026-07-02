@@ -329,6 +329,11 @@ details[open] > summary::before {
   gap: var(--sp-2);
   margin: var(--sp-2) 0 var(--sp-1);
 }
+.med-global {
+  display: flex;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
 .med-cat .chk {
   font-size: var(--fs-sm);
 }
@@ -348,11 +353,10 @@ details[open] > summary::before {
   flex-wrap: wrap;
   margin-bottom: var(--sp-3);
 }
-.preview-hint {
+.preview-note {
   color: var(--c-text-3);
   font-size: var(--fs-sm);
-  flex: 1;
-  min-width: 220px;
+  margin: var(--sp-2) 0 var(--sp-3);
 }
 .fit-warn[hidden] {
   display: none;
@@ -383,11 +387,13 @@ details[open] > summary::before {
 /* ── The sheets (shared print design system) ───────────────────────────── */
 
 .sheet {
-  /* Effective type scale = user text-size choice × per-template factor. Every
-     size on the sheet is a pt value multiplied by --fs, so both compose. */
+  /* Effective type scale = user text-size choice × per-template factor ×
+     auto-fit factor (stepped down only when a page would overflow). Every
+     size on the sheet is a pt value multiplied by --fs, so all compose. */
   --fs-user: 1;
   --fs-tpl: 1;
-  --fs: calc(var(--fs-user) * var(--fs-tpl));
+  --fs-fit: 1;
+  --fs: calc(var(--fs-user) * var(--fs-tpl) * var(--fs-fit));
   box-sizing: border-box;
   width: 10.5in;
   height: 7.96in;
@@ -845,9 +851,10 @@ details[open] > summary::before {
    as side-by-side colour cards with one medication per line; the full
    103-agent catalog compacts to category rows (capped so it always fits). */
 /* Mosaic: cards of different heights pack into balanced columns and re-flow
-   to whatever space the segment offers. */
+   to whatever space the segment offers; column width adapts to the selection
+   (--med-colw) so short lists get wider cards and long lists more columns. */
 .sh-meds-cards {
-  column-width: 2.05in;
+  column-width: var(--med-colw, 2.05in);
   column-gap: calc(4pt * var(--fs));
 }
 .sh-med-card {
@@ -862,21 +869,67 @@ details[open] > summary::before {
   background: var(--tone);
   color: #fff;
   font-weight: 700;
-  font-size: calc(8.6pt * var(--fs));
-  padding: calc(2.5pt * var(--fs)) calc(5pt * var(--fs));
+  font-size: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1));
+  padding: calc(2pt * var(--med-k, 1)) calc(5pt * var(--med-k, 1));
+}
+/* Dense selections stop growing with the Large setting (--med-k cap) so the
+   full catalog keeps fitting; short selections scale freely. */
+.sh-meds {
+  --med-k: var(--fs);
+}
+.meds-dyn {
+  --med-k: min(var(--fs), 1.04);
 }
 .sh-med-line {
-  font-size: calc(8.6pt * var(--fs));
-  padding: calc(1pt * var(--fs)) calc(6pt * var(--fs));
+  display: flex;
+  align-items: center;
+  gap: calc(3.5pt * var(--med-k, 1));
+  font-size: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1));
+  padding: calc(0.8pt * var(--med-k, 1)) calc(5pt * var(--med-k, 1));
 }
-.sh-med-line::before {
-  content: '• ';
-  color: var(--tone);
-  font-weight: 700;
+/* A small printed square beside every medication — mark it with the pen. */
+.sh-med-box {
+  flex: none;
+  width: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1) * 0.82);
+  height: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1) * 0.82);
+  border: 1pt solid var(--tone);
+  border-radius: 1pt;
+  background: #fff;
+}
+/* Unified Step-3 mosaic: the guidance card leads (top-left) and medication
+   cards flow after it, claiming the space beneath. */
+.sh-pharm-mosaic {
+  column-width: var(--med-colw, 2.45in);
+  column-gap: calc(4pt * var(--fs));
+}
+.sh-pharm-mosaic .sh-pharm-card {
+  break-inside: avoid;
+  margin-bottom: calc(4pt * var(--fs));
+}
+.sh-pharm-mosaic .sh-meds-head {
+  break-inside: avoid;
+  margin-top: calc(1pt * var(--fs));
+}
+
+/* Dense mosaic: each card wraps its list instead of one-per-line. */
+.sh-med-run {
+  padding: calc(2pt * var(--fs)) calc(5pt * var(--fs)) calc(3pt * var(--fs));
+}
+.meds-md .sh-med-run {
+  font-size: calc(7.6pt * min(var(--fs), 1.06));
+}
+.meds-md .sh-med-card-head {
+  font-size: calc(7.8pt * min(var(--fs), 1.06));
+}
+.meds-sm .sh-med-run {
+  font-size: calc(7pt * min(var(--fs), 1.02));
+}
+.meds-sm .sh-med-card-head {
+  font-size: calc(7.2pt * min(var(--fs), 1.02));
 }
 .meds-md .sh-meds-cat,
 .meds-md .sh-meds-list {
-  font-size: calc(7.6pt * min(var(--fs), 1.06));
+  font-size: calc(7.6pt * min(var(--fs), 1.06) * var(--med-shrink, 1));
 }
 .meds-md .sh-meds-row {
   grid-template-columns: 1.65in 1fr;
@@ -885,7 +938,7 @@ details[open] > summary::before {
   background: var(--tone, var(--sh-slate));
   color: #fff;
   font-weight: 700;
-  font-size: calc(7pt * min(var(--fs), 1.02));
+  font-size: calc(7pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
   padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
   display: flex;
   align-items: center;
@@ -900,8 +953,23 @@ details[open] > summary::before {
 }
 .sh-meds-list {
   background: var(--tone-weak, #fff);
-  font-size: calc(7pt * min(var(--fs), 1.02));
+  font-size: calc(7pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
   padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(1.5pt * var(--fs)) calc(8pt * var(--fs));
+  align-content: flex-start;
+}
+/* Category rows are checkable too: each agent is a box + name pair. */
+.sh-med-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(3pt * var(--fs));
+  white-space: nowrap;
+}
+.sh-med-inline .sh-med-box {
+  width: calc(6.2pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
+  height: calc(6.2pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
 }
 
 .sh-foot {
@@ -969,6 +1037,8 @@ details[open] > summary::before {
   gap: calc(5pt * var(--fs));
   align-items: flex-start;
   margin: calc(5pt * var(--fs)) 0;
+  /* Uniform row rhythm so the check squares line up across the three columns. */
+  min-height: calc(33pt * var(--fs));
 }
 .spa-item .sh-box {
   border-color: var(--tone);

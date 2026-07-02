@@ -204,10 +204,13 @@ tool's cited content** — the sheets introduce no new clinical values. The mapp
 **Presentation rules.** Medication names print **generic-only by default** — brand names in
 the registry are stripped for the sheet (clinical qualifiers such as routes and "high dose"
 always remain) and reappear only when the unit enables "show brand names". The designer's
-default medication selection is the **citation-backed higher-risk set** (benzodiazepines,
-strong anticholinergics, meperidine — the agents carrying the registry's higher-risk flag);
-the rest of the shared catalog is opt-in, and the printed grid scales its type to the
-selection (a short curated list prints large; the full catalog compacts to guarantee fit).
+default medication selection mirrors the interactive tool's documented defaults — the three
+classes with the strongest, most actionable ICU delirium signal (**benzodiazepines, opioids,
+anticholinergics**; PADIS 2018, AGS Beers 2023/ACB, §2.8) — with the rest of the shared
+catalog opt-in via per-category and select-all/none controls. The printed list is a mosaic of
+colour cards, one check-off square per medication, with the type size and column count
+scaling to the selection so the full catalog still fits; a classic category-rows view remains
+available.
 The two pharmacology caution lines with the strongest bedside consequence — benzodiazepines
 as withdrawal rescue only, and no antipsychotics at discharge without a psychiatric
 indication — carry a printed warning marker. The sedation-target

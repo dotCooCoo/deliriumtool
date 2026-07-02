@@ -161,8 +161,14 @@ const editButton = (id, label) =>
     faIcon('fa-pen'),
   );
 
+/** Open-state of disclosure groups survives rebuilds (keyed by data-key). */
+function openKeys(mount) {
+  return new Set([...mount.querySelectorAll('details[open][data-key]')].map((d) => d.dataset.key));
+}
+
 function buildSectionControls() {
   const mount = $('#ctrl-sections');
+  const open = openKeys(mount);
   mount.replaceChildren();
   const groupsBySection = new Map(controlGroups(state.template).map((g) => [g.section, g.groups]));
   for (const sec of SECTIONS[state.template]) {
@@ -200,11 +206,12 @@ function buildSectionControls() {
       const onCount = allItems.filter((i) => isOn(state.items, i.id)).length;
       const details = el(
         'details',
-        { class: 'sec-ctl-items' },
+        { class: 'sec-ctl-items', 'data-key': sec.id },
         el('summary', {
           text: `Show lines (${onCount}/${allItems.length} on) — switch · reword · add`,
         }),
       );
+      if (open.has(sec.id)) details.open = true;
       for (const g of groups) {
         const groupEl = el('div', { class: 'sec-ctl-group' });
         if (groups.length > 1) {
@@ -357,12 +364,13 @@ function buildSectionControls() {
 
 function buildMedControls() {
   const mount = $('#ctrl-meds');
+  const open = openKeys(mount);
   mount.replaceChildren();
   for (const cat of MEDS.categories) {
     const onCount = cat.items.filter((i) => state.meds[i.id]).length;
     const details = el(
       'details',
-      { class: 'med-cat' },
+      { class: 'med-cat', 'data-key': cat.id },
       el(
         'summary',
         {},
@@ -370,6 +378,7 @@ function buildMedControls() {
         el('span', { class: 'med-count', text: `${onCount}/${cat.items.length}` }),
       ),
     );
+    if (open.has(cat.id)) details.open = true;
     details.append(
       el(
         'div',
@@ -422,6 +431,7 @@ function reflectFields() {
   $('#f-actions').checked = state.showActions;
   $('#f-doses').checked = state.showDoses;
   $('#f-brands').checked = state.showBrands;
+  $('#f-med-layout').value = state.medLayout;
   $$('input[name="template"]').forEach((r) => {
     r.checked = r.value === state.template;
   });
@@ -454,8 +464,37 @@ function renderPreview() {
       ),
     ),
   );
+  autoFitMeds(sheets);
   rescale();
   checkFit(sheets);
+}
+
+/**
+ * Self-correcting fit, mirroring the PDF's shrink-until-fit: an overflowing
+ * page first compacts its medication mosaic (type + column width), then steps
+ * the whole page's type scale down to a floor — so a customized protocol keeps
+ * fitting its two pages, and the warning only fires past the floor.
+ */
+function autoFitMeds(sheets) {
+  for (const sheet of sheets) {
+    const meds = sheet.querySelector('.sh-meds');
+    const over = () => sheet.scrollHeight > sheet.clientHeight + 2;
+    let guard = 40;
+    while (over() && guard-- > 0) {
+      if (meds) {
+        const cur = parseFloat(meds.style.getPropertyValue('--med-shrink')) || 1;
+        if (cur > 0.8) {
+          meds.style.setProperty('--med-shrink', (cur - 0.03).toFixed(2));
+          const curW = parseFloat(meds.style.getPropertyValue('--med-colw')) || 2.05;
+          if (curW > 1.35) meds.style.setProperty('--med-colw', `${(curW - 0.04).toFixed(2)}in`);
+          continue;
+        }
+      }
+      const fit = parseFloat(sheet.style.getPropertyValue('--fs-fit')) || 1;
+      if (fit <= 0.86) break;
+      sheet.style.setProperty('--fs-fit', (fit - 0.02).toFixed(2));
+    }
+  }
 }
 
 function rescale() {
@@ -466,7 +505,8 @@ function rescale() {
     const sheet = wrap.firstElementChild;
     // Clear the previous scale before measuring the sheet's natural size.
     sheet.style.transform = 'none';
-    const k = Math.min(1, avail / sheet.offsetWidth);
+    // Fill the preview column exactly — scale up as well as down.
+    const k = avail / sheet.offsetWidth;
     sheet.style.transform = `scale(${k})`;
     wrap.style.height = `${Math.ceil(sheet.offsetHeight * k)}px`;
   });
@@ -494,8 +534,15 @@ function announce(msg) {
 
 function update({ rebuildControls = false } = {}) {
   if (rebuildControls) {
+    // Rebuilding replaces the focused control — put focus back where it was
+    // so keyboard users aren't dropped out of the panel.
+    const focusId = document.activeElement && document.activeElement.id;
     buildSectionControls();
     buildMedControls();
+    if (focusId) {
+      const again = document.getElementById(focusId);
+      if (again) again.focus();
+    }
   }
   renderPreview();
   autosave(state);
@@ -583,6 +630,10 @@ function onChange(e) {
       state.showBrands = t.checked;
       update();
       break;
+    case 'f-med-layout':
+      state.medLayout = t.value;
+      update();
+      break;
   }
 }
 
@@ -619,6 +670,18 @@ async function onClick(e) {
         state.meds[i.id] = on;
       });
       update({ rebuildControls: true });
+      break;
+    }
+    case 'medAllGlobal':
+    case 'medNoneGlobal': {
+      const on = btn.dataset.act === 'medAllGlobal';
+      MEDS.categories.forEach((c) =>
+        c.items.forEach((i) => {
+          state.meds[i.id] = on;
+        }),
+      );
+      update({ rebuildControls: true });
+      announce(on ? 'All medications selected.' : 'All medications deselected.');
       break;
     }
     case 'share': {

@@ -97,21 +97,19 @@ test('templates: RASS rows cover −5..+4 and each target maps onto real rows', 
   for (const t of RASS_TARGETS) for (const s of t.scores) assert.ok(all.has(s));
 });
 
-test('state: medication defaults are the higher-risk agents only', () => {
+test('state: medication defaults track the documented catalog defaults', () => {
   const s = defaultState();
   const catalog = MEDS.categories.flatMap((c) => c.items);
   assert.deepEqual(Object.keys(s.meds).sort(), catalog.map((i) => i.id).sort());
+  // The three documented default classes (PADIS 2018; Beers 2023/ACB):
+  // benzodiazepines, opioids, anticholinergics on; the long tail opt-in.
   for (const item of catalog) {
-    assert.equal(
-      s.meds[item.id],
-      item.risk === 'high',
-      `default for ${item.id} tracks the higher-risk flag`,
-    );
+    assert.equal(s.meds[item.id], !!item.on, `default for ${item.id} tracks the catalog`);
   }
-  // Sanity: benzodiazepines and meperidine start on; routine opioids start off.
   assert.equal(s.meds['benzo-lorazepam'], true);
-  assert.equal(s.meds['opi-meperidine'], true);
-  assert.equal(s.meds['opi-morphine'], false);
+  assert.equal(s.meds['opi-morphine'], true);
+  assert.equal(s.meds['ach-diphenhydramine'], true);
+  assert.equal(s.meds['mic-cefepime'], false);
 });
 
 test('state: sanitize accepts a valid snapshot unchanged and rejects garbage', () => {
