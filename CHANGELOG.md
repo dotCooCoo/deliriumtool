@@ -5,6 +5,15 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Fixed
+
+- Ticking a checkbox in the saved template PDF now shows a visible check mark —
+  the check glyph was previously rendered far outside its box, so marking a
+  field looked like nothing happened.
+- Section header bars (the medication category bars, pathway columns, and card
+  headings) no longer touch or overlap the first line beneath them; every
+  wrapped heading advances by the same line height the text is drawn with.
+
 ### Changed
 
 - The saved template PDF now mirrors the on-screen sheet: leftover page space
