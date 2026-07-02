@@ -528,6 +528,7 @@ function reflectFields() {
   $('#f-brands').checked = state.showBrands;
   $('#f-med-layout').value = state.medLayout;
   $('#f-peds-scale').value = state.pedsScale;
+  $('#f-design').value = state.design;
   $$('input[name="template"]').forEach((r) => {
     r.checked = r.value === state.template;
   });
@@ -568,7 +569,10 @@ function buildRefs() {
 
 function renderPreview() {
   const mount = $('#sheets');
-  mount.className = `sheets fs-${state.fontScale} ff-${state.fontFamily}`;
+  // Design B applies to the adult sheets only; the peds templates already
+  // use the modern card system.
+  const design = !state.template.startsWith('peds') && state.design === 'b' ? ' design-b' : '';
+  mount.className = `sheets fs-${state.fontScale} ff-${state.fontFamily}${design}`;
   const sheets = renderSheets(state);
   mount.replaceChildren(
     ...sheets.map((s, i) =>
@@ -787,6 +791,11 @@ function onChange(e) {
   }
   if (t.id === 'f-peds-scale') {
     state.pedsScale = t.value;
+    update();
+    return;
+  }
+  if (t.id === 'f-design') {
+    state.design = t.value;
     update();
     return;
   }

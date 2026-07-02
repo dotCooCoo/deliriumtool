@@ -1162,6 +1162,101 @@ details[open] > summary::before {
   margin: 0.25in;
 }
 
+/* ── Design B — modernized sheet design (selectable per unit) ───────────────
+   Same layout metrics as Design A (auto-fit composes identically); the swap
+   is surface language: white cards with accent borders instead of tinted
+   fills, sentence-case tone-colored headings instead of solid caps bars.
+   Borders are explicit longhands — Chromium drops shorthand+override pairs
+   from the serialized cssText the PDF capture re-parses. */
+
+.sheets.design-b .sh-band {
+  background: transparent;
+  color: var(--tone);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: calc(11pt * var(--fs));
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 0 0 1.6pt 4pt;
+  border-radius: 0;
+  padding: calc(1.5pt * var(--fs)) calc(6pt * var(--fs));
+}
+.sheets.design-b .sh-cell {
+  background: #fff;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 4pt;
+  border-radius: 5px;
+}
+.sheets.design-b .sh-cell-head {
+  background: transparent;
+  color: var(--tone);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: calc(10pt * var(--fs));
+  padding-bottom: calc(1pt * var(--fs));
+}
+.sheets.design-b .sh-group {
+  background: #fff;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 3pt;
+  border-radius: 5px;
+}
+.sheets.design-b .sh-group-head {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: calc(9.5pt * var(--fs));
+}
+.sheets.design-b .sh-group-head--bar {
+  background: transparent;
+  color: var(--tone);
+  margin: 0 0 calc(2.5pt * var(--fs));
+  padding: 0 0 calc(1.5pt * var(--fs));
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 0 0 0.8pt 0;
+  border-radius: 0;
+}
+.sheets.design-b .sh-mnem-cell {
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 3pt;
+  border-radius: 5px;
+}
+.sheets.design-b .sh-pharm-card {
+  background: #fff;
+  border-style: solid;
+  border-color: var(--sh-red);
+  border-width: 1pt 1pt 1pt 4pt;
+  border-radius: 5px;
+}
+.sheets.design-b .sh-med-card {
+  background: #fff;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 3pt;
+  border-radius: 5px;
+}
+.sheets.design-b .sh-med-card-head {
+  background: transparent;
+  color: var(--tone);
+  font-weight: 800;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 0 0 0.8pt 0;
+}
+.sheets.design-b .spa-col {
+  background: #fff;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 4pt 1pt 1pt 1pt;
+  border-radius: 6px;
+}
+.sheets.design-b .sh-custom-lines {
+  background: #fff;
+}
+
 /* ── Peds card set + workflow poster (.pc-*) ────────────────────────────────
    Modernized card system: one topic per card, sentence-case headings, flat
    semantic tints (agitation warm -> calm green -> sedation cool), gate rules

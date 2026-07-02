@@ -405,6 +405,33 @@ test('peds card set saves a PDF named for the card set', async ({ page }) => {
   );
 });
 
+test('Design B swaps the adult sheet design from the dropdown and fits everything', async ({
+  page,
+}) => {
+  await expect(page.locator('#sheets')).not.toHaveClass(/design-b/);
+  await page.selectOption('#f-design', 'b');
+  await expect(page.locator('#sheets')).toHaveClass(/design-b/);
+  // Same metrics as Design A — everything enabled still fits both templates.
+  for (const tpl of ['rounding', 'spa']) {
+    await page.check(`input[name="template"][value="${tpl}"]`);
+    await page.waitForTimeout(400);
+    const overflow = await page.$$eval('.sheet', (sheets) =>
+      sheets.map((sh) => sh.scrollHeight - sh.clientHeight).filter((d) => d > 2),
+    );
+    expect(overflow, `template=${tpl}`).toEqual([]);
+  }
+  // Design B is adult-only: the peds card system is already the modern design.
+  await page.check('input[name="template"][value="peds-cards"]');
+  await expect(page.locator('#sheets')).not.toHaveClass(/design-b/);
+  await expect(page.locator('#f-design')).toBeHidden();
+  // The choice survives reload.
+  await page.check('input[name="template"][value="rounding"]');
+  await page.waitForTimeout(700);
+  await page.reload();
+  await expect(page.locator('#f-design')).toHaveValue('b');
+  await expect(page.locator('#sheets')).toHaveClass(/design-b/);
+});
+
 test('peds cards are portrait pages that fit at every size, font, and scale', async ({ page }) => {
   await page.check('input[name="template"][value="peds-cards"]');
   for (const scale of ['rass', 'sbs']) {
