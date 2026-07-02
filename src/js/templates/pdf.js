@@ -1221,9 +1221,8 @@ export function downloadPdf(state) {
     return { d, painter };
   };
   let doc;
-  let fitted = null;
   for (const shrink of [1, 0.94, 0.88, 0.82, 0.76]) {
-    fitted = build(base * shrink);
+    const fitted = build(base * shrink);
     doc = fitted.d;
     if (!fitted.painter.overflowed) {
       // Grow phase (mirrors the sheet): leftover page space becomes padding
