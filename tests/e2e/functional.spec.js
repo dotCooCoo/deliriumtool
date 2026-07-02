@@ -15,10 +15,11 @@ test('starts on the pathway picker, not the workspace', async ({ page }) => {
   await expect(page.locator('#workspace')).toBeHidden();
 });
 
-test('the landing offers a link to the pediatric tool', async ({ page }) => {
-  const card = page.locator('.peds-switch');
-  await expect(card).toBeVisible();
-  await expect(card).toHaveAttribute('href', './peds/');
+test('the landing links to the pediatric tool and the template designer', async ({ page }) => {
+  const peds = page.locator('.peds-switch[href="./peds/"]');
+  await expect(peds).toBeVisible();
+  const templates = page.locator('.peds-switch[href="./templates/"]');
+  await expect(templates).toBeVisible();
 });
 
 test('choosing a pathway reveals the workspace', async ({ page }) => {
@@ -109,9 +110,10 @@ test('risk tally adds points and bands correctly', async ({ page }) => {
 test('CAM-ICU evaluates positive with 1 AND 2 AND (3 OR 4)', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   await page.click('[data-tab="cam"]');
+  await page.selectOption('#rass', '-1'); // step 1: document level of consciousness
   await page.click('#c1y'); // Feature 1 present
   await page.fill('#cam2-err', '3'); // inattention > 2 -> Feature 2 present
-  await page.selectOption('#cam4', 'abnormal'); // a secondary feature present
+  await page.selectOption('#cam-loc', 'abnormal'); // a secondary feature present
   await expect(page.locator('#cam-res-txt')).toContainText('Positive');
   await expect(page.locator('#badge-cam')).toHaveClass(/tone-danger/); // red, positive
   await expect(page.locator('#badge-cam svg use')).toHaveCount(1); // vector icon, not text
@@ -200,15 +202,17 @@ test('serves the strict security headers from the _headers policy', async ({ pag
   expect(h['x-content-type-options']).toBe('nosniff');
 });
 
-test('risk tally reaches 16/16 and fills the progress bar', async ({ page }) => {
+test('risk tally reaches 15/15 and fills the progress bar', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   const boxes = page.locator('#tab-risk .rcb');
   const n = await boxes.count();
-  expect(n).toBe(16); // the maximum the readout (/16) and methodology assume
+  // 15 factors: mechanical ventilation was removed (PADIS 2018 — strong
+  // evidence it does not alter delirium risk).
+  expect(n).toBe(15);
   for (let i = 0; i < n; i++) await boxes.nth(i).check();
-  await expect(page.locator('#rscore')).toHaveText('16');
+  await expect(page.locator('#rscore')).toHaveText('15');
   const width = await page.locator('#rprog').evaluate((el) => el.style.width);
-  expect(width).toBe('100%'); // was ~94% when the denominator was a stale 17
+  expect(width).toBe('100%');
 });
 
 test('auto-fill example populates the medication and setup tabs too', async ({ page }) => {
@@ -254,9 +258,10 @@ test('exported PDF filename carries a generation timestamp', async ({ page }) =>
 test('CAM result status uses a vector sprite icon, not an emoji', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   await page.click('[data-tab="cam"]');
+  await page.selectOption('#rass', '-1');
   await page.click('#c1y');
   await page.fill('#cam2-err', '3');
-  await page.selectOption('#cam4', 'abnormal'); // → CAM positive
+  await page.selectOption('#cam-loc', 'abnormal'); // → CAM positive
   await expect(page.locator('#cam-res-icon svg use')).toHaveCount(1);
 });
 

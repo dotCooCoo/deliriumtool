@@ -15,8 +15,10 @@ import {
   RISK_MAX,
 } from '../../src/js/scoring.js';
 
-test('risk tally maxes at 16 (flat +1 per factor)', () => {
-  assert.equal(RISK_MAX, 16);
+test('risk tally maxes at 15 (flat +1 per factor)', () => {
+  // Mechanical ventilation was removed from the tally (PADIS 2018: strong
+  // evidence it does not alter delirium risk), leaving 15 factors.
+  assert.equal(RISK_MAX, 15);
 });
 
 test('risk tier band boundaries: Few 0-3 / Several 4-6 / Many 7-10 / Very many 11+', () => {
@@ -27,7 +29,7 @@ test('risk tier band boundaries: Few 0-3 / Several 4-6 / Many 7-10 / Very many 1
   assert.equal(riskTier(7).tier, 'Many');
   assert.equal(riskTier(10).tier, 'Many');
   assert.equal(riskTier(11).tier, 'Very many');
-  assert.equal(riskTier(16).tier, 'Very many');
+  assert.equal(riskTier(15).tier, 'Very many');
   assert.equal(riskTier(2).band, 'low');
   assert.equal(riskTier(11).band, 'crit');
 });
@@ -51,17 +53,24 @@ test('CAM-ICU arousal gate: RASS -4/-5 → unable to assess', () => {
 });
 
 test('CAM-ICU positive requires 1 AND 2 AND (3 OR 4)', () => {
-  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'yes' }), 'positive');
-  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f4: 'yes' }), 'positive');
-  assert.equal(evalCam({ f1: 'no', f2: 'yes', f3: 'yes' }), 'negative'); // F1 absent
-  assert.equal(evalCam({ f1: 'yes', f2: 'no', f3: 'yes' }), 'negative'); // F2 absent
-  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'no', f4: 'no' }), 'negative'); // both secondaries negative
+  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'yes', rass: '-1' }), 'positive');
+  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f4: 'yes', rass: '0' }), 'positive');
+  assert.equal(evalCam({ f1: 'no', f2: 'yes', f3: 'yes', rass: '-1' }), 'negative'); // F1 absent
+  assert.equal(evalCam({ f1: 'yes', f2: 'no', f3: 'yes', rass: '-1' }), 'negative'); // F2 absent
+  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'no', f4: 'no', rass: '0' }), 'negative'); // both secondaries negative
+});
+
+test('CAM-ICU is a two-step assessment: no verdict until a RASS is documented', () => {
+  // Training manual p.6: Step 1 = level of consciousness (RASS), Step 2 = features.
+  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'yes' }), null);
+  assert.equal(evalCam({ f1: 'no', f2: 'no' }), null);
+  assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'yes', rass: '' }), null);
 });
 
 test('CAM-ICU incomplete states return null', () => {
   assert.equal(evalCam({}), null);
-  assert.equal(evalCam({ f1: 'yes' }), null); // F2 not assessed
-  assert.equal(evalCam({ f1: 'yes', f2: 'yes' }), null); // awaiting a secondary feature
+  assert.equal(evalCam({ f1: 'yes', rass: '0' }), null); // F2 not assessed
+  assert.equal(evalCam({ f1: 'yes', f2: 'yes', rass: '0' }), null); // awaiting a secondary feature
 });
 
 test('RASS zones', () => {

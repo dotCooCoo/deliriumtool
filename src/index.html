@@ -173,6 +173,17 @@
         </span>
         <svg class="fa fa-lg" aria-hidden="true"><use href="#fa-arrow-up-right-from-square" /></svg>
       </a>
+      <a class="peds-switch" href="./templates/">
+        <img class="peds-switch__logo" src="./img/logo-dark.png" alt="" width="56" height="56" />
+        <span class="peds-switch__body">
+          <strong>Need laminated bedside sheets?</strong>
+          <span
+            >Open the Bedside Template Designer — customize and print the ICU rounding checklist and
+            the SPA quick-reference poster for your unit.</span
+          >
+        </span>
+        <svg class="fa fa-lg" aria-hidden="true"><use href="#fa-arrow-up-right-from-square" /></svg>
+      </a>
       <p class="note-sm center mt-4">
         Everything runs in your browser — no patient data is sent anywhere. Do not enter PHI in
         fields you intend to share.
@@ -266,7 +277,7 @@
             <div>
               <div id="risk-disp" class="score-box risk-low">
                 <div class="score-num">
-                  <span id="rscore">0</span><span class="muted">/16</span>
+                  <span id="rscore">0</span><span class="muted">/15</span>
                 </div>
                 <div class="score-info">
                   <div class="score-lbl">Risk factor tally</div>
@@ -331,7 +342,7 @@
                 >
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
-                  <span>Severe illness (APACHE &gt; 16) (+1)</span></label
+                  <span>Severe illness (high APACHE-II) (+1)</span></label
                 >
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
@@ -351,10 +362,6 @@
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
                   <span>Surgery / general anesthesia (+1)</span></label
-                >
-                <label class="chk"
-                  ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
-                  <span>Mechanical ventilation (+1)</span></label
                 >
                 <label class="chk"
                   ><input type="checkbox" class="rcb" data-pts="1" data-act="risk" />
@@ -379,7 +386,7 @@
             <span class="ref-bar-label">References</span>
             <ol
               class="auto-refs"
-              data-refs="inouye1993,marcantonio1994,inouye_charpentier1996,predeliric2012,epredeliric2015,pisani2009"
+              data-refs="inouye1993,marcantonio1994,inouye_charpentier1996,predeliric2012,epredeliric2015,pisani2009,nice_cg103,padis2018"
             ></ol>
           </div>
         </section>
@@ -420,8 +427,9 @@
                   <span class="badge b-red">Required</span>
                 </div>
                 <p class="note mb-3">
-                  Evidence of acute change from mental status baseline, OR fluctuation during the
-                  day?
+                  Evidence of acute change from mental status baseline, OR fluctuation in mental
+                  status in the past 24 hours (e.g., on RASS/GCS or a previous delirium
+                  assessment)?<a class="cite" data-ref="camicu_worksheet"></a>
                   <span class="muted"
                     >Anchor "baseline" with family/collateral on admission — Feature 1 cannot be
                     scored without it.<a class="cite" data-ref="nice_cg103"></a
@@ -501,14 +509,17 @@
                 <div class="card-head">
                   <span class="card-icon">3</span>Altered level of consciousness
                 </div>
-                <label class="flbl" for="cam4">Level of consciousness</label>
-                <select class="fsel" id="cam4" data-act="cam4">
+                <p class="note">
+                  Present if the actual RASS is anything other than alert and calm (zero) — use the
+                  RASS documented above.<a class="cite" data-ref="camicu_worksheet"></a>
+                </p>
+                <label class="flbl" for="cam-loc">Current level of consciousness</label>
+                <select class="fsel" id="cam-loc" data-act="camLoc">
                   <option value="">Select level of consciousness…</option>
-                  <option value="alert">Alert — normal (CAM Feature 3 negative)</option>
-                  <option value="abnormal">
-                    Vigilant / Lethargic / Stuporous (CAM Feature 3 positive)
-                  </option>
+                  <option value="alert">RASS 0 — alert &amp; calm (Feature 3 negative)</option>
+                  <option value="abnormal">RASS anything other than 0 (Feature 3 positive)</option>
                 </select>
+                <p class="note muted" id="cam-loc-hint"></p>
               </div>
               <div class="card">
                 <div class="card-head"><span class="card-icon">4</span>Disorganized thinking</div>
@@ -525,24 +536,26 @@
                 </ol>
                 <p class="note mb-3">
                   <strong>Command:</strong> "Hold up this many fingers" (examiner holds up 2), then
-                  "Now do the same with the other hand" (or add one finger). Any wrong answer or
-                  failed command counts as one error.
+                  "Now do the same thing with the other hand" — do not repeat the number of fingers.
+                  If the patient cannot move both arms, for the second part ask them to "Add one
+                  more finger". Any wrong answer or failure to complete the entire command counts as
+                  one error.<a class="cite" data-ref="camicu_worksheet"></a>
                 </p>
                 <div class="row">
                   <button
                     class="cam-ans btn btn-sec btn-sm"
-                    id="c3y"
+                    id="c4y"
                     data-act="setCam"
-                    data-f="3"
+                    data-f="4"
                     data-v="yes"
                   >
                     Yes — present
                   </button>
                   <button
                     class="cam-ans btn btn-sec btn-sm"
-                    id="c3n"
+                    id="c4n"
                     data-act="setCam"
-                    data-f="3"
+                    data-f="4"
                     data-v="no"
                   >
                     No — absent
@@ -756,27 +769,44 @@
                   <p>
                     <strong>SAT — do NOT interrupt sedation if:</strong> active seizures · alcohol
                     withdrawal on sedation · escalating sedation for agitation · neuromuscular
-                    blockade · MI in prior 24 h · raised ICP.
+                    blockade · MI in prior 24 h · raised ICP.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a
+                    ><a class="cite" data-ref="icudelirium_satsbt"></a>
                   </p>
                   <p>
                     <strong
                       >SAT failure → stop SAT, restart sedation at HALF the prior dose if:</strong
                     >
                     sustained anxiety/agitation/pain · RR &gt;35 for &gt;5 min · SpO₂ &lt;88% for
-                    &gt;5 min · acute dysrhythmia · ≥2 signs of respiratory distress.
+                    &gt;5 min · acute dysrhythmia · ≥2 signs of respiratory distress.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a>
                   </p>
                   <p>
-                    <strong>SBT — proceed only if:</strong> SpO₂ &gt;88% on FiO₂ &lt;50% &amp; PEEP
-                    &lt;8 · pH &gt;7.15 · no agitation · no ischemia in 24 h · hemodynamically
-                    stable · no raised ICP.
+                    <strong>SBT — proceed only if:</strong> SpO₂ ≥88% on FiO₂ ≤50% &amp; PEEP ≤7.5 ·
+                    no agitation · no ischemia in 24 h · hemodynamically stable · no raised ICP.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a
+                    ><a class="cite" data-ref="icudelirium_satsbt"></a>
                   </p>
                   <p>
                     <strong>SBT failure → abort, resume support if:</strong> RR &gt;35 or &lt;8 ·
-                    SpO₂ &lt;88% · abrupt mental-status change · dysrhythmia · ≥2 distress signs.
+                    SpO₂ &lt;88% · abrupt mental-status change · dysrhythmia · ≥2 distress signs.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a>
                   </p>
                   <p>
-                    <strong>Loop:</strong> pass SAT → proceed to SBT; fail either → restart sedation
-                    at half the prior dose, re-screen in 24 h.
+                    <strong>Loop:</strong> pass SAT → proceed to SBT; fail SAT → restart sedation at
+                    half the prior dose; fail SBT → resume full ventilatory support (restart
+                    sedation at half the prior dose if needed); re-screen in 24 h.<a
+                      class="cite"
+                      data-ref="girard2008"
+                    ></a>
                   </p>
                 </div>
               </details>
@@ -787,8 +817,9 @@
                 <strong>eCASH:</strong> minimal sedation is the default — analgesia first, lightest
                 RASS that meets the goal, reassess each shift.<a
                   class="cite"
-                  data-ref="padis2025"
-                ></a>
+                  data-ref="ecash2016"
+                ></a
+                ><a class="cite" data-ref="padis2018"></a>
               </p>
               <label class="chk bun"
                 ><input type="checkbox" data-act="bundle" />
@@ -810,8 +841,10 @@
               >
               <label class="chk bun"
                 ><input type="checkbox" data-act="bundle" />
-                <span>Consider bolus dosing over continuous infusions where safe</span></label
-              >
+                <span
+                  >Consider bolus dosing over continuous infusions where safe (observational
+                  association)<a class="cite" data-ref="kollef1998"></a></span
+              ></label>
             </div>
             <div class="card accented accent-indigo" data-bundle="D">
               <div class="card-head">D — Delirium: Assess, Prevent &amp; Manage</div>
@@ -987,13 +1020,14 @@
             </div>
             <div class="mnemonic-cell">
               <div class="mnemonic-ltr">E</div>
-              <div class="mnemonic-word">Eyes / Ears / Env</div>
+              <div class="mnemonic-word">Eyes / Ears (sensory)</div>
               <div class="mnemonic-body">
                 <label class="chk"
                   ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
                 >
                 <p class="mnem-note">
-                  Glasses &amp; hearing aids in? Whiteboard updated? Lights on daytime?
+                  Glasses &amp; hearing aids in? Other sensory deficits addressed? (Environment —
+                  whiteboard, daytime lights — lives under Dr.&nbsp;DRE on the Treatment tab.)
                 </p>
                 <textarea
                   class="fta mnem-action"
@@ -1004,12 +1038,12 @@
             </div>
             <div class="mnemonic-cell">
               <div class="mnemonic-ltr">L</div>
-              <div class="mnemonic-word">Low O₂ / Liver</div>
+              <div class="mnemonic-word">Low O₂ states</div>
               <div class="mnemonic-body">
                 <label class="chk"
                   ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
                 >
-                <p class="mnem-note">Check SpO₂, Hgb, cardiac/PE events, liver function.</p>
+                <p class="mnem-note">Check SpO₂, Hgb; MI, stroke, pulmonary embolism.</p>
                 <textarea
                   class="fta mnem-action"
                   placeholder="Action…"
@@ -1101,7 +1135,8 @@
                   ><input type="checkbox" data-act="mnemonic" /> <span>Reviewed</span></label
                 >
                 <p class="mnem-note">
-                  Na, Mg, Ca, glucose, BUN/Cr, acid-base. Pain/retention/constipation?
+                  Na, Mg, Ca, glucose, BUN/Cr, acid-base, liver function.
+                  Pain/retention/constipation?
                 </p>
                 <textarea
                   class="fta mnem-action"
@@ -1169,7 +1204,7 @@
                 <div class="dnode dn-step">
                   <span class="dn-h"
                     >2 · Verbal de-escalation first<a class="cite" data-ref="projectbeta"></a></span
-                  >Respect ~2 arms' length of space · one clinician speaks calmly · short, simple
+                  >Respect ≥2 arms' lengths of space · one clinician speaks calmly · short, simple
                   sentences · identify what the patient wants · offer realistic choices (medication
                   as an offer, not a threat) · set clear limits.
                 </div>
@@ -1182,7 +1217,7 @@
                   <span class="dn-h"
                     >Dr. DRE — treat reversible causes<a
                       class="cite"
-                      data-ref="hayhurst2016"
+                      data-ref="icudelirium_mnemonics"
                     ></a></span
                   ><strong>D</strong>iseases (sepsis, hypoxia, metabolic) · <strong>D</strong>rug
                   removal (deliriogenic agents; withdrawal) · <strong>R</strong>emove
@@ -1245,11 +1280,10 @@
               <label class="chk"
                 ><input type="checkbox" />
                 <span
-                  >Review for alcohol / benzo withdrawal — in the ICU titrate to RASS (CIWA-Ar is
-                  not validated in intubated / sedated / delirious patients)<a
-                    class="cite"
-                    data-ref="ciwa_mdcalc"
-                  ></a></span
+                  >Review for alcohol / benzo withdrawal — in the ICU titrate to RASS (no withdrawal
+                  scale, including CIWA-Ar, is validated in intubated / sedated / delirious ICU
+                  patients)<a class="cite" data-ref="awissi2013"></a
+                  ><a class="cite" data-ref="ciwa_mdcalc"></a></span
               ></label>
               <label class="chk"
                 ><input type="checkbox" />
@@ -1299,11 +1333,10 @@
               </div>
               <div class="alert a-danger mb-3">
                 <strong>Safety indications only.</strong> Antipsychotics do
-                <strong>not</strong> treat or shorten delirium (PADIS: no recommendation for or
-                against) — use only for short-term control of dangerous agitation, then stop.<a
-                  class="cite"
-                  data-ref="padis2025"
-                ></a>
+                <strong>not</strong> treat or shorten delirium (MIND-USA negative; PADIS 2025:
+                unable to recommend for or against) — use only for short-term control of dangerous
+                agitation, then stop.<a class="cite" data-ref="mindusa2018"></a
+                ><a class="cite" data-ref="padis2025"></a>
               </div>
               <label class="chk"
                 ><input type="checkbox" /> <span>Safety indication documented in chart</span></label
@@ -1385,7 +1418,10 @@
               <span class="card-icon"
                 ><svg class="fa fa-md" aria-hidden="true"><use href="#fa-leaf" /></svg
               ></span>
-              T-A-D-A — Behavioral Approach to Agitation
+              T-A-D-A — Behavioral Approach to Agitation<a
+                class="cite"
+                data-ref="flaherty_little2011"
+              ></a>
             </div>
             <div class="tada-grid">
               <div class="tada-cell">
@@ -1403,7 +1439,11 @@
             </div>
             <p class="dnode-sub mt-3">
               Restraints are the last resort after de-escalation, environment, device removal, and
-              1:1 observation — re-evaluate daily.<a class="cite" data-ref="nice_ng10"></a>
+              1:1 observation — use the least-restrictive option, re-evaluate per institutional
+              policy, and discontinue at the earliest possible time.<a
+                class="cite"
+                data-ref="nice_ng10"
+              ></a>
             </p>
           </div>
           <div class="card">
@@ -1506,7 +1546,7 @@
             <span class="ref-bar-label">References</span>
             <ol
               class="auto-refs"
-              data-refs="padis2018,padis2025,mindusa2018,projectbeta,nice_ng10,hshieh2015,balas2014,ciwa_mdcalc,hayhurst2016"
+              data-refs="padis2018,padis2025,mindusa2018,projectbeta,icudelirium_mnemonics,flaherty_little2011,nice_ng10,hshieh2015,balas2014,awissi2013,ciwa_mdcalc,hayhurst2016"
             ></ol>
           </div>
         </section>
@@ -1521,10 +1561,11 @@
           </div>
           <div class="alert a-info mb-3">
             <strong>Reminder:</strong> No agent has FDA approval for delirium treatment.
-            Antipsychotics do <strong>not</strong> treat or shorten delirium (PADIS: no
-            recommendation for or against) — they control dangerous agitation short-term, then stop.
-            Medications address <em>symptoms</em> only when non-pharmacologic measures fail and
-            safety is at risk.<a class="cite" data-ref="padis2025"></a>
+            Antipsychotics do <strong>not</strong> treat or shorten delirium (MIND-USA negative;
+            PADIS 2025: unable to recommend for or against) — they control dangerous agitation
+            short-term, then stop. Medications address <em>symptoms</em> only when non-pharmacologic
+            measures fail and safety is at risk.<a class="cite" data-ref="mindusa2018"></a
+            ><a class="cite" data-ref="padis2025"></a>
           </div>
           <div class="card accented accent-crim">
             <div class="card-head">Pharmacologic Options — Safety Indication Only</div>
@@ -1565,10 +1606,22 @@
                   </tr>
                   <tr>
                     <td><strong>Dexmedetomidine</strong></td>
-                    <td data-label="Typical dose">0.2–0.7 mcg/kg/hr IV infusion</td>
+                    <td data-label="Typical dose">
+                      0.2–0.7 mcg/kg/hr IV infusion (label maintenance range)<a
+                        class="cite"
+                        data-ref="dex_label"
+                      ></a>
+                    </td>
                     <td data-label="Notes">
-                      MV adults: agitation preventing weaning, or when light sedation / delirium
-                      reduction is a priority (PADIS 2025, suggested over propofol); monitor
+                      MV adults: agitation precluding weaning/extubation (PADIS 2018)<a
+                        class="cite"
+                        data-ref="padis2018"
+                      ></a
+                      >; or where light sedation / delirium reduction is the highest priority —
+                      suggested over propofol (PADIS 2025)<a class="cite" data-ref="padis2025"></a>.
+                      A2B RCT: no extubation benefit vs propofol, more agitation and severe
+                      bradycardia — reserve the preference for when delirium reduction / light
+                      sedation is the priority.<a class="cite" data-ref="a2b2025"></a> Monitor
                       bradycardia/hypotension
                     </td>
                   </tr>
@@ -1583,14 +1636,24 @@
                   </tr>
                   <tr>
                     <td><strong>Melatonin</strong></td>
-                    <td data-label="Typical dose">0.5–3 mg nightly</td>
+                    <td data-label="Typical dose">
+                      0.5–3 mg nightly (conventional sleep dosing — trial doses were 3–5 mg;
+                      Pro-MEDIC used 4 mg)
+                    </td>
                     <td data-label="Notes">
-                      May be considered for sleep / circadian support; low-certainty ICU evidence<a
+                      PADIS 2025 conditionally suggests melatonin in adult ICU patients (low
+                      certainty; may reduce delirium prevalence and improve perceived sleep — no
+                      specific dose recommended)<a class="cite" data-ref="padis2025"></a>; the
+                      largest RCT (Pro-MEDIC) was negative<a
                         class="cite"
                         data-ref="promedic2022"
                       ></a
                       ><a class="cite" data-ref="melatonin_meta2025"></a>; not a treatment for
-                      established delirium, and prevention evidence is mixed
+                      established delirium. Ramelteon is the FDA-regulated melatonin-receptor
+                      agonist PADIS 2025 names as an alternative.<a
+                        class="cite"
+                        data-ref="padis2025"
+                      ></a>
                     </td>
                   </tr>
                 </tbody>
@@ -1619,13 +1682,12 @@
               contexts. Beers Criteria apply to adults ≥65.
             </div>
             <div class="flag-note">
-              Renal/hepatic accumulation: <strong>meperidine</strong> → normeperidine builds up in
-              renal failure (seizures) — avoid;
-              <strong>morphine / hydromorphone</strong> metabolites are neurotoxic at GFR &lt;30;
-              <strong>gabapentin / pregabalin</strong> need ~50% dose reduction at CrCl &lt;60.<a
-                class="cite"
-                data-ref="beers2023"
-              ></a>
+              Renal/hepatic accumulation: <strong>meperidine</strong> — avoid; higher neurotoxicity
+              risk than other opioids (normeperidine)<a class="cite" data-ref="beers2023"></a>;
+              <strong>morphine / hydromorphone</strong> glucuronide metabolites accumulate in renal
+              impairment with neuroexcitatory toxicity<a class="cite" data-ref="dean2004_renal"></a
+              >; <strong>gabapentin / pregabalin</strong> — reduce dose at CrCl &lt;60 (CNS adverse
+              effects).<a class="cite" data-ref="beers2023"></a>
             </div>
             <div class="alert a-teal mb-3">
               Toggle any medication off to remove it from the printed documents. Changes apply to
@@ -1645,7 +1707,7 @@
             <span class="ref-bar-label">References</span>
             <ol
               class="auto-refs"
-              data-refs="beers2023,padis2025,padis2018,haldol_label,mends2,mindusa2018,promedic2022"
+              data-refs="beers2023,beers_alt2025,acb_boustani,padis2025,padis2018,haldol_label,dex_label,mends2,a2b2025,mindusa2018,promedic2022,melatonin_meta2025,dean2004_renal"
             ></ol>
           </div>
         </section>
@@ -1678,6 +1740,12 @@
                   <option>CAM-ICU</option>
                   <option>ICDSC</option>
                 </select>
+                <p class="note mt-1">
+                  This label prints on the protocol documents. The Screening tab itself implements
+                  the CAM-ICU only — units using the ICDSC (8 items over the shift; total ≥ 4 =
+                  positive<a class="cite" data-ref="icdsc_bergeron"></a>) score it on their own
+                  worksheet and use this tool for the prevention, review, and treatment content.
+                </p>
               </div>
               <div class="frow">
                 <label class="flbl" for="set-camfreq">CAM Frequency</label>

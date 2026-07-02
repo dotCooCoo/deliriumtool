@@ -8,7 +8,7 @@
  * site's Referrer-Policy: no-referrer keeps it out of referrer headers.
  */
 
-function toBase64Url(str) {
+export function toBase64Url(str) {
   const bytes = new TextEncoder().encode(str);
   let bin = '';
   bytes.forEach((b) => {
@@ -17,7 +17,7 @@ function toBase64Url(str) {
   return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-function fromBase64Url(b64) {
+export function fromBase64Url(b64) {
   const pad = b64.length % 4 ? '='.repeat(4 - (b64.length % 4)) : '';
   const bin = atob(b64.replace(/-/g, '+').replace(/_/g, '/') + pad);
   const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));

@@ -225,14 +225,14 @@ test('structured references render as linked numbered lists with inline superscr
   page,
 }) => {
   await start(page);
-  await expect(page.locator('#tab-screen .ref-list li')).toHaveCount(5);
+  await expect(page.locator('#tab-screen .ref-list li')).toHaveCount(6);
   await expect(page.locator('#tab-screen .ref-list li a').first()).toHaveAttribute(
     'href',
     /doi\.org|pubmed/,
   );
   await expect(page.locator('#tab-screen .cite a').first()).toHaveText('1');
   await page.click('.tab-btn[data-tab="meds"]');
-  await expect(page.locator('#tab-meds .ref-list li')).toHaveCount(6);
+  await expect(page.locator('#tab-meds .ref-list li')).toHaveCount(9);
   await expect(page.locator('#tab-meds .cite a').first()).toHaveText(/\d/);
 });
 

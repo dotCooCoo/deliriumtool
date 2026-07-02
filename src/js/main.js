@@ -321,7 +321,7 @@ const onChange = {
   bundle: () => ui.updBundle(),
   mnemonic: () => ui.updMnemonic(),
   rass: () => ui.updateRass(),
-  cam4: () => ui.updateCam4(),
+  camLoc: () => ui.updateCamLoc(),
 };
 
 const onInput = {

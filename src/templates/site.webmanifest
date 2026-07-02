@@ -1,0 +1,19 @@
+{
+  "name": "Bedside Template Designer — Delirium Reference Sheets",
+  "short_name": "Delirium Templates",
+  "description": "Design print-and-laminate bedside delirium reference sheets — an ICU rounding checklist and an SPA quick-reference poster. Runs entirely in your browser.",
+  "start_url": "/templates/",
+  "scope": "/templates/",
+  "display": "standalone",
+  "background_color": "#f4f6fa",
+  "theme_color": "#16294d",
+  "icons": [
+    { "src": "/img/templates-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    {
+      "src": "/img/templates-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

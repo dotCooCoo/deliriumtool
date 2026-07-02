@@ -66,6 +66,9 @@ export function featurePresent(feature, value) {
   if (feature.type === 'errors') {
     if (!value || !value.performed) return null;
     const n = Array.isArray(value.errors) ? value.errors.length : 0;
+    // Some tasks define an alternate positivity path (e.g., psCAM Feature 2:
+    // eye contact kept but eye opening not sustained without verbal prompts).
+    if (feature.alt && value[feature.alt.id]) return true;
     return n >= feature.threshold;
   }
   if (feature.type === 'compound') {

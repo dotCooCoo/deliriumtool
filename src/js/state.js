@@ -8,6 +8,7 @@
  */
 
 import { MEDS, resetMeds } from './data/meds.js';
+import { evalCam } from './scoring.js';
 
 const AUTOSAVE_KEY = 'deliriumtool:assessment';
 
@@ -110,8 +111,17 @@ export function restore(root, data) {
       if (s.cam[k] === 'yes' || s.cam[k] === 'no') S.cam[k] = s.cam[k];
     });
   }
-  S.camResult = ['positive', 'negative', 'unable'].includes(s.camResult) ? s.camResult : null;
   S.rass = VALID_RASS.has(s.rass) ? s.rass : null;
+  // The CAM verdict is always re-derived from the restored features + RASS —
+  // a hand-edited or stale export cannot display a result its features do
+  // not support.
+  S.camResult = evalCam({
+    f1: S.cam[1],
+    f2: S.cam[2],
+    f3: S.cam[3],
+    f4: S.cam[4],
+    rass: S.rass ?? undefined,
+  });
   S.sub = ['hyper', 'hypo', 'mixed'].includes(s.sub) ? s.sub : null;
   S.log = []; // the CAM log is session scratch — don't carry it across a load/import
 

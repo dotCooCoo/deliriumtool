@@ -246,9 +246,28 @@ export function updateCam2() {
   setCam(2, inattentionPositive(v) ? 'yes' : 'no');
 }
 
-export function updateCam4() {
-  const v = $('cam4').value;
-  if (v) setCam(4, v === 'abnormal' ? 'yes' : 'no');
+// Feature 3 (altered level of consciousness): positive if the actual RASS is
+// anything other than 0 (worksheet operationalization).
+export function updateCamLoc() {
+  const v = $('cam-loc').value;
+  if (v) setCam(3, v === 'abnormal' ? 'yes' : 'no');
+}
+
+// Keep the Feature-3 card in step with the documented RASS: show what the
+// worksheet derivation says so the two entries can be cross-checked.
+function updateCamLocHint() {
+  const hint = $('cam-loc-hint');
+  if (!hint) return;
+  const v = S.rass;
+  if (!v) {
+    hint.textContent = '';
+  } else if (v === '-4' || v === '-5') {
+    hint.textContent = `Documented RASS ${v}: too sedated — CAM-ICU is "unable to assess".`;
+  } else if (v === '0') {
+    hint.textContent = 'Documented RASS 0 → Feature 3 negative.';
+  } else {
+    hint.textContent = `Documented RASS ${v} → Feature 3 positive.`;
+  }
 }
 
 function updateCamStrip() {
@@ -325,14 +344,17 @@ export function evalCam() {
     );
   } else {
     // incomplete
+    const needRass = !S.rass;
     const needBoth = S.cam[1] === undefined || S.cam[2] === undefined;
     show(
       'neutral',
       'fa-minus',
       'Incomplete',
-      needBoth
-        ? 'Answer Features 1 and 2 first'
-        : 'Features 1 & 2 positive — assess Feature 3 or 4',
+      needRass
+        ? 'Document the RASS first — the CAM-ICU starts with level of consciousness'
+        : needBoth
+          ? 'Answer Features 1 and 2 first'
+          : 'Features 1 & 2 positive — assess Feature 3 or 4',
       '',
       '',
     );
@@ -342,6 +364,8 @@ export function evalCam() {
 export function updateRass() {
   const v = $('rass').value;
   S.rass = v;
+  updateCamLocHint();
+  evalCam(); // a newly documented (or cleared) RASS changes the CAM verdict gating
   const target = $('set-rass')?.value;
 
   const band = $('rass-band');
@@ -369,17 +393,31 @@ export function updateRass() {
     }
   }
 
+  // Advisory wording follows the cited sources: agitation prompts are
+  // nonpharm-first per PADIS (pharmacologic control is reserved for danger to
+  // the patient or staff), reassessment intervals defer to unit protocol
+  // (none is source-defined), deep-sedation harm is stated as an association,
+  // and RASS −4/−5 carries the instrument's own stop-and-recheck directive.
   const messages = {
     '+4': ['a-danger', 'Immediate intervention required.'],
-    '+3': ['a-danger', 'High agitation — assess for pharmacologic intervention.'],
+    '+3': [
+      'a-danger',
+      'Very agitated — ensure safety; treat pain and other causes, non-pharmacologic measures first. Reserve short-term pharmacologic control for danger to the patient or staff.',
+    ],
     '+2': ['a-warn', 'Agitated — intensify non-pharmacologic measures first.'],
-    '+1': ['a-warn', 'Monitor closely — reassess in 1 hour.'],
+    '+1': ['a-warn', "Restless — monitor closely; reassess at the unit's standard interval."],
     0: ['a-green', 'Goal achieved — continue current management.'],
     '-1': ['a-teal', 'Within acceptable light-sedation range.'],
     '-2': ['a-teal', 'Light sedation — ensure SAT/SBT still being performed.'],
     '-3': ['a-warn', 'Moderate sedation — review necessity daily.'],
-    '-4': ['a-danger', 'Deep sedation — SAT indicated; deep sedation increases delirium risk.'],
-    '-5': ['a-danger', 'Unarousable — neurological assessment needed.'],
+    '-4': [
+      'a-danger',
+      'Deep sedation — reassess need daily (SAT unless deeper sedation is clinically indicated); deeper sedation is associated with more delirium, delayed extubation, and higher mortality.',
+    ],
+    '-5': [
+      'a-danger',
+      'Unarousable — CAM-ICU unable to assess; recheck when arousal improves. If unresponsiveness is not explained by sedation, evaluate for coma or a neurologic cause.',
+    ],
   };
   const note = $('rass-note');
   if (note) {
@@ -833,18 +871,18 @@ export function autofillExample() {
   });
   recalcRisk();
 
+  const rass = $('rass');
+  if (rass) rass.value = '-1';
+  updateRass();
+
   setCam(1, 'yes');
   const err = $('cam2-err');
   if (err) err.value = '3';
   updateCam2();
-  const loc = $('cam4');
-  if (loc) loc.value = 'abnormal';
-  updateCam4();
-  setCam(3, 'yes');
-
-  const rass = $('rass');
-  if (rass) rass.value = '-1';
-  updateRass();
+  const loc = $('cam-loc');
+  if (loc) loc.value = 'abnormal'; // matches the example's RASS −1 (≠ 0 → positive)
+  updateCamLoc();
+  setCam(4, 'yes');
   setSub('hypo');
   const ct = $('cam-time');
   if (ct && !ct.value) ct.value = localStampInput(8, 30);

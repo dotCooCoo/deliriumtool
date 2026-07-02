@@ -28,6 +28,11 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Hshieh 2015 — non-pharm prevention meta-analysis, JAMA IM 2015;175:512 | `hshieh-2015-nonpharm-meta-jamaim.pdf` | https://doi.org/10.1001/jamainternmed.2014.7779 |
 | AGS CoCare HELP reference list | `ags-cocare-help-reference-list.pdf` | https://help.agscocare.org/ |
 | NICE CG103 — Delirium guideline | `nice-cg103-delirium.pdf` | https://www.nice.org.uk/guidance/cg103 |
+| Vincent 2016 — eCASH concept, ICM 2016;42:962 | **not archived** | https://doi.org/10.1007/s00134-016-4297-4 |
+| Girard 2008 — ABC trial (paired SAT+SBT), Lancet 2008;371:126 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/18191684/ |
+| Awissi 2013 — alcohol withdrawal & DT in the critically ill (CIWA not ICU-validated), ICM 2013;39:16 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/23184039/ |
+| Flaherty & Little 2011 — the delirium room / T-A-D-A method, JAGS 2011;59:S295 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/22091576/ |
+| Kollef 1998 — continuous IV sedation & ventilation duration (observational), Chest 1998;114:541 | **not archived** | https://doi.org/10.1378/chest.114.2.541 |
 
 ## DELIRIUM Factors (subtypes / mnemonic)
 
@@ -42,12 +47,16 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 
 | Source | Local file | Canonical URL |
 |---|---|---|
-| AGS Beers Criteria 2023, JAGS 2023;71:2052 | `beers-2023-ags-criteria-fulltext.pdf` | https://pubmed.ncbi.nlm.nih.gov/37139824/ |
+| AGS Beers Criteria 2023, JAGS 2023;71:2052 (PMID 37139824) | `beers-2023-uconn-tables-summary.pdf` — **criteria-tables summary** (UConn Health Dept. of Pharmacy reproduction of Tables 2–10, last updated 11/02/2023), not the JAGS full text | https://doi.org/10.1111/jgs.18372 |
+| AGS Beers Criteria Alternatives 2025, JAGS 2025;73:2657 (PMID 40697073) | **not archived** | https://doi.org/10.1111/jgs.19500 |
 | Haloperidol prescribing information (DailyMed) | `haloperidol-label-dailymed.pdf` | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f |
+| Precedex (dexmedetomidine) prescribing information (DailyMed) | **not archived** | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74 |
 | Hughes 2021 — MENDS2 dex vs propofol, NEJM 2021;384:1424 | `hughes-2021-mends2-dex-vs-propofol-nejm.pdf` | https://doi.org/10.1056/NEJMoa2024922 |
+| Walsh 2025 — A2B dexmedetomidine/clonidine vs propofol RCT, JAMA 2025;334:32 (PMID 40388916) | **not archived** | https://doi.org/10.1001/jama.2025.7200 |
 | Wibrow — ProMEDIC SAP (Trials 2021;22:7) — *supplement* | `wibrow-2021-promedic-sap-trials.pdf` | https://doi.org/10.1186/s13063-020-04981-0 |
 | Burry 2022 — ProMEDIC editorial, ICM 2022;48:479 — *commentary* | `burry-2022-promedic-editorial-icm.pdf` | https://doi.org/10.1007/s00134-022-06656-7 |
 | Wibrow 2022 — ProMEDIC melatonin RCT (main results), ICM 2022;48:414 | **not archived** (only SAP + editorial above) | https://doi.org/10.1007/s00134-022-06638-9 |
+| Dean 2004 — opioids in renal failure (morphine/hydromorphone metabolites), JPSM 2004;28:497 | **not archived** | https://doi.org/10.1016/j.jpainsymman.2004.02.021 |
 
 ## Risk (prediction models)
 
@@ -82,14 +91,19 @@ Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive �
 |---|---|---|
 | Smith 2022 — SCCM PANDEM guideline, PCCM 2022;23:e74 (PMID 35119438) | `peds/smith-2022-pandem-guideline-pccm.pdf` | https://doi.org/10.1097/PCC.0000000000002873 |
 | Waak 2022 — PICUstars nurse-led PICU liberation protocol, BMC Pediatr 2022;22:279 | `peds/waak-2022-picustars-liberation-protocol-bmcpediatrics.pdf` | https://doi.org/10.1186/s12887-022-03232-2 |
+| Lin 2023 — PICU Liberation collaborative (ABCDEF), PCCM 2023;24:636 (PMID 37125798) | **not archived** | https://doi.org/10.1097/PCC.0000000000003262 |
+| Kudchadkar — PICU Up! multicenter early-mobility trial (protocol: Azamfirei, Trials 2023;24:191, PMID 36918956) | **not archived** | https://clinicaltrials.gov/study/NCT04989790 |
 
 ### Treatment / medications
 
 | Source | Local file | Canonical URL |
 |---|---|---|
-| Capino 2020 — antipsychotics in pediatric ICU delirium, JPPT 2020;25:81 | `peds/capino-2020-antipsychotics-peds-delirium-jppt.pdf` | https://doi.org/10.5863/1551-6776-25.2.81 |
+| Capino 2020 — antipsychotics in pediatric ICU delirium, JPPT 2020;25:81 (PMC7025750) | `peds/capino-2020-antipsychotics-peds-delirium-jppt.pdf` | https://doi.org/10.5863/1551-6776-25.2.81 |
 | Joyce 2015 — quetiapine safety in PICU delirium, JCAP 2015;25:666 (PMID 26469214) | `peds/joyce-2015-quetiapine-peds-delirium-jcap.pdf` | https://doi.org/10.1089/cap.2015.0093 |
-| Madden 2021 — antipsychotic prescribing across PICUs (open access), JPIC 2021 (PMID 38571986) | `peds/madden-2021-antipsychotic-prescribing-jpic.pdf` | https://doi.org/10.1055/s-0041-1736523 |
+| Madden 2024 — antipsychotic prescribing across PICUs (open access), JPIC 2024;13:46 (online 2021; PMID 38571986) | `peds/madden-2021-antipsychotic-prescribing-jpic.pdf` | https://doi.org/10.1055/s-0041-1736523 |
+| Cavagnero 2025 — antipsychotics for PICU delirium systematic review, Paediatr Drugs 2025;27:707 (PMID 40906237) | **not archived** | https://doi.org/10.1007/s40272-025-00716-3 |
+| Phan & Nahata 2008 — dexmedetomidine in pediatric patients, Paediatr Drugs 2008;10:49 (PMID 18162008) | **not archived** | https://doi.org/10.2165/00148581-200810010-00006 |
+| Bruni 2015 — melatonin in pediatric neurology (dosing recommendations), EJPN 2015;19:122 | **not archived** | https://doi.org/10.1016/j.ejpn.2014.12.007 |
 
 ### Bedside tools & forms (Vanderbilt / Cornell point-of-care set)
 
@@ -114,7 +128,7 @@ Canonical home: https://www.icudelirium.org/medical-professionals/pediatric-deli
 | VADIC — Vanderbilt Assessment for Delirium in Infants & Children (2017) | `peds/vadic-form-2017.pdf` |
 | AACAP pediatric delirium flyer | `peds/aacap-pediatric-delirium-flyer.pdf` |
 
-_Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Lin 2023 PICU Liberation collaborative (PCCM 24:636 — PANDEM + Waak cover liberation); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
+_Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
 
 ## Bonus papers (archived; not yet wired into the tool — useful extras)
 
@@ -133,5 +147,6 @@ _Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation 
 | Need | Why | URL |
 |---|---|---|
 | Sessler 2002 RASS (AJRCCM 2002;166:1338) | the supplied "Sessler" file is actually the Tadrisi Persian study | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
+| AGS Beers 2023 **JAGS full text** (71:2052) | the archived file is the UConn criteria-tables summary, not the article | https://doi.org/10.1111/jgs.18372 |
 | ProMEDIC **main RCT** (Wibrow 2022, ICM 2022;48:414) | only the SAP + editorial are archived | https://doi.org/10.1007/s00134-022-06638-9 |
 | Inouye 1993 / Marcantonio 1994 / Krewulak 2018 | paywalled; cited by URL | (see tables above) |

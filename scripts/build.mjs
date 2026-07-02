@@ -37,7 +37,11 @@ await mkdir(assets, { recursive: true });
 const esbuild = await import('esbuild');
 
 const js = await esbuild.build({
-  entryPoints: { app: join(src, 'js', 'main.js'), peds: join(src, 'js', 'peds', 'main.js') },
+  entryPoints: {
+    app: join(src, 'js', 'main.js'),
+    peds: join(src, 'js', 'peds', 'main.js'),
+    templates: join(src, 'js', 'templates', 'main.js'),
+  },
   bundle: true,
   format: 'iife',
   minify: true,
@@ -50,7 +54,11 @@ const js = await esbuild.build({
 });
 
 const css = await esbuild.build({
-  entryPoints: { app: join(src, 'styles', 'app.css'), peds: join(src, 'styles', 'peds.css') },
+  entryPoints: {
+    app: join(src, 'styles', 'app.css'),
+    peds: join(src, 'styles', 'peds.css'),
+    templates: join(src, 'styles', 'templates.css'),
+  },
   bundle: true,
   minify: true,
   entryNames: '[name]-[hash]',
@@ -70,6 +78,8 @@ const jsName = outName(js.metafile, 'app', '.js');
 const cssName = outName(css.metafile, 'app', '.css');
 const pedsJsName = outName(js.metafile, 'peds', '.js');
 const pedsCssName = outName(css.metafile, 'peds', '.css');
+const tplJsName = outName(js.metafile, 'templates', '.js');
+const tplCssName = outName(css.metafile, 'templates', '.css');
 
 // Rewrite each entry document's asset placeholders to the content-hashed names.
 // Relative paths keep the built dist/ working from file://; the pediatric page
@@ -87,6 +97,11 @@ await emitPage('index.html', 'index.html', [
 await emitPage('peds/index.html', 'peds/index.html', [
   ['../assets/peds.js', `../assets/${pedsJsName}`],
   ['../assets/peds.css', `../assets/${pedsCssName}`],
+  ['../assets/app.css', `../assets/${cssName}`],
+]);
+await emitPage('templates/index.html', 'templates/index.html', [
+  ['../assets/templates.js', `../assets/${tplJsName}`],
+  ['../assets/templates.css', `../assets/${tplCssName}`],
   ['../assets/app.css', `../assets/${cssName}`],
 ]);
 
@@ -115,6 +130,15 @@ const rootImages = [
   'peds-icon-192.png',
   'peds-icon-512.png',
   'peds-og-image.png',
+  // Template-designer branding (derived from logo-dark.png) so /templates/ has
+  // its own tab icon, installed icon, and social card.
+  'logo-dark.png',
+  'templates-favicon-16.png',
+  'templates-favicon-32.png',
+  'templates-apple-touch-icon.png',
+  'templates-icon-192.png',
+  'templates-icon-512.png',
+  'templates-og-image.png',
 ];
 await mkdir(join(dist, 'img'), { recursive: true });
 for (const name of rootImages) {
@@ -129,6 +153,13 @@ for (const name of ['site.webmanifest', 'robots.txt', 'sitemap.xml']) {
 // pediatric app (its own name, theme, and start_url) rather than the adult one.
 if (existsSync(join(src, 'peds', 'site.webmanifest'))) {
   await copyFile(join(src, 'peds', 'site.webmanifest'), join(dist, 'peds', 'site.webmanifest'));
+}
+// Likewise the template designer: installing from /templates/ gives its own app.
+if (existsSync(join(src, 'templates', 'site.webmanifest'))) {
+  await copyFile(
+    join(src, 'templates', 'site.webmanifest'),
+    join(dist, 'templates', 'site.webmanifest'),
+  );
 }
 
 console.log(`Built src/ -> dist/  (${jsName}, ${cssName})`);

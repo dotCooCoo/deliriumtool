@@ -562,8 +562,8 @@ var DLM_DOMAINS = [
     'D — Drugs / Withdrawal',
     'Deliriogenic agents? Dose reduction? Withdrawal (alcohol/benzo/opioid) — treat to RASS, not CIWA, in the ICU.',
   ],
-  ['E — Eyes/Ears/Env', 'Glasses & hearing aids in? Whiteboard updated? Daytime lights?'],
-  ['L — Low O2/Liver', 'Check SpO2, Hgb, cardiac/PE events, liver function.'],
+  ['E — Eyes/Ears (sensory)', 'Glasses & hearing aids in? Other sensory deficits addressed?'],
+  ['L — Low O2 states', 'Check SpO2, Hgb; MI, stroke, pulmonary embolism.'],
   ['I — Infection', 'Fever, leukocytosis, cultures pending? Occult sepsis?'],
   [
     'R — Retention',
@@ -766,7 +766,7 @@ function buildFull(doc, opts, k) {
         [
           'Risk factors:\n' +
             (ASMT.risk || 0) +
-            '/16 (' +
+            '/15 (' +
             (ASMT.riskTier || '-') +
             ') — count of present factors, not a validated score',
           'ABCDEF bundle:\n' + (ASMT.bundleOn || 0) + '/' + (ASMT.bundleAll || 0),
@@ -1004,7 +1004,7 @@ function buildFull(doc, opts, k) {
       [
         'Haloperidol',
         '0.25-0.5 mg q4-6h PRN; lowest effective dose, cap per local protocol',
-        'Elderly more sensitive (EPS/QTc rise with dose); ECG baseline; monitor QTc (caution >500 ms); avoid Parkinson/Lewy body; dementia-mortality boxed warning',
+        'Elderly more sensitive (EPS/QTc rise with dose); ECG baseline; monitor QTc (caution >500 ms); avoid Parkinson/Lewy body; dementia-mortality boxed warning; IV route off-label (higher QT/Torsades) — prefer PO/IM, continuous ECG if given IV',
       ],
       [
         'Quetiapine',
@@ -1013,8 +1013,8 @@ function buildFull(doc, opts, k) {
       ],
       [
         'Dexmedetomidine',
-        '0.2-0.7 mcg/kg/hr IV infusion',
-        'MV adults: agitation preventing weaning, or when light sedation/delirium reduction is a priority (PADIS 2025, over propofol); monitor bradycardia/hypotension',
+        '0.2-0.7 mcg/kg/hr IV infusion (label maintenance range)',
+        'MV adults: agitation precluding weaning/extubation (PADIS 2018); or where light sedation/delirium reduction is the priority — suggested over propofol (PADIS 2025). A2B RCT (JAMA 2025): no extubation benefit vs propofol, more agitation/bradycardia — reserve the preference for delirium/light-sedation priority. Monitor bradycardia/hypotension',
       ],
       [
         'Lorazepam (specific use)',
@@ -1023,8 +1023,8 @@ function buildFull(doc, opts, k) {
       ],
       [
         'Melatonin',
-        '0.5-3 mg nightly',
-        'May be considered for sleep/circadian support; low-certainty ICU evidence (Pro-MEDIC RCT; 2025 ICU meta-analysis); not a treatment for established delirium and prevention evidence is mixed',
+        '0.5-3 mg nightly (conventional sleep dosing; trial doses 3-5 mg — Pro-MEDIC used 4 mg)',
+        'PADIS 2025 conditionally suggests melatonin in adult ICU patients (low certainty; may reduce delirium prevalence and improve perceived sleep) — no specific dose recommended; largest RCT (Pro-MEDIC) was negative; not a treatment for established delirium. Ramelteon is the FDA-regulated alternative named by PADIS 2025',
       ],
     ],
   });
@@ -1178,8 +1178,8 @@ function buildFull(doc, opts, k) {
           '[ ] No deliriogenic drugs added today\n[ ] No abrupt med discontinuation\n[ ] Lines/devices limited to essential\n[ ] Bundle applied (Step 2)',
           '[ ] CAM-ICU completed this shift\n[ ] RASS documented\n[ ] Baseline mental status known\n[ ] Provider notified if first positive CAM',
           '[ ] Fall-prevention active\n[ ] Devices removed/disguised\n[ ] Family teaching done\n[ ] T-A-D-A approach applied\n[ ] Plan individualized',
-          '[ ] CAM once per shift + PRN\n[ ] Comfort/calm/consistent\n[ ] Toileting/hydration\n[ ] Adequate nutrition\n[ ] Sleep/wake cycle maintained\n[ ] Meds reassessed & documented',
-          '[ ] Delirium course/cause documented\n[ ] Unnecessary psychotropics stopped\n[ ] Successful strategies documented\n[ ] Follow-up if unresolved\n[ ] Family & patient educated',
+          '[ ] CAM once per shift + PRN\n[ ] Comfort/calm/consistent\n[ ] Toileting completed\n[ ] Adequate nutrition & hydration\n[ ] Sleep/wake cycle maintained',
+          '[ ] Delirium course documented\n[ ] Unnecessary psychotropics stopped\n[ ] Follow-up arranged\n[ ] Family & patient educated\n[ ] After-visit summary updated',
         ],
       ],
     });
@@ -1205,7 +1205,7 @@ function buildSpa(doc, opts) {
     doc,
     facility,
     'SPA Quick Reference — Delirium Prevention & Management',
-    'High-impact, high-frequency actions for delirium prevention & management · For all inpatient units',
+    'High-impact, high-frequency actions for delirium prevention & management · For adult ICUs',
     'Patient: ' + blank + '   Unit: ______   Date: ' + dt,
   );
 
@@ -1221,7 +1221,7 @@ function buildSpa(doc, opts) {
     ],
     [
       'Bolus over continuous infusion',
-      'When safe, use intermittent bolus dosing rather than continuous drips.',
+      'When safe, consider intermittent bolus dosing rather than continuous drips (observational association — Kollef 1998).',
     ],
     [
       'Daily SAT/SBT',
@@ -1247,8 +1247,8 @@ function buildSpa(doc, opts) {
       'Highest delirium risk of all opioids. Do not use in delirium-risk patients.',
     ],
     [
-      'Consider melatonin for sleep',
-      '0.5-3 mg nightly; may help sleep but ICU benefit is low-certainty; not a treatment for delirium.',
+      'Melatonin — consider for prevention',
+      'PADIS 2025 conditionally suggests melatonin (low certainty; no dose specified — trials used 3-5 mg; largest RCT negative); not a treatment for established delirium.',
     ],
   ];
   var A = [
@@ -1343,7 +1343,7 @@ function buildSpa(doc, opts) {
           rassCellContent(opts),
           'DELIRIUM SUBTYPE\n' +
             _tk(ASMT.sub === 'hyper') +
-            ' Hyperactive (~23%, least common)\n' +
+            ' Hyperactive (~23% of delirious cases, least common)\n' +
             _tk(ASMT.sub === 'hypo') +
             ' Hypoactive (most common, often missed)\n' +
             _tk(ASMT.sub === 'mixed') +
@@ -1429,9 +1429,9 @@ function buildSpa(doc, opts) {
     },
     body: [
       [
-        'Dexmedetomidine preferred in ventilated patients; reduces delirium vs benzos; monitor bradycardia/hypotension.\n\nPropofol acceptable short-term; daily cost/benefit.\n\nAvoid midazolam/lorazepam for routine sedation.\n\nException: benzos first-line for alcohol/benzo withdrawal (CIWA).\n\nHaloperidol 0.25-0.5 mg IV/IM q4-6h PRN for hyperactive delirium w/ safety risk; lowest effective dose, cap per local protocol; check QTc; elderly are more sensitive (EPS/QTc; dementia-mortality boxed warning).\n\nQuetiapine 12.5-25 mg PO q12h if oral available; monitor QTc & orthostasis.',
-        'Scheduled acetaminophen 650-975 mg q6h (if no hepatic contraindication) as a multimodal, opioid-sparing adjunct.\n\nRegional anesthesia (nerve blocks, epidurals) preferred for surgical patients.\n\nPain assessment routinely / per unit protocol - NRS if able to self-report, CPOT or BPS if not.\n\nPharmacy consult for any CAM-positive patient or high anticholinergic/sedative burden (polypharmacy >= 5 meds is a common practice heuristic).\n\nElectrolytes Na, K, Mg, Ca, Phos, glucose - check and correct per clinical indication.\n\nCheck for infection/occult sepsis in new delirium.',
-        "Every device = barrier to mobility. Remove the urinary catheter as early as clinically feasible. CVC reassess daily. Restraints: least restrictive.\n\n4-level mobility: passive ROM -> edge-of-bed -> chair -> ambulate. Target chair daily.\n\nT-A-D-A: Tolerate seemingly dangerous (but not truly harmful) behaviors, Anticipate triggers, Don't Agitate.\n\nOrientation board: date, team, daily goal each shift.\n\nSleep hygiene: dim lights per unit quiet-hours protocol, cluster vitals/labs, ear protection.",
+        'Dexmedetomidine preferred in ventilated patients; reduces delirium vs benzos; monitor bradycardia/hypotension.\n\nPropofol acceptable short-term; daily cost/benefit.\n\nAvoid midazolam/lorazepam for routine sedation.\n\nException: benzos first-line for alcohol/benzo withdrawal (CIWA).\n\nHaloperidol 0.25-0.5 mg q4-6h PRN for hyperactive delirium w/ safety risk; lowest effective dose, cap per local protocol; IV route off-label (higher QT/Torsades risk) — prefer PO/IM, continuous ECG if given IV; check QTc; elderly are more sensitive (EPS/QTc; dementia-mortality boxed warning).\n\nQuetiapine 12.5-25 mg PO q12h if oral available; monitor QTc & orthostasis.',
+        'Scheduled acetaminophen (dose per local order set; avoid/reduce with hepatic impairment) as a multimodal, opioid-sparing adjunct.\n\nRegional anesthesia (nerve blocks, epidurals) preferred for surgical patients.\n\nPain assessment routinely / per unit protocol - NRS if able to self-report, CPOT or BPS if not.\n\nPharmacy consult for any CAM-positive patient or high anticholinergic/sedative burden (polypharmacy >= 5 meds is a common practice heuristic).\n\nElectrolytes Na, K, Mg, Ca, Phos, glucose - check and correct per clinical indication.\n\nCheck for infection/occult sepsis in new delirium.',
+        "Every device = barrier to mobility. Remove the urinary catheter as early as clinically feasible. CVC reassess daily. Restraints: least restrictive.\n\nMobility progression: passive ROM -> active ROM/bed exercises -> sit/edge of bed -> stand/transfer -> ambulate. Target chair daily.\n\nT-A-D-A: Tolerate seemingly dangerous (but not truly harmful) behaviors, Anticipate triggers, Don't Agitate.\n\nOrientation board: date, team, daily goal each shift.\n\nSleep hygiene: dim lights per unit quiet-hours protocol, cluster vitals/labs, ear protection.",
       ],
     ],
   });
@@ -1582,7 +1582,7 @@ function buildRecord(doc, opts) {
             content:
               'RISK & PREVENTION\n\nRisk factors: ' +
               (ASMT.risk || 0) +
-              '/16 (' +
+              '/15 (' +
               (ASMT.riskTier || '-') +
               ') — count of present factors, not a validated score\nABCDEF bundle: ' +
               (ASMT.bundleOn || 0) +
