@@ -221,12 +221,14 @@ general ward; −3 to −4 deep, which prints a "documented indication required"
 "no unit target" option that prints a write-in blank with a "per prescriber order" note —
 a presentation choice, not a new clinical value. Each RASS row carries a check mark
 (circle) so the current level can be marked at the bedside. "Save as
-PDF" renders the same content data through a second layout engine (jsPDF), so the PDF cannot
-carry different clinical values than the on-screen sheet; the saved PDF is additionally an
-interactive form (checkbox fields over every check mark; text fields for the patient header,
-action lines, notes, and the write-in target). Optional "date created" and "revision" labels
-print in the footer and suffix the PDF filename for unit version-tracking — they carry no
-clinical content. Reworded lines, added lines, and
+PDF" captures the on-screen sheet itself — the PDF embeds a print-resolution image of the
+exact rendered sheet, so it cannot differ from the preview or the browser print output in any
+way — and overlays interactive form fields at the captured elements' measured positions
+(checkboxes over every check square, one mutually-exclusive radio group over the RASS
+circles, text fields over the write-in blanks). The "date created" label defaults to the day
+the configuration was created (editable); it and the optional "revision" label print in the
+footer and suffix the PDF filename for unit version-tracking — they carry no clinical
+content. Reworded lines, added lines, and
 unit-authored sections are local protocol content — like the nurse care pathway, they carry no
 citation and are the unit's responsibility.
 
