@@ -27,9 +27,10 @@ import {
   ACT_POSITIVE,
   PREVENT_BUNDLE,
   PREVENT_MEASURES,
-  STIM_DECK,
   WORKFLOW_STAGES,
   ROUNDS_SCRIPT,
+  PEDS_FOOTER_CITES,
+  PEDS_REFS,
 } from './data/peds-content.js';
 import {
   defaultState,
@@ -128,21 +129,6 @@ function controlGroups(tplId) {
           },
         ],
       },
-      {
-        section: 'sec-pc-stim',
-        groups: [
-          {
-            id: 'stim-deck',
-            head: 'Picture cards',
-            fixedHead: true,
-            noEdit: true,
-            items: STIM_DECK.map((c) => ({
-              id: c.id,
-              text: `${c.name} (${c.set === 'memory' ? 'memory set' : 'other set'})`,
-            })),
-          },
-        ],
-      },
     ];
   }
   if (tplId === 'peds-workflow') {
@@ -154,7 +140,8 @@ function controlGroups(tplId) {
             id: st.id,
             head: st.head,
             fixedHead: true,
-            items: st.lines.map((text, i) => ({ id: `${st.id}-l${i}`, text })),
+            // Locked lines carry validated values — never editable.
+            items: st.lines.filter((l) => !l.locked),
             custom: true,
           })),
           {
@@ -284,7 +271,10 @@ function buildSectionControls() {
         swInput,
         el('span', {}, el('strong', { text: sec.label })),
       ),
-      el('span', { class: 'sec-ctl-page', text: `p.${sec.page}` }),
+      el('span', {
+        class: 'sec-ctl-page',
+        text: state.template.startsWith('peds') ? '' : `p.${sec.page}`,
+      }),
     );
     const wrap = el('div', { class: 'sec-ctl' }, head);
     if (sec.local) {
@@ -559,9 +549,16 @@ function buildRefs() {
   const mount = $('#tpl-refs');
   if (!mount) return;
   mount.replaceChildren();
-  const keys = [...new Set([...FOOTER_CITES.rounding, ...FOOTER_CITES.spa])];
+  const keys = [
+    ...new Set([
+      ...FOOTER_CITES.rounding,
+      ...FOOTER_CITES.spa,
+      ...PEDS_FOOTER_CITES['peds-cards'],
+      ...PEDS_FOOTER_CITES['peds-workflow'],
+    ]),
+  ];
   for (const k of keys) {
-    const ref = DELIRIUM_REFS[k];
+    const ref = DELIRIUM_REFS[k] || PEDS_REFS[k];
     if (!ref) continue;
     mount.append(el('li', {}, el('a', { href: ref.u, target: '_blank', rel: 'noopener' }, ref.c)));
   }

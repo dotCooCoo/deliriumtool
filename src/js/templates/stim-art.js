@@ -13,7 +13,6 @@ const NS = 'http://www.w3.org/2000/svg';
 function svg(nodes) {
   const root = document.createElementNS(NS, 'svg');
   root.setAttribute('viewBox', '0 0 100 100');
-  root.setAttribute('role', 'img');
   root.setAttribute('aria-hidden', 'true');
   root.setAttribute('focusable', 'false');
   for (const [tag, attrs] of nodes) {

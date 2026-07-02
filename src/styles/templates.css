@@ -1170,6 +1170,9 @@ details[open] > summary::before {
    --fs so the auto-fit and size controls compose. */
 
 .sheet--card {
+  /* Portrait card page — 8.5x11in letter minus the 0.25in @page margin. */
+  width: 8in;
+  height: 10.46in;
   gap: calc(8pt * var(--fs));
 }
 
@@ -1225,8 +1228,9 @@ details[open] > summary::before {
   display: flex;
   gap: calc(4pt * var(--fs));
   align-items: flex-start;
-  border: 0.8pt solid #9c4f0f;
-  border-left-width: 3pt;
+  border-style: solid;
+  border-color: #9c4f0f;
+  border-width: 0.8pt 0.8pt 0.8pt 3pt;
   border-radius: 4px;
   padding: calc(4pt * var(--fs)) calc(6pt * var(--fs));
   background: #fcebd8;
@@ -1337,8 +1341,9 @@ details[open] > summary::before {
   gap: calc(6pt * var(--fs));
 }
 .pc-route {
-  border: 1pt solid var(--tone);
-  border-left-width: 4pt;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 4pt;
   border-radius: 6px;
   padding: calc(6pt * var(--fs)) calc(8pt * var(--fs));
   background: #fff;
@@ -1588,8 +1593,9 @@ details[open] > summary::before {
 
 /* Act + prevention */
 .pc-act {
-  border: 1pt solid var(--tone);
-  border-left-width: 4pt;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 4pt;
   border-radius: 6px;
   padding: calc(5pt * var(--fs)) calc(8pt * var(--fs));
   display: flex;
@@ -1613,6 +1619,23 @@ details[open] > summary::before {
   font-size: calc(10pt * var(--fs));
   font-weight: 700;
   margin-top: auto;
+}
+.pc-act-contact .sh-blank {
+  flex: 1;
+}
+.pc-capd-score-lbl {
+  font-size: calc(7pt * var(--fs));
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sh-slate);
+  margin-right: calc(3pt * var(--fs));
+}
+.pc-capd-legend-row + .pc-capd-legend-row {
+  margin-top: calc(1.5pt * var(--fs));
+}
+.pc-capd-legend {
+  display: block;
 }
 .pc-bundle {
   display: grid;
@@ -1671,8 +1694,8 @@ details[open] > summary::before {
   min-height: 0;
 }
 .pc-stim {
-  border: 2.4pt solid #2d6b43;
-  outline: 0.8pt dashed #a0b8c4;
+  border: 2.4pt solid #1a2630;
+  outline: 1.1pt dashed #64808c;
   outline-offset: calc(4pt * var(--fs));
   border-radius: 10px;
   background: #fff;
@@ -1682,9 +1705,6 @@ details[open] > summary::before {
   justify-content: center;
   padding: calc(8pt * var(--fs));
   min-height: 0;
-}
-.pc-stim--other {
-  border-color: #0f5e8a;
 }
 .pc-stim-art {
   flex: 1;
@@ -1698,24 +1718,6 @@ details[open] > summary::before {
   width: auto;
   height: 100%;
   max-width: 100%;
-}
-.pc-stim-caption {
-  display: flex;
-  align-items: baseline;
-  gap: calc(6pt * var(--fs));
-  margin-top: calc(3pt * var(--fs));
-}
-.pc-stim-name {
-  font-size: calc(10pt * var(--fs));
-  font-weight: 800;
-  color: var(--sh-ink);
-}
-.pc-stim-set {
-  font-size: calc(7.5pt * var(--fs));
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--sh-slate);
 }
 .pc-stim--instr {
   align-items: flex-start;
@@ -1754,8 +1756,9 @@ details[open] > summary::before {
 }
 .pc-stage {
   flex: 1;
-  border: 1.2pt solid var(--tone);
-  border-top-width: 4pt;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 4pt 1.2pt 1.2pt 1.2pt;
   border-radius: 8px;
   background: #fff;
   padding: calc(7pt * var(--fs)) calc(8pt * var(--fs));
@@ -1813,8 +1816,9 @@ details[open] > summary::before {
   min-height: 0;
 }
 .pc-rounds {
-  border: 1pt solid var(--tone);
-  border-left-width: 4pt;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 4pt;
   border-radius: 6px;
   padding: calc(6pt * var(--fs)) calc(9pt * var(--fs));
   display: flex;
@@ -1841,12 +1845,8 @@ details[open] > summary::before {
 }
 .pc-routes {
   flex: 1;
-}
-.pc-route {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
+  gap: calc(20pt * var(--fs));
 }
 .pc-capd-rows {
   flex: 1;
@@ -1854,8 +1854,11 @@ details[open] > summary::before {
 .pc-capd-row {
   flex: 1;
 }
-.pc-act {
-  flex: 1;
+.pc-actcard .pc-body {
+  justify-content: space-evenly;
+}
+.pc-actcard .pc-act-contact {
+  margin-top: 0;
 }
 .pc-prevent .pc-bundle {
   flex: 1;

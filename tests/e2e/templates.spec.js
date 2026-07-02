@@ -315,8 +315,7 @@ test('peds card set renders all ten pages with the arousal gate and picture deck
   // Protocol content is editable; validated-instrument text is not — the
   // sidebar offers act/prevention/picture toggles but nothing for the CAPD
   // items, CAM features, or arousal rows.
-  await expect(page.locator('#ctrl-sections details')).toHaveCount(3);
-  await expect(page.locator('input[data-act="itemToggle"][data-id="stim-heart"]')).toBeAttached();
+  await expect(page.locator('#ctrl-sections details')).toHaveCount(2);
   await expect(page.locator('button[data-act="editText"][data-id="act-consult"]')).toBeAttached();
   expect(await page.locator('input[data-act="itemToggle"][data-id^="capd"]').count()).toBe(0);
   // Picture cards toggle but are not reword-able.
@@ -327,11 +326,9 @@ test('peds card set is a full builder: toggles, rewording, unit lines, own-card 
   page,
 }) => {
   await page.check('input[name="template"][value="peds-cards"]');
-  // Toggle a picture off.
-  await page
-    .locator('input[data-act="itemToggle"][data-id="stim-boat"]')
-    .evaluate((el) => el.click());
-  await expect(page.locator('.pc-stim')).toHaveCount(10);
+  // The picture deck is fixed — the printed procedure needs all ten pictures.
+  await expect(page.locator('.pc-stim')).toHaveCount(11);
+  expect(await page.locator('input[data-act="itemToggle"][data-id^="stim-"]').count()).toBe(0);
   // Reword an act line inline (the group lives in a collapsed disclosure).
   await page
     .locator('#ctrl-sections details')
@@ -367,7 +364,7 @@ test('peds card set is a full builder: toggles, rewording, unit lines, own-card 
 test('workflow poster lines toggle and reword like the sheets', async ({ page }) => {
   await page.check('input[name="template"][value="peds-workflow"]');
   await page
-    .locator('input[data-act="itemToggle"][data-id="wf-screen-l1"]')
+    .locator('input[data-act="itemToggle"][data-id="wf-screen-why"]')
     .evaluate((el) => el.click());
   await expect(page.locator('.pc-stage').first()).not.toContainText('point prevalence');
 });
@@ -404,8 +401,61 @@ test('peds card set saves a PDF named for the card set', async ({ page }) => {
   const download = page.waitForEvent('download');
   await page.click('.preview-bar [data-act="pdf"]');
   expect((await download).suggestedFilename()).toMatch(
-    /^peds-delirium-card-set_\d{4}-\d{2}-\d{2}\.pdf$/,
+    /^peds-delirium-card-set-rass_\d{4}-\d{2}-\d{2}\.pdf$/,
   );
+});
+
+test('peds cards are portrait pages that fit at every size, font, and scale', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  for (const scale of ['rass', 'sbs']) {
+    await page.selectOption('#f-peds-scale', scale);
+    for (const fs of ['90', '100', '110']) {
+      await page.selectOption('#f-font-scale', fs);
+      await page.waitForTimeout(250);
+      const bad = await page.$$eval('.sheet', (sheets) =>
+        sheets
+          .map((sh, i) => ({
+            i,
+            portrait: sh.offsetHeight > sh.offsetWidth,
+            overflow: sh.scrollHeight > sh.clientHeight + 2,
+          }))
+          .filter((r) => !r.portrait || r.overflow),
+      );
+      expect(bad, `scale=${scale} fs=${fs}: ${JSON.stringify(bad)}`).toEqual([]);
+    }
+  }
+});
+
+test('workflow poster section switch removes the poster', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+  await page.uncheck('#sw-sec-wf-poster');
+  await expect(page.locator('.sheet')).toHaveCount(0);
+  await page.check('#sw-sec-wf-poster');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+});
+
+test('workflow poster validated lines are locked (no toggle, no reword)', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  expect(await page.locator('[data-id="wf-score-positive"]').count()).toBe(0);
+  expect(await page.locator('[data-id="wf-gate-floor"]').count()).toBe(0);
+  await expect(page.locator('.pc-stage-line', { hasText: 'CAPD ≥ 9' })).toBeVisible();
+});
+
+test('peds selections survive reload and the poster passes the axe scan', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await page.selectOption('#f-peds-scale', 'sbs');
+  await page.waitForTimeout(700);
+  await page.reload();
+  await expect(page.locator('input[name="template"][value="peds-cards"]')).toBeChecked();
+  await expect(page.locator('#f-peds-scale')).toHaveValue('sbs');
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await page.waitForTimeout(400);
+  const results = await new AxeBuilder({ page }).analyze();
+  const serious = results.violations.filter(
+    (v) => v.impact === 'serious' || v.impact === 'critical',
+  );
+  expect(serious.map((v) => v.id).join(', ')).toBe('');
 });
 
 test('peds card set has no serious accessibility violations', async ({ page }) => {

@@ -74,6 +74,7 @@ function sourcesLine(state) {
   return keys
     .map((k) => (DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : PEDS_CITE_LABELS[k] || ''))
     .filter(Boolean)
+    .map((label) => label.replace(/ /g, '\u00a0'))
     .join(' · ');
 }
 
@@ -98,8 +99,10 @@ export function sheetFooter(state, page, pages) {
 
 /** Unit-authored sections for one page — full-width titled checklists. */
 function customSections(state, page) {
+  // Own-card sections authored on the peds card set (page 0) fold onto the
+  // adult sheets' page 2 so switching templates never silently drops content.
   return state.customSections
-    .filter((sec) => sec.page === page && sec.lines.length)
+    .filter((sec) => (sec.page === page || (page === 2 && sec.page === 0)) && sec.lines.length)
     .map((sec) =>
       el(
         'div',

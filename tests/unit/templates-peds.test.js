@@ -22,6 +22,11 @@ import {
   PEDS_CITE_LABELS,
   PEDS_REFS,
 } from '../../src/js/templates/data/peds-content.js';
+import {
+  WORKFLOW_STAGES,
+  PCAM_SCRIPT,
+  printTask,
+} from '../../src/js/templates/data/peds-content.js';
 import { RASS_COMATOSE, SBS_COMATOSE } from '../../src/js/peds/data/arousal.js';
 import { recommendScreen } from '../../src/js/peds/scoring.js';
 
@@ -90,9 +95,33 @@ test('stimulus deck: 10 unique pictures split 5 memory / 5 other', () => {
   assert.equal(new Set(STIM_DECK.map((s) => s.id)).size, 10);
   assert.equal(STIM_DECK.filter((s) => s.set === 'memory').length, 5);
   assert.equal(STIM_DECK.filter((s) => s.set === 'other').length, 5);
-  // The psCAM instructions are the tool's task text verbatim.
+  // The psCAM instructions are the tool's task text in print wording.
   const pscamF2 = PSCAM.features.find((f) => f.id === 'f2');
-  assert.equal(STIM_INSTRUCTIONS.pscam, pscamF2.task);
+  assert.equal(STIM_INSTRUCTIONS.pscam, printTask(pscamF2.task));
+});
+
+test('printed task wording differs from the tool only by tap→count', () => {
+  const pcamF2 = PCAM.features.find((f) => f.id === 'f2');
+  assert.equal(printTask(pcamF2.task), pcamF2.task.replace(/Tap each/g, 'Count each'));
+  assert.ok(!printTask(pcamF2.task).includes('Tap'), 'no interactive-tool wording on print');
+  // The Feature-2 script is the validated instrument wording (Smith 2011 card).
+  assert.match(PCAM_SCRIPT, /Squeeze my hand when I say A/);
+  assert.equal(STIM_INSTRUCTIONS.pscam, printTask(PSCAM.features.find((f) => f.id === 'f2').task));
+});
+
+test('workflow poster locks and interpolates the validated values', () => {
+  const lines = WORKFLOW_STAGES.flatMap((st) => st.lines);
+  const locked = lines.filter((l) => l.locked);
+  // The comatose floors, age routing, and positivity rule are locked.
+  assert.equal(locked.length, 3);
+  const floor = locked.find((l) => l.id === 'wf-gate-floor');
+  assert.ok(floor.text.includes('−4/−5') && floor.text.includes('−2/−3'));
+  const positive = locked.find((l) => l.id === 'wf-score-positive');
+  assert.ok(positive.text.includes(`CAPD ≥ ${CAPD_POSITIVE}`));
+  const routes = locked.find((l) => l.id === 'wf-score-routes');
+  assert.match(routes.text, /chronological and dev\. age ≥ 5 yr/);
+  // Line ids are stable semantic keys, not array positions.
+  for (const l of lines) assert.ok(l.id && !/-l\d+$/.test(l.id), `positional id: ${l.id}`);
 });
 
 test('every peds footer citation resolves to a registry entry and a label', () => {

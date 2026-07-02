@@ -16,10 +16,11 @@ export { CAPD_ITEMS, CAPD_POSITIVE, CAPD_FREQ, CAPD_DEV_DELAY_NOTE };
 export { PCAM, PSCAM, PEDS_REFS };
 
 /**
- * RASS row descriptions for the printed arousal card (Sessler 2002 / Ely 2003
- * wording as carried on the validated pediatric assessment card; the
- * interactive tool shows labels only). The −1/−2 ten-second eye-contact
- * threshold is the pediatric anchor used by ps/pCAM-ICU (Smith 2011/2016).
+ * RASS row descriptions for the printed arousal card — the published scale
+ * wording (Sessler 2002 / Ely 2003) as carried on the validated pediatric
+ * assessment card distributed with ps/pCAM-ICU; the interactive tool shows
+ * labels only. The ≥/< 10-second eye-contact descriptors on −1/−2 are the
+ * original RASS anchors.
  */
 export const RASS_CARD_DESC = {
   '+4': 'Combative, violent — immediate danger to staff',
@@ -73,7 +74,7 @@ export const AROUSAL_GATE = {
   },
   sbs: {
     proceed: 'SBS ≥ −1 → proceed to Step 2 — the delirium screen',
-    stop: 'SBS −2 / −3 → STOP — record "unable to assess"; reassess when the child responds to voice',
+    stop: 'SBS −2 / −3 → STOP — record "unable to assess"; reassess when the child responds to gentle touch or voice',
   },
 };
 
@@ -102,6 +103,10 @@ export const SCREEN_ROUTES = [
   },
 ];
 
+/** SBS administration note (Curley 2006 form). */
+export const SBS_PROCEDURE =
+  'Score the child’s response to your voice, then gentle touch, then noxious stimulus, per unit practice (Curley 2006).';
+
 export const SENSORY_REMINDER =
   'Before any screen: glasses / corrective lenses and hearing aids in place, per the child profile.';
 
@@ -125,13 +130,30 @@ export const STIM_DECK = [
   { id: 'stim-boat', name: 'Sailboat', set: 'other' },
 ];
 
+/**
+ * The pCAM-ICU Feature-2 script, verbatim from the validated instrument card
+ * (Smith 2011; Vanderbilt pCAM-ICU pocket card).
+ */
+export const PCAM_SCRIPT =
+  'Say: “Squeeze my hand when I say A. Let’s practice: A, B. Squeeze only on A.”';
+
+/**
+ * The interactive tool's task text says "tap" for its tap-to-count controls;
+ * the printed card says "count". Everything else stays verbatim (pinned by
+ * unit test).
+ */
+export const printTask = (task) =>
+  task.replace(/Tap each/g, 'Count each').replace(/tap each/g, 'count each');
+
 export const STIM_INSTRUCTIONS = {
   title: 'Using the picture cards',
   pscamHead: 'psCAM-ICU — Feature 2 (any 10 pictures)',
-  pscam: PSCAM.features.find((f) => f.id === 'f2').task,
+  pscam: printTask(PSCAM.features.find((f) => f.id === 'f2').task),
   pcamHead: 'pCAM-ICU — memory-pictures alternative',
-  pcam: 'Show the 5 memory-set pictures (2–3 seconds each). Then show all 10 pictures one at a time — the child answers yes/no (or nods) whether each was one to remember. An error is "no" to a memory picture or "yes" to an other-set picture; same ≥ 3-error cut as the letters task.',
-  note: 'Original artwork — units may substitute their validated picture set per local practice.',
+  pcam: 'Say: “Here are some pictures. You need to remember them.” Show the 5 memory-set pictures, 2–3 seconds each. Then say: “Here are some more pictures. Tell me yes or no (or nod) if the picture you see was one you needed to remember.” Show all 10 pictures, saying the name of each and showing it 2–3 seconds. An error is “no” to a memory picture or “yes” to an other-set picture; same ≥ 3-error cut as the letters task.',
+  memoryList: 'Memory set: Heart · Star · Fish · Sun · Duck',
+  otherList: 'Other set: Balloons · Flower · Ball · Butterfly · Sailboat',
+  note: 'Original artwork — units may substitute their validated picture set per local practice. Set membership is deliberately not printed on the card faces.',
 };
 
 /**
@@ -189,7 +211,7 @@ export const PREVENT_BUNDLE = [
   {
     id: 'prev-b',
     ltr: 'B',
-    head: 'Both awakening & breathing trials',
+    head: 'Both spontaneous awakening & breathing trials',
     text: 'Protocolized, nurse-driven sedation minimization; watch for iatrogenic withdrawal (WAT-1) when weaning.',
     tone: 'azure',
   },
@@ -242,7 +264,12 @@ export const PREVENT_MEASURES = [
   },
 ];
 
-/** Workflow poster stages (landscape) — mirrors the tool's screen→gate→score→act flow. */
+/**
+ * Workflow poster stages — mirrors the tool's screen→gate→score→act flow.
+ * Lines carrying validated values (comatose floors, age routing, positivity
+ * thresholds) are locked: always printed, never unit-editable. Thresholds
+ * interpolate from the tool constants so they cannot drift.
+ */
 export const WORKFLOW_STAGES = [
   {
     id: 'wf-screen',
@@ -250,8 +277,14 @@ export const WORKFLOW_STAGES = [
     head: 'Screen every child',
     tone: 'navy',
     lines: [
-      'Every PICU child, at least once per shift and with any mental-status change.',
-      'Delirium is common (~25% point prevalence) and mostly hypoactive or mixed — easily missed without a screen.',
+      {
+        id: 'wf-screen-shift',
+        text: 'Every PICU child, at least once per shift and with any mental-status change.',
+      },
+      {
+        id: 'wf-screen-why',
+        text: 'Delirium is common (~25% point prevalence) and mostly hypoactive or mixed — easily missed without a screen.',
+      },
     ],
   },
   {
@@ -260,8 +293,15 @@ export const WORKFLOW_STAGES = [
     head: 'Arousal first — the gate',
     tone: 'rust',
     lines: [
-      'Score RASS (older / verbal) or SBS (intubated infants & young children).',
-      'Comatose floor (RASS −4/−5 · SBS −2/−3) → record "unable to assess"; reassess when the child responds to voice.',
+      {
+        id: 'wf-gate-scales',
+        text: 'Score RASS (older / verbal) or SBS (intubated infants & young children).',
+      },
+      {
+        id: 'wf-gate-floor',
+        locked: true,
+        text: `Comatose floor (RASS ${RASS_COMATOSE.join('/').replace(/-/g, '−')} · SBS ${SBS_COMATOSE.join('/').replace(/-/g, '−')}) → record "unable to assess"; reassess when the child responds.`,
+      },
     ],
   },
   {
@@ -270,9 +310,20 @@ export const WORKFLOW_STAGES = [
     head: 'Score the screen',
     tone: 'plum',
     lines: [
-      'CAPD — default for every age (observational, over the shift).',
-      'psCAM-ICU — dev. age 6 mo–5 yr · pCAM-ICU — age ≥ 5 yr: point-in-time interactive screens.',
-      'Positive: CAPD ≥ 9, or CAM Feature 1 + 2 + (3 or 4).',
+      {
+        id: 'wf-score-capd',
+        text: 'CAPD — default for every age (observational, over the shift).',
+      },
+      {
+        id: 'wf-score-routes',
+        locked: true,
+        text: 'psCAM-ICU — dev. age 6 mo–5 yr · pCAM-ICU — chronological and dev. age ≥ 5 yr: point-in-time interactive screens.',
+      },
+      {
+        id: 'wf-score-positive',
+        locked: true,
+        text: `Positive: CAPD ≥ ${CAPD_POSITIVE}, or CAM Feature 1 + 2 + (3 or 4).`,
+      },
     ],
   },
   {
@@ -281,8 +332,14 @@ export const WORKFLOW_STAGES = [
     head: 'Act on the result',
     tone: 'green',
     lines: [
-      'Negative → keep the prevention bundle going; rescreen next shift.',
-      'Positive → rule out withdrawal (WAT-1); find and fix precipitants; bundle levers first — drugs treat symptoms only.',
+      {
+        id: 'wf-act-negative',
+        text: 'Negative → keep the prevention bundle going; rescreen next shift.',
+      },
+      {
+        id: 'wf-act-positive',
+        text: 'Positive → rule out withdrawal (WAT-1); find and fix precipitants; bundle levers first — drugs treat symptoms only.',
+      },
     ],
   },
 ];
@@ -315,16 +372,18 @@ export const PEDS_FOOTER_CITES = {
     'sessler2002_rass',
     'curley2006_sbs',
     'traube2014_capd',
+    'gupta2021_capd_mv',
     'smith2011_pcam',
     'smith2016_pscam',
     'pandem2022',
   ],
   'peds-workflow': [
     'pandem2022',
+    'sessler2002_rass',
+    'curley2006_sbs',
     'traube2014_capd',
+    'smith2011_pcam',
     'smith2016_pscam',
     'lin2023_liberation',
-    'traube2017_prevalence',
-    'mody2018_benzo',
   ],
 };

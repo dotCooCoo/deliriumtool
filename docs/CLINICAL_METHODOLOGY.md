@@ -256,7 +256,16 @@ positivity path (Smith 2011; Smith 2016). The RASS row descriptions on the arous
 the scale's published wording (Sessler 2002, as used on the validated pediatric assessment
 card). Validated-instrument text is deliberately **not** unit-editable in the designer.
 
+On the workflow poster, protocol lines are unit-editable like the adult sheets, but the
+lines carrying validated values — the comatose floors, the age routing, and the positivity
+thresholds — are locked: always printed, never editable, and interpolated from the tool's
+constants so they cannot drift. The card set prints as portrait Letter pages; the poster
+prints landscape.
+
 The attention picture cards are **original artwork** (drawn for this site as inline SVG).
+The card faces are deliberately picture-only — naming the object or marking its set on the
+face would cue the recognition task's answer; set membership is listed on the clinician
+instructions card instead.
 The validated element of the picture tasks is the procedure — ten presentations for psCAM-ICU
 Feature 2; five memory pictures plus five "other" pictures for the pCAM-ICU memory-pictures
 alternative — not the specific images; the instructions card notes that units may substitute

@@ -45,12 +45,15 @@ import {
   PREVENT_MEASURES,
   WORKFLOW_STAGES,
   ROUNDS_SCRIPT,
+  PCAM_SCRIPT,
+  printTask,
+  SBS_PROCEDURE,
 } from './data/peds-content.js';
 import { stimArt } from './stim-art.js';
 
 // ── Shared card chrome ───────────────────────────────────────────────────────
 
-function card(state, cls, ...kids) {
+function card(cls, ...kids) {
   return el('div', { class: `sheet sheet--card ${cls || ''}` }, ...kids);
 }
 
@@ -112,21 +115,22 @@ function arousalCard(state) {
   if (scale === 'rass') {
     // LOOK / TALK / TOUCH rail groups — the escalating stimulus procedure.
     for (const g of RASS_RAIL) {
-      body.append(
+      const group = el(
+        'div',
+        { class: `pc-lgroup tone-${g.tone}` },
+        el('span', { class: 'pc-rail', text: g.label }),
         el(
           'div',
-          { class: `pc-lgroup tone-${g.tone}` },
-          el('span', { class: 'pc-rail', text: g.label }),
-          el(
-            'div',
-            { class: 'pc-lrows' },
-            ...rows.filter((r) => g.values.includes(r.v)).map((r) => arousalRowEl(scale, r)),
-          ),
+          { class: 'pc-lrows' },
+          ...rows.filter((r) => g.values.includes(r.v)).map((r) => arousalRowEl(scale, r)),
         ),
       );
+      group.style.flexGrow = String(g.values.length);
+      body.append(group);
     }
   } else {
     body.append(
+      el('div', { class: 'pc-note', text: SBS_PROCEDURE }),
       el('div', { class: 'pc-lrows pc-lrows--flat' }, ...rows.map((r) => arousalRowEl(scale, r))),
     );
   }
@@ -155,7 +159,6 @@ function arousalCard(state) {
   );
 
   return card(
-    state,
     'pc-arousal',
     cardHead(
       'navy',
@@ -174,7 +177,7 @@ function arousalCard(state) {
 
 // ── Card 2 · Choose the screen ───────────────────────────────────────────────
 
-function routerCard(state) {
+function routerCard() {
   const body = el('div', { class: 'pc-body' });
   body.append(
     el(
@@ -206,7 +209,6 @@ function routerCard(state) {
     el('div', { class: 'pc-note', text: SENSORY_REMINDER }),
   );
   return card(
-    state,
     'pc-router',
     cardHead(
       'plum',
@@ -256,7 +258,7 @@ function camRule(name) {
   );
 }
 
-function pcamCard(state) {
+function pcamCard() {
   const f = Object.fromEntries(PCAM.features.map((x) => [x.id, x]));
   const body = el(
     'div',
@@ -275,15 +277,13 @@ function pcamCard(state) {
       2,
       'Inattention — letters task',
       [
-        scriptBlock(
-          'Say: “Squeeze my hand when I say A. Let’s practice: A, B. Squeeze only on A.”',
-        ),
+        scriptBlock(PCAM_SCRIPT),
         lettersRow(f.f2.items),
-        el('div', { class: 'pc-note', text: f.f2.task }),
+        el('div', { class: 'pc-note', text: printTask(f.f2.task) }),
         el('div', { class: 'pc-th', text: f.f2.verdict }),
       ],
       [
-        branch('Yes', el('span', { text: '≥ 3 errors — continue to Feature 3' })),
+        branch('Yes', el('span', { text: `≥ ${f.f2.threshold} errors — continue to Feature 3` })),
         branch('No', outcomeChip('absent', 'Stop — delirium absent')),
       ],
     ),
@@ -301,7 +301,7 @@ function pcamCard(state) {
       'Disorganized thinking — questions & command',
       [
         el('ol', { class: 'pc-qs' }, ...f.f4.items.map((q) => el('li', { text: nobreak(q) }))),
-        el('div', { class: 'pc-note', text: f.f4.task }),
+        el('div', { class: 'pc-note', text: printTask(f.f4.task) }),
         el('div', { class: 'pc-th', text: f.f4.verdict }),
       ],
       [
@@ -311,12 +311,11 @@ function pcamCard(state) {
     ),
   );
   return card(
-    state,
     'pc-cam',
     cardHead(
       'navy',
       'pCAM-ICU',
-      'Pediatric CAM-ICU — age ≥ 5 years',
+      'Pediatric CAM-ICU — chronological & developmental age ≥ 5 years',
       'Verbal attention and command tasks. Screen only after the arousal gate.',
       'clipboard-list',
     ),
@@ -324,7 +323,7 @@ function pcamCard(state) {
   );
 }
 
-function pscamCard(state) {
+function pscamCard() {
   const f = Object.fromEntries(PSCAM.features.map((x) => [x.id, x]));
   const body = el(
     'div',
@@ -343,7 +342,7 @@ function pscamCard(state) {
       2,
       'Inattention — ten picture presentations',
       [
-        scriptBlock(f.f2.task),
+        scriptBlock(printTask(f.f2.task)),
         el(
           'div',
           { class: 'pc-dual' },
@@ -352,16 +351,14 @@ function pscamCard(state) {
             { class: 'pc-th' },
             el('b', { text: 'Path 1: ' }),
             el('span', {
-              text: 'no eye contact on 3 or more of the 10 presentations → inattention present.',
+              text: `no eye contact on ${f.f2.threshold} or more of the 10 presentations → inattention present.`,
             }),
           ),
           el(
             'div',
             { class: 'pc-th' },
             el('b', { text: 'Path 2: ' }),
-            el('span', {
-              text: 'eye contact on 8+ presentations, but the child cannot keep their eyes open for half the assessment despite verbal prompts → inattention present.',
-            }),
+            el('span', { text: `${f.f2.alt.label} → inattention present.` }),
           ),
         ),
       ],
@@ -386,21 +383,17 @@ function pscamCard(state) {
         el(
           'div',
           { class: 'pc-dual' },
-          el(
-            'div',
-            { class: 'pc-th' },
-            el('b', { text: 'Sleep–wake disturbance: ' }),
-            el('span', {
-              text: 'sleeps by day / little at night / hard to settle or wake → present.',
-            }),
-          ),
-          el(
-            'div',
-            { class: 'pc-th' },
-            el('b', { text: 'Unaware AND inconsolable: ' }),
-            el('span', {
-              text: 'unaware of surroundings or caregiver, and not soothed by usual comfort → present.',
-            }),
+          el('div', { class: 'pc-th' }, el('b', { text: f.f4.help })),
+          ...f.f4.parts.map((part) =>
+            el(
+              'div',
+              { class: 'pc-th' },
+              el('b', {
+                text:
+                  part.id === 'swc' ? 'Either: ' : part.id === 'unaware' ? 'Or both — ' : 'and — ',
+              }),
+              el('span', { text: part.label }),
+            ),
           ),
         ),
       ],
@@ -411,7 +404,6 @@ function pscamCard(state) {
     ),
   );
   return card(
-    state,
     'pc-cam',
     cardHead(
       'azure',
@@ -426,11 +418,22 @@ function pscamCard(state) {
 
 // ── Card 5 · CAPD ────────────────────────────────────────────────────────────
 
-function capdCard(state) {
+function capdCard() {
   const legend = el(
     'div',
     { class: 'pc-capd-legend' },
-    ...CAPD_FREQ.map((fq, i) => el('span', { class: 'pc-freq', text: `${fq} = ${i}` })),
+    el(
+      'div',
+      { class: 'pc-capd-legend-row' },
+      el('b', { text: 'Items 1–4 (scored 4→0): ' }),
+      el('span', { text: CAPD_FREQ.map((fq, i) => `${fq} = ${4 - i}`).join(' · ') }),
+    ),
+    el(
+      'div',
+      { class: 'pc-capd-legend-row' },
+      el('b', { text: 'Items 5–8 (scored 0→4): ' }),
+      el('span', { text: CAPD_FREQ.map((fq, i) => `${fq} = ${i}`).join(' · ') }),
+    ),
   );
   const rows = CAPD_ITEMS.map((it, i) =>
     el(
@@ -442,7 +445,12 @@ function capdCard(state) {
         class: `pc-capd-dir ${it.reverse ? 'pc-capd-dir--rev' : ''}`,
         text: it.reverse ? 'scored 4→0' : 'scored 0→4',
       }),
-      el('span', { class: 'pc-capd-score' }, blank('w-xs')),
+      el(
+        'span',
+        { class: 'pc-capd-score' },
+        el('span', { class: 'pc-capd-score-lbl', text: 'score' }),
+        blank('w-sm'),
+      ),
     ),
   );
   const body = el(
@@ -470,7 +478,6 @@ function capdCard(state) {
     ),
   );
   return card(
-    state,
     'pc-capd',
     cardHead(
       'plum',
@@ -510,8 +517,7 @@ function actCard(state) {
     ),
   );
   return card(
-    state,
-    'pc-act',
+    'pc-actcard',
     cardHead(
       'green',
       'Positive?',
@@ -561,7 +567,6 @@ function preventCard(state) {
     }),
   );
   return card(
-    state,
     'pc-prevent',
     cardHead(
       'teal',
@@ -585,39 +590,27 @@ function stimInstructionCell() {
     el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.pscam }),
     el('div', { class: 'pc-stim-instr-head', text: STIM_INSTRUCTIONS.pcamHead }),
     el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.pcam }),
+    el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.memoryList }),
+    el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.otherList }),
     el('div', { class: 'pc-stim-instr-note', text: STIM_INSTRUCTIONS.note }),
   );
 }
 
 function stimCell(entry) {
-  return el(
-    'div',
-    { class: `pc-stim pc-stim--${entry.set}` },
-    el('div', { class: 'pc-stim-art' }, stimArt(entry.id)),
-    el(
-      'div',
-      { class: 'pc-stim-caption' },
-      el('span', { class: 'pc-stim-name', text: entry.name }),
-      el('span', {
-        class: 'pc-stim-set',
-        text: entry.set === 'memory' ? 'memory set' : 'other set',
-      }),
-    ),
-  );
+  // Picture only — naming the object or marking its set on the face would cue
+  // the recognition task's answer. Set membership lives on the instructions
+  // cell (and in the clinician's hands via the card order).
+  return el('div', { class: 'pc-stim' }, el('div', { class: 'pc-stim-art' }, stimArt(entry.id)));
 }
 
-function stimPages(state) {
-  const cells = [
-    stimInstructionCell(),
-    ...STIM_DECK.filter((c) => itemOn(state, c.id)).map(stimCell),
-  ];
+function stimPages() {
+  const cells = [stimInstructionCell(), ...STIM_DECK.map(stimCell)];
   const pages = [];
   for (let i = 0; i < cells.length; i += 4) {
     pages.push(el('div', { class: 'pc-stimgrid' }, ...cells.slice(i, i + 4)));
   }
   return pages.map((grid, i) =>
     card(
-      state,
       'pc-stimpage',
       cardHead(
         'azure',
@@ -636,23 +629,22 @@ function stimPages(state) {
 export function renderPedsCards(state) {
   const sheets = [];
   if (secOn(state, 'sec-pc-arousal')) sheets.push(arousalCard(state));
-  if (secOn(state, 'sec-pc-router')) sheets.push(routerCard(state));
-  if (secOn(state, 'sec-pc-capd')) sheets.push(capdCard(state));
-  if (secOn(state, 'sec-pc-pscam')) sheets.push(pscamCard(state));
-  if (secOn(state, 'sec-pc-pcam')) sheets.push(pcamCard(state));
+  if (secOn(state, 'sec-pc-router')) sheets.push(routerCard());
+  if (secOn(state, 'sec-pc-capd')) sheets.push(capdCard());
+  if (secOn(state, 'sec-pc-pscam')) sheets.push(pscamCard());
+  if (secOn(state, 'sec-pc-pcam')) sheets.push(pcamCard());
   if (secOn(state, 'sec-pc-act')) sheets.push(actCard(state));
   if (secOn(state, 'sec-pc-prevent')) sheets.push(preventCard(state));
   for (const sec of state.customSections.filter((x) => x.lines.length)) {
     sheets.push(
       card(
-        state,
         'pc-custom',
         cardHead('ink', 'Unit', sec.title, 'Local protocol content — the unit’s responsibility.'),
         el('div', { class: 'pc-body pc-custom-lines' }, ...sec.lines.map((t) => checkItem(t))),
       ),
     );
   }
-  if (secOn(state, 'sec-pc-stim')) sheets.push(...stimPages(state));
+  if (secOn(state, 'sec-pc-stim')) sheets.push(...stimPages());
   const pages = sheets.length;
   sheets.forEach((s, i) => s.append(sheetFooter(state, i + 1, pages)));
   return sheets;
@@ -661,6 +653,7 @@ export function renderPedsCards(state) {
 // ── Workflow poster (landscape) ─────────────────────────────────────────────
 
 export function renderPedsWorkflow(state) {
+  if (!secOn(state, 'sec-wf-poster')) return [];
   const stages = el(
     'div',
     { class: 'pc-flow' },
@@ -675,10 +668,12 @@ export function renderPedsWorkflow(state) {
           el('span', { text: nobreak(st.head) }),
         ),
         ...st.lines
-          .map((l, i) => ({ id: `${st.id}-l${i}`, text: l }))
-          .filter((l) => itemOn(state, l.id))
+          .filter((l) => l.locked || itemOn(state, l.id))
           .map((l) =>
-            el('div', { class: 'pc-stage-line', text: nobreak(ov(state, l.id, l.text)) }),
+            el('div', {
+              class: 'pc-stage-line',
+              text: nobreak(l.locked ? l.text : ov(state, l.id, l.text)),
+            }),
           ),
         ...customLines(state, st.id),
       );

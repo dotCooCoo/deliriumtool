@@ -12,6 +12,14 @@ import { toBase64Url, fromBase64Url } from '../share.js';
 
 const KEY = 'deliriumtool:templates';
 
+/** Today in the user's timezone as YYYY-MM-DD (UTC would date-shift evenings). */
+function localDateISO() {
+  const d = new Date();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${mm}-${dd}`;
+}
+
 export const FONT_SCALES = [
   { id: '90', label: 'Compact' },
   { id: '100', label: 'Standard' },
@@ -39,7 +47,7 @@ export function defaultState() {
     pedsScale: 'rass', // arousal scale on the peds cards (RASS or SBS)
     facility: '',
     unit: '',
-    docDate: new Date().toISOString().slice(0, 10), // creation date, editable
+    docDate: localDateISO(), // creation date (local timezone), editable
     docRev: '',
     rassTarget: '0to-2',
     fontScale: '110',
@@ -65,6 +73,13 @@ export function defaultState() {
 export const isOn = (map, id) => map[id] !== false;
 
 /** Normalize an untrusted snapshot (import/share/localStorage) into a valid state. */
+/** True when a parsed JSON payload looks like a designer configuration. */
+export function looksLikeConfig(raw) {
+  return (
+    !!raw && typeof raw === 'object' && !Array.isArray(raw) && ('template' in raw || 'v' in raw)
+  );
+}
+
 export function sanitize(raw) {
   const d = defaultState();
   if (!raw || typeof raw !== 'object') return d;
@@ -188,7 +203,21 @@ export function exportJSON(state) {
   const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'delirium-template-config.json';
+  const slug = (v) =>
+    v
+      .trim()
+      .replace(/[^A-Za-z0-9-]+/g, '-')
+      .replace(/-{2,}/g, '-')
+      .replace(/^-+|-+$/g, '');
+  const parts = [
+    'delirium-template',
+    state.template,
+    slug(state.docRev || ''),
+    slug(state.docDate || ''),
+  ]
+    .filter(Boolean)
+    .join('_');
+  a.download = `${parts}.json`;
   document.body.appendChild(a);
   a.click();
   setTimeout(() => {
@@ -207,7 +236,11 @@ export function importJSON() {
       const r = new FileReader();
       r.onload = () => {
         try {
-          resolve(sanitize(JSON.parse(r.result)));
+          const raw = JSON.parse(r.result);
+          // A valid-JSON file that isn't a designer config must not silently
+          // reset the whole configuration to defaults.
+          if (!looksLikeConfig(raw)) return resolve({ __error: 'shape' });
+          resolve(sanitize(raw));
         } catch {
           resolve({ __error: 'parse' });
         }
