@@ -93,3 +93,14 @@ cited primary literature. Each change is recorded with its source in
   only, never patient data).
 - The main page links to the template designer alongside the pediatric tool, so
   laminated bedside sheets are discoverable from the landing screen.
+- The saved template PDF is a fillable form: every check square and RASS circle
+  is an interactive checkbox, and the patient header, "Action" lines, notes
+  line, and write-in sedation target are text fields — so the sheet works both
+  printed-and-laminated and on-screen.
+- The RASS panel carries a check circle per row for marking the current level,
+  and the sedation-target selector offers "No unit target — write in at the
+  bedside", which prints a blank target line instead of a fixed band.
+- Optional "Date created" and "Revision" fields print in the sheet footer and
+  become part of the saved PDF's filename, so units can track template versions.
+- The designer sidebar is grouped by task: template, unit, sections, medications
+  (with their display options), and print appearance.

@@ -291,11 +291,26 @@
             <input class="finp" id="f-unit" type="text" maxlength="120" placeholder="e.g. MICU" />
           </div>
           <div class="frow">
+            <label class="flbl" for="f-doc-date">Date created (optional)</label>
+            <input class="finp" id="f-doc-date" type="date" />
+          </div>
+          <div class="frow">
+            <label class="flbl" for="f-doc-rev">Revision (optional)</label>
+            <input
+              class="finp"
+              id="f-doc-rev"
+              type="text"
+              maxlength="24"
+              placeholder="e.g. Rev. B"
+            />
+          </div>
+          <div class="frow">
             <label class="flbl" for="f-rass-target">Sedation target (RASS)</label>
             <select class="fsel" id="f-rass-target">
               <option value="0to-2" selected>0 to −2 (light — ICU default)</option>
               <option value="0to-1">0 to −1 (general ward)</option>
               <option value="-3to-4">−3 to −4 (deep — indication required)</option>
+              <option value="none">No unit target — write in at the bedside</option>
             </select>
           </div>
         </section>

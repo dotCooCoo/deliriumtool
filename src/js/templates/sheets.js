@@ -49,6 +49,23 @@ const nobreak = (s) =>
 
 /** A printed check-off square (drawn box — marked with a dry-erase pen). */
 const box = () => el('span', { class: 'sh-box', 'aria-hidden': 'true' });
+/** A round check mark as SVG — stays perfectly circular under the preview scale. */
+function circleBox() {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 10 10');
+  svg.setAttribute('class', 'sh-rass-box');
+  svg.setAttribute('aria-hidden', 'true');
+  const c = document.createElementNS(NS, 'circle');
+  c.setAttribute('cx', '5');
+  c.setAttribute('cy', '5');
+  c.setAttribute('r', '4.2');
+  c.setAttribute('fill', 'none');
+  c.setAttribute('stroke', 'currentColor');
+  c.setAttribute('stroke-width', '1.3');
+  svg.append(c);
+  return svg;
+}
 /** A write-in blank. */
 const blank = (cls) => el('span', { class: `sh-blank${cls ? ' ' + cls : ''}` });
 
@@ -100,10 +117,16 @@ function sourcesLine(state) {
 }
 
 function sheetFooter(state, page, pages) {
+  const stamp = [state.docRev.trim(), state.docDate.trim()].filter(Boolean).join(' · ');
   return el(
     'div',
     { class: 'sh-foot' },
-    el('span', { class: 'sh-foot-left', text: `${facilityLabel(state)} · ${tplDef(state).name}` }),
+    el(
+      'span',
+      { class: 'sh-foot-left' },
+      el('div', { text: `${facilityLabel(state)} · ${tplDef(state).name}` }),
+      stamp ? el('div', { class: 'sh-foot-stamp', text: stamp }) : null,
+    ),
     el('span', {
       class: 'sh-foot-mid',
       text: `${SHEET_DISCLAIMER} · Sources: ${sourcesLine(state)}`,
@@ -192,6 +215,7 @@ function rassMiniTable(state) {
     return el(
       'div',
       { class: `sh-rass-row z-${zone}${isTarget ? ' is-target' : ''}` },
+      circleBox(),
       el('span', { class: 'sh-rass-score', text: r.label }),
       el('span', { class: 'sh-rass-desc', text: r.desc + (isTarget ? '  ✓ TARGET' : '') }),
     );
@@ -212,7 +236,9 @@ function statusStrip(state) {
     'div',
     { class: 'sh-strip' },
     cell('teal', 'Sedation goal', [
-      el('div', { class: 'sh-goal', text: `Target RASS: ${target.label}` }),
+      target.writeIn
+        ? el('div', { class: 'sh-goal' }, 'Target RASS: ', blank('w-md grow'))
+        : el('div', { class: 'sh-goal', text: `Target RASS: ${target.label}` }),
       ...STATUS.sedation.lines.map((t) => el('div', { class: 'sh-small', text: t })),
       target.note ? el('div', { class: 'sh-small sh-strong', text: target.note }) : null,
     ]),
@@ -574,7 +600,9 @@ function spaRassRow(state) {
       el(
         'div',
         { class: 'sh-cell-body' },
-        el('div', { class: 'sh-goal', text: `Target RASS: ${rassTargetDef(state).label}` }),
+        rassTargetDef(state).writeIn
+          ? el('div', { class: 'sh-goal' }, 'Target RASS: ', blank('w-md grow'))
+          : el('div', { class: 'sh-goal', text: `Target RASS: ${rassTargetDef(state).label}` }),
         ...STATUS.sedation.lines.map((t) => el('div', { class: 'sh-small', text: t })),
         el('div', { class: 'sh-small', text: 'Document goal each shift.' }),
         rassTargetDef(state).note

@@ -55,6 +55,13 @@ export const RASS_TARGETS = [
     scores: ['-3', '-4'],
     note: 'Deep sedation — documented indication required.',
   },
+  {
+    id: 'none',
+    label: '', // written in at the bedside
+    scores: [],
+    writeIn: true,
+    note: 'Per prescriber order — write the target in each shift.',
+  },
 ];
 
 /** Top status strip of the rounding sheet (marked at the bedside). */

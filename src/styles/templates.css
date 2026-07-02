@@ -651,8 +651,28 @@ details[open] > summary::before {
 }
 .sh-rass-row {
   display: flex;
-  gap: calc(6pt * var(--fs));
-  padding: 0.5pt 0;
+  align-items: center;
+  gap: calc(5pt * var(--fs));
+  padding: 0.8pt 0;
+}
+/* A check circle beside each RASS row so the current level can be marked
+   (SVG — a CSS border-circle turns oval under the preview's transform scale). */
+.sh-rass-box {
+  flex: none;
+  width: calc(7pt * var(--fs));
+  height: calc(7pt * var(--fs));
+  display: block;
+}
+.sh-goal .sh-blank {
+  border-bottom-color: var(--sh-teal);
+}
+.sh-goal .sh-blank.grow {
+  flex: 1;
+}
+.sh-goal {
+  display: flex;
+  align-items: baseline;
+  gap: calc(3pt * var(--fs));
 }
 .sh-rass-score {
   flex: none;
@@ -1034,6 +1054,10 @@ details[open] > summary::before {
   border-top: 0.6pt solid var(--sh-border);
   padding-top: calc(3pt * var(--fs));
   font-size: calc(7pt * var(--fs));
+  color: var(--sh-slate);
+}
+.sh-foot-stamp {
+  font-weight: 400;
   color: var(--sh-slate);
 }
 .sh-foot-left {

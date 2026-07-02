@@ -6,7 +6,7 @@
  * heavily customized sheet outgrows its page, the whole document rebuilds at a
  * smaller scale until both pages fit.
  */
-import { jsPDF } from 'jspdf';
+import { jsPDF, AcroFormCheckBox, AcroFormTextField } from 'jspdf';
 import {
   TEMPLATES,
   RASS_ROWS,
@@ -89,6 +89,33 @@ class Painter {
     this.W = doc.internal.pageSize.getWidth();
     this.H = doc.internal.pageSize.getHeight();
     this.cw = this.W - 2 * M;
+    this.seq = 0; // unique AcroForm field names within this document
+  }
+  /** Interactive checkbox over a drawn check square — the saved PDF is fillable. */
+  fieldBox(x, y, size) {
+    try {
+      const cb = new AcroFormCheckBox();
+      cb.fieldName = `chk_${++this.seq}`;
+      cb.Rect = [x, y, size, size];
+      cb.appearanceState = 'Off';
+      cb.showWhenPrinted = true;
+      this.doc.addField(cb);
+    } catch {
+      /* AcroForm unavailable — the drawn square still prints */
+    }
+  }
+  /** Interactive text field over a write-in blank. */
+  fieldText(x, y, w, h) {
+    try {
+      const tf = new AcroFormTextField();
+      tf.fieldName = `txt_${++this.seq}`;
+      tf.Rect = [x, y, w, h];
+      tf.fontSize = Math.min(9, h * 0.7);
+      tf.showWhenPrinted = true;
+      this.doc.addField(tf);
+    } catch {
+      /* non-fatal */
+    }
   }
   fs(n) {
     return n * this.k;
@@ -108,6 +135,13 @@ class Painter {
   box(x, y, size, color = TONE.ink) {
     this.doc.setDrawColor(...color).setLineWidth(0.9);
     this.doc.rect(x, y, size, size);
+    this.fieldBox(x, y, size);
+  }
+  /** Round check mark (RASS rows) — same shape as the on-screen circles. */
+  circleBox(x, y, size, color = TONE.ink) {
+    this.doc.setDrawColor(...color).setLineWidth(0.9);
+    this.doc.circle(x + size / 2, y + size / 2, size / 2, 'S');
+    this.fieldBox(x, y, size);
   }
   band(y, label, tone) {
     const h = this.fs(13);
@@ -152,21 +186,25 @@ class Painter {
       .map((kk) => (DELIRIUM_REFS[kk] ? DELIRIUM_REFS[kk].l : ''))
       .filter(Boolean)
       .join(' · ');
+    const stamp = [state.docRev.trim(), state.docDate.trim()].filter(Boolean).join(' · ');
+    const leftW = 165;
     const leftLabel = this.wrap(
       `${state.facility.trim() || 'Your facility'} · ${t.name}`,
-      165,
+      leftW,
       6.2,
       true,
     )[0];
-    this.text(leftLabel, M, y, {
+    // The revision/date stamp sits on its own line under the facility label.
+    this.text(leftLabel, M, stamp ? y - 3.5 : y, {
       size: 6.2,
       bold: true,
       color: TONE.slate,
     });
+    if (stamp) this.text(stamp, M, y + 3, { size: 5.8, color: TONE.slate });
     // Centered between the left label and the page number; the size steps
     // down until the disclaimer + sources actually fit that span.
     const center = pd(`${SHEET_DISCLAIMER} · Sources: ${src}`);
-    const avail = this.W - 2 * M - 175 - 48;
+    const avail = this.W - 2 * M - (leftW + 10) - 48;
     this.doc.setFont(FONT, 'normal');
     let size = 6.2;
     const width = (s) => {
@@ -174,7 +212,7 @@ class Painter {
       return this.doc.getTextWidth(center);
     };
     while (size > 4.4 && width(size) > avail) size -= 0.2;
-    this.text(center, M + 175 + avail / 2, y, {
+    this.text(center, M + leftW + 10 + avail / 2, y, {
       size,
       color: TONE.slate,
       align: 'center',
@@ -232,6 +270,16 @@ function drawGroupCard(p, x, y, w, { tone, head, headBar, items, bullets, size =
     cy += headLines.length * p.fs(8);
   }
   for (const it of items) {
+    if (/^Action: _+$/.test(it)) {
+      // Write-in line with an interactive text field instead of a check row.
+      p.text('Action:', x + pad, cy, { size, bold: false, color: TONE.slate });
+      const lx = x + pad + p.fs(24);
+      p.doc.setDrawColor(...TONE[tone]).setLineWidth(0.6);
+      p.doc.line(lx, cy + 1, x + w - pad, cy + 1);
+      p.fieldText(lx, cy - p.fs(size), x + w - pad - lx, p.fs(size + 2));
+      cy += p.fs(size) * 1.18 + p.fs(1.6);
+      continue;
+    }
     cy = bullets
       ? p.bulletLine(x + pad, cy, innerW, it, { size, prefix })
       : p.checkLine(x + pad, cy, innerW, it, { size, color: TONE[tone] });
@@ -519,17 +567,22 @@ function buildRounding(doc, state, k) {
       color: SUB,
     },
   );
-  p.text(
-    'Patient: ____________________   Room: ________   Date: __________',
-    p.W - M - 6,
-    M + p.fs(16),
-    {
-      size: 8,
-      color: SUB,
-      align: 'right',
-    },
-  );
-  let y = M + headH + p.fs(4);
+  // Patient / Room / Date on a light row under the band (pen- and form-friendly).
+  const metaY = M + headH + p.fs(9);
+  const lineY = metaY + 1.5;
+  const roomX = p.W - M - 150;
+  const dateX = p.W - M - 72;
+  doc.setDrawColor(...TONE.ink).setLineWidth(0.7);
+  p.text('Patient:', M, metaY, { size: 8.5, bold: true });
+  doc.line(M + 34, lineY, roomX - 12, lineY);
+  p.fieldText(M + 34, metaY - p.fs(7), roomX - 12 - (M + 34), p.fs(9));
+  p.text('Room:', roomX, metaY, { size: 8.5, bold: true });
+  doc.line(roomX + 27, lineY, dateX - 10, lineY);
+  p.fieldText(roomX + 27, metaY - p.fs(7), dateX - 10 - (roomX + 27), p.fs(9));
+  p.text('Date:', dateX, metaY, { size: 8.5, bold: true });
+  doc.line(dateX + 22, lineY, p.W - M, lineY);
+  p.fieldText(dateX + 22, metaY - p.fs(7), p.W - M - (dateX + 22), p.fs(9));
+  let y = metaY + p.fs(5);
 
   // Status strip — four cells sized to the tallest.
   const gap = p.fs(4);
@@ -579,11 +632,18 @@ function buildRounding(doc, state, k) {
     });
   });
   let cy = y + headBarH + cellPad + p.fs(6);
-  p.text(`Target RASS: ${target.label}`, xs[0] + cellPad, cy, {
+  p.text(`Target RASS: ${target.writeIn ? '' : target.label}`, xs[0] + cellPad, cy, {
     size: 10,
     bold: true,
     color: TONE.teal,
   });
+  if (target.writeIn) {
+    const tx = xs[0] + cellPad + p.fs(52);
+    const tw = widths[0] - cellPad * 2 - p.fs(52);
+    doc.setDrawColor(...TONE.teal).setLineWidth(0.8);
+    doc.line(tx, cy + 1.5, tx + tw, cy + 1.5);
+    p.fieldText(tx, cy - p.fs(8), tw, p.fs(10));
+  }
   let sy = cy + p.fs(9);
   for (const line of sedLines) {
     const strong = line === target.note;
@@ -603,8 +663,10 @@ function buildRounding(doc, state, k) {
     c2 = p.checkLine(xs[2] + cellPad, c2, widths[2] - cellPad * 2, s, { size: 7.4 });
   let c3 = y + headBarH + cellPad + p.fs(6);
   for (const r of rass) {
-    p.text(r.label, xs[3] + cellPad, c3, { size: 7.2, bold: true, color: TONE[r.zone] });
-    p.text(r.desc, xs[3] + cellPad + p.fs(30), c3, {
+    const bs = p.fs(5.4);
+    p.circleBox(xs[3] + cellPad, c3 - bs + 1, bs, TONE[r.zone]);
+    p.text(r.label, xs[3] + cellPad + bs + 3, c3, { size: 7.2, bold: true, color: TONE[r.zone] });
+    p.text(r.desc, xs[3] + cellPad + bs + 3 + p.fs(30), c3, {
       size: 7.2,
       bold: r.bold,
       color: TONE[r.zone],
@@ -670,6 +732,7 @@ function buildRounding(doc, state, k) {
     p.text('Rounds notes / plan:', M, y + p.fs(7), { size: 8.4, bold: true });
     doc.setDrawColor(...TONE.slate).setLineWidth(0.6);
     doc.line(M + p.fs(80), y + p.fs(7.6), p.W - M, y + p.fs(7.6));
+    p.fieldText(M + p.fs(80), y, p.W - M - (M + p.fs(80)), p.fs(9));
     y += p.fs(13);
   }
   p.guard(y);
@@ -904,8 +967,14 @@ function buildSpa(doc, state, k) {
     });
     let ry = y + headBarH + p.fs(9);
     for (const r of rass) {
-      p.text(r.label, M + 6, ry, { size: 8.4, bold: true, color: TONE[r.zone] });
-      p.text(r.desc, M + 6 + p.fs(38), ry, { size: 8.4, bold: r.bold, color: TONE[r.zone] });
+      const bs = p.fs(6);
+      p.circleBox(M + 6, ry - bs + 1, bs, TONE[r.zone]);
+      p.text(r.label, M + 6 + bs + 3, ry, { size: 8.4, bold: true, color: TONE[r.zone] });
+      p.text(r.desc, M + 6 + bs + 3 + p.fs(38), ry, {
+        size: 8.4,
+        bold: r.bold,
+        color: TONE[r.zone],
+      });
       ry += p.fs(10);
     }
     // goal cell
@@ -922,11 +991,19 @@ function buildSpa(doc, state, k) {
       color: [255, 255, 255],
     });
     let gy = y + headBarH + p.fs(10);
-    p.text(`Target RASS: ${rassTargetDef(state).label}`, x2 + 6, gy, {
+    const tgt = rassTargetDef(state);
+    p.text(`Target RASS: ${tgt.writeIn ? '' : tgt.label}`, x2 + 6, gy, {
       size: 10.5,
       bold: true,
       color: TONE.teal,
     });
+    if (tgt.writeIn) {
+      const tx = x2 + 6 + p.fs(56);
+      const tw = w2 - 12 - p.fs(56);
+      doc.setDrawColor(...TONE.teal).setLineWidth(0.8);
+      doc.line(tx, gy + 1.5, tx + tw, gy + 1.5);
+      p.fieldText(tx, gy - p.fs(8.5), tw, p.fs(10.5));
+    }
     gy += p.fs(10);
     for (const line of goalLines) {
       p.text(line, x2 + 6, gy, { size: 7.6, bold: line === targetNote });
@@ -1018,5 +1095,17 @@ export function downloadPdf(state) {
     subject: 'Bedside delirium reference sheet — reference aid only',
     keywords: 'delirium, CAM-ICU, RASS, ABCDEF, ICU, reference aid',
   });
-  doc.save(rounding ? 'icu-delirium-rounding-tool.pdf' : 'spa-delirium-quick-reference.pdf');
+  // Optional revision/date ride along in the filename for version tracking.
+  const slug = (t) =>
+    t
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9.-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  const suffix = [state.docRev, state.docDate]
+    .map((t) => slug(t || ''))
+    .filter(Boolean)
+    .join('_');
+  const fname = rounding ? 'icu-delirium-rounding-tool' : 'spa-delirium-quick-reference';
+  doc.save(`${fname}${suffix ? `_${suffix}` : ''}.pdf`);
 }

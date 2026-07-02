@@ -433,6 +433,8 @@ function buildMedControls() {
 function reflectFields() {
   $('#f-facility').value = state.facility;
   $('#f-unit').value = state.unit;
+  $('#f-doc-date').value = state.docDate;
+  $('#f-doc-rev').value = state.docRev;
   $('#f-rass-target').value = state.rassTarget;
   $('#f-font-scale').value = state.fontScale;
   $('#f-font-family').value = state.fontFamily;
@@ -727,11 +729,16 @@ function onChange(e) {
 }
 
 let inputTimer = null;
+const INPUT_FIELDS = {
+  'f-facility': 'facility',
+  'f-unit': 'unit',
+  'f-doc-date': 'docDate',
+  'f-doc-rev': 'docRev',
+};
 function onInput(e) {
-  const t = e.target;
-  if (t.id !== 'f-facility' && t.id !== 'f-unit') return;
-  if (t.id === 'f-facility') state.facility = t.value;
-  else state.unit = t.value;
+  const key = INPUT_FIELDS[e.target.id];
+  if (!key) return;
+  state[key] = e.target.value;
   clearTimeout(inputTimer);
   inputTimer = setTimeout(() => update(), 200);
 }
