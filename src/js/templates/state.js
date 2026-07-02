@@ -47,7 +47,7 @@ export function defaultState() {
     pedsScale: 'rass', // arousal scale on the peds cards (RASS or SBS)
     design: 'a', // adult sheet design: 'a' classic, 'b' modern
     stimLayout: 'grid', // picture cards: 'grid' 4-up with cut guides, 'full' one per page
-    stimStyle: 'a', // picture art: 'a' classic, 'b' kawaii
+    stimStyle: 'b', // picture art: 'b' kawaii (default), 'a' classic
     facility: '',
     unit: '',
     docDate: localDateISO(), // creation date (local timezone), editable

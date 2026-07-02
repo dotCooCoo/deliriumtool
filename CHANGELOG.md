@@ -7,6 +7,10 @@ Notable changes to this project, following
 
 ### Added
 
+- The picture-cards instructions card keys both sets visually — labeled
+  miniatures of the five memory-set and five other-set pictures, drawn in
+  whichever art style is selected — and the kawaii set is now the default.
+
 - On wide screens the designer's preview and options columns scroll
   independently — scrolling the print preview no longer moves the
   customization sidebar, and vice versa.

@@ -581,7 +581,28 @@ function preventCard(state) {
 
 // ── Cards 8+ · Stimulus picture deck ─────────────────────────────────────────
 
-function stimInstructionCell() {
+/** One labeled row of miniature pictures — the clinician's set key. */
+function stimSetRow(label, set, style) {
+  return el(
+    'div',
+    { class: 'pc-stim-setrow' },
+    el('div', { class: 'pc-stim-setlbl', text: label }),
+    el(
+      'div',
+      { class: 'pc-stim-minis' },
+      ...STIM_DECK.filter((c) => c.set === set).map((c) =>
+        el(
+          'div',
+          { class: 'pc-stim-mini' },
+          el('div', { class: 'pc-stim-mini-art' }, stimArt(c.id, style)),
+          el('span', { class: 'pc-stim-mini-name', text: c.name }),
+        ),
+      ),
+    ),
+  );
+}
+
+function stimInstructionCell(style) {
   return el(
     'div',
     { class: 'pc-stim pc-stim--instr' },
@@ -590,8 +611,8 @@ function stimInstructionCell() {
     el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.pscam }),
     el('div', { class: 'pc-stim-instr-head', text: STIM_INSTRUCTIONS.pcamHead }),
     el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.pcam }),
-    el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.memoryList }),
-    el('div', { class: 'pc-stim-instr-text', text: STIM_INSTRUCTIONS.otherList }),
+    stimSetRow('Memory set — show these five first', 'memory', style),
+    stimSetRow('Other set', 'other', style),
     el('div', { class: 'pc-stim-instr-note', text: STIM_INSTRUCTIONS.note }),
   );
 }
@@ -622,7 +643,11 @@ function stimPages(state) {
           'One picture per page. Laminate for bedside reuse.',
           'eye',
         ),
-        el('div', { class: 'pc-body' }, el('div', { class: 'pc-stimgrid' }, stimInstructionCell())),
+        el(
+          'div',
+          { class: 'pc-body' },
+          el('div', { class: 'pc-stimgrid' }, stimInstructionCell(style)),
+        ),
       ),
       ...cells().map((cell, i) =>
         card(
@@ -640,10 +665,14 @@ function stimPages(state) {
     ];
     return pages;
   }
-  const all = [stimInstructionCell(), ...cells()];
-  const pages = [];
-  for (let i = 0; i < all.length; i += 4) {
-    pages.push(el('div', { class: 'pc-stimgrid' }, ...all.slice(i, i + 4)));
+  // The instructions cell spans the full left column of page 1 (room for the
+  // miniature set keys); pictures fill the rest, four per page.
+  const pics = cells();
+  const pages = [
+    el('div', { class: 'pc-stimgrid' }, stimInstructionCell(style), ...pics.slice(0, 2)),
+  ];
+  for (let i = 2; i < pics.length; i += 4) {
+    pages.push(el('div', { class: 'pc-stimgrid' }, ...pics.slice(i, i + 4)));
   }
   return pages.map((grid, i) =>
     card(
