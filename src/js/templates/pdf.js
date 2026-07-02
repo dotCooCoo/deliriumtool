@@ -6,7 +6,13 @@
  * heavily customized sheet outgrows its page, the whole document rebuilds at a
  * smaller scale until both pages fit.
  */
-import { jsPDF, AcroFormCheckBox, AcroFormTextField } from 'jspdf';
+import {
+  jsPDF,
+  AcroFormCheckBox,
+  AcroFormTextField,
+  AcroFormRadioButton,
+  AcroFormAppearance,
+} from 'jspdf';
 import {
   TEMPLATES,
   RASS_ROWS,
@@ -165,10 +171,39 @@ class Painter {
     this.doc.rect(x, y, size, size);
     this.fieldBox(x, y, size);
   }
-  /** Round check mark (RASS rows) — same shape as the on-screen circles. */
-  circleBox(x, y, size, color = TONE.ink) {
+  /** A named radio group — one selectable option set per RASS panel. */
+  radioGroup(name) {
+    try {
+      const rg = new AcroFormRadioButton();
+      rg.fieldName = name;
+      rg.value = '';
+      this.doc.addField(rg);
+      return rg;
+    } catch {
+      return null;
+    }
+  }
+  /**
+   * Round mark for a RASS row. With a group it becomes a radio option (the
+   * levels are mutually exclusive — picking one clears the rest); the widget
+   * draws its own circle-and-dot appearance.
+   */
+  circleBox(x, y, size, color = TONE.ink, group = null, value = '') {
+    // The ring always prints (a widget's unselected state may render empty
+    // when flattened); the radio option adds only the selection dot.
     this.doc.setDrawColor(...color).setLineWidth(0.9);
     this.doc.circle(x + size / 2, y + size / 2, size / 2, 'S');
+    if (group) {
+      try {
+        const opt = group.createOption(value);
+        opt.Rect = [x, y, size, size];
+        opt.AS = '/Off';
+        group.setAppearance(AcroFormAppearance.RadioButton.Circle);
+        return;
+      } catch {
+        /* fall back to an independent checkbox */
+      }
+    }
     this.fieldBox(x, y, size);
   }
   band(y, label, tone) {
@@ -790,9 +825,10 @@ function buildRounding(doc, state, k, padByPage) {
   for (const s of subItems)
     c2 = p.checkLine(xs[2] + cellPad, c2, widths[2] - cellPad * 2, s, { size: 7.4 });
   let c3 = y + headBarH + cellPad + p.fs(6);
-  for (const r of rass) {
+  const rassGroup = p.radioGroup('rass_assessment');
+  rass.forEach((r, ri) => {
     const bs = p.fs(5.4);
-    p.circleBox(xs[3] + cellPad, c3 - bs + 1, bs, TONE[r.zone]);
+    p.circleBox(xs[3] + cellPad, c3 - bs + 1, bs, TONE[r.zone], rassGroup, `r${ri}`);
     p.text(r.label, xs[3] + cellPad + bs + 3, c3, { size: 7.2, bold: true, color: TONE[r.zone] });
     const dx = xs[3] + cellPad + bs + 3 + p.fs(30);
     p.text(r.desc, dx, c3, {
@@ -805,7 +841,7 @@ function buildRounding(doc, state, k, padByPage) {
       targetMark(p, dx + p.doc.getTextWidth(pd(r.desc)) + 4, c3, 7.2);
     }
     c3 += p.fs(8.2) + p.padGap(p.fs(0.6));
-  }
+  });
   y += headBarH + bodyH + p.padGap(p.fs(5));
 
   // Step 1 — DELIRIUM(S)
@@ -1101,9 +1137,10 @@ function buildSpa(doc, state, k, padByPage) {
       color: [255, 255, 255],
     });
     let ry = y + headBarH + p.fs(9);
-    for (const r of rass) {
+    const rassGroup = p.radioGroup('rass_assessment');
+    rass.forEach((r, ri) => {
       const bs = p.fs(6);
-      p.circleBox(M + 6, ry - bs + 1, bs, TONE[r.zone]);
+      p.circleBox(M + 6, ry - bs + 1, bs, TONE[r.zone], rassGroup, `r${ri}`);
       p.text(r.label, M + 6 + bs + 3, ry, { size: 8.4, bold: true, color: TONE[r.zone] });
       const dx = M + 6 + bs + 3 + p.fs(38);
       p.text(r.desc, dx, ry, {
@@ -1116,7 +1153,7 @@ function buildSpa(doc, state, k, padByPage) {
         targetMark(p, dx + p.doc.getTextWidth(pd(r.desc)) + 4, ry, 8.4);
       }
       ry += p.fs(10);
-    }
+    });
     // goal cell
     const x2 = M + w1 + gap;
     doc
