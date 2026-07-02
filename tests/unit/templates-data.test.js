@@ -47,7 +47,7 @@ test('templates: registry ids, sections, and page counts line up', () => {
   );
   for (const t of TEMPLATES) {
     assert.ok(['landscape', 'portrait'].includes(t.orientation));
-    assert.equal(t.pages, 2);
+    assert.ok(t.pages >= 1, 'template declares a page count');
     const pages = new Set(SECTIONS[t.id].map((s) => s.page));
     for (const p of pages) assert.ok(p >= 1 && p <= t.pages);
   }

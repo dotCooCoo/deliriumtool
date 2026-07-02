@@ -23,11 +23,13 @@ import {
   SHEET_DISCLAIMER,
 } from './data/content.js';
 import { MEDS } from '../data/meds.js';
+import { PEDS_FOOTER_CITES, PEDS_CITE_LABELS } from './data/peds-content.js';
+import { renderPedsCards, renderPedsWorkflow } from './peds-cards.js';
 import { DELIRIUM_REFS } from '../data/refs.js';
 import { isOn } from './state.js';
 import { faIcon } from '../shared/dom.js';
 
-function el(tag, props, ...kids) {
+export function el(tag, props, ...kids) {
   const node = document.createElement(tag);
   if (props) {
     for (const [k, v] of Object.entries(props)) {
@@ -44,13 +46,13 @@ function el(tag, props, ...kids) {
  * Short hyphenated tokens (T-A-D-A, CAM-ICU, WAT-1…) must never wrap across
  * lines on the printed card — swap their hyphens for non-breaking hyphens.
  */
-const nobreak = (s) =>
+export const nobreak = (s) =>
   String(s).replace(/\b(\w{1,4})((?:-\w{1,4})+)\b/g, (m) => m.replace(/-/g, '‑'));
 
 /** A printed check-off square (drawn box — marked with a dry-erase pen). */
-const box = () => el('span', { class: 'sh-box', 'aria-hidden': 'true' });
+export const box = () => el('span', { class: 'sh-box', 'aria-hidden': 'true' });
 /** A round check mark as SVG — stays perfectly circular under the preview scale. */
-function circleBox() {
+export function circleBox() {
   const NS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(NS, 'svg');
   svg.setAttribute('viewBox', '0 0 10 10');
@@ -67,9 +69,9 @@ function circleBox() {
   return svg;
 }
 /** A write-in blank. */
-const blank = (cls) => el('span', { class: `sh-blank${cls ? ' ' + cls : ''}` });
+export const blank = (cls) => el('span', { class: `sh-blank${cls ? ' ' + cls : ''}` });
 
-const checkItem = (text, cls) =>
+export const checkItem = (text, cls) =>
   el(
     'div',
     { class: `sh-item${cls ? ' ' + cls : ''}` },
@@ -80,7 +82,7 @@ const checkItem = (text, cls) =>
 const facilityLabel = (state) => state.facility.trim() || 'Your facility';
 
 /** Built-in text, unless the unit reworded it in the designer. */
-const ov = (state, id, fallback) => state.textOverrides[id] || fallback;
+export const ov = (state, id, fallback) => state.textOverrides[id] || fallback;
 
 function tplDef(state) {
   return TEMPLATES.find((t) => t.id === state.template) || TEMPLATES[0];
@@ -109,14 +111,14 @@ export function medDisplayName(name, showBrands) {
 
 /** Sources line for the sheet footer, e.g. "PADIS 2018 · PADIS 2025 · …". */
 function sourcesLine(state) {
-  const keys = FOOTER_CITES[state.template] || [];
+  const keys = FOOTER_CITES[state.template] || PEDS_FOOTER_CITES[state.template] || [];
   return keys
-    .map((k) => (DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : ''))
+    .map((k) => (DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : PEDS_CITE_LABELS[k] || ''))
     .filter(Boolean)
     .join(' · ');
 }
 
-function sheetFooter(state, page, pages) {
+export function sheetFooter(state, page, pages) {
   const stamp = [state.docRev.trim(), state.docDate.trim()].filter(Boolean).join(' · ');
   return el(
     'div',
@@ -167,12 +169,12 @@ function selectedMedCats(state) {
     .filter((c) => c.names.length);
 }
 
-const secOn = (state, id) => isOn(state.sections, id);
-const itemOn = (state, id) => isOn(state.items, id);
+export const secOn = (state, id) => isOn(state.sections, id);
+export const itemOn = (state, id) => isOn(state.items, id);
 
-const sheetIcon = (icon, cls) => faIcon(`fa-${icon}`, cls || 'sh-ico');
+export const sheetIcon = (icon, cls) => faIcon(`fa-${icon}`, cls || 'sh-ico');
 
-function band(tone, text, icon) {
+export function band(tone, text, icon) {
   const b = el('div', { class: `sh-band tone-${tone}` });
   if (icon) b.append(sheetIcon(icon, 'sh-ico sh-band-ico'));
   b.append(el('span', { text: nobreak(text) }));
@@ -695,5 +697,7 @@ function renderSpa(state) {
 
 /** Render the active template's sheets (array of .sheet elements). */
 export function renderSheets(state) {
+  if (state.template === 'peds-cards') return renderPedsCards(state);
+  if (state.template === 'peds-workflow') return renderPedsWorkflow(state);
   return state.template === 'spa' ? renderSpa(state) : renderRounding(state);
 }

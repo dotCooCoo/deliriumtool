@@ -159,8 +159,8 @@ function addFields(doc, sheet, pageW, pageH, seq) {
 export async function downloadPdf(state) {
   const sheets = [...document.querySelectorAll('#sheets .sheet')];
   if (!sheets.length) return;
-  const rounding = state.template !== 'spa';
-  const orientation = rounding ? 'landscape' : 'portrait';
+  const t = TEMPLATES.find((x) => x.id === state.template) || TEMPLATES[0];
+  const orientation = t.orientation;
   const wrapClass = document.getElementById('sheets').className;
   const doc = new jsPDF({ unit: 'pt', format: 'letter', orientation });
   const pageW = doc.internal.pageSize.getWidth();
@@ -172,7 +172,6 @@ export async function downloadPdf(state) {
     doc.addImage(png, 'JPEG', 0, 0, pageW, pageH);
     seq = addFields(doc, sheets[i], pageW, pageH, seq);
   }
-  const t = TEMPLATES.find((x) => x.id === state.template) || TEMPLATES[0];
   doc.setProperties({
     title: t.name,
     subject: 'Bedside delirium reference sheet — reference aid only',
@@ -190,6 +189,12 @@ export async function downloadPdf(state) {
     .map((v) => slug(v || ''))
     .filter(Boolean)
     .join('_');
-  const fname = rounding ? 'icu-delirium-rounding-tool' : 'spa-delirium-quick-reference';
+  const fname =
+    {
+      rounding: 'icu-delirium-rounding-tool',
+      spa: 'spa-delirium-quick-reference',
+      'peds-cards': 'peds-delirium-card-set',
+      'peds-workflow': 'picu-delirium-workflow',
+    }[state.template] || 'delirium-template';
   doc.save(`${fname}${suffix ? `_${suffix}` : ''}.pdf`);
 }

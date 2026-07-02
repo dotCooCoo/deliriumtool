@@ -295,3 +295,69 @@ test('designer has no serious accessibility violations (both templates)', async 
       .join(', '),
   ).toBe('');
 });
+
+// ── Peds card set + workflow poster ──────────────────────────────────────────
+
+test('peds card set renders all ten pages with the arousal gate and picture deck', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await expect(page.locator('.sheet')).toHaveCount(10);
+  // Arousal card: full RASS ladder with fillable circles and both gate bars.
+  const arousal = page.locator('.sheet').first();
+  await expect(arousal.locator('.pc-lrow')).toHaveCount(10);
+  await expect(arousal.locator('.sh-rass-box')).toHaveCount(10);
+  await expect(arousal.locator('.pc-gate--go')).toContainText('RASS ≥ −3');
+  await expect(arousal.locator('.pc-gate--stop')).toContainText('unable to assess');
+  // Picture deck: 10 stimulus cards + the instructions cell across 3 pages.
+  await expect(page.locator('.pc-stim')).toHaveCount(11);
+  await expect(page.locator('.pc-stim--instr')).toHaveCount(1);
+  // Validated-instrument content is not unit-editable: no per-item toggles.
+  await expect(page.locator('#ctrl-sections details')).toHaveCount(0);
+});
+
+test('peds arousal card switches to SBS with its own gate values', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await page.selectOption('#f-peds-scale', 'sbs');
+  const arousal = page.locator('.sheet').first();
+  await expect(arousal.locator('.pc-lrow')).toHaveCount(6);
+  await expect(arousal.locator('.pc-gate--go')).toContainText('SBS ≥ −1');
+  await expect(arousal.locator('.pc-gate--stop')).toContainText('SBS −2 / −3');
+});
+
+test('peds templates hide adult-only controls and show the scale picker', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await expect(page.locator('#f-peds-scale')).toBeVisible();
+  await expect(page.locator('section[aria-labelledby="h-meds"]')).toBeHidden();
+  await expect(page.locator('#f-rass-target')).toBeHidden();
+  await page.check('input[name="template"][value="rounding"]');
+  await expect(page.locator('#f-peds-scale')).toBeHidden();
+  await expect(page.locator('section[aria-labelledby="h-meds"]')).toBeVisible();
+});
+
+test('PICU workflow poster renders one landscape page with the rounds script', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-workflow"]');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+  await expect(page.locator('.sheet')).toHaveClass(/sheet--landscape/);
+  await expect(page.locator('.pc-stage')).toHaveCount(4);
+  await expect(page.locator('.pc-rounds').first()).toContainText('say these four things');
+});
+
+test('peds card set saves a PDF named for the card set', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  const download = page.waitForEvent('download');
+  await page.click('.preview-bar [data-act="pdf"]');
+  expect((await download).suggestedFilename()).toMatch(
+    /^peds-delirium-card-set_\d{4}-\d{2}-\d{2}\.pdf$/,
+  );
+});
+
+test('peds card set has no serious accessibility violations', async ({ page }) => {
+  await page.check('input[name="template"][value="peds-cards"]');
+  await page.waitForTimeout(400);
+  const results = await new AxeBuilder({ page }).analyze();
+  const serious = results.violations.filter(
+    (v) => v.impact === 'serious' || v.impact === 'critical',
+  );
+  expect(serious.map((v) => v.id).join(', ')).toBe('');
+});

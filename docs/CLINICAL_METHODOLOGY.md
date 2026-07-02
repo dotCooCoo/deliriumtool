@@ -238,6 +238,31 @@ content resolves in the registry, that the medication defaults track the shared 
 brand-name stripping preserves clinical qualifiers, and that the disclaimer text stays
 verbatim (`tests/unit/templates-data.test.js`).
 
+### 2.10 Pediatric bedside card set & PICU workflow poster (/templates/)
+
+Two pediatric templates extend the designer: the **Peds Delirium Card Set** (portrait pages
+for lamination and ring-binding: arousal gate card, screen-routing card, CAPD card,
+psCAM-ICU and pCAM-ICU cards, act-on-a-positive card, prevention-bundle card, and three
+pages of attention picture cards with cut guides) and the **PICU Delirium Workflow** poster
+(landscape: screen → arousal gate → score → act, with the rounds reporting script).
+
+Clinical values are **imported directly from the pediatric tool's data modules**
+(`src/js/templates/data/peds-content.js` imports `src/js/peds/data/…`), so the printed cards
+cannot carry different thresholds, scripts, or wording than the interactive tool: the arousal
+scales and comatose floors (Curley 2006; Sessler 2002), the CAPD items, 0–4 frequency scale,
+≥ 9 cut point, and developmental-delay caveat (Traube 2014; Gupta 2021), and the ps/pCAM-ICU
+features, tasks, letter sequence, error thresholds, and the psCAM Feature-2 alternate
+positivity path (Smith 2011; Smith 2016). The RASS row descriptions on the arousal card carry
+the scale's published wording (Sessler 2002, as used on the validated pediatric assessment
+card). Validated-instrument text is deliberately **not** unit-editable in the designer.
+
+The attention picture cards are **original artwork** (drawn for this site as inline SVG).
+The validated element of the picture tasks is the procedure — ten presentations for psCAM-ICU
+Feature 2; five memory pictures plus five "other" pictures for the pCAM-ICU memory-pictures
+alternative — not the specific images; the instructions card notes that units may substitute
+their validated picture set per local practice. Mirror tests pin the card content to the
+pediatric tool's modules (`tests/unit/templates-peds.test.js`).
+
 ---
 
 ## 3. Citation registry

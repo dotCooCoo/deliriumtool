@@ -72,6 +72,7 @@ let shared = false;
 
 /** Group descriptors for the active template's per-item controls. */
 function controlGroups(tplId) {
+  if (tplId.startsWith('peds')) return [];
   if (tplId === 'rounding') {
     return [
       {
@@ -442,8 +443,18 @@ function reflectFields() {
   $('#f-doses').checked = state.showDoses;
   $('#f-brands').checked = state.showBrands;
   $('#f-med-layout').value = state.medLayout;
+  $('#f-peds-scale').value = state.pedsScale;
   $$('input[name="template"]').forEach((r) => {
     r.checked = r.value === state.template;
+  });
+  // Controls scoped to one template (data-tpl) hide elsewhere; adult-only
+  // controls (data-adult) hide on the peds templates.
+  const peds = state.template.startsWith('peds');
+  $$('[data-tpl]').forEach((n) => {
+    n.hidden = n.dataset.tpl !== state.template;
+  });
+  $$('[data-adult]').forEach((n) => {
+    n.hidden = peds;
   });
 }
 
@@ -676,7 +687,13 @@ function onChange(e) {
   const act = t.dataset.act;
   if (t.name === 'template') {
     state.template = t.value;
+    reflectFields();
     update({ rebuildControls: true });
+    return;
+  }
+  if (t.id === 'f-peds-scale') {
+    state.pedsScale = t.value;
+    update();
     return;
   }
   if (act === 'secToggle') {

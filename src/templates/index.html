@@ -270,6 +270,26 @@
                 >
               </span>
             </label>
+            <label class="tpl-card">
+              <input type="radio" name="template" value="peds-cards" />
+              <span class="tpl-card-body">
+                <strong>Peds Delirium Card Set</strong>
+                <span class="tpl-card-desc"
+                  >PICU bedside cards — arousal gate, CAPD, ps/pCAM-ICU, action cards, and attention
+                  picture cards. Portrait; laminate &amp; ring-bind.</span
+                >
+              </span>
+            </label>
+            <label class="tpl-card">
+              <input type="radio" name="template" value="peds-workflow" />
+              <span class="tpl-card-body">
+                <strong>PICU Delirium Workflow</strong>
+                <span class="tpl-card-desc"
+                  >Unit workflow poster — screen · gate · score · act with the 10-second rounds
+                  script. Landscape, 1 page.</span
+                >
+              </span>
+            </label>
           </div>
         </section>
 
@@ -291,6 +311,13 @@
             <input class="finp" id="f-unit" type="text" maxlength="120" placeholder="e.g. MICU" />
           </div>
           <div class="frow">
+            <label class="flbl" for="f-peds-scale" data-tpl="peds-cards"
+              >Arousal scale (peds cards)</label
+            >
+            <select class="fsel" id="f-peds-scale" data-tpl="peds-cards">
+              <option value="rass">RASS — older / verbal children</option>
+              <option value="sbs">SBS — intubated infants &amp; young children</option>
+            </select>
             <label class="flbl" for="f-doc-date">Date created (optional)</label>
             <input class="finp" id="f-doc-date" type="date" />
           </div>
@@ -304,7 +331,7 @@
               placeholder="e.g. Rev. B"
             />
           </div>
-          <div class="frow">
+          <div class="frow" data-adult>
             <label class="flbl" for="f-rass-target">Sedation target (RASS)</label>
             <select class="fsel" id="f-rass-target">
               <option value="0to-2" selected>0 to −2 (light — ICU default)</option>
@@ -322,11 +349,11 @@
             and add your own protocol lines where the unit's workflow differs.
           </p>
           <div id="ctrl-sections"></div>
-          <label class="chk">
+          <label class="chk" data-adult>
             <input type="checkbox" id="f-actions" checked />
             <span>"Action: ___" write-in lines in the causative-factor cells</span>
           </label>
-          <div class="newsec">
+          <div class="newsec" data-adult>
             <h3 class="newsec-head">Add your own section</h3>
             <div class="frow">
               <label class="flbl" for="f-newsec-title">Section title</label>
@@ -351,7 +378,7 @@
           </div>
         </section>
 
-        <section class="ctrl-block" aria-labelledby="h-meds">
+        <section class="ctrl-block" aria-labelledby="h-meds" data-adult>
           <h2 id="h-meds">Medications</h2>
           <p class="note">
             Choose which deliriogenic agents print in the review-and-limit list — match it to your

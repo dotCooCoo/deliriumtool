@@ -36,6 +36,7 @@ export function defaultState() {
   return {
     v: 1,
     template: 'rounding',
+    pedsScale: 'rass', // arousal scale on the peds cards (RASS or SBS)
     facility: '',
     unit: '',
     docDate: new Date().toISOString().slice(0, 10), // creation date, editable
@@ -68,7 +69,9 @@ export function sanitize(raw) {
   const d = defaultState();
   if (!raw || typeof raw !== 'object') return d;
   const s = { ...d };
-  if (['rounding', 'spa'].includes(raw.template)) s.template = raw.template;
+  if (['rounding', 'spa', 'peds-cards', 'peds-workflow'].includes(raw.template))
+    s.template = raw.template;
+  if (['rass', 'sbs'].includes(raw.pedsScale)) s.pedsScale = raw.pedsScale;
   if (typeof raw.facility === 'string') s.facility = raw.facility.slice(0, 120);
   if (typeof raw.unit === 'string') s.unit = raw.unit.slice(0, 120);
   // An empty stored date keeps the default (today) — the field auto-fills so
