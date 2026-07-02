@@ -53,6 +53,11 @@ Notable changes to this project, following
 
 ### Fixed
 
+- The Accessibility options button sits with the header controls on every
+  page instead of wrapping onto a line of its own, and template-scoped
+  designer controls hide their labels with them (no orphaned label text on
+  the adult templates).
+
 - The RASS levels in the saved template PDF are a radio-button group: picking
   a level marks it with a dot and clears the others, instead of allowing
   several independent check marks on a mutually exclusive scale.

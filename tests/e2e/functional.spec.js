@@ -294,3 +294,12 @@ test('the accessibility options control is available and opens', async ({ page }
   await page.click('.a11y-btn');
   await expect(page.locator('.a11y-panel')).toBeVisible();
 });
+
+// The accessibility options join the header controls row on every page
+// instead of wrapping onto an orphan line of their own.
+test('accessibility button sits in the header actions cluster (adult + peds)', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.app-header-actions .a11y-wrap')).toHaveCount(1);
+  await page.goto('/peds/');
+  await expect(page.locator('.app-header-actions .a11y-wrap')).toHaveCount(1);
+});

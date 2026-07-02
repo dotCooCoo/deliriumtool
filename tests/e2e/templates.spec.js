@@ -385,7 +385,15 @@ test('peds templates hide adult-only controls and show the scale picker', async 
   await expect(page.locator('#f-rass-target')).toBeHidden();
   await page.check('input[name="template"][value="rounding"]');
   await expect(page.locator('#f-peds-scale')).toBeHidden();
+  // Labels of template-scoped controls hide with them (no orphaned text).
+  await expect(page.locator('label[for="f-peds-scale"]')).toBeHidden();
+  await expect(page.locator('label[for="f-stim-layout"]')).toBeHidden();
+  await expect(page.locator('label[for="f-stim-style"]')).toBeHidden();
   await expect(page.locator('section[aria-labelledby="h-meds"]')).toBeVisible();
+});
+
+test('the accessibility button sits in the header actions cluster', async ({ page }) => {
+  await expect(page.locator('.app-header-actions .a11y-wrap')).toHaveCount(1);
 });
 
 test('PICU workflow poster renders one landscape page with the rounds script', async ({ page }) => {

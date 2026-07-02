@@ -65,7 +65,10 @@ function icon(id) {
 
 /** Build the accessibility control + panel and mount it in the header. */
 export function initA11y() {
-  const mount = document.querySelector('.app-header-inner');
+  // Join the header's action cluster where one exists (keeps the button on
+  // the controls row instead of wrapping onto an orphan line of its own).
+  const mount =
+    document.querySelector('.app-header-actions') || document.querySelector('.app-header-inner');
   if (!mount || mount.querySelector('.a11y-wrap')) return;
 
   const panelId = 'a11y-panel';
@@ -147,6 +150,14 @@ export function initA11y() {
   const setOpen = (open) => {
     panel.hidden = !open;
     btn.setAttribute('aria-expanded', String(open));
+    if (open) {
+      // The panel anchors to the button's right edge; on narrow screens that
+      // can push it past the left viewport edge — shift it back on-screen.
+      panel.style.marginRight = '';
+      const r = panel.getBoundingClientRect();
+      const off = 8 - r.left;
+      if (off > 0) panel.style.marginRight = `${-off}px`;
+    }
   };
   btn.addEventListener('click', () => setOpen(panel.hidden));
   document.addEventListener('click', (e) => {
