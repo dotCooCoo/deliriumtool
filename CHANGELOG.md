@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-02
+
 ### Added
 
 - The picture-cards instructions card keys both sets visually — labeled
