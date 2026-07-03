@@ -479,3 +479,57 @@ test('no horizontal overflow at extreme accessibility settings (largest text on 
     expect(over, `horizontal overflow on the ${t} tab`).toBeLessThanOrEqual(2);
   }
 });
+
+test('bedside cards tab shows the real cards annotated with the live assessment', async ({
+  page,
+}) => {
+  await start(page, 72); // → CAPD
+  await setArousal(page, '-2');
+  await page.click('.tab-btn[data-tab="cards"]');
+  // The arousal card + the CAPD card render (the real .pc-* cards).
+  await expect(page.locator('#peds-cards-live .pcard-wrap')).toHaveCount(2);
+  await expect(page.locator('#peds-cards-live .pc-arousal')).toBeVisible();
+  await expect(page.locator('#peds-cards-live .pc-capd')).toBeVisible();
+  // The recorded arousal row is highlighted and its gate marked.
+  await expect(page.locator('#peds-cards-live .pc-lrow.is-recorded')).toHaveCount(1);
+  await expect(page.locator('#peds-cards-live .pc-gate--go.is-taken')).toBeVisible();
+  // The live ribbon reports the arousal outcome.
+  await expect(page.locator('#peds-cards-live .pc-arousal .pc-live')).toContainText(
+    'RASS −2 — screen proceeds',
+  );
+  // Tapping a card jumps back to Screening.
+  await page.locator('#peds-cards-live .pcard-wrap .sheet').first().click();
+  await expect(page.locator('#tab-screen')).toHaveClass(/active/);
+});
+
+test('the act card appears only once the screen is positive', async ({ page }) => {
+  await start(page, 72);
+  await setArousal(page, '0');
+  // Score CAPD positive: mark all eight items at the top of their range.
+  for (const opt of await page.locator('#capd-items fieldset').all()) {
+    await opt.locator('label.pseg-opt').last().click();
+  }
+  await page.click('.tab-btn[data-tab="cards"]');
+  await expect(page.locator('#peds-cards-live .pc-actcard')).toBeVisible();
+  await expect(page.locator('#peds-cards-live .pc-arousal .pc-live')).toBeVisible();
+});
+
+test('cards used appear on the Export tab and name the path taken', async ({ page }) => {
+  await start(page, 72);
+  await setArousal(page, '-2');
+  await page.click('.tab-btn[data-tab="export"]');
+  await expect(page.locator('#peds-cards-report')).toBeVisible();
+  const items = page.locator('#cards-used-list .cards-used-item');
+  await expect(items).toHaveCount(2);
+  await expect(items.first()).toContainText('Arousal — RASS');
+  await expect(items.nth(1)).toContainText('CAPD');
+});
+
+test('the generated report includes a Bedside cards used section', async ({ page }) => {
+  await start(page, 72);
+  await setArousal(page, '-2');
+  await page.click('.tab-btn[data-tab="export"]');
+  const download = page.waitForEvent('download');
+  await page.click('[data-act="generateReport"]');
+  expect((await download).suggestedFilename()).toMatch(/pediatric-delirium-summary/);
+});

@@ -1,0 +1,1622 @@
+/*
+ * cards.css — the bedside-card design system (.sheet / .tone-* / .sh-* / .pc-*),
+ * extracted from templates.css so the pediatric interactive tool can render the
+ * real laminated cards inline (annotated with the live assessment). Imported by
+ * peds.css. The navy --c-* designer identity is deliberately NOT carried here so
+ * the pediatric page's teal palette still wins. Screen-scaling + live-annotation
+ * classes live in peds.css; see src/js/peds/cards.js and §2.10.
+ */
+
+:root {
+  /* Deep navy primary, AA on white. */
+
+
+  /* Sheet palette — print-safe hues; each deep tone is AA on white. */
+  --sh-ink: #1a2630;
+  --sh-teal: #1f6e79;
+  --sh-plum: #4a3268;
+  --sh-rust: #9c4f0f;
+  --sh-green: #2d6b43;
+  --sh-red: #8b1e2f;
+  --sh-slate: #445560;
+  --sh-teal-weak: #d4edef;
+  --sh-plum-weak: #e8e2f5;
+  --sh-rust-weak: #fcebd8;
+  --sh-green-weak: #d4ede0;
+  --sh-red-weak: #f7e2e6;
+  --sh-slate-weak: #f2f6f8;
+  /* Extended tones so each medication category gets its own colour block. */
+  --sh-navy: #274b8f;
+  --sh-navy-weak: #e3ebfa;
+  --sh-violet: #7b2d8e;
+  --sh-violet-weak: #f3e5f7;
+  --sh-berry: #a02c5e;
+  --sh-berry-weak: #fae3ee;
+  --sh-azure: #0f5e8a;
+  --sh-azure-weak: #ddeef8;
+  --sh-olive: #5c661b;
+  --sh-olive-weak: #eef0da;
+  --sh-border: #c8d8df;
+}
+
+/* ── The sheets (shared print design system) ───────────────────────────── */
+
+.sheet {
+  position: relative; /* children's offsetTop is sheet-relative for the fit math */
+  /* Effective type scale = user text-size choice × per-template factor ×
+     auto-fit factor (stepped down only when a page would overflow). Every
+     size on the sheet is a pt value multiplied by --fs, so all compose. */
+  --fs-user: 1;
+  --fs-tpl: 1;
+  --fs-fit: 1;
+  --fs: calc(var(--fs-user) * var(--fs-tpl) * var(--fs-fit));
+  box-sizing: border-box;
+  width: 10.5in;
+  height: 7.96in;
+  padding: 0.12in;
+  background: #fff;
+  color: var(--sh-ink);
+  font-family: var(--font-sans);
+  font-size: calc(9pt * var(--fs));
+  line-height: 1.25;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: calc(4pt * var(--fs));
+  transform-origin: top left;
+}
+.sheet--portrait {
+  /* The portrait poster has fewer, larger blocks — run its type ~15% bigger
+     and let the cards breathe so the page fills. */
+  --fs-tpl: 1.15;
+  width: 8in;
+  height: 10.46in;
+}
+.sheet--portrait .spa-item {
+  margin: calc(8pt * var(--fs)) 0;
+}
+.sheets.fs-90 .sheet {
+  --fs-user: 0.9;
+}
+.sheets.fs-110 .sheet {
+  --fs-user: 1.1;
+}
+
+/* Print font options — a small curated set verified to fit at every size. */
+.sheets.ff-classic .sheet {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.sheets.ff-serif .sheet {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+/* At the Large size the type grows 10%; tighten leading and micro-spacing so a
+   fully-populated sheet still fits its page. */
+.sheets.fs-110 .sheet {
+  line-height: 1.16;
+}
+.sheets.fs-110 .sh-item {
+  margin: calc(1.6pt * var(--item-pad, 1)) 0;
+}
+.sheets.fs-110 .sh-cell-body {
+  padding: 3pt 5pt;
+}
+.sheets.fs-110 .sheet--portrait .spa-item {
+  margin: calc(5pt * var(--fs)) 0;
+}
+.sheets.fs-110 .sheet--portrait {
+  --fs-tpl: 1.09;
+}
+.sheets.fs-110 .sh-bullet {
+  margin: 1.6pt 0;
+}
+.sheets.fs-110 .sh-group {
+  padding: 3pt 4.5pt;
+}
+
+/* Tones — deep header colour + soft tint used per cell/group. */
+.tone-teal {
+  --tone: var(--sh-teal);
+  --tone-weak: var(--sh-teal-weak);
+}
+.tone-plum {
+  --tone: var(--sh-plum);
+  --tone-weak: var(--sh-plum-weak);
+}
+.tone-rust {
+  --tone: var(--sh-rust);
+  --tone-weak: var(--sh-rust-weak);
+}
+.tone-green {
+  --tone: var(--sh-green);
+  --tone-weak: var(--sh-green-weak);
+}
+.tone-slate {
+  --tone: var(--sh-slate);
+  --tone-weak: var(--sh-slate-weak);
+}
+.tone-ink {
+  --tone: var(--sh-ink);
+  --tone-weak: var(--sh-slate-weak);
+}
+.tone-red {
+  --tone: var(--sh-red);
+  --tone-weak: var(--sh-red-weak);
+}
+.tone-navy {
+  --tone: var(--sh-navy);
+  --tone-weak: var(--sh-navy-weak);
+}
+.tone-violet {
+  --tone: var(--sh-violet);
+  --tone-weak: var(--sh-violet-weak);
+}
+.tone-berry {
+  --tone: var(--sh-berry);
+  --tone-weak: var(--sh-berry-weak);
+}
+.tone-azure {
+  --tone: var(--sh-azure);
+  --tone-weak: var(--sh-azure-weak);
+}
+.tone-olive {
+  --tone: var(--sh-olive);
+  --tone-weak: var(--sh-olive-weak);
+}
+
+.sh-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.2in;
+  background: var(--sh-ink);
+  color: #fff;
+  padding: calc(5pt * var(--fs)) calc(8pt * var(--fs));
+  border-radius: 3px;
+}
+.sh-title {
+  font-size: calc(14pt * var(--fs));
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.sh-sub {
+  color: #a0b8c4;
+  font-size: calc(9pt * var(--fs));
+}
+/* Patient / Room / Date on a light row under the title band — a printed
+   sheet takes a dark pen, and the patient blank stretches for a full name. */
+.sh-head-meta {
+  display: flex;
+  gap: 0.25in;
+  align-items: baseline;
+  color: var(--sh-ink);
+  font-size: calc(9.5pt * var(--fs));
+  font-weight: 600;
+  padding: calc(2pt * var(--fs)) calc(2pt * var(--fs)) 0;
+  white-space: nowrap;
+}
+.sh-head-meta > span:first-child {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: calc(4pt * var(--fs));
+}
+.sh-head-meta .sh-blank {
+  border-bottom-color: var(--sh-ink);
+}
+.sh-head-meta .sh-blank.grow {
+  flex: 1;
+}
+
+.sh-blank {
+  display: inline-block;
+  min-width: 0.7in;
+  border-bottom: 1pt solid currentColor;
+  vertical-align: baseline;
+}
+.sh-blank.w-sm {
+  min-width: 0.6in;
+}
+.sh-blank.w-md {
+  min-width: 0.9in;
+}
+.sh-blank.w-lg {
+  min-width: 1.6in;
+}
+.sh-blank.grow {
+  flex: 1;
+}
+
+.sh-box {
+  flex: none;
+  display: inline-block;
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+  border: 1.4pt solid var(--sh-ink);
+  border-radius: 1.5pt;
+  margin-top: 1pt;
+}
+.sh-item {
+  display: flex;
+  gap: calc(4pt * var(--fs));
+  align-items: flex-start;
+  /* --item-pad grows when the page has slack — the check rows across every
+     section gain breathing room instead of leaving dead space. */
+  margin: calc(2pt * var(--fs) * var(--item-pad, 1)) 0;
+}
+/* Status-strip options (CAM result + subtype) share one size; the CAM
+   options keep the heavier weight as the primary result. Both get roomier
+   spacing between rows via --item-pad. */
+.sh-item--lg {
+  font-size: calc(9pt * var(--fs));
+  font-weight: 600;
+}
+.sh-item--md {
+  font-size: calc(9pt * var(--fs));
+}
+.sh-cell-body .sh-item {
+  margin: calc(3pt * var(--fs) * var(--item-pad, 1)) 0;
+}
+.sh-item--tight {
+  margin: 0;
+  font-weight: 700;
+}
+.sh-item--custom span {
+  font-style: italic;
+}
+
+.sh-strip {
+  display: grid;
+  /* Subtype gets the widest text — sized so its options hold one line. */
+  grid-template-columns: 0.9fr 1.1fr 1.28fr 1.4fr;
+  gap: calc(4pt * var(--fs));
+}
+.sh-cell {
+  border: 1pt solid var(--tone);
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--tone-weak);
+}
+.sh-cell-head {
+  background: var(--tone);
+  color: #fff;
+  font-weight: 800;
+  font-size: calc(9.5pt * var(--fs));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: calc(3pt * var(--fs)) calc(6pt * var(--fs));
+}
+.sh-cell-body {
+  padding: calc(4pt * var(--fs)) calc(6pt * var(--fs));
+}
+.sh-goal {
+  font-size: calc(12pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-teal);
+  margin-bottom: calc(2pt * var(--fs));
+}
+.sh-small {
+  font-size: calc(8.5pt * var(--fs));
+}
+.sh-strong {
+  font-weight: 700;
+}
+
+.sh-rass {
+  font-size: calc(8.5pt * var(--fs));
+}
+.sh-rass-row {
+  display: flex;
+  align-items: center;
+  gap: calc(5pt * var(--fs));
+  padding: 0.8pt 0;
+}
+/* A check circle beside each RASS row so the current level can be marked
+   (SVG — a CSS border-circle turns oval under the preview's transform scale). */
+.sh-rass-box {
+  flex: none;
+  width: calc(7pt * var(--fs));
+  height: calc(7pt * var(--fs));
+  display: block;
+}
+.sh-goal .sh-blank {
+  border-bottom-color: var(--sh-teal);
+}
+.sh-goal .sh-blank.grow {
+  flex: 1;
+}
+.sh-goal {
+  display: flex;
+  align-items: baseline;
+  gap: calc(3pt * var(--fs));
+}
+.sh-rass-score {
+  flex: none;
+  width: calc(40pt * var(--fs));
+  white-space: nowrap;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.sh-rass-row.z-red {
+  color: var(--sh-red);
+}
+.sh-rass-row.z-rust {
+  color: var(--sh-rust);
+}
+.sh-rass-row.z-slate {
+  color: var(--sh-slate);
+}
+.sh-rass-row.is-target {
+  color: var(--sh-green);
+  font-weight: 700;
+}
+
+.sh-band {
+  display: flex;
+  align-items: center;
+  gap: calc(5pt * var(--fs));
+  background: var(--tone);
+  color: #fff;
+  font-weight: 800;
+  font-size: calc(10pt * var(--fs));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: calc(3pt * var(--fs)) calc(8pt * var(--fs));
+  border-radius: 2px;
+}
+
+/* Sheet icons — inherit the surrounding text colour, scale with the type. */
+.sh-ico {
+  flex: none;
+  width: calc(9pt * var(--fs));
+  height: calc(9pt * var(--fs));
+  fill: currentColor;
+}
+.sh-band-ico {
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+}
+.sh-group-head .sh-ico,
+.sh-meds-head .sh-ico {
+  vertical-align: -1pt;
+  margin-right: calc(3pt * var(--fs));
+}
+.spa-word .sh-ico {
+  width: calc(11pt * var(--fs));
+  height: calc(11pt * var(--fs));
+  margin-right: calc(4pt * var(--fs));
+  vertical-align: -1.5pt;
+}
+
+/* Unit-authored sections — full-width checklist in three columns. */
+.sh-custom-lines {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 calc(8pt * var(--fs));
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 3px;
+  background: var(--sh-slate-weak);
+  padding: calc(3pt * var(--fs)) calc(6pt * var(--fs));
+  font-size: calc(8.5pt * var(--fs));
+}
+.sh-section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+}
+
+.sh-mnem-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: calc(3pt * var(--fs));
+}
+.sh-mnem-cell {
+  display: flex;
+  flex-direction: column;
+  border: 0.9pt solid var(--tone, var(--sh-border));
+  border-radius: 3px;
+  padding: calc(3pt * var(--fs)) calc(5pt * var(--fs));
+}
+.sh-mnem-head {
+  display: flex;
+  align-items: baseline;
+  gap: calc(4pt * var(--fs));
+}
+.sh-mnem-ltr {
+  color: var(--tone, var(--sh-red));
+  font-weight: 800;
+  font-size: calc(11pt * var(--fs));
+}
+.sh-mnem-cell .sh-mnem-word {
+  color: var(--tone, var(--sh-ink));
+}
+.sh-mnem-word {
+  font-weight: 800;
+  font-size: calc(8.5pt * var(--fs));
+}
+.sh-note {
+  font-size: calc(8pt * var(--fs));
+  color: var(--sh-slate);
+}
+.sh-action {
+  display: flex;
+  gap: 3pt;
+  font-size: calc(8.5pt * var(--fs));
+  color: var(--sh-slate);
+  /* Bottom-justified so the write-in blanks align across the row of cells. */
+  margin-top: auto;
+  padding-top: calc(2pt * var(--fs));
+}
+.sh-action .sh-blank {
+  flex: 1;
+}
+
+.sh-group-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: calc(3pt * var(--fs));
+}
+.sh-group-grid--5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+.sh-group-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.sh-group-grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.sh-group {
+  border: 0.8pt solid var(--tone);
+  border-radius: 3px;
+  background: var(--tone-weak);
+  padding: calc(3.5pt * var(--fs)) calc(5.5pt * var(--fs));
+  font-size: calc(8.5pt * var(--fs));
+}
+.sh-group-head {
+  color: var(--tone);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: calc(8.5pt * var(--fs));
+  margin-bottom: calc(2pt * var(--fs));
+}
+.sh-group-head--bar {
+  background: var(--tone);
+  color: #fff;
+  text-transform: none;
+  border-radius: 2px;
+  padding: calc(2pt * var(--fs)) calc(4pt * var(--fs));
+  margin: calc(-1pt * var(--fs)) calc(-3pt * var(--fs)) calc(3pt * var(--fs));
+}
+.sh-bullet {
+  margin: calc(2pt * var(--fs)) 0;
+}
+
+.sh-notes {
+  display: flex;
+  gap: 6pt;
+  align-items: baseline;
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 3px;
+  background: var(--sh-slate-weak);
+  padding: calc(4pt * var(--fs)) calc(6pt * var(--fs));
+  font-size: calc(9.5pt * var(--fs));
+}
+
+.sh-pharm-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.6fr;
+  gap: calc(4pt * var(--fs));
+}
+.sh-pharm-grid > :only-child {
+  grid-column: 1 / -1;
+}
+.sh-pharm-card {
+  border: 0.8pt solid var(--sh-rust);
+  border-radius: 3px;
+  background: var(--sh-rust-weak);
+  padding: calc(4pt * var(--fs)) calc(6pt * var(--fs));
+  font-size: calc(8.5pt * var(--fs));
+}
+.sh-pharm-lead {
+  color: var(--sh-red);
+  font-weight: 800;
+  font-size: calc(10pt * var(--fs));
+}
+.sh-pharm-row {
+  margin: calc(2.5pt * var(--fs)) 0;
+}
+.sh-pharm-row.is-warn {
+  color: var(--sh-red);
+}
+.sh-pharm-caution {
+  font-weight: 700;
+  margin: calc(2.5pt * var(--fs)) 0;
+}
+.sh-pharm-caution.is-stop {
+  color: var(--sh-red);
+}
+
+.sh-meds {
+  min-width: 0;
+}
+.sh-meds-head {
+  color: var(--sh-red);
+  font-weight: 800;
+  font-size: calc(9.5pt * var(--fs));
+  margin-bottom: calc(2pt * var(--fs));
+}
+.sh-meds-grid {
+  display: grid;
+  gap: calc(2pt * var(--fs));
+}
+.sh-meds-row {
+  display: grid;
+  grid-template-columns: 1.5in 1fr;
+  border: 0.6pt solid var(--sh-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+/* The medication grid sizes to its selection: a short, curated list prints
+   as side-by-side colour cards with one medication per line; the full
+   103-agent catalog compacts to category rows (capped so it always fits). */
+/* Mosaic: cards of different heights pack into balanced columns and re-flow
+   to whatever space the segment offers; column width adapts to the selection
+   (--med-colw) so short lists get wider cards and long lists more columns. */
+.sh-meds-cards {
+  column-width: var(--med-colw, 2.05in);
+  /* With both width and count set, count acts as a maximum — small selections
+     form a few full columns instead of balancing across the whole width. */
+  column-count: var(--med-cols, auto);
+  column-gap: calc(4pt * var(--fs));
+}
+.sh-med-card {
+  break-inside: avoid;
+  margin-bottom: calc(4pt * var(--fs));
+  border: 0.8pt solid var(--tone);
+  border-radius: 3px;
+  background: var(--tone-weak);
+  overflow: hidden;
+}
+.sh-med-card-head {
+  background: var(--tone);
+  color: #fff;
+  font-weight: 700;
+  font-size: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1));
+  padding: calc(2pt * var(--med-k, 1)) calc(5pt * var(--med-k, 1));
+}
+/* Dense selections stop growing with the Large setting (--med-k cap) so the
+   full catalog keeps fitting; short selections scale freely. */
+.sh-meds {
+  --med-k: var(--fs);
+}
+.meds-dyn {
+  --med-k: min(var(--fs), 1.04);
+}
+.sh-med-line {
+  display: flex;
+  align-items: center;
+  gap: calc(3.5pt * var(--med-k, 1));
+  font-size: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1));
+  /* --med-pad grows when the page has slack — breathing room between lines
+     makes each check-off easier to mark without inflating the type. */
+  padding: calc(0.8pt * var(--med-k, 1) * var(--med-pad, 1)) calc(5pt * var(--med-k, 1));
+}
+/* A small printed square beside every medication — mark it with the pen. */
+.sh-med-box {
+  flex: none;
+  width: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1) * 0.82);
+  height: calc(var(--med-fs, 8.6pt) * var(--med-k, 1) * var(--med-shrink, 1) * 0.82);
+  border: 1pt solid var(--tone);
+  border-radius: 1pt;
+  background: #fff;
+}
+/* Unified Step-3 mosaic: the guidance card leads (top-left) and medication
+   cards flow after it, claiming the space beneath. */
+.sh-pharm-mosaic {
+  column-width: var(--med-colw, 2.45in);
+  column-count: var(--med-cols, auto);
+  column-gap: calc(4pt * var(--fs));
+}
+/* Packed variant (set post-mount): explicit columns like the PDF masonry, so
+   medication cards fill the space beneath the pinned guidance card. */
+.sh-pharm-mosaic.packed {
+  column-width: auto;
+  column-count: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: calc(4pt * var(--fs));
+}
+.sh-mos-col {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.sh-pharm-mosaic .sh-pharm-card {
+  break-inside: avoid;
+  margin-bottom: calc(4pt * var(--fs));
+}
+.sh-pharm-mosaic .sh-meds-head {
+  break-inside: avoid;
+  margin-top: calc(1pt * var(--fs));
+}
+
+/* Dense mosaic: each card wraps its list instead of one-per-line. */
+.sh-med-run {
+  padding: calc(2pt * var(--fs)) calc(5pt * var(--fs)) calc(3pt * var(--fs));
+}
+.meds-md .sh-med-run {
+  font-size: calc(7.6pt * min(var(--fs), 1.06));
+}
+.meds-md .sh-med-card-head {
+  font-size: calc(7.8pt * min(var(--fs), 1.06));
+}
+.meds-sm .sh-med-run {
+  font-size: calc(7pt * min(var(--fs), 1.02));
+}
+.meds-sm .sh-med-card-head {
+  font-size: calc(7.2pt * min(var(--fs), 1.02));
+}
+.meds-md .sh-meds-cat,
+.meds-md .sh-meds-list {
+  font-size: calc(7.6pt * min(var(--fs), 1.06) * var(--med-shrink, 1));
+}
+.meds-md .sh-meds-row {
+  grid-template-columns: 1.65in 1fr;
+}
+.sh-meds-cat {
+  background: var(--tone, var(--sh-slate));
+  color: #fff;
+  font-weight: 700;
+  font-size: calc(7.4pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
+  padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
+  display: flex;
+  align-items: center;
+  gap: calc(3pt * var(--fs));
+}
+.sh-warn-inline {
+  width: calc(9pt * var(--fs));
+  height: calc(9pt * var(--fs));
+  margin-right: calc(3pt * var(--fs));
+  vertical-align: -1pt;
+  color: var(--sh-red);
+}
+.sh-meds-list {
+  background: var(--tone-weak, #fff);
+  font-size: calc(7.4pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
+  padding: calc(2.5pt * var(--fs)) calc(4pt * var(--fs));
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(2pt * var(--fs) * var(--med-pad, 1)) calc(8pt * var(--fs));
+  align-content: flex-start;
+}
+/* Category rows are checkable too: each agent is a box + name pair. */
+.sh-med-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(3pt * var(--fs));
+  white-space: nowrap;
+}
+.sh-med-inline .sh-med-box {
+  width: calc(6.2pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
+  height: calc(6.2pt * min(var(--fs), 1.02) * var(--med-shrink, 1));
+}
+
+.sh-foot {
+  margin-top: auto;
+  display: flex;
+  gap: 0.15in;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 0.6pt solid var(--sh-border);
+  padding-top: calc(3pt * var(--fs));
+  font-size: calc(7pt * var(--fs));
+  color: var(--sh-slate);
+}
+.sh-foot-stamp {
+  font-weight: 400;
+  color: var(--sh-slate);
+}
+.sh-foot-left {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.sh-foot-right {
+  white-space: nowrap;
+}
+
+
+@page {
+  size: letter;
+  margin: 0.25in;
+}
+@page sheet-landscape {
+  size: letter landscape;
+  margin: 0.25in;
+}
+
+/* ── Peds card set + workflow poster (.pc-*) ────────────────────────────────
+   Modernized card system: one topic per card, sentence-case headings, flat
+   semantic tints (agitation warm -> calm green -> sedation cool), gate rules
+   as bars at the decision point, YES/NO pills, and outcome chips where
+   "delirium present" is the heaviest element. All sizes multiply through
+   --fs so the auto-fit and size controls compose. */
+
+.sheet--card {
+  /* Landscape card page (the bedside ring-deck format) — inherits the base
+     landscape sheet dimensions. */
+  gap: calc(7pt * var(--fs));
+}
+
+.pc-head {
+  display: flex;
+  align-items: center;
+  gap: calc(8pt * var(--fs));
+  border-bottom: 2.2pt solid var(--tone);
+  padding-bottom: calc(5pt * var(--fs));
+}
+.pc-stepchip {
+  flex: 0 0 auto;
+  background: var(--tone);
+  color: #fff;
+  font-size: calc(11pt * var(--fs));
+  font-weight: 800;
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(8pt * var(--fs));
+  white-space: nowrap;
+}
+.pc-title {
+  font-size: calc(15pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+  display: flex;
+  align-items: center;
+  gap: calc(5pt * var(--fs));
+}
+.pc-title-ico {
+  width: calc(12pt * var(--fs));
+  height: calc(12pt * var(--fs));
+  color: var(--tone);
+}
+.pc-sub {
+  font-size: calc(9.5pt * var(--fs));
+  color: var(--sh-slate);
+  margin-top: calc(1.5pt * var(--fs));
+}
+
+.pc-body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6pt * var(--fs));
+  flex: 1;
+  min-height: 0;
+}
+.pc-note {
+  font-size: calc(8.5pt * var(--fs));
+  color: var(--sh-slate);
+  line-height: 1.35;
+}
+.pc-note--boxed {
+  display: flex;
+  gap: calc(4pt * var(--fs));
+  align-items: flex-start;
+  border-style: solid;
+  border-color: #9c4f0f;
+  border-width: 0.8pt 0.8pt 0.8pt 3pt;
+  border-radius: 4px;
+  padding: calc(4pt * var(--fs)) calc(6pt * var(--fs));
+  background: #fcebd8;
+  color: #6b3a10;
+}
+.pc-note-ico {
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+  flex: 0 0 auto;
+  margin-top: calc(1pt * var(--fs));
+  color: #9c4f0f;
+}
+
+/* Arousal ladder */
+.pc-lgroup {
+  display: flex;
+  gap: calc(5pt * var(--fs));
+  align-items: stretch;
+}
+.pc-rail {
+  flex: 0 0 calc(16pt * var(--fs));
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-size: calc(9pt * var(--fs));
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tone);
+  border-right: 2pt solid var(--tone);
+  padding-left: calc(2pt * var(--fs));
+}
+.pc-lrows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.5pt * var(--fs));
+}
+.pc-lrow {
+  display: grid;
+  grid-template-columns: calc(14pt * var(--fs)) calc(26pt * var(--fs)) calc(88pt * var(--fs)) 1fr;
+  align-items: center;
+  gap: calc(5pt * var(--fs));
+  background: var(--tone-weak);
+  border-left: 3pt solid var(--tone);
+  border-radius: 4px;
+  padding: calc(3pt * var(--fs)) calc(6pt * var(--fs));
+}
+.pc-lrow--calm {
+  outline: 1.6pt solid var(--tone);
+  outline-offset: -1.6pt;
+}
+.pc-lrow .sh-rass-box {
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+  color: var(--tone);
+}
+.pc-lval {
+  font-size: calc(12pt * var(--fs));
+  font-weight: 800;
+  color: var(--tone);
+  font-variant-numeric: tabular-nums;
+}
+.pc-llabel {
+  font-size: calc(10pt * var(--fs));
+  font-weight: 700;
+  color: var(--sh-ink);
+}
+.pc-ldesc {
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-slate);
+  line-height: 1.25;
+}
+.pc-gates {
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+  margin-top: calc(2pt * var(--fs));
+}
+.pc-gate {
+  display: flex;
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+  border-radius: 6px;
+  padding: calc(5pt * var(--fs)) calc(8pt * var(--fs));
+  font-size: calc(10pt * var(--fs));
+  font-weight: 700;
+}
+.pc-gate--go {
+  background: #d4ede0;
+  border: 1.2pt solid #2d6b43;
+  color: #1d4a2d;
+}
+.pc-gate--stop {
+  background: #f7e2e6;
+  border: 1.2pt solid #8b1e2f;
+  color: #6d1524;
+}
+.pc-gate-arrow {
+  font-size: calc(12pt * var(--fs));
+  flex: 0 0 auto;
+}
+
+/* Screen router */
+.pc-routes {
+  display: flex;
+  flex-direction: column;
+  gap: calc(6pt * var(--fs));
+}
+.pc-route {
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 4pt;
+  border-radius: 6px;
+  padding: calc(6pt * var(--fs)) calc(8pt * var(--fs));
+  background: #fff;
+}
+.pc-route--default {
+  background: var(--tone-weak);
+}
+.pc-route-name {
+  display: flex;
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+  font-size: calc(12.5pt * var(--fs));
+  font-weight: 800;
+  color: var(--tone);
+}
+.pc-tag {
+  font-size: calc(7.5pt * var(--fs));
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--tone);
+  color: #fff;
+  border-radius: 999px;
+  padding: calc(1pt * var(--fs)) calc(6pt * var(--fs));
+}
+.pc-route-who {
+  font-size: calc(10pt * var(--fs));
+  font-weight: 700;
+  color: var(--sh-ink);
+  margin-top: calc(1.5pt * var(--fs));
+}
+.pc-route-how {
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-slate);
+  margin-top: calc(1pt * var(--fs));
+  line-height: 1.3;
+}
+
+/* CAM stepper */
+.pc-rule {
+  font-size: calc(10pt * var(--fs));
+  color: var(--sh-ink);
+  background: #f2f6f8;
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(8pt * var(--fs));
+}
+.pc-stepper {
+  gap: calc(5pt * var(--fs));
+}
+.pc-step {
+  display: flex;
+  gap: calc(7pt * var(--fs));
+  align-items: flex-start;
+}
+.pc-step-n {
+  flex: 0 0 calc(16pt * var(--fs));
+  height: calc(16pt * var(--fs));
+  border-radius: 50%;
+  background: var(--sh-ink);
+  color: #fff;
+  font-size: calc(10pt * var(--fs));
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-step-body {
+  flex: 1;
+  border-bottom: 0.6pt solid var(--sh-border);
+  padding-bottom: calc(4pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+}
+.pc-step:last-child .pc-step-body {
+  border-bottom: 0;
+}
+.pc-step-title {
+  font-size: calc(11pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+}
+.pc-script {
+  font-size: calc(9.5pt * var(--fs));
+  font-style: italic;
+  color: var(--sh-ink);
+  border-left: 2.5pt solid var(--sh-border);
+  padding-left: calc(6pt * var(--fs));
+  line-height: 1.35;
+}
+.pc-letters {
+  display: flex;
+  gap: calc(4pt * var(--fs));
+}
+.pc-letter {
+  flex: 0 0 auto;
+  width: calc(16pt * var(--fs));
+  height: calc(16pt * var(--fs));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.2pt solid var(--sh-ink);
+  border-radius: 4px;
+  font-size: calc(11pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+  background: #fff;
+}
+.pc-qs {
+  margin: 0;
+  padding-left: calc(14pt * var(--fs));
+  font-size: calc(9.5pt * var(--fs));
+  line-height: 1.4;
+  color: var(--sh-ink);
+}
+.pc-qs li + li {
+  margin-top: calc(1.5pt * var(--fs));
+}
+.pc-th {
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-ink);
+  line-height: 1.3;
+}
+.pc-dual {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.5pt * var(--fs));
+}
+.pc-branches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(4pt * var(--fs)) calc(12pt * var(--fs));
+  align-items: center;
+}
+.pc-branch {
+  display: flex;
+  align-items: center;
+  gap: calc(4pt * var(--fs));
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-slate);
+}
+.pc-pill {
+  font-size: calc(8pt * var(--fs));
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  padding: calc(1.5pt * var(--fs)) calc(7pt * var(--fs));
+}
+.pc-pill--yes {
+  background: #1a2630;
+  color: #fff;
+}
+.pc-pill--no {
+  background: #fff;
+  color: #1a2630;
+  border: 1pt solid #1a2630;
+}
+.pc-chip {
+  font-size: calc(9pt * var(--fs));
+  font-weight: 800;
+  border-radius: 5px;
+  padding: calc(2pt * var(--fs)) calc(7pt * var(--fs));
+}
+.pc-chip--present {
+  background: #8b1e2f;
+  color: #fff;
+}
+.pc-chip--absent {
+  background: #fff;
+  color: #2d6b43;
+  border: 1.2pt solid #2d6b43;
+}
+.pc-chip--maybe {
+  background: #fff;
+  color: #8a5a12;
+  border: 1.2pt solid #b3701a;
+}
+
+/* 4AT card (ED card set) — scored items in a two-column grid + banded total. */
+.pc-4at-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(5pt * var(--fs));
+}
+.pc-4at-row {
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(7pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.5pt * var(--fs));
+}
+.pc-4at-title {
+  font-size: calc(10pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+}
+.pc-4at-opts {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.5pt * var(--fs));
+}
+.pc-4at-opt {
+  display: grid;
+  grid-template-columns: calc(12pt * var(--fs)) 1fr auto;
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+}
+.pc-4at-opt .sh-rass-box {
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+  color: var(--sh-slate);
+}
+.pc-4at-lbl {
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-ink);
+  line-height: 1.2;
+}
+.pc-4at-help {
+  font-size: calc(7.8pt * var(--fs));
+  color: var(--sh-slate);
+  line-height: 1.25;
+}
+.pc-4at-pts {
+  font-size: calc(8.5pt * var(--fs));
+  font-weight: 800;
+  color: #fff;
+  background: var(--sh-slate);
+  border-radius: 999px;
+  min-width: calc(16pt * var(--fs));
+  text-align: center;
+  padding: calc(0.5pt * var(--fs)) calc(4pt * var(--fs));
+}
+.pc-4at-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(5pt * var(--fs)) calc(7pt * var(--fs));
+  font-size: calc(11pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+  margin-top: calc(4pt * var(--fs));
+}
+.pc-4at-total .sh-blank {
+  height: 0.85em;
+  min-width: 0.9in;
+}
+/* Fill the card: the item grid grows and its two rows stretch (like CAPD). */
+.pc-4at .pc-4at-rows {
+  flex: 1;
+  grid-auto-rows: 1fr;
+}
+/* The DTS stepper has only two steps + a note; let the steps grow to fill so
+   space-between can't leave large internal voids. */
+.pc-dts .pc-body.pc-stepper {
+  justify-content: flex-start;
+}
+.pc-dts .pc-step {
+  flex: 1;
+  align-items: stretch;
+}
+/* Centre each grown step's content so the extra height reads as balanced
+   padding rather than a bottom-anchored void (the DTS has only two steps). */
+.pc-dts .pc-step-body {
+  justify-content: center;
+}
+.pc-eg {
+  font-style: italic;
+}
+/* bCAM Feature-4 question-set badge — visible on the white card (no --tone). */
+.pc-f4sets {
+  display: flex;
+  align-items: baseline;
+  gap: calc(6pt * var(--fs));
+  margin-bottom: calc(3pt * var(--fs));
+}
+.pc-setbadge {
+  font-size: calc(8.5pt * var(--fs));
+  font-weight: 800;
+  color: #fff;
+  background: #1f3a5f;
+  border-radius: 999px;
+  padding: calc(1pt * var(--fs)) calc(8pt * var(--fs));
+}
+.pc-f4sets-note {
+  font-size: calc(8.5pt * var(--fs));
+  color: var(--sh-slate);
+  font-style: italic;
+}
+
+/* CAPD */
+.pc-capd-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(4pt * var(--fs)) calc(10pt * var(--fs));
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-ink);
+  background: #f2f6f8;
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(8pt * var(--fs));
+}
+.pc-freq {
+  font-weight: 700;
+}
+.pc-capd-rows {
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+}
+.pc-capd-row {
+  display: grid;
+  grid-template-columns: calc(14pt * var(--fs)) 1fr calc(52pt * var(--fs)) calc(72pt * var(--fs));
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 5px;
+  padding: calc(3.5pt * var(--fs)) calc(6pt * var(--fs));
+}
+.pc-capd-n {
+  width: calc(13pt * var(--fs));
+  height: calc(13pt * var(--fs));
+  border-radius: 50%;
+  background: #4a3268;
+  color: #fff;
+  font-size: calc(8.5pt * var(--fs));
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-capd-q {
+  font-size: calc(10pt * var(--fs));
+  font-weight: 600;
+  color: var(--sh-ink);
+  line-height: 1.25;
+}
+.pc-capd-dir {
+  font-size: calc(7.5pt * var(--fs));
+  font-weight: 700;
+  text-align: center;
+  color: var(--sh-slate);
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 999px;
+  padding: calc(1pt * var(--fs)) calc(3pt * var(--fs));
+}
+.pc-capd-dir--rev {
+  color: #7b2d8e;
+  border-color: #7b2d8e;
+  background: #f3e5f7;
+}
+.pc-capd-score {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: calc(3pt * var(--fs));
+}
+.pc-capd-score .sh-blank {
+  flex: 1;
+  max-width: 0.7in;
+  height: 0.85em;
+}
+.pc-capd-total {
+  display: flex;
+  align-items: flex-end;
+  gap: calc(8pt * var(--fs));
+  font-size: calc(11pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+}
+.pc-capd-total .sh-blank {
+  height: 0.85em;
+  min-width: 0.9in;
+}
+.pc-capd-total .pc-chip {
+  align-self: center;
+}
+
+/* Act + prevention */
+.pc-act {
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 4pt;
+  border-radius: 6px;
+  padding: calc(5pt * var(--fs)) calc(8pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+}
+.pc-act-head {
+  font-size: calc(10.5pt * var(--fs));
+  font-weight: 800;
+  color: var(--tone);
+}
+.pc-act .sh-item span,
+.pc-rounds .sh-item span,
+.pc-bcell .sh-item span {
+  font-size: calc(9.5pt * var(--fs));
+}
+.pc-act-contact {
+  display: flex;
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+  font-size: calc(10pt * var(--fs));
+  font-weight: 700;
+  margin-top: auto;
+}
+.pc-act-contact .sh-blank {
+  flex: 1;
+}
+.pc-capd-score-lbl {
+  font-size: calc(7pt * var(--fs));
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--sh-slate);
+  margin-right: calc(3pt * var(--fs));
+}
+.pc-capd-legend-row + .pc-capd-legend-row {
+  margin-top: calc(1.5pt * var(--fs));
+}
+.pc-capd-legend {
+  display: block;
+}
+.pc-bundle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(5pt * var(--fs));
+}
+.pc-bcell {
+  border: 1pt solid var(--tone);
+  border-radius: 6px;
+  padding: calc(5pt * var(--fs)) calc(7pt * var(--fs));
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.5pt * var(--fs));
+}
+.pc-bhead {
+  display: flex;
+  align-items: center;
+  gap: calc(5pt * var(--fs));
+  font-size: calc(10pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+}
+.pc-bltr {
+  flex: 0 0 calc(14pt * var(--fs));
+  height: calc(14pt * var(--fs));
+  border-radius: 5px;
+  background: var(--tone);
+  color: #fff;
+  font-size: calc(10pt * var(--fs));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-btext {
+  font-size: calc(8.8pt * var(--fs));
+  color: var(--sh-slate);
+  line-height: 1.3;
+}
+.pc-bcell .sh-item {
+  margin-top: auto;
+}
+.pc-measures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: calc(2pt * var(--fs)) calc(10pt * var(--fs));
+}
+
+/* Stimulus deck */
+.pc-stimgrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+  gap: calc(10pt * var(--fs));
+  min-height: 0;
+}
+.pc-stim {
+  border: 2.4pt solid #1a2630;
+  outline: 1.1pt dashed #64808c;
+  outline-offset: calc(4pt * var(--fs));
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(8pt * var(--fs));
+  min-height: 0;
+}
+.pc-stim-art {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-stim-art svg {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+}
+.pc-stim--instr {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: calc(3pt * var(--fs));
+  border-color: #1a2630;
+  grid-row: span 2;
+  overflow: hidden;
+}
+.pc-stim-instr-title {
+  font-size: calc(11pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+}
+.pc-stim-instr-head {
+  font-size: calc(9pt * var(--fs));
+  font-weight: 800;
+  color: #0f5e8a;
+  margin-top: calc(2pt * var(--fs));
+}
+.pc-stim-instr-text {
+  font-size: calc(8.2pt * var(--fs));
+  color: var(--sh-slate);
+  line-height: 1.35;
+}
+.pc-stim-setrow {
+  width: 100%;
+  margin-top: calc(2pt * var(--fs));
+}
+.pc-stim-setlbl {
+  font-size: calc(7.5pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+  margin-bottom: calc(1.5pt * var(--fs));
+}
+.pc-stim-minis {
+  display: flex;
+  gap: calc(6pt * var(--fs));
+}
+.pc-stim-mini {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(1pt * var(--fs));
+}
+.pc-stim-mini-art {
+  width: calc(26pt * var(--fs));
+  height: calc(26pt * var(--fs));
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 4px;
+  padding: calc(2pt * var(--fs));
+  background: #fff;
+}
+.pc-stim-mini-art svg {
+  width: 100%;
+  height: 100%;
+}
+.pc-stim-mini-name {
+  font-size: calc(6pt * var(--fs));
+  font-weight: 700;
+  color: var(--sh-slate);
+}
+
+.pc-stim-instr-note {
+  font-size: calc(7.5pt * var(--fs));
+  font-style: italic;
+  color: var(--sh-slate);
+  margin-top: auto;
+}
+
+/* Full-page picture cards (one picture per page) */
+.pc-stimfull {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.pc-stimfull .pc-stim {
+  flex: 1;
+}
+.pc-stimfull .pc-stim-art svg {
+  max-height: 100%;
+}
+
+/* Workflow poster */
+.pc-flow {
+  display: flex;
+  align-items: stretch;
+  gap: calc(5pt * var(--fs));
+}
+.pc-stage {
+  flex: 1;
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 4pt 1.2pt 1.2pt 1.2pt;
+  border-radius: 8px;
+  background: #fff;
+  padding: calc(7pt * var(--fs)) calc(8pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(4pt * var(--fs));
+}
+.pc-stage-head {
+  display: flex;
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+  font-size: calc(12pt * var(--fs));
+  font-weight: 800;
+  color: var(--tone);
+}
+.pc-stage-n {
+  flex: 0 0 calc(17pt * var(--fs));
+  height: calc(17pt * var(--fs));
+  border-radius: 50%;
+  background: var(--tone);
+  color: #fff;
+  font-size: calc(11pt * var(--fs));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-stage-line {
+  font-size: calc(9.5pt * var(--fs));
+  color: var(--sh-ink);
+  line-height: 1.35;
+}
+.pc-flow-arrow {
+  align-self: center;
+  font-size: calc(18pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-slate);
+  flex: 0 0 auto;
+}
+.pc-loopbar {
+  display: flex;
+  align-items: center;
+  gap: calc(8pt * var(--fs));
+  border: 1pt dashed #9c4f0f;
+  border-radius: 6px;
+  background: #fcebd8;
+  padding: calc(4pt * var(--fs)) calc(8pt * var(--fs));
+  font-size: calc(9.5pt * var(--fs));
+  color: #6b3a10;
+}
+.pc-poster-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(8pt * var(--fs));
+  flex: 1;
+  min-height: 0;
+}
+.pc-rounds {
+  border-style: solid;
+  border-color: var(--tone);
+  border-width: 1pt 1pt 1pt 4pt;
+  border-radius: 6px;
+  padding: calc(6pt * var(--fs)) calc(9pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+}
+.pc-rounds .pc-qs {
+  font-size: calc(10.5pt * var(--fs));
+}
+
+/* Cards fill their page — the primary stacks stretch like the sheet grow phase */
+.pc-arousal .pc-lgroup {
+  flex: 1;
+}
+.pc-arousal .pc-lrows--flat {
+  flex: 1;
+}
+.pc-lrow {
+  flex: 1;
+}
+.pc-stepper {
+  flex: 1;
+  justify-content: space-between;
+}
+.pc-routes {
+  flex: 1;
+  justify-content: center;
+  gap: calc(20pt * var(--fs));
+}
+.pc-capd-rows {
+  flex: 1;
+}
+.pc-capd-row {
+  flex: 1;
+}
+.pc-actcard .pc-body {
+  justify-content: space-evenly;
+}
+.pc-actcard .pc-act-contact {
+  margin-top: 0;
+}
+.pc-prevent .pc-bundle {
+  flex: 1;
+}
+.pc-poster-cols .pc-rounds {
+  min-height: 0;
+}
