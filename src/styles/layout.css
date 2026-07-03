@@ -32,7 +32,9 @@
   display: flex;
   align-items: center;
   gap: var(--sp-3);
-  min-width: 0;
+  /* Shrinkable: the subtitle wraps so the header controls keep their row. */
+  flex: 1 1 340px;
+  min-width: 260px;
 }
 
 .app-logo {
@@ -78,6 +80,13 @@
   align-items: flex-end;
   gap: var(--sp-3);
   flex-wrap: wrap;
+  /* Stay right-aligned as one cluster — including when the row wraps. */
+  flex: 0 1 auto;
+  margin-left: auto;
+  justify-content: flex-end;
+}
+.facility-input {
+  width: clamp(150px, 18vw, 230px);
 }
 
 .facility-field {
