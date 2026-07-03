@@ -33,6 +33,13 @@ import {
   PEDS_REFS,
 } from './data/peds-content.js';
 import {
+  ACT_COLUMNS as ED_ACT_COLUMNS,
+  WORKFLOW_STAGES as ED_WORKFLOW_STAGES,
+  HANDOFF_SCRIPT as ED_HANDOFF_SCRIPT,
+  ED_FOOTER_CITES,
+  ED_REFS,
+} from './data/ed-content.js';
+import {
   defaultState,
   sanitize,
   isOn,
@@ -110,6 +117,42 @@ function controlGroups(tplId) {
             fixedHead: true,
             items: PREVENT_MEASURES,
             custom: true,
+          },
+        ],
+      },
+    ];
+  }
+  if (tplId === 'ed-cards') {
+    return [
+      {
+        section: 'sec-ed-act',
+        groups: ED_ACT_COLUMNS.map((col) => ({
+          id: col.id,
+          head: col.head,
+          fixedHead: true,
+          items: col.items,
+          custom: true,
+        })),
+      },
+    ];
+  }
+  if (tplId === 'ed-workflow') {
+    return [
+      {
+        section: 'sec-ed-wf-poster',
+        groups: [
+          ...ED_WORKFLOW_STAGES.map((st) => ({
+            id: st.id,
+            head: st.head,
+            fixedHead: true,
+            items: st.lines.filter((l) => !l.locked),
+            custom: true,
+          })),
+          {
+            id: 'ed-handoff',
+            head: 'Disposition hand-off script',
+            fixedHead: true,
+            items: ED_HANDOFF_SCRIPT,
           },
         ],
       },
@@ -257,7 +300,10 @@ function buildSectionControls() {
       ),
       el('span', {
         class: 'sec-ctl-page',
-        text: state.template.startsWith('peds') ? '' : `p.${sec.page}`,
+        text:
+          state.template.startsWith('peds') || state.template.startsWith('ed')
+            ? ''
+            : `p.${sec.page}`,
       }),
     );
     const wrap = el('div', { class: 'sec-ctl' }, head);
@@ -520,16 +566,17 @@ function reflectFields() {
   });
   // Controls scoped to one template (data-tpl) hide elsewhere; adult-only
   // controls (data-adult) hide on the peds templates.
-  const peds = state.template.startsWith('peds');
+  const nonAdult = state.template.startsWith('peds') || state.template.startsWith('ed');
   $$('[data-tpl]').forEach((n) => {
     n.hidden = n.dataset.tpl !== state.template;
   });
   $$('[data-adult]').forEach((n) => {
-    n.hidden = peds;
+    n.hidden = nonAdult;
   });
   $$('[data-no-poster]').forEach((n) => {
-    n.hidden = state.template === 'peds-workflow';
+    n.hidden = state.template === 'peds-workflow' || state.template === 'ed-workflow';
   });
+  if ($('#f-ed-f4set')) $('#f-ed-f4set').value = state.edF4Set;
 }
 
 function buildRefs() {
@@ -542,10 +589,12 @@ function buildRefs() {
       ...FOOTER_CITES.spa,
       ...PEDS_FOOTER_CITES['peds-cards'],
       ...PEDS_FOOTER_CITES['peds-workflow'],
+      ...ED_FOOTER_CITES['ed-cards'],
+      ...ED_FOOTER_CITES['ed-workflow'],
     ]),
   ];
   for (const k of keys) {
-    const ref = DELIRIUM_REFS[k] || PEDS_REFS[k];
+    const ref = DELIRIUM_REFS[k] || PEDS_REFS[k] || ED_REFS[k];
     if (!ref) continue;
     mount.append(el('li', {}, el('a', { href: ref.u, target: '_blank', rel: 'noopener' }, ref.c)));
   }
@@ -557,7 +606,8 @@ function renderPreview() {
   const mount = $('#sheets');
   // Design B applies to the adult sheets only; the peds templates already
   // use the modern card system.
-  const design = !state.template.startsWith('peds') && state.design === 'b' ? ' design-b' : '';
+  const nonAdult = state.template.startsWith('peds') || state.template.startsWith('ed');
+  const design = !nonAdult && state.design === 'b' ? ' design-b' : '';
   mount.className = `sheets fs-${state.fontScale} ff-${state.fontFamily}${design}`;
   const sheets = renderSheets(state);
   mount.replaceChildren(
@@ -775,6 +825,11 @@ function onChange(e) {
     update({ rebuildControls: true });
     return;
   }
+  if (t.id === 'f-ed-f4set') {
+    state.edF4Set = t.value === 'b' ? 'b' : 'a';
+    update({ rebuildControls: false });
+    return;
+  }
   if (t.id === 'f-peds-scale') {
     state.pedsScale = t.value;
     update();
@@ -964,7 +1019,7 @@ async function onClick(e) {
         announce('Up to four custom sections are supported.');
         break;
       }
-      const ownPage = state.template === 'peds-cards';
+      const ownPage = state.template === 'peds-cards' || state.template === 'ed-cards';
       const page = ownPage ? 0 : $('#f-newsec-page').value === '2' ? 2 : 1;
       const id = `cs-${Date.now().toString(36)}`;
       state.customSections.push({ id, page, title, lines: [] });

@@ -24,6 +24,8 @@ import {
 } from './data/content.js';
 import { MEDS } from '../data/meds.js';
 import { PEDS_FOOTER_CITES, PEDS_CITE_LABELS } from './data/peds-content.js';
+import { ED_FOOTER_CITES, ED_CITE_LABELS } from './data/ed-content.js';
+import { renderEdCards, renderEdWorkflow } from './ed-cards.js';
 import { renderPedsCards, renderPedsWorkflow } from './peds-cards.js';
 import { DELIRIUM_REFS } from '../data/refs.js';
 import { faIcon } from '../shared/dom.js';
@@ -70,9 +72,15 @@ export function medDisplayName(name, showBrands) {
 
 /** Sources line for the sheet footer, e.g. "PADIS 2018 · PADIS 2025 · …". */
 function sourcesLine(state) {
-  const keys = FOOTER_CITES[state.template] || PEDS_FOOTER_CITES[state.template] || [];
+  const keys =
+    FOOTER_CITES[state.template] ||
+    PEDS_FOOTER_CITES[state.template] ||
+    ED_FOOTER_CITES[state.template] ||
+    [];
   return keys
-    .map((k) => (DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : PEDS_CITE_LABELS[k] || ''))
+    .map((k) =>
+      DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : PEDS_CITE_LABELS[k] || ED_CITE_LABELS[k] || '',
+    )
     .filter(Boolean)
     .map((label) => label.replace(/ /g, '\u00a0'))
     .join(' · ');
@@ -654,5 +662,7 @@ function renderSpa(state) {
 export function renderSheets(state) {
   if (state.template === 'peds-cards') return renderPedsCards(state);
   if (state.template === 'peds-workflow') return renderPedsWorkflow(state);
+  if (state.template === 'ed-cards') return renderEdCards(state);
+  if (state.template === 'ed-workflow') return renderEdWorkflow(state);
   return state.template === 'spa' ? renderSpa(state) : renderRounding(state);
 }
