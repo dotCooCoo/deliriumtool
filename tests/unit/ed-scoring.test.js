@@ -72,6 +72,9 @@ test('bCAM algorithm: F1 AND F2 AND (F3 OR F4); F2 is the required cardinal feat
   assert.equal(evalBcam({ f1: 'yes', f2: true, rass: '0' }), null); // F4 pending
   // F1 negative rules delirium out regardless.
   assert.equal(evalBcam({ f1: 'no', f2: true, rass: '-1' }), 'negative');
+  // Flowsheet early exit: F1 "No" is negative even before F2 is assessed.
+  assert.equal(evalBcam({ f1: 'no', rass: '-1' }), 'negative');
+  assert.equal(evalBcam({ f1: 'no' }), 'negative');
   // No-informant path: assume F1 positive when F2 and a secondary feature are.
   assert.equal(evalBcam({ f1: 'assume', f2: true, rass: '+1' }), 'positive');
   // Incomplete states stay null.
@@ -84,6 +87,8 @@ test('bCAM feature 4: any error is positive; both question sets have 4 questions
   assert.equal(f4.sets.a.length, 4);
   assert.equal(f4.sets.b.length, 4);
   assert.match(f4.command, /Hold up this many fingers/);
+  // Incomprehensible sounds / no attempt scores positive (manual: 5 errors).
+  assert.match(f4.help, /no attempt/);
 });
 
 test('4AT: item values and score bands match the v1.2 form', () => {

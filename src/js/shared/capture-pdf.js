@@ -27,6 +27,9 @@ async function rasterizeNode(node) {
   const h = node.offsetHeight;
   const clone = node.cloneNode(true);
   clone.style.transform = 'none';
+  // Body-scoped font rules don't reach the detached clone — pin the computed
+  // font so the capture doesn't fall back to a serif default.
+  clone.style.fontFamily = getComputedStyle(node).fontFamily;
   const holder = document.createElement('div');
   holder.className = document.body.className || '';
   holder.appendChild(clone);

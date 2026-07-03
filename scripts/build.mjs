@@ -162,7 +162,7 @@ for (const name of rootImages) {
   if (existsSync(file)) await copyFile(file, join(dist, 'img', name));
 }
 // Root files served verbatim: the PWA manifest and the crawler files.
-for (const name of ['site.webmanifest', 'robots.txt', 'sitemap.xml']) {
+for (const name of ['site.webmanifest', 'robots.txt', 'sitemap.xml', '404.html']) {
   if (existsSync(join(src, name))) await copyFile(join(src, name), join(dist, name));
 }
 // The pediatric tool has its own manifest so installing from /peds/ gives a

@@ -57,6 +57,7 @@ test('sanitizeAssessment bounds taps, whitelists enums, and types strings', () =
   assert.equal(out.monthDone, false);
   assert.equal(out.f1, '');
   assert.equal(out.f4, '');
+  assert.equal(sanitizeAssessment({ v: 1, f4: 'unable' }).f4, 'unable');
   assert.deepEqual(out.actions, ['act-causes-0']);
   assert.equal(out.assessor, '');
   assert.equal(out.notes, '');

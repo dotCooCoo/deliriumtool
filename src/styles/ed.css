@@ -33,6 +33,12 @@
   --c-text-3: #5d6673;
 }
 
+/* Author display rules (e.g. .btn { display:inline-flex }) beat the UA's
+   [hidden] { display:none } — this guard keeps the hidden attribute authoritative. */
+[hidden] {
+  display: none !important;
+}
+
 /* ── Layout helpers ── */
 .tab-lead {
   max-width: 70ch;
@@ -486,6 +492,7 @@
   .app-header,
   .tabs,
   .alert,
+  .why-screen,
   .btn-row,
   .tpl-footer,
   #tab-screen,

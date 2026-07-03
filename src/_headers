@@ -25,3 +25,21 @@
 
 /index.html
   Cache-Control: no-cache
+
+/ed/
+  Cache-Control: no-cache
+
+/ed/index.html
+  Cache-Control: no-cache
+
+/peds/
+  Cache-Control: no-cache
+
+/peds/index.html
+  Cache-Control: no-cache
+
+/templates/
+  Cache-Control: no-cache
+
+/templates/index.html
+  Cache-Control: no-cache

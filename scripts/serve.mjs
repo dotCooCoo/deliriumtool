@@ -44,6 +44,17 @@ const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://127.0.0.1:${port}`);
     let pathname = decodeURIComponent(url.pathname);
+    // Cloudflare redirects /dir -> /dir/ when the asset is a directory index;
+    // mirror it so dev/test behavior matches production.
+    if (!pathname.endsWith('/') && !extname(pathname)) {
+      try {
+        await readFile(normalize(join(root, pathname, 'index.html')));
+        res.writeHead(307, { Location: `${pathname}/${url.search}` }).end();
+        return;
+      } catch {
+        // Not a directory index — fall through.
+      }
+    }
     if (pathname.endsWith('/')) pathname += 'index.html';
 
     const filePath = normalize(join(root, pathname));
@@ -56,9 +67,15 @@ const server = createServer(async (req, res) => {
     try {
       body = await readFile(filePath);
     } catch {
-      // Single-page fallback.
-      body = await readFile(join(root, 'index.html'));
-      res.writeHead(200, { 'Content-Type': TYPES['.html'], ...securityHeaders }).end(body);
+      // Unknown path: serve the 404 page (matches not_found_handling in
+      // wrangler.jsonc) so a typo never renders the wrong clinical tool.
+      let nf;
+      try {
+        nf = await readFile(join(root, '404.html'));
+      } catch {
+        nf = 'Not found';
+      }
+      res.writeHead(404, { 'Content-Type': TYPES['.html'], ...securityHeaders }).end(nf);
       return;
     }
 

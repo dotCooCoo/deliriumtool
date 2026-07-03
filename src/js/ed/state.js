@@ -58,7 +58,7 @@ export function sanitizeAssessment(raw) {
   out.monthDone = raw.monthDone === true;
   out.monthUnable = raw.monthUnable === true;
   out.f4Set = raw.f4Set === 'b' ? 'b' : 'a';
-  out.f4 = ['none', 'errors'].includes(raw.f4) ? raw.f4 : '';
+  out.f4 = ['none', 'errors', 'unable'].includes(raw.f4) ? raw.f4 : '';
   for (const k of Object.keys(out.fourat)) {
     if (typeof raw.fourat?.[k] === 'string' && fouratValid(k, raw.fourat[k])) {
       out.fourat[k] = raw.fourat[k];

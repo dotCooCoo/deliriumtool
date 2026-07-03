@@ -57,6 +57,42 @@ test('bCAM: full positive path, and the inattention cardinal rule', async ({ pag
   await expect(page.locator('#bcam-verdict')).toContainText('not detected');
 });
 
+test('bCAM: Feature 1 "No" ends the assessment negative without other features', async ({
+  page,
+}) => {
+  await page.locator('input[name="ed-rass"][value="-1"]').check();
+  await page.locator('input[name="bcam-f1"][value="no"]').check();
+  await expect(page.locator('#bcam-verdict')).toContainText('not detected');
+});
+
+test('bCAM feature 4: incomprehensible or no attempt counts as positive', async ({ page }) => {
+  await page.locator('input[name="ed-rass"][value="0"]').check();
+  await page.locator('#dts-lunch .errchip').nth(0).click();
+  await page.locator('#dts-lunch .errchip').nth(1).click();
+  await page.locator('input[data-act="lunchDone"]').check();
+  await page.locator('input[name="bcam-f1"][value="yes"]').check();
+  await page.locator('#bcam-f2 .errchip').nth(0).click();
+  await page.locator('#bcam-f2 .errchip').nth(1).click();
+  await page.locator('input[data-act="monthDone"]').check();
+  await page.locator('input[name="bcam-f4-res"][value="unable"]').check();
+  await expect(page.locator('#bcam-verdict')).toContainText('delirium present');
+});
+
+test('switching pathway over recorded answers asks for confirmation', async ({ page }) => {
+  let confirmSeen = false;
+  page.on('dialog', (d) => {
+    confirmSeen = d.message().includes('Switch the screening pathway?');
+    d.dismiss();
+  });
+  await page.locator('[data-act="example"]').click();
+  await expect(page.locator('#bcam-verdict')).toContainText('delirium present');
+  await page.locator('input[name="ed-pathway"][value="fourat"]').check();
+  await expect.poll(() => confirmSeen).toBe(true);
+  // Dismissed: the two-step pathway (and its verdict) stay in place.
+  await expect(page.locator('input[name="ed-pathway"][value="twostep"]')).toBeChecked();
+  await expect(page.locator('#bcam-verdict')).toContainText('delirium present');
+});
+
 test('bCAM feature 4 decides when the RASS is 0, and question sets alternate', async ({ page }) => {
   await page.locator('input[name="ed-rass"][value="0"]').check();
   await page.locator('#dts-lunch .errchip').nth(0).click();
@@ -102,6 +138,8 @@ test('assessment persists across reload and resets on demand', async ({ page }) 
   await page.locator('.tab-btn[data-tab="export"]').click();
   await page.locator('[data-act="reset"]').click();
   await expect(page.locator('input[name="ed-rass"][value="-2"]')).not.toBeChecked();
+  // Reset returns to Screening, ready for the next patient.
+  await expect(page.locator('#tab-screen')).toHaveClass(/active/);
 });
 
 test('summary reflects the assessment and only the summary prints', async ({ page }) => {
@@ -109,6 +147,11 @@ test('summary reflects the assessment and only the summary prints', async ({ pag
   await page.locator('input[data-act="lunchDone"]').check();
   await page.locator('.tab-btn[data-tab="export"]').click();
   await expect(page.locator('#summary-body')).toContainText('Negative — delirium ruled out');
+  // Notes and assessor typed on this tab appear in the printable rows at once.
+  await page.locator('#ed-notes').fill('handoff note');
+  await page.locator('#ed-assessor').fill('N. One, RN');
+  await expect(page.locator('#summary-body')).toContainText('handoff note');
+  await expect(page.locator('#summary-body')).toContainText('N. One, RN');
   await page.emulateMedia({ media: 'print' });
   await expect(page.locator('#summary-body')).toBeVisible();
   await expect(page.locator('.tabs')).toBeHidden();
@@ -190,6 +233,12 @@ test('stale bCAM answers are cleared when the DTS flips negative', async ({ page
 });
 
 test('a positive verdict offers a working jump to the Act tab', async ({ page }) => {
+  // Never visible on pending or negative results.
+  await expect(page.locator('#fourat-act-jump')).toBeHidden();
+  await page.locator('input[name="ed-rass"][value="-1"]').check();
+  await page.locator('input[name="bcam-f1"][value="no"]').check();
+  await expect(page.locator('#bcam-verdict')).toContainText('not detected');
+  await expect(page.locator('#bcam-act-jump')).toBeHidden();
   await page.locator('[data-act="example"]').click();
   await expect(page.locator('#bcam-act-jump')).toBeVisible();
   await page.locator('#bcam-act-jump').click();

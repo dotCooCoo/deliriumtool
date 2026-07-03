@@ -6,7 +6,7 @@
     <title>ED Delirium Screening — DTS, bCAM, 4AT</title>
     <meta
       name="description"
-      content="Emergency-department delirium screening for older adults: the two-step DTS → bCAM pathway and the 4AT, with guideline-backed next steps. Runs entirely in your browser; no patient data leaves the device. Reference aid only."
+      content="Emergency-department delirium screening for older adults: the two-step DTS → bCAM pathway, the direct bCAM, and the 4AT, with guideline-backed next steps. Runs entirely in your browser; no patient data leaves the device. Reference aid only."
     />
     <link rel="canonical" href="https://deliriumtool.com/ed/" />
     <meta name="color-scheme" content="light" />
@@ -22,7 +22,7 @@
     <meta property="og:title" content="ED Delirium Screening — DTS, bCAM, 4AT" />
     <meta
       property="og:description"
-      content="Emergency-department delirium screening for older adults — DTS → bCAM and the 4AT, with guideline-backed next steps. Runs entirely in your browser."
+      content="Emergency-department delirium screening for older adults — DTS → bCAM, the direct bCAM, and the 4AT, with guideline-backed next steps. Runs entirely in your browser."
     />
     <meta property="og:url" content="https://deliriumtool.com/ed/" />
     <meta property="og:image" content="https://deliriumtool.com/img/ed-og-image.png" />
@@ -33,7 +33,7 @@
     <meta name="twitter:title" content="ED Delirium Screening — DTS, bCAM, 4AT" />
     <meta
       name="twitter:description"
-      content="Emergency-department delirium screening for older adults — DTS → bCAM and the 4AT. Runs entirely in your browser."
+      content="Emergency-department delirium screening for older adults — DTS → bCAM, the direct bCAM, and the 4AT. Runs entirely in your browser."
     />
 
     <!-- Structured data: non-executable application/ld+json data block (CSP-safe). -->
@@ -43,7 +43,7 @@
         "@type": "WebApplication",
         "name": "ED Delirium Screening Tool",
         "url": "https://deliriumtool.com/ed/",
-        "description": "Emergency-department delirium screening for older adults: the two-step DTS → bCAM pathway and the 4AT, with guideline-backed next steps. Runs entirely in the browser; no patient data leaves the device.",
+        "description": "Emergency-department delirium screening for older adults: the two-step DTS → bCAM pathway, the direct bCAM, and the 4AT, with guideline-backed next steps. Runs entirely in the browser; no patient data leaves the device.",
         "applicationCategory": "HealthApplication",
         "operatingSystem": "Any modern web browser",
         "browserRequirements": "Requires JavaScript",
@@ -269,10 +269,7 @@
             <div id="bcam-body">
               <fieldset class="feature">
                 <legend>Feature 1 — Altered mental status or fluctuating course</legend>
-                <p class="task-help">
-                  Ask someone who knows the patient: “Has the patient been more confused lately?”
-                  Either an acute change from baseline or fluctuation in the past 24 hours counts.
-                </p>
+                <p class="task-help" id="bcam-f1-help">Rendered from the instrument data.</p>
                 <div id="bcam-f1"></div>
               </fieldset>
               <fieldset class="feature">
@@ -288,10 +285,7 @@
                 <p class="task-help f4-optional-note" id="bcam-f4-optional" hidden>
                   Feature 3 is already positive — Feature 4 is not required for the result.
                 </p>
-                <p class="task-help">
-                  Ask the four yes/no questions, then give the command. Any error makes Feature 4
-                  positive. Alternate the question sets on consecutive days.
-                </p>
+                <p class="task-help" id="bcam-f4-help">Rendered from the instrument data.</p>
                 <div id="bcam-f4-set"></div>
                 <ol id="bcam-f4-questions" class="f4-questions"></ol>
                 <div id="bcam-f4"></div>
@@ -317,10 +311,9 @@
             <p class="note">
               Four items, total 0–12. Items 1–3 are rated on observation at assessment; item 4 needs
               an informant or records. ≥4 = possible delirium ± cognitive impairment; 1–3 = possible
-              cognitive impairment; 0 = delirium unlikely. Account for communication difficulties
-              (hearing impairment, dysphasia, lack of common language) when rating; a score of 0
-              does not definitively exclude delirium if the item-4 information is incomplete.
+              cognitive impairment; 0 = delirium unlikely.
             </p>
+            <p class="task-help" id="fourat-note"></p>
             <div id="fourat-items"></div>
             <div id="fourat-verdict" class="verdict v-pending" role="status" aria-live="polite">
               Rate all four items to score the 4AT.
@@ -345,6 +338,25 @@
           manage without new harm, and hand the finding off. (ADEPT; ACEP ED-DEL program.)
         </p>
         <div id="act-blocks"></div>
+        <section class="card act-card">
+          <h2>If the 4AT scored 1–3 (possible cognitive impairment)</h2>
+          <p class="note">
+            A 1–3 band is not delirium-specific: arrange more detailed cognitive testing and
+            informant history-taking, and document the result for the admitting or follow-up team.
+            Delirium can coexist with cognitive impairment — rescreen with any change in mental
+            status.
+          </p>
+          <p class="cites">
+            Sources:
+            <a href="https://www.the4at.com/" target="_blank" rel="noopener">4AT v1.2</a> ·
+            <a
+              href="https://www.sign.ac.uk/our-guidelines/risk-reduction-and-management-of-delirium/"
+              target="_blank"
+              rel="noopener"
+              >SIGN 157</a
+            >
+          </p>
+        </section>
       </section>
 
       <section class="tab-panel" id="tab-setup">
@@ -415,8 +427,17 @@
                 aria-hidden="true"
               >
                 <rect x="1" y="1" width="32" height="32" rx="8" fill="#ffffff" />
-                <rect x="15" y="7" width="4" height="20" rx="2" fill="#a41f30" />
-                <rect x="7" y="15" width="20" height="4" rx="2" fill="#a41f30" />
+                <text
+                  x="17"
+                  y="23"
+                  text-anchor="middle"
+                  font-family="Arial, Helvetica, sans-serif"
+                  font-size="15"
+                  font-weight="800"
+                  fill="#a41f30"
+                >
+                  ED
+                </text>
               </svg>
               <div>
                 <div class="sumdoc-title">ED Delirium Screening — Summary</div>
@@ -489,6 +510,13 @@
           fields you intend to share.
         </p>
       </section>
+
+      <footer class="site-footer">
+      <a class="gh-badge" href="https://github.com/dotCooCoo/deliriumtool" rel="noopener">
+        <svg class="fa" aria-hidden="true"><use href="#fa-github" /></svg> Source on GitHub
+      </a>
+      <a class="link-jump" href="/">← Adult ICU tool</a>
+    </footer>
     </main>
   </body>
 </html>

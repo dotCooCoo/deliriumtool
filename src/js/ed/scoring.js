@@ -53,13 +53,15 @@ export function bcamInattention({ monthErrors, monthUnable, monthDone, monthTaps
  * Returns 'positive' | 'negative' | null (incomplete).
  */
 export function evalBcam({ f1, f2, rass, f4AnyError }) {
+  // Feature 1 "No" is the flowsheet's first early exit — negative without
+  // assessing the remaining features.
+  if (f1 === 'no') return 'negative';
   if (rass === undefined || rass === null || rass === '') return null;
   if (f2 === null || f2 === undefined) return null;
   if (f2 === false) return 'negative'; // cardinal feature absent
   const f3 = String(rass) !== '0';
   const f4 = f4AnyError === undefined || f4AnyError === null ? null : Boolean(f4AnyError);
   const secondary = f3 === true ? true : f4;
-  if (f1 === 'no') return 'negative';
   if (f1 === 'yes' || f1 === 'assume') {
     if (secondary === true) return 'positive';
     if (secondary === false) return 'negative';

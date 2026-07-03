@@ -333,8 +333,9 @@ carries Han 2009/2010. The tool is de-identified by construction and
 generates a local print/PDF summary only (assessor, editable assessment
 time, pathway, scores, actions started, and de-identified notes). Out of
 scope in this version: ED-specific risk-stratification scores (GED 2.0
-recommendations 1–3) and agitation pharmacotherapy — both listed for future
-work.
+recommendations 1–3), head-CT decision support (GED 2.0 recommendation 6
+found insufficient evidence to recommend for or against), and agitation
+pharmacotherapy — all listed for future work.
 
 **Licensing note.** The 4AT is free to use (the4at.com; form © MacLullich,
 Ryan, Cash). The DTS and bCAM flowsheets are © 2012 Vanderbilt University
@@ -722,7 +723,7 @@ Every numeric or directive output carries a tier so a reviewer can see at a glan
 
 ### 6.5 Clinical-content change log
 
-Record every change to a clinical value, threshold, band, dose, instrument logic, or citation. One row per change. The CCO signs each row. "App text synced?" confirms the in-app wording (`src/index.html`, `pdf.js`) and this methodology doc were updated together, so the cited number and the displayed number can never diverge.
+Record every change to a clinical value, threshold, band, dose, instrument logic, or citation. One row per change. The CCO signs each row. "App text synced?" confirms the in-app wording (the page HTML and data modules of the adult, pediatric, ED, and template tools) and this methodology doc were updated together, so the cited number and the displayed number can never diverge.
 
 **Columns:** `Date | Section/Item | What changed | Why (clinical rationale) | Source(s) | Tier/grade | Owner | App text synced?`
 

@@ -109,7 +109,7 @@ export const BCAM = {
       id: 'f4',
       title: 'Feature 4 — Disorganized thinking',
       type: 'errors-any',
-      help: 'Ask the four yes/no questions, then give the command. ANY error makes Feature 4 positive. Alternate the question sets on consecutive days.',
+      help: 'Ask the four yes/no questions, then give the command. ANY error makes Feature 4 positive; incomprehensible sounds or no attempt to answer also count as positive. Alternate the question sets on consecutive days.',
       sets: {
         a: [
           'Will a stone float on water?',
@@ -148,9 +148,9 @@ export const FOURAT = {
     {
       id: 'alertness',
       title: '[1] Alertness',
-      help: 'Includes patients who are markedly drowsy (difficult to rouse and/or obviously sleepy during assessment) or agitated/hyperactive. Observe the patient; if asleep, attempt to wake with speech or a gentle touch on the shoulder. Ask the patient to state their name and address to assist rating.',
+      help: 'Includes patients who may be markedly drowsy (eg. difficult to rouse and/or obviously sleepy during assessment) or agitated/hyperactive. Observe the patient; if asleep, attempt to wake with speech or a gentle touch on the shoulder. Ask the patient to state their name and address to assist rating. Altered level of alertness is very likely to be delirium in general hospital settings.',
       options: [
-        { v: 0, label: 'Normal (fully alert, not agitated, throughout assessment)' },
+        { v: 0, label: 'Normal (fully alert, but not agitated, throughout assessment)' },
         { v: 0, label: 'Mild sleepiness for <10 seconds after waking, then normal', key: 'mild' },
         { v: 4, label: 'Clearly abnormal' },
       ],

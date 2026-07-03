@@ -1,7 +1,7 @@
 {
   "name": "ED Delirium Screening Tool",
   "short_name": "ED Delirium",
-  "description": "Emergency-department delirium screening for older adults — DTS → bCAM and the 4AT, with guideline-backed next steps. Runs entirely in your browser.",
+  "description": "Emergency-department delirium screening for older adults — DTS → bCAM, the direct bCAM, and the 4AT, with guideline-backed next steps. Runs entirely in your browser.",
   "start_url": "/ed/",
   "scope": "/ed/",
   "display": "standalone",

@@ -130,9 +130,9 @@ Canonical home: https://www.icudelirium.org/medical-professionals/pediatric-deli
 
 _Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
 
-## Emergency Department Delirium (DTS / bCAM / 4AT) — /ed/ (in development)
+## Emergency Department Delirium (DTS / bCAM / 4AT) — /ed/
 
-Sources for the planned ED screening tool and its bedside templates. The article
+Sources for the ED screening tool and its bedside templates. The article
 PDFs live only in the gitignored `references/ed/` archive — never committed.
 
 ### Instruments (official, freely distributed)
