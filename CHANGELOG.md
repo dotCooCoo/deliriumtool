@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-03
+
 ### Changed
 
 - The **ED Delirium Card Set** now prints as portrait pocket cards, matching

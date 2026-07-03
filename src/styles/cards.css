@@ -716,7 +716,12 @@
 }
 .sh-foot-left {
   font-weight: 700;
-  white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sh-foot-right {
+  flex: 0 0 auto;
 }
 .sh-foot-right {
   white-space: nowrap;
@@ -1634,4 +1639,18 @@
   flex-direction: column;
   gap: calc(3pt * var(--fs));
   margin-top: calc(2pt * var(--fs));
+}
+
+/* Portrait ED cards: distribute sparse content so cards fill their page. */
+.sheet--portrait .pc-routes {
+  flex: 1;
+}
+.sheet--portrait .pc-route {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sheet--portrait .pc-4at .pc-note--boxed {
+  margin-bottom: calc(3pt * var(--fs));
 }
