@@ -82,7 +82,7 @@ export const isOn = (map, id) => map[id] !== false;
 /** True when a parsed JSON payload looks like a designer configuration. */
 export function looksLikeConfig(raw) {
   return (
-    !!raw && typeof raw === 'object' && !Array.isArray(raw) && ('template' in raw || 'v' in raw)
+    !!raw && typeof raw === 'object' && !Array.isArray(raw) && typeof raw.template === 'string'
   );
 }
 

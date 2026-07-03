@@ -62,3 +62,21 @@
     display: none;
   }
 }
+
+/* Feature 3 is derived from the documented RASS; this line reflects that read. */
+.cam-derived {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  border: 1px solid var(--c-border-strong);
+  border-radius: 8px;
+  background: var(--c-surface-2);
+  font-weight: 600;
+  color: var(--c-text);
+}
+.cam-derived[data-tone='pos'] {
+  border-color: var(--c-danger);
+  color: var(--c-danger);
+}
+.cam-derived[data-tone='warn'] {
+  border-color: var(--c-warn, var(--c-border-strong));
+}

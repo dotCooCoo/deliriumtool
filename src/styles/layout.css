@@ -413,3 +413,13 @@
     width: 100%;
   }
 }
+
+/* Risk tab: on wide screens the score column is short next to the tall factor
+   checklist; pin it to the top so it stays useful and leaves no dead band. */
+@media (min-width: 700px) {
+  #tab-risk .g2 > div:first-child {
+    position: sticky;
+    top: var(--sp-4);
+    align-self: start;
+  }
+}

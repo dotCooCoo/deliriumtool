@@ -922,8 +922,12 @@ async function onClick(e) {
       window.print();
       break;
     case 'pdf':
-      await downloadPdf(state);
-      announce('PDF saved.');
+      try {
+        await downloadPdf(state);
+        announce('PDF saved.');
+      } catch {
+        announce('Could not generate the PDF.');
+      }
       break;
     case 'editText':
       startEdit(btn);

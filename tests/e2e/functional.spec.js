@@ -113,7 +113,6 @@ test('CAM-ICU evaluates positive with 1 AND 2 AND (3 OR 4)', async ({ page }) =>
   await page.selectOption('#rass', '-1'); // step 1: document level of consciousness
   await page.click('#c1y'); // Feature 1 present
   await page.fill('#cam2-err', '3'); // inattention > 2 -> Feature 2 present
-  await page.selectOption('#cam-loc', 'abnormal'); // a secondary feature present
   await expect(page.locator('#cam-res-txt')).toContainText('Positive');
   await expect(page.locator('#badge-cam')).toHaveClass(/tone-danger/); // red, positive
   await expect(page.locator('#badge-cam svg use')).toHaveCount(1); // vector icon, not text
@@ -261,7 +260,6 @@ test('CAM result status uses a vector sprite icon, not an emoji', async ({ page 
   await page.selectOption('#rass', '-1');
   await page.click('#c1y');
   await page.fill('#cam2-err', '3');
-  await page.selectOption('#cam-loc', 'abnormal'); // → CAM positive
   await expect(page.locator('#cam-res-icon svg use')).toHaveCount(1);
 });
 

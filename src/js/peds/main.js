@@ -195,7 +195,6 @@ function applyState(snap) {
   renderResult();
   decorateHeads();
   updateTabBadges();
-  window.addEventListener('resize', () => rescaleCards($('#peds-cards-live')));
   showTab(state.activeTab);
 }
 
@@ -257,6 +256,8 @@ function deriveScreen() {
   // form round-trips the same way it was filled in.
   const ageUnit = $('#prof-age-unit').value === 'y' ? 'y' : 'm';
   const devUnit = $('#prof-dev-unit').value === 'y' ? 'y' : 'm';
+  const prevScreen = state.screen;
+  const prevAgeM = state.profile?.ageM;
   state.profile = {
     ageM,
     devM,
@@ -269,16 +270,25 @@ function deriveScreen() {
     ageUnit,
     devUnit,
   };
-  const wasFresh = !state.screen; // a first derive vs re-deriving via "Edit child"
+  const wasFresh = !prevScreen; // a first derive vs re-deriving via "Edit child"
   const { recommended, alternatives } = recommendScreen({ chronoMonths: ageM, devMonths: devM });
   state.screen = recommended;
   // Keep every applicable screen (incl. the recommended) so the header can always
   // offer the others — switching to an alternative must still let you switch back.
   state.alternatives = [recommended, ...alternatives];
-  // Only reset the arousal on a fresh start; an "Edit child" re-derive keeps it.
+  // A minor "Edit child" tweak (same age, same recommended screen) keeps the
+  // assessment; but changing the age or landing on a different screen means a
+  // materially different child, so clear the instrument answers that no longer
+  // apply — otherwise the Result would show a stale verdict for a child never
+  // observed with that instrument.
+  const childChanged = !wasFresh && (recommended !== prevScreen || ageM !== prevAgeM);
   if (wasFresh) {
     state.arousalScale = readSettings().scale === 'sbs' ? 'sbs' : 'rass';
+  }
+  if (wasFresh || childChanged) {
     state.arousal = '';
+    state.capd = {};
+    state.cam = {};
     // A child who uses glasses or hearing aids → default the sensory-aids item on.
     if (glasses || hearing) state.prevention.sensory = true;
   }
@@ -573,6 +583,24 @@ function renderFeature(f) {
   return fs;
 }
 
+// Capture enough of the focused control's identity to re-focus its replacement
+// after the feature list is rebuilt (marking one error rebuilds the whole list,
+// which would otherwise drop keyboard focus to <body> mid-task).
+function camFocusKey(box) {
+  const a = document.activeElement;
+  if (!a || !box.contains(a)) return null;
+  for (const attr of ['data-cam-err', 'data-cam-part', 'data-cam-performed', 'data-cam-judgment']) {
+    if (a.hasAttribute(attr)) {
+      let sel = `[${attr}="${a.getAttribute(attr)}"]`;
+      for (const extra of ['data-idx', 'data-part', 'value']) {
+        if (a.hasAttribute(extra)) sel += `[${extra}="${a.getAttribute(extra)}"]`;
+      }
+      return sel;
+    }
+  }
+  return null;
+}
+
 function renderCam() {
   const box = $('#cam-features');
   if (!box) return;
@@ -581,7 +609,9 @@ function renderCam() {
     box.replaceChildren();
     return;
   }
+  const focusSel = camFocusKey(box);
   box.replaceChildren(...data.features.map(renderFeature));
+  if (focusSel) box.querySelector(focusSel)?.focus();
 }
 
 // ── Risk (reactive to the child profile) ──────────────────────────────────────
@@ -735,6 +765,9 @@ const HEAD_ICONS = [
 ];
 function decorateHeads() {
   for (const head of $$('.card-head')) {
+    // Card titles are visual headings — expose them to assistive tech.
+    head.setAttribute('role', 'heading');
+    head.setAttribute('aria-level', '2');
     if (head.querySelector('.fa')) continue;
     const match = HEAD_ICONS.find(([re]) => re.test(head.textContent));
     if (match) head.prepend(svgIcon(match[1]));
@@ -943,7 +976,18 @@ document.addEventListener('click', (e) => {
     if (a === 'reset') return resetToProfile();
     if (a === 'switchScreen') return setScreen(act.dataset.screen);
     if (a === 'arousalScale') {
-      state.arousalScale = act.dataset.scale;
+      const next = act.dataset.scale;
+      if (next === state.arousalScale) return;
+      // RASS and SBS aren't 1:1, so the recorded level can't carry across —
+      // confirm before discarding an already-entered arousal.
+      if (
+        state.arousal !== '' &&
+        !confirm('Switch arousal scale? The recorded arousal level will be cleared.')
+      ) {
+        renderArousal(); // re-sync the toggle back to the unchanged scale
+        return;
+      }
+      state.arousalScale = next;
       state.arousal = '';
       renderArousal();
       renderResult();
@@ -1086,4 +1130,7 @@ renderRefs();
 initA11y(); // user-configurable text size / contrast / motion controls
 wireTablist(showTab); // ARIA tablist + Arrow/Home/End keyboard navigation
 updateTabBadges();
+// Re-fit the bedside cards on resize regardless of how the assessment started
+// (fresh profile derive or a restored/imported/example load).
+window.addEventListener('resize', () => rescaleCards($('#peds-cards-live')));
 applyGlossary(PEDS_GLOSSARY, document.querySelectorAll('.tab-panel'));

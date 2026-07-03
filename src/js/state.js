@@ -120,7 +120,6 @@ export function restore(root, data) {
   S.camResult = evalCam({
     f1: S.cam[1],
     f2: S.cam[2],
-    f3: S.cam[3],
     f4: S.cam[4],
     rass: S.rass ?? undefined,
   });

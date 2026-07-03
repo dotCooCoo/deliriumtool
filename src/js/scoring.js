@@ -89,28 +89,29 @@ export function inattentionPositive(errors) {
  * Otherwise the standard rule — Positive if Feature 1 AND Feature 2 AND
  * (Feature 3 OR 4).
  *
- * @param {{f1?:string,f2?:string,f3?:string,f4?:string,rass?:string}} features
- *   each feature is 'yes' | 'no' | undefined (not yet assessed)
+ * @param {{f1?:string,f2?:string,f4?:string,rass?:string}} features
+ *   each feature is 'yes' | 'no' | undefined (not yet assessed). Feature 3
+ *   (altered level of consciousness) is not passed - it is defined as RASS != 0
+ *   and is derived here from the documented RASS so it can never contradict it.
  * @returns {'positive'|'negative'|'unable'|null} null = incomplete
  */
-export function evalCam({ f1, f2, f3, f4, rass } = {}) {
+export function evalCam({ f1, f2, f4, rass } = {}) {
   if (rass === '-4' || rass === '-5') return 'unable';
   if (rass === undefined || rass === null || rass === '') return null; // document RASS first
 
   const f1Set = f1 !== undefined,
-    f2Set = f2 !== undefined;
-  const f3Set = f3 !== undefined,
+    f2Set = f2 !== undefined,
     f4Set = f4 !== undefined;
   const p1 = f1 === 'yes',
     p2 = f2 === 'yes',
-    p3 = f3 === 'yes',
     p4 = f4 === 'yes';
+  const p3 = rass !== '0'; // Feature 3 = altered LOC, derived from the documented RASS
 
   if (!f1Set || !f2Set) return null; // both required features must be answered first
   if (!p1 || !p2) return 'negative'; // a required feature is absent → cannot be positive
   if (p3 || p4) return 'positive'; // 1 & 2 positive + a secondary feature
-  if (f3Set && f4Set) return 'negative'; // both secondaries assessed and both negative
-  return null; // awaiting a secondary feature
+  if (f4Set) return 'negative'; // Feature 3 negative (RASS 0) and Feature 4 assessed negative
+  return null; // awaiting Feature 4
 }
 
 // ─── RASS ───────────────────────────────────────────────────────────────────
