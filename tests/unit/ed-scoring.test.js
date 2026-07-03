@@ -3,8 +3,21 @@
 // manuals and the official 4AT v1.2 form (docs/CLINICAL_METHODOLOGY.md §2.11).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { evalDts, arousalGate, bcamInattention, evalBcam, eval4at } from '../../src/js/ed/scoring.js';
-import { DTS, BCAM, FOURAT, RASS_LEVELS, RASS_UNABLE, PATHWAYS } from '../../src/js/ed/data/instruments.js';
+import {
+  evalDts,
+  arousalGate,
+  bcamInattention,
+  evalBcam,
+  eval4at,
+} from '../../src/js/ed/scoring.js';
+import {
+  DTS,
+  BCAM,
+  FOURAT,
+  RASS_LEVELS,
+  RASS_UNABLE,
+  PATHWAYS,
+} from '../../src/js/ed/data/instruments.js';
 import { REFS } from '../../src/js/ed/data/refs.js';
 
 test('DTS: RASS other than 0 is positive; RASS 0 needs the LUNCH task', () => {
@@ -83,14 +96,26 @@ test('4AT: item values and score bands match the v1.2 form', () => {
   // Withheld until complete.
   assert.equal(eval4at({ alertness: 0, amt4: 0, attention: 0 }).complete, false);
   // Bands: 0 unlikely; 1–3 cognitive impairment; ≥4 possible delirium. Max 12.
-  assert.equal(eval4at({ alertness: 0, amt4: 0, attention: 0, change: 0 }).band.verdict, 'negative');
-  assert.equal(eval4at({ alertness: 0, amt4: 1, attention: 0, change: 0 }).band.verdict, 'cognitive');
+  assert.equal(
+    eval4at({ alertness: 0, amt4: 0, attention: 0, change: 0 }).band.verdict,
+    'negative',
+  );
+  assert.equal(
+    eval4at({ alertness: 0, amt4: 1, attention: 0, change: 0 }).band.verdict,
+    'cognitive',
+  );
   assert.equal(
     eval4at({ alertness: 0, amt4: 2, attention: 1, change: 0 }).band.verdict,
     'cognitive',
   );
-  assert.equal(eval4at({ alertness: 0, amt4: 0, attention: 0, change: 4 }).band.verdict, 'positive');
-  assert.equal(eval4at({ alertness: 4, amt4: 0, attention: 0, change: 0 }).band.verdict, 'positive');
+  assert.equal(
+    eval4at({ alertness: 0, amt4: 0, attention: 0, change: 4 }).band.verdict,
+    'positive',
+  );
+  assert.equal(
+    eval4at({ alertness: 4, amt4: 0, attention: 0, change: 0 }).band.verdict,
+    'positive',
+  );
   const max = eval4at({ alertness: 4, amt4: 2, attention: 2, change: 4 });
   assert.equal(max.score, 12);
   assert.equal(max.band.verdict, 'positive');
@@ -98,11 +123,6 @@ test('4AT: item values and score bands match the v1.2 form', () => {
 
 test('RASS carries all ten levels and every citation key resolves', () => {
   assert.equal(RASS_LEVELS.length, 10);
-  const keys = [
-    ...DTS.cites,
-    ...BCAM.cites,
-    ...FOURAT.cites,
-    ...PATHWAYS.flatMap((p) => p.cites),
-  ];
+  const keys = [...DTS.cites, ...BCAM.cites, ...FOURAT.cites, ...PATHWAYS.flatMap((p) => p.cites)];
   for (const k of keys) assert.ok(REFS[k], `unknown citation key: ${k}`);
 });

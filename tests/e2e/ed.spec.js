@@ -48,9 +48,7 @@ test('bCAM: full positive path, and the inattention cardinal rule', async ({ pag
   await expect(page.locator('#bcam-verdict')).toContainText('not detected');
 });
 
-test('bCAM feature 4 decides when the RASS is 0, and question sets alternate', async ({
-  page,
-}) => {
+test('bCAM feature 4 decides when the RASS is 0, and question sets alternate', async ({ page }) => {
   await page.locator('input[name="ed-rass"][value="0"]').check();
   await page.locator('input[name="dts-lunch-err"][value="2"]').check();
   await page.locator('input[name="bcam-f1"][value="assume"]').check();
