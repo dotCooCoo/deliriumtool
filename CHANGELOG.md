@@ -5,6 +5,20 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-03
+
+### Added
+
+- **ED templates in the bedside designer** — an **ED Delirium Card Set**
+  (landscape cards: a RASS gate card, the DTS triage-rule-out flowsheet, the
+  bCAM confirmatory stepper, the 4AT single-step card, and an act-on-a-positive
+  card) and an **ED Delirium Workflow** poster (screen → gate → confirm → act,
+  with the disposition hand-off script). Card content is imported from the ED
+  tool's data modules, so the printed cards and the interactive tool can't
+  disagree; validated scripts, thresholds, and the RASS anchors are locked, and
+  the bCAM Feature-4 question set is selectable. Prints or saves as a PDF like
+  the other templates.
+
 ## [0.3.0] - 2026-07-03
 
 ### Added

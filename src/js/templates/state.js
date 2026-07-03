@@ -47,6 +47,7 @@ export function defaultState() {
     v: 1,
     template: 'rounding',
     pedsScale: 'rass', // arousal scale on the peds cards (RASS or SBS)
+    edF4Set: 'a', // bCAM Feature-4 question set on the ED card ('a' or 'b')
     design: 'a', // adult sheet design: 'a' classic, 'b' modern
     stimLayout: 'grid', // picture cards: 'grid' 4-up with cut guides, 'full' one per page
     stimStyle: 'b', // picture art: 'b' kawaii (default), 'a' classic
@@ -89,9 +90,14 @@ export function sanitize(raw) {
   const d = defaultState();
   if (!raw || typeof raw !== 'object') return d;
   const s = { ...d };
-  if (['rounding', 'spa', 'peds-cards', 'peds-workflow'].includes(raw.template))
+  if (
+    ['rounding', 'spa', 'peds-cards', 'peds-workflow', 'ed-cards', 'ed-workflow'].includes(
+      raw.template,
+    )
+  )
     s.template = raw.template;
   if (['rass', 'sbs'].includes(raw.pedsScale)) s.pedsScale = raw.pedsScale;
+  if (['a', 'b'].includes(raw.edF4Set)) s.edF4Set = raw.edF4Set;
   if (['a', 'b'].includes(raw.design)) s.design = raw.design;
   if (['grid', 'full'].includes(raw.stimLayout)) s.stimLayout = raw.stimLayout;
   if (['a', 'b'].includes(raw.stimStyle)) s.stimStyle = raw.stimStyle;

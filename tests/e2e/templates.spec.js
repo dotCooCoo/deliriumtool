@@ -278,7 +278,7 @@ test('Save PDF downloads a two-page document for either template', async ({ page
   );
 });
 
-test('designer has no serious accessibility violations (both templates)', async ({ page }) => {
+test('designer has no serious accessibility violations (adult templates)', async ({ page }) => {
   const seriousViolations = (results) =>
     results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
   let results = await new AxeBuilder({ page }).analyze();
@@ -541,4 +541,135 @@ test('peds card set has no serious accessibility violations', async ({ page }) =
     (v) => v.impact === 'serious' || v.impact === 'critical',
   );
   expect(serious.map((v) => v.id).join(', ')).toBe('');
+});
+
+test('ED card set renders five landscape cards with the RASS gate and DTS→bCAM flow', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="ed-cards"]');
+  await expect(page.locator('.sheet')).toHaveCount(6);
+  await expect(page.locator('.sheet').first()).toHaveClass(/sheet--landscape/);
+  // Pathways card surfaces all three guideline-backed options.
+  await expect(page.locator('.pc-router .pc-route')).toHaveCount(3);
+  await expect(page.locator('.pc-router')).toContainText('bCAM directly');
+  // Arousal card: the full RASS ladder + both gate bars.
+  const arousal = page.locator('.pc-arousal');
+  await expect(arousal.locator('.pc-lrow')).toHaveCount(10);
+  await expect(arousal.locator('.pc-gate--go')).toContainText('altered arousal');
+  await expect(arousal.locator('.pc-gate--stop')).toContainText('unable to assess');
+  // DTS card names the LUNCH letters and its positivity cut.
+  await expect(page.locator('.pc-dts .pc-letter')).toHaveCount(5);
+  await expect(page.locator('.pc-dts')).toContainText('DTS negative — delirium ruled out');
+  // bCAM stepper: four features, the rule, and DELIRIUM PRESENT as an outcome chip.
+  await expect(page.locator('.pc-bcam .pc-step')).toHaveCount(4);
+  await expect(page.locator('.pc-bcam .pc-rule')).toContainText(
+    'Feature 1 + Feature 2 + (Feature 3 or Feature 4)',
+  );
+  await expect(page.locator('.pc-bcam .pc-chip--present').first()).toContainText(
+    'DELIRIUM PRESENT',
+  );
+  // 4AT card: four scored items and the three bands.
+  await expect(page.locator('.pc-4at-row')).toHaveCount(4);
+  await expect(page.locator('.pc-4at-total .pc-chip')).toHaveCount(3);
+  // Validated-instrument text is not editable; only the act card + workflow are.
+  expect(await page.locator('button[data-act="editText"][data-id^="f2"]').count()).toBe(0);
+});
+
+test('ED card set: no card overflows one landscape page, even with a long facility', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="ed-cards"]');
+  await page.fill('#f-facility', 'Metropolitan Regional Medical Center Emergency Department');
+  await expect(page.locator('#fit-warn')).toBeHidden();
+  const over = await page.evaluate(() =>
+    [...document.querySelectorAll('.sheet')].map((s) => s.scrollHeight - s.clientHeight),
+  );
+  expect(
+    over.every((o) => o <= 0),
+    `overflow ${over}`,
+  ).toBe(true);
+});
+
+test('ED card set: bCAM Feature-4 question set swaps and persists across reload', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="ed-cards"]');
+  await expect(page.locator('.pc-bcam .pc-setbadge')).toContainText('Set A');
+  await expect(page.locator('.pc-bcam .pc-qs')).toContainText('Will a stone float on water?');
+  await page.selectOption('#f-ed-f4set', 'b');
+  await expect(page.locator('.pc-bcam .pc-setbadge')).toContainText('Set B');
+  await expect(page.locator('.pc-bcam .pc-qs')).toContainText('Will a leaf float on water?');
+  await page.waitForTimeout(600);
+  await page.reload();
+  await expect(page.locator('#f-ed-f4set')).toHaveValue('b');
+  await expect(page.locator('.pc-bcam .pc-setbadge')).toContainText('Set B');
+});
+
+test('ED card set is a builder: act toggles, unit lines, own-card sections', async ({ page }) => {
+  await page.check('input[name="template"][value="ed-cards"]');
+  await page
+    .locator('#ctrl-sections details')
+    .first()
+    .evaluate((d) => {
+      d.open = true;
+    });
+  // Toggle an act line off — it disappears from the act card.
+  const firstItem = page.locator('input[data-act="itemToggle"][data-id^="act-"]').first();
+  const before = await page.locator('.pc-actcard .sh-item').count();
+  await firstItem.evaluate((el) => el.click());
+  await expect(page.locator('.pc-actcard .sh-item')).toHaveCount(before - 1);
+  // A custom section prints as its own card page (own-page, like peds).
+  await page.fill('#f-newsec-title', 'ED delirium pathway contact');
+  await page.click('[data-act="addSection"]');
+  const secBtn = page.locator('button[data-act="addSecLine"]').first();
+  await secBtn.evaluate((b, v) => {
+    b.parentElement.querySelector('.custom-add-input').value = v;
+  }, 'Page geriatrics for a positive screen');
+  await secBtn.evaluate((b) => b.click());
+  await expect(page.locator('.sheet')).toHaveCount(7);
+  await expect(page.locator('.pc-custom')).toContainText('ED delirium pathway contact');
+});
+
+test('ED workflow poster renders one landscape page with the hand-off script', async ({ page }) => {
+  await page.check('input[name="template"][value="ed-workflow"]');
+  await expect(page.locator('.sheet')).toHaveCount(1);
+  await expect(page.locator('.sheet')).toHaveClass(/sheet--landscape/);
+  await expect(page.locator('.pc-stage')).toHaveCount(4);
+  await expect(page.locator('.pc-rounds').first()).toContainText('hand off a positive screen');
+  // A locked threshold line always prints and is not editable.
+  await expect(page.locator('.pc-flow')).toContainText('LUNCH backwards');
+  expect(
+    await page.locator('input[data-act="itemToggle"][data-id="ed-wf-confirm-dts"]').count(),
+  ).toBe(0);
+});
+
+test('ED templates hide adult-only controls and the peds scale picker', async ({ page }) => {
+  await page.check('input[name="template"][value="ed-cards"]');
+  await expect(page.locator('#f-ed-f4set')).toBeVisible();
+  await expect(page.locator('#f-peds-scale')).toBeHidden();
+  await expect(page.locator('#f-design')).toBeHidden();
+  await expect(page.locator('section[aria-labelledby="h-meds"]')).toBeHidden();
+  await expect(page.locator('#f-rass-target')).toBeHidden();
+  await page.check('input[name="template"][value="rounding"]');
+  await expect(page.locator('#f-ed-f4set')).toBeHidden();
+  await expect(page.locator('label[for="f-ed-f4set"]')).toBeHidden();
+});
+
+test('ED templates Save PDF with readable filenames', async ({ page }) => {
+  await page.check('input[name="template"][value="ed-cards"]');
+  const dl = page.waitForEvent('download');
+  await page.locator('button:has-text("Save PDF")').click();
+  expect((await dl).suggestedFilename()).toMatch(/^ed-delirium-card-set/);
+});
+
+test('ED templates have no serious accessibility violations', async ({ page }) => {
+  for (const tpl of ['ed-cards', 'ed-workflow']) {
+    await page.check(`input[name="template"][value="${tpl}"]`);
+    await page.waitForTimeout(400);
+    const results = await new AxeBuilder({ page }).analyze();
+    const serious = results.violations.filter(
+      (v) => v.impact === 'serious' || v.impact === 'critical',
+    );
+    expect(serious.map((v) => v.id).join(', '), `template ${tpl}`).toBe('');
+  }
 });

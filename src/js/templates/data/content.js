@@ -49,6 +49,24 @@ export const TEMPLATES = [
     defaultTitle: 'Pediatric Delirium Workflow',
     defaultSubtitle: 'Screen · gate · score · act — every child, every shift',
   },
+  {
+    id: 'ed-cards',
+    name: 'ED Delirium Card Set',
+    desc: 'Emergency-department bedside card set — a pathways card, RASS gate, DTS → bCAM flowsheets, the 4AT, and an act-on-a-positive card. Print landscape, laminate, ring-bind.',
+    orientation: 'landscape',
+    pages: 6,
+    defaultTitle: 'ED Delirium Card Set',
+    defaultSubtitle: 'Bedside screening & action cards for older ED adults',
+  },
+  {
+    id: 'ed-workflow',
+    name: 'ED Delirium Workflow',
+    desc: 'Unit workflow poster — screen → arousal gate → confirm → act, with the disposition hand-off script. Print landscape for the physician & triage stations.',
+    orientation: 'landscape',
+    pages: 1,
+    defaultTitle: 'Emergency-Department Delirium Workflow',
+    defaultSubtitle: 'Screen · gate · confirm · act — every older adult',
+  },
 ];
 
 /** RASS rows in the compact grouped form used on the printed sheets. */
@@ -674,6 +692,15 @@ export const SECTIONS = {
     { id: 'sec-pc-stim', label: 'Attention picture cards', page: 8 },
   ],
   'peds-workflow': [{ id: 'sec-wf-poster', label: 'Workflow poster', page: 1 }],
+  'ed-cards': [
+    { id: 'sec-ed-pathway', label: 'Pathways card (choose the screen)', page: 1 },
+    { id: 'sec-ed-arousal', label: 'Arousal card (RASS gate)', page: 2 },
+    { id: 'sec-ed-dts', label: 'DTS card (triage rule-out)', page: 3 },
+    { id: 'sec-ed-bcam', label: 'bCAM card (confirmatory rule-in)', page: 4 },
+    { id: 'sec-ed-4at', label: '4AT card (single-step alternative)', page: 5 },
+    { id: 'sec-ed-act', label: 'Act-on-a-positive card', page: 6 },
+  ],
+  'ed-workflow': [{ id: 'sec-ed-wf-poster', label: 'Workflow poster', page: 1 }],
 };
 
 /** Footer source-line citation keys, per template (labels resolve in refs.js). */

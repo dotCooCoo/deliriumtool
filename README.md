@@ -45,8 +45,10 @@ and print laminate-ready reference sheets: a per-patient **ICU Delirium Rounding
 Tool** (landscape, marked with a dry-erase pen), a unit-level **SPA Quick
 Reference** poster, a **Peds Delirium Card Set** (arousal gate, screen routing,
 CAPD, ps/pCAM-ICU, action cards, and attention picture cards for the bedside
-ring), and a **PICU Delirium Workflow** poster with the 10-second rounds
-script. Pick which sections, lines, and deliriogenic medications
+ring), a **PICU Delirium Workflow** poster with the 10-second rounds
+script, an **ED Delirium Card Set** (RASS gate, DTS → bCAM flowsheets, the 4AT,
+and an act-on-a-positive card), and an **ED Delirium Workflow** poster with the
+disposition hand-off script. Pick which sections, lines, and deliriogenic medications
 print, reword any line, add your unit's own lines and sections, set the sedation
 target, and choose the print size and font — then print at 100% on Letter paper or
 save the generated PDF. Every medication prints with its own check-off

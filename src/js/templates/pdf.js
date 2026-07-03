@@ -197,6 +197,8 @@ export async function downloadPdf(state) {
       spa: 'spa-delirium-quick-reference',
       'peds-cards': `peds-delirium-card-set-${state.pedsScale === 'sbs' ? 'sbs' : 'rass'}`,
       'peds-workflow': 'picu-delirium-workflow',
+      'ed-cards': 'ed-delirium-card-set',
+      'ed-workflow': 'ed-delirium-workflow',
     }[state.template] || 'delirium-template';
   doc.save(`${fname}${suffix ? `_${suffix}` : ''}.pdf`);
 }

@@ -291,6 +291,26 @@
                 >
               </span>
             </label>
+            <label class="tpl-card">
+              <input type="radio" name="template" value="ed-cards" />
+              <span class="tpl-card-body">
+                <strong>ED Delirium Card Set</strong>
+                <span class="tpl-card-desc"
+                  >Emergency-department bedside cards — RASS gate, DTS → bCAM flowsheets, the 4AT,
+                  and an act-on-a-positive card. Landscape; laminate &amp; ring-bind.</span
+                >
+              </span>
+            </label>
+            <label class="tpl-card">
+              <input type="radio" name="template" value="ed-workflow" />
+              <span class="tpl-card-body">
+                <strong>ED Delirium Workflow</strong>
+                <span class="tpl-card-desc"
+                  >Unit workflow poster — screen · gate · confirm · act with the disposition
+                  hand-off script. Landscape, 1 page.</span
+                >
+              </span>
+            </label>
           </div>
         </section>
 
@@ -330,6 +350,13 @@
             <select class="fsel" id="f-stim-style" data-tpl="peds-cards">
               <option value="b" selected>Set B — kawaii</option>
               <option value="a">Set A — classic</option>
+            </select>
+            <label class="flbl" for="f-ed-f4set" data-tpl="ed-cards"
+              >bCAM Feature 4 question set</label
+            >
+            <select class="fsel" id="f-ed-f4set" data-tpl="ed-cards">
+              <option value="a">Set A — stone / fish / pound / hammer-nail</option>
+              <option value="b">Set B — leaf / elephants / pound / hammer-wood</option>
             </select>
             <label class="flbl" for="f-doc-date">Date created (optional)</label>
             <input class="finp" id="f-doc-date" type="date" />
