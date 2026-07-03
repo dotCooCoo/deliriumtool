@@ -157,8 +157,8 @@
             <span class="header-pill">Clinical field reference</span>
             <h1>ED Delirium Screening Tool</h1>
             <p class="app-header-sub">
-              For older ED patients (DTS → bCAM · 4AT). In the ICU, use CAM-ICU; for children, use
-              the pediatric tool.
+              For older ED patients (DTS → bCAM · bCAM · 4AT). In the ICU, use CAM-ICU; for
+              children, use the pediatric tool.
             </p>
           </div>
         </div>
@@ -180,19 +180,20 @@
           <strong>Reference aid only.</strong> This emergency-department tool supports — and does
           not replace — clinical judgment and local protocol. It is not a validated decision-support
           device or an order set. A positive screen suggests delirium but is not diagnostic;
-          evaluate the cause and confirm clinically.
+          evaluate the cause and confirm clinically. Clinical content carries an emergency-clinician
+          review gate — verify against your local protocol before unit use.
         </div>
       </div>
 
-      <div class="alert a-info">
-        <svg class="fa" aria-hidden="true"><use href="#fa-circle-info" /></svg>
-        <div>
-          <strong>Why screen:</strong> delirium affects roughly 8–17% of older ED patients and is
-          missed in up to three-quarters of cases without a screen — most ED delirium is hypoactive
-          and quiet. A positive ED screen independently predicts death within 6 months.
+      <details class="why-screen">
+        <summary>Why screen older ED adults?</summary>
+        <p>
+          Delirium affects roughly 8–17% of older ED patients and is missed in up to three-quarters
+          of cases without a screen — most ED delirium is hypoactive and quiet. A positive ED screen
+          independently predicts death within 6 months.
           <span class="cites-inline">(Han 2009; Han 2010; GED Guidelines 2.0.)</span>
-        </div>
-      </div>
+        </p>
+      </details>
 
       <nav class="tabs" aria-label="Sections">
         <div class="tabs-inner">
@@ -217,10 +218,10 @@
         <section class="card">
           <h2>Screening pathway</h2>
           <p class="note">
-            Both pathways are endorsed for ED use (GED Guidelines 2.0). The two-step DTS → bCAM
-            starts with a &lt;20-second, 98%-sensitive rule-out at triage; the 4AT is a single
-            ~2-minute test that also flags cognitive impairment and needs no special training. Your
-            unit's default is set in Setup.
+            GED Guidelines 2.0 conditionally recommends these instruments for ED use. The two-step
+            DTS → bCAM starts with a &lt;20-second, 98%-sensitive rule-out at triage; the direct
+            bCAM suits high-risk screening; the 4AT is a single ~2-minute test that also flags
+            cognitive impairment and needs no special training. Your unit's default is set in Setup.
           </p>
           <div
             id="pathway-pick"
@@ -247,6 +248,7 @@
               <legend class="sr-only">Richmond Agitation-Sedation Scale</legend>
               <div id="ed-rass" class="ascale-list"></div>
             </fieldset>
+            <p class="cites" id="arousal-cites"></p>
           </section>
 
           <section class="card" id="dts-card">
@@ -255,6 +257,7 @@
             <div id="dts-verdict" class="verdict v-pending" role="status" aria-live="polite">
               Record the RASS to begin.
             </div>
+            <p class="cites" id="dts-cites"></p>
           </section>
 
           <section class="card" id="bcam-card" hidden>
@@ -280,8 +283,11 @@
                 <legend>Feature 3 — Altered level of consciousness</legend>
                 <p class="task-help" id="bcam-f3">Derived from the RASS above.</p>
               </fieldset>
-              <fieldset class="feature">
+              <fieldset class="feature" id="bcam-f4-fieldset">
                 <legend>Feature 4 — Disorganized thinking</legend>
+                <p class="task-help f4-optional-note" id="bcam-f4-optional" hidden>
+                  Feature 3 is already positive — Feature 4 is not required for the result.
+                </p>
                 <p class="task-help">
                   Ask the four yes/no questions, then give the command. Any error makes Feature 4
                   positive. Alternate the question sets on consecutive days.
@@ -292,6 +298,16 @@
               </fieldset>
             </div>
             <div id="bcam-verdict" class="verdict v-pending" role="status" aria-live="polite"></div>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm act-jump"
+              id="bcam-act-jump"
+              data-act="goto-act"
+              hidden
+            >
+              Open “Act on positive” →
+            </button>
+            <p class="cites" id="bcam-cites"></p>
           </section>
         </div>
 
@@ -301,12 +317,24 @@
             <p class="note">
               Four items, total 0–12. Items 1–3 are rated on observation at assessment; item 4 needs
               an informant or records. ≥4 = possible delirium ± cognitive impairment; 1–3 = possible
-              cognitive impairment; 0 = delirium unlikely.
+              cognitive impairment; 0 = delirium unlikely. Account for communication difficulties
+              (hearing impairment, dysphasia, lack of common language) when rating; a score of 0
+              does not definitively exclude delirium if the item-4 information is incomplete.
             </p>
             <div id="fourat-items"></div>
             <div id="fourat-verdict" class="verdict v-pending" role="status" aria-live="polite">
               Rate all four items to score the 4AT.
             </div>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm act-jump"
+              id="fourat-act-jump"
+              data-act="goto-act"
+              hidden
+            >
+              Open “Act on positive” →
+            </button>
+            <p class="cites" id="fourat-cites"></p>
           </section>
         </div>
       </section>
@@ -342,18 +370,29 @@
               <input
                 type="radio"
                 name="ed-default-pathway"
+                value="bcam"
+                data-act="defaultPathway"
+              />
+              <span>bCAM directly (high-risk screening — ACEP ED-DEL option)</span>
+            </label>
+            <label class="opt-row">
+              <input
+                type="radio"
+                name="ed-default-pathway"
                 value="fourat"
                 data-act="defaultPathway"
               />
-              <span>4AT (SIGN 157 / NICE CG103)</span>
+              <span>4AT (SIGN 157; NICE CG103 recommends the 4AT hospital-wide)</span>
             </label>
           </fieldset>
           <div class="alert a-info">
             <svg class="fa" aria-hidden="true"><use href="#fa-circle-info" /></svg>
             <div>
-              <strong>Who to screen:</strong> GED Guidelines 2.0 supports universal screening of
-              older ED adults or risk-stratified screening (validated risk scores may identify
-              low-risk subsets to reduce screening burden). Follow your department's policy.
+              <strong>Who to screen:</strong> routine screening of all older ED adults is
+              resource-intensive, and GED Guidelines 2.0 notes it does not consistently increase
+              delirium recognition; its recommendations offer validated risk scores (e.g. the
+              Delirium Risk Score) to identify low-risk patients and reduce universal screening.
+              Follow your department's policy.
             </div>
           </div>
         </section>
@@ -368,7 +407,17 @@
           </p>
           <div id="summary-doc" class="sumdoc">
             <div class="sumdoc-head">
-              <img src="../img/logo-red.png" alt="" width="34" height="34" />
+              <svg
+                class="sumdoc-mark"
+                width="34"
+                height="34"
+                viewBox="0 0 34 34"
+                aria-hidden="true"
+              >
+                <rect x="1" y="1" width="32" height="32" rx="8" fill="#ffffff" />
+                <rect x="15" y="7" width="4" height="20" rx="2" fill="#a41f30" />
+                <rect x="7" y="15" width="20" height="4" rx="2" fill="#a41f30" />
+              </svg>
               <div>
                 <div class="sumdoc-title">ED Delirium Screening — Summary</div>
                 <div class="sumdoc-sub" id="summary-facility"></div>
@@ -381,6 +430,22 @@
               protocol. De-identified; generated locally. Sources: Han 2013 · 4AT v1.2 · GED
               Guidelines 2.0.
             </p>
+          </div>
+          <div class="frow-grid">
+            <div class="frow">
+              <label for="ed-assessor">Assessor (name / credentials)</label>
+              <input
+                id="ed-assessor"
+                class="finp"
+                type="text"
+                maxlength="120"
+                data-act="assessor"
+              />
+            </div>
+            <div class="frow">
+              <label for="ed-assessed">Assessed (date &amp; time)</label>
+              <input id="ed-assessed" class="finp" type="datetime-local" data-act="assessedAt" />
+            </div>
           </div>
           <div class="frow">
             <label for="ed-notes">Notes (de-identified)</label>
@@ -418,102 +483,7 @@
           Every clinical value above maps to a cited source; the full mapping lives in the project's
           clinical methodology document.
         </p>
-        <ol class="src-list">
-          <li>
-            Han JH, et al. Diagnosing delirium in older emergency department patients: validity and
-            reliability of the Delirium Triage Screen and the Brief Confusion Assessment Method.
-            <a
-              href="https://doi.org/10.1016/j.annemergmed.2013.05.003"
-              target="_blank"
-              rel="noopener"
-              >Ann Emerg Med. 2013;62(5):457–465.</a
-            >
-          </li>
-          <li>
-            Han JH. DTS and bCAM instruction manuals and flowsheets (Vanderbilt University).
-            <a
-              href="https://eddelirium.org/delirium-assessment/assessment-instruments/"
-              target="_blank"
-              rel="noopener"
-              >eddelirium.org</a
-            >
-          </li>
-          <li>
-            MacLullich A, Ryan T, Cash H. 4AT — Assessment Test for Delirium &amp; Cognitive
-            Impairment (v1.2).
-            <a href="https://www.the4at.com/" target="_blank" rel="noopener">the4at.com</a>
-          </li>
-          <li>
-            Bellelli G, et al. Validation of the 4AT.
-            <a href="https://doi.org/10.1093/ageing/afu021" target="_blank" rel="noopener"
-              >Age Ageing. 2014;43(4):496–502.</a
-            >
-          </li>
-          <li>
-            Shenkin SD, et al. 4AT versus CAM: multicentre randomised diagnostic test accuracy
-            study.
-            <a href="https://doi.org/10.1186/s12916-019-1367-9" target="_blank" rel="noopener"
-              >BMC Med. 2019;17:138.</a
-            >
-          </li>
-          <li>
-            Tieges Z, et al. Diagnostic accuracy of the 4AT: systematic review and meta-analysis.
-            <a href="https://doi.org/10.1093/ageing/afaa224" target="_blank" rel="noopener"
-              >Age Ageing. 2021;50(3):733–743.</a
-            >
-          </li>
-          <li>
-            Lee S, et al. Geriatric Emergency Department Guidelines 2.0: delirium.
-            <a href="https://doi.org/10.1111/acem.70167" target="_blank" rel="noopener"
-              >Acad Emerg Med. 2026;33:e70167.</a
-            >
-          </li>
-          <li>
-            Geriatric Emergency Department Guidelines (ACEP/AGS/ENA/SAEM, 2014).
-            <a href="https://www.acep.org/geda/" target="_blank" rel="noopener">acep.org/geda</a>
-          </li>
-          <li>
-            SIGN 157: Risk reduction and management of delirium (2019).
-            <a
-              href="https://www.sign.ac.uk/our-guidelines/risk-reduction-and-management-of-delirium/"
-              target="_blank"
-              rel="noopener"
-              >sign.ac.uk</a
-            >
-          </li>
-          <li>
-            NICE CG103: Delirium — prevention, diagnosis and management (updated 2023).
-            <a href="https://www.nice.org.uk/guidance/cg103" target="_blank" rel="noopener"
-              >nice.org.uk/guidance/cg103</a
-            >
-          </li>
-          <li>
-            Shenvi C, et al. Managing delirium and agitation in the older emergency department
-            patient: the ADEPT tool.
-            <a
-              href="https://doi.org/10.1016/j.annemergmed.2019.07.023"
-              target="_blank"
-              rel="noopener"
-              >Ann Emerg Med. 2020;75(2):136–145.</a
-            >
-          </li>
-          <li>
-            Han JH, et al. Delirium in older emergency department patients (recognition &amp;
-            subtypes; 6-month mortality).
-            <a
-              href="https://doi.org/10.1111/j.1553-2712.2008.00339.x"
-              target="_blank"
-              rel="noopener"
-              >Acad Emerg Med. 2009;16(3):193–200</a
-            >;
-            <a
-              href="https://doi.org/10.1016/j.annemergmed.2010.03.003"
-              target="_blank"
-              rel="noopener"
-              >Ann Emerg Med. 2010;56(3):244–252.</a
-            >
-          </li>
-        </ol>
+        <ol class="src-list" id="src-list"></ol>
         <p class="note">
           Everything runs in your browser — no patient data is sent anywhere. Do not enter PHI in
           fields you intend to share.

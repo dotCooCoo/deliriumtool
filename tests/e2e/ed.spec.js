@@ -158,6 +158,74 @@ test('adult landing page links to the ED tool', async ({ page }) => {
   await expect(page).toHaveURL(/\/ed\//);
 });
 
+test('keyboard focus survives the re-render after every selection', async ({ page }) => {
+  const rass = page.locator('input[name="ed-rass"][value="-1"]');
+  await rass.focus();
+  await rass.press(' ');
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const a = document.activeElement;
+        return a ? `${a.dataset?.act}:${a.value ?? ''}` : 'body';
+      }),
+    )
+    .toBe('rass:-1');
+});
+
+test('stale bCAM answers are cleared when the DTS flips negative', async ({ page }) => {
+  await page.locator('input[name="ed-rass"][value="-1"]').check();
+  await page.locator('input[name="bcam-f1"][value="yes"]').check();
+  await page.locator('#bcam-f2 .errchip').nth(0).click();
+  await page.locator('#bcam-f2 .errchip').nth(1).click();
+  await page.locator('input[data-act="monthDone"]').check();
+  await expect(page.locator('#bcam-verdict')).toContainText('delirium present');
+  // DTS goes negative → the bCAM answers behind the gate must not linger.
+  await page.locator('input[name="ed-rass"][value="0"]').check();
+  await page.locator('input[data-act="lunchDone"]').check();
+  await page.waitForTimeout(600);
+  const st = await page.evaluate(() => JSON.parse(localStorage.getItem('deliriumtool:ed') || '{}'));
+  expect(st.f1).toBe('');
+  expect(st.monthTaps).toEqual([]);
+});
+
+test('a positive verdict offers a working jump to the Act tab', async ({ page }) => {
+  await page.locator('[data-act="example"]').click();
+  await expect(page.locator('#bcam-act-jump')).toBeVisible();
+  await page.locator('#bcam-act-jump').click();
+  await expect(page.locator('#tab-act')).toHaveClass(/active/);
+  // Act items are checkable and feed the summary.
+  await page.locator('#tab-act input[data-act="action"]').first().check();
+  await page.locator('.tab-btn[data-tab="export"]').click();
+  await expect(page.locator('#summary-body')).toContainText('Actions started');
+});
+
+test('import rejects files from the other tools and roundtrips its own', async ({ page }) => {
+  page.on('dialog', (d) => d.accept());
+  // Roundtrip: export the example, wipe, re-import — verdict identical.
+  await page.locator('[data-act="example"]').click();
+  await page.locator('.tab-btn[data-tab="export"]').click();
+  const download = page.waitForEvent('download');
+  await page.locator('[data-act="export"]').click();
+  const path = await (await download).path();
+  await page.locator('[data-act="reset"]').click();
+  await expect(page.locator('#summary-verdict')).not.toContainText('bCAM POSITIVE');
+  const chooser = page.waitForEvent('filechooser');
+  await page.locator('[data-act="import"]').click();
+  await (await chooser).setFiles(path);
+  await expect(page.locator('#summary-verdict')).toContainText('bCAM POSITIVE');
+  // A pediatric-style v:1 export must be refused.
+  const chooser2 = page.waitForEvent('filechooser');
+  await page.locator('[data-act="import"]').click();
+  await (
+    await chooser2
+  ).setFiles({
+    name: 'peds.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify({ v: 1, profile: { ageM: 30 }, capd: {} })),
+  });
+  await expect(page.locator('#ed-live')).toContainText('not an ED assessment');
+});
+
 test('ED tool has no serious accessibility violations', async ({ page }) => {
   await page.locator('input[name="ed-rass"][value="-1"]').check();
   const results = await new AxeBuilder({ page }).analyze();

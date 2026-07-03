@@ -8,14 +8,21 @@ Notable changes to this project, following
 ### Added
 
 - **ED Delirium Screening tool** at `/ed/` — emergency-department screening
-  for older adults with two guideline-backed pathways: the two-step
+  for older adults with three guideline-backed pathways: the two-step
   **DTS → bCAM** (a <20-second, 98%-sensitive triage rule-out, then the
   highly specific bCAM with the validated scripts, question sets, and the
-  inattention cardinal rule) and the **4AT** (the form's verbatim items and
-  0 / 1–3 / ≥4 score bands). Includes the RASS −4/−5 unable-to-assess gate,
+  inattention cardinal rule), the **bCAM directly** for high-risk screening
+  (ACEP ED-DEL option), and the **4AT** (the form's verbatim items and
+  0 / 1–3 / ≥4 score bands). The attention tasks are tap-to-count flowsheets;
+  the RASS rows carry the ED-adapted behavioral anchors from the instrument
+  worksheets; RASS −4/−5 gates as unable to assess, and stale answers are
+  cleared when a gate closes. Around the screens: checkable
   act-on-a-positive guidance (ADEPT / ED-DEL), unit setup with a default
-  pathway, a de-identified print summary, and JSON export/import. Every
-  clinical value cites its source; scoring is pinned by golden-value tests.
+  pathway, example data, and a designed summary document (assessor, editable
+  time, verdict) that prints or saves as a PDF, plus JSON export/import with
+  strict validation. Every instrument card cites its sources inline and the
+  Sources list renders from the citation registry; scoring and sanitizers
+  are pinned by golden-value tests.
 
 ## [0.2.0] - 2026-07-02
 

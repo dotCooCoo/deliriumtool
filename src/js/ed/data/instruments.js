@@ -6,19 +6,43 @@
  * docs/CLINICAL_METHODOLOGY.md §2.11.
  */
 
-/** RASS rows (Sessler 2002) — the arousal component of the DTS and bCAM. */
+/**
+ * RASS rows with the ED-adapted behavioral anchors printed on the DTS and
+ * bCAM worksheets (Vanderbilt manuals; scale: Sessler 2002). The 0 vs −1
+ * boundary decides DTS positivity and −3 vs −4 decides the unable gate, so
+ * the anchors are load-bearing.
+ */
 export const RASS_LEVELS = [
-  { v: '+4', label: 'Combative' },
-  { v: '+3', label: 'Very agitated' },
-  { v: '+2', label: 'Agitated' },
-  { v: '+1', label: 'Restless' },
-  { v: '0', label: 'Alert & calm' },
-  { v: '-1', label: 'Drowsy' },
-  { v: '-2', label: 'Light sedation' },
-  { v: '-3', label: 'Moderate sedation' },
-  { v: '-4', label: 'Deep sedation' },
-  { v: '-5', label: 'Unarousable' },
+  { v: '+4', label: 'Combative', desc: 'Overtly combative, violent, immediate danger to staff' },
+  { v: '+3', label: 'Very agitated', desc: 'Pulls or removes tube(s) or catheter(s); aggressive' },
+  { v: '+2', label: 'Agitated', desc: 'Frequent non-purposeful movement' },
+  { v: '+1', label: 'Restless', desc: 'Anxious but movements not aggressive or vigorous' },
+  { v: '0', label: 'Alert & calm', desc: '' },
+  {
+    v: '-1',
+    label: 'Mildly drowsy',
+    desc: 'Not fully alert, but sustained awakening (eye-opening / eye contact) to voice (>10 seconds)',
+  },
+  {
+    v: '-2',
+    label: 'Moderately drowsy',
+    desc: 'Briefly awakens with eye contact to voice (<10 seconds)',
+  },
+  {
+    v: '-3',
+    label: 'Very drowsy',
+    desc: 'Movement or eye opening to voice (but no eye contact)',
+  },
+  {
+    v: '-4',
+    label: 'Arousable to pain only',
+    desc: 'No response to voice, but movement or eye opening to physical stimulation',
+  },
+  { v: '-5', label: 'Unarousable', desc: 'No response to voice or physical stimulation' },
 ];
+
+/** Citations for the arousal card: the scale + the ED-adapted worksheets. */
+export const RASS_CITES = ['sessler2002_rass', 'dts_manual', 'bcam_manual'];
 
 /** RASS −4/−5 = stupor/coma — cannot assess delirium content; reassess later. */
 export const RASS_UNABLE = ['-4', '-5'];
@@ -38,7 +62,7 @@ export const DTS = {
   attention: {
     title: 'Inattention — spell "LUNCH" backwards',
     script: 'Say: “Can you spell the word LUNCH backwards?”',
-    help: 'Tap each letter the patient misses (a missing letter is one error; two switched letters are two errors). Stop the task after a significant pause (>15 seconds). Refusal or inability to start counts as positive.',
+    help: 'Tap each letter the patient misses (a missing letter is one error; two switched letters are two errors). Stop the task after a significant pause or perseveration on a letter (>15 seconds). Refusal or inability to start counts as positive.',
     items: ['H', 'C', 'N', 'U', 'L'], // the expected backwards sequence
     errorThreshold: 2, // ≥2 errors = inattention
   },
@@ -64,7 +88,7 @@ export const BCAM = {
       id: 'f1',
       title: 'Feature 1 — Altered mental status or fluctuating course',
       type: 'judgment',
-      help: 'Ask someone who knows the patient: “Has the patient been more confused lately?” Either an acute change from baseline OR fluctuation during the past 24 hours counts. If no baseline information is available and Features 2 and 3-or-4 are positive, it is safer to assume Feature 1 is positive.',
+      help: 'Ask someone who knows the patient: “Has the patient been more confused to you lately?” Either an acute change from baseline OR fluctuation during the past 24 hours counts. If no baseline information is available and Features 2 and 3-or-4 are positive, it is safer to assume Feature 1 is positive.',
     },
     {
       id: 'f2',
@@ -193,7 +217,7 @@ export const PATHWAYS = [
   {
     id: 'fourat',
     name: '4AT',
-    who: 'SIGN 157 / NICE CG103 pathway',
+    who: 'SIGN 157 pathway (ED); NICE CG103 recommends the 4AT hospital-wide',
     how: 'A single ~2-minute test scoring alertness, AMT4, attention, and acute change; no special training required; usable in most patients including many who are untestable on interview items.',
     cites: ['fourat_form', 'sign157', 'nice_cg103', 'ged2_2026'],
   },
@@ -243,23 +267,20 @@ export const ACT_POSITIVE = [
  */
 export const EXAMPLE_ASSESSMENT = {
   v: 1,
+  tool: 'ed',
   pathway: 'twostep',
   rass: '-1',
-  lunchErrors: '',
   lunchTaps: [],
+  lunchDone: false,
   lunchUnable: false,
   f1: 'yes',
-  monthErrors: '',
   monthTaps: [0, 2, 4],
+  monthDone: true,
   monthUnable: false,
   f4Set: 'a',
   f4: 'errors',
   fourat: { alertness: '4:2', amt4: '2:2', attention: '1:1', change: '4:1' },
+  actions: [],
+  assessor: 'A. Example, RN',
   notes: 'Example data — drowsy, inattentive, disorganized; onset this morning per family.',
 };
-
-/** Why screen — the epidemiology framing for the intro. */
-export const WHY_SCREEN = [
-  'Delirium affects roughly 8–17% of older ED patients and is missed in up to three-quarters of cases without a screen — most delirium in the ED is hypoactive and quiet.',
-  'ED delirium independently predicts death within 6 months (hazard ratio ≈ 1.7).',
-];

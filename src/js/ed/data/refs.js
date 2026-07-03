@@ -30,7 +30,7 @@ export const REFS = {
     l: 'Bellelli 2014',
   },
   shenkin2019: {
-    c: 'Shenkin SD, et al. Delirium detection in older acute medical inpatients: a multicentre prospective comparative diagnostic test accuracy study of the 4AT versus the Confusion Assessment Method. BMC Med. 2019;17:138.',
+    c: 'Shenkin SD, et al. Delirium detection in older acute medical inpatients: a multicentre prospective comparative diagnostic test accuracy study of the 4AT and the confusion assessment method. BMC Med. 2019;17:138.',
     u: 'https://doi.org/10.1186/s12916-019-1367-9',
     l: 'Shenkin 2019',
   },
@@ -40,7 +40,7 @@ export const REFS = {
     l: 'Tieges 2021',
   },
   ged2_2026: {
-    c: 'Lee S, et al. Geriatric Emergency Department Guidelines 2.0: delirium. Acad Emerg Med. 2026;33:e70167.',
+    c: 'Lee S, et al. GRADE-based clinical practice guidelines for emergency department delirium risk stratification, screening, and brain imaging in older patients with suspected delirium (Geriatric ED Guidelines 2.0). Acad Emerg Med. 2026;33(2):e70167.',
     u: 'https://doi.org/10.1111/acem.70167',
     l: 'GED Guidelines 2.0 (2026)',
   },
@@ -65,9 +65,9 @@ export const REFS = {
     l: 'ADEPT (2020)',
   },
   eddel_toolkit: {
-    c: 'Inouye SK, et al. Delirium in the older emergency department patient: implementation toolkit (ED-DEL). ACEP.',
-    u: 'https://www.acep.org/',
-    l: 'ACEP ED-DEL toolkit',
+    c: 'Delirium in the Older Emergency Department Patient (ED-DEL): Change Package and Toolkit. ACEP Geriatric Emergency Department Accreditation program.',
+    u: 'https://www.acep.org/siteassets/sites/geda/media/documnets/ed-delirium-toolkit.pdf',
+    l: 'ED-DEL change package & toolkit',
   },
   han2009: {
     c: 'Han JH, et al. Delirium in older emergency department patients: recognition, risk factors, and psychomotor subtypes. Acad Emerg Med. 2009;16(3):193–200.',

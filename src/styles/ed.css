@@ -27,6 +27,10 @@
   --c-border-strong: #d8bfc1;
 
   --c-info: #1f6a9e;
+
+  /* Help text sits on white cards at 14px here — keep both muted tones AA. */
+  --c-text-2: #525c68;
+  --c-text-3: #5d6673;
 }
 
 /* ── Layout helpers ── */
@@ -96,7 +100,8 @@
 .ascale-opt {
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-3);
   border: 1px solid var(--c-border-strong);
   border-left-width: 4px;
   border-radius: var(--radius-sm);
@@ -107,6 +112,16 @@
 .ascale-opt:has(input:checked) {
   outline: 2px solid var(--c-primary);
   outline-offset: -2px;
+}
+.ascale-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+.ascale-desc {
+  font-size: var(--fs-xs);
+  color: var(--c-text-3);
 }
 .ascale-v {
   font-weight: 800;
@@ -264,6 +279,37 @@
   gap: var(--sp-2) var(--sp-5);
 }
 
+.feature--optional {
+  background: var(--c-surface-2);
+  border-style: dashed;
+}
+.f4-optional-note {
+  font-weight: 600;
+  color: var(--c-text-2);
+}
+.why-screen {
+  margin: var(--sp-3) 0;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  padding: var(--sp-2) var(--sp-3);
+  font-size: var(--fs-sm);
+}
+.why-screen summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+.why-screen p {
+  margin: var(--sp-2) 0 0;
+  color: var(--c-text-2);
+  max-width: 75ch;
+}
+@media (max-width: 560px) {
+  .tabs-inner {
+    flex-wrap: wrap;
+  }
+}
+
 /* ── Verdict banners ── */
 .verdict {
   margin-top: var(--sp-3);
@@ -302,17 +348,28 @@
 .act-card {
   margin-bottom: var(--sp-4);
 }
-.act-card h3 {
+.act-card h2 {
   margin: 0 0 var(--sp-2);
   font-size: var(--fs-md);
 }
 .act-card ul {
   margin: 0;
-  padding-left: 1.3em;
+  padding-left: 0;
+  list-style: none;
 }
 .act-card li {
-  margin: 4px 0;
+  margin: 6px 0;
   max-width: 80ch;
+}
+.act-chk {
+  align-items: start;
+  margin-top: 0;
+}
+.act-chk input {
+  margin-top: 4px;
+}
+.act-jump {
+  margin-top: var(--sp-3);
 }
 .cites {
   margin: var(--sp-2) 0 0;
@@ -387,9 +444,19 @@
   color: #fff;
   padding: var(--sp-3) var(--sp-4);
 }
-.sumdoc-head img {
+.sumdoc-head img,
+.sumdoc-mark {
   border-radius: 8px;
   background: #fff;
+  flex: 0 0 auto;
+}
+.frow-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--sp-4);
+}
+.frow-grid .frow {
+  flex: 1 1 16rem;
 }
 .sumdoc-title {
   font-weight: 800;
@@ -432,7 +499,9 @@
   #tab-export {
     display: block !important;
   }
-  #tab-export .note {
+  #tab-export .note,
+  #tab-export .frow,
+  #tab-export .frow-grid {
     display: none;
   }
   body {
