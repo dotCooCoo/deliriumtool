@@ -741,9 +741,9 @@
 }
 .sheet--portrait.sheet--card {
   /* Portrait pocket-card variant (ED set): the SPA poster's 1.15 type boost is
-     for a sparse poster — run a touch under 1 so every card keeps real headroom
-     above the footer when the browser rasterises the page for print/PDF. */
-  --fs-tpl: 0.94;
+     for a sparse poster — cancel it. A card that still runs long is shrunk to
+     fit automatically by the designer's auto-fit (--fs-fit). */
+  --fs-tpl: 1;
   gap: calc(7pt * var(--fs));
 }
 .sheet--portrait .pc-4at-rows {
@@ -1654,25 +1654,4 @@
 }
 .sheet--portrait .pc-4at .pc-note--boxed {
   margin-bottom: calc(3pt * var(--fs));
-}
-
-/* The portrait 4AT worksheet (4 items × per-item help) is the densest card;
-   tighten its spacing + help type so the content clears the footer with margin
-   when the page is rasterised for print/PDF. */
-.sheet--portrait .pc-4at-rows {
-  gap: calc(3.5pt * var(--fs));
-}
-.sheet--portrait .pc-4at-row {
-  padding: calc(3pt * var(--fs)) calc(7pt * var(--fs));
-  gap: calc(2pt * var(--fs));
-}
-.sheet--portrait .pc-4at-opts {
-  gap: calc(2pt * var(--fs));
-}
-.sheet--portrait .pc-4at-help {
-  font-size: calc(7pt * var(--fs));
-  line-height: 1.18;
-}
-.sheet--portrait .pc-4at-total {
-  margin-top: calc(2pt * var(--fs));
 }

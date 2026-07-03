@@ -687,3 +687,36 @@ test('ED templates have no serious accessibility violations', async ({ page }) =
     expect(serious.map((v) => v.id).join(', '), `template ${tpl}`).toBe('');
   }
 });
+
+test('every template auto-scales so no page overflows its footer', async ({ page }) => {
+  // The fit engine must see content that overflows a fixed-height card panel
+  // (.pc-body), not just content that grows the sheet — and shrink to fit.
+  const overflow = () =>
+    page.evaluate(() => {
+      const limit = (s) => {
+        const pb = parseFloat(getComputedStyle(s).paddingBottom) || 0;
+        const f = s.querySelector(':scope > .sh-foot');
+        return s.clientHeight - pb - (f ? f.offsetHeight + 2 : 0);
+      };
+      const bottom = (s) => {
+        const f = s.querySelector(':scope > .sh-foot');
+        let m = 0;
+        for (const c of s.children) {
+          if (c === f) continue;
+          m = Math.max(m, c.offsetTop + Math.max(c.offsetHeight, c.scrollHeight));
+        }
+        return m;
+      };
+      return [...document.querySelectorAll('.sheet')].map((s) => Math.round(bottom(s) - limit(s)));
+    });
+  for (const tpl of ['rounding', 'spa', 'peds-cards', 'peds-workflow', 'ed-cards', 'ed-workflow']) {
+    await page.check(`input[name="template"][value="${tpl}"]`);
+    await page.selectOption('#f-font-scale', '110'); // largest print size = most height pressure
+    const over = await overflow();
+    expect(
+      over.every((o) => o <= 1),
+      `${tpl} content overflows footer by ${over}`,
+    ).toBe(true);
+    await expect(page.locator('#fit-warn')).toBeHidden();
+  }
+});

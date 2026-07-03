@@ -5,6 +5,18 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-07-03
+
+### Fixed
+
+- The bedside-template designer now scales a page's type down to fit whenever
+  its content would run past the footer — including cards whose content sits in
+  a fixed-height panel, which the fit check previously couldn't see (so a dense
+  card, such as the 4AT, could print under its own footer). Every template
+  auto-scales to fit; the overflow warning appears only when a page cannot fit
+  even at the smallest size.
+
+
 ## [0.6.1] - 2026-07-03
 
 ### Changed
