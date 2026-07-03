@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-03
+
 ### Added
 
 - **Bedside cards in the pediatric tool.** The pediatric tool now renders the
