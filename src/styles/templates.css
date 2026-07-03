@@ -1634,6 +1634,109 @@ details[open] > summary::before {
   color: #2d6b43;
   border: 1.2pt solid #2d6b43;
 }
+.pc-chip--maybe {
+  background: #fff;
+  color: #8a5a12;
+  border: 1.2pt solid #b3701a;
+}
+
+/* 4AT card (ED card set) — scored items in a two-column grid + banded total. */
+.pc-4at-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(5pt * var(--fs));
+}
+.pc-4at-row {
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(7pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.5pt * var(--fs));
+}
+.pc-4at-title {
+  font-size: calc(10pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+}
+.pc-4at-opts {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.5pt * var(--fs));
+}
+.pc-4at-opt {
+  display: grid;
+  grid-template-columns: calc(12pt * var(--fs)) 1fr auto;
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+}
+.pc-4at-opt .sh-rass-box {
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+  color: var(--sh-slate);
+}
+.pc-4at-lbl {
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-ink);
+  line-height: 1.2;
+}
+.pc-4at-pts {
+  font-size: calc(8.5pt * var(--fs));
+  font-weight: 800;
+  color: #fff;
+  background: var(--sh-slate);
+  border-radius: 999px;
+  min-width: calc(16pt * var(--fs));
+  text-align: center;
+  padding: calc(0.5pt * var(--fs)) calc(4pt * var(--fs));
+}
+.pc-4at-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: calc(5pt * var(--fs)) calc(7pt * var(--fs));
+  font-size: calc(11pt * var(--fs));
+  font-weight: 800;
+  color: var(--sh-ink);
+  margin-top: calc(4pt * var(--fs));
+}
+.pc-4at-total .sh-blank {
+  height: 0.85em;
+  min-width: 0.9in;
+}
+/* Fill the card: the item grid grows and its two rows stretch (like CAPD). */
+.pc-4at .pc-4at-rows {
+  flex: 1;
+  grid-auto-rows: 1fr;
+}
+/* The DTS stepper has only two steps + a note; let the steps grow to fill so
+   space-between can't leave large internal voids. */
+.pc-dts .pc-body.pc-stepper {
+  justify-content: flex-start;
+}
+.pc-dts .pc-step {
+  flex: 1;
+}
+/* bCAM Feature-4 question-set badge — visible on the white card (no --tone). */
+.pc-f4sets {
+  display: flex;
+  align-items: baseline;
+  gap: calc(6pt * var(--fs));
+  margin-bottom: calc(3pt * var(--fs));
+}
+.pc-setbadge {
+  font-size: calc(8.5pt * var(--fs));
+  font-weight: 800;
+  color: #fff;
+  background: #1f3a5f;
+  border-radius: 999px;
+  padding: calc(1pt * var(--fs)) calc(8pt * var(--fs));
+}
+.pc-f4sets-note {
+  font-size: calc(8.5pt * var(--fs));
+  color: var(--sh-slate);
+  font-style: italic;
+}
 
 /* CAPD */
 .pc-capd-legend {

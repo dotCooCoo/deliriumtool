@@ -156,7 +156,7 @@ export const WORKFLOW_STAGES = [
       {
         id: 'ed-wf-confirm-dts',
         locked: true,
-        text: `DTS (<20 s): altered arousal or ≥ ${DTS_ERR} errors spelling LUNCH backwards → positive → confirm with the bCAM.`,
+        text: `DTS (<20 s): altered arousal, ≥ ${DTS_ERR} errors spelling LUNCH backwards, or unable / refused → positive → confirm with the bCAM.`,
       },
       {
         id: 'ed-wf-confirm-bcam',
@@ -166,7 +166,7 @@ export const WORKFLOW_STAGES = [
       {
         id: 'ed-wf-confirm-4at',
         locked: true,
-        text: '4AT: alertness + AMT4 + months-backward + acute change; ≥ 4 → possible delirium, 1–3 → possible cognitive impairment.',
+        text: `4AT: alertness + AMT4 + months-backward + acute change; ≥ ${FOURAT.bands[0].min} → possible delirium, ${FOURAT.bands[1].min}–${FOURAT.bands[0].min - 1} → possible cognitive impairment.`,
       },
     ],
   },

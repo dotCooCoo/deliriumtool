@@ -348,6 +348,37 @@ public redistribution should be confirmed before wide promotion of this page.
 **Review status.** ED clinical content pending emergency-clinician sign-off
 (the on-page scope note carries the same gate).
 
+### 2.12 Emergency-department bedside card set & ED workflow poster (/templates/)
+
+Two ED templates extend the designer: the **ED Delirium Card Set** (landscape pages for
+lamination and ring-binding: an arousal/RASS gate card, the DTS triage-rule-out card, the
+bCAM confirmatory stepper card, the 4AT single-step card, and an act-on-a-positive card) and
+the **ED Delirium Workflow** poster (landscape: screen → arousal gate → confirm → act, with
+the disposition hand-off script). They reuse the pediatric card design system (`.pc-*`).
+
+Clinical values are **imported directly from the ED tool's data modules**
+(`src/js/templates/data/ed-content.js` imports `src/js/ed/data/instruments.js` and `refs.js`),
+so the printed cards cannot carry different scripts, thresholds, or wording than the
+interactive tool: the ED-adapted RASS behavioral anchors (Vanderbilt DTS/bCAM worksheets;
+scale Sessler 2002); the DTS positivity rule (altered arousal or ≥ 2 LUNCH-backwards errors
+or unable → positive; RASS 0 with 0–1 errors → negative) and its LUNCH script; the bCAM
+stepper — Feature 1 (acute change / fluctuation), Feature 2 (months-backward inattention, the
+required cardinal feature), Feature 3 (RASS ≠ 0), Feature 4 (the alternating question sets,
+the two-step command, and the any-error rule) and the "Feature 1 + Feature 2 + (Feature 3 or
+Feature 4)" positivity rule; and the 4AT four items, point values, and 0 / 1–3 / ≥ 4 bands
+with the form's caveat (Han 2013; the Vanderbilt manuals; the 4AT v1.2 form). The DTS and
+bCAM error thresholds and the bCAM rule string are **interpolated from the instrument
+constants** so the printed cut cannot drift. Validated-instrument text is deliberately **not**
+unit-editable in the designer; the act-on-a-positive lines and the workflow poster's
+protocol lines are unit-editable, while the poster's locked threshold lines (the DTS/bCAM/4AT
+cuts and the RASS −4/−5 unable floor) are always printed and interpolated. The bCAM
+Feature-4 question set (A or B) is selectable in Setup. Mirror tests pin the card content to
+the ED tool's modules (`tests/unit/templates-ed.test.js`).
+
+---
+
+---
+
 ## 3. Citation registry
 
 Every source in the application's citation registry, reproduced as the tool stores it. Inline citations and per-tab reference lists are generated from this single registry. Identifiers marked **† not locally archived** are cited by canonical URL only (see §4).

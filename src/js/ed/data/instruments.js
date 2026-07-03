@@ -21,7 +21,7 @@ export const RASS_LEVELS = [
   {
     v: '-1',
     label: 'Mildly drowsy',
-    desc: 'Not fully alert, but sustained awakening (eye-opening / eye contact) to voice (>10 seconds)',
+    desc: 'Not fully alert, but has sustained awakening (eye-opening / eye contact) to voice (>10 seconds)',
   },
   {
     v: '-2',

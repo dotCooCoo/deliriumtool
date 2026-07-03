@@ -34,6 +34,7 @@ import {
   F2_ERR,
   BCAM_F2_SCRIPT,
   BCAM_F4,
+  BCAM_RULE,
   FOURAT_BANDS,
   ACT_COLUMNS,
   WORKFLOW_STAGES,
@@ -74,6 +75,14 @@ const branch = (answer, ...kids) =>
     ...kids,
   );
 const scriptBlock = (text) => el('div', { class: 'pc-script', text: nobreak(text) });
+
+/**
+ * The interactive tool's help text says "tap each" for its tap-to-count
+ * controls; on a printed, dry-erase card the assessor marks/counts instead.
+ * Everything else stays verbatim (pinned by unit test).
+ */
+const printHelp = (text) =>
+  text.replace(/Tap each/g, 'Mark each').replace(/tap each/g, 'mark each');
 
 // ── Card 1 · Arousal (RASS gate) ────────────────────────────────────────────
 
@@ -177,7 +186,7 @@ function dtsCard() {
         el('div', { class: 'pc-step-title', text: 'Inattention — spell LUNCH backwards' }),
         scriptBlock(DTS_FLOW.script),
         lettersRow(DTS_FLOW.letters),
-        el('div', { class: 'pc-note', text: DTS.attention.help }),
+        el('div', { class: 'pc-note', text: printHelp(DTS.attention.help) }),
         el(
           'div',
           { class: 'pc-branches' },
@@ -212,11 +221,13 @@ function dtsCard() {
 // ── Card 3 · bCAM (confirmatory rule-in) ────────────────────────────────────
 
 function camRule() {
+  // Derive the emphasised clause from the instrument rule so it can't drift.
+  const clause = BCAM_RULE.replace(/^bCAM positive = /, '');
   return el(
     'div',
     { class: 'pc-rule' },
     el('span', { text: 'bCAM positive = ' }),
-    el('b', { text: 'Feature 1 + Feature 2 + (Feature 3 or Feature 4)' }),
+    el('b', { text: clause }),
   );
 }
 
@@ -249,6 +260,10 @@ function bcamCard(state) {
         scriptBlock(
           'Ask a proxy: “Has the patient been more confused to you lately?” Acute change or fluctuation in 24 h counts.',
         ),
+        el('div', {
+          class: 'pc-note',
+          text: 'No proxy available? If Feature 2 and (Feature 3 or 4) are positive, it is safer to assume Feature 1 is positive.',
+        }),
       ],
       [
         branch('Yes', el('span', { text: 'continue to Feature 2' })),
@@ -286,10 +301,8 @@ function bcamCard(state) {
         el(
           'div',
           { class: 'pc-f4sets' },
-          el('span', {
-            class: `pc-tag${state.edF4Set !== 'b' ? ' pc-tag--on' : ''}`,
-            text: `Set ${state.edF4Set === 'b' ? 'B' : 'A'}`,
-          }),
+          el('span', { class: 'pc-setbadge', text: `Set ${state.edF4Set === 'b' ? 'B' : 'A'}` }),
+          el('span', { class: 'pc-f4sets-note', text: 'alternate the set on consecutive days' }),
         ),
         el('ol', { class: 'pc-qs' }, ...questions.map((q) => el('li', { text: nobreak(q) }))),
         el('div', { class: 'pc-note', text: nobreak(BCAM_F4.command) }),
