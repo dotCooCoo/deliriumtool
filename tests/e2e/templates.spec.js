@@ -278,7 +278,7 @@ test('Save PDF downloads a two-page document for either template', async ({ page
   );
 });
 
-test('designer has no serious accessibility violations (both templates)', async ({ page }) => {
+test('designer has no serious accessibility violations (adult templates)', async ({ page }) => {
   const seriousViolations = (results) =>
     results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
   let results = await new AxeBuilder({ page }).analyze();
@@ -547,8 +547,11 @@ test('ED card set renders five landscape cards with the RASS gate and DTS→bCAM
   page,
 }) => {
   await page.check('input[name="template"][value="ed-cards"]');
-  await expect(page.locator('.sheet')).toHaveCount(5);
+  await expect(page.locator('.sheet')).toHaveCount(6);
   await expect(page.locator('.sheet').first()).toHaveClass(/sheet--landscape/);
+  // Pathways card surfaces all three guideline-backed options.
+  await expect(page.locator('.pc-router .pc-route')).toHaveCount(3);
+  await expect(page.locator('.pc-router')).toContainText('bCAM directly');
   // Arousal card: the full RASS ladder + both gate bars.
   const arousal = page.locator('.pc-arousal');
   await expect(arousal.locator('.pc-lrow')).toHaveCount(10);
@@ -623,7 +626,7 @@ test('ED card set is a builder: act toggles, unit lines, own-card sections', asy
     b.parentElement.querySelector('.custom-add-input').value = v;
   }, 'Page geriatrics for a positive screen');
   await secBtn.evaluate((b) => b.click());
-  await expect(page.locator('.sheet')).toHaveCount(6);
+  await expect(page.locator('.sheet')).toHaveCount(7);
   await expect(page.locator('.pc-custom')).toContainText('ED delirium pathway contact');
 });
 
@@ -657,4 +660,16 @@ test('ED templates Save PDF with readable filenames', async ({ page }) => {
   const dl = page.waitForEvent('download');
   await page.locator('button:has-text("Save PDF")').click();
   expect((await dl).suggestedFilename()).toMatch(/^ed-delirium-card-set/);
+});
+
+test('ED templates have no serious accessibility violations', async ({ page }) => {
+  for (const tpl of ['ed-cards', 'ed-workflow']) {
+    await page.check(`input[name="template"][value="${tpl}"]`);
+    await page.waitForTimeout(400);
+    const results = await new AxeBuilder({ page }).analyze();
+    const serious = results.violations.filter(
+      (v) => v.impact === 'serious' || v.impact === 'critical',
+    );
+    expect(serious.map((v) => v.id).join(', '), `template ${tpl}`).toBe('');
+  }
 });

@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-03
+
 ### Added
 
 - **ED templates in the bedside designer** — an **ED Delirium Card Set**

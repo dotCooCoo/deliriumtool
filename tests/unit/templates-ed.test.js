@@ -52,6 +52,7 @@ test('bCAM card content is verbatim from the instrument', () => {
   const f2 = BCAM.features.find((f) => f.id === 'f2');
   const f4 = BCAM.features.find((f) => f.id === 'f4');
   assert.equal(F2_ERR, f2.errorThreshold);
+  assert.equal(F2_ERR, 2); // literal pin — a silent instrument drift must fail CI
   assert.equal(BCAM_F2_SCRIPT, f2.script);
   assert.deepEqual(BCAM_F4.setA, f4.sets.a);
   assert.deepEqual(BCAM_F4.setB, f4.sets.b);
@@ -127,6 +128,7 @@ test('the two ED templates are registered with sections', () => {
   // The card set exposes the five instrument cards.
   const cardSecs = SECTIONS['ed-cards'].map((s) => s.id);
   assert.deepEqual(cardSecs, [
+    'sec-ed-pathway',
     'sec-ed-arousal',
     'sec-ed-dts',
     'sec-ed-bcam',

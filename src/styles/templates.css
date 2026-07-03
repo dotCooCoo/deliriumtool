@@ -1680,6 +1680,11 @@ details[open] > summary::before {
   color: var(--sh-ink);
   line-height: 1.2;
 }
+.pc-4at-help {
+  font-size: calc(7.8pt * var(--fs));
+  color: var(--sh-slate);
+  line-height: 1.25;
+}
 .pc-4at-pts {
   font-size: calc(8.5pt * var(--fs));
   font-weight: 800;
@@ -1716,6 +1721,15 @@ details[open] > summary::before {
 }
 .pc-dts .pc-step {
   flex: 1;
+  align-items: stretch;
+}
+/* Centre each grown step's content so the extra height reads as balanced
+   padding rather than a bottom-anchored void (the DTS has only two steps). */
+.pc-dts .pc-step-body {
+  justify-content: center;
+}
+.pc-eg {
+  font-style: italic;
 }
 /* bCAM Feature-4 question-set badge — visible on the white card (no --tone). */
 .pc-f4sets {

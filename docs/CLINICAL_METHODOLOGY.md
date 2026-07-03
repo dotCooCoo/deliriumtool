@@ -372,7 +372,8 @@ constants** so the printed cut cannot drift. Validated-instrument text is delibe
 unit-editable in the designer; the act-on-a-positive lines and the workflow poster's
 protocol lines are unit-editable, while the poster's locked threshold lines (the DTS/bCAM/4AT
 cuts and the RASS −4/−5 unable floor) are always printed and interpolated. The bCAM
-Feature-4 question set (A or B) is selectable in Setup. Mirror tests pin the card content to
+Feature-4 question set (A or B) is selectable in the designer's Your unit panel. Mirror
+tests pin the card content to
 the ED tool's modules (`tests/unit/templates-ed.test.js`).
 
 ---

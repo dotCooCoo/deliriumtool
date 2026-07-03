@@ -25,7 +25,9 @@ import { sheetFooter, sheetIcon } from './sheets.js';
 import {
   RASS_LEVELS,
   DTS,
+  BCAM,
   FOURAT,
+  PATHWAYS,
   AROUSAL_ZONE,
   RASS_RAIL,
   AROUSAL_GATE,
@@ -84,7 +86,50 @@ const scriptBlock = (text) => el('div', { class: 'pc-script', text: nobreak(text
 const printHelp = (text) =>
   text.replace(/Tap each/g, 'Mark each').replace(/tap each/g, 'mark each');
 
-// ── Card 1 · Arousal (RASS gate) ────────────────────────────────────────────
+// ── Card 1 · Pathways (choose the screen) ───────────────────────────────────
+
+function pathwayCard() {
+  const tones = ['navy', 'teal', 'plum'];
+  const body = el(
+    'div',
+    { class: 'pc-body' },
+    el(
+      'div',
+      { class: 'pc-routes' },
+      ...PATHWAYS.map((p, i) =>
+        el(
+          'div',
+          { class: `pc-route tone-${tones[i] || 'navy'}${i === 0 ? ' pc-route--default' : ''}` },
+          el(
+            'div',
+            { class: 'pc-route-name' },
+            el('span', { text: nobreak(p.name) }),
+            i === 0 ? el('span', { class: 'pc-tag', text: 'default' }) : null,
+          ),
+          el('div', { class: 'pc-route-who', text: p.who }),
+          el('div', { class: 'pc-route-how', text: p.how }),
+        ),
+      ),
+    ),
+    el('div', {
+      class: 'pc-note',
+      text: 'Score arousal first (next card). Then run one pathway — a positive screen is a finding, not a diagnosis.',
+    }),
+  );
+  return card(
+    'pc-router',
+    cardHead(
+      'plum',
+      'Start here',
+      'Choose the screening pathway',
+      'Three guideline-backed options — pick one per your department’s policy.',
+      'magnifying-glass',
+    ),
+    body,
+  );
+}
+
+// ── Card 2 · Arousal (RASS gate) ────────────────────────────────────────────
 
 function arousalRowEl(r) {
   const zone = AROUSAL_ZONE[r.v] || 'slate';
@@ -187,6 +232,10 @@ function dtsCard() {
         scriptBlock(DTS_FLOW.script),
         lettersRow(DTS_FLOW.letters),
         el('div', { class: 'pc-note', text: printHelp(DTS.attention.help) }),
+        el('div', {
+          class: 'pc-note pc-eg',
+          text: 'Example: “H-C-U-L” = 1 error (N missing); “H-C-U-N-L” = 2 errors (N and L switched).',
+        }),
         el(
           'div',
           { class: 'pc-branches' },
@@ -277,7 +326,7 @@ function bcamCard(state) {
         scriptBlock(BCAM_F2_SCRIPT),
         el('div', {
           class: 'pc-note',
-          text: 'December → July. Each missing/switched month is an error; refusal or inability is positive.',
+          text: printHelp(BCAM.features.find((f) => f.id === 'f2').help),
         }),
       ],
       [
@@ -338,6 +387,7 @@ function fouratCard() {
       'div',
       { class: 'pc-4at-row' },
       el('span', { class: 'pc-4at-title', text: item.title }),
+      el('span', { class: 'pc-4at-help', text: item.help }),
       el(
         'div',
         { class: 'pc-4at-opts' },
@@ -436,6 +486,7 @@ function actCard(state) {
 
 export function renderEdCards(state) {
   const sheets = [];
+  if (secOn(state, 'sec-ed-pathway')) sheets.push(pathwayCard());
   if (secOn(state, 'sec-ed-arousal')) sheets.push(arousalCard());
   if (secOn(state, 'sec-ed-dts')) sheets.push(dtsCard());
   if (secOn(state, 'sec-ed-bcam')) sheets.push(bcamCard(state));

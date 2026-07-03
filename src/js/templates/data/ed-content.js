@@ -67,9 +67,7 @@ export const AROUSAL_GATE = {
  */
 export const DTS_FLOW = {
   script: DTS.attention.script,
-  help: DTS.attention.help,
   letters: DTS.attention.items, // ['H','C','N','U','L']
-  positive: `Altered arousal (RASS ≠ 0), or ≥ ${DTS_ERR} errors, or unable / refused → DTS positive → confirm with the bCAM.`,
   negative:
     'RASS 0 and 0–1 errors → DTS negative — delirium ruled out (98% sensitive). Rescreen with any change in mental status.',
 };

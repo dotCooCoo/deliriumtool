@@ -17,7 +17,7 @@ export const RASS_LEVELS = [
   { v: '+3', label: 'Very agitated', desc: 'Pulls or removes tube(s) or catheter(s); aggressive' },
   { v: '+2', label: 'Agitated', desc: 'Frequent non-purposeful movement' },
   { v: '+1', label: 'Restless', desc: 'Anxious but movements not aggressive or vigorous' },
-  { v: '0', label: 'Alert & calm', desc: '' },
+  { v: '0', label: 'Alert & calm', desc: 'Spontaneous attention to the examiner; calm' },
   {
     v: '-1',
     label: 'Mildly drowsy',
