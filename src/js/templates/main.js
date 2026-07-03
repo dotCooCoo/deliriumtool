@@ -668,28 +668,37 @@ function packUnifiedMosaic(sheets) {
  * page has slack instead, the medication type grows to use it (capped so it
  * never dwarfs the rest of the sheet).
  */
+// The footer rides at the page bottom (margin-top:auto); content may grow up to
+// its top edge. Judged in the sheet's own coordinate space (offsetTop is immune
+// to the preview transform), so it also reports free space below the content.
+function pageFitLimit(sheet) {
+  const padB = parseFloat(getComputedStyle(sheet).paddingBottom) || 0;
+  const foot = sheet.querySelector(':scope > .sh-foot');
+  return sheet.clientHeight - padB - (foot ? foot.offsetHeight + 2 : 0);
+}
+// Lowest content edge on the page. Uses scrollHeight, not offsetHeight, so a
+// fixed-height flex container (a card's .pc-body) reports content that spills
+// past its box instead of clipping it — otherwise the fit engine is blind to
+// the overflow and can't shrink to fix it. For a normal (bordered, non-clipping)
+// child offsetHeight >= scrollHeight, so this is unchanged for those.
+function pageContentBottom(sheet) {
+  const foot = sheet.querySelector(':scope > .sh-foot');
+  let m = 0;
+  for (const c of sheet.children) {
+    if (c === foot) continue;
+    m = Math.max(m, c.offsetTop + Math.max(c.offsetHeight, c.scrollHeight));
+  }
+  return m;
+}
+
 function autoFitMeds(sheets) {
   for (const sheet of sheets) {
     const meds = sheet.querySelector('.sh-meds');
-    // Fit is judged in the sheet's own coordinate space (offsetTop is immune
-    // to the preview transform, and unlike scrollHeight it also reports free
-    // space below the content, not just overflow past the edge).
-    const padB = parseFloat(getComputedStyle(sheet).paddingBottom) || 0;
-    // The footer rides at the page bottom (margin-top auto) — exclude it and
-    // treat its top edge as the limit the content may grow to.
-    const foot = sheet.querySelector(':scope > .sh-foot');
-    const limit = () => sheet.clientHeight - padB - (foot ? foot.offsetHeight + 2 : 0);
-    const contentBottom = () => {
-      let m = 0;
-      for (const c of sheet.children) {
-        if (c === foot) continue;
-        m = Math.max(m, c.offsetTop + c.offsetHeight);
-      }
-      return m;
-    };
+    const limit = () => pageFitLimit(sheet);
+    const contentBottom = () => pageContentBottom(sheet);
     // Strict: platform font metrics differ by a pixel or two — shrink until
     // the content is fully inside the page on every platform.
-    const over = () => contentBottom() > limit() || sheet.scrollHeight > sheet.clientHeight;
+    const over = () => contentBottom() > limit();
     let guard = 40;
     while (over() && guard-- > 0) {
       if (meds) {
@@ -750,8 +759,10 @@ function rescale() {
 
 function checkFit(sheets) {
   const warn = $('#fit-warn');
+  // Same content-vs-footer measure the auto-fit uses, so the warning only fires
+  // once a page still overflows after the type has shrunk to its floor.
   const over = sheets
-    .map((s, i) => (s.scrollHeight > s.clientHeight + 2 ? i + 1 : 0))
+    .map((s, i) => (pageContentBottom(s) > pageFitLimit(s) + 1 ? i + 1 : 0))
     .filter(Boolean);
   warn.hidden = !over.length;
   if (over.length) {
