@@ -5,6 +5,27 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.6.3] - 2026-07-03
+
+### Changed
+
+- Printed reference sheets now list **every** source their content draws on: the
+  footer source list is derived from the blocks each sheet renders, so a printed
+  dose, prevalence figure, or scoring rule is always attributed (previously some
+  block-level sources were dropped from the footer).
+- Added foundational primary-source citations for values already in the tool
+  (no clinical value changed): the original CAM (Inouye 1990) behind the
+  four-feature algorithm every screen uses; the DSM-5-TR diagnostic standard
+  behind the "screen, not a diagnosis" framing; the ICU-specific risk-factor
+  review (Zaal 2015) and cardiac-surgery rule (Rudolph 2009); the deliriogenic-
+  drug review (Clegg & Young 2011) and the benzodiazepine primary trial
+  (Pandharipande 2006); the early-mobility RCT (Schweickert 2009); the pediatric
+  RASS validation (Kerson 2016); and 3D-CAM (Marcantonio 2014) for the ward
+  pathway. Wired several already-referenced sources (CAM-ICU training manual,
+  Balas 2014, the pediatric PICU-liberation and delirium-algorithm papers) into
+  the sections that rely on them.
+
+
 ## [0.6.2] - 2026-07-03
 
 ### Fixed

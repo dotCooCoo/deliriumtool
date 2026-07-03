@@ -208,6 +208,7 @@ export const ED_FOOTER_CITES = {
     'bcam_manual',
     'fourat_form',
     'sessler2002_rass',
+    'han2010',
     'ged2_2026',
     'adept2020',
   ],

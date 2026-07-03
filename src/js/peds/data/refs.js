@@ -90,4 +90,16 @@ export const REFS = {
     c: 'Haloperidol prescribing information (boxed warnings; QTc / torsades). DailyMed, U.S. NLM.',
     u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f',
   },
+  kerson2016_rass: {
+    c: 'Kerson AG, DeMaria R, Mauer E, et al. Validity of the Richmond Agitation-Sedation Scale (RASS) in critically ill children. J Intensive Care. 2016;4:65. (Pediatric RASS validation — the arousal scale the tool applies to verbal children.)',
+    u: 'https://doi.org/10.1186/s40560-016-0189-5',
+  },
+  schieveld2009: {
+    c: 'Schieveld JNM, et al. Pediatric delirium in critical illness: phenomenology, clinical correlates and diagnostic/management algorithm (open access). Intensive Care Med. 2009;35(11):1843-1849.',
+    u: 'https://doi.org/10.1007/s00134-009-1652-8',
+  },
+  waak2022_picustars: {
+    c: 'Waak M, et al. Nurse-led PICU liberation (PICUstars) implementation protocol. BMC Pediatr. 2022;22:279.',
+    u: 'https://doi.org/10.1186/s12887-022-03232-2',
+  },
 };

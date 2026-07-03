@@ -274,4 +274,49 @@ export const DELIRIUM_REFS = {
     c: 'Boustani M, Campbell N, Munger S, Maidment I, Fox C. Impact of anticholinergics on the aging brain: a review and practical application (Anticholinergic Cognitive Burden scale). Aging Health. 2008;4(3):311-320.',
     u: 'https://doi.org/10.2217/1745509X.4.3.311',
   },
+  inouye1990: {
+    l: 'Inouye 1990 (CAM)',
+    c: 'Inouye SK, van Dyck CH, Alessi CA, Balkin S, Siegal AP, Horwitz RI. Clarifying confusion: the Confusion Assessment Method. Ann Intern Med. 1990;113(12):941-948. (The original CAM; the four-feature 1 AND 2 AND (3 OR 4) algorithm the CAM-ICU adapts.)',
+    u: 'https://doi.org/10.7326/0003-4819-113-12-941',
+  },
+  dsm5tr: {
+    l: 'DSM-5-TR',
+    c: 'American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders, 5th ed, Text Revision (DSM-5-TR). Washington, DC: APA; 2022. (Delirium diagnostic criteria — the reference standard every bedside screen is validated against.)',
+    u: 'https://doi.org/10.1176/appi.books.9780890425787',
+  },
+  zaal2015: {
+    l: 'Zaal 2015',
+    c: 'Zaal IJ, Devlin JW, Peelen LM, Slooter AJC. A systematic review of risk factors for delirium in the ICU. Crit Care Med. 2015;43(1):40-47. (ICU-specific risk-factor review grading each factor.)',
+    u: 'https://doi.org/10.1097/CCM.0000000000000625',
+  },
+  clegg2011: {
+    l: 'Clegg 2011',
+    c: 'Clegg A, Young JB. Which medications to avoid in people at risk of delirium: a systematic review. Age Ageing. 2011;40(1):23-29. (Canonical review of delirium-precipitating medications.)',
+    u: 'https://doi.org/10.1093/ageing/afq140',
+  },
+  schweickert2009: {
+    l: 'Schweickert 2009',
+    c: 'Schweickert WD, Pohlman MC, Pohlman AS, et al. Early physical and occupational therapy in mechanically ventilated, critically ill patients: a randomised controlled trial. Lancet. 2009;373(9678):1874-1882. (Landmark RCT: early mobility shortens delirium duration — the evidence behind bundle element E.)',
+    u: 'https://doi.org/10.1016/S0140-6736(09)60658-9',
+  },
+  pandharipande2006: {
+    l: 'Pandharipande 2006',
+    c: 'Pandharipande P, Shintani A, Peterson J, et al. Lorazepam is an independent risk factor for transitioning to delirium in ICU patients. Anesthesiology. 2006;104(1):21-26. (Primary trial establishing the independent, dose-dependent benzodiazepine-to-delirium relationship.)',
+    u: 'https://pubmed.ncbi.nlm.nih.gov/16394685/',
+  },
+  marcantonio2014_3dcam: {
+    l: '3D-CAM 2014',
+    c: "Marcantonio ER, Ngo LH, O'Connor M, et al. 3D-CAM: derivation and validation of a 3-minute diagnostic interview for CAM-defined delirium. Ann Intern Med. 2014;161(8):554-561. (The ward-validated CAM the general/step-down pathway recommends.)",
+    u: 'https://doi.org/10.7326/M14-0865',
+  },
+  rudolph2009: {
+    l: 'Rudolph 2009',
+    c: 'Rudolph JL, Jones RN, Levkoff SE, et al. Derivation and validation of a preoperative prediction rule for delirium after cardiac surgery. Circulation. 2009;119(2):229-236. (Validated surgery-specific delirium prediction rule.)',
+    u: 'https://doi.org/10.1161/CIRCULATIONAHA.108.795260',
+  },
+  snigurska2023: {
+    l: 'Snigurska 2023',
+    c: 'Snigurska UA, Keil MF, Chin AR, et al. Risk of bias in delirium prediction models: a systematic review. PLoS ONE. 2023;18(5):e0285527. (Even published prediction models carry substantial risk of bias — nuance for the prefer-a-validated-model framing.)',
+    u: 'https://doi.org/10.1371/journal.pone.0285527',
+  },
 };
