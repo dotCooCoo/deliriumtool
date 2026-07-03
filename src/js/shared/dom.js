@@ -5,6 +5,24 @@
  */
 const SVGNS = 'http://www.w3.org/2000/svg';
 
+/** Element builder: el('div', { class: 'x', text: 'y' }, ...children). */
+export function el(tag, props, ...kids) {
+  const node = document.createElement(tag);
+  if (props) {
+    for (const [k, v] of Object.entries(props)) {
+      if (k === 'class') node.className = v;
+      else if (k === 'text') node.textContent = v;
+      else node.setAttribute(k, String(v));
+    }
+  }
+  for (const kid of kids) if (kid != null) node.append(kid);
+  return node;
+}
+
+/** querySelector / querySelectorAll shorthands. */
+export const $ = (sel) => document.querySelector(sel);
+export const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
 export function faIcon(id, cls) {
   const svg = document.createElementNS(SVGNS, 'svg');
   svg.setAttribute('class', cls || 'fa');

@@ -45,24 +45,8 @@ import {
   exportJSON,
   importJSON,
 } from './state.js';
-import { faIcon, applyGlossary } from '../shared/dom.js';
+import { faIcon, applyGlossary, el, $, $$ } from '../shared/dom.js';
 import { initA11y } from '../shared/a11y.js';
-
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => Array.from(document.querySelectorAll(sel));
-
-function el(tag, props, ...kids) {
-  const node = document.createElement(tag);
-  if (props) {
-    for (const [k, v] of Object.entries(props)) {
-      if (k === 'class') node.className = v;
-      else if (k === 'text') node.textContent = v;
-      else node.setAttribute(k, String(v));
-    }
-  }
-  for (const kid of kids) if (kid != null) node.append(kid);
-  return node;
-}
 
 const GLOSSARY = {
   'CAM-ICU': 'Confusion Assessment Method for the ICU',

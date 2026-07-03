@@ -8,38 +8,18 @@
  * site's Referrer-Policy: no-referrer keeps it out of referrer headers.
  */
 
-export function toBase64Url(str) {
-  const bytes = new TextEncoder().encode(str);
-  let bin = '';
-  bytes.forEach((b) => {
-    bin += String.fromCharCode(b);
-  });
-  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
-export function fromBase64Url(b64) {
-  const pad = b64.length % 4 ? '='.repeat(4 - (b64.length % 4)) : '';
-  const bin = atob(b64.replace(/-/g, '+').replace(/_/g, '/') + pad);
-  const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
-  return new TextDecoder().decode(bytes);
-}
+import { buildHashUrl, readHashPayload } from './shared/share-codec.js';
+export { toBase64Url, fromBase64Url, copyText } from './shared/share-codec.js';
 
 /** Build a shareable URL carrying only the de-identified configuration. */
 export function buildShareUrl({ pathway, settings, meds }) {
   const payload = { v: 1, pathway: pathway || null, settings: settings || {}, meds: meds || null };
-  return `${location.origin}${location.pathname}#cfg=${toBase64Url(JSON.stringify(payload))}`;
+  return buildHashUrl('cfg', payload);
 }
 
 /** Read a shared configuration from the current URL hash, or null if none/invalid. */
 export function readShareUrl() {
-  const m = /[#&]cfg=([^&]+)/.exec(location.hash);
-  if (!m) return null;
-  try {
-    const obj = JSON.parse(fromBase64Url(m[1]));
-    return obj && typeof obj === 'object' ? obj : null;
-  } catch {
-    return null;
-  }
+  return readHashPayload('cfg');
 }
 
 /** Copy text to the clipboard; resolves true on success. */

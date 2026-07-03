@@ -5,6 +5,9 @@
  * is sent anywhere; the snapshot is de-identified by construction (coded inputs,
  * no names — the hospital/unit label is the only free text).
  */
+import { makeStore } from '../shared/store.js';
+import { downloadJSON, pickJSON } from '../shared/files.js';
+
 const KEY = 'deliriumtool:peds';
 const SETTINGS_KEY = 'deliriumtool:peds:settings';
 const SNAPSHOT_KEYS = [
@@ -29,35 +32,10 @@ export function snapshot(state) {
   return out;
 }
 
-let timer = null;
-export function autosave(state) {
-  clearTimeout(timer);
-  timer = setTimeout(() => {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(snapshot(state)));
-    } catch {
-      /* storage unavailable (private mode / quota) — non-fatal */
-    }
-  }, 400);
-}
-
-// Save immediately (used on page hide so a quick reload never loses the last edit).
-export function flushSave(state) {
-  clearTimeout(timer);
-  try {
-    localStorage.setItem(KEY, JSON.stringify(snapshot(state)));
-  } catch {
-    /* non-fatal */
-  }
-}
-
-export function loadSaved() {
-  try {
-    return JSON.parse(localStorage.getItem(KEY) || 'null');
-  } catch {
-    return null;
-  }
-}
+const store = makeStore(KEY, snapshot);
+export const autosave = store.autosave;
+export const flushSave = store.flushSave;
+export const loadSaved = store.loadSaved;
 
 export function clearSaved() {
   try {
@@ -65,41 +43,6 @@ export function clearSaved() {
   } catch {
     /* non-fatal */
   }
-}
-
-function downloadJSON(obj, filename) {
-  const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    URL.revokeObjectURL(a.href);
-    a.remove();
-  }, 0);
-}
-
-function pickJSON() {
-  return new Promise((resolve) => {
-    const inp = document.createElement('input');
-    inp.type = 'file';
-    inp.accept = '.json,application/json';
-    inp.onchange = () => {
-      const f = inp.files && inp.files[0];
-      if (!f) return resolve(null);
-      const r = new FileReader();
-      r.onload = () => {
-        try {
-          resolve(JSON.parse(r.result));
-        } catch {
-          resolve({ __error: 'parse' });
-        }
-      };
-      r.readAsText(f);
-    };
-    inp.click();
-  });
 }
 
 export function exportJSON(state) {

@@ -8,7 +8,9 @@
  * colleague without anything touching a server.
  */
 import { MEDS } from '../data/meds.js';
-import { toBase64Url, fromBase64Url } from '../share.js';
+import { makeStore } from '../shared/store.js';
+import { downloadJSON, pickJSON } from '../shared/files.js';
+import { buildHashUrl, readHashPayload } from '../shared/share-codec.js';
 
 const KEY = 'deliriumtool:templates';
 
@@ -161,19 +163,9 @@ export function sanitize(raw) {
 }
 
 // ── Local persistence (debounced autosave; flushed on page hide) ─────────────
-let timer = null;
-export function autosave(state) {
-  clearTimeout(timer);
-  timer = setTimeout(() => flushSave(state), 400);
-}
-export function flushSave(state) {
-  clearTimeout(timer);
-  try {
-    localStorage.setItem(KEY, JSON.stringify(state));
-  } catch {
-    /* storage unavailable (private mode / quota) — non-fatal */
-  }
-}
+const store = makeStore(KEY);
+export const autosave = store.autosave;
+export const flushSave = store.flushSave;
 export function loadSaved() {
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
@@ -192,23 +184,15 @@ export function clearSaved() {
 
 // ── Share via URL fragment (config only; Referrer-Policy: no-referrer) ───────
 export function buildShareUrl(state) {
-  return `${location.origin}${location.pathname}#tpl=${toBase64Url(JSON.stringify(state))}`;
+  return buildHashUrl('tpl', state);
 }
 export function readShareUrl() {
-  const m = /[#&]tpl=([^&]+)/.exec(location.hash);
-  if (!m) return null;
-  try {
-    return sanitize(JSON.parse(fromBase64Url(m[1])));
-  } catch {
-    return null;
-  }
+  const raw = readHashPayload('tpl');
+  return raw ? sanitize(raw) : null;
 }
 
 // ── JSON export / import ─────────────────────────────────────────────────────
 export function exportJSON(state) {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
   const slug = (v) =>
     v
       .trim()
@@ -223,36 +207,14 @@ export function exportJSON(state) {
   ]
     .filter(Boolean)
     .join('_');
-  a.download = `${parts}.json`;
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    URL.revokeObjectURL(a.href);
-    a.remove();
-  }, 0);
+  downloadJSON(state, `${parts}.json`);
 }
 export function importJSON() {
-  return new Promise((resolve) => {
-    const inp = document.createElement('input');
-    inp.type = 'file';
-    inp.accept = '.json,application/json';
-    inp.onchange = () => {
-      const f = inp.files && inp.files[0];
-      if (!f) return resolve(null);
-      const r = new FileReader();
-      r.onload = () => {
-        try {
-          const raw = JSON.parse(r.result);
-          // A valid-JSON file that isn't a designer config must not silently
-          // reset the whole configuration to defaults.
-          if (!looksLikeConfig(raw)) return resolve({ __error: 'shape' });
-          resolve(sanitize(raw));
-        } catch {
-          resolve({ __error: 'parse' });
-        }
-      };
-      r.readAsText(f);
-    };
-    inp.click();
+  return pickJSON().then((raw) => {
+    if (raw == null || raw.__error) return raw;
+    // A valid-JSON file that isn't a designer config must not silently
+    // reset the whole configuration to defaults.
+    if (!looksLikeConfig(raw)) return { __error: 'shape' };
+    return sanitize(raw);
   });
 }
