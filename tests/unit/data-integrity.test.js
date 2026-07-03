@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { MEDS } from '../../src/js/data/meds.js';
 import { DELIRIUM_REFS } from '../../src/js/data/refs.js';
+import { REFS as ED_REFS } from '../../src/js/ed/data/refs.js';
 
 test('medication catalog: 11 categories, 103 agents, unique ids, required fields', () => {
   assert.equal(MEDS.categories.length, 11);
@@ -45,6 +46,17 @@ test('medication tiers & defaults: higher-risk flagged + long tail off by defaul
     MEDS.categories.find((c) => c.id === 'antimicro').items.every((i) => !i.on),
     'antimicrobials off by default',
   );
+});
+
+test('ED citation registry: every source has a label, citation, and an http(s) URL', () => {
+  const ids = Object.keys(ED_REFS);
+  assert.ok(ids.length >= 15, 'expected the full ED citation registry');
+  for (const id of ids) {
+    const r = ED_REFS[id];
+    assert.ok(r.l && r.l.trim(), `${id} has a label`);
+    assert.ok(r.c && r.c.trim(), `${id} has a citation`);
+    assert.match(r.u, /^https?:\/\//, `${id} has an http(s) URL`);
+  }
 });
 
 test('citation registry: every source has a label, citation, and an http(s) URL', () => {

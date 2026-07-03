@@ -5,6 +5,27 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-03
+
+### Added
+
+- **ED Delirium Screening tool** at `/ed/` — emergency-department screening
+  for older adults with three guideline-backed pathways: the two-step
+  **DTS → bCAM** (a <20-second, 98%-sensitive triage rule-out, then the
+  highly specific bCAM with the validated scripts, question sets, and the
+  inattention cardinal rule), the **bCAM directly** for high-risk screening
+  (ACEP ED-DEL option), and the **4AT** (the form's verbatim items and
+  0 / 1–3 / ≥4 score bands). The attention tasks are tap-to-count flowsheets;
+  the RASS rows carry the ED-adapted behavioral anchors from the instrument
+  worksheets; RASS −4/−5 gates as unable to assess, and stale answers are
+  cleared when a gate closes. Around the screens: checkable
+  act-on-a-positive guidance (ADEPT / ED-DEL), unit setup with a default
+  pathway, example data, and a designed summary document (assessor, editable
+  time, verdict) that prints or saves as a PDF, plus JSON export/import with
+  strict validation. Every instrument card cites its sources inline and the
+  Sources list renders from the citation registry; scoring and sanitizers
+  pass strict validation.
+
 ## [0.2.0] - 2026-07-02
 
 ### Added
@@ -53,6 +74,14 @@ Notable changes to this project, following
   the saved filename uses readable segments, e.g.
   `icu-delirium-rounding-tool_Rev-B_2026-07-02.pdf`.
 
+
+- The saved template PDF now mirrors the on-screen sheet: leftover page space
+  becomes padding between the check rows and slightly larger medication type
+  (exactly like the live preview), card rows share equal heights, the
+  DELIRIUM(S) cells use the sheet's white-card style with the colored letter
+  and bottom-aligned Action blanks, target RASS rows carry the same green
+  "TARGET" check marks, and long headings wrap instead of clipping.
+
 ### Fixed
 
 - On the adult tool the Accessibility options sit centered above the
@@ -77,14 +106,6 @@ Notable changes to this project, following
   headings) no longer touch or overlap the first line beneath them; every
   wrapped heading advances by the same line height the text is drawn with.
 
-### Changed
-
-- The saved template PDF now mirrors the on-screen sheet: leftover page space
-  becomes padding between the check rows and slightly larger medication type
-  (exactly like the live preview), card rows share equal heights, the
-  DELIRIUM(S) cells use the sheet's white-card style with the colored letter
-  and bottom-aligned Action blanks, target RASS rows carry the same green
-  "TARGET" check marks, and long headings wrap instead of clipping.
 
 ## [0.1.0] - 2026-07-02
 

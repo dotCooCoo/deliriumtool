@@ -41,6 +41,7 @@ const js = await esbuild.build({
     app: join(src, 'js', 'main.js'),
     peds: join(src, 'js', 'peds', 'main.js'),
     templates: join(src, 'js', 'templates', 'main.js'),
+    ed: join(src, 'js', 'ed', 'main.js'),
   },
   bundle: true,
   format: 'iife',
@@ -58,6 +59,7 @@ const css = await esbuild.build({
     app: join(src, 'styles', 'app.css'),
     peds: join(src, 'styles', 'peds.css'),
     templates: join(src, 'styles', 'templates.css'),
+    ed: join(src, 'styles', 'ed.css'),
   },
   bundle: true,
   minify: true,
@@ -80,6 +82,8 @@ const pedsJsName = outName(js.metafile, 'peds', '.js');
 const pedsCssName = outName(css.metafile, 'peds', '.css');
 const tplJsName = outName(js.metafile, 'templates', '.js');
 const tplCssName = outName(css.metafile, 'templates', '.css');
+const edJsName = outName(js.metafile, 'ed', '.js');
+const edCssName = outName(css.metafile, 'ed', '.css');
 
 // Rewrite each entry document's asset placeholders to the content-hashed names.
 // Relative paths keep the built dist/ working from file://; the pediatric page
@@ -102,6 +106,11 @@ await emitPage('peds/index.html', 'peds/index.html', [
 await emitPage('templates/index.html', 'templates/index.html', [
   ['../assets/templates.js', `../assets/${tplJsName}`],
   ['../assets/templates.css', `../assets/${tplCssName}`],
+  ['../assets/app.css', `../assets/${cssName}`],
+]);
+await emitPage('ed/index.html', 'ed/index.html', [
+  ['../assets/ed.js', `../assets/${edJsName}`],
+  ['../assets/ed.css', `../assets/${edCssName}`],
   ['../assets/app.css', `../assets/${cssName}`],
 ]);
 
@@ -139,6 +148,13 @@ const rootImages = [
   'templates-icon-192.png',
   'templates-icon-512.png',
   'templates-og-image.png',
+  'logo-red.png',
+  'ed-favicon-16.png',
+  'ed-favicon-32.png',
+  'ed-apple-touch-icon.png',
+  'ed-icon-192.png',
+  'ed-icon-512.png',
+  'ed-og-image.png',
 ];
 await mkdir(join(dist, 'img'), { recursive: true });
 for (const name of rootImages) {
@@ -146,7 +162,7 @@ for (const name of rootImages) {
   if (existsSync(file)) await copyFile(file, join(dist, 'img', name));
 }
 // Root files served verbatim: the PWA manifest and the crawler files.
-for (const name of ['site.webmanifest', 'robots.txt', 'sitemap.xml']) {
+for (const name of ['site.webmanifest', 'robots.txt', 'sitemap.xml', '404.html']) {
   if (existsSync(join(src, name))) await copyFile(join(src, name), join(dist, name));
 }
 // The pediatric tool has its own manifest so installing from /peds/ gives a
@@ -155,6 +171,9 @@ if (existsSync(join(src, 'peds', 'site.webmanifest'))) {
   await copyFile(join(src, 'peds', 'site.webmanifest'), join(dist, 'peds', 'site.webmanifest'));
 }
 // Likewise the template designer: installing from /templates/ gives its own app.
+if (existsSync(join(src, 'ed', 'site.webmanifest'))) {
+  await copyFile(join(src, 'ed', 'site.webmanifest'), join(dist, 'ed', 'site.webmanifest'));
+}
 if (existsSync(join(src, 'templates', 'site.webmanifest'))) {
   await copyFile(
     join(src, 'templates', 'site.webmanifest'),

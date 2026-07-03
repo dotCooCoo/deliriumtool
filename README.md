@@ -8,7 +8,7 @@ Bedside reference for ICU delirium — screening, prevention, and management at 
 > recommendation against the cited primary sources and your institution's policy.
 > Provided "as is", without warranty.
 
-## The three tools
+## The four tools
 
 **Adult ICU tool** ([deliriumtool.com](https://deliriumtool.com/)) — the main
 bedside reference:
@@ -31,6 +31,13 @@ bedside reference:
 CAPD, pCAM-ICU, and psCAM-ICU screening with age-banded developmental anchors and
 an SBS/RASS arousal gate, the pediatric prevention bundle, weight-based dosing
 references, and an in-browser summary report. Same privacy model.
+
+**ED screening tool**
+([deliriumtool.com/ed](https://deliriumtool.com/ed/)) — delirium screening for
+older emergency-department patients: the two-step **DTS → bCAM** pathway, the
+**bCAM directly** for high-risk screening, and the **4AT** — with the
+validated scripts and thresholds, an unable-to-assess gate, guideline-backed
+next steps, and a de-identified print/PDF summary. Same privacy model.
 
 **Bedside template designer**
 ([deliriumtool.com/templates](https://deliriumtool.com/templates/)) — customize

@@ -274,6 +274,80 @@ pediatric tool's modules (`tests/unit/templates-peds.test.js`).
 
 ---
 
+### 2.11 Emergency-department screening tool (/ed/)
+
+The ED tool implements three guideline-backed screening pathways for older
+emergency-department patients: the two-step DTS → bCAM, the bCAM directly
+(the ACEP ED-DEL change package's option when screening high-risk patients
+only), and the 4AT. The instruments are conditionally recommended by the
+Geriatric Emergency Department Guidelines 2.0 delirium chapter (Lee 2026,
+recommendation 4: "4AT, bCAM, CAM-ICU, mCAM, AMT-4, or RASS may be used to
+rule in or rule out delirium"; recommendation 5: the DTS "may be used to rule
+out delirium" — all conditional, very-low-certainty evidence). GED 2.0 makes
+no recommendation for universal screening — it notes routine screening of all
+older ED adults is resource-intensive and offers validated risk scores to
+identify low-risk patients and reduce universal screening; the tool's Setup
+tab carries that framing verbatim.
+
+**Two-step DTS → bCAM (Han 2013; Vanderbilt DTS/bCAM manuals v1.0; Geriatric
+ED Guidelines 2014).** The Delirium Triage Screen is positive when the RASS is
+anything other than 0, or the patient makes ≥2 errors spelling "LUNCH"
+backwards (a missing letter is one error; refusal or inability to start is
+positive; the task stops after a >15-second pause). Sensitivity 98% for both
+physician and non-physician raters — a negative DTS rules delirium out. A
+positive DTS triggers the bCAM: Feature 1 (acute change or fluctuation, by
+informant; assumed positive when no informant is available and Features 2 and
+3-or-4 are positive) AND Feature 2 (months backwards December→July, >1 error
+or unable — the required cardinal feature) AND (Feature 3: RASS ≠ 0, carried
+over from the arousal assessment, OR Feature 4: four yes/no questions in
+alternating sets plus a two-step command, ANY error positive). Physician
+84%/95.8%, non-physician 78%/96.9%. RASS −4/−5 is stupor/coma — the tool
+records "unable to assess" and directs reassessment, mirroring the CAM-ICU
+and pediatric gates. The RASS rows carry the ED-adapted behavioral anchors
+printed on the DTS/bCAM worksheets (e.g. −1 "sustained awakening to voice
+>10 seconds", −4 "arousable to pain only") rather than Sessler's ICU sedation
+labels, because the 0 vs −1 boundary decides DTS positivity and −3 vs −4
+decides the unable gate. Both attention tasks are tap-to-count flowsheets
+(tap each missed letter/month; the error count scores the rule), and stale
+answers are cleared when a gate closes (leaving RASS 0 clears the LUNCH task;
+a negative DTS clears the bCAM features behind it).
+
+**4AT v1.2 (MacLullich/Ryan/Cash; free to use; SIGN 157 and NICE CG103 2023
+recommend it for ED/acute settings).** Four items with the form's verbatim
+anchors — alertness (0/4), AMT4 (age, date of birth, place, current year:
+0/1/2), attention months-backwards (≥7 months = 0; starts but <7 = 1;
+untestable = 2), acute change or fluctuating course (0/4) — summing 0–12.
+Bands per the form: ≥4 possible delirium ± cognitive impairment; 1–3 possible
+cognitive impairment; 0 delirium unlikely (the tool carries the form's caveat
+that 0 does not definitively exclude delirium when item-4 information is
+incomplete). Validation: Bellelli 2014; Shenkin 2019 (randomised head-to-head
+vs CAM: 4AT sensitivity 76% / specificity 94%); Tieges 2021 meta-analysis
+(pooled sensitivity 0.88).
+
+Validated instrument scripts and thresholds render verbatim from
+`src/js/ed/data/instruments.js` and are pinned by golden-value tests
+(`tests/unit/ed-scoring.test.js`); the act-on-a-positive content follows the
+ADEPT tool (Shenvi 2020) and the ACEP ED-DEL toolkit. The intro's
+epidemiology (8–17% prevalence, ~76% missed, 6-month mortality HR ≈ 1.7)
+carries Han 2009/2010. The tool is de-identified by construction and
+generates a local print/PDF summary only (assessor, editable assessment
+time, pathway, scores, actions started, and de-identified notes). Out of
+scope in this version: ED-specific risk-stratification scores (GED 2.0
+recommendations 1–3), head-CT decision support (GED 2.0 recommendation 6
+found insufficient evidence to recommend for or against), and agitation
+pharmacotherapy — all listed for future work.
+
+**Licensing note.** The 4AT is free to use (the4at.com; form © MacLullich,
+Ryan, Cash). The DTS and bCAM flowsheets are © 2012 Vanderbilt University
+("not to be reproduced without permission"; the underlying CAM algorithm is
+© 2003 Hospital Elder Life Program, LLC), though the instruments and manuals
+are distributed free from eddelirium.org for clinical use. The tool renders
+the instruments' scripted wording for bedside fidelity; permission status for
+public redistribution should be confirmed before wide promotion of this page.
+
+**Review status.** ED clinical content pending emergency-clinician sign-off
+(the on-page scope note carries the same gate).
+
 ## 3. Citation registry
 
 Every source in the application's citation registry, reproduced as the tool stores it. Inline citations and per-tab reference lists are generated from this single registry. Identifiers marked **† not locally archived** are cited by canonical URL only (see §4).
@@ -607,8 +681,18 @@ Base cadence       : Annual full review, plus event-driven reviews on any in-sco
 | §2.6 DELIRIUM(S) mnemonic | ICUDelirium mnemonics; Maldonado 2018; Flaherty 2011 | [date] | [name] |
 | §2.7 Treatment algorithm | PADIS 2018/2025; MIND-USA; Project BETA; NICE NG10 | [date] | [name] |
 | §2.8 Medications & deliriogenic list | AGS Beers 2023; PADIS 2018/2025; MENDS2; haloperidol PI; Pro-MEDIC | [date] | [name] |
+| §2.9 Bedside template designer | Mirrors §§2.1–2.8 via `src/js/templates/data/content.js` | [date] | [name] |
+| §2.10 Pediatric card set | Mirrors the peds tool's data modules | [date] | [name] |
+| §2.11 ED screening (DTS/bCAM/4AT) | Han 2013; Vanderbilt DTS/bCAM manuals v1.0; 4AT v1.2; GED 2.0; SIGN 157; NICE CG103; ADEPT; ED-DEL | 2026-07-02 | pending ED-clinician sign-off |
 
 ### 6.3 Review cadence — source-cycle triggers
+
+ED source watch (added with §2.11): the 4AT form version (v1.2, the4at.com),
+GED Guidelines 2.0 (Lee 2026 — new; watch for errata/updates), the Vanderbilt
+DTS/bCAM manuals (eddelirium.org, v1.0 2015), SIGN 157, NICE CG103, and the
+ADEPT tool / ACEP ED-DEL change package. Re-verify on each release that the
+rendered instrument wording still matches the archived copies in
+`references/ed/`.
 
 The base cadence is an **annual full review**. In addition, any publication in the table below triggers an **out-of-cycle review** of the rows it governs, within the stated window. When a trigger fires, update the affected content *and its citation together* (per the project's hard invariant), log a change-log row (§6.5), and reset the relevant ledger dates (§6.2).
 
@@ -639,7 +723,7 @@ Every numeric or directive output carries a tier so a reviewer can see at a glan
 
 ### 6.5 Clinical-content change log
 
-Record every change to a clinical value, threshold, band, dose, instrument logic, or citation. One row per change. The CCO signs each row. "App text synced?" confirms the in-app wording (`src/index.html`, `pdf.js`) and this methodology doc were updated together, so the cited number and the displayed number can never diverge.
+Record every change to a clinical value, threshold, band, dose, instrument logic, or citation. One row per change. The CCO signs each row. "App text synced?" confirms the in-app wording (the page HTML and data modules of the adult, pediatric, ED, and template tools) and this methodology doc were updated together, so the cited number and the displayed number can never diverge.
 
 **Columns:** `Date | Section/Item | What changed | Why (clinical rationale) | Source(s) | Tier/grade | Owner | App text synced?`
 
