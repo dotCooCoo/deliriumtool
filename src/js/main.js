@@ -321,7 +321,6 @@ const onChange = {
   bundle: () => ui.updBundle(),
   mnemonic: () => ui.updMnemonic(),
   rass: () => ui.updateRass(),
-  camLoc: () => ui.updateCamLoc(),
 };
 
 const onInput = {
@@ -459,6 +458,13 @@ function init() {
     });
     fac.addEventListener('input', () => ui.updateExportMedSummary());
   }
+
+  // Card and section titles are visual headings — expose them to assistive tech
+  // so screen-reader users can navigate the workspace by heading.
+  root.querySelectorAll('.card-head, .sec-title').forEach((h) => {
+    h.setAttribute('role', 'heading');
+    h.setAttribute('aria-level', '2');
+  });
 
   // Resume an in-progress assessment, apply a shared config, or show the picker.
   const saved = loadAutosave();

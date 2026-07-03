@@ -5,6 +5,45 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-07-03
+
+### Changed
+
+- CAM-ICU Feature 3 (altered level of consciousness) is now read directly from
+  the documented RASS instead of a separate dropdown, so it can never disagree
+  with the RASS on record. A screen with an altered RASS reads positive without
+  a redundant second entry.
+
+### Fixed
+
+- The "Full Rounding Tool" PDF no longer prints a blank page: the protocol &
+  governance block flows onto a page with room instead of overflowing onto its
+  own near-empty sheet.
+- The not-found (404) page now renders with its styling under the strict
+  content-security policy instead of unstyled.
+- Printing the ED Delirium Card Set no longer overlaps the 4AT card's guidance
+  with the page footer.
+- The pediatric tool keeps keyboard focus while marking CAM-ICU inattention
+  errors instead of dropping it after each mark.
+- Editing a child's age to a materially different child now clears instrument
+  answers that no longer apply, instead of showing a stale verdict.
+- Switching the pediatric arousal scale (RASS <-> SBS) confirms before clearing
+  an already-recorded level.
+- The pediatric bedside cards re-fit to the window on resize for a freshly
+  started assessment, not only a restored one.
+- The template designer rejects an imported assessment JSON from another tool
+  instead of silently overwriting the current template.
+- Saving a template PDF reports a problem instead of failing silently.
+- The adult risk note reads "max 15" to match the fifteen-factor checklist.
+
+### Accessibility
+
+- The pediatric age-unit selectors have accessible names.
+- The pediatric "0 - alert and calm" arousal row meets AA contrast.
+- Card and section titles are exposed as headings for screen-reader navigation.
+- Tab panels are no longer redundant keyboard stops.
+
+
 ## [0.6.0] - 2026-07-03
 
 ### Changed

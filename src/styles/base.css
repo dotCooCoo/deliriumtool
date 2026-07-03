@@ -155,6 +155,7 @@ html[data-motion='reduce'] *::after {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 40px;
   padding: 6px 11px;
   border: 1px solid var(--c-border-strong);
   border-radius: 8px;

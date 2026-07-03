@@ -935,7 +935,15 @@ function buildFull(doc, opts, k) {
     })(),
   });
   y = doc.lastAutoTable.finalY;
-  y = governanceStrip(doc, y, opts.settings, k);
+  // The governance strip needs ~66pt. When page 1's checklist fills the page,
+  // drawing it here makes autoTable paginate the strip onto a near-blank orphan
+  // page — defer it to the last content page (end of buildFull) instead.
+  var govDeferred = false;
+  if (y + 66 * k <= PH - M) {
+    y = governanceStrip(doc, y, opts.settings, k);
+  } else {
+    govDeferred = true;
+  }
 
   footer(doc);
 
@@ -1183,6 +1191,25 @@ function buildFull(doc, opts, k) {
         ],
       ],
     });
+  }
+
+  // Draw the governance strip here if it was deferred off a full page 1, so it
+  // lands on a page with room rather than orphaning onto its own page.
+  if (govDeferred) {
+    y = doc.lastAutoTable.finalY;
+    if (y + 66 * k > PH - M) {
+      doc.addPage('letter', 'landscape');
+      y = header(
+        doc,
+        facility,
+        'ICU Delirium Rounding Tool — Protocol & Governance',
+        'Protocol metadata for this unit',
+        'Patient: ' + blank + '   Date: ' + dt,
+      );
+    } else {
+      y += 6;
+    }
+    y = governanceStrip(doc, y, opts.settings, k);
   }
 
   footer(doc);

@@ -1,6 +1,7 @@
 // Pediatric tool (/peds/): profile-first flow, theme/logo, SEO, and the screens.
 /* global document, getComputedStyle */
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 // Fill the child profile and derive a screen. Default age routes to CAPD.
 async function start(page, ageMonths = 36) {
@@ -532,4 +533,40 @@ test('the generated report includes a Bedside cards used section', async ({ page
   const download = page.waitForEvent('download');
   await page.click('[data-act="generateReport"]');
   expect((await download).suggestedFilename()).toMatch(/pediatric-delirium-summary/);
+});
+
+test('profile screen has no serious a11y violations (labeled unit selects, contrast)', async ({
+  page,
+}) => {
+  await page.goto('/peds/');
+  // Reveal the developmental-age row so both unit <select>s are in scope.
+  await page.selectOption('#prof-baseline', 'impaired');
+  const results = await new AxeBuilder({ page }).analyze();
+  const serious = results.violations.filter((v) => ['serious', 'critical'].includes(v.impact));
+  expect(serious.map((v) => v.id).join(','), JSON.stringify(serious, null, 2)).toBe('');
+});
+
+test('marking a CAM error keeps keyboard focus on the control', async ({ page }) => {
+  await start(page, 84); // 7 yr → CAPD recommended, pCAM offered
+  await page.click('[data-act="switchScreen"][data-screen="pcam"]');
+  await setArousal(page, '0');
+  await camYes(page, 'f1'); // Feature 1 present → Feature 2 error chips appear
+  const chip = page.locator('.errchip[data-cam-err="f2"][data-idx="0"]');
+  await chip.focus();
+  await chip.press('Enter'); // toggles the error and rebuilds the feature list
+  await expect(page.locator('.errchip[data-cam-err="f2"][data-idx="0"]')).toBeFocused();
+});
+
+test('editing the child to a different age clears stale instrument answers', async ({ page }) => {
+  await start(page, 8); // 8 mo → CAPD
+  await setArousal(page, '0');
+  await page
+    .locator('#capd-items label.pseg-opt', { has: page.locator('input[value="4"]') })
+    .first()
+    .click();
+  await expect(page.locator('#capd-items input[value="4"]').first()).toBeChecked();
+  await page.click('[data-act="reset"]'); // Edit child — back to the profile form
+  await page.fill('#prof-age', '20'); // a different child (still CAPD)
+  await page.click('[data-act="deriveScreen"]');
+  await expect(page.locator('#capd-items input[value="4"]').first()).not.toBeChecked();
 });

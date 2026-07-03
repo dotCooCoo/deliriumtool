@@ -579,12 +579,28 @@ test('ED card set: no card overflows one portrait page, even with a long facilit
   await page.check('input[name="template"][value="ed-cards"]');
   await page.fill('#f-facility', 'Metropolitan Regional Medical Center Emergency Department');
   await expect(page.locator('#fit-warn')).toBeHidden();
+  // The .sheet clips overflow, so scrollHeight is blind to content spilling onto
+  // the footer at print size. Measure the deepest body child against the footer
+  // top under print media — that is what actually collides on a printed page.
+  await page.emulateMedia({ media: 'print' });
   const over = await page.evaluate(() =>
-    [...document.querySelectorAll('.sheet')].map((s) => s.scrollHeight - s.clientHeight),
+    [...document.querySelectorAll('.sheet')].map((s) => {
+      const foot = s.querySelector('.sh-foot');
+      const body = s.querySelector('.pc-body');
+      if (!foot || !body) return -999;
+      const footTop = foot.getBoundingClientRect().top;
+      let maxBottom = 0;
+      body.querySelectorAll('*').forEach((el) => {
+        const b = el.getBoundingClientRect().bottom;
+        if (b > maxBottom) maxBottom = b;
+      });
+      return Math.round(maxBottom - footTop);
+    }),
   );
+  await page.emulateMedia({ media: 'screen' });
   expect(
     over.every((o) => o <= 0),
-    `overflow ${over}`,
+    `content overlaps footer by (px, want all <=0): ${over}`,
   ).toBe(true);
 });
 

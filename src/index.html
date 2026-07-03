@@ -298,7 +298,7 @@
               </div>
               <div class="pbar"><div class="pfill" id="rprog"></div></div>
               <p class="note mt-2">
-                Risk factors present (max 16) — a checklist tally, not a validated prediction score.
+                Risk factors present (max 15) — a checklist tally, not a validated prediction score.
                 For a validated ICU model use <strong>E-PRE-DELIRIC</strong> (at admission) or
                 <strong>PRE-DELIRIC</strong> (after 24 h).<a
                   class="cite"
@@ -521,16 +521,13 @@
                   <span class="card-icon">3</span>Altered level of consciousness
                 </div>
                 <p class="note">
-                  Present if the actual RASS is anything other than alert and calm (zero) — use the
-                  RASS documented above.<a class="cite" data-ref="camicu_worksheet"></a>
+                  Feature 3 is read from the RASS you documented above — present whenever the RASS
+                  is anything other than alert and calm (zero), so there is nothing to enter here.<a
+                    class="cite"
+                    data-ref="camicu_worksheet"
+                  ></a>
                 </p>
-                <label class="flbl" for="cam-loc">Current level of consciousness</label>
-                <select class="fsel" id="cam-loc" data-act="camLoc">
-                  <option value="">Select level of consciousness…</option>
-                  <option value="alert">RASS 0 — alert &amp; calm (Feature 3 negative)</option>
-                  <option value="abnormal">RASS anything other than 0 (Feature 3 positive)</option>
-                </select>
-                <p class="note muted" id="cam-loc-hint"></p>
+                <p class="cam-derived" id="cam-loc-hint" role="status" aria-live="polite"></p>
               </div>
               <div class="card">
                 <div class="card-head"><span class="card-icon">4</span>Disorganized thinking</div>

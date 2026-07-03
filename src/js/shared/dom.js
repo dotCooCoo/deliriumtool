@@ -55,7 +55,7 @@ export function wireTablist(onSwitch) {
     if (panel) {
       panel.setAttribute('role', 'tabpanel');
       panel.setAttribute('aria-labelledby', b.id);
-      if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '0');
+      // The panel holds focusable controls, so it is not itself a tab stop.
     }
   });
   bar.addEventListener('keydown', (e) => {

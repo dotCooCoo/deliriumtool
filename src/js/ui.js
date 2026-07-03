@@ -248,25 +248,23 @@ export function updateCam2() {
 
 // Feature 3 (altered level of consciousness): positive if the actual RASS is
 // anything other than 0 (worksheet operationalization).
-export function updateCamLoc() {
-  const v = $('cam-loc').value;
-  if (v) setCam(3, v === 'abnormal' ? 'yes' : 'no');
-}
-
-// Keep the Feature-3 card in step with the documented RASS: show what the
-// worksheet derivation says so the two entries can be cross-checked.
+// Feature 3 (altered LOC) is derived from the documented RASS, so this card is a
+// read-only reflection of that derivation rather than a second point of entry.
 function updateCamLocHint() {
   const hint = $('cam-loc-hint');
   if (!hint) return;
   const v = S.rass;
+  hint.dataset.tone = '';
   if (!v) {
-    hint.textContent = '';
+    hint.textContent = 'Document the RASS above to derive Feature 3.';
   } else if (v === '-4' || v === '-5') {
     hint.textContent = `Documented RASS ${v}: too sedated — CAM-ICU is "unable to assess".`;
+    hint.dataset.tone = 'warn';
   } else if (v === '0') {
     hint.textContent = 'Documented RASS 0 → Feature 3 negative.';
   } else {
     hint.textContent = `Documented RASS ${v} → Feature 3 positive.`;
+    hint.dataset.tone = 'pos';
   }
 }
 
@@ -277,7 +275,7 @@ function updateCamStrip() {
   const off = cssVar('--c-border-strong');
   dots[0].style.background = S.cam[1] !== undefined ? on : off;
   dots[1].style.background = S.cam[2] !== undefined ? on : off;
-  dots[2].style.background = S.cam[3] !== undefined || S.cam[4] !== undefined ? on : off;
+  dots[2].style.background = S.rass || S.cam[4] !== undefined ? on : off;
 }
 
 export function evalCam() {
@@ -285,7 +283,6 @@ export function evalCam() {
   const result = evalCamResult({
     f1: S.cam[1],
     f2: S.cam[2],
-    f3: S.cam[3],
     f4: S.cam[4],
     rass: S.rass,
   });
@@ -879,10 +876,7 @@ export function autofillExample() {
   const err = $('cam2-err');
   if (err) err.value = '3';
   updateCam2();
-  const loc = $('cam-loc');
-  if (loc) loc.value = 'abnormal'; // matches the example's RASS −1 (≠ 0 → positive)
-  updateCamLoc();
-  setCam(4, 'yes');
+  setCam(4, 'yes'); // RASS -1 already makes Feature 3 positive; Feature 4 too
   setSub('hypo');
   const ct = $('cam-time');
   if (ct && !ct.value) ct.value = localStampInput(8, 30);
