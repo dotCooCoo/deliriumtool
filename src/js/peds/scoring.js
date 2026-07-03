@@ -85,8 +85,11 @@ export function featurePresent(feature, value) {
  * @returns {'positive'|'negative'|null} null = incomplete
  */
 export function evalCam({ f1, f2, f3, f4 } = {}) {
-  if (f1 == null || f2 == null) return null;
-  if (!f1 || !f2) return 'negative';
+  // Feature 1 and Feature 2 are both required (cardinal): a definitive absence
+  // of either is already a negative screen, even before the other features are
+  // assessed (e.g. no acute change / fluctuation → negative regardless of F2).
+  if (f1 === false || f2 === false) return 'negative';
+  if (f1 == null || f2 == null) return null; // a required feature is still pending
   if (f3 === true || f4 === true) return 'positive';
   if (f3 != null && f4 != null) return 'negative';
   return null;
