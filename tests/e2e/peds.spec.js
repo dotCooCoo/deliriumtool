@@ -226,7 +226,7 @@ test('structured references render as linked numbered lists with inline superscr
   page,
 }) => {
   await start(page);
-  await expect(page.locator('#tab-screen .ref-list li')).toHaveCount(6);
+  await expect(page.locator('#tab-screen .ref-list li')).toHaveCount(7);
   await expect(page.locator('#tab-screen .ref-list li a').first()).toHaveAttribute(
     'href',
     /doi\.org|pubmed/,

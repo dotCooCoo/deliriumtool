@@ -781,6 +781,17 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 |------|----------------|--------------|-----|-----------|------|-------|---------|
 ```
 
+**Entries — citation strengthening 2026-07-03** (no clinical value changed — added foundational/supporting primary sources for values already in the tool, and made each printed sheet's footer list every source its content draws on; **pending CCO clinical sign-off**):
+
+| Date | Section / item | What changed | Why | Source(s) | Tier | Owner | Synced? |
+|---|---|---|---|---|---|---|---|
+| 2026-07-03 | §2.2 CAM-ICU | Cited the parent instrument and the diagnostic reference standard | The four-feature algorithm every CAM-family screen enforces originates in the 1990 CAM; the "screen, not a diagnosis" framing points at the DSM standard | `inouye1990`, `dsm5tr` | Provenance | [CCO — pending] | [x] |
+| 2026-07-03 | §2.1 Risk factors | Anchored the tally to the ICU-specific risk review; added the cardiac-surgery rule and the prediction-model risk-of-bias caveat | The list previously leaned on 1990s general-ward models | `zaal2015`, `rudolph2009`, `snigurska2023` | Provenance | [CCO — pending] | [x] |
+| 2026-07-03 | §2.5 Bundle E · §2.8 Meds | Added the early-mobility RCT, the deliriogenic-drug review, and the benzodiazepine primary trial | Element-E efficacy and the benzodiazepine higher-risk flag lacked a primary source | `schweickert2009`, `clegg2011`, `pandharipande2006` | Provenance | [CCO — pending] | [x] |
+| 2026-07-03 | §7.1 Peds arousal | Added the pediatric RASS validation (was citing only adult Sessler 2002); wired the archived peds algorithm and PICU-liberation protocol | RASS is applied to children | `kerson2016_rass`, `schieveld2009`, `waak2022_picustars` | Provenance | [CCO — pending] | [x] |
+| 2026-07-03 | Ward pathway | Cited 3D-CAM for the general/step-down-ward recommendation | Named as the recommended ward screen without a source | `marcantonio2014_3dcam` | Provenance | [CCO — pending] | [x] |
+| 2026-07-03 | Printable sheets | The footer source list is now derived from the blocks each sheet renders, so every printed dose, figure, and rule is attributed | The footer was the only source list shown and had drifted from the block-level cites | (mechanism) | Provenance | [CCO — pending] | [x] |
+
 **Entries — content revision 2026-06-27** (code, PDFs, and this document updated together; **pending CCO clinical sign-off** — fill the Owner cell on sign-off):
 
 | Date | Section / item | What changed | Why | Source(s) | Tier | Owner | Synced? |

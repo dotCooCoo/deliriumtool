@@ -84,6 +84,36 @@ test('templates: every citation key resolves in the citation registry', () => {
   }
 });
 
+test('templates: each sheet footer lists every source its blocks cite (no drift)', () => {
+  // The footer is the only source list a printed sheet shows, so it must carry
+  // every source the sheet's blocks draw on — otherwise a printed dose/figure/
+  // rule would be unattributed. FOOTER_CITES is derived from the block cites, so
+  // this asserts the derivation covers the blocks each template renders.
+  // PATHWAY (the nurse-care-pathway) is intentionally local/uncited, so it
+  // contributes no sources.
+  const roundingBlockCites = [
+    ...STATUS.sedation.cites,
+    ...STATUS.cam.cites,
+    ...STATUS.subtype.cites,
+    ...MNEMONIC.cites,
+    ...NONPHARM.cites,
+    ...PHARM.cites,
+  ];
+  for (const k of roundingBlockCites) {
+    assert.ok(FOOTER_CITES.rounding.includes(k), `rounding footer missing block cite "${k}"`);
+  }
+  const spaBlockCites = [
+    ...RASS_CITES,
+    ...SPA_COLS.flatMap((c) => c.cites),
+    ...SPA_DEEPER.cites,
+    ...MEDS_SECTION.cites,
+    ...ESCALATION.cites,
+  ];
+  for (const k of spaBlockCites) {
+    assert.ok(FOOTER_CITES.spa.includes(k), `spa footer missing block cite "${k}"`);
+  }
+});
+
 test('templates: the workflow section is the only uncited one and is marked local', () => {
   assert.equal(PATHWAY.local, true);
   const local = SECTIONS.rounding.filter((s) => s.local).map((s) => s.id);

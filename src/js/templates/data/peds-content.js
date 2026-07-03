@@ -374,6 +374,7 @@ export const PEDS_FOOTER_CITES = {
     'smith2011_pcam',
     'smith2016_pscam',
     'pandem2022',
+    'mody2018_benzo',
   ],
   'peds-workflow': [
     'pandem2022',
@@ -383,5 +384,6 @@ export const PEDS_FOOTER_CITES = {
     'smith2011_pcam',
     'smith2016_pscam',
     'lin2023_liberation',
+    'traube2017_prevalence',
   ],
 };

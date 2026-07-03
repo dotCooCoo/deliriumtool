@@ -703,9 +703,30 @@ export const SECTIONS = {
 };
 
 /** Footer source-line citation keys, per template (labels resolve in refs.js). */
+// Collect every `cites` key anywhere inside a block (handles nested sub-blocks
+// and column arrays). The sheet footer is the only source list a reader sees, so
+// deriving it from the blocks a sheet actually renders keeps it complete and
+// stops it drifting from the printed content — every dose, figure, and rule on
+// the sheet is attributed.
+function collectCites(node, acc = []) {
+  if (!node || typeof node !== 'object') return acc;
+  if (Array.isArray(node)) {
+    for (const item of node) collectCites(item, acc);
+    return acc;
+  }
+  for (const [key, val] of Object.entries(node)) {
+    if (key === 'cites' && Array.isArray(val)) acc.push(...val);
+    else collectCites(val, acc);
+  }
+  return acc;
+}
+const uniqueCites = (...groups) => [...new Set(groups.flat().filter(Boolean))];
+
+// Union of the sources drawn on by the blocks each template renders (see the
+// block lists in renderRounding / renderSpa, sheets.js).
 export const FOOTER_CITES = {
-  rounding: ['padis2018', 'padis2025', 'sccm_abcdef', 'camicu_worksheet', 'beers2023'],
-  spa: ['padis2018', 'padis2025', 'sccm_abcdef', 'beers2023', 'nice_cg103'],
+  rounding: uniqueCites(collectCites([STATUS, MNEMONIC, NONPHARM, PHARM, PATHWAY])),
+  spa: uniqueCites(RASS_CITES, collectCites([SPA_COLS, SPA_DEEPER, MEDS_SECTION, ESCALATION])),
 };
 
 /** The disclaimer printed on every sheet (load-bearing — keep verbatim). */
