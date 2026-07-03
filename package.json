@@ -1,6 +1,6 @@
 {
   "name": "deliriumtool",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "private": true,
   "description": "Bedside ICU delirium screening, prevention, and management reference (CAM-ICU, RASS, ABCDEF). Runs entirely in the browser; no patient data leaves the device.",
   "license": "MIT",
