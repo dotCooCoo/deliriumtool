@@ -130,6 +130,44 @@ Canonical home: https://www.icudelirium.org/medical-professionals/pediatric-deli
 
 _Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
 
+## Emergency Department Delirium (DTS / bCAM / 4AT) — /ed/ (in development)
+
+Sources for the planned ED screening tool and its bedside templates. The article
+PDFs live only in the gitignored `references/ed/` archive — never committed.
+
+### Instruments (official, freely distributed)
+
+| Instrument | Archive file | Source |
+|---|---|---|
+| DTS flowsheet + instructions (Vanderbilt, ©2012) | `ed/dts-flowsheet-icudelirium.pdf` | https://eddelirium.org/ |
+| DTS training manual v1.0 (Han, 2015) | `ed/dts-training-manual-v1-eddelirium.pdf` | https://eddelirium.org/ |
+| bCAM flowsheet (Vanderbilt, ©2012) | `ed/bcam-flowsheet-eddelirium.pdf` | https://eddelirium.org/ |
+| bCAM training manual v1.0 (Han, 2015) | `ed/bcam-training-manual-v1-eddelirium.pdf` | https://eddelirium.org/ |
+| 4AT test form v1.2 (MacLullich, Ryan, Cash ©2011–2014; free to use) | `ed/4at-instrument-v1.2.pdf` | https://www.the4at.com/ |
+
+### Validation & epidemiology
+
+| Reference | Archive file | Canonical URL |
+|---|---|---|
+| Han 2013 — DTS + bCAM validation, Ann Emerg Med 2013;62:457 (PMID 23916018) | `ed/han-2013-dts-bcam-validation-annemergmed.pdf` | https://doi.org/10.1016/j.annemergmed.2013.05.003 |
+| Bellelli 2014 — 4AT validation, Age Ageing 2014;43:496 | `ed/bellelli-2014-4at-validation-ageageing.pdf` | https://doi.org/10.1093/ageing/afu021 |
+| Shenkin 2019 — 4AT vs CAM randomised diagnostic accuracy, BMC Med 2019;17:138 | `ed/shenkin-2019-4at-vs-cam-dta-bmcmed.pdf` | https://doi.org/10.1186/s12916-019-1367-9 |
+| Tieges 2021 — 4AT diagnostic-accuracy meta-analysis, Age Ageing 2021;50:733 | `ed/tieges-2021-4at-meta-analysis-ageageing.pdf` | https://doi.org/10.1093/ageing/afaa224 |
+| Han 2009 — ED delirium recognition & psychomotor subtypes, Acad Emerg Med 2009;16:193 | `ed/han-2009-ed-delirium-recognition-subtypes-academ.pdf` | https://doi.org/10.1111/j.1553-2712.2008.00339.x |
+| Han 2010 — ED delirium & 6-month mortality, Ann Emerg Med 2010;56:244 | `ed/han-2010-ed-delirium-6month-mortality-annemergmed.pdf` | https://doi.org/10.1016/j.annemergmed.2010.03.003 |
+
+### Guidelines & pathways
+
+| Reference | Archive file | Canonical URL |
+|---|---|---|
+| Lee 2026 — GED Guidelines 2.0, delirium chapter (six GRADE recommendations), Acad Emerg Med 2026;33:e70167 | `ed/lee-2026-ged2-delirium-guidelines-acadEM.pdf` | https://doi.org/10.1111/acem.70167 |
+| Geriatric ED Guidelines 1.0 (ACEP/AGS/ENA/SAEM, 2014) — two-step DTS→bCAM | `ed/geriatric-ed-guidelines-2014-acep-ags-ena-saem.pdf` | https://www.acep.org/geda/ |
+| SIGN 157 (2019) — 4AT for ED & acute hospital settings | `ed/sign-157-delirium-2019.pdf` | https://www.sign.ac.uk/our-guidelines/risk-reduction-and-management-of-delirium/ |
+| NICE CG103 (2010, updated 2023) — 4AT; CAM-ICU/ICDSC in critical care | `nice-cg103-delirium.pdf` (top-level archive) | https://www.nice.org.uk/guidance/cg103 |
+| Shenvi 2020 — the ADEPT tool (assess/diagnose/evaluate/prevent/treat), Ann Emerg Med 2020;75:136 | `ed/shenvi-2020-adept-tool-annemergmed.pdf` | https://doi.org/10.1016/j.annemergmed.2019.07.023 |
+| ACEP ED-DEL toolkit (Inouye et al.) — program-level screening pathway options | `ed/acep-ed-del-toolkit-delirium-older-ed-patient.pdf` | https://www.acep.org/ |
+| ACEP ADEPT point-of-care tool (live web tool) | — (web tool, not archived) | https://www.acep.org/patient-care/adept |
+
 ## Bonus papers (archived; not yet wired into the tool — useful extras)
 
 | Source | Local file |
