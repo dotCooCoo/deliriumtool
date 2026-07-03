@@ -32,6 +32,18 @@ test('DTS: RASS other than 0 is positive; RASS 0 needs the LUNCH task', () => {
   assert.equal(DTS.attention.errorThreshold, 2);
 });
 
+test('DTS + bCAM tap-counted tasks score by tapped misses once performed', () => {
+  // DTS: taps only count after the task is confirmed performed.
+  assert.equal(evalDts({ rass: '0', lunchTaps: [0, 1] }), null);
+  assert.equal(evalDts({ rass: '0', lunchTaps: [0], lunchDone: true }), 'negative');
+  assert.equal(evalDts({ rass: '0', lunchTaps: [0, 3], lunchDone: true }), 'positive');
+  assert.equal(evalDts({ rass: '0', lunchTaps: [], lunchDone: true }), 'negative');
+  // bCAM inattention mirrors the same rule for months backwards.
+  assert.equal(bcamInattention({ monthTaps: [1] }), null);
+  assert.equal(bcamInattention({ monthTaps: [1], monthDone: true }), false);
+  assert.equal(bcamInattention({ monthTaps: [1, 4], monthDone: true }), true);
+});
+
 test('arousal gate: RASS −4/−5 cannot be assessed for delirium content', () => {
   assert.deepEqual(RASS_UNABLE, ['-4', '-5']);
   assert.equal(arousalGate('-4'), 'unable');

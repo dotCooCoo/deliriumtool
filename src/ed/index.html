@@ -228,12 +228,17 @@
             role="radiogroup"
             aria-label="Screening pathway"
           ></div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-sec btn-sm" data-act="example">
+              Load example data
+            </button>
+          </div>
         </section>
 
         <div id="panel-twostep">
-          <section class="card">
-            <h2>Step 1 · Delirium Triage Screen (DTS)</h2>
-            <p class="note">
+          <section class="card" id="card-arousal">
+            <h2>Arousal — Richmond Agitation-Sedation Scale</h2>
+            <p class="note" id="arousal-lead">
               Score the RASS first. A RASS other than 0 makes the DTS positive on its own; at RASS
               0, the LUNCH-backwards task decides. RASS −4/−5 is stupor or coma — record “unable to
               assess” and reassess when the patient responds to voice.
@@ -242,6 +247,10 @@
               <legend class="sr-only">Richmond Agitation-Sedation Scale</legend>
               <div id="ed-rass" class="ascale-list"></div>
             </fieldset>
+          </section>
+
+          <section class="card" id="dts-card">
+            <h2>Step 1 · Delirium Triage Screen (DTS)</h2>
             <div id="dts-lunch" class="task-block" hidden></div>
             <div id="dts-verdict" class="verdict v-pending" role="status" aria-live="polite">
               Record the RASS to begin.
@@ -254,32 +263,34 @@
               bCAM positive = Feature 1 + Feature 2 + (Feature 3 or Feature 4). Inattention (Feature
               2) is the required cardinal feature.
             </p>
-            <fieldset class="feature">
-              <legend>Feature 1 — Altered mental status or fluctuating course</legend>
-              <p class="task-help">
-                Ask someone who knows the patient: “Has the patient been more confused lately?”
-                Either an acute change from baseline or fluctuation in the past 24 hours counts.
-              </p>
-              <div id="bcam-f1"></div>
-            </fieldset>
-            <fieldset class="feature">
-              <legend>Feature 2 — Inattention (months backwards)</legend>
-              <div id="bcam-f2"></div>
-            </fieldset>
-            <fieldset class="feature">
-              <legend>Feature 3 — Altered level of consciousness</legend>
-              <p class="task-help" id="bcam-f3">Derived from the RASS above.</p>
-            </fieldset>
-            <fieldset class="feature">
-              <legend>Feature 4 — Disorganized thinking</legend>
-              <p class="task-help">
-                Ask the four yes/no questions, then give the command. Any error makes Feature 4
-                positive. Alternate the question sets on consecutive days.
-              </p>
-              <div id="bcam-f4-set"></div>
-              <ol id="bcam-f4-questions" class="f4-questions"></ol>
-              <div id="bcam-f4"></div>
-            </fieldset>
+            <div id="bcam-body">
+              <fieldset class="feature">
+                <legend>Feature 1 — Altered mental status or fluctuating course</legend>
+                <p class="task-help">
+                  Ask someone who knows the patient: “Has the patient been more confused lately?”
+                  Either an acute change from baseline or fluctuation in the past 24 hours counts.
+                </p>
+                <div id="bcam-f1"></div>
+              </fieldset>
+              <fieldset class="feature">
+                <legend>Feature 2 — Inattention (months backwards)</legend>
+                <div id="bcam-f2"></div>
+              </fieldset>
+              <fieldset class="feature">
+                <legend>Feature 3 — Altered level of consciousness</legend>
+                <p class="task-help" id="bcam-f3">Derived from the RASS above.</p>
+              </fieldset>
+              <fieldset class="feature">
+                <legend>Feature 4 — Disorganized thinking</legend>
+                <p class="task-help">
+                  Ask the four yes/no questions, then give the command. Any error makes Feature 4
+                  positive. Alternate the question sets on consecutive days.
+                </p>
+                <div id="bcam-f4-set"></div>
+                <ol id="bcam-f4-questions" class="f4-questions"></ol>
+                <div id="bcam-f4"></div>
+              </fieldset>
+            </div>
             <div id="bcam-verdict" class="verdict v-pending" role="status" aria-live="polite"></div>
           </section>
         </div>
@@ -355,7 +366,22 @@
             A de-identified snapshot of this assessment — pathway, scores, and result — generated on
             this device. No data leaves the browser; do not add identifiers to the notes.
           </p>
-          <div id="summary-body" class="summary"></div>
+          <div id="summary-doc" class="sumdoc">
+            <div class="sumdoc-head">
+              <img src="../img/logo-red.png" alt="" width="34" height="34" />
+              <div>
+                <div class="sumdoc-title">ED Delirium Screening — Summary</div>
+                <div class="sumdoc-sub" id="summary-facility"></div>
+              </div>
+            </div>
+            <div id="summary-body" class="summary"></div>
+            <div id="summary-verdict" class="verdict v-pending sumdoc-verdict"></div>
+            <p class="sumdoc-foot">
+              Reference aid only — supports, and does not replace, clinical judgment and local
+              protocol. De-identified; generated locally. Sources: Han 2013 · 4AT v1.2 · GED
+              Guidelines 2.0.
+            </p>
+          </div>
           <div class="frow">
             <label for="ed-notes">Notes (de-identified)</label>
             <textarea
@@ -367,7 +393,10 @@
             ></textarea>
           </div>
           <div class="btn-row">
-            <button type="button" class="btn btn-primary" data-act="print">
+            <button type="button" class="btn btn-primary" data-act="savepdf">
+              <svg class="fa" aria-hidden="true"><use href="#fa-download" /></svg> Save PDF
+            </button>
+            <button type="button" class="btn btn-sec" data-act="print">
               <svg class="fa" aria-hidden="true"><use href="#fa-print" /></svg> Print summary
             </button>
             <button type="button" class="btn btn-sec" data-act="export">

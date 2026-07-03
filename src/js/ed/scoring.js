@@ -11,10 +11,15 @@ import { RASS_UNABLE, FOURAT } from './data/instruments.js';
  * patient refuses / cannot start. Returns null until the RASS is recorded
  * (the attention task adds nothing once the RASS is abnormal).
  */
-export function evalDts({ rass, lunchErrors, lunchUnable }) {
+export function evalDts({ rass, lunchErrors, lunchUnable, lunchDone, lunchTaps }) {
   if (rass === undefined || rass === null || rass === '') return null;
   if (rass !== '0') return 'positive';
   if (lunchUnable) return 'positive';
+  // Tap-counted flow: the assessor marks misses and confirms the task ran.
+  if (Array.isArray(lunchTaps)) {
+    if (!lunchDone) return null;
+    return lunchTaps.length >= 2 ? 'positive' : 'negative';
+  }
   if (lunchErrors === undefined || lunchErrors === null || lunchErrors === '') return null;
   return Number(lunchErrors) >= 2 ? 'positive' : 'negative';
 }
@@ -29,8 +34,12 @@ export function arousalGate(rass) {
  * bCAM feature 2 (inattention): >1 error on months-backwards, or refusal /
  * inability (the manual scores that as 6 errors). Null until assessed.
  */
-export function bcamInattention({ monthErrors, monthUnable }) {
+export function bcamInattention({ monthErrors, monthUnable, monthDone, monthTaps }) {
   if (monthUnable) return true;
+  if (Array.isArray(monthTaps)) {
+    if (!monthDone) return null;
+    return monthTaps.length >= 2;
+  }
   if (monthErrors === undefined || monthErrors === null || monthErrors === '') return null;
   return Number(monthErrors) >= 2;
 }

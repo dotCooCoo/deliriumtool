@@ -38,7 +38,8 @@ export const DTS = {
   attention: {
     title: 'Inattention — spell "LUNCH" backwards',
     script: 'Say: “Can you spell the word LUNCH backwards?”',
-    help: 'Each missing letter counts as 1 error; two switched letters count as 2 errors. Stop the task after a significant pause (>15 seconds). Refusal or inability to start counts as positive.',
+    help: 'Tap each letter the patient misses (a missing letter is one error; two switched letters are two errors). Stop the task after a significant pause (>15 seconds). Refusal or inability to start counts as positive.',
+    items: ['H', 'C', 'N', 'U', 'L'], // the expected backwards sequence
     errorThreshold: 2, // ≥2 errors = inattention
   },
   verdicts: {
@@ -70,7 +71,8 @@ export const BCAM = {
       title: 'Feature 2 — Inattention (months backwards)',
       type: 'errors',
       script: 'Say: “Can you name the months backwards from December to July?”',
-      help: 'Each missing month counts as 1 error; two switched months count as 2 errors. Stop after a pause or perseveration of more than 15 seconds. Refusal or inability to start counts as positive.',
+      help: 'Tap each month the patient misses (a missing month is one error; two switched months are two errors). Stop after a pause or perseveration of more than 15 seconds. Refusal or inability to start counts as positive.',
+      items: ['Dec', 'Nov', 'Oct', 'Sep', 'Aug', 'Jul'], // the expected backwards sequence
       errorThreshold: 2, // >1 error = inattention present
     },
     {
@@ -182,6 +184,13 @@ export const PATHWAYS = [
     cites: ['han2013_dts_bcam', 'geda2014', 'ged2_2026'],
   },
   {
+    id: 'bcam',
+    name: 'bCAM directly',
+    who: 'High-risk patients / skip the triage screen (ACEP ED-DEL option)',
+    how: 'Go straight to the <2-minute, highly specific bCAM — the ED-DEL program\u2019s option when screening high-risk patients only (age 65+ or a dementia history).',
+    cites: ['han2013_dts_bcam', 'eddel_toolkit'],
+  },
+  {
     id: 'fourat',
     name: '4AT',
     who: 'SIGN 157 / NICE CG103 pathway',
@@ -227,6 +236,27 @@ export const ACT_POSITIVE = [
     cites: ['han2010', 'eddel_toolkit'],
   },
 ];
+
+/**
+ * Example data for the "Load example data" button — a realistic
+ * bCAM-positive presentation (drowsy, inattentive, disorganized).
+ */
+export const EXAMPLE_ASSESSMENT = {
+  v: 1,
+  pathway: 'twostep',
+  rass: '-1',
+  lunchErrors: '',
+  lunchTaps: [],
+  lunchUnable: false,
+  f1: 'yes',
+  monthErrors: '',
+  monthTaps: [0, 2, 4],
+  monthUnable: false,
+  f4Set: 'a',
+  f4: 'errors',
+  fourat: { alertness: '4:2', amt4: '2:2', attention: '1:1', change: '4:1' },
+  notes: 'Example data — drowsy, inattentive, disorganized; onset this morning per family.',
+};
 
 /** Why screen — the epidemiology framing for the intro. */
 export const WHY_SCREEN = [

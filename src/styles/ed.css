@@ -228,6 +228,42 @@
   font-size: var(--fs-sm);
 }
 
+/* ── Tap-to-count error chips ── */
+.errgrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: var(--sp-2) 0;
+}
+.errchip {
+  min-width: 52px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.errchip:hover {
+  border-color: var(--c-primary);
+}
+.errchip.is-err {
+  background: var(--c-primary);
+  border-color: var(--c-primary-strong);
+  color: #fff;
+}
+.task-expected {
+  font-size: var(--fs-sm);
+  color: var(--c-text-3);
+  margin: 0 0 var(--sp-1);
+}
+.task-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+}
+
 /* ── Verdict banners ── */
 .verdict {
   margin-top: var(--sp-3);
@@ -333,6 +369,49 @@
 }
 .src-list li {
   margin: 4px 0;
+}
+
+/* ── Summary document ── */
+.sumdoc {
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: var(--sp-3) 0;
+  background: #fff;
+}
+.sumdoc-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--c-primary);
+  color: #fff;
+  padding: var(--sp-3) var(--sp-4);
+}
+.sumdoc-head img {
+  border-radius: 8px;
+  background: #fff;
+}
+.sumdoc-title {
+  font-weight: 800;
+  font-size: var(--fs-md);
+}
+.sumdoc-sub {
+  font-size: var(--fs-xs);
+  opacity: 0.9;
+}
+.sumdoc .summary {
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+}
+.sumdoc-verdict {
+  margin: var(--sp-3) var(--sp-4);
+}
+.sumdoc-foot {
+  font-size: var(--fs-xs);
+  color: var(--c-text-3);
+  padding: 0 var(--sp-4) var(--sp-3);
+  margin: 0;
 }
 
 /* ── Print: the summary is the artifact ── */

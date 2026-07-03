@@ -10,10 +10,10 @@ test.beforeEach(async ({ page }) => {
   await page.reload();
 });
 
-test('page frames the tool as a reference aid with both pathways', async ({ page }) => {
+test('page frames the tool as a reference aid with three pathways', async ({ page }) => {
   await expect(page).toHaveTitle(/ED Delirium Screening/);
   await expect(page.locator('.scope-note')).toContainText('Reference aid only');
-  await expect(page.locator('#pathway-pick .opt-row')).toHaveCount(2);
+  await expect(page.locator('#pathway-pick .opt-row')).toHaveCount(3);
   // Two-step is the default pathway.
   await expect(page.locator('input[name="ed-pathway"][value="twostep"]')).toBeChecked();
 });
@@ -21,13 +21,19 @@ test('page frames the tool as a reference aid with both pathways', async ({ page
 test('DTS rules out at RASS 0 with 0–1 LUNCH errors; bCAM never appears', async ({ page }) => {
   await page.locator('input[name="ed-rass"][value="0"]').check();
   await expect(page.locator('#dts-lunch')).toBeVisible();
-  await page.locator('input[name="dts-lunch-err"][value="1"]').check();
+  // Tap one miss, confirm the task ran → 1 error = negative.
+  await page.locator('#dts-lunch .errchip').first().click();
+  await page.locator('input[data-act="lunchDone"]').check();
   await expect(page.locator('#dts-verdict')).toContainText('delirium ruled out');
   await expect(page.locator('#bcam-card')).toBeHidden();
-  // ≥2 errors flips it positive.
-  await page.locator('input[name="dts-lunch-err"][value="2"]').check();
+  // A second miss flips it positive.
+  await page.locator('#dts-lunch .errchip').nth(2).click();
   await expect(page.locator('#dts-verdict')).toContainText('Confirm with the bCAM');
   await expect(page.locator('#bcam-card')).toBeVisible();
+  // Leaving RASS 0 clears the stale attention answers.
+  await page.locator('input[name="ed-rass"][value="-1"]').check();
+  await page.locator('input[name="ed-rass"][value="0"]').check();
+  await expect(page.locator('#dts-lunch .errchip.is-err')).toHaveCount(0);
 });
 
 test('RASS −4/−5 gates the assessment as unable', async ({ page }) => {
@@ -41,18 +47,24 @@ test('bCAM: full positive path, and the inattention cardinal rule', async ({ pag
   await expect(page.locator('#bcam-card')).toBeVisible();
   await expect(page.locator('#bcam-f3')).toContainText('Positive — RASS −1');
   await page.locator('input[name="bcam-f1"][value="yes"]').check();
-  await page.locator('input[name="bcam-f2-err"][value="2"]').check();
+  await page.locator('#bcam-f2 .errchip').nth(0).click();
+  await page.locator('#bcam-f2 .errchip').nth(1).click();
+  await page.locator('input[data-act="monthDone"]').check();
   await expect(page.locator('#bcam-verdict')).toContainText('delirium present');
-  // Cardinal rule: F1 + F3 positive but 0–1 month errors → negative.
-  await page.locator('input[name="bcam-f2-err"][value="0"]').check();
+  // Cardinal rule: F1 + F3 positive but <2 month errors → negative.
+  await page.locator('#bcam-f2 .errchip.is-err').nth(1).click();
   await expect(page.locator('#bcam-verdict')).toContainText('not detected');
 });
 
 test('bCAM feature 4 decides when the RASS is 0, and question sets alternate', async ({ page }) => {
   await page.locator('input[name="ed-rass"][value="0"]').check();
-  await page.locator('input[name="dts-lunch-err"][value="2"]').check();
+  await page.locator('#dts-lunch .errchip').nth(0).click();
+  await page.locator('#dts-lunch .errchip').nth(1).click();
+  await page.locator('input[data-act="lunchDone"]').check();
   await page.locator('input[name="bcam-f1"][value="assume"]').check();
-  await page.locator('input[name="bcam-f2-err"][value="2"]').check();
+  await page.locator('#bcam-f2 .errchip').nth(0).click();
+  await page.locator('#bcam-f2 .errchip').nth(1).click();
+  await page.locator('input[data-act="monthDone"]').check();
   await expect(page.locator('#bcam-verdict')).toContainText('Complete');
   await expect(page.locator('#bcam-f4-questions')).toContainText('Will a stone float on water?');
   await page.locator('input[name="bcam-f4-set"][value="b"]').check();
@@ -93,7 +105,7 @@ test('assessment persists across reload and resets on demand', async ({ page }) 
 
 test('summary reflects the assessment and only the summary prints', async ({ page }) => {
   await page.locator('input[name="ed-rass"][value="0"]').check();
-  await page.locator('input[name="dts-lunch-err"][value="0"]').check();
+  await page.locator('input[data-act="lunchDone"]').check();
   await page.locator('.tab-btn[data-tab="export"]').click();
   await expect(page.locator('#summary-body')).toContainText('Negative — delirium ruled out');
   await page.emulateMedia({ media: 'print' });
@@ -110,6 +122,32 @@ test('setup default pathway persists and drives the screen', async ({ page }) =>
   await page.reload();
   await expect(page.locator('input[name="ed-pathway"][value="fourat"]')).toBeChecked();
   await expect(page.locator('#panel-fourat')).toBeVisible();
+});
+
+test('the direct-bCAM pathway skips the DTS and gates on arousal', async ({ page }) => {
+  await page.locator('input[name="ed-pathway"][value="bcam"]').check();
+  await expect(page.locator('#dts-card')).toBeHidden();
+  await expect(page.locator('#card-arousal')).toBeVisible();
+  await page.locator('input[name="ed-rass"][value="0"]').check();
+  await expect(page.locator('#bcam-card')).toBeVisible();
+  await page.locator('input[name="ed-rass"][value="-4"]').check();
+  await expect(page.locator('#bcam-verdict')).toContainText('stupor or coma');
+});
+
+test('example data loads a complete bCAM-positive assessment', async ({ page }) => {
+  await page.locator('[data-act="example"]').click();
+  await expect(page.locator('#bcam-verdict')).toContainText('delirium present');
+  await expect(page.locator('#bcam-f2 .errchip.is-err')).toHaveCount(3);
+  await page.locator('.tab-btn[data-tab="export"]').click();
+  await expect(page.locator('#summary-verdict')).toContainText('bCAM POSITIVE');
+});
+
+test('the summary saves as a PDF', async ({ page }) => {
+  await page.locator('[data-act="example"]').click();
+  await page.locator('.tab-btn[data-tab="export"]').click();
+  const download = page.waitForEvent('download');
+  await page.locator('[data-act="savepdf"]').click();
+  expect((await download).suggestedFilename()).toBe('ed-delirium-summary.pdf');
 });
 
 test('adult landing page links to the ED tool', async ({ page }) => {

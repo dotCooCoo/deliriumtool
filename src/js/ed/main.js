@@ -12,6 +12,8 @@ import { makeStore } from '../shared/store.js';
 import { downloadJSON, pickJSON } from '../shared/files.js';
 import { RASS_LEVELS, DTS, BCAM, FOURAT, PATHWAYS, ACT_POSITIVE } from './data/instruments.js';
 import { evalDts, arousalGate, bcamInattention, evalBcam, eval4at } from './scoring.js';
+import { EXAMPLE_ASSESSMENT } from './data/instruments.js';
+import { captureNodeToPdf } from '../shared/capture-pdf.js';
 import { REFS } from './data/refs.js';
 
 // ── State ────────────────────────────────────────────────────────────────────
@@ -20,10 +22,12 @@ const blankAssessment = () => ({
   v: 1,
   pathway: '', // '' = use the unit default from settings
   rass: '',
-  lunchErrors: '',
+  lunchTaps: [], // tapped misses on the LUNCH-backwards letters
+  lunchDone: false,
   lunchUnable: false,
   f1: '',
-  monthErrors: '',
+  monthTaps: [], // tapped misses on the months-backwards sequence
+  monthDone: false,
   monthUnable: false,
   f4Set: 'a',
   f4: '', // '' | 'none' | 'errors'
@@ -31,6 +35,37 @@ const blankAssessment = () => ({
   notes: '',
   assessedAt: '',
 });
+
+/** Normalize an untrusted snapshot (import / localStorage) into a valid state. */
+function sanitizeAssessment(raw) {
+  const d = blankAssessment();
+  const out = { ...d };
+  const str = (v, max) => (typeof v === 'string' ? v.slice(0, max) : '');
+  const taps = (v, n) =>
+    Array.isArray(v)
+      ? [...new Set(v.map(Number).filter((x) => Number.isInteger(x) && x >= 0 && x < n))]
+      : [];
+  out.pathway = ['twostep', 'bcam', 'fourat'].includes(raw.pathway) ? raw.pathway : '';
+  out.rass = RASS_LEVELS.some((r) => r.v === raw.rass) ? raw.rass : '';
+  out.lunchTaps = taps(raw.lunchTaps, DTS.attention.items.length);
+  out.lunchDone = raw.lunchDone === true;
+  out.lunchUnable = raw.lunchUnable === true;
+  out.f1 = ['yes', 'no', 'assume'].includes(raw.f1) ? raw.f1 : '';
+  out.monthTaps = taps(raw.monthTaps, 6);
+  out.monthDone = raw.monthDone === true || out.monthTaps.length > 0;
+  out.monthUnable = raw.monthUnable === true;
+  out.f4Set = raw.f4Set === 'b' ? 'b' : 'a';
+  out.f4 = ['none', 'errors'].includes(raw.f4) ? raw.f4 : '';
+  out.fourat = { ...d.fourat };
+  for (const k of Object.keys(d.fourat)) {
+    if (typeof raw.fourat?.[k] === 'string' && /^[0-9]+:[0-9]+$/.test(raw.fourat[k])) {
+      out.fourat[k] = raw.fourat[k];
+    }
+  }
+  out.notes = str(raw.notes, 1000);
+  out.assessedAt = str(raw.assessedAt, 60);
+  return out;
+}
 
 let state = blankAssessment();
 let settings = { facility: '', defaultPathway: 'twostep' };
@@ -124,6 +159,48 @@ function renderRass() {
   );
 }
 
+/**
+ * Tap-to-count error chips (the peds tool's flowsheet idiom): tap each item
+ * the patient misses; the count scores the task once "performed" is checked.
+ */
+function errorChips({ items, taps, act }) {
+  const grid = el('div', { class: 'errgrid', role: 'group' });
+  items.forEach((label, i) => {
+    const on = taps.includes(i);
+    const chip = el(
+      'button',
+      {
+        type: 'button',
+        class: `errchip${on ? ' is-err' : ''}`,
+        'data-act': act,
+        'data-idx': String(i),
+        'aria-pressed': on ? 'true' : 'false',
+      },
+      el('span', { class: 'errchip-n', text: label }),
+    );
+    grid.append(chip);
+  });
+  return grid;
+}
+
+function taskFooter({ doneAct, done, doneLabel, unableAct, unable }) {
+  const doneInput = el('input', { type: 'checkbox', 'data-act': doneAct });
+  doneInput.checked = done;
+  const unableInput = el('input', { type: 'checkbox', 'data-act': unableAct });
+  unableInput.checked = unable;
+  return el(
+    'div',
+    { class: 'task-footer' },
+    el('label', { class: 'chk' }, doneInput, el('span', { text: doneLabel })),
+    el(
+      'label',
+      { class: 'chk' },
+      unableInput,
+      el('span', { text: 'Unable or refused to start (counts as positive)' }),
+    ),
+  );
+}
+
 function segmented({ name, act, options, selected }) {
   const group = el('div', { class: 'pseg', role: 'radiogroup' });
   for (const o of options) {
@@ -135,64 +212,79 @@ function segmented({ name, act, options, selected }) {
 }
 
 function renderTwostep() {
-  const host = $('#panel-twostep');
   const gate = arousalGate(state.rass);
   const dts = evalDts(state);
+  const pathway = activePathway();
 
-  // DTS attention task (only meaningful at RASS 0).
-  const lunch = $('#dts-lunch');
-  lunch.replaceChildren(
-    el('p', { class: 'task-script', text: DTS.attention.script }),
-    el('p', { class: 'task-help', text: DTS.attention.help }),
-    segmented({
-      name: 'dts-lunch-err',
-      act: 'lunchErrors',
-      options: [
-        { value: 0, label: '0 errors' },
-        { value: 1, label: '1 error' },
-        { value: 2, label: '2+ errors' },
-      ],
-      selected: state.lunchErrors,
-    }),
-    el(
-      'label',
-      { class: 'chk' },
-      (() => {
-        const c = el('input', { type: 'checkbox', 'data-act': 'lunchUnable' });
-        c.checked = state.lunchUnable;
-        return c;
-      })(),
-      el('span', { text: 'Unable or refused to start (counts as positive)' }),
-    ),
-  );
-  lunch.hidden = state.rass !== '0';
+  // Arousal card lead adapts to the pathway.
+  $('#arousal-lead').textContent =
+    pathway === 'bcam'
+      ? 'Score the RASS first — it is bCAM Feature 3 (any RASS other than 0 is positive). RASS −4/−5 is stupor or coma — record “unable to assess” and reassess when the patient responds to voice.'
+      : 'Score the RASS first. A RASS other than 0 makes the DTS positive on its own; at RASS 0, the LUNCH-backwards task decides. RASS −4/−5 is stupor or coma — record “unable to assess” and reassess when the patient responds to voice.';
+  $('#card-arousal').hidden = pathway === 'fourat';
 
-  // DTS verdict banner.
-  const dtsOut = $('#dts-verdict');
-  dtsOut.className = 'verdict';
-  if (gate === 'unable') {
-    dtsOut.classList.add('v-warn');
-    dtsOut.textContent =
-      'RASS −4/−5 — stupor or coma. Delirium content cannot be assessed now; reassess when the patient responds to voice.';
-  } else if (dts === null) {
-    dtsOut.classList.add('v-pending');
-    dtsOut.textContent =
-      state.rass === ''
-        ? 'Record the RASS to begin.'
-        : 'Score the LUNCH-backwards task to complete the DTS.';
-  } else if (dts === 'negative') {
-    dtsOut.classList.add('v-neg');
-    dtsOut.textContent = DTS.verdicts.negative;
-  } else {
-    dtsOut.classList.add('v-pos');
-    dtsOut.textContent = DTS.verdicts.positive;
+  // DTS attention task (only meaningful at RASS 0, only on the two-step path).
+  const dtsCard = $('#dts-card');
+  dtsCard.hidden = pathway !== 'twostep';
+  if (pathway === 'twostep') {
+    const lunch = $('#dts-lunch');
+    lunch.replaceChildren(
+      el('p', { class: 'task-script', text: DTS.attention.script }),
+      el('p', { class: 'task-help', text: DTS.attention.help }),
+      el('p', { class: 'task-expected', text: 'Expected: H · C · N · U · L' }),
+      errorChips({ items: DTS.attention.items, taps: state.lunchTaps, act: 'lunchTap' }),
+      taskFooter({
+        doneAct: 'lunchDone',
+        done: state.lunchDone,
+        doneLabel: `Task performed — ${state.lunchTaps.length} error${state.lunchTaps.length === 1 ? '' : 's'}`,
+        unableAct: 'lunchUnable',
+        unable: state.lunchUnable,
+      }),
+    );
+    lunch.hidden = state.rass !== '0';
+
+    const dtsOut = $('#dts-verdict');
+    dtsOut.className = 'verdict';
+    if (gate === 'unable') {
+      dtsOut.classList.add('v-warn');
+      dtsOut.textContent =
+        'RASS −4/−5 — stupor or coma. Delirium content cannot be assessed now; reassess when the patient responds to voice.';
+    } else if (dts === null) {
+      dtsOut.classList.add('v-pending');
+      dtsOut.textContent =
+        state.rass === ''
+          ? 'Record the RASS to begin.'
+          : 'Run the LUNCH-backwards task and check “Task performed” to complete the DTS.';
+    } else if (dts === 'negative') {
+      dtsOut.classList.add('v-neg');
+      dtsOut.textContent = DTS.verdicts.negative;
+    } else {
+      dtsOut.classList.add('v-pos');
+      dtsOut.textContent = DTS.verdicts.positive;
+    }
   }
 
-  // bCAM step appears only when the DTS is positive and the gate allows it.
+  // bCAM: after a positive DTS on the two-step path, or directly on the bCAM path.
   const bcamCard = $('#bcam-card');
-  bcamCard.hidden = !(dts === 'positive' && gate === 'ok');
-  if (!bcamCard.hidden) renderBcam();
-  host.hidden = activePathway() !== 'twostep';
+  const showBcam =
+    (pathway === 'twostep' && dts === 'positive' && gate === 'ok') ||
+    (pathway === 'bcam' && state.rass !== '' && gate === 'ok');
+  bcamCard.hidden = !showBcam;
+  if (pathway === 'bcam' && gate === 'unable') {
+    // Surface the gate on the arousal card for the direct-bCAM path.
+    const out = $('#bcam-verdict');
+    out.className = 'verdict v-warn';
+    out.textContent =
+      'RASS −4/−5 — stupor or coma. Delirium content cannot be assessed now; reassess when the patient responds to voice.';
+    bcamCard.hidden = false;
+    $('#bcam-body').hidden = true;
+    return;
+  }
+  if (showBcam) {
+    $('#bcam-body').hidden = false;
+    renderBcam();
+  }
+  $('#panel-twostep').hidden = pathway === 'fourat';
 }
 
 function renderBcam() {
@@ -215,26 +307,14 @@ function renderBcam() {
   f2.replaceChildren(
     el('p', { class: 'task-script', text: f2feature.script }),
     el('p', { class: 'task-help', text: f2feature.help }),
-    segmented({
-      name: 'bcam-f2-err',
-      act: 'monthErrors',
-      options: [
-        { value: 0, label: '0 errors' },
-        { value: 1, label: '1 error' },
-        { value: 2, label: '2+ errors' },
-      ],
-      selected: state.monthErrors,
+    errorChips({ items: f2feature.items, taps: state.monthTaps, act: 'monthTap' }),
+    taskFooter({
+      doneAct: 'monthDone',
+      done: state.monthDone,
+      doneLabel: `Task performed — ${state.monthTaps.length} error${state.monthTaps.length === 1 ? '' : 's'}`,
+      unableAct: 'monthUnable',
+      unable: state.monthUnable,
     }),
-    el(
-      'label',
-      { class: 'chk' },
-      (() => {
-        const c = el('input', { type: 'checkbox', 'data-act': 'monthUnable' });
-        c.checked = state.monthUnable;
-        return c;
-      })(),
-      el('span', { text: 'Unable or refused to start (counts as positive)' }),
-    ),
   );
 
   // Feature 3 — derived from the recorded RASS.
@@ -382,21 +462,22 @@ function summaryLines() {
   lines.push(['Facility / unit', settings.facility || '—']);
   lines.push(['Assessed', state.assessedAt || '—']);
   lines.push(['Pathway', pathway.name]);
-  if (activePathway() === 'twostep') {
+  if (activePathway() !== 'fourat') {
     lines.push(['RASS', state.rass === '' ? '—' : fmtRass(state.rass)]);
     const gate = arousalGate(state.rass);
     const dts = evalDts(state);
-    lines.push([
-      'DTS',
-      gate === 'unable'
-        ? 'Unable to assess (RASS −4/−5) — reassess later'
-        : dts === null
-          ? 'Incomplete'
-          : dts === 'positive'
-            ? 'Positive — bCAM performed'
-            : 'Negative — delirium ruled out',
-    ]);
-    if (dts === 'positive' && gate === 'ok') {
+    if (activePathway() === 'twostep')
+      lines.push([
+        'DTS',
+        gate === 'unable'
+          ? 'Unable to assess (RASS −4/−5) — reassess later'
+          : dts === null
+            ? 'Incomplete'
+            : dts === 'positive'
+              ? 'Positive — bCAM performed'
+              : 'Negative — delirium ruled out',
+      ]);
+    if ((dts === 'positive' || activePathway() === 'bcam') && gate === 'ok') {
       const verdict = evalBcam({
         f1: state.f1 || undefined,
         f2: bcamInattention(state),
@@ -426,9 +507,51 @@ function summaryLines() {
   return lines;
 }
 
+function overallVerdict() {
+  const pathway = activePathway();
+  if (pathway === 'fourat') {
+    const values = Object.fromEntries(
+      FOURAT.items.map((i) => [
+        i.id,
+        state.fourat[i.id] === '' ? '' : Number(String(state.fourat[i.id]).split(':')[0]),
+      ]),
+    );
+    const res = eval4at(values);
+    if (!res.complete) return { cls: 'v-pending', text: 'Assessment incomplete.' };
+    if (res.band.verdict === 'positive')
+      return { cls: 'v-pos', text: `4AT ${res.score}/12 — possible delirium. Evaluate the cause.` };
+    if (res.band.verdict === 'cognitive')
+      return { cls: 'v-cog', text: `4AT ${res.score}/12 — possible cognitive impairment.` };
+    return { cls: 'v-neg', text: `4AT ${res.score}/12 — delirium unlikely.` };
+  }
+  const gate = arousalGate(state.rass);
+  if (gate === 'unable')
+    return { cls: 'v-warn', text: 'Unable to assess (RASS −4/−5) — reassess later.' };
+  const dts = evalDts(state);
+  if (pathway === 'twostep') {
+    if (dts === null) return { cls: 'v-pending', text: 'Assessment incomplete.' };
+    if (dts === 'negative') return { cls: 'v-neg', text: 'DTS negative — delirium ruled out.' };
+  }
+  const bcam = evalBcam({
+    f1: state.f1 || undefined,
+    f2: bcamInattention(state),
+    rass: state.rass,
+    f4AnyError: state.f4 === '' ? null : state.f4 === 'errors',
+  });
+  if (bcam === 'positive') return { cls: 'v-pos', text: 'bCAM POSITIVE — delirium present.' };
+  if (bcam === 'negative') return { cls: 'v-neg', text: 'bCAM negative — delirium not detected.' };
+  return { cls: 'v-pending', text: 'Assessment incomplete.' };
+}
+
 function renderSummary() {
   const box = $('#summary-body');
   if (!box) return;
+  const fac = $('#summary-facility');
+  if (fac) {
+    fac.textContent = [settings.facility || 'Your facility', state.assessedAt]
+      .filter(Boolean)
+      .join(' · ');
+  }
   box.replaceChildren(
     ...summaryLines().map(([k, v]) =>
       el(
@@ -439,6 +562,12 @@ function renderSummary() {
       ),
     ),
   );
+  const banner = $('#summary-verdict');
+  if (banner) {
+    const v = overallVerdict();
+    banner.className = `verdict sumdoc-verdict ${v.cls}`;
+    banner.textContent = v.text;
+  }
 }
 
 // ── Rendering root ───────────────────────────────────────────────────────────
@@ -466,9 +595,15 @@ function onChange(e) {
       break;
     case 'rass':
       state.rass = t.value;
+      if (t.value !== '0') {
+        // The LUNCH task only applies at RASS 0 — drop stale answers.
+        state.lunchTaps = [];
+        state.lunchDone = false;
+        state.lunchUnable = false;
+      }
       break;
-    case 'lunchErrors':
-      state.lunchErrors = t.value;
+    case 'lunchDone':
+      state.lunchDone = t.checked;
       break;
     case 'lunchUnable':
       state.lunchUnable = t.checked;
@@ -476,8 +611,8 @@ function onChange(e) {
     case 'f1':
       state.f1 = t.value;
       break;
-    case 'monthErrors':
-      state.monthErrors = t.value;
+    case 'monthDone':
+      state.monthDone = t.checked;
       break;
     case 'monthUnable':
       state.monthUnable = t.checked;
@@ -516,6 +651,14 @@ function onClick(e) {
   }
   const btn = e.target.closest('[data-act]');
   if (!btn) return;
+  if (btn.dataset.act === 'lunchTap' || btn.dataset.act === 'monthTap') {
+    const key = btn.dataset.act === 'lunchTap' ? 'lunchTaps' : 'monthTaps';
+    const i = Number(btn.dataset.idx);
+    state[key] = state[key].includes(i) ? state[key].filter((x) => x !== i) : [...state[key], i];
+    if (!state.assessedAt) state.assessedAt = new Date().toLocaleString();
+    renderAll();
+    return;
+  }
   switch (btn.dataset.act) {
     case 'reset':
       if (!window.confirm('Start a new assessment? The current one will be cleared.')) return;
@@ -533,17 +676,35 @@ function onClick(e) {
           announce('That file could not be read as an ED assessment.');
           return;
         }
-        state = {
-          ...blankAssessment(),
-          ...raw,
-          fourat: { ...blankAssessment().fourat, ...(raw.fourat || {}) },
-        };
+        state = sanitizeAssessment(raw);
         renderAll();
         announce('Assessment imported.');
       });
       break;
     case 'print':
       window.print();
+      break;
+    case 'example':
+      state = {
+        ...blankAssessment(),
+        ...EXAMPLE_ASSESSMENT,
+        monthTaps: [...EXAMPLE_ASSESSMENT.monthTaps],
+        fourat: { ...EXAMPLE_ASSESSMENT.fourat },
+        monthDone: true,
+        assessedAt: new Date().toLocaleString(),
+      };
+      renderAll();
+      announce('Example data loaded.');
+      break;
+    case 'savepdf':
+      captureNodeToPdf($('#summary-doc'), {
+        filename: 'ed-delirium-summary.pdf',
+        title: 'ED Delirium Screening Summary',
+        subject: 'De-identified screening summary — reference aid only',
+      }).then(
+        () => announce('Summary PDF saved.'),
+        () => announce('Could not generate the PDF.'),
+      );
       break;
     default:
   }
@@ -559,11 +720,7 @@ function announce(text) {
 function restore() {
   const saved = store.loadSaved();
   if (saved && typeof saved === 'object' && saved.v === 1) {
-    state = {
-      ...blankAssessment(),
-      ...saved,
-      fourat: { ...blankAssessment().fourat, ...(saved.fourat || {}) },
-    };
+    state = sanitizeAssessment(saved);
   }
   const savedSettings = settingsStore.loadSaved();
   if (savedSettings && typeof savedSettings === 'object') {
