@@ -10,7 +10,6 @@
 :root {
   /* Deep navy primary, AA on white. */
 
-
   /* Sheet palette — print-safe hues; each deep tone is AA on white. */
   --sh-ink: #1a2630;
   --sh-teal: #1f6e79;
@@ -721,16 +720,6 @@
 }
 .sh-foot-right {
   white-space: nowrap;
-}
-
-
-@page {
-  size: letter;
-  margin: 0.25in;
-}
-@page sheet-landscape {
-  size: letter landscape;
-  margin: 0.25in;
 }
 
 /* ── Peds card set + workflow poster (.pc-*) ────────────────────────────────

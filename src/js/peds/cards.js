@@ -126,7 +126,11 @@ function annotate(cardEl, key, state, result) {
   // On the screen cards, emphasize the applicable outcome chip.
   if (result.status === 'positive' || result.status === 'negative') {
     const kind = result.status === 'positive' ? 'present' : 'absent';
-    cardEl.querySelectorAll(`.pc-chip--${kind}`).forEach((c) => c.classList.add('is-result'));
+    // Only the CAPD result legend has a single present/absent chip pair; the
+    // CAM stepper cards show the outcome via their branch pills instead.
+    cardEl
+      .querySelectorAll(`.pc-capd-total .pc-chip--${kind}`)
+      .forEach((c) => c.classList.add('is-result'));
   }
 
   // The whole card routes a click back to the Screening tab (data entry stays

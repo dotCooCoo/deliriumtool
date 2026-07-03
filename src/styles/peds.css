@@ -803,6 +803,9 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   color: var(--c-text-2);
   max-width: 70ch;
 }
+.pcards-lead a {
+  text-decoration: underline;
+}
 
 /* Live-assessment annotations layered onto the rendered cards. */
 .pc-live {

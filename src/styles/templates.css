@@ -15,6 +15,17 @@
    with the pediatric tool — see cards.css. */
 @import './cards.css';
 
+/* Print page setup — the designer prints the sheets directly (the peds tool
+   exports a jsPDF instead, so this stays out of the shared cards.css). */
+@page {
+  size: letter;
+  margin: 0.25in;
+}
+@page sheet-landscape {
+  size: letter landscape;
+  margin: 0.25in;
+}
+
 :root {
   /* Deep navy primary, AA on white. */
   --c-primary: #274b8f;
@@ -26,31 +37,7 @@
   --ring: 0 0 0 3px rgba(39, 75, 143, 0.35);
 
   /* Sheet palette — print-safe hues; each deep tone is AA on white. */
-  --sh-ink: #1a2630;
-  --sh-teal: #1f6e79;
-  --sh-plum: #4a3268;
-  --sh-rust: #9c4f0f;
-  --sh-green: #2d6b43;
-  --sh-red: #8b1e2f;
-  --sh-slate: #445560;
-  --sh-teal-weak: #d4edef;
-  --sh-plum-weak: #e8e2f5;
-  --sh-rust-weak: #fcebd8;
-  --sh-green-weak: #d4ede0;
-  --sh-red-weak: #f7e2e6;
-  --sh-slate-weak: #f2f6f8;
   /* Extended tones so each medication category gets its own colour block. */
-  --sh-navy: #274b8f;
-  --sh-navy-weak: #e3ebfa;
-  --sh-violet: #7b2d8e;
-  --sh-violet-weak: #f3e5f7;
-  --sh-berry: #a02c5e;
-  --sh-berry-weak: #fae3ee;
-  --sh-azure: #0f5e8a;
-  --sh-azure-weak: #ddeef8;
-  --sh-olive: #5c661b;
-  --sh-olive-weak: #eef0da;
-  --sh-border: #c8d8df;
 }
 
 .app-logo {
