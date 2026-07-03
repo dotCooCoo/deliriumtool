@@ -57,6 +57,16 @@ desktop.ini
 *.swo
 *~
 
+# ── Stray scratch images at the repo root ─────────────────────────────
+# Screenshots and working images belong in /scratch/ (ignored) — this stops
+# an accidental root-level capture from ever being committed. Real assets
+# live under src/img/, never the root.
+/*.png
+/*.jpg
+/*.jpeg
+/*.gif
+/*.webp
+
 # nested reference archives (copyright — never commit)
 references/**/*.pdf
 references/peds/

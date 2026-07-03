@@ -5,6 +5,16 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-07-03
+
+### Fixed
+
+- The site footer (the "Source on GitHub" badge and cross-tool links) no
+  longer appears when printing a page to PDF.
+- The ED summary's corner mark is now a magnifier icon instead of the letters
+  "ED", so the header no longer reads "ED" twice next to the title.
+
+
 ## [0.5.1] - 2026-07-03
 
 ### Fixed
