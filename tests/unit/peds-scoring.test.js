@@ -92,6 +92,11 @@ test('CAM algorithm over resolved features: F1 AND F2 AND (F3 OR F4)', () => {
   assert.equal(evalCam({ f1: true, f2: false }), 'negative');
   assert.equal(evalCam({ f1: true, f2: true, f3: false, f4: false }), 'negative');
   assert.equal(evalCam({ f1: true }), null);
+  // A required feature absent is negative even before the rest is assessed.
+  assert.equal(evalCam({ f1: false }), 'negative');
+  assert.equal(evalCam({ f1: false, f2: null }), 'negative');
+  assert.equal(evalCam({ f2: false }), 'negative');
+  assert.equal(evalCam({ f1: true, f2: true, f3: false }), null); // F4 still pending
 });
 
 test('featurePresent resolves judgment / error-tally / compound features', () => {

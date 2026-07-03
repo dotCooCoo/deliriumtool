@@ -5,6 +5,16 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-07-03
+
+### Fixed
+
+- Pediatric CAM screens (pCAM-ICU / psCAM-ICU) now read as negative as soon as
+  Feature 1 (acute change or fluctuating course) is marked absent, without
+  waiting for the inattention feature — absence of a required feature is already
+  a negative screen.
+
+
 ## [0.5.0] - 2026-07-03
 
 ### Added
