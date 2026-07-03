@@ -610,23 +610,27 @@ function spaDeeper(state) {
   return el('div', { class: 'sh-section' }, ...kids);
 }
 
+// Escalation stages are sequential local tiers, so their leading number is a
+// position, not a fixed reference — renumber the shown stages 1..n so hiding one
+// (all its items toggled off) leaves no gap in the numbering.
+const renumberHead = (head, n) => head.replace(/^\s*\d+(?:[–-]\d+)?\s*·\s*/, `${n} · `);
+
 function escalationSection(state) {
-  const stages = ESCALATION.stages
-    .map((s) => {
-      const items = s.items.filter((i) => itemOn(state, i.id));
-      if (!items.length) return null;
-      return el(
-        'div',
-        { class: `sh-group tone-${s.tone}` },
-        el('div', {
-          class: 'sh-group-head sh-group-head--bar',
-          text: nobreak(ov(state, s.id, s.head)),
-        }),
-        ...items.map((i) => checkItem(ov(state, i.id, i.text))),
-      );
-    })
-    .filter(Boolean);
-  if (!stages.length) return null;
+  const visible = ESCALATION.stages
+    .map((s) => ({ s, items: s.items.filter((i) => itemOn(state, i.id)) }))
+    .filter(({ items }) => items.length);
+  if (!visible.length) return null;
+  const stages = visible.map(({ s, items }, idx) =>
+    el(
+      'div',
+      { class: `sh-group tone-${s.tone}` },
+      el('div', {
+        class: 'sh-group-head sh-group-head--bar',
+        text: nobreak(renumberHead(ov(state, s.id, s.head), idx + 1)),
+      }),
+      ...items.map((i) => checkItem(ov(state, i.id, i.text))),
+    ),
+  );
   return el(
     'div',
     { class: 'sh-section' },

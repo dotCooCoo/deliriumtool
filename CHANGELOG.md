@@ -5,6 +5,16 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.6.4] - 2026-07-03
+
+### Fixed
+
+- On the SPA Quick Reference, the escalation stages now renumber sequentially
+  when a stage is hidden (all its items switched off), so the remaining stages
+  read 1, 2, 3 with no gap. The nurse-care-pathway columns keep their fixed
+  prevention-bundle step numbers.
+
+
 ## [0.6.3] - 2026-07-03
 
 ### Changed

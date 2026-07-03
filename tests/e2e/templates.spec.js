@@ -720,3 +720,30 @@ test('every template auto-scales so no page overflows its footer', async ({ page
     await expect(page.locator('#fit-warn')).toBeHidden();
   }
 });
+
+test('escalation stages renumber sequentially when a stage is hidden (no gap)', async ({
+  page,
+}) => {
+  await page.check('input[name="template"][value="spa"]');
+  const stageHeads = () =>
+    page
+      .locator('.sh-group-head--bar')
+      .allTextContents()
+      .then((hs) => hs.filter((h) => h.includes('·')));
+  expect((await stageHeads()).map((h) => parseInt(h, 10))).toEqual([1, 2, 3, 4]);
+  // Hide the second stage ("2 · CAM positive") by toggling off all its items.
+  await page
+    .locator('#ctrl-sections details')
+    .evaluateAll((ds) => ds.forEach((d) => (d.open = true)));
+  for (const id of ['esc-notify', 'esc-intensify', 'esc-causes']) {
+    await page
+      .locator(`input[data-act="itemToggle"][data-id="${id}"]`)
+      .first()
+      .evaluate((el) => {
+        if (el.checked) el.click();
+      });
+  }
+  const after = await stageHeads();
+  expect(after.map((h) => parseInt(h, 10))).toEqual([1, 2, 3]); // renumbered, no gap
+  expect(after.join(' ')).toContain('2 · Persistent'); // stage 3 became stage 2
+});
