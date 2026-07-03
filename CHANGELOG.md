@@ -53,6 +53,8 @@ Notable changes to this project, following
 
 ### Fixed
 
+- On the adult tool the Accessibility options sit centered above the
+  "Auto-fill example data" button, beside the facility field.
 - The adult tool's header lays out as one row again — the title block
   shrinks (its subtitle wraps) so the facility field, example-data button,
   and Accessibility options keep their place on the right; on narrow

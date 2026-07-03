@@ -89,6 +89,29 @@
   width: clamp(150px, 18vw, 230px);
 }
 
+/* Adult tool: the accessibility options sit centered above the example-data
+   button, beside the facility field. */
+.app-header-actions--stacked {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: end;
+}
+.app-header-actions--stacked .facility-field {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+.app-header-actions--stacked .a11y-wrap {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  margin-left: 0;
+}
+.app-header-actions--stacked [data-act='autofill'] {
+  grid-column: 2;
+  grid-row: 2;
+}
+
 .facility-field {
   display: flex;
   flex-direction: column;
