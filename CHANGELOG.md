@@ -53,6 +53,10 @@ Notable changes to this project, following
 
 ### Fixed
 
+- The adult tool's header lays out as one row again — the title block
+  shrinks (its subtitle wraps) so the facility field, example-data button,
+  and Accessibility options keep their place on the right; on narrow
+  screens the controls wrap together as one right-aligned cluster.
 - The Accessibility options button sits with the header controls on every
   page instead of wrapping onto a line of its own, and template-scoped
   designer controls hide their labels with them (no orphaned label text on
