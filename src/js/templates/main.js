@@ -696,9 +696,12 @@ function autoFitMeds(sheets) {
     const meds = sheet.querySelector('.sh-meds');
     const limit = () => pageFitLimit(sheet);
     const contentBottom = () => pageContentBottom(sheet);
-    // Strict: platform font metrics differ by a pixel or two — shrink until
-    // the content is fully inside the page on every platform.
-    const over = () => contentBottom() > limit();
+    // Union of two overflow signals: the sheet's own scrollHeight (catches
+    // content that grows the sheet, e.g. the SPA sheet) and the per-child
+    // content bottom (catches content spilling out of a fixed-height card
+    // panel, which does not grow the sheet). Strict — platform font metrics
+    // differ by a pixel or two, so shrink until fully inside on every platform.
+    const over = () => contentBottom() > limit() || sheet.scrollHeight > sheet.clientHeight;
     let guard = 40;
     while (over() && guard-- > 0) {
       if (meds) {
@@ -759,10 +762,12 @@ function rescale() {
 
 function checkFit(sheets) {
   const warn = $('#fit-warn');
-  // Same content-vs-footer measure the auto-fit uses, so the warning only fires
-  // once a page still overflows after the type has shrunk to its floor.
+  // Same union the auto-fit uses, so the warning only fires once a page still
+  // overflows (by either signal) after the type has shrunk to its floor.
   const over = sheets
-    .map((s, i) => (pageContentBottom(s) > pageFitLimit(s) + 1 ? i + 1 : 0))
+    .map((s, i) =>
+      pageContentBottom(s) > pageFitLimit(s) + 1 || s.scrollHeight > s.clientHeight + 1 ? i + 1 : 0,
+    )
     .filter(Boolean);
   warn.hidden = !over.length;
   if (over.length) {
