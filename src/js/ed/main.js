@@ -508,7 +508,11 @@ function render4at() {
         el('legend', { class: 'pseg-legend', text: item.title }),
         el('p', { class: 'task-help', text: item.help }),
       );
-      const group = el('div', { class: 'pseg pseg--stack', role: 'radiogroup', 'aria-label': `${item.title} rating` });
+      const group = el('div', {
+        class: 'pseg pseg--stack',
+        role: 'radiogroup',
+        'aria-label': `${item.title} rating`,
+      });
       item.options.forEach((o, i) => {
         const input = el('input', {
           type: 'radio',
