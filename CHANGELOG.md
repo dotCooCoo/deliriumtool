@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-03
+
 ### Added
 
 - **ED Delirium Screening tool** at `/ed/` — emergency-department screening
