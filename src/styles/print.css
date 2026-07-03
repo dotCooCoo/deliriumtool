@@ -11,6 +11,8 @@
   .pathway-picker,
   .ref-bar,
   .export-options,
+  .site-footer,
+  .tpl-footer,
   .skip-link {
     display: none !important;
   }
