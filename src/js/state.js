@@ -7,6 +7,8 @@
  * export/import. Persistence is LOCAL ONLY — nothing is sent to a server.
  */
 
+import { makeStore } from './shared/store.js';
+import { downloadJSON } from './shared/files.js';
 import { MEDS, resetMeds } from './data/meds.js';
 import { evalCam } from './scoring.js';
 
@@ -132,28 +134,11 @@ export function restore(root, data) {
   if (fac && typeof data.facility === 'string') fac.value = asText(data.facility, 200);
 }
 
-let saveTimer = null;
 /** Debounced autosave to localStorage. */
-export function autosave(root) {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    try {
-      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(serialize(root)));
-    } catch {
-      /* storage unavailable (private mode / quota) — non-fatal */
-    }
-  }, 400);
-}
+const store = makeStore(AUTOSAVE_KEY, serialize);
+export const autosave = store.autosave;
 
-/** Synchronous save (used on page hide so the last edit survives a quick reload). */
-export function flushSave(root) {
-  clearTimeout(saveTimer);
-  try {
-    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(serialize(root)));
-  } catch {
-    /* non-fatal */
-  }
-}
+export const flushSave = store.flushSave;
 
 export function loadAutosave() {
   try {
@@ -189,17 +174,7 @@ export function clearAll(root) {
 
 /** Export the current assessment as a downloadable JSON file (local only). */
 export function exportJSON(root) {
-  const json = JSON.stringify(serialize(root), null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'delirium-assessment.json';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
-    URL.revokeObjectURL(a.href);
-    a.remove();
-  }, 0);
+  downloadJSON(serialize(root), 'delirium-assessment.json');
 }
 
 /** Import an assessment JSON file chosen by the user; resolves to the parsed object. */
