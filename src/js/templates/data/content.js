@@ -52,9 +52,9 @@ export const TEMPLATES = [
   {
     id: 'ed-cards',
     name: 'ED Delirium Card Set',
-    desc: 'Emergency-department bedside card set — a pathways card, RASS gate, DTS → bCAM flowsheets, the 4AT, and an act-on-a-positive card. Print landscape, laminate, ring-bind.',
-    orientation: 'landscape',
-    pages: 6,
+    desc: 'Emergency-department bedside pocket cards — a pathways card, RASS gate, DTS → bCAM flowsheets, the 4AT, and an act-on-a-positive card. Print portrait, laminate, ring-bind.',
+    orientation: 'portrait',
+    pages: 5,
     defaultTitle: 'ED Delirium Card Set',
     defaultSubtitle: 'Bedside screening & action cards for older ED adults',
   },
@@ -694,11 +694,10 @@ export const SECTIONS = {
   'peds-workflow': [{ id: 'sec-wf-poster', label: 'Workflow poster', page: 1 }],
   'ed-cards': [
     { id: 'sec-ed-pathway', label: 'Pathways card (choose the screen)', page: 1 },
-    { id: 'sec-ed-arousal', label: 'Arousal card (RASS gate)', page: 2 },
-    { id: 'sec-ed-dts', label: 'DTS card (triage rule-out)', page: 3 },
-    { id: 'sec-ed-bcam', label: 'bCAM card (confirmatory rule-in)', page: 4 },
-    { id: 'sec-ed-4at', label: '4AT card (single-step alternative)', page: 5 },
-    { id: 'sec-ed-act', label: 'Act-on-a-positive card', page: 6 },
+    { id: 'sec-ed-dts', label: 'Step 1 · DTS card (arousal + LUNCH)', page: 2 },
+    { id: 'sec-ed-bcam', label: 'bCAM card (confirmatory rule-in)', page: 3 },
+    { id: 'sec-ed-4at', label: '4AT card (single-step alternative)', page: 4 },
+    { id: 'sec-ed-act', label: 'Act-on-a-positive card', page: 5 },
   ],
   'ed-workflow': [{ id: 'sec-ed-wf-poster', label: 'Workflow poster', page: 1 }],
 };

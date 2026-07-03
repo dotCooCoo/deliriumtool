@@ -129,7 +129,6 @@ test('the two ED templates are registered with sections', () => {
   const cardSecs = SECTIONS['ed-cards'].map((s) => s.id);
   assert.deepEqual(cardSecs, [
     'sec-ed-pathway',
-    'sec-ed-arousal',
     'sec-ed-dts',
     'sec-ed-bcam',
     'sec-ed-4at',

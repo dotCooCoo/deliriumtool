@@ -716,7 +716,12 @@
 }
 .sh-foot-left {
   font-weight: 700;
-  white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sh-foot-right {
+  flex: 0 0 auto;
 }
 .sh-foot-right {
   white-space: nowrap;
@@ -733,6 +738,15 @@
   /* Landscape card page (the bedside ring-deck format) — inherits the base
      landscape sheet dimensions. */
   gap: calc(7pt * var(--fs));
+}
+.sheet--portrait.sheet--card {
+  /* Portrait pocket-card variant (ED set): the SPA poster's 1.15 type boost is
+     for a sparse poster — cancel it so the denser cards fit. */
+  --fs-tpl: 1;
+  gap: calc(7pt * var(--fs));
+}
+.sheet--portrait .pc-4at-rows {
+  grid-template-columns: 1fr;
 }
 
 .pc-head {
@@ -1608,4 +1622,35 @@
 }
 .pc-poster-cols .pc-rounds {
   min-height: 0;
+}
+
+/* Combined Step-1 DTS card (arousal ladder + LUNCH) — tighter rows so both fit. */
+.pc-dtsgate .pc-lrow {
+  padding: calc(2.2pt * var(--fs)) calc(6pt * var(--fs));
+}
+.pc-dtsgate .pc-lgroup {
+  gap: calc(2pt * var(--fs));
+}
+.pc-dtsgate .pc-lunch {
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(7pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+  margin-top: calc(2pt * var(--fs));
+}
+
+/* Portrait ED cards: distribute sparse content so cards fill their page. */
+.sheet--portrait .pc-routes {
+  flex: 1;
+}
+.sheet--portrait .pc-route {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.sheet--portrait .pc-4at .pc-note--boxed {
+  margin-bottom: calc(3pt * var(--fs));
 }

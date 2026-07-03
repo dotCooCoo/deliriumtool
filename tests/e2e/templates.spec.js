@@ -543,23 +543,21 @@ test('peds card set has no serious accessibility violations', async ({ page }) =
   expect(serious.map((v) => v.id).join(', ')).toBe('');
 });
 
-test('ED card set renders five landscape cards with the RASS gate and DTS→bCAM flow', async ({
+test('ED card set renders five portrait cards with the RASS gate and DTS→bCAM flow', async ({
   page,
 }) => {
   await page.check('input[name="template"][value="ed-cards"]');
-  await expect(page.locator('.sheet')).toHaveCount(6);
-  await expect(page.locator('.sheet').first()).toHaveClass(/sheet--landscape/);
+  await expect(page.locator('.sheet')).toHaveCount(5);
+  await expect(page.locator('.sheet').first()).toHaveClass(/sheet--portrait/);
   // Pathways card surfaces all three guideline-backed options.
   await expect(page.locator('.pc-router .pc-route')).toHaveCount(3);
   await expect(page.locator('.pc-router')).toContainText('bCAM directly');
-  // Arousal card: the full RASS ladder + both gate bars.
-  const arousal = page.locator('.pc-arousal');
-  await expect(arousal.locator('.pc-lrow')).toHaveCount(10);
-  await expect(arousal.locator('.pc-gate--go')).toContainText('altered arousal');
-  await expect(arousal.locator('.pc-gate--stop')).toContainText('unable to assess');
-  // DTS card names the LUNCH letters and its positivity cut.
-  await expect(page.locator('.pc-dts .pc-letter')).toHaveCount(5);
-  await expect(page.locator('.pc-dts')).toContainText('DTS negative — delirium ruled out');
+  // Combined Step 1 card: the full RASS ladder + the unable gate + the LUNCH task.
+  const dts = page.locator('.pc-dtsgate');
+  await expect(dts.locator('.pc-lrow')).toHaveCount(10);
+  await expect(dts.locator('.pc-gate--stop')).toContainText('unable to assess');
+  await expect(dts.locator('.pc-letter')).toHaveCount(5);
+  await expect(dts).toContainText('DTS negative — delirium ruled out');
   // bCAM stepper: four features, the rule, and DELIRIUM PRESENT as an outcome chip.
   await expect(page.locator('.pc-bcam .pc-step')).toHaveCount(4);
   await expect(page.locator('.pc-bcam .pc-rule')).toContainText(
@@ -575,7 +573,7 @@ test('ED card set renders five landscape cards with the RASS gate and DTS→bCAM
   expect(await page.locator('button[data-act="editText"][data-id^="f2"]').count()).toBe(0);
 });
 
-test('ED card set: no card overflows one landscape page, even with a long facility', async ({
+test('ED card set: no card overflows one portrait page, even with a long facility', async ({
   page,
 }) => {
   await page.check('input[name="template"][value="ed-cards"]');
@@ -626,7 +624,7 @@ test('ED card set is a builder: act toggles, unit lines, own-card sections', asy
     b.parentElement.querySelector('.custom-add-input').value = v;
   }, 'Page geriatrics for a positive screen');
   await secBtn.evaluate((b) => b.click());
-  await expect(page.locator('.sheet')).toHaveCount(7);
+  await expect(page.locator('.sheet')).toHaveCount(6);
   await expect(page.locator('.pc-custom')).toContainText('ED delirium pathway contact');
 });
 

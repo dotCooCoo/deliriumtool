@@ -46,7 +46,7 @@ import {
 // ── Shared card chrome (mirrors peds-cards.js) ──────────────────────────────
 
 function card(cls, ...kids) {
-  return el('div', { class: `sheet sheet--landscape sheet--card ${cls || ''}` }, ...kids);
+  return el('div', { class: `sheet sheet--portrait sheet--card ${cls || ''}` }, ...kids);
 }
 
 function cardHead(tone, chipText, title, sub, icon) {
@@ -129,8 +129,6 @@ function pathwayCard() {
   );
 }
 
-// ── Card 2 · Arousal (RASS gate) ────────────────────────────────────────────
-
 function arousalRowEl(r) {
   const zone = AROUSAL_ZONE[r.v] || 'slate';
   return el(
@@ -143,108 +141,56 @@ function arousalRowEl(r) {
   );
 }
 
-function arousalCard() {
+// ── Combined Step 1 · DTS (arousal ladder + LUNCH on one card) ───────────────
+// The DTS is arousal + LUNCH, so the RASS ladder and the LUNCH task live on one
+// portrait card. The ladder renders at natural height (no flex-grow fill),
+// leaving room for the LUNCH task + verdict beneath the gate.
+
+function dtsGateCard() {
   const body = el('div', { class: 'pc-body' });
   for (const g of RASS_RAIL) {
-    const group = el(
-      'div',
-      { class: `pc-lgroup tone-${g.tone}` },
-      el('span', { class: 'pc-rail', text: g.label }),
+    body.append(
       el(
         'div',
-        { class: 'pc-lrows' },
-        ...RASS_LEVELS.filter((r) => g.values.includes(r.v)).map((r) => arousalRowEl(r)),
+        { class: `pc-lgroup tone-${g.tone}` },
+        el('span', { class: 'pc-rail', text: g.label }),
+        el(
+          'div',
+          { class: 'pc-lrows' },
+          ...RASS_LEVELS.filter((r) => g.values.includes(r.v)).map((r) => arousalRowEl(r)),
+        ),
       ),
     );
-    group.style.flexGrow = String(g.values.length);
-    body.append(group);
   }
   body.append(
     el(
       'div',
-      { class: 'pc-gates' },
-      el(
-        'div',
-        { class: 'pc-gate pc-gate--go' },
-        el('span', { class: 'pc-gate-arrow', text: '→' }),
-        el('span', { text: AROUSAL_GATE.altered }),
-      ),
-      el(
-        'div',
-        { class: 'pc-gate pc-gate--stop' },
-        el('span', { class: 'pc-gate-arrow', text: '⛔' }),
-        el('span', { text: AROUSAL_GATE.stop }),
-      ),
-    ),
-  );
-  return card(
-    'pc-arousal',
-    cardHead(
-      'navy',
-      'Step 1',
-      'Arousal — Richmond Agitation-Sedation Scale (RASS)',
-      'Score arousal first. Look, then talk, then touch. RASS 0 is the only unaltered state.',
-      'eye',
-    ),
-    body,
-  );
-}
-
-// ── Card 2 · DTS (triage rule-out) ──────────────────────────────────────────
-
-function lettersRow(items) {
-  return el(
-    'div',
-    { class: 'pc-letters' },
-    ...items.map((l) => el('span', { class: 'pc-letter', text: l })),
-  );
-}
-
-function dtsCard() {
-  const body = el(
-    'div',
-    { class: 'pc-body pc-stepper' },
-    el(
-      'div',
-      { class: 'pc-step' },
-      el('div', { class: 'pc-step-n', text: 'A' }),
-      el(
-        'div',
-        { class: 'pc-step-body' },
-        el('div', { class: 'pc-step-title', text: 'Altered level of consciousness' }),
-        scriptBlock('Score the RASS (Step 1 card).'),
-        el(
-          'div',
-          { class: 'pc-branches' },
-          branch('Yes', outcomeChip('present', 'RASS ≠ 0 → DTS positive → bCAM')),
-          branch('No', el('span', { text: 'RASS 0 → do the LUNCH task below' })),
-        ),
-      ),
+      { class: 'pc-gate pc-gate--stop' },
+      el('span', { class: 'pc-gate-arrow', text: '⛔' }),
+      el('span', { text: AROUSAL_GATE.stop }),
     ),
     el(
       'div',
-      { class: 'pc-step' },
-      el('div', { class: 'pc-step-n', text: 'B' }),
+      { class: 'pc-gate pc-gate--go' },
+      el('span', { class: 'pc-gate-arrow', text: '→' }),
+      el('span', { text: 'Any RASS other than 0 → DTS positive → confirm with the bCAM.' }),
+    ),
+    // At RASS 0, the LUNCH-backwards task decides.
+    el(
+      'div',
+      { class: 'pc-lunch' },
+      el('div', { class: 'pc-step-title', text: 'At RASS 0 — spell LUNCH backwards' }),
+      scriptBlock(DTS_FLOW.script),
+      lettersRow(DTS_FLOW.letters),
+      el('div', { class: 'pc-note', text: printHelp(DTS.attention.help) }),
       el(
         'div',
-        { class: 'pc-step-body' },
-        el('div', { class: 'pc-step-title', text: 'Inattention — spell LUNCH backwards' }),
-        scriptBlock(DTS_FLOW.script),
-        lettersRow(DTS_FLOW.letters),
-        el('div', { class: 'pc-note', text: printHelp(DTS.attention.help) }),
-        el('div', {
-          class: 'pc-note pc-eg',
-          text: 'Example: “H-C-U-L” = 1 error (N missing); “H-C-U-N-L” = 2 errors (N and L switched).',
-        }),
-        el(
-          'div',
-          { class: 'pc-branches' },
-          branch(
-            'Yes',
-            outcomeChip('present', `≥ ${DTS_ERR} errors or unable → DTS positive → bCAM`),
-          ),
-          branch('No', outcomeChip('absent', '0–1 errors → DTS negative — delirium ruled out')),
+        { class: 'pc-branches' },
+        branch(
+          'Yes',
+          outcomeChip('present', `≥ ${DTS_ERR} errors or unable → DTS positive → bCAM`),
         ),
+        branch('No', outcomeChip('absent', '0–1 errors → DTS negative — delirium ruled out')),
       ),
     ),
     el(
@@ -255,15 +201,23 @@ function dtsCard() {
     ),
   );
   return card(
-    'pc-dts',
+    'pc-dtsgate',
     cardHead(
-      'teal',
-      'Step 2 · DTS',
-      'Delirium Triage Screen — the <20-second rule-out',
-      '98% sensitive; a negative DTS rules delirium out. Any positive goes to the bCAM.',
-      'magnifying-glass',
+      'navy',
+      'Step 1 · DTS',
+      'Arousal (RASS) + Delirium Triage Screen',
+      'Score the RASS first (Look, then Talk, then Touch). RASS ≠ 0 is already positive; at RASS 0, do the LUNCH task. 98% sensitive rule-out.',
+      'eye',
     ),
     body,
+  );
+}
+
+function lettersRow(items) {
+  return el(
+    'div',
+    { class: 'pc-letters' },
+    ...items.map((l) => el('span', { class: 'pc-letter', text: l })),
   );
 }
 
@@ -487,8 +441,7 @@ function actCard(state) {
 export function renderEdCards(state) {
   const sheets = [];
   if (secOn(state, 'sec-ed-pathway')) sheets.push(pathwayCard());
-  if (secOn(state, 'sec-ed-arousal')) sheets.push(arousalCard());
-  if (secOn(state, 'sec-ed-dts')) sheets.push(dtsCard());
+  if (secOn(state, 'sec-ed-dts')) sheets.push(dtsGateCard());
   if (secOn(state, 'sec-ed-bcam')) sheets.push(bcamCard(state));
   if (secOn(state, 'sec-ed-4at')) sheets.push(fouratCard());
   if (secOn(state, 'sec-ed-act')) sheets.push(actCard(state));
