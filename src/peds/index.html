@@ -222,6 +222,18 @@
           d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2S339 397 334.8 384.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"
         />
       </symbol>
+      <symbol id="fa-eye" viewBox="0 0 576 512">
+        <path
+          fill="currentColor"
+          d="M288 32c-80.8 0-145.5 36.8-192.6 80.6-46.8 43.5-78.1 95.4-93 131.1-3.3 7.9-3.3 16.7 0 24.6 14.9 35.7 46.2 87.7 93 131.1 47.1 43.7 111.8 80.6 192.6 80.6s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1 3.3-7.9 3.3-16.7 0-24.6-14.9-35.7-46.2-87.7-93-131.1-47.1-43.7-111.8-80.6-192.6-80.6zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64-11.5 0-22.3-3-31.7-8.4-1 10.9-.1 22.1 2.9 33.2 13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-12.2-45.7-55.5-74.8-101.1-70.8 5.3 9.3 8.4 20.1 8.4 31.7z"
+        />
+      </symbol>
+      <symbol id="fa-clipboard-list" viewBox="0 0 384 512">
+        <path
+          fill="currentColor"
+          d="M311.4 32l8.6 0c35.3 0 64 28.7 64 64l0 352c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l8.6 0C83.6 12.9 104.3 0 128 0L256 0c23.7 0 44.4 12.9 55.4 32zM248 112c13.3 0 24-10.7 24-24s-10.7-24-24-24L136 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l112 0zM128 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm32 0c0 13.3 10.7 24 24 24l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-112 0c-13.3 0-24 10.7-24 24zm0 128c0 13.3 10.7 24 24 24l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-112 0c-13.3 0-24 10.7-24 24zM96 416a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+        />
+      </symbol>
     </svg>
 
     <header class="app-header">
@@ -376,6 +388,9 @@
           </button>
           <button class="tab-btn" data-tab="meds">
             <svg class="fa" aria-hidden="true"><use href="#fa-pills" /></svg> Medications
+          </button>
+          <button class="tab-btn" data-tab="cards">
+            <svg class="fa" aria-hidden="true"><use href="#fa-clipboard-list" /></svg> Bedside cards
           </button>
           <button class="tab-btn" data-tab="setup">
             <svg class="fa" aria-hidden="true"><use href="#fa-gear" /></svg> Setup
@@ -848,6 +863,19 @@
             sign-off). All doses carry a pediatric-clinician + pharmacist sign-off gate.
           </p>
         </section>
+        <section class="tab-panel" id="tab-cards">
+          <div class="card">
+            <div class="card-head">Bedside cards used</div>
+            <p class="note pcards-lead">
+              The laminated bedside cards for this child's screening path — the arousal gate, the
+              screen you're using, and the act-on-a-positive card when the screen is positive — with
+              your recorded values highlighted. These are the same cards you can print from the
+              <a href="/templates/">template designer</a>. Tap a card to jump back to Screening.
+            </p>
+            <div class="pcards" id="peds-cards-live"></div>
+          </div>
+        </section>
+
         <section class="tab-panel" id="tab-setup">
           <div class="card">
             <div class="card-head">Institution &amp; unit</div>
@@ -1003,6 +1031,10 @@
             <p class="note err-text" id="export-empty" hidden>
               Enter a child and record an arousal level first.
             </p>
+            <div class="pcards-report" id="peds-cards-report" hidden>
+              <div class="card-head">Bedside cards used in this assessment</div>
+              <ul class="cards-used-list" id="cards-used-list"></ul>
+            </div>
           </div>
           <div class="card">
             <div class="card-head">Medications given this shift</div>

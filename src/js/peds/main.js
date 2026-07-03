@@ -23,6 +23,7 @@ import { RISK_FACTORS, RISK_GROUPS, derivedRiskIds } from './data/risk.js';
 import { MEDS } from './data/meds.js';
 import { REFS } from './data/refs.js';
 import { generateReport } from './report.js';
+import { renderCards, rescaleCards, cardsUsed } from './cards.js';
 import { faIcon, wireTablist, applyGlossary, el, $, $$ } from '../shared/dom.js';
 import { localInput } from '../shared/time.js';
 import { initA11y } from '../shared/a11y.js';
@@ -194,6 +195,7 @@ function applyState(snap) {
   renderResult();
   decorateHeads();
   updateTabBadges();
+  window.addEventListener('resize', () => rescaleCards($('#peds-cards-live')));
   showTab(state.activeTab);
 }
 
@@ -744,6 +746,7 @@ function setResult(badgeCls, badgeText, ...rest) {
   const out = $('#screen-result');
   if (!out) return;
   out.replaceChildren(badge(badgeCls, badgeText), ' ', ...rest);
+  refreshCards();
 }
 
 function devDelayNote() {
@@ -853,6 +856,32 @@ function renderResult() {
     : setResult('scr-neg', 'Negative', `${tool} negative${baselineQualifier()}.`);
 }
 
+/**
+ * Render the live bedside cards (Cards tab) + the cards-used list (Export tab).
+ * Called from setResult() so the cards always mirror the assessment; the scale
+ * is corrected on tab activation, when the container finally has width.
+ */
+function refreshCards() {
+  const mount = $('#peds-cards-live');
+  if (mount) renderCards(mount, state);
+  const list = $('#cards-used-list');
+  const wrap = $('#peds-cards-report');
+  if (list && wrap) {
+    const used = cardsUsed(state);
+    wrap.hidden = !(state.profile.ageM != null && state.arousal !== '');
+    list.replaceChildren(
+      ...used.map((c) =>
+        el(
+          'li',
+          { class: 'cards-used-item' },
+          el('span', { class: 'cards-used-name', text: c.name }),
+          el('span', { class: 'cards-used-outcome', text: c.outcome }),
+        ),
+      ),
+    );
+  }
+}
+
 function showTab(tab) {
   $$('.tab-btn').forEach((b) => {
     const on = b.dataset.tab === tab;
@@ -861,6 +890,7 @@ function showTab(tab) {
     b.tabIndex = on ? 0 : -1;
   });
   $$('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === `tab-${tab}`));
+  if (tab === 'cards') rescaleCards($('#peds-cards-live'));
   state.activeTab = tab;
   if (state.profile.ageM != null) autosave(state); // remember where the user is
 }
@@ -892,7 +922,20 @@ function updateTabBadges() {
 }
 
 // ── Dispatch ──────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const jump = e.target.closest('[data-jump]');
+  if (jump) {
+    e.preventDefault();
+    showTab(jump.dataset.jump);
+  }
+});
 document.addEventListener('click', (e) => {
+  const jump = e.target.closest('[data-jump]');
+  if (jump) {
+    showTab(jump.dataset.jump);
+    return;
+  }
   const act = e.target.closest('[data-act]');
   if (act) {
     const a = act.dataset.act;

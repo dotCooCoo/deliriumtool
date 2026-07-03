@@ -272,6 +272,20 @@ alternative — not the specific images; the instructions card notes that units 
 their validated picture set per local practice. Mirror tests pin the card content to the
 pediatric tool's modules (`tests/unit/templates-peds.test.js`).
 
+**Bedside cards inside the interactive tool.** The pediatric tool (`/peds/`) renders these same
+laminated cards inline on a "Bedside cards" tab and lists the cards used in the generated report.
+It reuses the exact card renderers (`src/js/templates/peds-cards.js`) — so the interactive cards
+and the printed cards are the same artifact — and layers the live assessment onto them: the
+recorded arousal row is highlighted, the arousal gate taken is marked, each card carries a result
+ribbon, and the applicable outcome chip is emphasized (`src/js/peds/cards.js`). The card set shown
+follows the child's path — the arousal card, the routed screen card (CAPD / pCAM-ICU / psCAM-ICU),
+and the act-on-a-positive card once a screen is positive — and every annotation is derived from the
+tool's own `scoring.js`, so the cards can never disagree with the on-screen result. The card design
+system (`.pc-*`, `.sheet`, `.sh-*`, `.tone-*`) lives in a shared `src/styles/cards.css` imported by
+both the designer and the pediatric tool. The report's "Bedside cards used" section names each card
+and its outcome as vector text (it does not rasterize the cards), keeping the summary a crisp single
+page.
+
 ---
 
 ### 2.11 Emergency-department screening tool (/ed/)

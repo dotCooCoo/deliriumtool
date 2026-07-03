@@ -17,6 +17,7 @@ import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
 import { REFS } from './data/refs.js';
 import { fitToPages, asciiPdf as ascii, lighten, darken, stampFooter } from '../shared/pdf-kit.js';
 import { formatStamp, fileStamp } from '../shared/time.js';
+import { cardsUsed } from './cards.js';
 
 applyPlugin(jsPDF);
 
@@ -221,6 +222,14 @@ function buildReport(doc, state, settings, scale) {
     });
   }
   y += 6 * scale;
+
+  // Which laminated bedside cards this assessment traversed, with the outcome.
+  const used = cardsUsed(state);
+  if (used.length) {
+    sectionTitle('Bedside cards used', TEAL);
+    used.forEach((c) => row(c.name, c.outcome));
+    y += 6 * scale;
+  }
 
   const derived = new Set(derivedRiskIds(state.profile));
   // A profile-derived factor flags by default, but an explicit uncheck removes it.

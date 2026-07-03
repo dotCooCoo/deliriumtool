@@ -5,6 +5,20 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-03
+
+### Added
+
+- **Bedside cards in the pediatric tool.** The pediatric tool now renders the
+  actual laminated bedside cards on a new "Bedside cards" tab — the arousal
+  gate card, the screen you're using (CAPD / pCAM-ICU / psCAM-ICU), and the
+  act-on-a-positive card when a screen is positive — with your recorded values
+  highlighted on them (the arousal row, the gate taken, and a per-card result
+  ribbon). They're the same cards you can print from the template designer, and
+  tapping one jumps back to Screening. The generated report gains a "Bedside
+  cards used" section naming each card and its outcome.
+
+
 ## [0.4.0] - 2026-07-03
 
 ### Added

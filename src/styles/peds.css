@@ -9,6 +9,8 @@
  * and rounder corners. Every foreground/background pair keeps WCAG AA contrast.
  */
 
+@import './cards.css';
+
 :root {
   /* Calm teal primary — AA with white for buttons and active states. */
   --c-primary: #0d7d84;
@@ -775,4 +777,91 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 1;
+}
+
+/* ── Bedside cards in the tool (src/js/peds/cards.js) ──────────────────────────
+   The real laminated cards (.pc-* from cards.css) rendered at fixed landscape
+   size and scaled to fit, annotated with the live assessment. The scaling host
+   clips the transformed sheet; annotation classes highlight what this
+   assessment recorded. */
+.pcards {
+  display: grid;
+  gap: var(--sp-4);
+}
+.pcard-wrap {
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  background: #fff;
+}
+.pcard-wrap > .sheet {
+  transform-origin: top left;
+  cursor: pointer;
+}
+.pcards-lead {
+  color: var(--c-text-2);
+  max-width: 70ch;
+}
+.pcards-lead a {
+  text-decoration: underline;
+}
+
+/* Live-assessment annotations layered onto the rendered cards. */
+.pc-live {
+  display: flex;
+  align-items: center;
+  gap: calc(6pt * var(--fs));
+  font-size: calc(10pt * var(--fs));
+  font-weight: 800;
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(9pt * var(--fs));
+  margin-bottom: calc(4pt * var(--fs));
+}
+.pc-live-dot {
+  width: calc(9pt * var(--fs));
+  height: calc(9pt * var(--fs));
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.pc-live--positive {
+  background: #f7e2e6;
+  color: #7f1523;
+}
+.pc-live--positive .pc-live-dot {
+  background: #8b1e2f;
+}
+.pc-live--negative {
+  background: #d4ede0;
+  color: #1d4a2d;
+}
+.pc-live--negative .pc-live-dot {
+  background: #2d6b43;
+}
+.pc-live--unable {
+  background: #fcebd8;
+  color: #6b3a10;
+}
+.pc-live--unable .pc-live-dot {
+  background: #9c4f0f;
+}
+.pc-live--pending {
+  background: #eef2f4;
+  color: #445560;
+}
+.pc-live--pending .pc-live-dot {
+  background: #7c8b93;
+}
+.pc-lrow.is-recorded {
+  outline: 2.5pt solid #0d7d84;
+  outline-offset: -1pt;
+  box-shadow: 0 0 0 2pt #0d7d8433;
+}
+.pc-gate.is-taken {
+  outline: 2pt solid currentColor;
+  outline-offset: 1pt;
+  font-weight: 800;
+}
+.pc-chip.is-result {
+  box-shadow: 0 0 0 2.5pt #0d7d84;
 }
