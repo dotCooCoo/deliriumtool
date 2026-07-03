@@ -734,6 +734,15 @@
      landscape sheet dimensions. */
   gap: calc(7pt * var(--fs));
 }
+.sheet--portrait.sheet--card {
+  /* Portrait pocket-card variant (ED set): the SPA poster's 1.15 type boost is
+     for a sparse poster — cancel it so the denser cards fit. */
+  --fs-tpl: 1;
+  gap: calc(7pt * var(--fs));
+}
+.sheet--portrait .pc-4at-rows {
+  grid-template-columns: 1fr;
+}
 
 .pc-head {
   display: flex;
@@ -1608,4 +1617,21 @@
 }
 .pc-poster-cols .pc-rounds {
   min-height: 0;
+}
+
+/* Combined Step-1 DTS card (arousal ladder + LUNCH) — tighter rows so both fit. */
+.pc-dtsgate .pc-lrow {
+  padding: calc(2.2pt * var(--fs)) calc(6pt * var(--fs));
+}
+.pc-dtsgate .pc-lgroup {
+  gap: calc(2pt * var(--fs));
+}
+.pc-dtsgate .pc-lunch {
+  border: 0.8pt solid var(--sh-border);
+  border-radius: 6px;
+  padding: calc(4pt * var(--fs)) calc(7pt * var(--fs));
+  display: flex;
+  flex-direction: column;
+  gap: calc(3pt * var(--fs));
+  margin-top: calc(2pt * var(--fs));
 }

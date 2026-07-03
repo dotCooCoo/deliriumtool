@@ -364,11 +364,14 @@ public redistribution should be confirmed before wide promotion of this page.
 
 ### 2.12 Emergency-department bedside card set & ED workflow poster (/templates/)
 
-Two ED templates extend the designer: the **ED Delirium Card Set** (landscape pages for
-lamination and ring-binding: an arousal/RASS gate card, the DTS triage-rule-out card, the
-bCAM confirmatory stepper card, the 4AT single-step card, and an act-on-a-positive card) and
-the **ED Delirium Workflow** poster (landscape: screen → arousal gate → confirm → act, with
-the disposition hand-off script). They reuse the pediatric card design system (`.pc-*`).
+Two ED templates extend the designer: the **ED Delirium Card Set** (portrait pocket cards for
+lamination and ring-binding: a pathways card, a combined **Step 1 · DTS** card that carries
+the RASS ladder plus the LUNCH task, the bCAM confirmatory stepper card, the 4AT single-step
+card, and an act-on-a-positive card) and the **ED Delirium Workflow** poster (landscape:
+screen → arousal gate → confirm → act, with the disposition hand-off script). Portrait suits
+the ED instruments, whose validated forms are pocket cards/worksheets; the DTS is presented
+as arousal + LUNCH on one card because the RASS score is its first step. They reuse the
+pediatric card design system (`.pc-*`).
 
 Clinical values are **imported directly from the ED tool's data modules**
 (`src/js/templates/data/ed-content.js` imports `src/js/ed/data/instruments.js` and `refs.js`),

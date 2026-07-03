@@ -5,6 +5,15 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Changed
+
+- The **ED Delirium Card Set** now prints as portrait pocket cards, matching
+  the format of the real DTS/bCAM/4AT instruments, and combines the arousal
+  ladder and the DTS onto one "Step 1 · DTS" card — a tighter five-card set
+  (pathways · Step 1 DTS · bCAM · 4AT · act) instead of six landscape cards.
+  The ED workflow poster stays landscape.
+
+
 ## [0.5.2] - 2026-07-03
 
 ### Fixed
