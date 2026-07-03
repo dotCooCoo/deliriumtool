@@ -86,7 +86,7 @@ test('switching pathway over recorded answers asks for confirmation', async ({ p
   });
   await page.locator('[data-act="example"]').click();
   await expect(page.locator('#bcam-verdict')).toContainText('delirium present');
-  await page.locator('input[name="ed-pathway"][value="fourat"]').check();
+  await page.locator('input[name="ed-pathway"][value="fourat"]').click();
   await expect.poll(() => confirmSeen).toBe(true);
   // Dismissed: the two-step pathway (and its verdict) stay in place.
   await expect(page.locator('input[name="ed-pathway"][value="twostep"]')).toBeChecked();
@@ -258,6 +258,7 @@ test('import rejects files from the other tools and roundtrips its own', async (
   await page.locator('[data-act="export"]').click();
   const path = await (await download).path();
   await page.locator('[data-act="reset"]').click();
+  await page.locator('.tab-btn[data-tab="export"]').click();
   await expect(page.locator('#summary-verdict')).not.toContainText('bCAM POSITIVE');
   const chooser = page.waitForEvent('filechooser');
   await page.locator('[data-act="import"]').click();
