@@ -32,6 +32,13 @@ CAPD, pCAM-ICU, and psCAM-ICU screening with age-banded developmental anchors an
 an SBS/RASS arousal gate, the pediatric prevention bundle, weight-based dosing
 references, and an in-browser summary report. Same privacy model.
 
+**ED screening tool**
+([deliriumtool.com/ed](https://deliriumtool.com/ed/)) — delirium screening for
+older emergency-department patients: the two-step **DTS → bCAM** pathway and
+the **4AT**, with the validated scripts and thresholds, an unable-to-assess
+gate, guideline-backed next steps, and a de-identified print summary. Same
+privacy model.
+
 **Bedside template designer**
 ([deliriumtool.com/templates](https://deliriumtool.com/templates/)) — customize
 and print laminate-ready reference sheets: a per-patient **ICU Delirium Rounding

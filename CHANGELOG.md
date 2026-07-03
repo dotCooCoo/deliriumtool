@@ -5,6 +5,18 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Added
+
+- **ED Delirium Screening tool** at `/ed/` — emergency-department screening
+  for older adults with two guideline-backed pathways: the two-step
+  **DTS → bCAM** (a <20-second, 98%-sensitive triage rule-out, then the
+  highly specific bCAM with the validated scripts, question sets, and the
+  inattention cardinal rule) and the **4AT** (the form's verbatim items and
+  0 / 1–3 / ≥4 score bands). Includes the RASS −4/−5 unable-to-assess gate,
+  act-on-a-positive guidance (ADEPT / ED-DEL), unit setup with a default
+  pathway, a de-identified print summary, and JSON export/import. Every
+  clinical value cites its source; scoring is pinned by golden-value tests.
+
 ## [0.2.0] - 2026-07-02
 
 ### Added

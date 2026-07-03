@@ -274,6 +274,52 @@ pediatric tool's modules (`tests/unit/templates-peds.test.js`).
 
 ---
 
+### 2.11 Emergency-department screening tool (/ed/)
+
+The ED tool implements two guideline-backed screening pathways for older
+emergency-department patients; both are endorsed by the Geriatric Emergency
+Department Guidelines 2.0 delirium chapter (Lee 2026, recommendation 4: "4AT,
+bCAM, CAM-ICU, mCAM, AMT-4, or RASS may be used to rule in or rule out
+delirium"; recommendation 5: the DTS "may be used to rule out delirium").
+
+**Two-step DTS → bCAM (Han 2013; Vanderbilt DTS/bCAM manuals v1.0; Geriatric
+ED Guidelines 2014).** The Delirium Triage Screen is positive when the RASS is
+anything other than 0, or the patient makes ≥2 errors spelling "LUNCH"
+backwards (a missing letter is one error; refusal or inability to start is
+positive; the task stops after a >15-second pause). Sensitivity 98% for both
+physician and non-physician raters — a negative DTS rules delirium out. A
+positive DTS triggers the bCAM: Feature 1 (acute change or fluctuation, by
+informant; assumed positive when no informant is available and Features 2 and
+3-or-4 are positive) AND Feature 2 (months backwards December→July, >1 error
+or unable — the required cardinal feature) AND (Feature 3: RASS ≠ 0, carried
+over from the arousal assessment, OR Feature 4: four yes/no questions in
+alternating sets plus a two-step command, ANY error positive). Physician
+84%/95.8%, non-physician 78%/96.9%. RASS −4/−5 is stupor/coma — the tool
+records "unable to assess" and directs reassessment, mirroring the CAM-ICU
+and pediatric gates.
+
+**4AT v1.2 (MacLullich/Ryan/Cash; free to use; SIGN 157 and NICE CG103 2023
+recommend it for ED/acute settings).** Four items with the form's verbatim
+anchors — alertness (0/4), AMT4 (age, date of birth, place, current year:
+0/1/2), attention months-backwards (≥7 months = 0; starts but <7 = 1;
+untestable = 2), acute change or fluctuating course (0/4) — summing 0–12.
+Bands per the form: ≥4 possible delirium ± cognitive impairment; 1–3 possible
+cognitive impairment; 0 delirium unlikely (the tool carries the form's caveat
+that 0 does not definitively exclude delirium when item-4 information is
+incomplete). Validation: Bellelli 2014; Shenkin 2019 (randomised head-to-head
+vs CAM: 4AT sensitivity 76% / specificity 94%); Tieges 2021 meta-analysis
+(pooled sensitivity 0.88).
+
+Validated instrument scripts and thresholds render verbatim from
+`src/js/ed/data/instruments.js` and are pinned by golden-value tests
+(`tests/unit/ed-scoring.test.js`); the act-on-a-positive content follows the
+ADEPT tool (Shenvi 2020) and the ACEP ED-DEL toolkit. The intro's
+epidemiology (8–17% prevalence, ~76% missed, 6-month mortality HR ≈ 1.7)
+carries Han 2009/2010. The tool is de-identified by construction and
+generates a local print summary only. Out of scope in this version:
+ED-specific risk-stratification scores (GED 2.0 recommendations 1–3) and
+agitation pharmacotherapy — both listed for future work.
+
 ## 3. Citation registry
 
 Every source in the application's citation registry, reproduced as the tool stores it. Inline citations and per-tab reference lists are generated from this single registry. Identifiers marked **† not locally archived** are cited by canonical URL only (see §4).

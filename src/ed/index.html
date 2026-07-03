@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ED Delirium Screening — DTS, bCAM, 4AT</title>
+    <meta
+      name="description"
+      content="Emergency-department delirium screening for older adults: the two-step DTS → bCAM pathway and the 4AT, with guideline-backed next steps. Runs entirely in your browser; no patient data leaves the device. Reference aid only."
+    />
+    <link rel="canonical" href="https://deliriumtool.com/ed/" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#a41f30" />
+
+    <link rel="icon" href="../img/ed-favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="../img/ed-favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="../img/ed-apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ED Delirium Screening Tool" />
+    <meta property="og:title" content="ED Delirium Screening — DTS, bCAM, 4AT" />
+    <meta
+      property="og:description"
+      content="Emergency-department delirium screening for older adults — DTS → bCAM and the 4AT, with guideline-backed next steps. Runs entirely in your browser."
+    />
+    <meta property="og:url" content="https://deliriumtool.com/ed/" />
+    <meta property="og:image" content="https://deliriumtool.com/img/ed-og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://deliriumtool.com/img/ed-og-image.png" />
+    <meta name="twitter:title" content="ED Delirium Screening — DTS, bCAM, 4AT" />
+    <meta
+      name="twitter:description"
+      content="Emergency-department delirium screening for older adults — DTS → bCAM and the 4AT. Runs entirely in your browser."
+    />
+
+    <!-- Structured data: non-executable application/ld+json data block (CSP-safe). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ED Delirium Screening Tool",
+        "url": "https://deliriumtool.com/ed/",
+        "description": "Emergency-department delirium screening for older adults: the two-step DTS → bCAM pathway and the 4AT, with guideline-backed next steps. Runs entirely in the browser; no patient data leaves the device.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any modern web browser",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "inLanguage": "en",
+        "about": { "@type": "MedicalCondition", "name": "Delirium" },
+        "keywords": "delirium, emergency department, DTS, bCAM, 4AT, delirium triage screen, brief confusion assessment method, geriatric emergency department"
+      }
+    </script>
+
+    <link rel="stylesheet" href="../assets/app.css" />
+    <link rel="stylesheet" href="../assets/ed.css" />
+    <script src="../assets/ed.js" defer></script>
+  </head>
+  <body>
+    <a id="skip-link" class="skip-link" href="#main">Skip to content</a>
+
+    <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+      <symbol id="fa-arrow-left" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 480 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-370.7 0 105.4-105.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+        />
+      </symbol>
+      <symbol id="fa-magnifying-glass" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376C296.3 401.1 253.9 416 208 416 93.1 416 0 322.9 0 208S93.1 0 208 0 416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+        />
+      </symbol>
+      <symbol id="fa-triangle-exclamation" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M256 0c14.7 0 28.2 8.1 35.2 21l216 400c6.7 12.4 6.4 27.4-.8 39.5S486.1 480 472 480L40 480c-14.1 0-27.2-7.4-34.4-19.5s-7.5-27.1-.8-39.5l216-400c7-12.9 20.5-21 35.2-21zm0 352a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.5 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z"
+        />
+      </symbol>
+      <symbol id="fa-circle-info" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM224 160a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm-8 64l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z"
+        />
+      </symbol>
+      <symbol id="fa-circle-check" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zM374 145.7c-10.7-7.8-25.7-5.4-33.5 5.3L221.1 315.2 169 263.1c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l72 72c5 5 11.8 7.5 18.8 7s13.4-4.1 17.5-9.8L379.3 179.2c7.8-10.7 5.4-25.7-5.3-33.5z"
+        />
+      </symbol>
+      <symbol id="fa-circle-exclamation" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M256 512a256 256 0 1 1 0-512 256 256 0 1 1 0 512zm0-192a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z"
+        />
+      </symbol>
+      <symbol id="fa-clipboard-list" viewBox="0 0 384 512">
+        <path
+          fill="currentColor"
+          d="M311.4 32l8.6 0c35.3 0 64 28.7 64 64l0 352c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 96C0 60.7 28.7 32 64 32l8.6 0C83.6 12.9 104.3 0 128 0L256 0c23.7 0 44.4 12.9 55.4 32zM248 112c13.3 0 24-10.7 24-24s-10.7-24-24-24L136 64c-13.3 0-24 10.7-24 24s10.7 24 24 24l112 0zM128 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm32 0c0 13.3 10.7 24 24 24l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-112 0c-13.3 0-24 10.7-24 24zm0 128c0 13.3 10.7 24 24 24l112 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-112 0c-13.3 0-24 10.7-24 24zM96 416a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"
+        />
+      </symbol>
+      <symbol id="fa-print" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M64 64C64 28.7 92.7 0 128 0L341.5 0c17 0 33.3 6.7 45.3 18.7l42.5 42.5c12 12 18.7 28.3 18.7 45.3l0 37.5-384 0 0-80zM0 256c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 96c0 17.7-14.3 32-32 32l-32 0 0 64c0 35.3-28.7 64-64 64l-256 0c-35.3 0-64-28.7-64-64l0-64-32 0c-17.7 0-32-14.3-32-32l0-96zM128 416l0 32 256 0 0-96-256 0 0 64zM456 272a24 24 0 1 0 -48 0 24 24 0 1 0 48 0z"
+        />
+      </symbol>
+      <symbol id="fa-download" viewBox="0 0 448 512">
+        <path
+          fill="currentColor"
+          d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 210.7-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7 256 32zM64 320c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-46.9 0-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320 64 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+        />
+      </symbol>
+      <symbol id="fa-upload" viewBox="0 0 448 512">
+        <path
+          fill="currentColor"
+          d="M256 109.3L256 320c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-210.7-41.4 41.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l96-96c12.5-12.5 32.8-12.5 45.3 0l96 96c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 109.3zM224 400c44.2 0 80-35.8 80-80l80 0c35.3 0 64 28.7 64 64l0 32c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64l0-32c0-35.3 28.7-64 64-64l80 0c0 44.2 35.8 80 80 80zm144 24a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"
+        />
+      </symbol>
+      <symbol id="fa-rotate-left" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M24 192l144 0c9.7 0 18.5-5.8 22.2-14.8s1.7-19.3-5.2-26.2l-46.7-46.7c75.3-58.6 184.3-53.3 253.5 15.9 75 75 75 196.5 0 271.5s-196.5 75-271.5 0c-10.2-10.2-19-21.3-26.4-33-9.5-14.9-29.3-19.3-44.2-9.8s-19.3 29.3-9.8 44.2C49.7 408.7 61.4 423.5 75 437 175 537 337 537 437 437S537 175 437 75C342.8-19.3 193.3-24.7 92.7 58.8L41 7C34.1 .2 23.8-1.9 14.8 1.8S0 14.3 0 24L0 168c0 13.3 10.7 24 24 24z"
+        />
+      </symbol>
+      <symbol id="fa-universal-access" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zm161.5-86.1c-12.2-5.2-26.3 .4-31.5 12.6s.4 26.3 12.6 31.5l11.9 5.1c17.3 7.4 35.2 12.9 53.6 16.3l0 50.1c0 4.3-.7 8.6-2.1 12.6l-28.7 86.1c-4.2 12.6 2.6 26.2 15.2 30.4s26.2-2.6 30.4-15.2l24.4-73.2c1.3-3.8 4.8-6.4 8.8-6.4s7.6 2.6 8.8 6.4l24.4 73.2c4.2 12.6 17.8 19.4 30.4 15.2S339 397 334.8 384.4l-28.7-86.1c-1.4-4.1-2.1-8.3-2.1-12.6l0-50.1c18.4-3.5 36.3-8.9 53.6-16.3l11.9-5.1c12.2-5.2 17.8-19.3 12.6-31.5s-19.3-17.8-31.5-12.6L338.7 175c-26.1 11.2-54.2 17-82.7 17s-56.5-5.8-82.7-17l-11.9-5.1zM256 160a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"
+        />
+      </symbol>
+      <symbol id="fa-bolt" viewBox="0 0 448 512">
+        <path
+          fill="currentColor"
+          d="M338.8-9.9c11.9 8.6 16.3 24.2 10.9 37.8L271.3 224 416 224c13.5 0 25.5 8.4 30.1 21.1s.7 26.9-9.6 35.5l-288 240c-11.3 9.4-27.4 9.9-39.3 1.3s-16.3-24.2-10.9-37.8L176.7 288 32 288c-13.5 0-25.5-8.4-30.1-21.1s-.7-26.9 9.6-35.5l288-240c11.3-9.4 27.4-9.9 39.3-1.3z"
+        />
+      </symbol>
+      <symbol id="fa-gauge-high" viewBox="0 0 512 512">
+        <path
+          fill="currentColor"
+          d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zM288 96a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM256 416c35.3 0 64-28.7 64-64 0-16.2-6-31.1-16-42.3l69.5-138.9c5.9-11.9 1.1-26.3-10.7-32.2s-26.3-1.1-32.2 10.7L261.1 288.2c-1.7-.1-3.4-.2-5.1-.2-35.3 0-64 28.7-64 64s28.7 64 64 64zM176 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM96 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm352-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"
+        />
+      </symbol>
+    </svg>
+
+    <header class="app-header">
+      <div class="app-header-inner">
+        <div class="app-header-brand">
+          <img class="app-logo" src="../img/logo-red.png" alt="" width="44" height="44" />
+          <div class="app-header-titles">
+            <span class="header-pill">Clinical field reference</span>
+            <h1>ED Delirium Screening Tool</h1>
+            <p class="app-header-sub">
+              For older ED patients (DTS → bCAM · 4AT). In the ICU, use CAM-ICU; for children, use
+              the pediatric tool.
+            </p>
+          </div>
+        </div>
+        <div class="app-header-actions">
+          <a class="btn btn-ghost btn-sm" href="/"
+            ><svg class="fa" aria-hidden="true"><use href="#fa-arrow-left" /></svg> Adult ICU
+            tool</a
+          >
+          <a class="btn btn-ghost btn-sm" href="/peds/">Pediatric tool</a>
+          <a class="btn btn-ghost btn-sm" href="/templates/">Templates</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <div class="alert a-warn scope-note">
+        <svg class="fa" aria-hidden="true"><use href="#fa-triangle-exclamation" /></svg>
+        <div>
+          <strong>Reference aid only.</strong> This emergency-department tool supports — and does
+          not replace — clinical judgment and local protocol. It is not a validated decision-support
+          device or an order set. A positive screen suggests delirium but is not diagnostic;
+          evaluate the cause and confirm clinically.
+        </div>
+      </div>
+
+      <div class="alert a-info">
+        <svg class="fa" aria-hidden="true"><use href="#fa-circle-info" /></svg>
+        <div>
+          <strong>Why screen:</strong> delirium affects roughly 8–17% of older ED patients and is
+          missed in up to three-quarters of cases without a screen — most ED delirium is hypoactive
+          and quiet. A positive ED screen independently predicts death within 6 months.
+          <span class="cites-inline">(Han 2009; Han 2010; GED Guidelines 2.0.)</span>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Sections">
+        <div class="tabs-inner">
+          <button class="tab-btn active" data-tab="screen">
+            <svg class="fa" aria-hidden="true"><use href="#fa-magnifying-glass" /></svg> Screening
+          </button>
+          <button class="tab-btn" data-tab="act">
+            <svg class="fa" aria-hidden="true"><use href="#fa-bolt" /></svg> Act on positive
+          </button>
+          <button class="tab-btn" data-tab="setup">
+            <svg class="fa" aria-hidden="true"><use href="#fa-gauge-high" /></svg> Setup
+          </button>
+          <button class="tab-btn" data-tab="export">
+            <svg class="fa" aria-hidden="true"><use href="#fa-clipboard-list" /></svg> Summary
+          </button>
+        </div>
+      </nav>
+
+      <div id="ed-live" class="sr-only" role="status" aria-live="polite"></div>
+
+      <section class="tab-panel active" id="tab-screen">
+        <section class="card">
+          <h2>Screening pathway</h2>
+          <p class="note">
+            Both pathways are endorsed for ED use (GED Guidelines 2.0). The two-step DTS → bCAM
+            starts with a &lt;20-second, 98%-sensitive rule-out at triage; the 4AT is a single
+            ~2-minute test that also flags cognitive impairment and needs no special training. Your
+            unit's default is set in Setup.
+          </p>
+          <div
+            id="pathway-pick"
+            class="pathway-pick"
+            role="radiogroup"
+            aria-label="Screening pathway"
+          ></div>
+        </section>
+
+        <div id="panel-twostep">
+          <section class="card">
+            <h2>Step 1 · Delirium Triage Screen (DTS)</h2>
+            <p class="note">
+              Score the RASS first. A RASS other than 0 makes the DTS positive on its own; at RASS
+              0, the LUNCH-backwards task decides. RASS −4/−5 is stupor or coma — record “unable to
+              assess” and reassess when the patient responds to voice.
+            </p>
+            <fieldset class="ascale">
+              <legend class="sr-only">Richmond Agitation-Sedation Scale</legend>
+              <div id="ed-rass" class="ascale-list"></div>
+            </fieldset>
+            <div id="dts-lunch" class="task-block" hidden></div>
+            <div id="dts-verdict" class="verdict v-pending" role="status" aria-live="polite">
+              Record the RASS to begin.
+            </div>
+          </section>
+
+          <section class="card" id="bcam-card" hidden>
+            <h2>Step 2 · Brief Confusion Assessment Method (bCAM)</h2>
+            <p class="note">
+              bCAM positive = Feature 1 + Feature 2 + (Feature 3 or Feature 4). Inattention (Feature
+              2) is the required cardinal feature.
+            </p>
+            <fieldset class="feature">
+              <legend>Feature 1 — Altered mental status or fluctuating course</legend>
+              <p class="task-help">
+                Ask someone who knows the patient: “Has the patient been more confused lately?”
+                Either an acute change from baseline or fluctuation in the past 24 hours counts.
+              </p>
+              <div id="bcam-f1"></div>
+            </fieldset>
+            <fieldset class="feature">
+              <legend>Feature 2 — Inattention (months backwards)</legend>
+              <div id="bcam-f2"></div>
+            </fieldset>
+            <fieldset class="feature">
+              <legend>Feature 3 — Altered level of consciousness</legend>
+              <p class="task-help" id="bcam-f3">Derived from the RASS above.</p>
+            </fieldset>
+            <fieldset class="feature">
+              <legend>Feature 4 — Disorganized thinking</legend>
+              <p class="task-help">
+                Ask the four yes/no questions, then give the command. Any error makes Feature 4
+                positive. Alternate the question sets on consecutive days.
+              </p>
+              <div id="bcam-f4-set"></div>
+              <ol id="bcam-f4-questions" class="f4-questions"></ol>
+              <div id="bcam-f4"></div>
+            </fieldset>
+            <div id="bcam-verdict" class="verdict v-pending" role="status" aria-live="polite"></div>
+          </section>
+        </div>
+
+        <div id="panel-fourat" hidden>
+          <section class="card">
+            <h2>4AT — rapid assessment for delirium &amp; cognitive impairment</h2>
+            <p class="note">
+              Four items, total 0–12. Items 1–3 are rated on observation at assessment; item 4 needs
+              an informant or records. ≥4 = possible delirium ± cognitive impairment; 1–3 = possible
+              cognitive impairment; 0 = delirium unlikely.
+            </p>
+            <div id="fourat-items"></div>
+            <div id="fourat-verdict" class="verdict v-pending" role="status" aria-live="polite">
+              Rate all four items to score the 4AT.
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-act">
+        <p class="note tab-lead">
+          A positive screen is a finding, not a diagnosis — the next moves are to find the cause,
+          manage without new harm, and hand the finding off. (ADEPT; ACEP ED-DEL program.)
+        </p>
+        <div id="act-blocks"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-setup">
+        <section class="card">
+          <h2>Unit setup</h2>
+          <div class="frow">
+            <label for="ed-facility">Facility / unit label (prints on the summary)</label>
+            <input id="ed-facility" class="finp" type="text" maxlength="120" data-act="facility" />
+          </div>
+          <fieldset class="feature">
+            <legend>Default screening pathway</legend>
+            <label class="opt-row">
+              <input
+                type="radio"
+                name="ed-default-pathway"
+                value="twostep"
+                data-act="defaultPathway"
+                checked
+              />
+              <span>Two-step: DTS → bCAM (Vanderbilt / Geriatric ED Guidelines)</span>
+            </label>
+            <label class="opt-row">
+              <input
+                type="radio"
+                name="ed-default-pathway"
+                value="fourat"
+                data-act="defaultPathway"
+              />
+              <span>4AT (SIGN 157 / NICE CG103)</span>
+            </label>
+          </fieldset>
+          <div class="alert a-info">
+            <svg class="fa" aria-hidden="true"><use href="#fa-circle-info" /></svg>
+            <div>
+              <strong>Who to screen:</strong> GED Guidelines 2.0 supports universal screening of
+              older ED adults or risk-stratified screening (validated risk scores may identify
+              low-risk subsets to reduce screening burden). Follow your department's policy.
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="tab-export">
+        <section class="card">
+          <h2>De-identified summary</h2>
+          <p class="note">
+            A de-identified snapshot of this assessment — pathway, scores, and result — generated on
+            this device. No data leaves the browser; do not add identifiers to the notes.
+          </p>
+          <div id="summary-body" class="summary"></div>
+          <div class="frow">
+            <label for="ed-notes">Notes (de-identified)</label>
+            <textarea
+              id="ed-notes"
+              class="finp"
+              rows="3"
+              maxlength="1000"
+              data-act="notes"
+            ></textarea>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-act="print">
+              <svg class="fa" aria-hidden="true"><use href="#fa-print" /></svg> Print summary
+            </button>
+            <button type="button" class="btn btn-sec" data-act="export">
+              <svg class="fa" aria-hidden="true"><use href="#fa-download" /></svg> Export JSON
+            </button>
+            <button type="button" class="btn btn-sec" data-act="import">
+              <svg class="fa" aria-hidden="true"><use href="#fa-upload" /></svg> Import JSON
+            </button>
+            <button type="button" class="btn btn-ghost" data-act="reset">
+              <svg class="fa" aria-hidden="true"><use href="#fa-rotate-left" /></svg> New assessment
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <section class="tpl-footer" aria-labelledby="h-sources">
+        <h2 id="h-sources">Sources</h2>
+        <p class="note">
+          Every clinical value above maps to a cited source; the full mapping lives in the project's
+          clinical methodology document.
+        </p>
+        <ol class="src-list">
+          <li>
+            Han JH, et al. Diagnosing delirium in older emergency department patients: validity and
+            reliability of the Delirium Triage Screen and the Brief Confusion Assessment Method.
+            <a
+              href="https://doi.org/10.1016/j.annemergmed.2013.05.003"
+              target="_blank"
+              rel="noopener"
+              >Ann Emerg Med. 2013;62(5):457–465.</a
+            >
+          </li>
+          <li>
+            Han JH. DTS and bCAM instruction manuals and flowsheets (Vanderbilt University).
+            <a
+              href="https://eddelirium.org/delirium-assessment/assessment-instruments/"
+              target="_blank"
+              rel="noopener"
+              >eddelirium.org</a
+            >
+          </li>
+          <li>
+            MacLullich A, Ryan T, Cash H. 4AT — Assessment Test for Delirium &amp; Cognitive
+            Impairment (v1.2).
+            <a href="https://www.the4at.com/" target="_blank" rel="noopener">the4at.com</a>
+          </li>
+          <li>
+            Bellelli G, et al. Validation of the 4AT.
+            <a href="https://doi.org/10.1093/ageing/afu021" target="_blank" rel="noopener"
+              >Age Ageing. 2014;43(4):496–502.</a
+            >
+          </li>
+          <li>
+            Shenkin SD, et al. 4AT versus CAM: multicentre randomised diagnostic test accuracy
+            study.
+            <a href="https://doi.org/10.1186/s12916-019-1367-9" target="_blank" rel="noopener"
+              >BMC Med. 2019;17:138.</a
+            >
+          </li>
+          <li>
+            Tieges Z, et al. Diagnostic accuracy of the 4AT: systematic review and meta-analysis.
+            <a href="https://doi.org/10.1093/ageing/afaa224" target="_blank" rel="noopener"
+              >Age Ageing. 2021;50(3):733–743.</a
+            >
+          </li>
+          <li>
+            Lee S, et al. Geriatric Emergency Department Guidelines 2.0: delirium.
+            <a href="https://doi.org/10.1111/acem.70167" target="_blank" rel="noopener"
+              >Acad Emerg Med. 2026;33:e70167.</a
+            >
+          </li>
+          <li>
+            Geriatric Emergency Department Guidelines (ACEP/AGS/ENA/SAEM, 2014).
+            <a href="https://www.acep.org/geda/" target="_blank" rel="noopener">acep.org/geda</a>
+          </li>
+          <li>
+            SIGN 157: Risk reduction and management of delirium (2019).
+            <a
+              href="https://www.sign.ac.uk/our-guidelines/risk-reduction-and-management-of-delirium/"
+              target="_blank"
+              rel="noopener"
+              >sign.ac.uk</a
+            >
+          </li>
+          <li>
+            NICE CG103: Delirium — prevention, diagnosis and management (updated 2023).
+            <a href="https://www.nice.org.uk/guidance/cg103" target="_blank" rel="noopener"
+              >nice.org.uk/guidance/cg103</a
+            >
+          </li>
+          <li>
+            Shenvi C, et al. Managing delirium and agitation in the older emergency department
+            patient: the ADEPT tool.
+            <a
+              href="https://doi.org/10.1016/j.annemergmed.2019.07.023"
+              target="_blank"
+              rel="noopener"
+              >Ann Emerg Med. 2020;75(2):136–145.</a
+            >
+          </li>
+          <li>
+            Han JH, et al. Delirium in older emergency department patients (recognition &amp;
+            subtypes; 6-month mortality).
+            <a
+              href="https://doi.org/10.1111/j.1553-2712.2008.00339.x"
+              target="_blank"
+              rel="noopener"
+              >Acad Emerg Med. 2009;16(3):193–200</a
+            >;
+            <a
+              href="https://doi.org/10.1016/j.annemergmed.2010.03.003"
+              target="_blank"
+              rel="noopener"
+              >Ann Emerg Med. 2010;56(3):244–252.</a
+            >
+          </li>
+        </ol>
+        <p class="note">
+          Everything runs in your browser — no patient data is sent anywhere. Do not enter PHI in
+          fields you intend to share.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
