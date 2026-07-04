@@ -226,6 +226,7 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 .screen-alts {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--sp-1);
   margin-right: var(--sp-2);
 }
@@ -234,8 +235,10 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   font-weight: 600;
   color: var(--c-text-2);
 }
+/* The switch label can wrap at extreme text sizes rather than force the header
+   wider than a narrow phone. */
 .scr-switch {
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 /* ── Arousal scale picker (replaces the dropdown — see the whole scale) ── */
