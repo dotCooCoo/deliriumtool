@@ -201,8 +201,30 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 .profile-age .fsel {
   width: auto;
 }
+.prof-age-echo {
+  margin: 4px 0 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-2);
+  min-height: 1.2em;
+}
 .profile-weight {
   max-width: 8rem;
+}
+/* Worked-example shortcuts above the age field. */
+.profile-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--c-border);
+}
+.profile-examples__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-2);
 }
 .err-text {
   color: var(--c-danger, #b3261e);
