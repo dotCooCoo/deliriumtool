@@ -10,9 +10,11 @@ import {
   arousalGate,
   evalCam,
   featurePresent,
+  pictureErrors,
   recommendScreen,
   capdBand,
 } from '../../src/js/peds/scoring.js';
+import { PCAM } from '../../src/js/peds/data/cam.js';
 
 const capd = (arr) => Object.fromEntries(CAPD_ITEMS.map((it, i) => [it.id, arr[i]]));
 
@@ -124,6 +126,51 @@ test('featurePresent resolves judgment / error-tally / compound features', () =>
   assert.equal(featurePresent(comp, { performed: true, unaware: true }), false); // needs both
   assert.equal(featurePresent(comp, { performed: true }), false);
   assert.equal(featurePresent(comp, { performed: false, swc: true }), null);
+});
+
+test('pCAM Feature 2 memory-pictures task: errors count vs. the key, ≥3 positive, either task scores', () => {
+  const f2 = PCAM.features.find((f) => f.id === 'f2');
+  // Ten recognition pictures: five memory ("seen"), five distractors ("new").
+  assert.equal(f2.picture.sequence.length, 10);
+  assert.equal(f2.picture.sequence.filter((p) => p.truth === 'seen').length, 5);
+  assert.equal(f2.picture.sequence.filter((p) => p.truth === 'new').length, 5);
+  assert.equal(f2.picture.threshold, 3);
+
+  const allCorrect = Object.fromEntries(f2.picture.sequence.map((p, i) => [i, p.truth]));
+  assert.equal(pictureErrors(f2, { picture: { marks: allCorrect } }), 0);
+  assert.equal(featurePresent(f2, { picture: { performed: true, marks: allCorrect } }), false);
+
+  // Three mismatches (two memory called "new", one distractor called "seen").
+  const three = { 0: 'new', 2: 'new', 4: 'seen' };
+  assert.equal(pictureErrors(f2, { picture: { marks: three } }), 3);
+  assert.equal(featurePresent(f2, { picture: { performed: true, marks: three } }), true);
+  const two = { 0: 'new', 2: 'new' };
+  assert.equal(pictureErrors(f2, { picture: { marks: two } }), 2);
+  assert.equal(featurePresent(f2, { picture: { performed: true, marks: two } }), false);
+
+  // Unmarked pictures don't count; not performed → pending on its own.
+  assert.equal(featurePresent(f2, { picture: { performed: false, marks: three } }), null);
+
+  // Either task scores Feature 2: letters alone, or pictures alone.
+  assert.equal(featurePresent(f2, { performed: true, errors: [0, 1, 2] }), true);
+  assert.equal(
+    featurePresent(f2, {
+      performed: true,
+      errors: [0],
+      picture: { performed: true, marks: three },
+    }),
+    true,
+  );
+  // Both performed, neither at threshold → absent; nothing performed → pending.
+  assert.equal(
+    featurePresent(f2, {
+      performed: true,
+      errors: [0],
+      picture: { performed: true, marks: two },
+    }),
+    false,
+  );
+  assert.equal(featurePresent(f2, { performed: false, errors: [] }), null);
 });
 
 test('recommendScreen: CAPD default; psCAM 6–60 mo dev; pCAM needs chrono AND dev ≥ 60 mo', () => {

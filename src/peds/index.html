@@ -362,7 +362,13 @@
         <p class="note err-text" id="prof-error" hidden>Enter the child's age to continue.</p>
         <div class="profile-actions">
           <button class="btn btn-ghost btn-sm" data-act="loadExample">Load example data</button>
-          <button class="btn btn-ghost btn-sm" data-act="importJSON">Import saved (JSON)</button>
+          <button
+            class="btn btn-ghost btn-sm"
+            data-act="importJSON"
+            title="Load a saved assessment from a file on this device"
+          >
+            Load
+          </button>
           <button class="btn btn-ghost btn-sm" data-act="clearAll">New child (clear)</button>
         </div>
       </div>
@@ -376,7 +382,13 @@
         <span class="child-context" id="child-context"></span>
         <span class="pathway-bar__spacer"></span>
         <span class="screen-alts" id="screen-alts"></span>
-        <button class="btn btn-ghost btn-sm" data-act="exportJSON">Export</button>
+        <button
+          class="btn btn-ghost btn-sm"
+          data-act="exportJSON"
+          title="Save the full assessment to a file on this device"
+        >
+          Save
+        </button>
         <button class="btn btn-ghost btn-sm" data-act="reset">Edit child</button>
         <button class="btn btn-ghost btn-sm" data-act="clearAll">New child</button>
       </div>
@@ -398,9 +410,6 @@
           </button>
           <button class="tab-btn" data-tab="meds">
             <svg class="fa" aria-hidden="true"><use href="#fa-pills" /></svg> Medications
-          </button>
-          <button class="tab-btn" data-tab="cards">
-            <svg class="fa" aria-hidden="true"><use href="#fa-clipboard-list" /></svg> Bedside cards
           </button>
           <button class="tab-btn" data-tab="setup">
             <svg class="fa" aria-hidden="true"><use href="#fa-gear" /></svg> Setup
@@ -873,18 +882,6 @@
             sign-off). All doses carry a pediatric-clinician + pharmacist sign-off gate.
           </p>
         </section>
-        <section class="tab-panel" id="tab-cards">
-          <div class="card">
-            <div class="card-head">Bedside cards used</div>
-            <p class="note pcards-lead">
-              The laminated bedside cards for this child's screening path — the arousal gate, the
-              screen you're using, and the act-on-a-positive card when the screen is positive — with
-              your recorded values highlighted. These are the same cards you can print from the
-              <a href="/templates/">template designer</a>. Tap a card to jump back to Screening.
-            </p>
-            <div class="pcards" id="peds-cards-live"></div>
-          </div>
-        </section>
 
         <section class="tab-panel" id="tab-setup">
           <div class="card">
@@ -1041,10 +1038,6 @@
             <p class="note err-text" id="export-empty" hidden>
               Enter a child and record an arousal level first.
             </p>
-            <div class="pcards-report" id="peds-cards-report" hidden>
-              <div class="card-head">Bedside cards used in this assessment</div>
-              <ul class="cards-used-list" id="cards-used-list"></ul>
-            </div>
           </div>
           <div class="card">
             <div class="card-head">Medications given this shift</div>
