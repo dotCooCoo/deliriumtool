@@ -1,5 +1,5 @@
 // Pediatric tool (/peds/): profile-first flow, theme/logo, SEO, and the screens.
-/* global document, getComputedStyle */
+/* global document, getComputedStyle, window */
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
