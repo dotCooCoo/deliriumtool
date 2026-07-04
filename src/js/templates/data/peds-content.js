@@ -110,25 +110,9 @@ export const SBS_PROCEDURE =
 export const SENSORY_REMINDER =
   'Before any screen: glasses / corrective lenses and hearing aids in place, per the child profile.';
 
-/**
- * Stimulus picture deck. All ten pictures serve the psCAM-ICU Feature-2
- * presentations; the two five-picture sets support the pCAM-ICU
- * memory-pictures alternative (5 to memorize + 5 "other" for yes/no
- * recognition). Artwork is original (drawn for this site) — the task
- * procedure is the validated element, not the specific pictures.
- */
-export const STIM_DECK = [
-  { id: 'stim-heart', name: 'Heart', set: 'memory' },
-  { id: 'stim-star', name: 'Star', set: 'memory' },
-  { id: 'stim-fish', name: 'Fish', set: 'memory' },
-  { id: 'stim-sun', name: 'Sun', set: 'memory' },
-  { id: 'stim-duck', name: 'Duck', set: 'memory' },
-  { id: 'stim-balloons', name: 'Balloons', set: 'other' },
-  { id: 'stim-flower', name: 'Flower', set: 'other' },
-  { id: 'stim-ball', name: 'Ball', set: 'other' },
-  { id: 'stim-butterfly', name: 'Butterfly', set: 'other' },
-  { id: 'stim-boat', name: 'Sailboat', set: 'other' },
-];
+// The stimulus picture deck is shared with the interactive tool's picture task;
+// re-exported here so the print modules keep importing it from one place.
+export { STIM_DECK } from '../../shared/stim-deck.js';
 
 /**
  * The pCAM-ICU Feature-2 script, verbatim from the validated instrument card

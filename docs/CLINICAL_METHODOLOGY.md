@@ -272,19 +272,22 @@ alternative — not the specific images; the instructions card notes that units 
 their validated picture set per local practice. Mirror tests pin the card content to the
 pediatric tool's modules (`tests/unit/templates-peds.test.js`).
 
-**Bedside cards inside the interactive tool.** The pediatric tool (`/peds/`) renders these same
-laminated cards inline on a "Bedside cards" tab and lists the cards used in the generated report.
-It reuses the exact card renderers (`src/js/templates/peds-cards.js`) — so the interactive cards
-and the printed cards are the same artifact — and layers the live assessment onto them: the
-recorded arousal row is highlighted, the arousal gate taken is marked, each card carries a result
-ribbon, and the applicable outcome chip is emphasized (`src/js/peds/cards.js`). The card set shown
-follows the child's path — the arousal card, the routed screen card (CAPD / pCAM-ICU / psCAM-ICU),
-and the act-on-a-positive card once a screen is positive — and every annotation is derived from the
-tool's own `scoring.js`, so the cards can never disagree with the on-screen result. The card design
-system (`.pc-*`, `.sheet`, `.sh-*`, `.tone-*`) lives in a shared `src/styles/cards.css` imported by
-both the designer and the pediatric tool. The report's "Bedside cards used" section names each card
-and its outcome as vector text (it does not rasterize the cards), keeping the summary a crisp single
-page.
+**Memory-pictures attention task inside the interactive tool.** The pediatric tool (`/peds/`)
+runs the pCAM-ICU memory-pictures alternative to Feature 2 as an on-screen task, not only a printed
+reference. Under Feature 2 it shows the five memory pictures, then steps through all ten recognition
+pictures with a Seen / New control per picture, scoring errors live against each picture's set
+membership — a memory picture answered "new", or a distractor answered "seen", is an error. Tapping
+any picture, or the "Present to child" button, opens a large one-picture-at-a-time modal to turn
+toward the bed: it walks the five memory pictures, then the ten recognition pictures where Seen / New
+is picked in the modal and auto-advances (an accessible dialog — focus-trapped, Esc/arrow-key
+operable). It
+reuses the shared stimulus deck (`src/js/shared/stim-deck.js`) and artwork
+(`src/js/templates/stim-art.js`), so the on-screen task and the printed picture cards draw the same
+set and cannot drift. Both Feature-2 tasks are offered together; either the squeeze-on-A letters or
+the pictures reaching the ≥ 3-error cut makes Feature 2 positive
+(`src/js/peds/scoring.js`, `featurePresent` / `pictureErrors`; `tests/unit/peds-scoring.test.js`).
+The card design system (`.pc-*`, `.sheet`, `.sh-*`, `.tone-*`) lives in a shared
+`src/styles/cards.css` imported by both the designer and the pediatric tool.
 
 ---
 
@@ -888,7 +891,7 @@ The user picks the validated screen for the child's age and developmental level;
 
 **CAPD (Cornell Assessment of Pediatric Delirium) — all ages (0–21 yr).** Eight-item observational nursing screen rated over the shift against age-expected behavior; each item 0–4 (total 0–32). Items 1–4 (eye contact, purposeful actions, awareness, communication) are reverse-scored (Never = 4 … Always = 0); items 5–8 (restless, inconsolable, underactive, slow to respond) are scored Never = 0 … Always = 4. **Cut point ≥ 9 = positive** (Traube 2014: sensitivity 94.1%, specificity 79.2%). **Developmental-delay caveat surfaced at the result** (matching in-app text): specificity at ≥ 9 falls to ~51% (Traube 2014: 51.2%) in baseline developmental delay — interpret against the child's own baseline and consider a higher cut point (per Traube 2014, delayed children scoring > 9 warrant psychiatric assessment). The 0–32 score and positive/negative are withheld until all eight items are rated. **Anchor-band mapping:** the source anchor table defines point-age columns (NB, 4 wk, 6 wk, 8 wk, 28 wk, 1 yr, 2 yr); the tool maps a developmental age to the column whose labeled age it has reached (cuts at ≈0.92 / 1.38 / 1.84 / 6.44 / 12 / 24 months), so a child at or past a labeled age sees that column's anchors. The mapping is score-neutral — it selects the inline hint only — and is recorded in the §6.6 register as a disclosed P-tier presentation choice.
 
-**pCAM-ICU (≥ 5 yr) and psCAM-ICU (6 mo–5 yr).** The CAM-ICU hierarchical algorithm, reused from the adult tool: **positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, with the RASS arousal gate. pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); the Feature-2 task text notes the validated **memory-pictures alternative** (5 pictures to memorize, then 10 recognition pictures; same ≥ 3-error cut) for children who cannot squeeze, and Feature 4 carries the instrument's alternate question set and the worksheet command wording (do not repeat the number of fingers; "add one more finger" only if the child cannot use both hands). psCAM-ICU uses age-adapted observational tasks (6 mo–5 yr); its **Feature 2 implements both validated positivity paths** — (1) no eye contact on ≥ 3 of 10 presentations, or (2) eye contact on 8+ presentations but **unable to maintain sustained eye opening during at least half the assessment despite verbal prompts** (the assessor talks to the child throughout as ongoing stimulation) — Feature 2 is absent only if neither path is met (Smith 2016, Fig. 2/Table 3; psCAM worksheet). The result is withheld until Features 1 and 2 (and a secondary feature) are answered.
+**pCAM-ICU (≥ 5 yr) and psCAM-ICU (6 mo–5 yr).** The CAM-ICU hierarchical algorithm, reused from the adult tool: **positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, with the RASS arousal gate. pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); Feature 2 offers the validated **memory-pictures alternative** as an interactive on-screen task (show 5 pictures to memorize, then 10 recognition pictures scored Seen/New; same ≥ 3-error cut) alongside the squeeze-on-A letters, for children who cannot squeeze — either task at threshold makes Feature 2 positive — and Feature 4 carries the instrument's alternate question set and the worksheet command wording (do not repeat the number of fingers; "add one more finger" only if the child cannot use both hands). psCAM-ICU uses age-adapted observational tasks (6 mo–5 yr); its **Feature 2 implements both validated positivity paths** — (1) no eye contact on ≥ 3 of 10 presentations, or (2) eye contact on 8+ presentations but **unable to maintain sustained eye opening during at least half the assessment despite verbal prompts** (the assessor talks to the child throughout as ongoing stimulation) — Feature 2 is absent only if neither path is met (Smith 2016, Fig. 2/Table 3; psCAM worksheet). The result is withheld until Features 1 and 2 (and a secondary feature) are answered.
 
 **Citations mapped (pediatric Screening tab):** CAPD → Traube 2014 (Crit Care Med 2014;42(3):656–663; PMID 24145848; cut point 9, developmental-delay specificity 51.2%); pCAM-ICU → Smith 2011 (Crit Care Med 2011;39(1):150–157; PMID 20959783; developmental age ≥ 5 yr); psCAM-ICU → Smith 2016 (Crit Care Med 2016;44(3):592–600; PMID 26565631; 6 mo–5 yr); arousal scales → Curley 2006 (State Behavioral Scale; Pediatr Crit Care Med 2006;7(2):107–114) and Sessler 2002 / Kerson 2016 (RASS, adult + pediatric validation); screening practice → SCCM PANDEM 2022 (Pediatr Crit Care Med 2022;23(2):e74–e110).
 

@@ -8,7 +8,14 @@
  */
 import { jsPDF } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
-import { evalCapd, evalCam, featurePresent, arousalGate, capdItemPoints } from './scoring.js';
+import {
+  evalCapd,
+  evalCam,
+  featurePresent,
+  pictureErrors,
+  arousalGate,
+  capdItemPoints,
+} from './scoring.js';
 import { CAM_BY_SCREEN } from './data/cam.js';
 import { CAPD_ITEMS } from './data/capd.js';
 import { RISK_FACTORS, derivedRiskIds } from './data/risk.js';
@@ -17,7 +24,6 @@ import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
 import { REFS } from './data/refs.js';
 import { fitToPages, asciiPdf as ascii, lighten, darken, stampFooter } from '../shared/pdf-kit.js';
 import { formatStamp, fileStamp } from '../shared/time.js';
-import { cardsUsed } from './cards.js';
 
 applyPlugin(jsPDF);
 
@@ -220,16 +226,48 @@ function buildReport(doc, state, settings, scale) {
       doc.setTextColor(...INK).text(v, M + 250 * scale, y);
       y += 12 * scale;
     });
+
+    // pCAM memory-pictures task: which pictures were shown and how the child
+    // answered each, with errors flagged. Only when the picture task was used.
+    const f2 = data.features.find((f) => f.id === 'f2');
+    const picVal = state.cam.f2 && state.cam.f2.picture;
+    const marks = (picVal && picVal.marks) || {};
+    if (f2 && f2.picture && (Object.keys(marks).length || (picVal && picVal.performed))) {
+      const nErr = pictureErrors(f2, { picture: picVal });
+      y += 6 * scale;
+      doc
+        .setFont('helvetica', 'italic')
+        .setFontSize(8 * scale)
+        .setTextColor(...SEC)
+        .text(
+          ascii(
+            `Feature 2 memory-pictures task - ${nErr} error${nErr === 1 ? '' : 's'} of 10 (>= 3 = inattention). memory = shown to memorize; new = not shown:`,
+          ),
+          M,
+          y,
+        );
+      y += 12 * scale;
+      doc.setFont('helvetica', 'normal').setFontSize(9 * scale);
+      const colW = (W - 2 * M) / 2;
+      const top = y;
+      f2.picture.sequence.forEach((p, i) => {
+        const ans = marks[i];
+        const shown = p.truth === 'seen' ? 'memory' : 'new';
+        const err = Boolean(ans && ans !== p.truth);
+        const ansText = ans ? (ans === 'seen' ? 'Seen' : 'New') : '-';
+        const x = M + Math.floor(i / 5) * colW;
+        const yy = top + (i % 5) * 12 * scale;
+        doc.setTextColor(...SEC).text(ascii(`${i + 1}. ${p.name} (${shown})`), x, yy);
+        doc
+          .setTextColor(...(err ? CRIM : INK))
+          .text(ascii(err ? `${ansText} (X)` : ansText), x + colW - 30 * scale, yy, {
+            align: 'right',
+          });
+      });
+      y = top + 5 * 12 * scale;
+    }
   }
   y += 6 * scale;
-
-  // Which laminated bedside cards this assessment traversed, with the outcome.
-  const used = cardsUsed(state);
-  if (used.length) {
-    sectionTitle('Bedside cards used', TEAL);
-    used.forEach((c) => row(c.name, c.outcome));
-    y += 6 * scale;
-  }
 
   const derived = new Set(derivedRiskIds(state.profile));
   // A profile-derived factor flags by default, but an explicit uncheck removes it.

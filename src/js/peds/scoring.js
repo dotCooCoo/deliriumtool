@@ -50,10 +50,31 @@ export function arousalGate(scale, value) {
 }
 
 /**
+ * Count errors on the pCAM-ICU memory-pictures task: for each recognition
+ * picture the child's recorded answer ('seen' | 'new') is compared with the
+ * picture's truth; a mismatch is an error. Unmarked pictures do not count.
+ * @param {{picture:{sequence:Array<{truth:string}>}}} feature
+ * @param {{picture?:{marks?:Object}}} value
+ * @returns {number}
+ */
+export function pictureErrors(feature, value) {
+  const seq = feature?.picture?.sequence || [];
+  const marks = (value && value.picture && value.picture.marks) || {};
+  let n = 0;
+  seq.forEach((p, i) => {
+    const m = marks[i];
+    if (m && m !== p.truth) n += 1;
+  });
+  return n;
+}
+
+/**
  * Resolve one CAM feature to present (true) / absent (false) / incomplete (null)
  * from the input captured for it.
  *   judgment — 'yes' | 'no' | unset
- *   errors   — { performed:boolean, errors:number[] }; present at ≥ threshold
+ *   errors   — { performed:boolean, errors:number[] }; present at ≥ threshold.
+ *              pCAM Feature 2 also carries a picture task
+ *              ({ picture:{ performed, marks } }); either task at threshold is positive.
  *   compound — { performed, swc, unaware, inconsolable }; swc OR (unaware AND inconsolable)
  */
 export function featurePresent(feature, value) {
@@ -64,12 +85,19 @@ export function featurePresent(feature, value) {
     return null;
   }
   if (feature.type === 'errors') {
-    if (!value || !value.performed) return null;
+    if (!value) return null;
+    const letterDone = Boolean(value.performed);
+    const pictureDone = Boolean(feature.picture && value.picture && value.picture.performed);
+    // Pending until at least one task (letters or the picture alternative) is run.
+    if (!letterDone && !pictureDone) return null;
+    // Letters: alternate positivity path (e.g., psCAM Feature 2 eye-opening) or
+    // errors at/above threshold.
     const n = Array.isArray(value.errors) ? value.errors.length : 0;
-    // Some tasks define an alternate positivity path (e.g., psCAM Feature 2:
-    // eye contact kept but eye opening not sustained without verbal prompts).
-    if (feature.alt && value[feature.alt.id]) return true;
-    return n >= feature.threshold;
+    const letterPos = letterDone && ((feature.alt && value[feature.alt.id]) || n >= feature.threshold);
+    // Picture recognition: errors at/above the picture threshold.
+    const picturePos =
+      pictureDone && pictureErrors(feature, value) >= feature.picture.threshold;
+    return Boolean(letterPos || picturePos);
   }
   if (feature.type === 'compound') {
     if (!value || !value.performed) return null;

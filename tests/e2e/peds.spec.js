@@ -481,54 +481,14 @@ test('no horizontal overflow at extreme accessibility settings (largest text on 
   }
 });
 
-test('bedside cards tab shows the real cards annotated with the live assessment', async ({
-  page,
-}) => {
-  await start(page, 72); // → CAPD
-  await setArousal(page, '-2');
-  await page.click('.tab-btn[data-tab="cards"]');
-  // The arousal card + the CAPD card render (the real .pc-* cards).
-  await expect(page.locator('#peds-cards-live .pcard-wrap')).toHaveCount(2);
-  await expect(page.locator('#peds-cards-live .pc-arousal')).toBeVisible();
-  await expect(page.locator('#peds-cards-live .pc-capd')).toBeVisible();
-  // The recorded arousal row is highlighted and its gate marked.
-  await expect(page.locator('#peds-cards-live .pc-lrow.is-recorded')).toHaveCount(1);
-  await expect(page.locator('#peds-cards-live .pc-gate--go.is-taken')).toBeVisible();
-  // The live ribbon reports the arousal outcome.
-  await expect(page.locator('#peds-cards-live .pc-arousal .pc-live')).toContainText(
-    'RASS −2 — screen proceeds',
-  );
-  // Tapping a card jumps back to Screening.
-  await page.locator('#peds-cards-live .pcard-wrap .sheet').first().click();
-  await expect(page.locator('#tab-screen')).toHaveClass(/active/);
-});
-
-test('the act card appears only once the screen is positive', async ({ page }) => {
-  await start(page, 72);
+test('the assessment generates a report PDF with a de-identified filename', async ({ page }) => {
+  // Include a pCAM picture-task answer so the report's picture-results path runs.
+  await start(page, 84);
+  await page.click('[data-act="switchScreen"][data-screen="pcam"]');
   await setArousal(page, '0');
-  // Score CAPD positive: mark all eight items at the top of their range.
-  for (const opt of await page.locator('#capd-items fieldset').all()) {
-    await opt.locator('label.pseg-opt').last().click();
-  }
-  await page.click('.tab-btn[data-tab="cards"]');
-  await expect(page.locator('#peds-cards-live .pc-actcard')).toBeVisible();
-  await expect(page.locator('#peds-cards-live .pc-arousal .pc-live')).toBeVisible();
-});
-
-test('cards used appear on the Export tab and name the path taken', async ({ page }) => {
-  await start(page, 72);
-  await setArousal(page, '-2');
-  await page.click('.tab-btn[data-tab="export"]');
-  await expect(page.locator('#peds-cards-report')).toBeVisible();
-  const items = page.locator('#cards-used-list .cards-used-item');
-  await expect(items).toHaveCount(2);
-  await expect(items.first()).toContainText('Arousal — RASS');
-  await expect(items.nth(1)).toContainText('CAPD');
-});
-
-test('the generated report includes a Bedside cards used section', async ({ page }) => {
-  await start(page, 72);
-  await setArousal(page, '-2');
+  await camYes(page, 'f1');
+  await page.locator('.cam-pic-opt[data-cam-pic="f2"][data-idx="0"][data-ans="new"]').click();
+  await page.locator('input[data-cam-pic-performed="f2"]').check();
   await page.click('.tab-btn[data-tab="export"]');
   const download = page.waitForEvent('download');
   await page.click('[data-act="generateReport"]');
@@ -555,6 +515,112 @@ test('marking a CAM error keeps keyboard focus on the control', async ({ page })
   await chip.focus();
   await chip.press('Enter'); // toggles the error and rebuilds the feature list
   await expect(page.locator('.errchip[data-cam-err="f2"][data-idx="0"]')).toBeFocused();
+});
+
+test('pCAM Feature 2 offers the memory-pictures task; either task can score inattention', async ({
+  page,
+}) => {
+  await start(page, 84); // 7 yr → pCAM offered
+  await page.click('[data-act="switchScreen"][data-screen="pcam"]');
+  await setArousal(page, '0');
+  await camYes(page, 'f1'); // Feature 1 present → Feature 2 tasks appear
+
+  const f2 = page.locator('.cam-feat', { has: page.locator('.cam-pic') });
+  // Both tasks are offered under Feature 2: the letters and the picture alternative.
+  await expect(f2.locator('.errchip[data-cam-err="f2"]')).toHaveCount(10);
+  await expect(f2.locator('.cam-pic-memory .cam-pic-cell')).toHaveCount(5);
+  await expect(f2.locator('.cam-pic-pad .cam-pic-row')).toHaveCount(10);
+
+  // Call three memory pictures "New" — three recognition errors (indices 0, 2, 3
+  // are memory pictures, whose truth is "seen").
+  for (const idx of [0, 2, 3]) {
+    await page
+      .locator(`.cam-pic-opt[data-cam-pic="f2"][data-idx="${idx}"][data-ans="new"]`)
+      .click();
+  }
+  await page.locator('input[data-cam-pic-performed="f2"]').check();
+  await expect(f2.locator('.cam-perf').last()).toContainText('3 errors');
+  // Feature 2 resolves present from the picture task alone (letters never run).
+  await expect(f2.locator('.feat-verdict').last()).toHaveClass(/fv-pos/);
+});
+
+test('pCAM Feature 2 present modal shows pictures large and records Seen/New into the task', async ({
+  page,
+}) => {
+  await start(page, 84);
+  await page.click('[data-act="switchScreen"][data-screen="pcam"]');
+  await setArousal(page, '0');
+  await camYes(page, 'f1');
+
+  // "Present to child" opens the modal at the memory phase.
+  await page.click('.cam-pic-present');
+  const modal = page.locator('.cam-modal-box');
+  await expect(modal).toBeVisible();
+  await expect(modal).toContainText('Memorize — 1 of 5');
+  // Step through the five memory pictures into recognition.
+  for (let i = 0; i < 5; i++) await modal.locator('[data-present-nav="1"]').click();
+  await expect(modal).toContainText('Recognition — 1 of 10');
+  // The open dialog is accessible.
+  const axe = await new AxeBuilder({ page }).include('.cam-modal').analyze();
+  expect(
+    axe.violations.filter((v) => ['serious', 'critical'].includes(v.impact)).map((v) => v.id),
+  ).toEqual([]);
+  // Picking an answer records it and auto-advances to the next picture.
+  await modal.locator('[data-present-ans="new"]').click();
+  await expect(modal).toContainText('Recognition — 2 of 10');
+  // Esc closes; the pick is reflected on the inline recognition pad.
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.cam-modal-box')).toBeHidden();
+  await expect(
+    page.locator('.cam-pic-opt[data-cam-pic="f2"][data-idx="0"][data-ans="new"]'),
+  ).toHaveAttribute('aria-pressed', 'true');
+
+  // Tapping a recognition picture opens the modal at that picture (pos 7 = 3rd).
+  await page.locator('.cam-pic-artbtn[data-pos="7"]').click();
+  await expect(page.locator('.cam-modal-box')).toContainText('Recognition — 3 of 10');
+});
+
+test('present modal fits a landscape phone without scrolling (picture beside controls)', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 740, height: 360 });
+  await start(page, 84);
+  await page.click('[data-act="switchScreen"][data-screen="pcam"]');
+  await setArousal(page, '0');
+  await camYes(page, 'f1');
+  await page.click('.cam-pic-present');
+  for (let i = 0; i < 5; i++) await page.locator('[data-present-nav="1"]').click();
+  const box = page.locator('.cam-modal-box');
+  await expect(box).toContainText('Recognition — 1 of 10');
+  // Nothing scrolls, and every control sits within the viewport.
+  const fit = await page.evaluate(() => {
+    const b = document.querySelector('.cam-modal-box');
+    const inView = (sel) => {
+      const r = document.querySelector(sel).getBoundingClientRect();
+      return r.top >= 0 && r.bottom <= window.innerHeight && r.left >= 0 && r.right <= window.innerWidth;
+    };
+    return {
+      boxScrolls: b.scrollHeight > b.clientHeight + 1,
+      head: inView('.cam-modal-head'),
+      art: inView('.cam-modal-art'),
+      choose: inView('.cam-modal-choose'),
+      nav: inView('.cam-modal-nav'),
+    };
+  });
+  expect(fit).toEqual({ boxScrolls: false, head: true, art: true, choose: true, nav: true });
+});
+
+test('applicable screens are offered as a clear labelled switch in the header', async ({ page }) => {
+  await start(page, 84); // 7 yr → CAPD recommended, pCAM-ICU offered
+  const alts = page.locator('#screen-alts');
+  await expect(alts).toContainText('Other screens:');
+  const sw = alts.locator('[data-act="switchScreen"][data-screen="pcam"]');
+  await expect(sw).toBeVisible();
+  await expect(sw).toHaveText(/Switch to pCAM-ICU/);
+  await sw.click();
+  await expect(page.locator('#pathway-name')).toHaveText('pCAM-ICU');
+  // The picture task (with its Present-to-child modal) is now reachable.
+  await expect(page.locator('.cam-pic-present')).toBeVisible();
 });
 
 test('editing the child to a different age clears stale instrument answers', async ({ page }) => {
