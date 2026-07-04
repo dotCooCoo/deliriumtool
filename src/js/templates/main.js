@@ -984,19 +984,19 @@ async function onClick(e) {
     }
     case 'export':
       exportJSON(state);
-      announce('Configuration exported.');
+      announce('Design saved.');
       break;
     case 'import': {
       const got = await importJSON();
       if (!got) break;
       if (got.__error) {
-        announce('That file could not be read as a template configuration.');
+        announce('That file could not be read as a saved design.');
         break;
       }
       state = got;
       reflectFields();
       update({ rebuildControls: true });
-      announce('Configuration imported.');
+      announce('Design loaded.');
       break;
     }
     case 'reset':
