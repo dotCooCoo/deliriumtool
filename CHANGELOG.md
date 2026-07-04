@@ -21,6 +21,10 @@ Notable changes to this project, following
 - Pediatric report: when the picture task is used, the summary now lists each
   recognition picture, whether it was a memory or new picture, and the child's
   answer, with errors flagged and the total shown against the ≥ 3-error cut.
+- Pediatric tool: a second worked example — **"pCAM-ICU example (school age)"** —
+  loads a filled pCAM-ICU assessment that lands directly on the picture attention
+  task, so it can be explored without hunting for the right age and screen. The
+  example shortcuts now sit above the age field.
 
 ### Changed
 
@@ -30,6 +34,10 @@ Notable changes to this project, following
 - Pediatric tool: when more than one screen applies to a child, the header now
   shows an explicit **"Other screens: Switch to …"** control instead of a faint
   link, so the pCAM-ICU screen (and its picture attention task) is easy to reach.
+- Pediatric tool: the chronological-age unit now defaults to **years** (was
+  months), and a plain-language readback under the field echoes the entered age
+  ("→ 7 years old" / "→ 7 months old — an infant") so a mis-set unit is caught
+  before it routes a child to the wrong screen.
 
 ### Fixed
 

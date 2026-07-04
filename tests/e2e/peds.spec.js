@@ -7,6 +7,7 @@ import AxeBuilder from '@axe-core/playwright';
 async function start(page, ageMonths = 36) {
   await page.goto('/peds/');
   await page.fill('#prof-age', String(ageMonths));
+  await page.selectOption('#prof-age-unit', 'm'); // helper ages are in months
   await page.click('[data-act="deriveScreen"]');
   await expect(page.locator('#workspace')).toBeVisible();
 }
@@ -63,6 +64,7 @@ test('child profile gate requires age, then derives a screen and shows context',
   await expect(page.locator('#prof-error')).toBeVisible();
   await expect(page.locator('#workspace')).toBeHidden();
   await page.fill('#prof-age', '14');
+  await page.selectOption('#prof-age-unit', 'm');
   await page.click('[data-act="deriveScreen"]');
   await expect(page.locator('#workspace')).toBeVisible();
   await expect(page.locator('#pathway-name')).toHaveText('CAPD');
@@ -93,6 +95,7 @@ test('CAPD shows age-filtered anchors and scores positive', async ({ page }) => 
 test('baseline mental status anchors the result to this child', async ({ page }) => {
   await page.goto('/peds/');
   await page.fill('#prof-age', '36');
+  await page.selectOption('#prof-age-unit', 'm');
   await page.selectOption('#prof-baseline', 'impaired');
   await expect(page.locator('#prof-dev-row')).toBeVisible();
   await page.fill('#prof-dev', '12');
@@ -293,6 +296,7 @@ test('New child clears the sensory-aid checkboxes', async ({ page }) => {
   page.on('dialog', (d) => d.accept());
   await page.goto('/peds/');
   await page.fill('#prof-age', '14');
+  await page.selectOption('#prof-age-unit', 'm');
   await page.check('[data-prof="glasses"]');
   await page.click('[data-act="deriveScreen"]');
   await page.click('.pathway-bar [data-act="clearAll"]');
@@ -446,6 +450,7 @@ test('age entered in years round-trips as years after reload', async ({ page }) 
 test('glasses or hearing aids default the sensory-aids prevention item on', async ({ page }) => {
   await page.goto('/peds/');
   await page.fill('#prof-age', '36');
+  await page.selectOption('#prof-age-unit', 'm');
   await page.check('[data-prof="glasses"]');
   await page.click('[data-act="deriveScreen"]');
   await page.click('.tab-btn[data-tab="prevent"]');
@@ -627,6 +632,27 @@ test('applicable screens are offered as a clear labelled switch in the header', 
   await expect(page.locator('.cam-pic-present')).toBeVisible();
 });
 
+test('the pCAM-ICU example lands directly on the picture attention task, scored positive', async ({
+  page,
+}) => {
+  await page.goto('/peds/');
+  await page.click('[data-act="loadExamplePcam"]');
+  await expect(page.locator('#pathway-name')).toHaveText('pCAM-ICU');
+  // The picture task and its Present-to-child button are right there.
+  await expect(page.locator('.cam-pic-present')).toBeVisible();
+  const f2 = page.locator('.cam-feat', { has: page.locator('.cam-pic') });
+  await expect(f2.locator('.feat-verdict').last()).toHaveClass(/fv-pos/);
+  await expect(page.locator('#screen-result')).toContainText('Positive');
+});
+
+test('the age readback echoes the interpreted age and flags a mis-set unit', async ({ page }) => {
+  await page.goto('/peds/');
+  await page.fill('#prof-age', '7'); // unit defaults to years
+  await expect(page.locator('#prof-age-echo')).toContainText('7 years old');
+  await page.selectOption('#prof-age-unit', 'm'); // now 7 months
+  await expect(page.locator('#prof-age-echo')).toContainText('infant');
+});
+
 test('editing the child to a different age clears stale instrument answers', async ({ page }) => {
   await start(page, 8); // 8 mo → CAPD
   await setArousal(page, '0');
@@ -637,6 +663,7 @@ test('editing the child to a different age clears stale instrument answers', asy
   await expect(page.locator('#capd-items input[value="4"]').first()).toBeChecked();
   await page.click('[data-act="reset"]'); // Edit child — back to the profile form
   await page.fill('#prof-age', '20'); // a different child (still CAPD)
+  await page.selectOption('#prof-age-unit', 'm');
   await page.click('[data-act="deriveScreen"]');
   await expect(page.locator('#capd-items input[value="4"]').first()).not.toBeChecked();
 });

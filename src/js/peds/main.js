@@ -40,6 +40,7 @@ import {
   exportSettings,
   importSettings,
   EXAMPLE,
+  EXAMPLE_PCAM,
   EXAMPLE_SETTINGS,
 } from './persist.js';
 
@@ -114,6 +115,23 @@ function ageLabel(months) {
   return `${Math.round(months / 12)} yr`;
 }
 
+// A plain-language readback of the entered age so a mis-set unit (e.g. "7"
+// meaning years while the dropdown still says months) is caught before it
+// silently routes an infant to the wrong screen.
+function friendlyAge(months) {
+  const m = Math.round(months);
+  if (m < 12) return `${m} month${m === 1 ? '' : 's'} old — an infant`;
+  if (m < 24) return `${m} months old`;
+  const yr = Math.round(m / 12);
+  return `${yr} year${yr === 1 ? '' : 's'} old`;
+}
+function updateAgeEcho() {
+  const echo = $('#prof-age-echo');
+  if (!echo) return;
+  const months = toMonths($('#prof-age')?.value, $('#prof-age-unit')?.value);
+  echo.textContent = months == null ? '' : `→ ${friendlyAge(months)}`;
+}
+
 // ── Facility settings (Setup tab; persisted separately, survive "new child") ───
 function readSettings() {
   const out = {};
@@ -151,6 +169,7 @@ function fillProfileForm() {
   if (g) g.checked = !!p.glasses;
   const h = $('[data-prof="hearing"]');
   if (h) h.checked = !!p.hearing;
+  updateAgeEcho();
 }
 
 function syncAssessed() {
@@ -228,6 +247,7 @@ function clearAll() {
   if (b) b.value = 'typical';
   const dr = $('#prof-dev-row');
   if (dr) dr.hidden = true;
+  updateAgeEcho();
   delete document.body.dataset.screen;
   $('#workspace').hidden = true;
   $('#pathway-picker').hidden = false;
@@ -1325,7 +1345,7 @@ document.addEventListener('click', (e) => {
       autosave(state);
       return;
     }
-    if (a === 'loadExample') {
+    if (a === 'loadExample' || a === 'loadExamplePcam') {
       if (
         state.profile.ageM != null &&
         !confirm('Replace the current assessment with the example data?')
@@ -1334,7 +1354,7 @@ document.addEventListener('click', (e) => {
       }
       applySettings(EXAMPLE_SETTINGS);
       saveSettings(readSettings());
-      applyState(EXAMPLE);
+      applyState(a === 'loadExamplePcam' ? EXAMPLE_PCAM : EXAMPLE);
       autosave(state);
       return;
     }
@@ -1400,8 +1420,17 @@ document.addEventListener('click', (e) => {
   if (tabBtn) showTab(tabBtn.dataset.tab);
 });
 
+// Keep the plain-language age readback in sync as the number or unit changes.
+document.addEventListener('input', (e) => {
+  if (e.target.id === 'prof-age' || e.target.id === 'prof-age-unit') updateAgeEcho();
+});
+
 document.addEventListener('change', (e) => {
   const t = e.target;
+  if (t.dataset.prof === 'ageUnit') {
+    updateAgeEcho();
+    return;
+  }
   if (t.dataset.prof === 'baseline') {
     const row = $('#prof-dev-row');
     if (row) row.hidden = t.value !== 'impaired';
@@ -1477,4 +1506,5 @@ renderRefs();
 initA11y(); // user-configurable text size / contrast / motion controls
 wireTablist(showTab); // ARIA tablist + Arrow/Home/End keyboard navigation
 updateTabBadges();
+updateAgeEcho();
 applyGlossary(PEDS_GLOSSARY, document.querySelectorAll('.tab-panel'));

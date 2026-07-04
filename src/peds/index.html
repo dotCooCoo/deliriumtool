@@ -276,6 +276,13 @@
 
       <div class="card">
         <div class="card-head">Child context</div>
+        <div class="profile-examples">
+          <span class="profile-examples__label">New here? Load a worked example:</span>
+          <button class="btn btn-sec btn-sm" data-act="loadExample">CAPD example (infant)</button>
+          <button class="btn btn-sec btn-sm" data-act="loadExamplePcam">
+            pCAM-ICU example (school age — picture task)
+          </button>
+        </div>
         <div class="profile-row">
           <label class="scr-label" for="prof-age">Chronological age</label>
           <div class="profile-age">
@@ -286,7 +293,7 @@
               min="0"
               step="1"
               inputmode="numeric"
-              placeholder="e.g. 14"
+              placeholder="e.g. 7"
               data-prof="age"
             />
             <select
@@ -295,10 +302,11 @@
               data-prof="ageUnit"
               aria-label="Chronological age unit"
             >
+              <option value="y" selected>years</option>
               <option value="m">months</option>
-              <option value="y">years</option>
             </select>
           </div>
+          <p class="prof-age-echo" id="prof-age-echo" aria-live="polite"></p>
         </div>
 
         <label class="scr-label" for="prof-baseline">Baseline mental status</label>
@@ -361,7 +369,6 @@
         </button>
         <p class="note err-text" id="prof-error" hidden>Enter the child's age to continue.</p>
         <div class="profile-actions">
-          <button class="btn btn-ghost btn-sm" data-act="loadExample">Load example data</button>
           <button
             class="btn btn-ghost btn-sm"
             data-act="importJSON"
