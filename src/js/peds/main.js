@@ -352,7 +352,9 @@ function renderHeader() {
     // clear button per applicable screen (the pCAM-ICU picture task lives behind
     // this switch, so a faint control here hides the whole feature).
     alts.replaceChildren(
-      ...(others.length ? [el('span', { class: 'screen-alts__label', text: 'Other screens:' })] : []),
+      ...(others.length
+        ? [el('span', { class: 'screen-alts__label', text: 'Other screens:' })]
+        : []),
       ...others.map((a) =>
         el(
           'button',
@@ -737,7 +739,12 @@ let presentReturnFocus = null;
 
 function presentSteps(f) {
   const mem = f.picture.memory.map((c) => ({ kind: 'memorize', id: c.id, name: c.name }));
-  const rec = f.picture.sequence.map((p, i) => ({ kind: 'recognize', id: p.id, name: p.name, idx: i }));
+  const rec = f.picture.sequence.map((p, i) => ({
+    kind: 'recognize',
+    id: p.id,
+    name: p.name,
+    idx: i,
+  }));
   return mem.concat(rec);
 }
 
@@ -824,7 +831,12 @@ function renderPresent() {
       el('span', { class: 'cam-modal-phase', text: phaseText }),
       el(
         'button',
-        { type: 'button', class: 'cam-modal-close', 'data-present-close': '1', 'aria-label': 'Close' },
+        {
+          type: 'button',
+          class: 'cam-modal-close',
+          'data-present-close': '1',
+          'aria-label': 'Close',
+        },
         svgIcon('xmark'),
       ),
     ),
@@ -854,7 +866,9 @@ function renderPresent() {
     }
     box.append(choose);
   } else {
-    box.append(el('p', { class: 'cam-modal-ask', text: 'Show this picture, then move to the next.' }));
+    box.append(
+      el('p', { class: 'cam-modal-ask', text: 'Show this picture, then move to the next.' }),
+    );
   }
 
   const last = pos === steps.length - 1;
@@ -880,9 +894,11 @@ function renderPresent() {
   );
 
   root.replaceChildren(el('div', { class: 'cam-modal', 'data-present-overlay': '1' }, box));
-  (box.querySelector('.cam-modal-opt') ||
+  (
+    box.querySelector('.cam-modal-opt') ||
     box.querySelector('[data-present-nav="1"]') ||
-    box.querySelector('.cam-modal-close'))?.focus();
+    box.querySelector('.cam-modal-close')
+  )?.focus();
 }
 
 // Keep Tab focus inside the open modal (dialog focus trap).

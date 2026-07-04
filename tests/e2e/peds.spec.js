@@ -597,7 +597,9 @@ test('present modal fits a landscape phone without scrolling (picture beside con
     const b = document.querySelector('.cam-modal-box');
     const inView = (sel) => {
       const r = document.querySelector(sel).getBoundingClientRect();
-      return r.top >= 0 && r.bottom <= window.innerHeight && r.left >= 0 && r.right <= window.innerWidth;
+      return (
+        r.top >= 0 && r.bottom <= window.innerHeight && r.left >= 0 && r.right <= window.innerWidth
+      );
     };
     return {
       boxScrolls: b.scrollHeight > b.clientHeight + 1,
@@ -610,7 +612,9 @@ test('present modal fits a landscape phone without scrolling (picture beside con
   expect(fit).toEqual({ boxScrolls: false, head: true, art: true, choose: true, nav: true });
 });
 
-test('applicable screens are offered as a clear labelled switch in the header', async ({ page }) => {
+test('applicable screens are offered as a clear labelled switch in the header', async ({
+  page,
+}) => {
   await start(page, 84); // 7 yr → CAPD recommended, pCAM-ICU offered
   const alts = page.locator('#screen-alts');
   await expect(alts).toContainText('Other screens:');

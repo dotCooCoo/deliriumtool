@@ -93,10 +93,10 @@ export function featurePresent(feature, value) {
     // Letters: alternate positivity path (e.g., psCAM Feature 2 eye-opening) or
     // errors at/above threshold.
     const n = Array.isArray(value.errors) ? value.errors.length : 0;
-    const letterPos = letterDone && ((feature.alt && value[feature.alt.id]) || n >= feature.threshold);
+    const letterPos =
+      letterDone && ((feature.alt && value[feature.alt.id]) || n >= feature.threshold);
     // Picture recognition: errors at/above the picture threshold.
-    const picturePos =
-      pictureDone && pictureErrors(feature, value) >= feature.picture.threshold;
+    const picturePos = pictureDone && pictureErrors(feature, value) >= feature.picture.threshold;
     return Boolean(letterPos || picturePos);
   }
   if (feature.type === 'compound') {
