@@ -5,6 +5,12 @@ updates:
     schedule:
       interval: weekly
     labels: [dependencies]
+    groups:
+      # init and analyze must run at the same version within one workflow,
+      # so their updates have to land in a single PR.
+      codeql-action:
+        patterns:
+          - github/codeql-action*
 
   - package-ecosystem: npm
     directory: /
