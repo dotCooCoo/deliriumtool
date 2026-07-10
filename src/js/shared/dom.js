@@ -111,7 +111,7 @@ export function applyGlossary(glossary, roots) {
   const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const re = new RegExp(`(${terms.map(escapeRe).join('|')})`);
   const walk = (node, done) => {
-    for (let n = node.firstChild; n; ) {
+    for (let n = node.firstChild; n;) {
       const next = n.nextSibling;
       if (n.nodeType === 3) {
         const txt = n.nodeValue;
