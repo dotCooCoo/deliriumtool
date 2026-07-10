@@ -37,7 +37,6 @@ import { REFS } from './data/refs.js';
 let state = blankAssessment();
 let settings = { facility: '', defaultPathway: 'twostep' };
 
-const store = makeStore('deliriumtool:ed');
 const settingsStore = makeStore('deliriumtool:ed:settings');
 
 const activePathway = () =>
@@ -752,7 +751,6 @@ function renderAll() {
   renderSummary();
   applyGlossary(ED_GLOSSARY, document.querySelectorAll('#tab-screen, #tab-act'));
   restoreFocus(focusKey);
-  store.autosave(state);
 }
 
 // ── Events ───────────────────────────────────────────────────────────────────
@@ -836,17 +834,14 @@ function onChange(e) {
       break;
     case 'assessor':
       state.assessor = t.value.slice(0, 120);
-      store.autosave(state);
       renderSummary();
       return;
     case 'assessedAt':
       state.assessedAt = t.value;
-      store.autosave(state);
       renderSummary();
       return;
     case 'notes':
       state.notes = t.value.slice(0, 1000);
-      store.autosave(state);
       renderSummary();
       return;
     default:
@@ -886,7 +881,6 @@ function onClick(e) {
     case 'reset':
       if (!window.confirm('Start a new assessment? The current one will be cleared.')) return;
       state = blankAssessment();
-      store.clearSaved();
       renderAll();
       showTab('screen');
       break;
@@ -944,11 +938,7 @@ function announce(text) {
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 
-function restore() {
-  const saved = store.loadSaved();
-  if (looksLikeEdAssessment(saved)) {
-    state = sanitizeAssessment(saved);
-  }
+function restoreSettings() {
   settings = sanitizeSettings(settingsStore.loadSaved());
   const fac = $('#ed-facility');
   if (fac) fac.value = settings.facility;
@@ -969,7 +959,15 @@ function showTab(id) {
 }
 
 initA11y();
-restore();
+// Every visit starts a fresh assessment — nothing restores on reload. Remove
+// any snapshot left behind by earlier versions that autosaved. Unit settings
+// (facility, default pathway) are configuration and do persist.
+try {
+  localStorage.removeItem('deliriumtool:ed');
+} catch {
+  /* non-fatal */
+}
+restoreSettings();
 renderAll();
 renderSources();
 applyGlossary(ED_GLOSSARY, document.querySelectorAll('.tab-panel'));
@@ -981,6 +979,5 @@ document.addEventListener('input', (e) => {
 });
 document.addEventListener('click', onClick);
 window.addEventListener('pagehide', () => {
-  store.flushSave(state);
   settingsStore.flushSave(settings);
 });

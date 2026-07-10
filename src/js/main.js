@@ -4,17 +4,15 @@
  * Every interactive element carries a data-act attribute; one delegated listener
  * per event type routes it to a handler. There are NO inline handlers and no
  * globals, so the strict CSP (script-src 'self') holds. This module also owns the
- * pathway-first flow, tab navigation, PDF open/print, save/load/share, autosave +
- * restore, and the acronym tooltips.
+ * pathway-first flow, tab navigation, PDF open/print, save/load/share, and the
+ * acronym tooltips. The assessment is session-only — a reload starts fresh.
  */
 import { DeliriumPDF } from './pdf.js';
 import * as ui from './ui.js';
 import {
   S,
   assignKeys,
-  autosave,
-  flushSave,
-  loadAutosave,
+  scrubAutosave,
   restore,
   clearAll,
   exportJSON,
@@ -135,7 +133,6 @@ function choosePathway(pathway) {
   showWorkspace(pathway);
   switchTab(startTabFor(pathway));
   focusActiveTab();
-  autosave(root);
 }
 
 // Change the target document without leaving the workspace (non-destructive —
@@ -145,7 +142,6 @@ function switchPathwayTo(pathway) {
   S.pathway = pathway;
   applyPathwayView(pathway);
   emphasizeExportCard();
-  autosave(root);
 }
 
 function resetAll() {
@@ -240,7 +236,6 @@ async function importAssessment() {
       showWorkspace(data.pathway);
       switchTab(TAB_ORDER.includes(data.activeTab) ? data.activeTab : startTabFor(data.pathway));
     }
-    autosave(root);
   } catch (e) {
     console.error(e);
     window.alert('That file could not be loaded as an assessment.');
@@ -327,19 +322,6 @@ const onInput = {
   cam2: () => ui.updateCam2(),
 };
 
-// Click-driven acts that mutate the assessment but fire no change/input event, so
-// they must trigger autosave explicitly (otherwise the work is lost on reload).
-const MUTATING_ACTS = new Set([
-  'clearRisk',
-  'setCam',
-  'setSub',
-  'markAllBundle',
-  'toggleMed',
-  'toggleCatAll',
-  'setAllMeds',
-  'autofill',
-]);
-
 function wireDispatch() {
   document.addEventListener('click', (e) => {
     const tabBtn = e.target.closest('.tab-btn');
@@ -353,7 +335,6 @@ function wireDispatch() {
     if (fn) {
       if (el.tagName === 'A' && el.getAttribute('href') === '#') e.preventDefault();
       fn(el);
-      if (MUTATING_ACTS.has(el.dataset.act)) autosave(root);
     }
   });
 
@@ -363,13 +344,11 @@ function wireDispatch() {
     if (chk && t.type === 'checkbox') chk.classList.toggle('done', t.checked);
     const el = t.closest('[data-act]');
     if (el && onChange[el.dataset.act]) onChange[el.dataset.act](el);
-    autosave(root);
   });
 
   document.addEventListener('input', (e) => {
     const el = e.target.closest('[data-act]');
     if (el && onInput[el.dataset.act]) onInput[el.dataset.act](el);
-    autosave(root);
   });
 }
 
@@ -446,8 +425,6 @@ function init() {
   wireA11y();
   wireDispatch();
   initA11y(); // user-configurable text size / contrast / motion controls
-  // Flush the debounced autosave on hide so a quick reload/close never loses the last edit.
-  window.addEventListener('pagehide', () => flushSave(root));
   const shared = readShareUrl();
   initSettings({ shareActive: !!shared }); // a shared #cfg link wins over settings.json
 
@@ -466,19 +443,11 @@ function init() {
     h.setAttribute('aria-level', '2');
   });
 
-  // Resume an in-progress assessment, apply a shared config, or show the picker.
-  const saved = loadAutosave();
-  if (saved) {
-    restore(root, saved);
-    ui.refreshAll();
-    syncRassTarget();
-  }
-  if (shared) {
-    applySharedConfig(shared);
-  } else if (saved && saved.pathway && PATHWAY_NAMES[saved.pathway]) {
-    showWorkspace(saved.pathway);
-    switchTab(TAB_ORDER.includes(saved.activeTab) ? saved.activeTab : startTabFor(saved.pathway));
-  }
+  // Every visit starts a fresh assessment — nothing restores on reload. Remove
+  // any snapshot left behind by earlier versions that autosaved, then apply a
+  // shared config or show the pathway picker.
+  scrubAutosave();
+  if (shared) applySharedConfig(shared);
 }
 
 if (document.readyState === 'loading') {

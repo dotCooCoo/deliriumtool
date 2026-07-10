@@ -29,10 +29,7 @@ import { faIcon, wireTablist, applyGlossary, el, $, $$ } from '../shared/dom.js'
 import { localInput } from '../shared/time.js';
 import { initA11y } from '../shared/a11y.js';
 import {
-  autosave,
-  flushSave,
-  loadSaved,
-  clearSaved,
+  scrubAutosave,
   exportJSON,
   importJSON,
   saveSettings,
@@ -231,7 +228,6 @@ function clearAll() {
   state.prevention = {};
   state.assessedAt = '';
   state.assessor = '';
-  clearSaved();
   reflectPrevention();
   syncAssessed();
   showTab('screen');
@@ -329,7 +325,6 @@ function deriveScreen() {
   renderResult();
   decorateHeads();
   updateTabBadges();
-  autosave(state);
   window.scrollTo({ top: 0 });
 }
 
@@ -342,7 +337,6 @@ function setScreen(key) {
   renderHeader();
   renderCam();
   renderResult();
-  autosave(state);
 }
 
 // "Edit child" — return to the (populated) profile form, keeping the assessment.
@@ -500,7 +494,6 @@ function toggleCamError(fid, idx) {
   else f.errors.push(idx);
   renderCam();
   renderResult();
-  autosave(state);
 }
 function ensureCamPicture(fid) {
   const f = ensureCam(fid);
@@ -517,7 +510,6 @@ function setCamPicture(fid, idx, ans, { toggle = true } = {}) {
   else pic.marks[idx] = ans;
   renderCam();
   renderResult();
-  autosave(state);
 }
 function checkboxEl(dataKey, dataVal, checked, extra) {
   const c = el('input', { type: 'checkbox' });
@@ -817,7 +809,6 @@ function presentSelect(ans) {
     ensureCamPicture(presentCtx.fid).performed = true; // finishing the last picture completes the task
     renderCam();
     renderResult();
-    autosave(state);
     return closePresent();
   }
   presentCtx.pos += 1;
@@ -1259,7 +1250,6 @@ function showTab(tab) {
   });
   $$('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === `tab-${tab}`));
   state.activeTab = tab;
-  if (state.profile.ageM != null) autosave(state); // remember where the user is
 }
 
 // Completion-count badges on the checklist tabs (Risk, Prevention, meds given).
@@ -1342,7 +1332,6 @@ document.addEventListener('click', (e) => {
       state.arousal = '';
       renderArousal();
       renderResult();
-      autosave(state);
       return;
     }
     if (a === 'loadExample' || a === 'loadExamplePcam') {
@@ -1355,7 +1344,6 @@ document.addEventListener('click', (e) => {
       applySettings(EXAMPLE_SETTINGS);
       saveSettings(readSettings());
       applyState(a === 'loadExamplePcam' ? EXAMPLE_PCAM : EXAMPLE);
-      autosave(state);
       return;
     }
     if (a === 'clearAll') {
@@ -1374,7 +1362,6 @@ document.addEventListener('click', (e) => {
           return;
         }
         applyState(data);
-        autosave(state);
       });
       return;
     }
@@ -1443,29 +1430,24 @@ document.addEventListener('change', (e) => {
   if (t.dataset.risk) {
     state.risk[t.dataset.risk] = t.checked;
     updateTabBadges();
-    autosave(state);
     return;
   }
   if (t.dataset.med) {
     state.medsGiven[t.dataset.med] = t.checked;
     updateTabBadges();
-    autosave(state);
     return;
   }
   if (t.dataset.assessed != null) {
     state.assessedAt = t.value;
-    autosave(state);
     return;
   }
   if (t.dataset.assessor != null) {
     state.assessor = t.value;
-    autosave(state);
     return;
   }
   if (t.dataset.prev) {
     state.prevention[t.dataset.prev] = t.checked;
     updateTabBadges();
-    autosave(state);
     return;
   }
   if (t.dataset.screenInput === 'arousal') {
@@ -1487,21 +1469,14 @@ document.addEventListener('change', (e) => {
     return;
   }
   renderResult();
-  autosave(state);
-});
-
-window.addEventListener('pagehide', () => {
-  if (state.profile.ageM != null) flushSave(state);
 });
 
 applySettings(loadSettings());
-const saved = loadSaved();
-if (saved && saved.profile && saved.profile.ageM != null) {
-  applyState(saved);
-} else {
-  renderArousal();
-  decorateHeads();
-}
+// Every visit starts a fresh assessment — nothing restores on reload. Remove
+// any snapshot left behind by earlier versions that autosaved.
+scrubAutosave();
+renderArousal();
+decorateHeads();
 renderRefs();
 initA11y(); // user-configurable text size / contrast / motion controls
 wireTablist(showTab); // ARIA tablist + Arrow/Home/End keyboard navigation
