@@ -106,7 +106,7 @@ function arousalRowEl(scale, r) {
   );
 }
 
-export function arousalCard(state) {
+function arousalCard(state) {
   const scale = state.pedsScale === 'sbs' ? 'sbs' : 'rass';
   const rows = arousalRows(scale);
   const gate = AROUSAL_GATE[scale];
@@ -177,7 +177,7 @@ export function arousalCard(state) {
 
 // ── Card 2 · Choose the screen ───────────────────────────────────────────────
 
-export function routerCard() {
+function routerCard() {
   const body = el('div', { class: 'pc-body' });
   body.append(
     el(
@@ -258,7 +258,7 @@ function camRule(name) {
   );
 }
 
-export function pcamCard() {
+function pcamCard() {
   const f = Object.fromEntries(PCAM.features.map((x) => [x.id, x]));
   const body = el(
     'div',
@@ -323,7 +323,7 @@ export function pcamCard() {
   );
 }
 
-export function pscamCard() {
+function pscamCard() {
   const f = Object.fromEntries(PSCAM.features.map((x) => [x.id, x]));
   const body = el(
     'div',
@@ -418,7 +418,7 @@ export function pscamCard() {
 
 // ── Card 5 · CAPD ────────────────────────────────────────────────────────────
 
-export function capdCard() {
+function capdCard() {
   const legend = el(
     'div',
     { class: 'pc-capd-legend' },
@@ -492,7 +492,7 @@ export function capdCard() {
 
 // ── Card 6 · Act on a positive ───────────────────────────────────────────────
 
-export function actCard(state) {
+function actCard(state) {
   const block = (tone, groupId, head, items) =>
     el(
       'div',
@@ -531,7 +531,7 @@ export function actCard(state) {
 
 // ── Card 7 · Prevention bundle ───────────────────────────────────────────────
 
-export function preventCard(state) {
+function preventCard(state) {
   const body = el(
     'div',
     { class: 'pc-body' },

@@ -121,3 +121,56 @@ export const EXAMPLE = {
   prevention: { A: true, C: true, D: true, F: true, sleep: true },
   medsGiven: { dexmed: true, melatonin: true },
 };
+
+// A second worked example — a 7-year-old on pCAM-ICU — so the picture attention
+// task (memory pictures + Seen/New) can be explored without hunting for the
+// right age/screen. Feature 2 is scored by the pictures (3 errors), so the
+// screen lands positive with the picture task filled in.
+export const EXAMPLE_PCAM = {
+  v: 1,
+  assessor: 'J. Rivera, RN',
+  profile: {
+    ageM: 84,
+    devM: 84,
+    ageUnit: 'y',
+    delay: false,
+    baseline: 'typical',
+    weightKg: 23,
+    band: null,
+    glasses: false,
+    hearing: false,
+  },
+  screen: 'pcam',
+  alternatives: ['pcam'],
+  arousal: '0',
+  arousalScale: 'rass',
+  capd: {},
+  cam: {
+    f1: 'yes',
+    f2: {
+      performed: false,
+      errors: [],
+      // Recognition answers: memory pictures at indices 0, 2 called "new" and
+      // the distractor at 4 called "seen" → 3 errors → inattention present.
+      picture: {
+        performed: true,
+        marks: {
+          0: 'new',
+          1: 'new',
+          2: 'new',
+          3: 'seen',
+          4: 'seen',
+          5: 'new',
+          6: 'seen',
+          7: 'seen',
+          8: 'new',
+          9: 'new',
+        },
+      },
+    },
+    f3: 'yes',
+  },
+  risk: { benzo: true, vent: true },
+  prevention: { A: true, D: true, F: true },
+  medsGiven: { dexmed: true },
+};

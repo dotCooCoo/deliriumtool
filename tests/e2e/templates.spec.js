@@ -554,6 +554,9 @@ test('ED card set renders five portrait cards with the RASS gate and DTS→bCAM 
   await expect(page.locator('.pc-router')).toContainText('bCAM directly');
   // Combined Step 1 card: the full RASS ladder + the unable gate + the LUNCH task.
   const dts = page.locator('.pc-dtsgate');
+  // Sequential steps number DTS → bCAM as 1 → 2 (no gap).
+  await expect(dts.locator('.pc-stepchip')).toHaveText('Step 1 · DTS');
+  await expect(page.locator('.pc-bcam .pc-stepchip')).toHaveText('Step 2 · bCAM');
   await expect(dts.locator('.pc-lrow')).toHaveCount(10);
   await expect(dts.locator('.pc-gate--stop')).toContainText('unable to assess');
   await expect(dts.locator('.pc-letter')).toHaveCount(5);
@@ -642,6 +645,18 @@ test('ED card set is a builder: act toggles, unit lines, own-card sections', asy
   await secBtn.evaluate((b) => b.click());
   await expect(page.locator('.sheet')).toHaveCount(6);
   await expect(page.locator('.pc-custom')).toContainText('ED delirium pathway contact');
+});
+
+test('ED card set renumbers the sequential steps when the DTS card is hidden', async ({ page }) => {
+  await page.check('input[name="template"][value="ed-cards"]');
+  await expect(page.locator('.pc-bcam .pc-stepchip')).toHaveText('Step 2 · bCAM');
+  await expect(page.locator('.pc-bcam .pc-step').nth(2)).toContainText('from Step 1');
+  // Hide the DTS card — bCAM is now the first shown step.
+  await page.locator('#sw-sec-ed-dts').uncheck();
+  await expect(page.locator('.pc-dtsgate')).toHaveCount(0);
+  await expect(page.locator('.pc-bcam .pc-stepchip')).toHaveText('Step 1 · bCAM');
+  // Its Feature-3 cross-reference no longer points at a missing step.
+  await expect(page.locator('.pc-bcam .pc-step').nth(2)).toContainText('the RASS score');
 });
 
 test('ED workflow poster renders one landscape page with the hand-off script', async ({ page }) => {

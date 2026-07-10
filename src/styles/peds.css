@@ -201,8 +201,30 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 .profile-age .fsel {
   width: auto;
 }
+.prof-age-echo {
+  margin: 4px 0 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-2);
+  min-height: 1.2em;
+}
 .profile-weight {
   max-width: 8rem;
+}
+/* Worked-example shortcuts above the age field. */
+.profile-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--c-border);
+}
+.profile-examples__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-2);
 }
 .err-text {
   color: var(--c-danger, #b3261e);
@@ -225,8 +247,20 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 }
 .screen-alts {
   display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: var(--sp-1);
   margin-right: var(--sp-2);
+}
+.screen-alts__label {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-text-2);
+}
+/* The switch label can wrap at extreme text sizes rather than force the header
+   wider than a narrow phone. */
+.scr-switch {
+  max-width: 100%;
 }
 
 /* ── Arousal scale picker (replaces the dropdown — see the whole scale) ── */
@@ -454,6 +488,284 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
 @media (prefers-reduced-motion: reduce) {
   .errchip {
     transition: none;
+  }
+}
+
+/* ── Feature 2 memory-pictures task (pCAM-ICU alternative to the letters) ── */
+.cam-subhead {
+  margin: var(--sp-3) 0 2px;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--c-text);
+}
+.cam-pic {
+  margin-top: var(--sp-2);
+  padding-top: var(--sp-2);
+  border-top: 1px dashed var(--c-border);
+}
+.cam-pic-memory {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: var(--sp-2) 0;
+}
+.cam-pic-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 76px;
+}
+.cam-pic-art {
+  width: 64px;
+  height: 64px;
+  padding: 4px;
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+}
+.cam-pic-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cam-pic-art--sm {
+  width: 44px;
+  height: 44px;
+  padding: 3px;
+}
+.cam-pic-name {
+  font-size: var(--fs-xs);
+  color: var(--c-text-2);
+}
+.cam-pic-pad {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: var(--sp-2) 0;
+}
+.cam-pic-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cam-pic-idx {
+  min-width: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-text-3);
+}
+.cam-pic-row .cam-pic-name {
+  flex: 1;
+  font-size: var(--fs-sm);
+  color: var(--c-text);
+}
+.cam-pic-choose {
+  display: inline-flex;
+  gap: 6px;
+}
+.cam-pic-opt {
+  min-width: 56px;
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
+}
+.cam-pic-opt:hover {
+  border-color: var(--c-primary);
+}
+.cam-pic-opt:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 1px;
+}
+.cam-pic-opt.is-on {
+  border-color: var(--c-primary);
+  background: var(--c-primary);
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cam-pic-opt {
+    transition: none;
+  }
+}
+.cam-pic-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cam-pic-present {
+  gap: 6px;
+}
+/* Picture thumbnails are buttons that open the present modal. */
+.cam-pic-artbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.cam-pic-artbtn:hover {
+  border-color: var(--c-primary);
+}
+.cam-pic-artbtn:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+}
+
+/* ── Picture present modal ──────────────────────────────────────────── */
+.cam-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  background: rgba(15, 32, 39, 0.62);
+}
+.cam-modal-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  width: min(92vw, 460px);
+  max-height: 92vh;
+  overflow: auto;
+  padding: var(--sp-4);
+  border-radius: var(--radius-lg, 14px);
+  background: var(--c-surface);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+.cam-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.cam-modal-phase {
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  color: var(--c-text-2);
+}
+.cam-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--c-text-2);
+  cursor: pointer;
+}
+.cam-modal-close:hover {
+  background: var(--c-surface-2);
+  color: var(--c-text);
+}
+.cam-modal-close:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 1px;
+}
+.cam-modal-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Bound by width AND height so it shrinks on short/landscape phones. */
+  width: min(72vw, 46vh, 320px);
+  height: min(72vw, 46vh, 320px);
+  padding: var(--sp-3);
+  border: 2px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  background: #fff;
+}
+.cam-modal-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.cam-modal-name {
+  font-weight: 700;
+  font-size: var(--fs-lg, 1.15rem);
+}
+.cam-modal-ask {
+  margin: 0;
+  color: var(--c-text-2);
+  text-align: center;
+}
+.cam-modal-choose {
+  display: flex;
+  gap: var(--sp-3);
+}
+.cam-modal-opt {
+  min-width: 96px;
+  min-height: 52px;
+  font-size: var(--fs-md, 1rem);
+}
+.cam-modal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  width: 100%;
+  margin-top: var(--sp-1);
+}
+body.cam-modal-open {
+  overflow: hidden;
+}
+/* Short/landscape phones: put the picture beside the controls so the header,
+   picture, Seen/New, and Back/Next all stay on-screen without scrolling. */
+@media (orientation: landscape) and (max-height: 540px) {
+  .cam-modal-box {
+    display: grid;
+    grid-template-columns: auto minmax(160px, 1fr);
+    grid-template-areas:
+      'head head'
+      'art  name'
+      'art  ask'
+      'art  choose'
+      'art  nav';
+    gap: 6px 16px;
+    align-items: center;
+    width: min(96vw, 680px);
+    max-height: 96vh;
+    padding: var(--sp-3);
+  }
+  .cam-modal-head {
+    grid-area: head;
+  }
+  .cam-modal-art {
+    grid-area: art;
+    width: min(60vh, 300px);
+    height: min(60vh, 300px);
+  }
+  .cam-modal-name {
+    grid-area: name;
+    align-self: end;
+  }
+  .cam-modal-ask {
+    grid-area: ask;
+    text-align: left;
+  }
+  .cam-modal-choose {
+    grid-area: choose;
+    justify-content: flex-start;
+  }
+  .cam-modal-nav {
+    grid-area: nav;
+    align-self: start;
+    margin-top: 0;
   }
 }
 
@@ -777,91 +1089,4 @@ body[data-screen='pscam'] [data-screen-note='pscam'] {
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 1;
-}
-
-/* ── Bedside cards in the tool (src/js/peds/cards.js) ──────────────────────────
-   The real laminated cards (.pc-* from cards.css) rendered at fixed landscape
-   size and scaled to fit, annotated with the live assessment. The scaling host
-   clips the transformed sheet; annotation classes highlight what this
-   assessment recorded. */
-.pcards {
-  display: grid;
-  gap: var(--sp-4);
-}
-.pcard-wrap {
-  overflow: hidden;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  background: #fff;
-}
-.pcard-wrap > .sheet {
-  transform-origin: top left;
-  cursor: pointer;
-}
-.pcards-lead {
-  color: var(--c-text-2);
-  max-width: 70ch;
-}
-.pcards-lead a {
-  text-decoration: underline;
-}
-
-/* Live-assessment annotations layered onto the rendered cards. */
-.pc-live {
-  display: flex;
-  align-items: center;
-  gap: calc(6pt * var(--fs));
-  font-size: calc(10pt * var(--fs));
-  font-weight: 800;
-  border-radius: 6px;
-  padding: calc(4pt * var(--fs)) calc(9pt * var(--fs));
-  margin-bottom: calc(4pt * var(--fs));
-}
-.pc-live-dot {
-  width: calc(9pt * var(--fs));
-  height: calc(9pt * var(--fs));
-  border-radius: 50%;
-  flex: 0 0 auto;
-}
-.pc-live--positive {
-  background: #f7e2e6;
-  color: #7f1523;
-}
-.pc-live--positive .pc-live-dot {
-  background: #8b1e2f;
-}
-.pc-live--negative {
-  background: #d4ede0;
-  color: #1d4a2d;
-}
-.pc-live--negative .pc-live-dot {
-  background: #2d6b43;
-}
-.pc-live--unable {
-  background: #fcebd8;
-  color: #6b3a10;
-}
-.pc-live--unable .pc-live-dot {
-  background: #9c4f0f;
-}
-.pc-live--pending {
-  background: #eef2f4;
-  color: #445560;
-}
-.pc-live--pending .pc-live-dot {
-  background: #7c8b93;
-}
-.pc-lrow.is-recorded {
-  outline: 2.5pt solid #0d7d84;
-  outline-offset: -1pt;
-  box-shadow: 0 0 0 2pt #0d7d8433;
-}
-.pc-gate.is-taken {
-  outline: 2pt solid currentColor;
-  outline-offset: 1pt;
-  font-weight: 800;
-}
-.pc-chip.is-result {
-  box-shadow: 0 0 0 2.5pt #0d7d84;
 }

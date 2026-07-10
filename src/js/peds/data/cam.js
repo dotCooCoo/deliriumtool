@@ -9,6 +9,43 @@
  * Tasks and sources: docs/CLINICAL_METHODOLOGY.md.
  */
 
+import { STIM_DECK } from '../../shared/stim-deck.js';
+
+// The pCAM-ICU inattention picture task (memory-pictures alternative to the
+// squeeze-on-A letters, for children who cannot squeeze). Show the five memory
+// pictures, then all ten one at a time; the child says whether each was among
+// the first five. A "seen" call on a new picture, or a "new" call on a memory
+// picture, is an error — same ≥ 3-error cut as the letters. The set and artwork
+// are shared with the printed cards (STIM_DECK) so the two cannot drift; the
+// validated element is the procedure, not the specific pictures.
+const STIM_BY_ID = Object.fromEntries(STIM_DECK.map((c) => [c.id, c]));
+const RECOGNITION_ORDER = [
+  'stim-heart',
+  'stim-balloons',
+  'stim-star',
+  'stim-fish',
+  'stim-flower',
+  'stim-ball',
+  'stim-duck',
+  'stim-sun',
+  'stim-butterfly',
+  'stim-boat',
+];
+const PICTURE_TASK = {
+  threshold: 3,
+  memory: STIM_DECK.filter((c) => c.set === 'memory'),
+  // truth derives from set membership, so the key can never disagree with the deck
+  sequence: RECOGNITION_ORDER.map((id) => ({
+    id,
+    name: STIM_BY_ID[id].name,
+    truth: STIM_BY_ID[id].set === 'memory' ? 'seen' : 'new',
+  })),
+  memoryNote:
+    'Show these five pictures in order, about three seconds each: “Remember these pictures.”',
+  recognitionNote:
+    'Then show all ten one at a time in this order. For each ask “Did you see this one before?” Mark the child’s answer — a memory picture called new, or a new picture called seen, is an error.',
+};
+
 // pCAM-ICU — developmental age ≥ 5 yr (interactive / verbal tasks)
 export const PCAM = {
   tool: 'pCAM-ICU',
@@ -24,10 +61,14 @@ export const PCAM = {
       type: 'errors',
       threshold: 3,
       title: 'Feature 2 — Inattention',
-      task: 'Read the letters aloud, about one per second. The child squeezes your hand on every “A”. Tap each miss — a squeeze on a non-A, or a failure to squeeze on an A. (Alternative for children who cannot squeeze: the memory-pictures version — show 5 pictures to memorize, then 10 yes/no recognition pictures; same ≥ 3-error cut.)',
+      task: 'Read the letters aloud, about one per second. The child squeezes your hand on every “A”. Tap each miss — a squeeze on a non-A, or a failure to squeeze on an A.',
       items: ['A', 'B', 'A', 'D', 'B', 'A', 'D', 'A', 'A', 'Y'],
       itemKind: 'letter',
-      verdict: '≥ 3 errors → inattention present',
+      taskLabel: 'Letters — squeeze on “A”',
+      // Memory-pictures alternative for children who cannot squeeze; either task
+      // reaching its threshold makes Feature 2 positive.
+      picture: PICTURE_TASK,
+      verdict: '≥ 3 errors on either task → inattention present',
     },
     {
       id: 'f3',
