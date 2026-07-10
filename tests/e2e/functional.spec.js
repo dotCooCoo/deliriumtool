@@ -1,25 +1,40 @@
-// Functional end-to-end flows: the pathway picker, live scoring, CAM-ICU logic,
-// autosave + resume, reset, sharing, and PDF generation. Each test starts from a
-// cleared localStorage so it sees the first-run experience.
+// Functional end-to-end flows: the tool switchboard, pathway picker, live
+// scoring, CAM-ICU logic, reset, sharing, and PDF generation. Each test starts
+// from a cleared localStorage so it sees the first-run experience.
 import { test, expect } from '@playwright/test';
 
 /* global document, getComputedStyle -- available inside page.evaluate() (browser context) */
 
 // Each test runs in an isolated browser context (empty localStorage by default).
+// The landing asks for a care setting first; these flows exercise the adult
+// tool, so the hook steps through its card to the document picker.
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
+  await page.click('[data-act="chooseTool"]');
 });
 
-test('starts on the pathway picker, not the workspace', async ({ page }) => {
-  await expect(page.locator('#pathway-picker')).toBeVisible();
+test('starts on the tool picker, not the workspace', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#tool-picker')).toBeVisible();
+  await expect(page.locator('#pathway-picker')).toBeHidden();
   await expect(page.locator('#workspace')).toBeHidden();
 });
 
-test('the landing links to the pediatric tool and the template designer', async ({ page }) => {
-  const peds = page.locator('.peds-switch[href="./peds/"]');
-  await expect(peds).toBeVisible();
-  const templates = page.locator('.peds-switch[href="./templates/"]');
-  await expect(templates).toBeVisible();
+test('the switchboard routes to the pediatric, ED, and templates tools', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.tool-card[href="./peds/"]')).toBeVisible();
+  await expect(page.locator('.tool-card[href="./ed/"]')).toBeVisible();
+  await expect(page.locator('.tool-card[href="./templates/"]')).toBeVisible();
+});
+
+test('choosing Adult ICU reveals the document picker; All tools returns', async ({ page }) => {
+  await expect(page.locator('#pathway-picker')).toBeVisible();
+  await expect(page.locator('#tool-picker')).toBeHidden();
+  await expect(page.locator('#skip-link')).toHaveAttribute('href', '#pathway-picker');
+  await page.click('[data-act="allTools"]');
+  await expect(page.locator('#tool-picker')).toBeVisible();
+  await expect(page.locator('#pathway-picker')).toBeHidden();
+  await expect(page.locator('#skip-link')).toHaveAttribute('href', '#tool-picker');
 });
 
 test('choosing a pathway reveals the workspace', async ({ page }) => {
@@ -72,6 +87,7 @@ test('the medication selection returns to the authored defaults on reload', asyn
   await page.click('[data-act="setAllMeds"][data-on="false"]'); // turn every med off
   await expect(page.locator('#med-active-count')).not.toHaveText(defaults);
   await page.reload(); // a reload starts fresh — the curated set is gone
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   await page.click('[data-tab="meds"]');
   await expect(page.locator('#med-active-count')).toHaveText(defaults);
@@ -128,14 +144,14 @@ test('RASS -4/-5 gates CAM to "Unable to Assess"', async ({ page }) => {
   await expect(page.locator('#cam-res-txt')).toContainText('Unable to Assess');
 });
 
-test('a reload starts a fresh assessment at the pathway picker', async ({ page }) => {
+test('a reload starts a fresh assessment at the tool picker', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   await page.locator('#tab-risk .rcb').nth(0).check();
+  await page.click('[data-tab="export"]');
   await page.fill('#facility-input', 'Ward 9');
-  await expect(page.locator('#rscore')).toHaveText('1');
   await page.waitForTimeout(600); // past the old autosave debounce interval
   await page.reload();
-  await expect(page.locator('#pathway-picker')).toBeVisible(); // fresh, not resumed
+  await expect(page.locator('#tool-picker')).toBeVisible(); // fresh, not resumed
   await expect(page.locator('#workspace')).toBeHidden();
   await expect(page.locator('#facility-input')).toHaveValue('');
   // Nothing lingers for the next user of a shared workstation.
@@ -153,8 +169,8 @@ test('reset clears the assessment and returns to the picker', async ({ page }) =
 
 test('generates a PDF download for every document', async ({ page }) => {
   await page.click('[data-pathway="record"]');
-  await page.fill('#facility-input', 'Test Hospital'); // avoids the missing-facility confirm
   await page.click('[data-tab="export"]');
+  await page.fill('#facility-input', 'Test Hospital'); // avoids the missing-facility confirm
   // Exercise all three builders so a render error in any document is caught.
   for (const doc of ['full', 'spa', 'record']) {
     const [download] = await Promise.all([
@@ -241,6 +257,7 @@ test('settings load ignores manipulated values', async ({ page }) => {
     );
   });
   await page.reload();
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   await page.click('[data-tab="settings"]');
   await expect(page.locator('#set-rass')).not.toHaveValue(/HACKED/); // rejected → keeps a valid option
@@ -250,8 +267,8 @@ test('settings load ignores manipulated values', async ({ page }) => {
 
 test('exported PDF filename carries a generation timestamp', async ({ page }) => {
   await page.click('[data-pathway="record"]');
-  await page.fill('#facility-input', 'Test');
   await page.click('[data-tab="export"]');
+  await page.fill('#facility-input', 'Test');
   const [download] = await Promise.all([
     page.waitForEvent('download'),
     page.click('[data-act="openDoc"][data-doc="full"]'),
@@ -269,10 +286,10 @@ test('CAM result status uses a vector sprite icon, not an emoji', async ({ page 
 });
 
 test('the assessment is never written to localStorage', async ({ page }) => {
-  await page.goto('/');
   await page.click('[data-pathway="full"]');
-  await page.fill('#facility-input', 'Flush Test Hospital');
   await page.locator('#tab-risk .rcb').nth(0).check();
+  await page.click('[data-tab="export"]');
+  await page.fill('#facility-input', 'Flush Test Hospital');
   await page.waitForTimeout(600); // outlast the old autosave debounce interval
   await page.evaluate("dispatchEvent(new Event('pagehide'))"); // the old flush trigger
   const saved = await page.evaluate(() => localStorage.getItem('deliriumtool:assessment'));
@@ -280,7 +297,6 @@ test('the assessment is never written to localStorage', async ({ page }) => {
 });
 
 test('auto-fill asks before overwriting notes-only work', async ({ page }) => {
-  await page.goto('/');
   await page.click('[data-pathway="full"]');
   await page.click('[data-tab="cam"]');
   await page.fill('#cam-notes', 'Drowsy overnight; reviewing meds.');

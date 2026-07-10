@@ -62,7 +62,7 @@
     <script src="./assets/app.js" defer></script>
   </head>
   <body>
-    <a id="skip-link" class="skip-link" href="#pathway-picker">Skip to content</a>
+    <a id="skip-link" class="skip-link" href="#tool-picker">Skip to content</a>
 
     <!-- ═══════ APP BAR ═══════ -->
     <header class="app-header">
@@ -84,29 +84,71 @@
             </p>
           </div>
         </div>
-        <div class="app-header-actions app-header-actions--stacked">
-          <div class="facility-field">
-            <label for="facility-input">Facility — prints on all PDFs</label>
-            <input
-              type="text"
-              id="facility-input"
-              class="facility-input"
-              placeholder="Enter facility name"
-              value=""
-              spellcheck="false"
-            />
-          </div>
-          <button type="button" class="btn btn-sec btn-sm" data-act="autofill">
-            Auto-fill example data
-          </button>
-        </div>
+        <!--#tool-nav-->
+        <div class="app-header-actions"></div>
       </div>
     </header>
 
-    <!-- ═══════ PATHWAY PICKER (shown first) ═══════ -->
-    <section id="pathway-picker" class="pathway-picker" tabindex="-1">
+    <!-- ═══════ TOOL PICKER (shown first) ═══════ -->
+    <section id="tool-picker" class="pathway-picker" tabindex="-1">
       <div class="pathway-picker__lead">
-        <h2>Choose a document to build</h2>
+        <h2>Who are you screening?</h2>
+        <p>
+          Pick the care setting — each tool uses the delirium screens validated for it. Printable
+          bedside sheets live in the template designer.
+        </p>
+      </div>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-act="chooseTool">
+          <span class="tool-card__head">
+            <img src="./img/icon-192.png" alt="" width="40" height="40" />
+            <span class="tool-card__name">Adult ICU</span>
+          </span>
+          <span class="tool-card__who">An adult in intensive care</span>
+          <span class="tool-card__screens">CAM-ICU · RASS · ABCDEF</span>
+        </button>
+        <a class="tool-card tool-card--peds" href="./peds/">
+          <span class="tool-card__head">
+            <img src="./img/logo.png" alt="" width="40" height="40" />
+            <span class="tool-card__name">Pediatric ICU</span>
+          </span>
+          <span class="tool-card__who">A child in the PICU</span>
+          <span class="tool-card__screens">CAPD · pCAM-ICU · psCAM-ICU</span>
+        </a>
+        <a class="tool-card tool-card--ed" href="./ed/">
+          <span class="tool-card__head">
+            <img src="./img/logo-red.png" alt="" width="40" height="40" />
+            <span class="tool-card__name">Emergency Dept</span>
+          </span>
+          <span class="tool-card__who">An older adult in the ED</span>
+          <span class="tool-card__screens">DTS → bCAM · 4AT</span>
+        </a>
+        <a class="tool-card tool-card--templates" href="./templates/">
+          <span class="tool-card__head">
+            <img src="./img/logo-dark.png" alt="" width="40" height="40" />
+            <span class="tool-card__name">Templates</span>
+          </span>
+          <span class="tool-card__who">Print-and-laminate sheets for your unit</span>
+          <span class="tool-card__screens">Rounding checklist · SPA poster · card sets</span>
+        </a>
+      </div>
+      <p class="note-sm center mt-4">
+        On a general or step-down ward, use a ward-validated screen (4AT / 3D-CAM) — the tools here
+        are ICU- and ED-focused.
+      </p>
+      <p class="note-sm center">
+        Everything runs in your browser — no patient data is sent anywhere. Do not enter PHI in
+        fields you intend to share.
+      </p>
+    </section>
+
+    <!-- ═══════ PATHWAY PICKER (after choosing Adult ICU) ═══════ -->
+    <section id="pathway-picker" class="pathway-picker" tabindex="-1" hidden>
+      <div class="pathway-picker__lead">
+        <button type="button" class="btn btn-ghost btn-sm picker-back" data-act="allTools">
+          <svg class="fa" aria-hidden="true"><use href="#fa-arrow-left" /></svg> All tools
+        </button>
+        <h2>Adult ICU — choose a document to build</h2>
         <p>
           Pick the output you need. You'll work through the assessment, then generate this document.
           You can switch or reset at any time.
@@ -168,43 +210,6 @@
           </span>
         </button>
       </div>
-      <a class="peds-switch" href="./peds/">
-        <img class="peds-switch__logo" src="./img/logo.png" alt="" width="56" height="56" />
-        <span class="peds-switch__body">
-          <strong>Caring for a child in the PICU?</strong>
-          <span
-            >Open the Pediatric Delirium tool — CAPD, pCAM-ICU, psCAM-ICU, the prevention bundle,
-            and weight-based dosing.</span
-          >
-        </span>
-        <svg class="fa fa-lg" aria-hidden="true"><use href="#fa-arrow-up-right-from-square" /></svg>
-      </a>
-      <a class="peds-switch" href="./templates/">
-        <img class="peds-switch__logo" src="./img/logo-dark.png" alt="" width="56" height="56" />
-        <span class="peds-switch__body">
-          <strong>Need laminated bedside sheets?</strong>
-          <span
-            >Open the Bedside Template Designer — customize and print the ICU rounding checklist and
-            the SPA quick-reference poster for your unit.</span
-          >
-        </span>
-        <svg class="fa fa-lg" aria-hidden="true"><use href="#fa-arrow-up-right-from-square" /></svg>
-      </a>
-      <a class="peds-switch" href="./ed/">
-        <img class="peds-switch__logo" src="./img/logo-red.png" alt="" width="56" height="56" />
-        <span class="peds-switch__body">
-          <strong>Seeing older adults in the ED?</strong>
-          <span
-            >Open the ED Delirium Screening tool — the two-step DTS → bCAM pathway, the direct bCAM,
-            and the 4AT, with guideline-backed next steps.</span
-          >
-        </span>
-        <svg class="fa fa-lg" aria-hidden="true"><use href="#fa-arrow-up-right-from-square" /></svg>
-      </a>
-      <p class="note-sm center mt-4">
-        Everything runs in your browser — no patient data is sent anywhere. Do not enter PHI in
-        fields you intend to share.
-      </p>
     </section>
 
     <!-- ═══════ WORKSPACE (revealed after a pathway is chosen) ═══════ -->
@@ -235,6 +240,7 @@
           Save
         </button>
         <button class="btn btn-sec btn-sm" data-act="importJSON">Load</button>
+        <button class="btn btn-sec btn-sm" data-act="autofill">Auto-fill example data</button>
         <button
           class="btn btn-sec btn-sm"
           data-act="share"
@@ -1850,12 +1856,23 @@
             <div class="sec-title">Generate Print Documents</div>
             <div class="sec-sub">Print-ready PDFs — generated and downloaded on your device</div>
           </div>
-          <div class="alert a-warn mb-3">
-            <strong>Before you generate —</strong> Facility:
-            <strong><span id="export-facility">—</span></strong>
-            <span class="muted">(set in the header field, top of page)</span> · Deliriogenic meds in
-            the printout: <strong><span id="export-med-count">—</span></strong>
-            <a href="#" class="link-jump" data-act="goTab" data-tab="meds">edit selection →</a>
+          <div class="export-preflight mb-3">
+            <div class="facility-field">
+              <label for="facility-input">Facility — prints on all PDFs</label>
+              <input
+                type="text"
+                id="facility-input"
+                class="facility-input"
+                placeholder="Enter facility name"
+                value=""
+                spellcheck="false"
+              />
+            </div>
+            <div class="alert a-warn">
+              <strong>Before you generate —</strong> deliriogenic meds in the printout:
+              <strong><span id="export-med-count">—</span></strong>
+              <a href="#" class="link-jump" data-act="goTab" data-tab="meds">edit selection →</a>
+            </div>
           </div>
           <div class="export-options">
             <div class="export-card accented accent-teal" data-doc="full">

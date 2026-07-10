@@ -13,13 +13,21 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
+test('tool picker has no serious accessibility violations', async ({ page }) => {
+  const results = await new AxeBuilder({ page }).analyze();
+  const serious = seriousViolations(results);
+  expect(serious.map((v) => v.id).join(', ')).toBe('');
+});
+
 test('pathway picker has no serious accessibility violations', async ({ page }) => {
+  await page.click('[data-act="chooseTool"]');
   const results = await new AxeBuilder({ page }).analyze();
   const serious = seriousViolations(results);
   expect(serious.map((v) => v.id).join(', ')).toBe('');
 });
 
 test('every workspace tab has no serious accessibility violations', async ({ page }) => {
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   for (const tab of TABS) {
     await page.click(`[data-tab="${tab}"]`);
@@ -30,6 +38,7 @@ test('every workspace tab has no serious accessibility violations', async ({ pag
 });
 
 test('tab bar is keyboard navigable with arrow keys', async ({ page }) => {
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   await page.locator('.tab-btn[data-tab="risk"]').focus();
   await page.keyboard.press('ArrowRight');

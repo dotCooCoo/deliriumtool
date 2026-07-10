@@ -11,12 +11,14 @@ test('pathway picker @visual', async ({ page }) => {
 
 test('risk tab @visual', async ({ page }) => {
   await page.goto('/');
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   await expect(page).toHaveScreenshot('risk.png', { fullPage: true });
 });
 
 test('CAM tab with example data @visual', async ({ page }) => {
   await page.goto('/');
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   await page.click('[data-act="autofill"]');
   await page.click('[data-tab="cam"]');

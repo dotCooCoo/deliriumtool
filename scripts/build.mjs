@@ -85,7 +85,27 @@ const tplCssName = outName(css.metafile, 'templates', '.css');
 const edJsName = outName(js.metafile, 'ed', '.js');
 const edCssName = outName(css.metafile, 'ed', '.css');
 
-// Rewrite each entry document's asset placeholders to the content-hashed names.
+// The cross-tool header nav is generated here from one list so every page
+// carries the same links in the same order, with aria-current marking the page
+// being viewed. Hrefs are relative so dist/ keeps working from file://.
+const TOOLS = [
+  { key: 'adult', dir: '', label: 'Adult ICU' },
+  { key: 'peds', dir: 'peds/', label: 'Pediatric' },
+  { key: 'ed', dir: 'ed/', label: 'ED' },
+  { key: 'templates', dir: 'templates/', label: 'Templates' },
+];
+function toolNav(currentKey) {
+  const up = currentKey === 'adult' ? './' : '../';
+  const links = TOOLS.map((t) => {
+    const href = t.key === currentKey ? './' : `${up}${t.dir}`;
+    const current = t.key === currentKey ? ' aria-current="page"' : '';
+    return `<a href="${href}"${current}>${t.label}</a>`;
+  }).join('');
+  return `<nav class="tool-nav" aria-label="Delirium tools">${links}</nav>`;
+}
+
+// Rewrite each entry document's asset placeholders to the content-hashed names
+// and expand the <!--#tool-nav--> marker into the shared header nav.
 // Relative paths keep the built dist/ working from file://; the pediatric page
 // lives at /peds/ so it references ../assets/ and layers peds.css over app.css.
 async function emitPage(srcRel, outRel, subs) {
@@ -97,21 +117,25 @@ async function emitPage(srcRel, outRel, subs) {
 await emitPage('index.html', 'index.html', [
   ['./assets/app.js', `./assets/${jsName}`],
   ['./assets/app.css', `./assets/${cssName}`],
+  ['<!--#tool-nav-->', toolNav('adult')],
 ]);
 await emitPage('peds/index.html', 'peds/index.html', [
   ['../assets/peds.js', `../assets/${pedsJsName}`],
   ['../assets/peds.css', `../assets/${pedsCssName}`],
   ['../assets/app.css', `../assets/${cssName}`],
+  ['<!--#tool-nav-->', toolNav('peds')],
 ]);
 await emitPage('templates/index.html', 'templates/index.html', [
   ['../assets/templates.js', `../assets/${tplJsName}`],
   ['../assets/templates.css', `../assets/${tplCssName}`],
   ['../assets/app.css', `../assets/${cssName}`],
+  ['<!--#tool-nav-->', toolNav('templates')],
 ]);
 await emitPage('ed/index.html', 'ed/index.html', [
   ['../assets/ed.js', `../assets/${edJsName}`],
   ['../assets/ed.css', `../assets/${edCssName}`],
   ['../assets/app.css', `../assets/${cssName}`],
+  ['<!--#tool-nav-->', toolNav('ed')],
 ]);
 
 if (existsSync(join(src, 'vendor'))) {

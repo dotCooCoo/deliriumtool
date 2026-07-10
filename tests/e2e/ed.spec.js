@@ -201,8 +201,8 @@ test('the summary saves as a PDF', async ({ page }) => {
 
 test('adult landing page links to the ED tool', async ({ page }) => {
   await page.goto('/');
-  const card = page.locator('a.peds-switch[href="./ed/"]');
-  await expect(card).toContainText('ED Delirium Screening');
+  const card = page.locator('.tool-card[href="./ed/"]');
+  await expect(card).toContainText('Emergency Dept');
   await card.evaluate((el) => el.click());
   await expect(page).toHaveURL(/\/ed\//);
 });

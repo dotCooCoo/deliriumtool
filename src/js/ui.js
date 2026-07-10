@@ -716,9 +716,6 @@ export function updateExportMedSummary() {
   );
   const mc = $('export-med-count');
   if (mc) mc.textContent = `${on} active · ${total - on} off`; // mirror the Meds-tab badge
-  const fac = $('facility-input');
-  const fc = $('export-facility');
-  if (fc) fc.textContent = (fac && fac.value.trim()) || '(not set)';
 }
 
 // ─── Assessment snapshot for the PDF (robust data-* anchors) ────────────────

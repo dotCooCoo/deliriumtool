@@ -11,6 +11,8 @@ for (const width of [360, 768]) {
   test(`no horizontal overflow across tabs at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
+    expect(await noOverflow(page), `tool picker @ ${width}`).toBeTruthy();
+    await page.click('[data-act="chooseTool"]');
     expect(await noOverflow(page), `pathway picker @ ${width}`).toBeTruthy();
     await page.click('[data-pathway="full"]');
     for (const t of TABS) {
@@ -23,6 +25,7 @@ for (const width of [360, 768]) {
 test('medication table reflows to stacked labelled cards on a phone', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 900 });
   await page.goto('/');
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   await page.click('.tabs-inner [data-tab="meds"]');
   const head = page.locator('#tab-meds .mt thead').first();

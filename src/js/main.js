@@ -118,9 +118,27 @@ function hasAssessmentData() {
   );
 }
 
+// ─── Tool-first landing ─────────────────────────────────────────────────────
+// The landing asks "who are you screening?" — the switchboard routes to the
+// peds/ED/templates pages, and the Adult ICU card reveals the document picker.
+function showToolPicker() {
+  $('pathway-picker').hidden = true;
+  $('tool-picker').hidden = false;
+  $('skip-link')?.setAttribute('href', '#tool-picker');
+  $('tool-picker')?.focus();
+}
+
+function showPathwayPicker() {
+  $('tool-picker').hidden = true;
+  $('pathway-picker').hidden = false;
+  $('skip-link')?.setAttribute('href', '#pathway-picker');
+  $('pathway-picker')?.focus();
+}
+
 // ─── Pathway-first flow ─────────────────────────────────────────────────────
 function showWorkspace(pathway) {
   S.pathway = pathway;
+  $('tool-picker').hidden = true;
   $('pathway-picker').hidden = true;
   $('workspace').hidden = false;
   $('skip-link')?.setAttribute('href', '#workspace');
@@ -267,6 +285,8 @@ function applySharedConfig(cfg) {
 
 // ─── Delegated dispatch ─────────────────────────────────────────────────────
 const onClick = {
+  chooseTool: () => showPathwayPicker(),
+  allTools: () => showToolPicker(),
   choosePathway: (el) => choosePathway(el.dataset.pathway),
   reset: () => resetAll(),
   goTab: (el) => {
