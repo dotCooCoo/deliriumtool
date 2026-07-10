@@ -65,15 +65,16 @@ test('changing the RASS target updates the on-screen echoes', async ({ page }) =
   await expect(page.locator('#rass-band-cur')).toHaveText(`TARGET ${expected}`);
 });
 
-test('a curated medication selection survives a reload', async ({ page }) => {
+test('the medication selection returns to the authored defaults on reload', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   await page.click('[data-tab="meds"]');
+  const defaults = await page.locator('#med-active-count').textContent();
   await page.click('[data-act="setAllMeds"][data-on="false"]'); // turn every med off
-  const count = await page.locator('#med-active-count').textContent();
-  await page.waitForTimeout(600); // flush the debounced autosave
-  await page.reload();
+  await expect(page.locator('#med-active-count')).not.toHaveText(defaults);
+  await page.reload(); // a reload starts fresh — the curated set is gone
+  await page.click('[data-pathway="full"]');
   await page.click('[data-tab="meds"]');
-  await expect(page.locator('#med-active-count')).toHaveText(count); // not back to all-on
+  await expect(page.locator('#med-active-count')).toHaveText(defaults);
 });
 
 test('clearing the inattention error count un-sets Feature 2', async ({ page }) => {
@@ -127,14 +128,18 @@ test('RASS -4/-5 gates CAM to "Unable to Assess"', async ({ page }) => {
   await expect(page.locator('#cam-res-txt')).toContainText('Unable to Assess');
 });
 
-test('autosave restores work after a reload', async ({ page }) => {
+test('a reload starts a fresh assessment at the pathway picker', async ({ page }) => {
   await page.click('[data-pathway="full"]');
   await page.locator('#tab-risk .rcb').nth(0).check();
+  await page.fill('#facility-input', 'Ward 9');
   await expect(page.locator('#rscore')).toHaveText('1');
-  await page.waitForTimeout(600); // let the debounced autosave flush
+  await page.waitForTimeout(600); // past the old autosave debounce interval
   await page.reload();
-  await expect(page.locator('#workspace')).toBeVisible(); // resumed, not the picker
-  await expect(page.locator('#rscore')).toHaveText('1'); // restored
+  await expect(page.locator('#pathway-picker')).toBeVisible(); // fresh, not resumed
+  await expect(page.locator('#workspace')).toBeHidden();
+  await expect(page.locator('#facility-input')).toHaveValue('');
+  // Nothing lingers for the next user of a shared workstation.
+  expect(await page.evaluate(() => localStorage.getItem('deliriumtool:assessment'))).toBeNull();
 });
 
 test('reset clears the assessment and returns to the picker', async ({ page }) => {
@@ -263,13 +268,15 @@ test('CAM result status uses a vector sprite icon, not an emoji', async ({ page 
   await expect(page.locator('#cam-res-icon svg use')).toHaveCount(1);
 });
 
-test('autosave flushes on page hide so the last edit survives', async ({ page }) => {
+test('the assessment is never written to localStorage', async ({ page }) => {
   await page.goto('/');
   await page.click('[data-pathway="full"]');
   await page.fill('#facility-input', 'Flush Test Hospital');
-  await page.evaluate("dispatchEvent(new Event('pagehide'))"); // before the 400ms debounce
+  await page.locator('#tab-risk .rcb').nth(0).check();
+  await page.waitForTimeout(600); // outlast the old autosave debounce interval
+  await page.evaluate("dispatchEvent(new Event('pagehide'))"); // the old flush trigger
   const saved = await page.evaluate(() => localStorage.getItem('deliriumtool:assessment'));
-  expect(saved).toContain('Flush Test Hospital');
+  expect(saved).toBeNull();
 });
 
 test('auto-fill asks before overwriting notes-only work', async ({ page }) => {

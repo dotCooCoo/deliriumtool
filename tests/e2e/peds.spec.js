@@ -216,13 +216,17 @@ test('Load example data populates a worked assessment with a positive result', a
   await expect(page.locator('#set-hospital')).toHaveValue(/General Children/);
 });
 
-test('Prevention selections are wired and persist across reload', async ({ page }) => {
+test('a reload starts a fresh assessment at the profile picker', async ({ page }) => {
   await start(page, 36);
   await page.click('.tab-btn[data-tab="prevent"]');
   await page.locator('input[data-prev="E"]').check();
+  await page.waitForTimeout(600); // outlast the old autosave debounce interval
   await page.reload();
-  await page.click('.tab-btn[data-tab="prevent"]');
-  await expect(page.locator('input[data-prev="E"]')).toBeChecked();
+  await expect(page.locator('#pathway-picker')).toBeVisible(); // fresh, not resumed
+  await expect(page.locator('#workspace')).toBeHidden();
+  await expect(page.locator('#prof-age')).toHaveValue('');
+  // Nothing lingers for the next user of a shared workstation.
+  expect(await page.evaluate(() => localStorage.getItem('deliriumtool:peds'))).toBeNull();
 });
 
 test('structured references render as linked numbered lists with inline superscripts', async ({
@@ -238,17 +242,6 @@ test('structured references render as linked numbered lists with inline superscr
   await page.click('.tab-btn[data-tab="meds"]');
   await expect(page.locator('#tab-meds .ref-list li')).toHaveCount(9);
   await expect(page.locator('#tab-meds .cite a').first()).toHaveText(/\d/);
-});
-
-test('Autosave restores the assessment after a reload', async ({ page }) => {
-  await start(page, 36);
-  await setArousal(page, '0');
-  const opts = nevers(page);
-  for (let i = 0; i < 8; i++) await opts.nth(i).click();
-  await expect(page.locator('#screen-result')).toContainText('Positive');
-  await page.reload();
-  await expect(page.locator('#workspace')).toBeVisible();
-  await expect(page.locator('#screen-result')).toContainText('Positive');
 });
 
 test('New child clears the saved assessment', async ({ page }) => {
@@ -303,15 +296,24 @@ test('New child clears the sensory-aid checkboxes', async ({ page }) => {
   await expect(page.locator('[data-prof="glasses"]')).not.toBeChecked();
 });
 
-test('an unchecked profile-derived risk factor stays unchecked across reload', async ({ page }) => {
+test('an unchecked profile-derived risk factor stays unchecked through export/import', async ({
+  page,
+}) => {
+  page.on('dialog', (d) => d.accept());
   await page.goto('/peds/');
   await page.click('[data-act="loadExample"]'); // 14mo -> "young age" auto-flagged
   await page.click('.tab-btn[data-tab="risk"]');
   await expect(page.locator('#tab-risk input[data-risk="age"]')).toBeChecked();
   await page.uncheck('#tab-risk input[data-risk="age"]');
-  await page.reload();
+  const dl = page.waitForEvent('download');
+  await page.click('[data-act="exportJSON"]');
+  const file = await (await dl).path();
+  await page.click('.pathway-bar [data-act="clearAll"]'); // new child → picker
+  const chooser = page.waitForEvent('filechooser');
+  await page.click('[data-act="importJSON"]');
+  await (await chooser).setFiles(file);
   await page.click('.tab-btn[data-tab="risk"]');
-  await expect(page.locator('#tab-risk input[data-risk="age"]')).not.toBeChecked();
+  await expect(page.locator('#tab-risk input[data-risk="age"]')).not.toBeChecked(); // not re-flagged
 });
 
 test('Edit child then re-derive keeps the recorded arousal', async ({ page }) => {
@@ -349,15 +351,6 @@ test('loading the example asks before replacing an in-progress assessment', asyn
   });
   await page.click('[data-act="loadExample"]'); // now guarded
   expect(asked).toBe(true);
-});
-
-test('the active tab is restored after a reload', async ({ page }) => {
-  await page.goto('/peds/');
-  await page.click('[data-act="loadExample"]');
-  await page.click('.tab-btn[data-tab="prevent"]');
-  await expect(page.locator('.tab-btn[data-tab="prevent"]')).toHaveClass(/active/);
-  await page.reload();
-  await expect(page.locator('.tab-btn[data-tab="prevent"]')).toHaveClass(/active/);
 });
 
 test('importing a wrong-shape file shows an error instead of failing silently', async ({
@@ -437,12 +430,12 @@ test('the peds checklist tabs show completion-count badges', async ({ page }) =>
   await expect(page.locator('.tab-btn[data-tab="export"] .tab-badge')).toHaveText('2');
 });
 
-test('age entered in years round-trips as years after reload', async ({ page }) => {
+test('age entered in years reads back as years when editing the child', async ({ page }) => {
   await page.goto('/peds/');
   await page.fill('#prof-age', '3');
   await page.selectOption('#prof-age-unit', 'y'); // 3 years
   await page.click('[data-act="deriveScreen"]');
-  await page.reload();
+  await page.click('[data-act="reset"]'); // Edit child → the form re-fills from state
   await expect(page.locator('#prof-age')).toHaveValue('3');
   await expect(page.locator('#prof-age-unit')).toHaveValue('y');
 });

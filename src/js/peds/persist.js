@@ -1,11 +1,11 @@
 /**
- * peds/persist.js — local-only persistence for the pediatric assessment. The
- * whole assessment is a plain in-memory object, so save/restore is a JSON
- * snapshot to localStorage (debounced autosave) plus file export/import. Nothing
- * is sent anywhere; the snapshot is de-identified by construction (coded inputs,
- * no names — the hospital/unit label is the only free text).
+ * peds/persist.js — save/load for the pediatric assessment. The whole
+ * assessment is a plain in-memory object and is session-only: a reload starts
+ * fresh, and handoff happens through JSON file export/import. Facility
+ * settings keep their own localStorage key. Nothing is sent anywhere; the
+ * snapshot is de-identified by construction (coded inputs, no names — the
+ * hospital/unit label is the only free text).
  */
-import { makeStore } from '../shared/store.js';
 import { downloadJSON, pickJSON } from '../shared/files.js';
 
 const KEY = 'deliriumtool:peds';
@@ -32,12 +32,12 @@ export function snapshot(state) {
   return out;
 }
 
-const store = makeStore(KEY, snapshot);
-export const autosave = store.autosave;
-export const flushSave = store.flushSave;
-export const loadSaved = store.loadSaved;
-
-export function clearSaved() {
+/**
+ * Remove any assessment snapshot an earlier version autosaved to localStorage.
+ * The assessment no longer persists across reloads, so a leftover snapshot is
+ * only a stale copy of patient inputs on a possibly shared workstation.
+ */
+export function scrubAutosave() {
   try {
     localStorage.removeItem(KEY);
   } catch {
