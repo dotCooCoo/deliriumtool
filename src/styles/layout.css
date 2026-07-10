@@ -75,41 +75,55 @@
   margin-bottom: var(--sp-2);
 }
 
+/* Cross-tool navigation — one generated nav on every page (see build.mjs).
+   The pills pick up each tool's palette from its :root token overrides, so the
+   current-page pill is blue on the adult tool, teal on peds, red on ED, navy
+   on templates. */
+.tool-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
+.tool-nav a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--c-text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background var(--t-fast),
+    color var(--t-fast),
+    border-color var(--t-fast);
+}
+.tool-nav a:hover {
+  color: var(--c-primary-strong);
+  background: var(--c-primary-weak);
+}
+.tool-nav a[aria-current='page'] {
+  color: var(--c-primary-strong);
+  background: var(--c-primary-weak);
+  border-color: var(--c-border-strong);
+}
+
 .app-header-actions {
   display: flex;
   align-items: flex-end;
   gap: var(--sp-3);
   flex-wrap: wrap;
-  /* Stay right-aligned as one cluster — including when the row wraps. */
+  /* Stay right-aligned as one cluster — including when the row wraps — so the
+     accessibility panel it hosts anchors to the safe (right) edge. */
   flex: 0 1 auto;
   margin-left: auto;
   justify-content: flex-end;
 }
 .facility-input {
   width: clamp(150px, 18vw, 230px);
-}
-
-/* Adult tool: the accessibility options sit centered above the example-data
-   button, beside the facility field. */
-.app-header-actions--stacked {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: var(--sp-2) var(--sp-3);
-  align-items: end;
-}
-.app-header-actions--stacked .facility-field {
-  grid-column: 1;
-  grid-row: 1 / 3;
-}
-.app-header-actions--stacked .a11y-wrap {
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: center;
-  margin-left: 0;
-}
-.app-header-actions--stacked [data-act='autofill'] {
-  grid-column: 2;
-  grid-row: 2;
 }
 
 .facility-field {
@@ -126,6 +140,18 @@
   font-weight: 600;
 }
 
+/* Export tab: the facility field sits beside the pre-generate reminder. */
+.export-preflight {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--sp-4);
+}
+.export-preflight .alert {
+  flex: 1 1 260px;
+  margin: 0;
+}
+
 /* ── Pathway picker (the first thing the user sees) ── */
 .pathway-picker {
   max-width: var(--content-w);
@@ -136,6 +162,11 @@
 .pathway-picker__lead {
   text-align: center;
   margin-bottom: var(--sp-6);
+}
+
+/* "All tools" — returns from a tool's own options to the switchboard. */
+.picker-back {
+  margin-bottom: var(--sp-3);
 }
 
 .pathway-picker__lead h2 {

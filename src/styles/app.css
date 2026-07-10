@@ -10,59 +10,6 @@
 @import './misc.css';
 @import './print.css';
 
-/* ── Pediatric-tool switch card on the adult landing ──────────────────────── */
-.peds-switch {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  max-width: 52rem;
-  margin: 1.25rem auto 0;
-  padding: 0.85rem 1.25rem;
-  border-style: solid;
-  border-color: #b8dcde #b8dcde #b8dcde #0d7d84;
-  border-width: 1px 1px 1px 4px;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #eef9f9, #ffffff);
-  text-decoration: none;
-  color: inherit;
-  transition:
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
-}
-.peds-switch:hover,
-.peds-switch:focus-visible {
-  box-shadow: 0 6px 22px rgba(13, 125, 132, 0.18);
-  transform: translateY(-1px);
-}
-.peds-switch__logo {
-  flex: none;
-  border-radius: 10px;
-}
-.peds-switch__body {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.peds-switch__body strong {
-  color: #0a5a60;
-  font-size: 1.02rem;
-}
-.peds-switch__body span {
-  color: #5c6b74;
-  font-size: 0.9rem;
-  line-height: 1.35;
-}
-.peds-switch .fa {
-  flex: none;
-  margin-left: auto;
-  color: #0d7d84;
-}
-@media (max-width: 30rem) {
-  .peds-switch .fa {
-    display: none;
-  }
-}
-
 /* Feature 3 is derived from the documented RASS; this line reflects that read. */
 .cam-derived {
   margin: 8px 0 0;

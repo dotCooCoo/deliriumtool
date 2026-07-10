@@ -447,6 +447,97 @@
   line-height: 1.5;
 }
 
+/* ── Tool switchboard (the landing's first decision: who are you screening?) ──
+   Each card carries its tool's identity colour as a left rail and instrument
+   chip. The non-adult hues are those tools' own :root primaries, restated here
+   because the adult page never loads peds.css / ed.css / templates.css. */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--sp-4);
+}
+
+.tool-card {
+  --tool: var(--c-primary);
+  --tool-strong: var(--c-primary-strong);
+  --tool-weak: var(--c-primary-weak);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  text-align: left;
+  text-decoration: none;
+  color: var(--c-text);
+  font: inherit;
+  cursor: pointer;
+  background: linear-gradient(180deg, var(--c-surface), var(--c-surface-2));
+  border: 1px solid var(--c-border);
+  border-left: 4px solid var(--tool);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color var(--t),
+    box-shadow var(--t),
+    transform var(--t);
+}
+
+.tool-card:hover,
+.tool-card:focus-visible {
+  border-color: var(--tool);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.tool-card--peds {
+  --tool: #0d7d84;
+  --tool-strong: #0a5a60;
+  --tool-weak: #eef9f9;
+}
+.tool-card--ed {
+  --tool: #a41f30;
+  --tool-strong: #861a28;
+  --tool-weak: #faeef0;
+}
+.tool-card--templates {
+  --tool: #274b8f;
+  --tool-strong: #1f3c73;
+  --tool-weak: #eef2fa;
+}
+
+.tool-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.tool-card__head img {
+  border-radius: var(--radius-sm);
+  flex: none;
+}
+
+.tool-card__name {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+}
+
+.tool-card__who {
+  font-size: var(--fs-md);
+  color: var(--c-text-2);
+}
+
+/* The validated instruments — the concrete signal a clinician routes by.
+   No text-transform: screen names are case-sensitive (pCAM-ICU, bCAM). */
+.tool-card__screens {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--tool-strong);
+  background: var(--tool-weak);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
 /* ── Medication category toggles ── */
 .med-cat-block {
   margin-bottom: var(--sp-4);

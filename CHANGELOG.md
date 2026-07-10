@@ -28,6 +28,19 @@ Notable changes to this project, following
 
 ### Changed
 
+- The home page now opens on a **tool switchboard** — "Who are you screening?" —
+  with a card for each care setting (Adult ICU, Pediatric ICU, Emergency Dept,
+  Templates) showing the validated screens it uses. Choosing Adult ICU then
+  shows its document picker; an "All tools" control returns to the switchboard.
+  Previously the page opened directly on the adult document picker, with the
+  other tools as banner links below it.
+- Every page's header now carries the same four-tool navigation (Adult ICU ·
+  Pediatric · ED · Templates), highlighting the current tool in its own colour —
+  replacing per-page link sets that differed in order, wording, and coverage.
+- Adult tool: the facility field moved from the page header to the Documents
+  tab, beside the PDF buttons that print it; **Auto-fill example data** moved
+  into the workspace toolbar. The header is now the same brand + navigation +
+  accessibility row on every page.
 - Assessments are now **session-only**: refreshing or reopening a tool starts a
   fresh assessment instead of restoring the previous one, and patient inputs are
   never written to browser storage — nothing lingers for the next user of a

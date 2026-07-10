@@ -47,6 +47,7 @@ test('peds export/import is lossless', async ({ page }) => {
 test('adult export/import is lossless', async ({ page }) => {
   page.on('dialog', (d) => d.accept());
   await page.goto('/');
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   await page.click('[data-act="autofill"]');
 
@@ -72,6 +73,7 @@ test('adult export/import is lossless', async ({ page }) => {
 // so a hand-edited or stale file cannot display a result its inputs don't support.
 test('adult import re-derives the CAM verdict from its features', async ({ page }) => {
   await page.goto('/');
+  await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
   const chooser = page.waitForEvent('filechooser');
   await page.click('[data-act="importJSON"]');
