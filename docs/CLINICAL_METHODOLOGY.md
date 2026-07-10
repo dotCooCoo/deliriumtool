@@ -17,7 +17,7 @@ These statements are surfaced to the user throughout the application:
 
 **Setting.** The tool is **ICU-focused** — it is built around CAM-ICU, RASS, and the ABCDEF/ICU Liberation bundle. The application advises: *"on the ward, use a ward-validated screen (4AT / 3D-CAM)."* The CAM-ICU, RASS, and ABCDEF elements are not validated for, and should not be transplanted unmodified onto, general-ward populations.
 
-**Data handling.** The tool runs entirely in the browser. The CAM assessment log is a session scratchpad that clears on reload and is not saved to any record; protocol-governance settings are stored locally. No patient data is transmitted or persisted server-side.
+**Data handling.** The tool runs entirely in the browser. The assessment is a session scratchpad: it clears on reload and is never written to browser storage — saving or handing off an assessment is an explicit JSON export. Protocol-governance settings are stored locally. No patient data is transmitted or persisted server-side.
 
 ---
 
@@ -476,7 +476,7 @@ These are stated by the tool itself or follow directly from how it is implemente
 4. **CIWA-Ar is not validated in intubated/sedated/delirious patients.** For withdrawal in the ICU the tool directs titration to RASS rather than CIWA.
 5. **The deliriogenic list is a review prompt, not a risk ranking.** Of 103 agents, the strongest classes (benzodiazepines, opioids, anticholinergics) are on by default and the rest are opt-in; benzodiazepines, strong anticholinergics, and meperidine carry a citation-backed *higher-risk* flag. Actual risk still varies by agent, dose, route, organ function, interactions, and temporal association. Beers Criteria apply to adults ≥ 65.
 6. **No pharmacotherapy is FDA-approved for delirium.** Antipsychotics do not treat or shorten delirium (MIND-USA negative; PADIS 2025 was unable to recommend for or against); the tool restricts them to short-term control of dangerous agitation with documented indication, QTc monitoring, daily reassessment, and no discharge continuation without a psychiatric indication. Doses shown are generic starting-point references ("cap per local protocol"), not orders.
-7. **Not a record system.** The CAM log is a session scratchpad that clears on reload and is not saved to any chart; the PDFs are generated locally. The tool is not a substitute for the medical record or for a sanctioned order set.
+7. **Not a record system.** The assessment is a session scratchpad that clears on reload and is not saved to any chart; the PDFs are generated locally. The tool is not a substitute for the medical record or for a sanctioned order set.
 8. **Subtype figures are the proportion of delirious cases** (la Cour 2022), not population prevalence (Krewulak 2018); they are approximate, drawn from the cited reviews, and should not be quoted as exact constants.
 9. **Reference-archive completeness.** A small number of registry sources are cited by canonical URL but not held in the local archive (Sessler 2002 RASS; Inouye 1993; Marcantonio 1994; Krewulak 2018; the Pro-MEDIC main RCT — for which only the statistical-analysis plan and an editorial are archived).
 

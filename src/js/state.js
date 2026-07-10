@@ -1,13 +1,12 @@
 /**
- * state.js — the in-progress assessment state and its local persistence.
+ * state.js — the in-progress assessment state.
  *
  * Most of the assessment lives in the DOM (checkboxes, selects, textareas); the
- * few derived/transient values live on the exported `S` singleton. This module
- * serialises both so a reload or handoff never loses work, plus JSON
- * export/import. Persistence is LOCAL ONLY — nothing is sent to a server.
+ * few derived/transient values live on the exported `S` singleton. The
+ * assessment is session-only: a reload starts fresh, and handoff happens
+ * through JSON export/import. Nothing is sent to a server.
  */
 
-import { makeStore } from './shared/store.js';
 import { downloadJSON } from './shared/files.js';
 import { MEDS, resetMeds } from './data/meds.js';
 import { evalCam } from './scoring.js';
@@ -18,8 +17,8 @@ const ALLOWED_PATHWAYS = ['full', 'spa', 'record'];
 const VALID_RASS = new Set(['+4', '+3', '+2', '+1', '0', '-1', '-2', '-3', '-4', '-5']);
 const MAX_TEXT = 5000;
 
-// Coerce an untrusted value to a length-bounded string. Defends the import,
-// share, and autosave-restore paths against type confusion and oversized data.
+// Coerce an untrusted value to a length-bounded string. Defends the import
+// and share paths against type confusion and oversized data.
 function asText(v, max = MAX_TEXT) {
   if (typeof v === 'number' && Number.isFinite(v)) v = String(v);
   return typeof v === 'string' ? v.slice(0, max) : '';
@@ -133,27 +132,21 @@ export function restore(root, data) {
   if (fac && typeof data.facility === 'string') fac.value = asText(data.facility, 200);
 }
 
-/** Debounced autosave to localStorage. */
-const store = makeStore(AUTOSAVE_KEY, serialize);
-export const autosave = store.autosave;
-
-export const flushSave = store.flushSave;
-
-export function loadAutosave() {
-  try {
-    return JSON.parse(localStorage.getItem(AUTOSAVE_KEY) || 'null');
-  } catch {
-    return null;
-  }
-}
-
-/** Clear the saved assessment and reset every control + S to empty. */
-export function clearAll(root) {
+/**
+ * Remove any assessment snapshot an earlier version autosaved to localStorage.
+ * The assessment no longer persists across reloads, so a leftover snapshot is
+ * only a stale copy of patient inputs on a possibly shared workstation.
+ */
+export function scrubAutosave() {
   try {
     localStorage.removeItem(AUTOSAVE_KEY);
   } catch {
     /* non-fatal */
   }
+}
+
+/** Reset every control + S to empty. */
+export function clearAll(root) {
   root.querySelectorAll('[data-k]').forEach((el) => {
     if (el.closest('#tab-settings')) return; // keep unit/protocol governance config
     if (el.type === 'checkbox') el.checked = false;

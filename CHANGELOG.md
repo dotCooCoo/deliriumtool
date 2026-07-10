@@ -28,6 +28,13 @@ Notable changes to this project, following
 
 ### Changed
 
+- Assessments are now **session-only**: refreshing or reopening a tool starts a
+  fresh assessment instead of restoring the previous one, and patient inputs are
+  never written to browser storage — nothing lingers for the next user of a
+  shared workstation. Use **Save** (JSON file) to hand off or keep an
+  assessment; unit/protocol settings and template-designer configurations still
+  persist locally. Any assessment snapshot stored by an earlier version is
+  removed the first time the updated tool loads.
 - Clearer wording for saving and loading a file: the buttons that were labelled
   "Export" / "Import" now read **Save** / **Load** across the ICU, pediatric, ED,
   and template tools.

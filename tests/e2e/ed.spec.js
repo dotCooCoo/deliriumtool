@@ -1,4 +1,5 @@
 /* global document */
+import { readFileSync } from 'node:fs';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
@@ -129,12 +130,16 @@ test('4AT pathway scores and bands correctly', async ({ page }) => {
   await expect(page.locator('#fourat-verdict')).toContainText('possible delirium');
 });
 
-test('assessment persists across reload and resets on demand', async ({ page }) => {
+test('a reload starts a fresh assessment; reset clears on demand', async ({ page }) => {
   page.on('dialog', (d) => d.accept());
   await page.locator('input[name="ed-rass"][value="-2"]').check();
-  await page.waitForTimeout(700);
+  await page.waitForTimeout(700); // outlast the old autosave debounce interval
   await page.reload();
-  await expect(page.locator('input[name="ed-rass"][value="-2"]')).toBeChecked();
+  await expect(page.locator('input[name="ed-rass"][value="-2"]')).not.toBeChecked();
+  // Nothing lingers for the next user of a shared workstation.
+  expect(await page.evaluate(() => localStorage.getItem('deliriumtool:ed'))).toBeNull();
+  // Reset still clears an in-progress assessment on demand.
+  await page.locator('input[name="ed-rass"][value="-2"]').check();
   await page.locator('.tab-btn[data-tab="export"]').click();
   await page.locator('[data-act="reset"]').click();
   await expect(page.locator('input[name="ed-rass"][value="-2"]')).not.toBeChecked();
@@ -226,8 +231,11 @@ test('stale bCAM answers are cleared when the DTS flips negative', async ({ page
   // DTS goes negative → the bCAM answers behind the gate must not linger.
   await page.locator('input[name="ed-rass"][value="0"]').check();
   await page.locator('input[data-act="lunchDone"]').check();
-  await page.waitForTimeout(600);
-  const st = await page.evaluate(() => JSON.parse(localStorage.getItem('deliriumtool:ed') || '{}'));
+  // The scrub must reach the state that leaves the device — check the export.
+  await page.locator('.tab-btn[data-tab="export"]').click();
+  const download = page.waitForEvent('download');
+  await page.locator('[data-act="export"]').click();
+  const st = JSON.parse(readFileSync(await (await download).path(), 'utf8'));
   expect(st.f1).toBe('');
   expect(st.monthTaps).toEqual([]);
 });
