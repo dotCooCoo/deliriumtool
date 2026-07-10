@@ -108,7 +108,7 @@
       <div class="pathway-picker__lead">
         <h2>Choose a document to build</h2>
         <p>
-          Pick the output you need. You'll work through the assessment, then export this document.
+          Pick the output you need. You'll work through the assessment, then generate this document.
           You can switch or reset at any time.
         </p>
       </div>
@@ -1737,7 +1737,7 @@
               <div class="card-head">Institution / Unit Settings</div>
               <p class="note mb-3">
                 Facility name is set in the header field at the top of the page — it prints on every
-                exported PDF.
+                generated PDF.
               </p>
               <div class="frow">
                 <label class="flbl" for="proto-ver">Protocol Version</label>
@@ -1799,12 +1799,12 @@
                   <svg class="fa fa-sm" aria-hidden="true"><use href="#fa-download" /></svg> Save
                   settings
                 </button>
-                <button class="btn btn-sec" data-act="loadSettings">Load settings.json</button>
+                <button class="btn btn-sec" data-act="loadSettings">Load settings</button>
               </div>
               <p class="note-sm mt-2">
                 Settings also auto-save in this browser. <strong>Save settings</strong> writes a
-                <code>settings.json</code>; <strong>Load settings.json</strong> imports one back —
-                for sharing a configured protocol or moving it between machines.
+                <code>settings.json</code>; <strong>Load settings</strong> reads one back — for
+                sharing a configured protocol or moving it between machines.
               </p>
             </div>
             <div class="card">
@@ -1851,7 +1851,7 @@
             <div class="sec-sub">Print-ready PDFs — generated and downloaded on your device</div>
           </div>
           <div class="alert a-warn mb-3">
-            <strong>Before you export —</strong> Facility:
+            <strong>Before you generate —</strong> Facility:
             <strong><span id="export-facility">—</span></strong>
             <span class="muted">(set in the header field, top of page)</span> · Deliriogenic meds in
             the printout: <strong><span id="export-med-count">—</span></strong>

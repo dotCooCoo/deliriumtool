@@ -5,6 +5,52 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Added
+
+- Pediatric tool (`/peds/`): the pCAM-ICU inattention screen (Feature 2) now runs
+  the validated memory-pictures attention task on screen, alongside the
+  squeeze-on-A letters. Show the five memory pictures, then step through the ten
+  recognition pictures marking **Seen / New** for each; errors are counted against
+  the picture set as you go, and either task reaching three errors makes Feature 2
+  positive. It uses the same picture set as the printed pediatric cards.
+- Pediatric tool: a **Present to child** view for the picture task — tap any
+  picture (or the button) to show it full-size in a modal you can turn toward the
+  bed, stepping through the memory pictures and then the recognition pictures with
+  Seen / New picked right there. Works on a phone in portrait and landscape, and is
+  keyboard- and screen-reader-accessible.
+- Pediatric report: when the picture task is used, the summary now lists each
+  recognition picture, whether it was a memory or new picture, and the child's
+  answer, with errors flagged and the total shown against the ≥ 3-error cut.
+- Pediatric tool: a second worked example — **"pCAM-ICU example (school age)"** —
+  loads a filled pCAM-ICU assessment that lands directly on the picture attention
+  task, so it can be explored without hunting for the right age and screen. The
+  example shortcuts now sit above the age field.
+
+### Changed
+
+- Clearer wording for saving and loading a file: the buttons that were labelled
+  "Export" / "Import" now read **Save** / **Load** across the ICU, pediatric, ED,
+  and template tools.
+- Pediatric tool: when more than one screen applies to a child, the header now
+  shows an explicit **"Other screens: Switch to …"** control instead of a faint
+  link, so the pCAM-ICU screen (and its picture attention task) is easy to reach.
+- Pediatric tool: the chronological-age unit now defaults to **years** (was
+  months), and a plain-language readback under the field echoes the entered age
+  ("→ 7 years old" / "→ 7 months old — an infant") so a mis-set unit is caught
+  before it routes a child to the wrong screen.
+
+### Fixed
+
+- ED bedside card set: the printed screening cards are now numbered by position
+  (DTS = Step 1, bCAM = Step 2), matching the interactive ED tool, and renumber
+  themselves if a card is hidden — previously they read "Step 1" then "Step 3".
+
+### Removed
+
+- Pediatric tool: the in-tool "Bedside cards" tab and the report's "Bedside cards
+  used" list. The printable bedside cards remain available in the template
+  designer (`/templates/`).
+
 ## [0.6.4] - 2026-07-03
 
 ### Fixed

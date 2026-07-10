@@ -146,7 +146,7 @@ function arousalRowEl(r) {
 // portrait card. The ladder renders at natural height (no flex-grow fill),
 // leaving room for the LUNCH task + verdict beneath the gate.
 
-function dtsGateCard() {
+function dtsGateCard(step) {
   const body = el('div', { class: 'pc-body' });
   for (const g of RASS_RAIL) {
     body.append(
@@ -204,7 +204,7 @@ function dtsGateCard() {
     'pc-dtsgate',
     cardHead(
       'navy',
-      'Step 1 · DTS',
+      `Step ${step} · DTS`,
       'Arousal (RASS) + Delirium Triage Screen',
       'Score the RASS first (Look, then Talk, then Touch). RASS ≠ 0 is already positive; at RASS 0, do the LUNCH task. 98% sensitive rule-out.',
       'eye',
@@ -249,8 +249,11 @@ function featureStep(n, title, kids, branches) {
   );
 }
 
-function bcamCard(state) {
+function bcamCard(state, step, dtsStep) {
   const setKey = state.edF4Set === 'b' ? 'setB' : 'setA';
+  // Feature 3 reads the RASS scored on the DTS card; point at its actual number,
+  // or the arousal score itself when that card is hidden.
+  const rassRef = dtsStep ? `from Step ${dtsStep}` : 'the RASS score';
   const questions = BCAM_F4[setKey];
   const body = el(
     'div',
@@ -291,7 +294,7 @@ function bcamCard(state) {
     featureStep(
       3,
       'Altered level of consciousness',
-      [scriptBlock('Positive when the RASS is anything other than 0 (from Step 1).')],
+      [scriptBlock(`Positive when the RASS is anything other than 0 (${rassRef}).`)],
       [
         branch('Yes', outcomeChip('present', 'DELIRIUM PRESENT')),
         branch('No', el('span', { text: 'RASS 0 → continue to Feature 4' })),
@@ -324,7 +327,7 @@ function bcamCard(state) {
     'pc-bcam',
     cardHead(
       'navy',
-      'Step 3 · bCAM',
+      `Step ${step} · bCAM`,
       'Brief Confusion Assessment Method — the <2-minute rule-in',
       'Confirms a positive DTS. Feature 2 (inattention) is required — 1 + 3 + 4 without it is negative.',
       'clipboard-list',
@@ -441,8 +444,18 @@ function actCard(state) {
 export function renderEdCards(state) {
   const sheets = [];
   if (secOn(state, 'sec-ed-pathway')) sheets.push(pathwayCard());
-  if (secOn(state, 'sec-ed-dts')) sheets.push(dtsGateCard());
-  if (secOn(state, 'sec-ed-bcam')) sheets.push(bcamCard(state));
+  // DTS → bCAM is the sequential diagnostic path, so their step numbers are a
+  // position, not a fixed reference — number the shown ones 1..n so hiding one
+  // leaves no gap. The pathway, 4AT alternative, and act cards sit outside the
+  // numbered sequence.
+  let step = 0;
+  let dtsStep = null;
+  if (secOn(state, 'sec-ed-dts')) {
+    step += 1;
+    dtsStep = step;
+    sheets.push(dtsGateCard(dtsStep));
+  }
+  if (secOn(state, 'sec-ed-bcam')) sheets.push(bcamCard(state, step + 1, dtsStep));
   if (secOn(state, 'sec-ed-4at')) sheets.push(fouratCard());
   if (secOn(state, 'sec-ed-act')) sheets.push(actCard(state));
   for (const sec of state.customSections.filter((x) => x.lines.length)) {
