@@ -32,6 +32,7 @@ test('peds save/load is lossless across reload', async ({ page }) => {
 test('peds profile (age/baseline/weight/glasses/hearing) survives reload', async ({ page }) => {
   await page.goto('/peds/');
   await page.fill('#prof-age', '30');
+  await page.selectOption('#prof-age-unit', 'm');
   await page.selectOption('#prof-baseline', 'impaired');
   await page.fill('#prof-dev', '18');
   await page.fill('#prof-weight', '12');

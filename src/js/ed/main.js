@@ -897,21 +897,21 @@ function onClick(e) {
       pickJSON().then((raw) => {
         if (raw == null) return;
         if (raw.__error || !looksLikeEdAssessment(raw)) {
-          announce('That file is not an ED assessment export.');
+          announce('That file is not a saved ED assessment.');
           window.alert(
-            'That file could not be read as an ED assessment. (Exports from the ICU or pediatric tools cannot be imported here.)',
+            'That file could not be read as an ED assessment. (Files saved from the ICU or pediatric tools cannot be loaded here.)',
           );
           return;
         }
         if (
           hasClinicalInput() &&
-          !window.confirm('Replace the in-progress assessment with the imported one?')
+          !window.confirm('Replace the in-progress assessment with the loaded one?')
         ) {
           return;
         }
         state = sanitizeAssessment(raw);
         renderAll();
-        announce('Assessment imported.');
+        announce('Assessment loaded.');
       });
       break;
     case 'print':

@@ -274,7 +274,7 @@ test('import rejects files from the other tools and roundtrips its own', async (
     mimeType: 'application/json',
     buffer: Buffer.from(JSON.stringify({ v: 1, profile: { ageM: 30 }, capd: {} })),
   });
-  await expect(page.locator('#ed-live')).toContainText('not an ED assessment');
+  await expect(page.locator('#ed-live')).toContainText('not a saved ED assessment');
 });
 
 test('ED tool has no serious accessibility violations', async ({ page }) => {
