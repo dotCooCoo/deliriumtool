@@ -90,9 +90,9 @@
     </header>
 
     <!-- ═══════ TOOL PICKER (shown first) ═══════ -->
-    <section id="tool-picker" class="pathway-picker" tabindex="-1">
+    <section id="tool-picker" class="pathway-picker" tabindex="-1" aria-labelledby="tool-picker-h">
       <div class="pathway-picker__lead">
-        <h2>Who are you screening?</h2>
+        <h2 id="tool-picker-h">Who are you screening?</h2>
         <p>
           Pick the care setting — each tool uses the delirium screens validated for it. Printable
           bedside sheets live in the template designer.
@@ -143,12 +143,18 @@
     </section>
 
     <!-- ═══════ PATHWAY PICKER (after choosing Adult ICU) ═══════ -->
-    <section id="pathway-picker" class="pathway-picker" tabindex="-1" hidden>
+    <section
+      id="pathway-picker"
+      class="pathway-picker"
+      tabindex="-1"
+      aria-labelledby="pathway-picker-h"
+      hidden
+    >
       <div class="pathway-picker__lead">
         <button type="button" class="btn btn-ghost btn-sm picker-back" data-act="allTools">
           <svg class="fa" aria-hidden="true"><use href="#fa-arrow-left" /></svg> All tools
         </button>
-        <h2>Adult ICU — choose a document to build</h2>
+        <h2 id="pathway-picker-h">Adult ICU — choose a document to build</h2>
         <p>
           Pick the output you need. You'll work through the assessment, then generate this document.
           You can switch or reset at any time.
