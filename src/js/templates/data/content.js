@@ -113,8 +113,8 @@ export const STATUS = {
   subtype: {
     cites: ['lacour2022', 'krewulak2018', 'hayhurst2020'],
     options: [
-      'Hyperactive (agitated, RASS +1 to +4)',
-      'Hypoactive (calm/lethargic, RASS 0 to −3)',
+      'Hyperactive (agitated, combative — least common)',
+      'Hypoactive (somnolent, quiet — most common, easily missed)',
       'Mixed (fluctuates between both)',
     ],
   },
@@ -174,7 +174,7 @@ export const MNEMONIC = {
       ltr: 'U',
       word: 'Under-hydration / Nutrition',
       tone: 'rust',
-      note: 'Volume status, intake, electrolytes. Thiamine before glucose in at-risk patients.',
+      note: 'Volume status, intake, electrolytes. Thiamine promptly in at-risk patients — do not delay glucose.',
     },
     {
       id: 'mn-m',
@@ -282,9 +282,9 @@ export const NONPHARM = {
  */
 export const PHARM = {
   cites: ['padis2025', 'mindusa2018', 'haldol_label', 'dex_label', 'mends2', 'padis2018'],
-  lead: 'Reserve for severe distress or imminent safety risk only',
+  lead: 'Reserve for imminent safety risk only',
   leadNote:
-    'Antipsychotics do not treat or shorten delirium — medication does not treat the underlying cause.',
+    'Antipsychotics have not been shown to treat or shorten delirium (MIND-USA; PADIS 2025: unable to recommend for or against) — medication does not treat the underlying cause.',
   rows: [
     {
       id: 'ph-haldol',
@@ -497,7 +497,7 @@ export const SPA_COLS = [
       {
         id: 'p-meperidine',
         head: 'Avoid meperidine',
-        desc: 'Highest delirium risk of the opioids — avoid in at-risk patients.',
+        desc: 'Higher neurotoxicity/delirium risk than other opioids (Beers) — avoid in at-risk patients.',
       },
       {
         id: 'p-melatonin',

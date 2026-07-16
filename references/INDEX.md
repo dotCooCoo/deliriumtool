@@ -19,6 +19,7 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Bergeron 2001 — ICDSC (the adult-ICU alternative screen), Intensive Care Med 2001;27:859 | **not archived** | https://doi.org/10.1007/s001340100909 |
 | Marcantonio 2014 — 3D-CAM (ward-validated CAM), Ann Intern Med 2014;161:554 | **not archived** | https://doi.org/10.7326/M14-0865 |
 | APA DSM-5-TR 2022 — delirium diagnostic criteria (the reference standard every screen is validated against) | **not archived** (copyright) | https://doi.org/10.1176/appi.books.9780890425787 |
+| RASS scoring procedure (MDCalc, live web tool) | — (web tool, not archived) | https://www.mdcalc.com/calc/1872/richmond-agitation-sedation-scale-rass |
 
 ## Prevention Bundle (ABCDEF / HELP / guidelines)
 
@@ -39,6 +40,7 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Awissi 2013 — alcohol withdrawal & DT in the critically ill (CIWA not ICU-validated), ICM 2013;39:16 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/23184039/ |
 | Flaherty & Little 2011 — the delirium room / T-A-D-A method, JAGS 2011;59:S295 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/22091576/ |
 | Kollef 1998 — continuous IV sedation & ventilation duration (observational), Chest 1998;114:541 | **not archived** | https://doi.org/10.1378/chest.114.2.541 |
+| Hodgson 2014 — mobilization safety criteria consensus, Crit Care 2014;18:658 | **not archived** | https://ccforum.biomedcentral.com/articles/10.1186/s13054-014-0658-y |
 
 ## DELIRIUM Factors (subtypes / mnemonic)
 
@@ -48,6 +50,9 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Hayhurst 2020 — subtype & cognition, CCM 2020;48:e480 | `hayhurst-2020-subtype-cognition-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000004313 |
 | Krewulak 2018 — subtype meta-analysis, CCM 2018;46:2029 | **not archived** | https://doi.org/10.1097/CCM.0000000000003402 |
 | Vanderbilt DELIRIUM(S) mnemonic | (web) | https://www.icudelirium.org/medical-professionals/terminology-mnemonics |
+| Maldonado 2018 — delirium pathophysiology (acute brain failure), Int J Geriatr Psychiatry 2018;33:1428 | **not archived** | https://doi.org/10.1002/gps.4823 |
+| Flaherty 2011 — evaluation & management of delirium in older persons, Med Clin North Am 2011;95:555 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/21549878/ |
+| Inouye & Charpentier 1996 — precipitating-factor model, JAMA 1996;275:852 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8596223/ |
 
 ## Treatment / Medications
 
@@ -68,6 +73,14 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Burry 2022 — ProMEDIC editorial, ICM 2022;48:479 — *commentary* | `burry-2022-promedic-editorial-icm.pdf` | https://doi.org/10.1007/s00134-022-06656-7 |
 | Wibrow 2022 — ProMEDIC melatonin RCT (main results), ICM 2022;48:414 | **not archived** (only SAP + editorial above) | https://doi.org/10.1007/s00134-022-06638-9 |
 | Dean 2004 — opioids in renal failure (morphine/hydromorphone metabolites), JPSM 2004;28:497 | **not archived** | https://doi.org/10.1016/j.jpainsymman.2004.02.021 |
+| Richmond 2012 — APA Project BETA verbal de-escalation consensus, West J Emerg Med 2012;13:17 | **not archived** (open access) | https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/ |
+| NICE NG10 — violence and aggression: short-term management | **not archived** (live guideline) | https://www.nice.org.uk/guidance/ng10 |
+| Galvin 2010 — EFNS Wernicke guideline (thiamine 200 mg IV TID, before carbohydrate), Eur J Neurol 2010;17:1408 | **not archived** | https://doi.org/10.1111/j.1468-1331.2010.03153.x |
+| Thomson 2002 — RCP Wernicke A&E guidance (500 mg IV TID regimen), Alcohol Alcohol 2002;37:513 | **not archived** | https://doi.org/10.1093/alcalc/37.6.513 |
+| Singer 2019 — ESPEN ICU clinical nutrition guideline (thiamine in refeeding / at-risk), Clin Nutr 2019;38:48 | **not archived** | https://doi.org/10.1016/j.clnu.2018.08.037 |
+| ASAM 2020 — alcohol-withdrawal management guideline (thiamine/glucose order; scale selection in delirium), J Addict Med 2020;14(3S):1 | **not archived** | https://doi.org/10.1097/ADM.0000000000000668 |
+| Nicolle 2019 — IDSA asymptomatic-bacteriuria guideline (delirium + bacteriuria → observe), Clin Infect Dis 2019;68:e83 | **not archived** | https://doi.org/10.1093/cid/ciy1121 |
+| CIWA-Ar scale reference (MDCalc, live web tool) | — (web tool, not archived) | https://www.mdcalc.com/calc/1736/ciwa-ar-alcohol-withdrawal |
 
 ## Risk (prediction models)
 
@@ -78,6 +91,7 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Zaal 2015 — ICU delirium risk-factor systematic review, CCM 2015;43:40 | **not archived** | https://doi.org/10.1097/CCM.0000000000000625 |
 | Inouye 1993 — admission predictive model, Ann Intern Med 1993;119:474 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8357112/ |
 | Marcantonio 1994 — postop prediction rule, JAMA 1994;271:134 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8264068/ |
+| Pisani 2009 — days of delirium & 1-year mortality, AJRCCM 2009;180:1092 | **not archived** | https://doi.org/10.1164/rccm.200904-0537OC |
 
 ## Pediatric Delirium (CAPD / pCAM-ICU / psCAM-ICU) — /peds/
 

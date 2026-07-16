@@ -18,7 +18,7 @@ export const blankAssessment = () => ({
   monthDone: false,
   monthUnable: false,
   f4Set: 'a',
-  f4: '', // '' | 'none' | 'errors'
+  f4: '', // '' | 'none' | 'errors' | 'unable'
   fourat: { alertness: '', amt4: '', attention: '', change: '' },
   actions: [], // checked act-on-positive item ids
   assessor: '',

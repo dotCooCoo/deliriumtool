@@ -4,7 +4,7 @@
  * Three guideline-backed pathways over one assessment state: the two-step
  * DTS → bCAM (Han 2013; Geriatric ED Guidelines), the bCAM directly for
  * high-risk screening (ACEP ED-DEL), and the 4AT (SIGN 157; NICE CG103
- * recommends the 4AT hospital-wide; GED 2.0 conditionally recommends both
+ * recommends the 4AT for ED / acute settings; GED 2.0 conditionally recommends both
  * instruments for ED use). Everything runs in the browser — no patient data
  * leaves the device. Reference aid only.
  */

@@ -217,7 +217,7 @@ export const PATHWAYS = [
   {
     id: 'fourat',
     name: '4AT',
-    who: 'SIGN 157 pathway (ED); NICE CG103 recommends the 4AT hospital-wide',
+    who: 'SIGN 157 pathway (ED); NICE CG103 recommends the 4AT for ED / acute settings (critical care uses CAM-ICU / ICDSC)',
     how: 'A single ~2-minute test scoring alertness, AMT4, attention, and acute change; no special training required; usable in most patients including many who are untestable on interview items.',
     cites: ['fourat_form', 'sign157', 'nice_cg103', 'ged2_2026'],
   },

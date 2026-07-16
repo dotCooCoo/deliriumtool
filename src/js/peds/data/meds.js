@@ -45,6 +45,6 @@ export const MEDS = [
     id: 'haloperidol',
     group: 'Antipsychotic (off-label)',
     name: 'Haloperidol (reserve)',
-    dose: 'IV load ~0.025–0.1 mg/kg/dose; maintenance ~0.015–0.15 mg/kg/dose q6–8h',
+    dose: 'IV load ~0.025–0.1 mg/kg/dose (small case series); maintenance per formulary / pediatric pharmacist with an agreed max daily dose — institutional protocols differ several-fold',
   },
 ];

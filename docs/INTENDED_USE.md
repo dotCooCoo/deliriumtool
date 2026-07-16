@@ -68,7 +68,7 @@ So that the tool **supports rather than directs**:
 
 ## 9. Pharmacologic note
 
-**No agent is FDA-approved to prevent or treat delirium.** Non-pharmacologic measures are first-line. Antipsychotics **do not treat or shorten delirium** (MIND-USA was negative; PADIS 2025 was unable to recommend for or against); where used, they are reserved for **short-term control of dangerous agitation** with a documented safety indication, baseline/serial QTc monitoring, the lowest effective dose, daily reassessment for discontinuation, and no continuation at discharge without a psychiatric indication. Dexmedetomidine is framed to its ventilated-patient sedation niche. All doses shown are **generic starting-point references**, not orders, and must be reconciled with the patient and local policy.
+**No agent is FDA-approved to prevent or treat delirium.** Non-pharmacologic measures are first-line. Antipsychotics **have not been shown to treat or shorten delirium** (MIND-USA was negative; PADIS 2025 was unable to recommend for or against); where used, they are reserved for **short-term control of dangerous agitation** with a documented safety indication, baseline/serial QTc monitoring, the lowest effective dose, daily reassessment for discontinuation, and no continuation at discharge without a psychiatric indication. Dexmedetomidine is framed to its ventilated-patient sedation niche. All doses shown are **generic starting-point references**, not orders, and must be reconciled with the patient and local policy.
 
 ## 10. Regulatory posture (device / non-device)
 

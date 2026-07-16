@@ -560,7 +560,7 @@ function stampPageNumbers(doc, generatedAt) {
 var DLM_DOMAINS = [
   [
     'D — Drugs / Withdrawal',
-    'Deliriogenic agents? Dose reduction? Withdrawal (alcohol/benzo/opioid) — treat to RASS, not CIWA, in the ICU.',
+    'Deliriogenic agents? Dose reduction? Withdrawal (alcohol/benzo/opioid) — titrate to an objective scale such as RASS; CIWA-Ar needs an awake, communicative, non-delirious patient (ASAM 2020).',
   ],
   ['E — Eyes/Ears (sensory)', 'Glasses & hearing aids in? Other sensory deficits addressed?'],
   ['L — Low O2 states', 'Check SpO2, Hgb; MI, stroke, pulmonary embolism.'],
@@ -572,9 +572,9 @@ var DLM_DOMAINS = [
   ['I — Ictal/Seizure', 'Non-convulsive seizures/status? Esp. unexplained low LOC. Consider EEG.'],
   [
     'U — Under-hydration / Nutrition',
-    'Volume status, intake, electrolytes. Parenteral thiamine BEFORE glucose. At-risk (malnutrition/alcohol use): 100-300 mg IV daily (ESPEN). Suspected Wernicke (guidelines diverge, low-certainty): EFNS 200 mg IV TID or RCP 500 mg IV TID x 2-3 days then 250 mg taper.',
+    'Volume status, intake, electrolytes. Parenteral thiamine promptly in at-risk patients — do not delay glucose (ASAM 2020: either order or together; EFNS still advises thiamine before carbohydrate). At-risk (malnutrition/alcohol use): 100-300 mg IV daily (ESPEN). Suspected Wernicke (guidelines diverge, low-certainty): EFNS 200 mg IV TID or RCP 500 mg IV TID x 2-3 days then 250 mg taper.',
   ],
-  ['M — Metabolic', 'Na, Mg, Ca, glucose, BUN/Cr, acid-base.'],
+  ['M — Metabolic', 'Na, Mg, Ca, glucose, BUN/Cr, acid-base, liver function.'],
   [
     'S — Subdural / Sleep',
     'Subdural hematoma (recent fall or anticoagulation)? Sleep deprivation?',
@@ -1026,8 +1026,8 @@ function buildFull(doc, opts, k) {
       ],
       [
         'Lorazepam (specific use)',
-        'Per CIWA protocol',
-        'Rescue / alcohol withdrawal ONLY — may worsen delirium',
+        'Symptom-triggered per institutional withdrawal protocol',
+        'Rescue / alcohol withdrawal ONLY — may worsen delirium. Monitor delirious/intubated/sedated ICU patients with an objective scale (RASS, CAM-ICU, MINDS), not CIWA-Ar (ASAM 2020)',
       ],
       [
         'Melatonin',
@@ -1039,7 +1039,7 @@ function buildFull(doc, opts, k) {
   y = doc.lastAutoTable.finalY + 4;
   // danger / framing note (wrapped)
   var dnText =
-    'Antipsychotics are for short-term control of dangerous agitation only — they do NOT treat or shorten delirium (MIND-USA negative). No antipsychotics at discharge without a psychiatric indication; reassess daily and document a stop/taper plan. Reduce doses for renal/hepatic impairment and frail elderly. Doses shown are conventional/expert starting references, not guideline-calibrated; dexmedetomidine is a sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent.   Do NOT stop abruptly: benzodiazepines · opioids · SSRIs · steroids · antiepileptics · dexmedetomidine.';
+    'Antipsychotics are for short-term control of dangerous agitation only — they have NOT been shown to treat or shorten delirium (MIND-USA negative; PADIS 2025: unable to recommend for or against). No antipsychotics at discharge without a psychiatric indication; reassess daily and document a stop/taper plan. Reduce doses for renal/hepatic impairment and frail elderly. Doses shown are conventional/expert starting references, not guideline-calibrated; dexmedetomidine is a sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent.   Do NOT stop abruptly: benzodiazepines · opioids · SSRIs · steroids · antiepileptics · dexmedetomidine.';
   var dnLines = doc.splitTextToSize(dnText, CW - 12);
   var dnH = dnLines.length * 8 + 6;
   doc.setFillColor(255, 237, 233);
@@ -1271,7 +1271,7 @@ function buildSpa(doc, opts) {
     ['Treat pain before sedation', 'Analgesia-first; uncontrolled pain drives agitation.'],
     [
       'Avoid meperidine entirely',
-      'Highest delirium risk of all opioids. Do not use in delirium-risk patients.',
+      'Higher neurotoxicity/delirium risk than other opioids (Beers). Do not use in delirium-risk patients.',
     ],
     [
       'Melatonin — consider for prevention',
@@ -1456,8 +1456,8 @@ function buildSpa(doc, opts) {
     },
     body: [
       [
-        'Dexmedetomidine preferred in ventilated patients; reduces delirium vs benzos; monitor bradycardia/hypotension.\n\nPropofol acceptable short-term; daily cost/benefit.\n\nAvoid midazolam/lorazepam for routine sedation.\n\nException: benzos first-line for alcohol/benzo withdrawal (CIWA).\n\nHaloperidol 0.25-0.5 mg q4-6h PRN for hyperactive delirium w/ safety risk; lowest effective dose, cap per local protocol; IV route off-label (higher QT/Torsades risk) — prefer PO/IM, continuous ECG if given IV; check QTc; elderly are more sensitive (EPS/QTc; dementia-mortality boxed warning).\n\nQuetiapine 12.5-25 mg PO q12h if oral available; monitor QTc & orthostasis.',
-        'Scheduled acetaminophen (dose per local order set; avoid/reduce with hepatic impairment) as a multimodal, opioid-sparing adjunct.\n\nRegional anesthesia (nerve blocks, epidurals) preferred for surgical patients.\n\nPain assessment routinely / per unit protocol - NRS if able to self-report, CPOT or BPS if not.\n\nPharmacy consult for any CAM-positive patient or high anticholinergic/sedative burden (polypharmacy >= 5 meds is a common practice heuristic).\n\nElectrolytes Na, K, Mg, Ca, Phos, glucose - check and correct per clinical indication.\n\nCheck for infection/occult sepsis in new delirium.',
+        'Dexmedetomidine preferred in ventilated patients; reduces delirium vs benzos; monitor bradycardia/hypotension.\n\nPropofol acceptable short-term; daily cost/benefit.\n\nAvoid midazolam/lorazepam for routine sedation.\n\nException: benzos first-line for alcohol/benzo withdrawal (symptom-triggered per institutional protocol).\n\nHaloperidol 0.25-0.5 mg q4-6h PRN for hyperactive delirium w/ safety risk; lowest effective dose, cap per local protocol; IV route off-label (higher QT/Torsades risk) — prefer PO/IM, continuous ECG if given IV; check QTc; elderly are more sensitive (EPS/QTc; dementia-mortality boxed warning).\n\nQuetiapine 12.5-25 mg PO q12h if oral available; monitor QTc & orthostasis.',
+        'Scheduled acetaminophen (dose per local order set; avoid/reduce with hepatic impairment) as a multimodal, opioid-sparing adjunct.\n\nRegional anesthesia (nerve blocks, epidurals) preferred for surgical patients.\n\nPain assessment routinely / per unit protocol - NRS if able to self-report, CPOT or BPS if not.\n\nPharmacy consult for any CAM-positive patient or high anticholinergic/sedative burden.\n\nElectrolytes Na, K, Mg, Ca, Phos, glucose - check and correct per clinical indication.\n\nCheck for infection/occult sepsis in new delirium.',
         "Every device = barrier to mobility. Remove the urinary catheter as early as clinically feasible. CVC reassess daily. Restraints: least restrictive.\n\nMobility progression: passive ROM -> active ROM/bed exercises -> sit/edge of bed -> stand/transfer -> ambulate. Target chair daily.\n\nT-A-D-A: Tolerate seemingly dangerous (but not truly harmful) behaviors, Anticipate triggers, Don't Agitate.\n\nOrientation board: date, team, daily goal each shift.\n\nSleep hygiene: dim lights per unit quiet-hours protocol, cluster vitals/labs, ear protection.",
       ],
     ],
