@@ -319,4 +319,14 @@ export const DELIRIUM_REFS = {
     c: 'Snigurska UA, Keil MF, Chin AR, et al. Risk of bias in delirium prediction models: a systematic review. PLoS ONE. 2023;18(5):e0285527. (Even published prediction models carry substantial risk of bias — nuance for the prefer-a-validated-model framing.)',
     u: 'https://doi.org/10.1371/journal.pone.0285527',
   },
+  asam2020: {
+    l: 'ASAM 2020',
+    c: 'The ASAM Clinical Practice Guideline on Alcohol Withdrawal Management. J Addict Med. 2020;14(3S):1-72. (Thiamine and glucose may be given in either order or concurrently — do not delay glucose. In withdrawal delirium, monitor with a structured objective scale such as CAM-ICU, DDS, RASS, or MINDS; CIWA-Ar is not recommended in delirium because it relies on patient-reported symptoms.)',
+    u: 'https://doi.org/10.1097/ADM.0000000000000668',
+  },
+  nicolle2019: {
+    l: 'IDSA ASB 2019',
+    c: 'Nicolle LE, Gupta K, Bradley SF, et al. Clinical practice guideline for the management of asymptomatic bacteriuria: 2019 update by the Infectious Diseases Society of America. Clin Infect Dis. 2019;68(10):e83-e110. (Delirium with bacteriuria but no genitourinary symptoms or systemic signs of infection: assess for other causes and observe rather than treat.)',
+    u: 'https://doi.org/10.1093/cid/ciy1121',
+  },
 };

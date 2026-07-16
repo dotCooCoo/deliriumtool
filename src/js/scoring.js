@@ -13,7 +13,7 @@
  */
 
 // ─── Risk-factor tally ──────────────────────────────────────────────────────
-// A count of present risk factors (0–16), NOT a validated score — every factor
+// A count of present risk factors (0–15), NOT a validated score — every factor
 // counts +1 (a flat checklist, no implied weighting). Band cut-points are
 // heuristic; for a validated ICU model the UI points to PRE-DELIRIC /
 // E-PRE-DELIRIC. See docs/CLINICAL_METHODOLOGY.md §2.1.

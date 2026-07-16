@@ -90,6 +90,10 @@ export const REFS = {
     c: 'Haloperidol prescribing information (boxed warnings; QTc / torsades). DailyMed, U.S. NLM.',
     u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f',
   },
+  dex_label: {
+    c: 'Precedex (dexmedetomidine hydrochloride) prescribing information — pediatric indication: sedation of non-intubated patients aged 1 month to < 18 years before/during non-invasive procedures; safety and efficacy not established for pediatric ICU sedation. DailyMed, U.S. NLM.',
+    u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74',
+  },
   kerson2016_rass: {
     c: 'Kerson AG, DeMaria R, Mauer E, et al. Validity of the Richmond Agitation-Sedation Scale (RASS) in critically ill children. J Intensive Care. 2016;4:65. (Pediatric RASS validation — the arousal scale the tool applies to verbal children.)',
     u: 'https://doi.org/10.1186/s40560-016-0189-5',

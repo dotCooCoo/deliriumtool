@@ -171,7 +171,7 @@ export const ACT_POSITIVE = {
   escalate: [
     {
       id: 'act-drug',
-      text: 'Drugs treat symptoms only — if agitation threatens safety and non-pharm has failed, consider a short course of an atypical antipsychotic at the lowest effective dose, reassessed daily (off-label, limited evidence).',
+      text: 'Drugs treat symptoms only — if agitation threatens safety and non-pharm has failed, consider a short course of an antipsychotic (PANDEM prefers no agent; atypicals are usually chosen first in reported PICU practice) at the lowest effective dose, reassessed daily (off-label, limited evidence).',
     },
     {
       id: 'act-ecg',
