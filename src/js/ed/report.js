@@ -1,9 +1,10 @@
 /**
  * ed/report.js — the printable ED screening summary, generated in the browser
- * with jsPDF (no server, no data egress). It prints the de-identified assessment
- * (pathway, arousal, screen result), a colour-coded verdict banner, any actions
- * started, free-text notes, and the instrument citations for the pathway used.
- * Reference aid only — not an order set. Shrinks to one page via fitToPages.
+ * with jsPDF (no server, no data egress). Page 1: a de-identified identification
+ * strip, a colour-coded verdict banner, the assessment, any actions started,
+ * free-text notes, and the instrument citations for the pathway used. Page 2: the
+ * screen -> gate -> confirm -> act bedside workflow with the disposition hand-off.
+ * Reference aid only — not an order set. Page 1 shrinks to fit via fitToPages.
  *
  * The caller (ed/main.js) assembles a plain data model from the same functions
  * that build the on-screen summary, so the document and the screen never drift.
@@ -11,6 +12,7 @@
 import { jsPDF } from 'jspdf';
 import {
   reportHeader,
+  idBlock,
   sectionBar,
   kvRow,
   statusBanner,
@@ -18,11 +20,13 @@ import {
   paragraph,
   refsBlock,
   disclaimer,
+  drawWorkflow,
   fitToPages,
   stampFooter,
   RC,
 } from '../shared/pdf-report.js';
 import { formatStamp } from '../shared/time.js';
+import { WORKFLOW_STAGES, HANDOFF_SCRIPT } from '../templates/data/ed-content.js';
 
 const DISCLAIMER =
   'Reference aid only — not a validated decision-support device or an order set. ' +
@@ -30,14 +34,12 @@ const DISCLAIMER =
   'suspicion, concerning collateral history, or a change in mental status remains. ' +
   'Generated on this device; no patient data was transmitted.';
 
-function buildReport(doc, model, scale) {
+function buildSummary(doc, model, scale) {
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
   const M = 48 * scale;
   const ctx = { M, W, H, scale };
   let y = 0;
-  // Page-break guard so a busy summary shrinks (via fitToPages) rather than
-  // running into the per-page footer.
   const bottom = H - 34 * scale;
   const ensure = (need) => {
     if (y + need > bottom) {
@@ -59,7 +61,19 @@ function buildReport(doc, model, scale) {
     M,
     scale,
   });
-  y += 6 * scale;
+  y += 4 * scale;
+
+  y = idBlock(
+    doc,
+    y,
+    [
+      { label: 'Patient', blankW: 150 },
+      { label: 'Room', blankW: 52 },
+      { label: 'Date', value: model.date },
+      { label: 'Assessed by', value: model.assessor || null, blankW: 110 },
+    ],
+    ctx,
+  );
 
   y = statusBanner(doc, y, model.verdict, ctx);
   y += 4 * scale;
@@ -90,16 +104,39 @@ function buildReport(doc, model, scale) {
   disclaimer(doc, y, DISCLAIMER, ctx);
 }
 
+function buildWorkflowPage(doc, model) {
+  const W = doc.internal.pageSize.getWidth();
+  const H = doc.internal.pageSize.getHeight();
+  const ctx = { M: 48, W, H, scale: 1 };
+  drawWorkflow(
+    doc,
+    {
+      facility: model.facility,
+      title: 'ED delirium — bedside workflow',
+      sub: 'Screen -> gate -> confirm -> act',
+      accent: RC.CRIM,
+      stages: WORKFLOW_STAGES,
+      script: HANDOFF_SCRIPT,
+      scriptTitle: 'Hand-off at disposition — every positive screen',
+      footer: DISCLAIMER,
+    },
+    ctx,
+  );
+}
+
 /**
- * Build the ED summary jsPDF document from a plain model (no DOM), so it can be
- * rendered in the browser or in a verification script:
- *   { facility, sub, verdict:{tone,label}, rows:[[k,v]], actions:[str], notes:str, refs:[{c,u}] }
+ * Build the ED summary jsPDF document from a plain model (no DOM):
+ *   { facility, sub, date, assessor, verdict:{tone,label}, rows:[[k,v]],
+ *     actions:[str], notes:str, refs:[{c,u}] }
  */
 export function buildEdDoc(model) {
   const mkDoc = () => new jsPDF({ unit: 'pt', format: 'letter', compress: true });
-  const doc = fitToPages(mkDoc, (d, scale) => buildReport(d, model, scale), {
+  const doc = fitToPages(mkDoc, (d, scale) => buildSummary(d, model, scale), {
     scales: [1, 0.95, 0.9, 0.86, 0.83, 0.8, 0.78, 0.76, 0.74],
+    maxPages: 1,
   });
+  doc.addPage('letter', 'portrait');
+  buildWorkflowPage(doc, model);
   stampFooter(doc, { generated: formatStamp(), margin: 48 });
   doc.setProperties({
     title: 'ED Delirium Screening Summary',

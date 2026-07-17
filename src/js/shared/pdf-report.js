@@ -59,6 +59,57 @@ export function reportHeader(doc, { facility, title, sub, accent = TEAL, W, M, s
   return 68 * scale;
 }
 
+/**
+ * Bedside identification strip: a row of labelled fields laid out left-to-right
+ * (wrapping as needed), closed by a hairline. A field with a `value` is filled
+ * (ink); a field without one draws a blank underline of width `blankW` to be
+ * handwritten at the bedside — so the de-identified tool never has to hold a
+ * name or room. fields: [{ label, value?, blankW? }]. Returns y below.
+ */
+export function idBlock(doc, y, fields, ctx) {
+  const { M, W, scale } = ctx;
+  const gap = 16 * scale;
+  const lineH = 15 * scale;
+  const maxX = W - M;
+  doc.setFontSize(8.7 * scale);
+  let x = M;
+  let yy = y + 11 * scale;
+  for (const f of fields) {
+    const labelText = `${f.label}: `;
+    const lw = doc.setFont('helvetica', 'bold').getTextWidth(labelText);
+    const filled = f.value != null && f.value !== '';
+    const vw = filled
+      ? doc.setFont('helvetica', 'normal').getTextWidth(String(f.value))
+      : (f.blankW || 120) * scale;
+    if (x + lw + vw > maxX && x > M) {
+      x = M;
+      yy += lineH;
+    }
+    doc
+      .setFont('helvetica', 'bold')
+      .setTextColor(...SEC)
+      .text(labelText, x, yy);
+    if (filled) {
+      doc
+        .setFont('helvetica', 'normal')
+        .setTextColor(...INK)
+        .text(ascii(String(f.value)), x + lw, yy);
+    } else {
+      doc
+        .setDrawColor(184, 192, 202)
+        .setLineWidth(0.6 * scale)
+        .line(x + lw, yy + 1.5 * scale, x + lw + vw, yy + 1.5 * scale);
+    }
+    x += lw + vw + gap;
+  }
+  yy += 8 * scale;
+  doc
+    .setDrawColor(224, 230, 236)
+    .setLineWidth(0.8 * scale)
+    .line(M, yy, W - M, yy);
+  return yy + 11 * scale;
+}
+
 /** Pastel section band in a family colour, dark same-hue title. Returns y below. */
 export function sectionBar(doc, y, text, rgb, ctx) {
   const { M, W, scale } = ctx;
@@ -128,6 +179,31 @@ export function statusBanner(doc, y, { tone, label, detail }, ctx) {
       .text(detailLines, M + padX, ty + 2 * scale);
   }
   return y + h + 13 * scale;
+}
+
+/**
+ * A small status pill (soft-tinted rounded rect + coloured dot + uppercase label)
+ * in a verdict tone, drawn with its top-left at (x, yTop). Returns { w, h } so the
+ * caller can place text beside it. Tones match statusBanner.
+ */
+export function statusChip(doc, x, yTop, tone, text, ctx) {
+  const { scale } = ctx;
+  const c = TONES[tone] || TONES.pending;
+  const label = String(text).toUpperCase();
+  doc.setFont('helvetica', 'bold').setFontSize(7.2 * scale);
+  const tw = doc.getTextWidth(label);
+  const dot = 3.4 * scale;
+  const padX = 5 * scale;
+  const h = 11.5 * scale;
+  const w = padX + dot + 3.5 * scale + tw + padX;
+  doc.setFillColor(...lighten(c, 0.8)).roundedRect(x, yTop, w, h, 2.2 * scale, 2.2 * scale, 'F');
+  doc.setFillColor(...c).circle(x + padX + dot / 2, yTop + h / 2, dot / 2, 'F');
+  doc
+    .setTextColor(...darken(c, 0.12))
+    .setFont('helvetica', 'bold')
+    .setFontSize(7.2 * scale)
+    .text(label, x + padX + dot + 3.5 * scale, yTop + h - 3.4 * scale);
+  return { w, h };
 }
 
 /**
@@ -205,4 +281,67 @@ export function disclaimer(doc, y, text, ctx) {
     .splitTextToSize(ascii(text), W - 2 * M);
   doc.text(lines, M, y);
   return y + lines.length * 10 * scale;
+}
+
+const WF_TONE = { navy: NAVY, rust: AMBER, plum: PURPLE, green: GREEN, teal: TEAL, azure: INDIGO };
+
+/**
+ * Draw a numbered screen -> gate -> score/confirm -> act workflow on the current
+ * page (call doc.addPage first). stages: [{ n, head, tone, lines:[{text}] }]; an
+ * optional `script` checklist prints under a slate band. Returns y below.
+ */
+export function drawWorkflow(doc, opts, ctx) {
+  const { M, W, scale } = ctx;
+  let y = reportHeader(doc, {
+    facility: opts.facility,
+    title: opts.title,
+    sub: opts.sub,
+    accent: opts.accent || TEAL,
+    W,
+    M,
+    scale,
+  });
+  y += 10 * scale;
+  for (const s of opts.stages) {
+    const c = WF_TONE[s.tone] || TEAL;
+    const bandH = 19 * scale;
+    doc.setFillColor(...lighten(c, 0.62)).rect(M, y, W - 2 * M, bandH, 'F');
+    doc.setFillColor(...c).circle(M + 13 * scale, y + bandH / 2, 7.5 * scale, 'F');
+    doc
+      .setFont('helvetica', 'bold')
+      .setFontSize(9.5 * scale)
+      .setTextColor(255, 255, 255)
+      .text(String(s.n), M + 13 * scale, y + bandH / 2 + 3.3 * scale, { align: 'center' });
+    doc
+      .setFont('helvetica', 'bold')
+      .setFontSize(10.5 * scale)
+      .setTextColor(...darken(c, 0.2))
+      .text(ascii(s.head), M + 28 * scale, y + bandH / 2 + 3.5 * scale);
+    y += bandH + 7 * scale;
+    doc
+      .setFont('helvetica', 'normal')
+      .setFontSize(9 * scale)
+      .setTextColor(...INK);
+    for (const ln of s.lines) {
+      const lines = doc.splitTextToSize(ascii('•  ' + ln.text), W - 2 * M - 12 * scale);
+      doc.text(lines, M + 12 * scale, y);
+      y += lines.length * 12 * scale + 2.5 * scale;
+    }
+    y += 9 * scale;
+  }
+  if (opts.script && opts.script.length) {
+    y = sectionBar(doc, y, opts.scriptTitle || 'Hand-off', NAVY, ctx);
+    doc
+      .setFont('helvetica', 'normal')
+      .setFontSize(9 * scale)
+      .setTextColor(...INK);
+    opts.script.forEach((it, i) => {
+      const lines = doc.splitTextToSize(ascii(`${i + 1}.  ${it.text}`), W - 2 * M);
+      doc.text(lines, M, y);
+      y += lines.length * 12 * scale + 2.5 * scale;
+    });
+    y += 8 * scale;
+  }
+  if (opts.footer) y = disclaimer(doc, y, opts.footer, ctx);
+  return y;
 }
