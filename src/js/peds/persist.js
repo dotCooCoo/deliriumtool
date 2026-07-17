@@ -124,8 +124,9 @@ export const EXAMPLE = {
 
 // A second worked example — a 7-year-old on pCAM-ICU — so the picture attention
 // task (memory pictures + Seen/New) can be explored without hunting for the
-// right age/screen. Feature 2 is scored by the pictures (3 errors), so the
-// screen lands positive with the picture task filled in.
+// right age/screen. Feature 2 is scored by the pictures (3 errors) and the
+// recorded RASS −1 makes Feature 3 (altered LOC) present, so the screen lands
+// positive with the picture task filled in.
 export const EXAMPLE_PCAM = {
   v: 1,
   assessor: 'J. Rivera, RN',
@@ -142,7 +143,7 @@ export const EXAMPLE_PCAM = {
   },
   screen: 'pcam',
   alternatives: ['pcam'],
-  arousal: '0',
+  arousal: '-1',
   arousalScale: 'rass',
   capd: {},
   cam: {
@@ -168,7 +169,6 @@ export const EXAMPLE_PCAM = {
         },
       },
     },
-    f3: 'yes',
   },
   risk: { benzo: true, vent: true },
   prevention: { A: true, D: true, F: true },

@@ -131,16 +131,19 @@ test('pCAM-ICU runs as real feature tasks: error tally drives the result', async
   await start(page, 84); // 7 yr → CAPD recommended, pCAM offered
   await page.click('[data-act="switchScreen"][data-screen="pcam"]');
   await expect(page.locator('#pathway-name')).toHaveText('pCAM-ICU');
-  await setArousal(page, '0');
+  await setArousal(page, '-1'); // drowsy → Feature 3 (altered LOC) derived present
 
   const f2 = page.locator('.cam-feat', { hasText: 'Feature 2' });
+  // Feature 3 is derived from the arousal, not entered — no radio to click.
+  const f3 = page.locator('.cam-feat', { hasText: 'Feature 3' });
+  await expect(f3.locator('input[type="radio"]')).toHaveCount(0);
+  await expect(f3.locator('.fv-badge')).toHaveText('present');
   await camYes(page, 'f1'); // acute change — judgment
   // Feature 2 inattention: 2 errors marked + performed → still ABSENT (threshold 3)
   for (const i of [0, 1])
     await page.locator(`.errchip[data-cam-err="f2"][data-idx="${i}"]`).click();
   await page.locator('input[data-cam-performed="f2"]').check();
   await expect(f2.locator('.fv-badge')).toHaveText('absent');
-  await camYes(page, 'f3');
   await expect(page.locator('#screen-result')).toContainText('Negative');
   // add a 3rd error → Feature 2 present → screen flips positive
   await page.locator('.errchip[data-cam-err="f2"][data-idx="2"]').click();

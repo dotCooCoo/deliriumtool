@@ -3,7 +3,9 @@
  * (Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)), but Features 2 and 4
  * are performed tasks scored by error count, not a single yes/no. Each feature
  * declares a `type` the screen renders and scores:
- *   judgment — a clinician yes/no (acute change, altered level of consciousness)
+ *   judgment — a clinician yes/no (acute change / fluctuation)
+ *   arousal  — Feature 3 (altered level of consciousness), derived from the
+ *              recorded RASS/SBS so it can never contradict the arousal score
  *   errors   — a task whose items are marked right/wrong; present at ≥ threshold
  *   compound — psCAM disorganized brain: sleep–wake OR (unaware AND inconsolable)
  * Tasks and sources: docs/CLINICAL_METHODOLOGY.md.
@@ -72,9 +74,9 @@ export const PCAM = {
     },
     {
       id: 'f3',
-      type: 'judgment',
+      type: 'arousal',
       title: 'Feature 3 — Altered level of consciousness',
-      help: 'Anything other than alert and calm.',
+      help: 'Anything other than alert and calm — read from the recorded RASS/SBS (0 = alert and calm).',
     },
     {
       id: 'f4',
@@ -126,9 +128,9 @@ export const PSCAM = {
     },
     {
       id: 'f3',
-      type: 'judgment',
+      type: 'arousal',
       title: 'Feature 3 — Altered level of consciousness',
-      help: 'Anything other than alert and calm.',
+      help: 'Anything other than alert and calm — read from the recorded RASS/SBS (0 = alert and calm).',
     },
     {
       id: 'f4',

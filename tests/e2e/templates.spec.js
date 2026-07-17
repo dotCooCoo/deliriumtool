@@ -560,7 +560,7 @@ test('ED card set renders five portrait cards with the RASS gate and DTS→bCAM 
   await expect(dts.locator('.pc-lrow')).toHaveCount(10);
   await expect(dts.locator('.pc-gate--stop')).toContainText('unable to assess');
   await expect(dts.locator('.pc-letter')).toHaveCount(5);
-  await expect(dts).toContainText('DTS negative — delirium ruled out');
+  await expect(dts).toContainText('DTS negative — delirium less likely');
   // bCAM stepper: four features, the rule, and DELIRIUM PRESENT as an outcome chip.
   await expect(page.locator('.pc-bcam .pc-step')).toHaveCount(4);
   await expect(page.locator('.pc-bcam .pc-rule')).toContainText(

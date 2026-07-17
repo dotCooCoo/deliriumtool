@@ -11,7 +11,7 @@ export const CAPD_FREQ = ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'];
 
 // Surfaced at the result when baseline developmental delay is flagged.
 export const CAPD_DEV_DELAY_NOTE =
-  'In developmental delay, specificity at ≥ 9 falls to ~51% (Traube 2014: 51.2%) — and lower still in mechanically ventilated children (Gupta 2021: 44.8% overall, 16.5% with developmental delay). Interpret against the child’s own baseline and consider a higher cut point (per Traube 2014, delayed children scoring > 9 warrant psychiatric assessment).';
+  'CAPD ≥ 9 remains a positive screen. Developmental delay lowers specificity (Traube 2014: 51.2% at ≥ 9; Gupta 2021: 44.8% overall, 16.5% with delay in ventilated children), so interpret the result against the child’s own developmental baseline and the developmental anchors, and obtain experienced-clinician or pediatric-psychiatry review when needed. Do not substitute a higher cut point unless a locally validated protocol explicitly specifies one.';
 
 // Developmental-age bands for the anchor table. The source defines point-age
 // columns (NB, 4 wk, 6 wk, 8 wk, 28 wk, 1 yr, 2 yr), so each band starts at the

@@ -12,6 +12,8 @@ import {
   evalCapd,
   evalCam,
   featurePresent,
+  resolveFeature,
+  feature3FromArousal,
   pictureErrors,
   arousalGate,
   recommendScreen,
@@ -537,6 +539,22 @@ function renderFeature(f) {
     { class: 'cam-feat' },
     el('legend', { class: 'cam-feat-title', text: f.title }),
   );
+
+  if (f.type === 'arousal') {
+    // Altered level of consciousness is read from the recorded arousal, not
+    // entered separately, so it can never contradict the RASS/SBS.
+    const derived = feature3FromArousal(state.arousalScale, state.arousal);
+    const scaleLabel = AROUSAL_SCALES[state.arousalScale].label;
+    fs.append(el('p', { class: 'anchor-hint', text: f.help }));
+    const detail =
+      derived == null
+        ? 'Record an arousal level above — this feature is read from it and cannot be entered separately.'
+        : `Derived from the recorded ${scaleLabel} (${fmtRass(state.arousal)}): ${
+            derived ? 'other than alert and calm' : 'alert and calm (0)'
+          }. It cannot contradict the arousal score.`;
+    fs.append(featVerdict(derived, detail));
+    return fs;
+  }
 
   if (f.type === 'judgment') {
     if (f.help) fs.append(el('p', { class: 'anchor-hint', text: f.help }));
@@ -1222,7 +1240,8 @@ function renderResult() {
   const tool = SCREEN_NAMES[screen];
   const data = CAM_BY_SCREEN[screen];
   const resolved = {};
-  for (const f of data.features) resolved[f.id] = featurePresent(f, state.cam[f.id]);
+  for (const f of data.features)
+    resolved[f.id] = resolveFeature(f, state.cam[f.id], state.arousalScale, state.arousal);
   const res = evalCam(resolved);
   if (res == null) {
     return setResult(
@@ -1452,6 +1471,9 @@ document.addEventListener('change', (e) => {
   }
   if (t.dataset.screenInput === 'arousal') {
     state.arousal = t.value;
+    // Feature 3 is derived from arousal — refresh the CAM feature list so its
+    // derived verdict tracks the new score.
+    if (state.screen === 'pcam' || state.screen === 'pscam') renderCam();
   } else if (t.dataset.capd != null) {
     state.capd[t.dataset.capd] = t.value;
   } else if (t.dataset.camJudgment) {

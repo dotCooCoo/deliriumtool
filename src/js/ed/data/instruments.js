@@ -68,7 +68,7 @@ export const DTS = {
   },
   verdicts: {
     negative:
-      'DTS negative — delirium ruled out (98% sensitive). No further delirium testing needed now; rescreen with any change in mental status.',
+      'DTS negative — delirium less likely (98% sensitive rule-out). In the two-step pathway the bCAM is not required on this screen alone; continue clinical evaluation and reassess if suspicion remains, collateral history is concerning, or mental status changes.',
     positive: 'DTS positive — not diagnostic. Confirm with the bCAM (highly specific rule-in).',
   },
 };

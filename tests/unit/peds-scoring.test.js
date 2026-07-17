@@ -10,11 +10,13 @@ import {
   arousalGate,
   evalCam,
   featurePresent,
+  resolveFeature,
+  feature3FromArousal,
   pictureErrors,
   recommendScreen,
   capdBand,
 } from '../../src/js/peds/scoring.js';
-import { PCAM } from '../../src/js/peds/data/cam.js';
+import { PCAM, PSCAM } from '../../src/js/peds/data/cam.js';
 
 const capd = (arr) => Object.fromEntries(CAPD_ITEMS.map((it, i) => [it.id, arr[i]]));
 
@@ -99,6 +101,36 @@ test('CAM algorithm over resolved features: F1 AND F2 AND (F3 OR F4)', () => {
   assert.equal(evalCam({ f1: false, f2: null }), 'negative');
   assert.equal(evalCam({ f2: false }), 'negative');
   assert.equal(evalCam({ f1: true, f2: true, f3: false }), null); // F4 still pending
+});
+
+test('Feature 3 (altered LOC) is derived from arousal and cannot contradict it', () => {
+  // RASS 0 / SBS 0 = alert and calm → absent; any other assessable level → present.
+  assert.equal(feature3FromArousal('rass', '0'), false);
+  assert.equal(feature3FromArousal('rass', '-1'), true);
+  assert.equal(feature3FromArousal('rass', '1'), true);
+  assert.equal(feature3FromArousal('sbs', '0'), false);
+  assert.equal(feature3FromArousal('sbs', '-1'), true);
+  // Comatose floor and unset are not derivable (the arousal gate handles them).
+  assert.equal(feature3FromArousal('rass', '-4'), null);
+  assert.equal(feature3FromArousal('sbs', '-2'), null);
+  assert.equal(feature3FromArousal('rass', ''), null);
+  assert.equal(feature3FromArousal('rass', null), null);
+
+  // Both instruments declare Feature 3 as derived, and resolveFeature routes it
+  // through the arousal — ignoring any stale judgment value an older state might
+  // carry — so RASS 0 can never sit beside a "present" Feature 3, nor RASS ≠ 0
+  // beside "absent".
+  const f3 = PCAM.features.find((f) => f.id === 'f3');
+  assert.equal(f3.type, 'arousal');
+  assert.equal(PSCAM.features.find((f) => f.id === 'f3').type, 'arousal');
+  assert.equal(resolveFeature(f3, 'yes', 'rass', '0'), false); // stale 'yes' ignored
+  assert.equal(resolveFeature(f3, 'no', 'rass', '-1'), true); // stale 'no' ignored
+  assert.equal(resolveFeature(f3, undefined, 'sbs', '0'), false);
+
+  // Non-arousal features still resolve from their own captured input.
+  const f1 = PCAM.features.find((x) => x.id === 'f1');
+  assert.equal(resolveFeature(f1, 'yes', 'rass', '0'), true);
+  assert.equal(resolveFeature(f1, 'no', 'rass', '-1'), false);
 });
 
 test('featurePresent resolves judgment / error-tally / compound features', () => {

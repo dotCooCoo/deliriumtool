@@ -69,7 +69,7 @@ export const DTS_FLOW = {
   script: DTS.attention.script,
   letters: DTS.attention.items, // ['H','C','N','U','L']
   negative:
-    'RASS 0 and 0–1 errors → DTS negative — delirium ruled out (98% sensitive). Rescreen with any change in mental status.',
+    'RASS 0 and 0–1 errors → DTS negative — delirium less likely (98% sensitive rule-out). Continue clinical evaluation; rescreen with any change in mental status.',
 };
 
 /** The bCAM Feature-2 script (months backward), verbatim from the instrument. */
