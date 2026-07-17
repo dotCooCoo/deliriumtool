@@ -187,24 +187,27 @@ function camDerivation(doc, y, state, thumbs, ctx) {
   if (!(f2 && f2.picture && (Object.keys(marks).length || (picVal && picVal.performed)))) return y;
 
   const nErr = pictureErrors(f2, { picture: picVal });
-  doc
+  const headLines = doc
     .setFont('helvetica', 'italic')
     .setFontSize(8 * scale)
     .setTextColor(...RC.SEC)
-    .text(
+    .splitTextToSize(
       ascii(
-        `Feature 2 memory-pictures task - ${nErr} error${nErr === 1 ? '' : 's'} of 10 (>= 3 = inattention). memory = shown to memorize; new = not shown:`,
+        `Feature 2 memory-pictures - ${nErr} error${nErr === 1 ? '' : 's'} of 10 (>= 3 = inattention). memory = shown to the child, new = not shown:`,
       ),
-      M,
-      y,
+      W - 2 * M,
     );
-  y += 13 * scale;
-  const colW = (W - 2 * M) / 2;
+  doc.text(headLines, M, y);
+  y += headLines.length * 10 * scale + 3 * scale;
+  const seq = f2.picture.sequence;
+  const picCols = W - 2 * M > 470 * scale ? 2 : 1;
+  const rowsPer = Math.ceil(seq.length / picCols);
+  const colW = (W - 2 * M) / picCols;
   const top = y;
   const ts = 13 * scale;
-  f2.picture.sequence.forEach((pic, i) => {
-    const x = M + Math.floor(i / 5) * colW;
-    const yy = top + (i % 5) * 15.5 * scale;
+  seq.forEach((pic, i) => {
+    const x = M + Math.floor(i / rowsPer) * colW;
+    const yy = top + (i % rowsPer) * 15.5 * scale;
     const imgY = yy - ts + 3 * scale;
     if (thumbs[pic.id]) {
       doc.addImage(thumbs[pic.id], 'PNG', x, imgY, ts, ts);
@@ -227,30 +230,19 @@ function camDerivation(doc, y, state, thumbs, ctx) {
       .setFont('helvetica', 'bold')
       .setFontSize(8.5 * scale)
       .setTextColor(...(err ? RC.CRIM : ans ? RC.GREEN : RC.SEC))
-      .text(ascii(err ? `${ansText} (X)` : ansText), x + colW - 12 * scale, yy, { align: 'right' });
+      .text(ascii(err ? `${ansText} (X)` : ansText), x + colW - 10 * scale, yy, { align: 'right' });
   });
-  return top + 5 * 15.5 * scale + 6 * scale;
+  return top + rowsPer * 15.5 * scale + 6 * scale;
 }
 
 function buildSummary(doc, state, settings, scale, thumbs) {
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
-  const M = 48 * scale;
+  const M = 36 * scale;
   const ctx = { M, W, H, scale };
-  let y = 0;
-  const bottom = H - 34 * scale;
-  const ensure = (need) => {
-    if (y + need > bottom) {
-      doc.addPage();
-      y = M;
-    }
-  };
-  const section = (t, color, need = 32 * scale) => {
-    ensure(need);
-    y = sectionBar(doc, y, t, color, ctx);
-  };
 
-  y = reportHeader(doc, {
+  // Full-width header, identity strip, and verdict banner.
+  let y = reportHeader(doc, {
     facility: (settings.hospital || 'Pediatric ICU').trim(),
     title: 'Pediatric Delirium — Screening Summary',
     accent: RC.TEAL,
@@ -259,36 +251,36 @@ function buildSummary(doc, state, settings, scale, thumbs) {
     scale,
   });
   y += 4 * scale;
-
   const assessorName = (state.assessor || '').trim();
   y = idBlock(
     doc,
     y,
     [
-      { label: 'Patient', blankW: 150 },
-      { label: 'Room', blankW: 52 },
+      { label: 'Patient', blankW: 160 },
+      { label: 'Room', blankW: 56 },
       { label: 'Date', value: formatStamp(state.assessedAt) },
-      { label: 'Assessed by', value: assessorName || null, blankW: 110 },
+      { label: 'Assessed by', value: assessorName || null, blankW: 130 },
     ],
     ctx,
   );
-
   const st = resultStatus(state);
   y = statusBanner(doc, y, { tone: st.tone, label: st.label }, ctx);
-  y += 6 * scale;
+  y += 8 * scale;
 
-  // Child context and Screen, side by side.
-  const colGap = 18 * scale;
+  // Two-column body (landscape).
+  const colGap = 24 * scale;
   const colW = (W - 2 * M - colGap) / 2;
   const colCtx = (x, w) => ({ ...ctx, M: x, W: 2 * x + w });
-  const leftCtx = colCtx(M, colW);
-  const rightCtx = colCtx(M + colW + colGap, colW);
-  ensure(96 * scale);
+  const L = colCtx(M, colW);
+  const R = colCtx(M + colW + colGap, colW);
   const topY = y;
   const p = state.profile;
-  let yL = sectionBar(doc, topY, 'Child context (de-identified)', RC.TEAL, leftCtx);
-  yL = kvRow(doc, yL, 'Chronological age', ageText(p.ageM), leftCtx, { labelW: 92 });
-  if (p.delay) yL = kvRow(doc, yL, 'Developmental age', ageText(p.devM), leftCtx, { labelW: 92 });
+  const sgate = arousalGate(state.arousalScale, state.arousal);
+
+  // Left column: child context, screen, and how the screen scored.
+  let yL = sectionBar(doc, topY, 'Child context (de-identified)', RC.TEAL, L);
+  yL = kvRow(doc, yL, 'Chronological age', ageText(p.ageM), L, { labelW: 100 });
+  if (p.delay) yL = kvRow(doc, yL, 'Developmental age', ageText(p.devM), L, { labelW: 100 });
   yL = kvRow(
     doc,
     yL,
@@ -298,106 +290,110 @@ function buildSummary(doc, state, settings, scale, thumbs) {
       : p.baseline === 'unknown'
         ? 'Unknown / not established'
         : 'Age-typical',
-    leftCtx,
-    { labelW: 92 },
+    L,
+    { labelW: 100 },
   );
-  if (p.weightKg) yL = kvRow(doc, yL, 'Weight', `${p.weightKg} kg`, leftCtx, { labelW: 92 });
+  if (p.weightKg) yL = kvRow(doc, yL, 'Weight', `${p.weightKg} kg`, L, { labelW: 100 });
   const aids = [p.glasses && 'glasses', p.hearing && 'hearing aids'].filter(Boolean);
   if (aids.length)
-    yL = kvRow(doc, yL, 'Sensory aids', `${aids.join(', ')} (keep in place)`, leftCtx, {
-      labelW: 92,
-    });
-
-  let yR = sectionBar(doc, topY, 'Screen', RC.INDIGO, rightCtx);
-  yR = kvRow(doc, yR, 'Instrument', SCREEN_NAMES[state.screen] || '-', rightCtx, { labelW: 68 });
-  yR = kvRow(
+    yL = kvRow(doc, yL, 'Sensory aids', `${aids.join(', ')} (keep in place)`, L, { labelW: 100 });
+  yL += 8 * scale;
+  yL = sectionBar(doc, yL, 'Screen', RC.INDIGO, L);
+  yL = kvRow(doc, yL, 'Instrument', SCREEN_NAMES[state.screen] || '-', L, { labelW: 72 });
+  yL = kvRow(
     doc,
-    yR,
+    yL,
     'Arousal',
     state.arousal ? `${state.arousalScale.toUpperCase()} ${state.arousal}` : '-',
-    rightCtx,
-    { labelW: 68 },
+    L,
+    { labelW: 72 },
   );
-  yR = kvRow(doc, yR, 'Result', resultLine(state), rightCtx, { labelW: 68 });
-  y = Math.max(yL, yR) + 10 * scale;
-
-  // How the screen scored — full width below the two columns.
-  const sgate = arousalGate(state.arousalScale, state.arousal);
+  yL = kvRow(doc, yL, 'Result', resultLine(state), L, { labelW: 72 });
   if (sgate && sgate !== 'unable' && state.screen === 'capd') {
-    y = capdDerivation(doc, y, state, ctx) + 8 * scale;
+    yL = capdDerivation(doc, yL + 6 * scale, state, L) + 4 * scale;
   } else if (sgate && sgate !== 'unable' && CAM_BY_SCREEN[state.screen]) {
-    y = camDerivation(doc, y, state, thumbs, ctx) + 6 * scale;
+    yL = camDerivation(doc, yL + 6 * scale, state, thumbs, L) + 4 * scale;
   }
 
+  // Right column: risk, prevention, medications, governance, references.
   const derived = new Set(derivedRiskIds(state.profile));
   const flagged = RISK_FACTORS.filter((f) =>
     state.risk && state.risk[f.id] != null ? state.risk[f.id] : derived.has(f.id),
   );
+  let yR = topY;
   if (flagged.length) {
-    section('Risk factors flagged', RC.AMBER);
-    y = bullets(
+    yR = sectionBar(doc, yR, 'Risk factors flagged', RC.AMBER, R);
+    yR = bullets(
       doc,
-      y,
+      yR,
       flagged.map((f) => f.label),
-      ctx,
-      { cols: 2 },
+      R,
+      { cols: 1 },
     );
-    y += 8 * scale;
+    yR += 8 * scale;
   }
-
   const prev = PREVENTION_ORDER.filter((id) => state.prevention && state.prevention[id]);
   if (prev.length) {
-    section('Prevention bundle addressed this shift', RC.GREEN);
-    y = bullets(
+    yR = sectionBar(doc, yR, 'Prevention bundle addressed this shift', RC.GREEN, R);
+    yR = bullets(
       doc,
-      y,
+      yR,
       prev.map((id) => PREVENTION_LABELS[id]),
-      ctx,
-      { cols: 2 },
+      R,
+      { cols: 1 },
     );
-    y += 8 * scale;
+    yR += 8 * scale;
   }
-
   const given = MEDS.filter((m) => state.medsGiven && state.medsGiven[m.id]);
   if (given.length) {
-    section('Medications given this shift', RC.CRIM, 46 * scale);
+    yR = sectionBar(doc, yR, 'Medications given this shift', RC.CRIM, R);
     doc.autoTable({
-      startY: y,
-      margin: { left: M, right: M },
-      head: [['Agent', 'Starting dose — off-label, verify against formulary']],
+      startY: yR,
+      margin: { left: R.M, right: M },
+      head: [['Agent', 'Starting dose — verify vs formulary']],
       body: given.map((m) => [ascii(m.name), ascii(m.dose)]),
-      styles: { font: 'helvetica', fontSize: 9 * scale, textColor: RC.INK, cellPadding: 5 * scale },
+      styles: {
+        font: 'helvetica',
+        fontSize: 8.5 * scale,
+        textColor: RC.INK,
+        cellPadding: 4 * scale,
+      },
       headStyles: { fillColor: RC.CRIM, textColor: [255, 255, 255] },
       theme: 'grid',
     });
-    y = doc.lastAutoTable.finalY + 18 * scale;
+    yR = doc.lastAutoTable.finalY + 12 * scale;
   }
-
-  section('Unit governance', RC.NAVY);
-  if (settings.protocol) y = kvRow(doc, y, 'Protocol version', settings.protocol, ctx);
-  if (settings.attending) y = kvRow(doc, y, 'Attending intensivist', settings.attending, ctx);
-  if (settings.nurse) y = kvRow(doc, y, 'Nurse leader', settings.nurse, ctx);
-  if (settings.pharmacist) y = kvRow(doc, y, 'Pharmacist (dosing)', settings.pharmacist, ctx);
-  if (settings.reviewed) y = kvRow(doc, y, 'Last reviewed', settings.reviewed, ctx);
-  if (settings.nextrev) y = kvRow(doc, y, 'Next review due', settings.nextrev, ctx);
-  y += 10 * scale;
-
+  yR = sectionBar(doc, yR, 'Unit governance', RC.NAVY, R);
+  const gov = (label, value) => {
+    if (value) yR = kvRow(doc, yR, label, value, R, { labelW: 112 });
+  };
+  gov('Protocol version', settings.protocol);
+  gov('Attending intensivist', settings.attending);
+  gov('Nurse leader', settings.nurse);
+  gov('Pharmacist (dosing)', settings.pharmacist);
+  gov('Last reviewed', settings.reviewed);
+  gov('Next review due', settings.nextrev);
+  yR += 8 * scale;
   const refIds = [];
   if (SCREEN_REF[state.screen]) refIds.push(SCREEN_REF[state.screen]);
   if (flagged.length) refIds.push('traube2017_outcomes', 'mody2018_benzo');
   given.forEach((m) => MED_REF[m.id] && refIds.push(MED_REF[m.id]));
   refIds.push('pandem2022');
   const uniq = [...new Set(refIds)].filter((id) => REFS[id]);
-  ensure(30 * scale + uniq.length * 20 * scale);
-  y = refsBlock(
+  yR = refsBlock(
     doc,
-    y,
+    yR,
     uniq.map((id) => ({ c: REFS[id].c, u: REFS[id].u })),
-    ctx,
+    R,
   );
-  y += 2 * scale;
 
-  ensure(60 * scale);
+  y = Math.max(yL, yR) + 12 * scale;
+  // If the disclaimer would run into the footer, spill to a second page so
+  // fitToPages retries at a smaller scale until page 1 fits on its own.
+  if (y + 40 * scale > H - 28 * scale) {
+    doc.addPage();
+    y = M;
+  }
   disclaimer(doc, y, DISCLAIMER, ctx);
 }
 
@@ -432,7 +428,8 @@ function buildWorkflowPage(doc) {
 /** Build the pediatric summary jsPDF document (no save). thumbs: id -> PNG data
  *  URL for the memory-pictures (empty when unavailable). */
 export function buildPedsDoc(state, settings, thumbs = {}) {
-  const mkDoc = () => new jsPDF({ unit: 'pt', format: 'letter', compress: true });
+  const mkDoc = () =>
+    new jsPDF({ unit: 'pt', format: 'letter', orientation: 'landscape', compress: true });
   const doc = fitToPages(mkDoc, (d, scale) => buildSummary(d, state, settings, scale, thumbs), {
     scales: [1, 0.95, 0.9, 0.85, 0.82, 0.8, 0.78, 0.76, 0.74, 0.72],
     maxPages: 1,
