@@ -1,4 +1,4 @@
-import { jsPDF } from 'jspdf';
+import { jsPDF, AcroFormCheckBox, AcroFormTextField } from 'jspdf';
 import { applyPlugin } from 'jspdf-autotable';
 import { fitToPages, lighten, darken } from './shared/pdf-kit.js';
 import { rassTargetSet } from './scoring.js';
@@ -137,6 +137,9 @@ function header(doc, facility, title, sub, ptRight) {
     doc.setFontSize(8);
     doc.setTextColor(SEC[0], SEC[1], SEC[2]);
     doc.text(ptRight, PW - M, 20, { align: 'right' });
+    // Overlay a typable field on each write-in blank so the saved PDF's
+    // Patient / Room / Unit lines can be filled on screen.
+    addBlankFields(doc, ptRight, PW - M, 20, 8);
   }
   // accent bar
   doc.setFillColor(TEAL[0], TEAL[1], TEAL[2]);
@@ -160,8 +163,41 @@ function sectionBar(doc, y, text, rgb, k) {
   return y + h;
 }
 
+// A unique, sanitized AcroForm field name per document (the counter resets with
+// each fresh doc the shrink-to-fit rebuild creates, so names never collide).
+function fieldSeq(doc, base) {
+  doc.__fseq = (doc.__fseq || 0) + 1;
+  return `${base}_${doc.__fseq}`.replace(/[^A-Za-z0-9_]+/g, '_');
+}
+
+// Overlay a typable text field on each write-in blank (a run of underscores) in
+// a right-aligned header line. The line is measured from its right anchor so the
+// field lands exactly over the underscores it replaces.
+function addBlankFields(doc, text, rightX, baseY, fs) {
+  var leftX = rightX - doc.getTextWidth(text);
+  var re = /_{3,}/g;
+  var m;
+  while ((m = re.exec(text))) {
+    var x0 = leftX + doc.getTextWidth(text.slice(0, m.index));
+    var w = doc.getTextWidth(m[0]);
+    try {
+      var tf = new AcroFormTextField();
+      tf.fieldName = fieldSeq(doc, 'f');
+      tf.Rect = [x0, baseY - fs, w, fs + 2];
+      tf.fontSize = fs;
+      tf.showWhenPrinted = true;
+      doc.addField(tf);
+    } catch {
+      /* AcroForm unavailable — the printed blank still works with a pen */
+    }
+  }
+}
+
 // ---- real checkboxes + color-coded checklist columns ----
 // A drawn checkbox: rounded square outline in `accent`, with a checkmark if on.
+// A pre-checked box stays a static record of the completed assessment; a blank
+// box also gets an interactive AcroForm checkbox so the saved PDF can be ticked
+// on screen (and still printed and filled with a pen).
 function checkbox(doc, x, y, sz, accent, on) {
   accent = accent || INK;
   doc.setFillColor(255, 255, 255);
@@ -172,6 +208,19 @@ function checkbox(doc, x, y, sz, accent, on) {
     doc.setLineWidth(1.1);
     doc.line(x + sz * 0.21, y + sz * 0.52, x + sz * 0.41, y + sz * 0.73);
     doc.line(x + sz * 0.41, y + sz * 0.73, x + sz * 0.8, y + sz * 0.26);
+  } else {
+    try {
+      var cb = new AcroFormCheckBox();
+      cb.fieldName = fieldSeq(doc, 'chk');
+      cb.Rect = [x, y, sz, sz];
+      cb.fontSize = Math.max(4, sz * 0.85);
+      cb.value = 'Off';
+      cb.appearanceState = 'Off';
+      cb.showWhenPrinted = true;
+      doc.addField(cb);
+    } catch {
+      /* AcroForm unavailable — the printed square still works with a pen */
+    }
   }
 }
 // Pull the raw string out of an autoTable cell (cell.raw may be {content} or string).

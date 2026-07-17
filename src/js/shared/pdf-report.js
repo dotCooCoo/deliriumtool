@@ -11,9 +11,17 @@
  * so a builder threads y straight down the page. Pagination is left to fitToPages,
  * which rebuilds at smaller scales until the document fits one page.
  */
+import { AcroFormCheckBox, AcroFormTextField } from 'jspdf';
 import { lighten, darken, asciiPdf as ascii } from './pdf-kit.js';
 
 export { fitToPages, stampFooter, asciiPdf } from './pdf-kit.js';
+
+// A unique, valid AcroForm field name per document (fitToPages rebuilds start a
+// fresh doc, so the counter never leaks fields across generations).
+function fieldName(doc, base) {
+  doc.__fseq = (doc.__fseq || 0) + 1;
+  return `${base}_${doc.__fseq}`.replace(/[^A-Za-z0-9_]+/g, '_');
+}
 
 // Neutrals + the adult tool's muted section-family palette (src/js/pdf.js).
 const INK = [31, 42, 48];
@@ -99,6 +107,17 @@ export function idBlock(doc, y, fields, ctx) {
         .setDrawColor(184, 192, 202)
         .setLineWidth(0.6 * scale)
         .line(x + lw, yy + 1.5 * scale, x + lw + vw, yy + 1.5 * scale);
+      // A fillable text field over the blank, so the name / room can be typed.
+      try {
+        const tf = new AcroFormTextField();
+        tf.fieldName = fieldName(doc, `f_${String(f.label).toLowerCase()}`);
+        tf.Rect = [x + lw, yy - 9 * scale, vw, 11 * scale];
+        tf.fontSize = 9 * scale;
+        tf.showWhenPrinted = true;
+        doc.addField(tf);
+      } catch {
+        /* AcroForm unavailable — the printed blank still works with a pen */
+      }
     }
     x += lw + vw + gap;
   }
@@ -447,6 +466,19 @@ export function drawWorkflow(doc, opts, ctx) {
           .setDrawColor(...color)
           .setLineWidth(0.6)
           .roundedRect(bx + boxPadX, iy - 8, 9, 9, 1.2, 1.2, 'FD');
+        // An interactive checkbox over the drawn square.
+        try {
+          const cb = new AcroFormCheckBox();
+          cb.fieldName = fieldName(doc, 'chk');
+          cb.Rect = [bx + boxPadX, iy - 8, 9, 9];
+          cb.fontSize = 8;
+          cb.value = 'Off';
+          cb.appearanceState = 'Off';
+          cb.showWhenPrinted = true;
+          doc.addField(cb);
+        } catch {
+          /* AcroForm unavailable — the printed square still works with a pen */
+        }
       } else {
         doc
           .setFont('helvetica', 'bold')
