@@ -283,65 +283,192 @@ export function disclaimer(doc, y, text, ctx) {
   return y + lines.length * 10 * scale;
 }
 
-const WF_TONE = { navy: NAVY, rust: AMBER, plum: PURPLE, green: GREEN, teal: TEAL, azure: INDIGO };
+// Templates workflow-poster tones (src/styles/cards.css) so the report's
+// workflow page matches the printed poster exactly.
+const SH = {
+  navy: [39, 75, 143],
+  rust: [156, 79, 15],
+  plum: [74, 50, 104],
+  green: [45, 107, 67],
+  teal: [31, 110, 121],
+  azure: [15, 94, 138],
+  ink: [26, 38, 48],
+};
+const SH_WEAK_RUST = [252, 235, 216];
 
 /**
- * Draw a numbered screen -> gate -> score/confirm -> act workflow on the current
- * page (call doc.addPage first). stages: [{ n, head, tone, lines:[{text}] }]; an
- * optional `script` checklist prints under a slate band. Returns y below.
+ * Draw the landscape bedside-workflow poster on the current page (call
+ * doc.addPage('letter', 'landscape') first) — a four-stage screen -> gate ->
+ * confirm/score -> act flow with arrows, an "unable to assess" loop bar, and two
+ * boxes (rounds/hand-off + positive first moves), matching the templates poster.
+ * opts: { chip, title, sub, stages, loop:{pill,text}, leftBox:{head,items},
+ *         rightBox:{head,items}, footer }. ctx is a landscape { M, W, H }.
  */
 export function drawWorkflow(doc, opts, ctx) {
-  const { M, W, scale } = ctx;
-  let y = reportHeader(doc, {
-    facility: opts.facility,
-    title: opts.title,
-    sub: opts.sub,
-    accent: opts.accent || TEAL,
-    W,
-    M,
-    scale,
+  const { M, W, H } = ctx;
+  const CW = W - 2 * M;
+
+  // Header — navy chip + title + sub + rule.
+  let y = M + 2;
+  doc.setFont('helvetica', 'bold').setFontSize(9);
+  const chip = String(opts.chip).toUpperCase();
+  const chipW = doc.getTextWidth(chip) + 16;
+  const chipH = 17;
+  doc.setFillColor(...SH.navy).roundedRect(M, y, chipW, chipH, 3, 3, 'F');
+  doc.setTextColor(255, 255, 255).text(chip, M + chipW / 2, y + chipH - 5.5, { align: 'center' });
+  doc
+    .setFont('helvetica', 'bold')
+    .setFontSize(15)
+    .setTextColor(...SH.ink)
+    .text(ascii(opts.title), M + chipW + 12, y + 12);
+  doc
+    .setFont('helvetica', 'normal')
+    .setFontSize(8.5)
+    .setTextColor(...SEC)
+    .text(ascii(opts.sub), M + chipW + 12, y + 25);
+  y += chipH + 15;
+  doc
+    .setDrawColor(...SH.navy)
+    .setLineWidth(1.4)
+    .line(M, y, W - M, y);
+  y += 12;
+
+  // Four stage cards, arrows between.
+  const arrowW = 15;
+  const cardGap = 5;
+  const cardW = (CW - 3 * (arrowW + 2 * cardGap)) / 4;
+  const padX = 8;
+  const headSize = 9.5;
+  const lineSize = 7.8;
+  const lineH = 9.4;
+  const cardData = opts.stages.map((st) => {
+    const headLines = doc
+      .setFont('helvetica', 'bold')
+      .setFontSize(headSize)
+      .splitTextToSize(ascii(st.head), cardW - padX - 22);
+    const paras = st.lines.map((l) =>
+      doc
+        .setFont('helvetica', 'normal')
+        .setFontSize(lineSize)
+        .splitTextToSize(ascii(l.text), cardW - 2 * padX),
+    );
+    return { st, headLines, paras };
   });
-  y += 10 * scale;
-  for (const s of opts.stages) {
-    const c = WF_TONE[s.tone] || TEAL;
-    const bandH = 19 * scale;
-    doc.setFillColor(...lighten(c, 0.62)).rect(M, y, W - 2 * M, bandH, 'F');
-    doc.setFillColor(...c).circle(M + 13 * scale, y + bandH / 2, 7.5 * scale, 'F');
+  const headBlockH = (hl) => Math.max(16, hl.length * 11);
+  const contentH = (d) =>
+    18 + headBlockH(d.headLines) + d.paras.reduce((a, p) => a + p.length * lineH + 5, 0) + 8;
+  const cardH = Math.max(...cardData.map(contentH));
+  let x = M;
+  cardData.forEach((d, i) => {
+    const c = SH[d.st.tone] || SH.teal;
+    doc
+      .setDrawColor(...c)
+      .setLineWidth(1)
+      .setFillColor(255, 255, 255)
+      .roundedRect(x, y, cardW, cardH, 3, 3, 'FD');
+    doc.setFillColor(...c).circle(x + padX + 7, y + 14, 7.5, 'F');
     doc
       .setFont('helvetica', 'bold')
-      .setFontSize(9.5 * scale)
+      .setFontSize(9)
       .setTextColor(255, 255, 255)
-      .text(String(s.n), M + 13 * scale, y + bandH / 2 + 3.3 * scale, { align: 'center' });
+      .text(String(d.st.n), x + padX + 7, y + 17, { align: 'center' });
     doc
       .setFont('helvetica', 'bold')
-      .setFontSize(10.5 * scale)
-      .setTextColor(...darken(c, 0.2))
-      .text(ascii(s.head), M + 28 * scale, y + bandH / 2 + 3.5 * scale);
-    y += bandH + 7 * scale;
+      .setFontSize(headSize)
+      .setTextColor(...c)
+      .text(d.headLines, x + padX + 20, y + 12);
+    let ly = y + 18 + headBlockH(d.headLines);
     doc
       .setFont('helvetica', 'normal')
-      .setFontSize(9 * scale)
-      .setTextColor(...INK);
-    for (const ln of s.lines) {
-      const lines = doc.splitTextToSize(ascii('•  ' + ln.text), W - 2 * M - 12 * scale);
-      doc.text(lines, M + 12 * scale, y);
-      y += lines.length * 12 * scale + 2.5 * scale;
-    }
-    y += 9 * scale;
-  }
-  if (opts.script && opts.script.length) {
-    y = sectionBar(doc, y, opts.scriptTitle || 'Hand-off', NAVY, ctx);
-    doc
-      .setFont('helvetica', 'normal')
-      .setFontSize(9 * scale)
-      .setTextColor(...INK);
-    opts.script.forEach((it, i) => {
-      const lines = doc.splitTextToSize(ascii(`${i + 1}.  ${it.text}`), W - 2 * M);
-      doc.text(lines, M, y);
-      y += lines.length * 12 * scale + 2.5 * scale;
+      .setFontSize(lineSize)
+      .setTextColor(...SH.ink);
+    d.paras.forEach((p) => {
+      doc.text(p, x + padX, ly);
+      ly += p.length * lineH + 5;
     });
-    y += 8 * scale;
+    if (i < cardData.length - 1) {
+      doc
+        .setFont('helvetica', 'bold')
+        .setFontSize(15)
+        .setTextColor(...SEC)
+        .text('->', x + cardW + cardGap + arrowW / 2, y + cardH / 2 + 3, { align: 'center' });
+    }
+    x += cardW + arrowW + 2 * cardGap;
+  });
+  y += cardH + 10;
+
+  // "Unable to assess" loop bar.
+  const loopH = 22;
+  doc
+    .setFillColor(...SH_WEAK_RUST)
+    .setDrawColor(...SH.rust)
+    .setLineWidth(0.6)
+    .roundedRect(M, y, CW, loopH, 3, 3, 'FD');
+  doc.setFont('helvetica', 'bold').setFontSize(7.6);
+  const pill = String(opts.loop.pill).toUpperCase();
+  const pillW = doc.getTextWidth(pill) + 12;
+  doc.setFillColor(...SH.ink).roundedRect(M + 8, y + (loopH - 13) / 2, pillW, 13, 2.5, 2.5, 'F');
+  doc.setTextColor(255, 255, 255).text(pill, M + 8 + pillW / 2, y + loopH / 2 + 2.6, {
+    align: 'center',
+  });
+  doc
+    .setFont('helvetica', 'normal')
+    .setFontSize(8)
+    .setTextColor(...darken(SH.rust, 0.1))
+    .text(ascii(opts.loop.text), M + 8 + pillW + 10, y + loopH / 2 + 2.6);
+  y += loopH + 10;
+
+  // Two boxes: rounds/hand-off (navy, numbered) + positive first moves (green, checks).
+  const footerY = H - 34;
+  const boxGap = 12;
+  const boxW = (CW - boxGap) / 2;
+  const boxH = footerY - y;
+  const boxPadX = 10;
+  const itemSize = 8.4;
+  const itemH = 12;
+  const drawBox = (bx, color, head, items, checkbox) => {
+    doc
+      .setDrawColor(...color)
+      .setLineWidth(1)
+      .setFillColor(255, 255, 255)
+      .roundedRect(bx, y, boxW, boxH, 3, 3, 'FD');
+    doc
+      .setFont('helvetica', 'bold')
+      .setFontSize(9.5)
+      .setTextColor(...color)
+      .text(ascii(head), bx + boxPadX, y + 16);
+    let iy = y + 33;
+    doc.setFontSize(itemSize);
+    items.forEach((t, i) => {
+      const lines = doc.splitTextToSize(ascii(t), boxW - 2 * boxPadX - 15);
+      if (checkbox) {
+        doc
+          .setFillColor(255, 255, 255)
+          .setDrawColor(...color)
+          .setLineWidth(0.6)
+          .roundedRect(bx + boxPadX, iy - 8, 9, 9, 1.2, 1.2, 'FD');
+      } else {
+        doc
+          .setFont('helvetica', 'bold')
+          .setTextColor(...color)
+          .text(`${i + 1}.`, bx + boxPadX, iy);
+      }
+      doc
+        .setFont('helvetica', 'normal')
+        .setTextColor(...SH.ink)
+        .text(lines, bx + boxPadX + 15, iy);
+      iy += lines.length * itemH + (checkbox ? 7 : 5);
+    });
+  };
+  drawBox(M, SH.navy, opts.leftBox.head, opts.leftBox.items, false);
+  drawBox(M + boxW + boxGap, SH.green, opts.rightBox.head, opts.rightBox.items, true);
+
+  if (opts.footer) {
+    doc
+      .setFont('helvetica', 'italic')
+      .setFontSize(7)
+      .setTextColor(...SEC)
+      .text(ascii(opts.footer), M, H - 26);
   }
-  if (opts.footer) y = disclaimer(doc, y, opts.footer, ctx);
-  return y;
+  return H;
 }

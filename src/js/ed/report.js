@@ -25,8 +25,8 @@ import {
   stampFooter,
   RC,
 } from '../shared/pdf-report.js';
-import { formatStamp } from '../shared/time.js';
-import { WORKFLOW_STAGES, HANDOFF_SCRIPT } from '../templates/data/ed-content.js';
+import { formatStamp, fileStamp } from '../shared/time.js';
+import { WORKFLOW_STAGES, HANDOFF_SCRIPT, ACT_COLUMNS } from '../templates/data/ed-content.js';
 
 const DISCLAIMER =
   'Reference aid only — not a validated decision-support device or an order set. ' +
@@ -104,23 +104,31 @@ function buildSummary(doc, model, scale) {
   disclaimer(doc, y, DISCLAIMER, ctx);
 }
 
-function buildWorkflowPage(doc, model) {
+function buildWorkflowPage(doc) {
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
-  const ctx = { M: 48, W, H, scale: 1 };
   drawWorkflow(
     doc,
     {
-      facility: model.facility,
-      title: 'ED delirium — bedside workflow',
-      sub: 'Screen -> gate -> confirm -> act',
-      accent: RC.CRIM,
+      chip: 'ED',
+      title: 'Emergency-department delirium workflow — screen · gate · confirm · act',
+      sub: 'Every older adult. Post at the physician and triage stations.',
       stages: WORKFLOW_STAGES,
-      script: HANDOFF_SCRIPT,
-      scriptTitle: 'Hand-off at disposition — every positive screen',
-      footer: DISCLAIMER,
+      loop: {
+        pill: 'Unable to assess',
+        text: 'RASS −4/−5 — stupor or coma. Record it, and reassess when the patient responds to voice.',
+      },
+      leftBox: {
+        head: 'At disposition — hand off a positive screen (say these four)',
+        items: HANDOFF_SCRIPT.map((h) => h.text),
+      },
+      rightBox: {
+        head: 'If the screen is positive — first moves',
+        items: ACT_COLUMNS[0].items.map((it) => it.text),
+      },
+      footer: 'Reference aid only — follow local policy and prescriber / pharmacy review.',
     },
-    ctx,
+    { M: 32, W, H },
   );
 }
 
@@ -135,8 +143,8 @@ export function buildEdDoc(model) {
     scales: [1, 0.95, 0.9, 0.86, 0.83, 0.8, 0.78, 0.76, 0.74],
     maxPages: 1,
   });
-  doc.addPage('letter', 'portrait');
-  buildWorkflowPage(doc, model);
+  doc.addPage('letter', 'landscape');
+  buildWorkflowPage(doc);
   stampFooter(doc, { generated: formatStamp(), margin: 48 });
   doc.setProperties({
     title: 'ED Delirium Screening Summary',
@@ -147,5 +155,5 @@ export function buildEdDoc(model) {
 
 /** Build and save the ED summary PDF. */
 export function generateEdReport(model) {
-  buildEdDoc(model).save('ed-delirium-summary.pdf');
+  buildEdDoc(model).save(`ed-delirium-summary_${fileStamp()}.pdf`);
 }

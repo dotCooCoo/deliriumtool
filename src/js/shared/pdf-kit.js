@@ -52,10 +52,12 @@ export function darken(rgb, f) {
 // footer of every page, after the document is fully built.
 export function stampFooter(doc, { generated, margin = 54 } = {}) {
   const n = doc.internal.getNumberOfPages();
-  const W = doc.internal.pageSize.getWidth();
-  const H = doc.internal.pageSize.getHeight();
   for (let i = 1; i <= n; i++) {
     doc.setPage(i);
+    // Read the page dimensions per page so mixed-orientation documents (a portrait
+    // summary with a landscape workflow page) stamp at the right edges.
+    const W = doc.internal.pageSize.getWidth();
+    const H = doc.internal.pageSize.getHeight();
     doc.setFont('helvetica', 'normal').setFontSize(7).setTextColor(150, 150, 160);
     doc.text(`Page ${i} of ${n}`, W - margin, H - 14, { align: 'right' });
     if (generated) doc.text(`Generated ${generated}`, margin, H - 14, { align: 'left' });
