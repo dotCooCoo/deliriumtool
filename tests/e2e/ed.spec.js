@@ -196,7 +196,9 @@ test('the summary saves as a PDF', async ({ page }) => {
   await page.locator('.tab-btn[data-tab="export"]').click();
   const download = page.waitForEvent('download');
   await page.locator('[data-act="savepdf"]').click();
-  expect((await download).suggestedFilename()).toBe('ed-delirium-summary.pdf');
+  expect((await download).suggestedFilename()).toMatch(
+    /^ed-delirium-summary_\d{4}-\d{2}-\d{2}_\d{4}\.pdf$/,
+  );
 });
 
 test('adult landing page links to the ED tool', async ({ page }) => {

@@ -27,7 +27,11 @@ import { MEDS } from './data/meds.js';
 import { PREVENTION_LABELS, PREVENTION_ORDER } from './data/prevent.js';
 import { REFS } from './data/refs.js';
 import { stimArt } from '../templates/stim-art.js';
-import { WORKFLOW_STAGES as PEDS_WORKFLOW, ROUNDS_SCRIPT } from '../templates/data/peds-content.js';
+import {
+  WORKFLOW_STAGES as PEDS_WORKFLOW,
+  ROUNDS_SCRIPT,
+  ACT_POSITIVE,
+} from '../templates/data/peds-content.js';
 import {
   reportHeader,
   idBlock,
@@ -397,23 +401,31 @@ function buildSummary(doc, state, settings, scale, thumbs) {
   disclaimer(doc, y, DISCLAIMER, ctx);
 }
 
-function buildWorkflowPage(doc, settings) {
+function buildWorkflowPage(doc) {
   const W = doc.internal.pageSize.getWidth();
   const H = doc.internal.pageSize.getHeight();
-  const ctx = { M: 48, W, H, scale: 1 };
   drawWorkflow(
     doc,
     {
-      facility: (settings.hospital || 'Pediatric ICU').trim(),
-      title: 'Pediatric delirium — bedside workflow',
-      sub: 'Screen -> gate -> score -> act',
-      accent: RC.TEAL,
+      chip: 'PICU',
+      title: 'Pediatric delirium workflow — screen · gate · score · act',
+      sub: 'Every child, every shift. Post at the charting station.',
       stages: PEDS_WORKFLOW,
-      script: ROUNDS_SCRIPT,
-      scriptTitle: 'Rounds script — the 10-second delirium report',
-      footer: DISCLAIMER,
+      loop: {
+        pill: 'Unable to assess',
+        text: 'Comatose floor (RASS −4/−5 · SBS −2/−3) — record it, keep the prevention bundle going, reassess when the child responds to voice.',
+      },
+      leftBox: {
+        head: 'On rounds — say these four things (10 seconds)',
+        items: ROUNDS_SCRIPT.map((r) => r.text),
+      },
+      rightBox: {
+        head: 'If the screen is positive — first moves',
+        items: ACT_POSITIVE.first.map((it) => it.text),
+      },
+      footer: 'Reference aid only — follow local policy and prescriber / pharmacy review.',
     },
-    ctx,
+    { M: 32, W, H },
   );
 }
 
@@ -425,8 +437,8 @@ export function buildPedsDoc(state, settings, thumbs = {}) {
     scales: [1, 0.95, 0.9, 0.85, 0.82, 0.8, 0.78, 0.76, 0.74, 0.72],
     maxPages: 1,
   });
-  doc.addPage('letter', 'portrait');
-  buildWorkflowPage(doc, settings);
+  doc.addPage('letter', 'landscape');
+  buildWorkflowPage(doc);
   stampFooter(doc, { generated: formatStamp(), margin: 48 });
   return doc;
 }
