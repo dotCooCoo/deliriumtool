@@ -699,9 +699,6 @@ function edReportModel() {
   const actions = ACT_POSITIVE.flatMap((b) =>
     b.items.filter((_, i) => state.actions.includes(`${b.id}-${i}`)),
   );
-  const sub = [pathway.name, fmtWhen(state.assessedAt), state.assessor && `by ${state.assessor}`]
-    .filter(Boolean)
-    .join('  ·  ');
   const citeKeys = new Set(pathway.cites);
   const add = (arr) => arr.forEach((k) => citeKeys.add(k));
   if (activePathway() === 'twostep') {
@@ -718,7 +715,9 @@ function edReportModel() {
     .map((r) => ({ c: r.c, u: r.u }));
   return {
     facility: settings.facility || 'Your facility',
-    sub,
+    sub: pathway.name,
+    date: fmtWhen(state.assessedAt),
+    assessor: state.assessor,
     verdict: { tone, label: v.text },
     rows,
     actions,

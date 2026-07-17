@@ -1403,7 +1403,7 @@ document.addEventListener('click', (e) => {
         return;
       }
       if (empty) empty.hidden = true;
-      generateReport(state, readSettings());
+      generateReport(state, readSettings()).catch(() => {});
       return;
     }
   }
