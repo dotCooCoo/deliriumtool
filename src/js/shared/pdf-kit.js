@@ -19,8 +19,22 @@ export function fitToPages(mkDoc, build, { scales = [1, 0.95, 0.9, 0.85], maxPag
   return doc;
 }
 
+// Map the Unicode glyphs the app uses to the WinAnsi set jsPDF's built-in
+// Helvetica can render. En-dash/em-dash and the middle dot are WinAnsi-safe and
+// pass through; the arrow, curly quotes, ellipsis, and sub/superscripts are not.
 export const asciiPdf = (s) =>
-  String(s).replace(/≥/g, '>=').replace(/≤/g, '<=').replace(/[−–]/g, '-').replace(/≈/g, '~');
+  String(s)
+    .replace(/→/g, '->') // → right arrow
+    .replace(/↑/g, 'up ') // ↑
+    .replace(/↓/g, 'down ') // ↓
+    .replace(/[‘’]/g, "'") // ‘ ’ curly single quotes
+    .replace(/[“”]/g, '"') // “ ” curly double quotes
+    .replace(/…/g, '...') // … ellipsis
+    .replace(/[₂²]/g, '2') // ₂ / ² (e.g. O₂)
+    .replace(/≥/g, '>=')
+    .replace(/≤/g, '<=')
+    .replace(/[−–]/g, '-') // minus sign, en-dash
+    .replace(/≈/g, '~');
 
 // Tint a section-family RGB toward white (header bands) or toward black (text).
 export function lighten(rgb, f) {

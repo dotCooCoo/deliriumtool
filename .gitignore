@@ -17,6 +17,8 @@
 # The citation index is fine to publish.
 references/*.pdf
 !references/INDEX.md
+# Verbatim journal abstracts reproduced for local reading — copyright, not published.
+references/monitoring-burden-abstracts.md
 
 # ── Build output & dependencies ───────────────────────────────────────
 node_modules/

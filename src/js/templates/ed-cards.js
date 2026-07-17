@@ -190,7 +190,7 @@ function dtsGateCard(step) {
           'Yes',
           outcomeChip('present', `≥ ${DTS_ERR} errors or unable → DTS positive → bCAM`),
         ),
-        branch('No', outcomeChip('absent', '0–1 errors → DTS negative — delirium ruled out')),
+        branch('No', outcomeChip('absent', '0–1 errors → DTS negative — delirium less likely')),
       ),
     ),
     el(

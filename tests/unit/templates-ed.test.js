@@ -45,7 +45,7 @@ test('DTS card threshold + script come from the instrument (cannot drift)', () =
   assert.equal(DTS_FLOW.script, DTS.attention.script);
   assert.deepEqual(DTS_FLOW.letters, DTS.attention.items);
   assert.deepEqual(DTS_FLOW.letters, ['H', 'C', 'N', 'U', 'L']);
-  assert.match(DTS_FLOW.negative, /ruled out/);
+  assert.match(DTS_FLOW.negative, /delirium less likely/);
 });
 
 test('bCAM card content is verbatim from the instrument', () => {

@@ -26,7 +26,7 @@ test('DTS rules out at RASS 0 with 0–1 LUNCH errors; bCAM never appears', asyn
   // Tap one miss, confirm the task ran → 1 error = negative.
   await page.locator('#dts-lunch .errchip').first().click();
   await page.locator('input[data-act="lunchDone"]').check();
-  await expect(page.locator('#dts-verdict')).toContainText('delirium ruled out');
+  await expect(page.locator('#dts-verdict')).toContainText('delirium less likely');
   await expect(page.locator('#bcam-card')).toBeHidden();
   // A second miss flips it positive.
   await page.locator('#dts-lunch .errchip').nth(2).click();
@@ -151,7 +151,7 @@ test('summary reflects the assessment and only the summary prints', async ({ pag
   await page.locator('input[name="ed-rass"][value="0"]').check();
   await page.locator('input[data-act="lunchDone"]').check();
   await page.locator('.tab-btn[data-tab="export"]').click();
-  await expect(page.locator('#summary-body')).toContainText('Negative — delirium ruled out');
+  await expect(page.locator('#summary-body')).toContainText('Negative — delirium less likely');
   // Notes and assessor typed on this tab appear in the printable rows at once.
   await page.locator('#ed-notes').fill('handoff note');
   await page.locator('#ed-assessor').fill('N. One, RN');

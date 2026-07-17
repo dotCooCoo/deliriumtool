@@ -29,7 +29,7 @@ import {
   looksLikeEdAssessment,
 } from './state.js';
 import { evalDts, arousalGate, bcamInattention, evalBcam, eval4at } from './scoring.js';
-import { captureNodeToPdf } from '../shared/capture-pdf.js';
+import { generateEdReport } from './report.js';
 import { REFS } from './data/refs.js';
 
 // ── State ────────────────────────────────────────────────────────────────────
@@ -614,7 +614,7 @@ function summaryLines() {
             ? 'Incomplete'
             : dts === 'positive'
               ? 'Positive'
-              : 'Negative — delirium ruled out',
+              : 'Negative — delirium less likely',
       ]);
     if (activePathway() === 'bcam' && gate === 'unable') {
       lines.push(['bCAM', 'Unable to assess (RASS −4/−5) — reassess later']);
@@ -668,7 +668,11 @@ function overallVerdict() {
   const dts = evalDts(state);
   if (pathway === 'twostep') {
     if (dts === null) return { cls: 'v-pending', text: 'Assessment incomplete.' };
-    if (dts === 'negative') return { cls: 'v-neg', text: 'DTS negative — delirium ruled out.' };
+    if (dts === 'negative')
+      return {
+        cls: 'v-neg',
+        text: 'DTS negative — delirium less likely; continue clinical evaluation if suspicion remains.',
+      };
   }
   const bcam = evalBcam({
     f1: state.f1 || undefined,
@@ -679,6 +683,48 @@ function overallVerdict() {
   if (bcam === 'positive') return { cls: 'v-pos', text: 'bCAM POSITIVE — delirium present.' };
   if (bcam === 'negative') return { cls: 'v-neg', text: 'bCAM negative — delirium not detected.' };
   return { cls: 'v-pending', text: 'Assessment incomplete.' };
+}
+
+// Assemble the plain data model the structured PDF report renders — from the same
+// summaryLines() / overallVerdict() the on-screen summary uses, so the two agree.
+function edReportModel() {
+  const pathway = PATHWAYS.find((p) => p.id === activePathway());
+  const skip = new Set(['Facility / unit', 'Assessor', 'Assessed', 'Actions started', 'Notes']);
+  const rows = summaryLines().filter(([k]) => !skip.has(k));
+  const v = overallVerdict();
+  const tone =
+    { 'v-pos': 'pos', 'v-neg': 'neg', 'v-warn': 'warn', 'v-cog': 'cog', 'v-pending': 'pending' }[
+      v.cls
+    ] || 'pending';
+  const actions = ACT_POSITIVE.flatMap((b) =>
+    b.items.filter((_, i) => state.actions.includes(`${b.id}-${i}`)),
+  );
+  const sub = [pathway.name, fmtWhen(state.assessedAt), state.assessor && `by ${state.assessor}`]
+    .filter(Boolean)
+    .join('  ·  ');
+  const citeKeys = new Set(pathway.cites);
+  const add = (arr) => arr.forEach((k) => citeKeys.add(k));
+  if (activePathway() === 'twostep') {
+    add(DTS.cites);
+    add(BCAM.cites);
+  } else if (activePathway() === 'bcam') {
+    add(BCAM.cites);
+  } else {
+    add(FOURAT.cites);
+  }
+  const refs = [...citeKeys]
+    .map((k) => REFS[k])
+    .filter(Boolean)
+    .map((r) => ({ c: r.c, u: r.u }));
+  return {
+    facility: settings.facility || 'Your facility',
+    sub,
+    verdict: { tone, label: v.text },
+    rows,
+    actions,
+    notes: state.notes.trim(),
+    refs,
+  };
 }
 
 function renderSummary() {
@@ -918,14 +964,12 @@ function onClick(e) {
       announce('Example data loaded.');
       break;
     case 'savepdf':
-      captureNodeToPdf($('#summary-doc'), {
-        filename: 'ed-delirium-summary.pdf',
-        title: 'ED Delirium Screening Summary',
-        subject: 'De-identified screening summary — reference aid only',
-      }).then(
-        () => announce('Summary PDF saved.'),
-        () => announce('Could not generate the PDF.'),
-      );
+      try {
+        generateEdReport(edReportModel());
+        announce('Summary PDF saved.');
+      } catch {
+        announce('Could not generate the PDF.');
+      }
       break;
     default:
   }

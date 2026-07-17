@@ -863,7 +863,9 @@ function buildFull(doc, opts, k) {
             title: 'C — Choice of Analgesia/Sedation',
             items: [
               { t: 'Target RASS set (' + rassGoalOf(opts) + ')' },
-              { t: 'Benzos minimized; dex preferred' },
+              {
+                t: 'Benzos minimized; non-benzo sedative preferred (ventilated: dexmedetomidine over propofol for light sedation/delirium/weaning)',
+              },
               { t: 'Analgesia-first' },
               { t: 'Bolus over infusion' },
             ],

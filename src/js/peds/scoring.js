@@ -50,6 +50,18 @@ export function arousalGate(scale, value) {
 }
 
 /**
+ * Feature 3 (altered level of consciousness) derived from the recorded arousal so
+ * it can never contradict it — the same operationalisation the adult CAM-ICU and
+ * ED bCAM use (RASS ≠ 0). Only meaningful past the arousal gate: a score of 0
+ * (alert and calm) → absent; any other assessable level → present; null while the
+ * arousal is pending or comatose.
+ */
+export function feature3FromArousal(scale, value) {
+  if (arousalGate(scale, value) !== 'ok') return null;
+  return String(value) !== '0';
+}
+
+/**
  * Count errors on the pCAM-ICU memory-pictures task: for each recognition
  * picture the child's recorded answer ('seen' | 'new') is compared with the
  * picture's truth; a mismatch is an error. Unmarked pictures do not count.
@@ -104,6 +116,20 @@ export function featurePresent(feature, value) {
     return Boolean(value.swc) || (Boolean(value.unaware) && Boolean(value.inconsolable));
   }
   return null;
+}
+
+/**
+ * Resolve a CAM feature to present (true) / absent (false) / incomplete (null).
+ * The altered-level-of-consciousness feature (type 'arousal') is derived from the
+ * recorded arousal via feature3FromArousal so it can never contradict it; every
+ * other feature is scored from its own captured input. Callers pass the recorded
+ * arousal scale + value so the derivation has no separate source of truth.
+ */
+export function resolveFeature(feature, value, arousalScale, arousalValue) {
+  if (feature && feature.type === 'arousal') {
+    return feature3FromArousal(arousalScale, arousalValue);
+  }
+  return featurePresent(feature, value);
 }
 
 /**
