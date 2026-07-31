@@ -702,12 +702,22 @@
 .sh-foot {
   margin-top: auto;
   display: flex;
-  gap: 0.15in;
-  justify-content: space-between;
-  align-items: baseline;
+  flex-direction: column;
+  gap: calc(2pt * var(--fs));
   border-top: 0.6pt solid var(--sh-border);
   padding-top: calc(3pt * var(--fs));
   font-size: calc(7pt * var(--fs));
+  color: var(--sh-slate);
+}
+.sh-foot-row {
+  display: flex;
+  gap: 0.15in;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.sh-foot-note {
+  font-size: calc(6.3pt * var(--fs));
+  line-height: 1.25;
   color: var(--sh-slate);
 }
 .sh-foot-stamp {
