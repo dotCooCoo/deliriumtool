@@ -12,7 +12,7 @@ This is a **reference aid only**. It supports — and does not replace — clini
 These statements are surfaced to the user throughout the application:
 
 - The persistent banner above every tab reads: *"Reference aid only. This tool supports — and does not replace — clinical judgment, local protocol, and prescriber/pharmacy review. It is not a standalone order set or a validated decision-support device. Verify all medication decisions against current institutional policy."*
-- Every generated PDF footer carries: *"Reference aid only — follow local policy & prescriber/pharmacy review."*
+- Every generated PDF and printable sheet carries a footer: *"Reference aid only. These sheets support — and do not replace — clinical judgment, local protocol, and prescriber/pharmacy review. They are not a validated decision-support device or an order set. Verify all medication content against your formulary before use."*
 - The Medications tab states plainly: *"No agent has FDA approval for delirium treatment."*
 
 **Setting.** The tool is **ICU-focused** — it is built around CAM-ICU, RASS, and the ABCDEF/ICU Liberation bundle. The application advises: *"on the ward, use a ward-validated screen (4AT / 3D-CAM)."* The CAM-ICU, RASS, and ABCDEF elements are not validated for, and should not be transplanted unmodified onto, general-ward populations.

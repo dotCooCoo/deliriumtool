@@ -52,7 +52,7 @@ test('rounding tool renders two landscape pages with the printed disclaimer', as
   await expect(page.locator('.sheet--landscape')).toHaveCount(2);
   await expect(page.locator('.sheet').first()).toContainText('ICU DELIRIUM ROUNDING TOOL');
   await expect(page.locator('.sh-foot').first()).toContainText(
-    'Reference aid only — follow local policy & prescriber/pharmacy review',
+    'not a validated decision-support device or an order set',
   );
   await expect(page.locator('.sh-foot').first()).toContainText('Your facility');
 });
