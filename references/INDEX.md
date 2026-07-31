@@ -95,7 +95,7 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 
 ## Pediatric Delirium (CAPD / pCAM-ICU / psCAM-ICU) — /peds/
 
-All PMIDs/DOIs verified against PubMed (via the PubMed MCP). The PDFs/forms below are local copies
+All PMIDs/DOIs verified against PubMed. The PDFs/forms below are local copies
 for grounding the pediatric tool's content; most are copyright (SCCM/Lippincott, Thieme,
 Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive — never committed.
 
@@ -155,7 +155,7 @@ Canonical home: https://www.icudelirium.org/medical-professionals/pediatric-deli
 | VADIC — Vanderbilt Assessment for Delirium in Infants & Children (2017) | `peds/vadic-form-2017.pdf` |
 | AACAP pediatric delirium flyer | `peds/aacap-pediatric-delirium-flyer.pdf` |
 
-_Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
+_Not yet archived (lower priority):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
 
 ## Emergency Department Delirium (DTS / bCAM / 4AT) — /ed/
 
@@ -205,13 +205,13 @@ PDFs live only in the gitignored `references/ed/` archive — never committed.
 | Chen 2020 — clinical prediction models overview (methodology), Ann Transl Med 2020;8:71 | `chen-2020-prediction-models-overview-atm.pdf` |
 | Tadrisi 2009 — RASS Persian-translation validation, Iran J Crit Care Nurs 2009;2:15 | `tadrisi-2009-rass-persian-validation-ijccn.pdf` |
 
-> ⚠️ `tadrisi-2009-...` is **not** the original Sessler 2002 RASS paper despite the original filename suggesting so — do not cite it as the English-language RASS validation.
+> ⚠️ `tadrisi-2009-...` is the Tadrisi Persian-translation study, **not** the original Sessler 2002 RASS paper — do not cite it as the English-language RASS validation.
 
-## Still to source (missing or mis-supplied)
+## Still to source (missing or mislabeled)
 
 | Need | Why | URL |
 |---|---|---|
-| Sessler 2002 RASS (AJRCCM 2002;166:1338) | the supplied "Sessler" file is actually the Tadrisi Persian study | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
+| Sessler 2002 RASS (AJRCCM 2002;166:1338) | the archived "Sessler" file is actually the Tadrisi Persian study | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
 | AGS Beers 2023 **JAGS full text** (71:2052) | the archived file is the UConn criteria-tables summary, not the article | https://doi.org/10.1111/jgs.18372 |
 | ProMEDIC **main RCT** (Wibrow 2022, ICM 2022;48:414) | only the SAP + editorial are archived | https://doi.org/10.1007/s00134-022-06638-9 |
 | Inouye 1993 / Marcantonio 1994 / Krewulak 2018 | paywalled; cited by URL | (see tables above) |

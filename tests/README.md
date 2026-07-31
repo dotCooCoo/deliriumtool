@@ -22,7 +22,8 @@ Run: `npm run test:unit`
 
 - `functional.spec.js` — the real flows: pathway picker → workspace, live risk
   tiering, CAM-ICU evaluating positive and gating to "unable" at RASS −4/−5,
-  autosave surviving a reload, reset returning to the picker, and PDF download.
+  a reload starting a fresh assessment (nothing written to browser storage),
+  reset returning to the picker, and PDF download.
 - `accessibility.spec.js` — `@axe-core/playwright` scan of the picker and every tab
   with no serious or critical violations, plus arrow-key navigation of the tab bar.
 

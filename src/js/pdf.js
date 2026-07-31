@@ -688,7 +688,7 @@ function mnemonicTable(doc, opts, y, compact, k) {
 }
 
 // The RASS scale as one cell: a bold header carrying the captured score, then the
-// eight levels with the selected one highlighted (sentinel ) + target marks.
+// eight rows (all ten RASS levels; the agitation levels paired) with the selected one highlighted (sentinel ) + target marks.
 // Shared so every document shows it identically.
 function rassCellContent(opts) {
   var ASMT = opts.assessment || {};

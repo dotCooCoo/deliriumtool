@@ -93,8 +93,8 @@ Notable changes to this project, following
   (no clinical value changed): the original CAM (Inouye 1990) behind the
   four-feature algorithm every screen uses; the DSM-5-TR diagnostic standard
   behind the "screen, not a diagnosis" framing; the ICU-specific risk-factor
-  review (Zaal 2015) and cardiac-surgery rule (Rudolph 2009); the deliriogenic-
-  drug review (Clegg & Young 2011) and the benzodiazepine primary trial
+  review (Zaal 2015) and cardiac-surgery rule (Rudolph 2009); the
+  deliriogenic-drug review (Clegg & Young 2011) and the benzodiazepine primary trial
   (Pandharipande 2006); the early-mobility RCT (Schweickert 2009); the pediatric
   RASS validation (Kerson 2016); and 3D-CAM (Marcantonio 2014) for the ward
   pathway. Wired several already-referenced sources (CAM-ICU training manual,
@@ -230,8 +230,7 @@ Notable changes to this project, following
   pathway, example data, and a designed summary document (assessor, editable
   time, verdict) that prints or saves as a PDF, plus JSON export/import with
   strict validation. Every instrument card cites its sources inline and the
-  Sources list renders from the citation registry; scoring and sanitizers
-  pass strict validation.
+  Sources list renders from the citation registry.
 
 ## [0.2.0] - 2026-07-02
 

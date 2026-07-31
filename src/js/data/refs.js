@@ -71,7 +71,7 @@ export const DELIRIUM_REFS = {
   },
   a2b2025: {
     l: 'A2B 2025',
-    c: 'Walsh TS, Aitken LM, McKenzie CA, et al. Dexmedetomidine- or clonidine-based sedation compared with propofol in critically ill patients: the A2B randomized clinical trial. JAMA. 2025;334(1):32-45. (No extubation benefit vs propofol; more agitation and severe bradycardia with alpha-2 agonists.)',
+    c: 'Walsh TS, Parker RA, Aitken LM, et al. Dexmedetomidine- or clonidine-based sedation compared with propofol in critically ill patients: the A2B randomized clinical trial. JAMA. 2025;334(1):32-45. (No extubation benefit vs propofol; more agitation and severe bradycardia with alpha-2 agonists.)',
     u: 'https://doi.org/10.1001/jama.2025.7200',
   },
   girard2008: {
@@ -116,7 +116,7 @@ export const DELIRIUM_REFS = {
   },
   nice_cg103: {
     l: 'NICE CG103',
-    c: 'NICE. Delirium: prevention, diagnosis and management. Clinical guideline CG103 (updated 2023).',
+    c: 'NICE. Delirium: prevention, diagnosis and management in hospital and long-term care. Clinical guideline CG103 (updated 2023).',
     u: 'https://www.nice.org.uk/guidance/cg103',
   },
   icudelirium_satsbt: {
@@ -166,7 +166,7 @@ export const DELIRIUM_REFS = {
   },
   hayhurst2020: {
     l: 'Hayhurst 2020',
-    c: 'Hayhurst CJ, Patel MB, McNeil JB, et al. Association of hypoactive and hyperactive delirium with cognitive function after critical illness. Crit Care Med. 2020;48(6):e480-e488.',
+    c: 'Hayhurst CJ, Marra A, Han JH, et al. Association of hypoactive and hyperactive delirium with cognitive function after critical illness. Crit Care Med. 2020;48(6):e480-e488.',
     u: 'https://doi.org/10.1097/CCM.0000000000004313',
   },
   pisani2009: {
@@ -216,7 +216,7 @@ export const DELIRIUM_REFS = {
   },
   projectbeta: {
     l: 'Project BETA',
-    c: 'Richmond JS, Berlin JS, Fishkind AB, et al. Verbal de-escalation of the agitated patient: consensus statement of the APA Project BETA. West J Emerg Med. 2012;13(1):17-25.',
+    c: 'Richmond JS, Berlin JS, Fishkind AB, et al. Verbal de-escalation of the agitated patient: consensus statement of the American Association for Emergency Psychiatry Project BETA De-escalation Workgroup. West J Emerg Med. 2012;13(1):17-25.',
     u: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/',
   },
   nice_ng10: {
@@ -316,7 +316,7 @@ export const DELIRIUM_REFS = {
   },
   snigurska2023: {
     l: 'Snigurska 2023',
-    c: 'Snigurska UA, Keil MF, Chin AR, et al. Risk of bias in delirium prediction models: a systematic review. PLoS ONE. 2023;18(5):e0285527. (Even published prediction models carry substantial risk of bias — nuance for the prefer-a-validated-model framing.)',
+    c: 'Snigurska UA, Liu Y, Ser SE, et al. Risk of bias in prognostic models of hospital-induced delirium for medical-surgical units: a systematic review. PLoS One. 2023;18(8):e0285527. (Even published prediction models carry substantial risk of bias — nuance for the prefer-a-validated-model framing.)',
     u: 'https://doi.org/10.1371/journal.pone.0285527',
   },
   asam2020: {

@@ -100,7 +100,7 @@ npm run test:e2e
 The unit suite pins every clinical cut-point, band, and dose string to its cited
 value (a wrong threshold is treated as a patient-safety bug); the Playwright suite
 covers keyboard operation, screen-reader semantics, print/PDF output, and visual
-regressions for all three tools.
+regressions.
 
 ## Deploy (Cloudflare)
 

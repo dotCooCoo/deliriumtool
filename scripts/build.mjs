@@ -201,7 +201,8 @@ for (const name of [
 if (existsSync(join(src, 'peds', 'site.webmanifest'))) {
   await copyFile(join(src, 'peds', 'site.webmanifest'), join(dist, 'peds', 'site.webmanifest'));
 }
-// Likewise the template designer: installing from /templates/ gives its own app.
+// Likewise the ED tool and the template designer: installing from /ed/ or
+// /templates/ gives its own app.
 if (existsSync(join(src, 'ed', 'site.webmanifest'))) {
   await copyFile(join(src, 'ed', 'site.webmanifest'), join(dist, 'ed', 'site.webmanifest'));
 }

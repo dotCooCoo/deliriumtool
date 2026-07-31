@@ -51,7 +51,7 @@ In every case, **the clinician's independent assessment, local protocol, and pre
 
 The tool has **not** been designed or validated for, and must not be transplanted unmodified onto, the following. Use a setting- and population-appropriate, locally validated instrument instead.
 
-- **Paediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Paediatric ICU delirium has its own validated tools — CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate — implemented in the sibling pediatric tool at `/peds/`, which carries its own sign-off gates.
+- **Pediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Pediatric ICU delirium has its own validated tools — CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate — implemented in the sibling pediatric tool at `/peds/`, which carries its own sign-off gates.
 - **Pregnancy and the peripartum patient.** Drug-safety, dosing, and risk content are not adjusted for pregnancy or lactation.
 - **General medical/surgical ward and step-down patients.** CAM-ICU/RASS/ABCDEF are not validated outside the ICU; on the ward, use a ward-validated screen (**4AT / 3D-CAM**), as the tool advises.
 - **Peri-operative ward / PACU and procedural sedation** outside the ICU context.
