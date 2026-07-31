@@ -16,6 +16,14 @@ import { lighten, darken, asciiPdf as ascii } from './pdf-kit.js';
 
 export { fitToPages, stampFooter, asciiPdf } from './pdf-kit.js';
 
+// Bottom-of-page reference-aid line, printed under every page by stampFooter,
+// beneath (and in addition to) each document's own disclaimer block.
+export const REPORT_DISCLAIMER =
+  'Reference aid only. These sheets support — and do not replace — clinical judgment, ' +
+  'local protocol, and prescriber/pharmacy review. They are not a validated ' +
+  'decision-support device or an order set. Verify all medication content against ' +
+  'your formulary before use.';
+
 // A unique, valid AcroForm field name per document (fitToPages rebuilds start a
 // fresh doc, so the counter never leaks fields across generations).
 function fieldName(doc, base) {
@@ -438,7 +446,8 @@ export function drawWorkflow(doc, opts, ctx) {
   y += loopH + 10;
 
   // Two boxes: rounds/hand-off (navy, numbered) + positive first moves (green, checks).
-  const footerY = H - 34;
+  // Leave room at the foot for the two-line reference-aid line stampFooter adds.
+  const footerY = H - 42;
   const boxGap = 12;
   const boxW = (CW - boxGap) / 2;
   const boxH = footerY - y;

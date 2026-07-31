@@ -731,4 +731,7 @@ export const FOOTER_CITES = {
 
 /** The disclaimer printed on every sheet (load-bearing — keep verbatim). */
 export const SHEET_DISCLAIMER =
-  'Reference aid only — follow local policy & prescriber/pharmacy review';
+  'Reference aid only. These sheets support — and do not replace — clinical judgment, ' +
+  'local protocol, and prescriber/pharmacy review. They are not a validated ' +
+  'decision-support device or an order set. Verify all medication content against ' +
+  'your formulary before use.';
