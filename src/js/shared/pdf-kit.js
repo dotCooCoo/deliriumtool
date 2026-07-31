@@ -48,9 +48,10 @@ export function darken(rgb, f) {
   return [Math.round(rgb[0] * (1 - f)), Math.round(rgb[1] * (1 - f)), Math.round(rgb[2] * (1 - f))];
 }
 
-// Stamp "Page X of N" (right) and an optional generation timestamp (left) on the
-// footer of every page, after the document is fully built.
-export function stampFooter(doc, { generated, margin = 54 } = {}) {
+// Stamp "Page X of N" (right), an optional generation timestamp (left), and an
+// optional reference-aid disclaimer (centered, just above them) on the footer of
+// every page, after the document is fully built.
+export function stampFooter(doc, { generated, margin = 54, disclaimer } = {}) {
   const n = doc.internal.getNumberOfPages();
   for (let i = 1; i <= n; i++) {
     doc.setPage(i);
@@ -58,6 +59,18 @@ export function stampFooter(doc, { generated, margin = 54 } = {}) {
     // summary with a landscape workflow page) stamp at the right edges.
     const W = doc.internal.pageSize.getWidth();
     const H = doc.internal.pageSize.getHeight();
+    if (disclaimer) {
+      const lines = doc
+        .setFont('helvetica', 'normal')
+        .setFontSize(6.5)
+        .setTextColor(150, 150, 160)
+        .splitTextToSize(asciiPdf(disclaimer), W - 2 * margin);
+      let ly = H - 14 - lines.length * 7.5;
+      for (const ln of lines) {
+        doc.text(ln, W / 2, ly, { align: 'center' });
+        ly += 7.5;
+      }
+    }
     doc.setFont('helvetica', 'normal').setFontSize(7).setTextColor(150, 150, 160);
     doc.text(`Page ${i} of ${n}`, W - margin, H - 14, { align: 'right' });
     if (generated) doc.text(`Generated ${generated}`, margin, H - 14, { align: 'left' });

@@ -487,21 +487,22 @@ var FOOTER_SOURCES = [
   { t: 'NICE CG103', id: 'nice_cg103' },
 ];
 
+// Reference-aid line printed at the very bottom of every page, beneath the
+// document's own guidance and above the source links.
+var REPORT_DISCLAIMER =
+  'Reference aid only. These sheets support \u2014 and do not replace \u2014 clinical judgment, ' +
+  'local protocol, and prescriber/pharmacy review. They are not a validated decision-support ' +
+  'device or an order set. Verify all medication content against your formulary before use.';
+
 function footer(doc) {
-  // Centered disclaimer + clickable source links. The generation stamp (left) and
-  // page numbers (right) are added per-page in stampPageNumbers; facility + title
-  // already appear in the header, so they are not repeated here.
+  // Bottom-of-page furniture: a centered line of clickable source links, with the
+  // reference-aid disclaimer wrapped and centered just above it. The generation
+  // stamp (left) and page numbers (right) are added per-page in stampPageNumbers;
+  // facility + title already appear in the header, so they are not repeated here.
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(6.5);
   var SEP = '  \u00B7  ';
-  var segs = [
-    {
-      s:
-        'Reference aid only \u2014 follow local policy & prescriber/pharmacy review' +
-        SEP +
-        'Sources: ',
-    },
-  ];
+  var segs = [{ s: 'Sources: ' }];
   FOOTER_SOURCES.forEach(function (r, i) {
     if (i) segs.push({ s: SEP });
     var ref = DELIRIUM_REFS[r.id];
@@ -529,6 +530,14 @@ function footer(doc) {
     }
     x += w;
   });
+  // Verbatim reference-aid disclaimer, wrapped + centered, stacked above the links.
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(6.5);
+  doc.setTextColor(150, 150, 160);
+  var lines = doc.splitTextToSize(REPORT_DISCLAIMER, CW);
+  for (var i = 0; i < lines.length; i++) {
+    doc.text(lines[i], PW / 2, y - (lines.length - i) * 8, { align: 'center' });
+  }
 }
 
 // Protocol governance block (from the Setup tab) \u2014 printed on the generated documents.
