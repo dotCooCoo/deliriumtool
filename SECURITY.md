@@ -16,12 +16,12 @@ In scope:
 
 - Cross-site scripting / DOM injection, or any way to run untrusted script in the page.
 - Any way to exfiltrate data a user has entered. The tool is designed so this is
-  impossible (all client-side, no network egress) — a report that breaks that
+  impossible (all client-side, no network egress). A report that breaks that
   assumption is especially valuable.
 - Vulnerabilities in third-party code that ships to the browser.
 - Weaknesses in the deploy configuration (CSP, security headers).
-- **Clinical correctness** — a wrong threshold, dose, score, or citation. These are
-  treated as security-class issues; please include the primary source. If it isn't
+- **Clinical correctness**: a wrong threshold, dose, score, or citation. These are
+  treated as security-class issues. Please include the primary source. If it isn't
   sensitive, you may instead file a "clinical correction" issue.
 
 ## Data handling

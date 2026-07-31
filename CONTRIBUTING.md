@@ -5,13 +5,13 @@ Thanks for helping improve a tool clinicians rely on. Issues and pull requests a
 ## Ground rules
 
 - **Clinical changes must cite a primary source and add a test.** Any change to a
-  score, threshold, dose, criterion, or recommendation — in the adult tool, the
-  pediatric tool (`/peds/`), or the template designer (`/templates/`) — needs a
+  score, threshold, dose, criterion, or recommendation, whether in the adult tool, the
+  pediatric tool (`/peds/`), or the template designer (`/templates/`), needs a
   citation (DOI/PubMed), a golden-value test, a matching update to
   `docs/CLINICAL_METHODOLOGY.md`, and a row in that document's change log (§6.5).
-  Never change a clinical number without changing its citation together with it.
+  Never change a clinical number without updating its citation in the same change.
 - **Print surfaces must match the screen.** The PDFs and template sheets are the
-  artifacts that travel; a caution or correction that lands on screen must land on
+  artifacts that travel. A caution or correction that lands on screen must land on
   every surface that prints the same content.
 - **No PHI, ever.** Don't put patient data in issues, screenshots, test fixtures, or commits.
 - **Keep it client-side.** No analytics, no third-party runtime requests, no server
@@ -37,8 +37,8 @@ package: add or remove a Font Awesome name in the per-page icon list in
 
 ## Pull requests
 
-- Branch from `main` and open a PR. A Cloudflare preview deploy is built for each PR —
-  use it to check your change.
+- Branch from `main` and open a PR. A Cloudflare preview deploy is built for each PR.
+  Use it to check your change.
 - Keep PRs focused; describe what changed and the clinical or UX reason.
 - Make sure `npm test` passes. For clinical content, include the source.
 
@@ -46,4 +46,4 @@ package: add or remove a Font Awesome name in the per-page icon list in
 
 - Bugs and feature ideas: open an issue.
 - Clinical corrections: use the "Clinical correction" issue template (include a citation).
-- Security or anything sensitive: see [SECURITY.md](SECURITY.md) — report it privately.
+- Security or anything sensitive: see [SECURITY.md](SECURITY.md). Report it privately.

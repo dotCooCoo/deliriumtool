@@ -1,11 +1,11 @@
 # Clinical Methodology & Evidence Base
 
 **Project:** Delirium Bedside Reference Tool (deliriumtool.com)
-**Scope of this document:** A transparent account of every clinical instrument, threshold, score band, and decision rule *as actually implemented in the application*, together with the primary-source citations each maps to. It is written so that clinicians, pharmacists, and quality reviewers can audit the evidence base directly.
+**Scope of this document:** An account of every clinical instrument, threshold, score band, and decision rule *as actually implemented in the application*, together with the primary-source citations each maps to, so clinicians, pharmacists, and quality reviewers can audit the evidence base directly.
 
 ---
 
-## 1. Intended use — and what this tool is *not*
+## 1. Intended use, and what this tool is *not*
 
 This is a **reference aid only**. It supports — and does not replace — clinical judgment, local protocol, and prescriber/pharmacy review. It is **not a standalone order set** and **not a validated clinical decision-support device**. All medication decisions must be verified against current institutional policy.
 
@@ -15,9 +15,9 @@ These statements are surfaced to the user throughout the application:
 - Every generated PDF and printable sheet carries a footer: *"Reference aid only. These sheets support — and do not replace — clinical judgment, local protocol, and prescriber/pharmacy review. They are not a validated decision-support device or an order set. Verify all medication content against your formulary before use."*
 - The Medications tab states plainly: *"No agent has FDA approval for delirium treatment."*
 
-**Setting.** The tool is **ICU-focused** — it is built around CAM-ICU, RASS, and the ABCDEF/ICU Liberation bundle. The application advises: *"on the ward, use a ward-validated screen (4AT / 3D-CAM)."* The CAM-ICU, RASS, and ABCDEF elements are not validated for, and should not be transplanted unmodified onto, general-ward populations.
+**Setting.** The tool is ICU-focused. It is built around CAM-ICU, RASS, and the ABCDEF/ICU Liberation bundle. The application advises: *"on the ward, use a ward-validated screen (4AT / 3D-CAM)."* The CAM-ICU, RASS, and ABCDEF elements are not validated for, and should not be transplanted unmodified onto, general-ward populations.
 
-**Data handling.** The tool runs entirely in the browser. The assessment is a session scratchpad: it clears on reload and is never written to browser storage — saving or handing off an assessment is an explicit JSON export. Protocol-governance settings are stored locally. No patient data is transmitted or persisted server-side.
+**Data handling.** The tool runs entirely in the browser. The assessment is a session scratchpad: it clears on reload and is never written to browser storage. Saving or handing off an assessment is an explicit JSON export. Protocol-governance settings are stored locally. No patient data is transmitted or persisted server-side.
 
 ---
 
@@ -27,9 +27,9 @@ Each subsection documents the instrument, the exact logic/thresholds *as impleme
 
 ### 2.1 Risk-factor tally (admission / q24h)
 
-A simple **count of present risk factors**. The application is emphatic — in the UI subtitle, the score caption, and the band caption — that this is *"a count of present risk factors (not a validated score)"* and *"a checklist tally, not a validated prediction score."* For a validated ICU model it directs users to **E-PRE-DELIRIC** (at admission) or **PRE-DELIRIC** (after 24 h).
+A **count of present risk factors**. In the UI subtitle, the score caption, and the band caption, the application states that this is *"a count of present risk factors (not a validated score)"* and *"a checklist tally, not a validated prediction score."* For a validated ICU model it directs users to **E-PRE-DELIRIC** (at admission) or **PRE-DELIRIC** (after 24 h).
 
-**Scoring:** 15 checkboxes, maximum **15 points**. Every factor scores **+1** — a flat checklist count with no weighting. (The earlier +2 on dementia was removed so a non-validated tally cannot imply a calibration it does not have; **mechanical ventilation was removed** in the 2026-07-01 revision because PADIS 2018 reports strong evidence it does not alter delirium risk and it appears in none of the cited prediction models.)
+**Scoring:** 15 checkboxes, maximum **15 points**. Every factor scores **+1**: a flat checklist count with no weighting. (The earlier +2 on dementia was removed so a non-validated tally cannot imply a calibration it does not have; **mechanical ventilation was removed** in the 2026-07-01 revision because PADIS 2018 reports strong evidence it does not alter delirium risk and it appears in none of the cited prediction models.)
 
 | Group | Factor (points) |
 |---|---|
@@ -49,7 +49,7 @@ A simple **count of present risk factors**. The application is emphatic — in t
 
 The band cut-points are labelled *"(heuristic)"* in the interface.
 
-**Citations mapped (Risk tab):** `predeliric2012`, `epredeliric2015` (cited inline as the validated alternatives); supporting reference list also carries `zaal2015` (ICU risk-factor systematic review), `inouye1993`, `marcantonio1994`, `inouye_charpentier1996`, `rudolph2009` (cardiac-surgery prediction rule), `pisani2009`, `snigurska2023` (prediction-model risk-of-bias caveat), `nice_cg103`, `padis2018`. **Item-level provenance** (2026-07-01 verification): dementia/cognitive impairment, visual impairment, severe illness, dehydration/nutrition, age, alcohol use, functional dependence, surgery, restraints, urinary catheter, and metabolic abnormality map to the prediction-model sources (Inouye 1993/1996, Marcantonio 1994, PRE-/E-PRE-DELIRIC, PADIS 2018 risk-factor tables); **prior delirium episode, depression/psychiatric history, hearing impairment, and sleep/circadian disruption are clinically recognized factors carried on the strength of NICE CG103's risk-factor enumeration and (for sleep) the PADIS 2018 sleep section rather than any cited prediction model** — they are unweighted +1 prompts in an explicitly pragmatic tally. **Mechanical ventilation was removed**: PADIS 2018 states sex, opioid use, and mechanical ventilation "have been strongly shown NOT to alter the risk of delirium occurrence," and no cited model includes it. All factors count +1 (a flat checklist); the band cut-points are pragmatic, which is why the tool routes clinicians to the validated models (E-PRE-DELIRIC / PRE-DELIRIC). The geriatrics-consult threshold is likewise a pragmatic, non-validated prompt; there is no score-triggered psychiatry suggestion.
+**Citations mapped (Risk tab):** `predeliric2012`, `epredeliric2015` (cited inline as the validated alternatives); supporting reference list also carries `zaal2015` (ICU risk-factor systematic review), `inouye1993`, `marcantonio1994`, `inouye_charpentier1996`, `rudolph2009` (cardiac-surgery prediction rule), `pisani2009`, `snigurska2023` (prediction-model risk-of-bias caveat), `nice_cg103`, `padis2018`. **Item-level provenance** (2026-07-01 verification): dementia/cognitive impairment, visual impairment, severe illness, dehydration/nutrition, age, alcohol use, functional dependence, surgery, restraints, urinary catheter, and metabolic abnormality map to the prediction-model sources (Inouye 1993/1996, Marcantonio 1994, PRE-/E-PRE-DELIRIC, PADIS 2018 risk-factor tables); **prior delirium episode, depression/psychiatric history, hearing impairment, and sleep/circadian disruption are clinically recognized factors carried on the strength of NICE CG103's risk-factor enumeration and (for sleep) the PADIS 2018 sleep section rather than any cited prediction model**. They are unweighted +1 prompts in an explicitly pragmatic tally. **Mechanical ventilation was removed**: PADIS 2018 states sex, opioid use, and mechanical ventilation "have been strongly shown NOT to alter the risk of delirium occurrence," and no cited model includes it. All factors count +1 (a flat checklist); the band cut-points are pragmatic, which is why the tool routes clinicians to the validated models (E-PRE-DELIRIC / PRE-DELIRIC). The geriatrics-consult threshold is likewise a pragmatic, non-validated prompt; there is no score-triggered psychiatry suggestion.
 
 ### 2.2 CAM-ICU (Confusion Assessment Method for the ICU)
 
@@ -57,15 +57,15 @@ Implemented as the standard four-feature algorithm with an arousal gate. Perform
 
 **Decision logic:**
 
-1. **Level of consciousness first (two-step assessment).** The instrument's Step 1 is the RASS; the tool returns **no verdict at all until a RASS is documented** (the result stays "Incomplete" with a "document the RASS first" prompt). If RASS is **−4 or −5**, the result is **"Unable to assess"** (patient too sedated); the tool instructs re-assessment when RASS ≥ −3 (`camicu_manual` p.6).
-2. **Feature 1 — Acute onset or fluctuating course** *(required)*. Acute change from the mental-status baseline, OR **fluctuation in mental status in the past 24 hours** (e.g., on RASS/GCS or a previous delirium assessment — the worksheet's 24-hour window, not "during the day"). The baseline is anchored from family/collateral **or the H&P**, and a normal baseline may be presumed in a younger patient admitted from home with no known neurocognitive disease (`camicu_manual` p.9); **documented 24-hour fluctuation satisfies Feature 1 even when no baseline informant is available** — the two questions are an OR, so Feature 1 is never blocked on collateral (the on-page tip previously said Feature 1 "cannot be scored without" a collateral-anchored baseline, which was stricter than the instrument; corrected — see §6.5).
-3. **Feature 2 — Inattention** *(required)*. Letters task ("SAVEAHAART", 10 letters, ~1 every 3 s; squeeze on each "A"). **Cut-point: > 2 errors = positive** (error entry constrained to 0–10). The **Pictures ASE** alternative is the validated 10-item recognition task (show 5 pictures to memorise, then 10 recognition pictures, yes/no), **scored out of 10 with the same > 2-error cut-point** — so the threshold is genuinely equivalent across modalities. (The on-screen text previously described it loosely as "5 cards," which has been corrected to the validated /10 form; cited to `camicu_worksheet`.)
-4. **Feature 3 — Altered level of consciousness.** **Positive if the actual RASS is anything other than alert and calm (zero)**; negative only at RASS 0 — the current worksheet's operationalisation (`camicu_worksheet`; the CAM-ICU is only performed at RASS ≥ −3). Feature 3 is read directly from the RASS documented in the same panel — there is no separate control to enter — so it can never contradict the documented arousal. (The earlier descriptor form — Alert vs Vigilant/Lethargic/Stuporous, the Ely-2001 Table-1 wording — was replaced with the worksheet criterion; see §6.5/§6.6.)
-5. **Feature 4 — Disorganized thinking.** Four yes/no questions plus the command, worded per the worksheet: "Hold up this many fingers" (2 shown), then "Now do the same thing with the other hand" — **do not repeat the number of fingers**; the "add one more finger" variant applies **only if the patient cannot move both arms**. **Positive if combined errors > 1.**
+1. **Level of consciousness first (two-step assessment).** The instrument's Step 1 is the RASS. The tool returns **no verdict until a RASS is documented** (the result stays "Incomplete" with a "document the RASS first" prompt). If RASS is **−4 or −5**, the result is **"Unable to assess"** (patient too sedated); the tool instructs re-assessment when RASS ≥ −3 (`camicu_manual` p.6).
+2. **Feature 1: Acute onset or fluctuating course** *(required)*. Acute change from the mental-status baseline, OR **fluctuation in mental status in the past 24 hours** (e.g., on RASS/GCS or a previous delirium assessment; the worksheet's 24-hour window, not "during the day"). The baseline is anchored from family/collateral **or the H&P**, and a normal baseline may be presumed in a younger patient admitted from home with no known neurocognitive disease (`camicu_manual` p.9); **documented 24-hour fluctuation satisfies Feature 1 even when no baseline informant is available**. The two questions are an OR, so Feature 1 is never blocked on collateral (the on-page tip previously said Feature 1 "cannot be scored without" a collateral-anchored baseline, which was stricter than the instrument; corrected (see §6.5).
+3. **Feature 2: Inattention** *(required)*. Letters task ("SAVEAHAART", 10 letters, ~1 every 3 s; squeeze on each "A"). **Cut-point: > 2 errors = positive** (error entry constrained to 0–10). The **Pictures ASE** alternative is the validated 10-item recognition task (show 5 pictures to memorise, then 10 recognition pictures, yes/no), **scored out of 10 with the same > 2-error cut-point**. The threshold is equivalent across modalities. (The on-screen text previously described it loosely as "5 cards," which has been corrected to the validated /10 form; cited to `camicu_worksheet`.)
+4. **Feature 3: Altered level of consciousness.** **Positive if the actual RASS is anything other than alert and calm (zero)**; negative only at RASS 0; the current worksheet's operationalisation (`camicu_worksheet`; the CAM-ICU is only performed at RASS ≥ −3). Feature 3 is read directly from the RASS documented in the same panel (there is no separate control to enter), so it can never contradict the documented arousal. (The earlier descriptor form, Alert vs Vigilant/Lethargic/Stuporous, the Ely-2001 Table-1 wording, was replaced with the worksheet criterion; see §6.5/§6.6.)
+5. **Feature 4: Disorganized thinking.** Four yes/no questions plus the command, worded per the worksheet: "Hold up this many fingers" (2 shown), then "Now do the same thing with the other hand" (**do not repeat the number of fingers**); the "add one more finger" variant applies **only if the patient cannot move both arms**. **Positive if combined errors > 1.**
 
-**Result rule (displayed and enforced):** **Positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)** — evaluated only once a RASS is documented (Step 1). Features 1 and 2 must both be answered before any result; if either is absent the screen is Negative; if 1 and 2 are positive but both secondary features are assessed and negative the screen is Negative; otherwise "Incomplete" until a secondary feature is assessed.
+**Result rule (displayed and enforced):** **Positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, evaluated only once a RASS is documented (Step 1). Features 1 and 2 must both be answered before any result; if either is absent the screen is Negative; if 1 and 2 are positive but both secondary features are assessed and negative the screen is Negative; otherwise "Incomplete" until a secondary feature is assessed.
 
-The result panel reinforces that *"A positive CAM-ICU is a screen, not a diagnosis — confirm clinically and exclude mimics,"* and provides a delirium-vs-mimics differential (dementia, depression, receptive aphasia/focal stroke, non-convulsive seizures, catatonia, intoxication/withdrawal). **ICDSC** (`icdsc_bergeron`) is the validated adult-ICU alternative screen — PADIS endorses CAM-ICU and ICDSC, and the Setup "Screening Tool" selector offers these two. CAM-ICU is validated for the adult ICU only; the pathway picker carries a prominent scope panel directing out-of-ICU users to the setting-appropriate validated tool (§4, item 2).
+The result panel reinforces that *"A positive CAM-ICU is a screen, not a diagnosis: confirm clinically and exclude mimics,"* and provides a delirium-vs-mimics differential (dementia, depression, receptive aphasia/focal stroke, non-convulsive seizures, catatonia, intoxication/withdrawal). **ICDSC** (`icdsc_bergeron`) is the validated adult-ICU alternative screen. PADIS endorses CAM-ICU and ICDSC, and the Setup "Screening Tool" selector offers these two. CAM-ICU is validated for the adult ICU only; the pathway picker carries a prominent scope panel directing out-of-ICU users to the setting-appropriate validated tool (§4, item 2).
 
 **Citations mapped (CAM tab):** `inouye1990` (the parent CAM), `camicu_worksheet`, `camicu_manual`, `ely2001`, `ely2003`, `sessler2002`, `icdsc_bergeron`, `dsm5tr` (the diagnostic reference standard), `hayhurst2016`, `icudelirium_monitoring`, `nice_cg103`. (CAM-ICU validation → `ely2001`; worksheet/Pictures-ASE operationalisation → `camicu_worksheet`, `icudelirium_monitoring`; baseline sources and the agitated-patient / UTA rules → `camicu_manual`; accuracy limitations → `hayhurst2016`.)
 
@@ -73,15 +73,15 @@ The result panel reinforces that *"A positive CAM-ICU is a screen, not a diagnos
 
 **Range:** the full **+4 to −5** scale (+4 Combative, +3 Very Agitated, +2 Agitated, +1 Restless, 0 Alert & Calm, −1 Drowsy, −2 Light Sedation, −3 Moderate Sedation, −4 Deep Sedation, −5 Unarousable).
 
-**Target band:** **0 to −2** (light sedation — the ICU default, and the only target savable/shareable as a default). The Setup tab also offers *0 to −1 (general ward)* and a deeper *−3 to −4 (deep — indication required)* band. The deep band is **indication-gated**: selecting it reveals a required "indication for deeper sedation" field and a caution that deeper sedation is *associated with* longer ventilation, more delirium, and higher mortality (observational evidence + one small RCT; PADIS conditional, low-certainty). (RASS −2 is *light* sedation and −3 *moderate* per the scale anchors, so the earlier "−2 to −3 (moderate sedation)" label was corrected — a light −2 target is never gated.)
+**Target band:** **0 to −2** (light sedation; the ICU default, and the only target savable/shareable as a default). The Setup tab also offers *0 to −1 (general ward)* and a deeper *−3 to −4 (deep: indication required)* band. The deep band is **indication-gated**: selecting it reveals a required "indication for deeper sedation" field and a caution that deeper sedation is *associated with* longer ventilation, more delirium, and higher mortality (observational evidence + one small RCT; PADIS conditional, low-certainty). (RASS −2 is *light* sedation and −3 *moderate* per the scale anchors, so the earlier "−2 to −3 (moderate sedation)" label was corrected. A light −2 target is never gated.)
 
-**Colour/zoning of the RASS strip — follows the configured target band.** Green (at target) = every RASS inside the configured band; amber (caution) = restless/agitation short of intervention and the level one step off-goal; red = marked agitation (+2/+3/+4) and over-sedation (≥ 2 levels below the band); **RASS −5 (unarousable) is always red**, regardless of the configured target, so a deep target cannot mask an over-sedated patient. For the 0 to −2 default this is green 0/−1/−2, amber +1 and −3, red +2/+3/+4 and −4/−5. The patient-RASS dropdown's ✓ TARGET markers and the printed `[TARGET]` rows are driven by the same band, so a reconfigured target stays consistent on screen and in the PDF. RASS −4/−5 also triggers the CAM-ICU "unable to assess" gate (§2.2). Per-level advisory prompts are provided and were source-aligned in the 2026-07-01 revision: agitation prompts are non-pharmacologic-first (pharmacologic control reserved for danger to the patient or staff, per PADIS 2018); reassessment intervals defer to unit protocol (no interval is source-defined); −4 states the *association* between deeper sedation and delirium/delayed extubation/mortality (PADIS 2018 observational evidence) with daily reassessment/SAT unless deeper sedation is indicated; −5 carries the instrument's stop-and-recheck directive (CAM-ICU unable to assess) with neurologic evaluation only when unresponsiveness is unexplained by sedation.
+**Colour/zoning of the RASS strip: follows the configured target band.** Green (at target) = every RASS inside the configured band; amber (caution) = restless/agitation short of intervention and the level one step off-goal; red = marked agitation (+2/+3/+4) and over-sedation (≥ 2 levels below the band); **RASS −5 (unarousable) is always red**, regardless of the configured target, so a deep target cannot mask an over-sedated patient. For the 0 to −2 default this is green 0/−1/−2, amber +1 and −3, red +2/+3/+4 and −4/−5. The patient-RASS dropdown's ✓ TARGET markers and the printed `[TARGET]` rows are driven by the same band, so a reconfigured target stays consistent on screen and in the PDF. RASS −4/−5 also triggers the CAM-ICU "unable to assess" gate (§2.2). Per-level advisory prompts are provided and were source-aligned in the 2026-07-01 revision: agitation prompts are non-pharmacologic-first (pharmacologic control reserved for danger to the patient or staff, per PADIS 2018); reassessment intervals defer to unit protocol (no interval is source-defined); −4 states the *association* between deeper sedation and delirium/delayed extubation/mortality (PADIS 2018 observational evidence) with daily reassessment/SAT unless deeper sedation is indicated; −5 carries the instrument's stop-and-recheck directive (CAM-ICU unable to assess) with neurologic evaluation only when unresponsiveness is unexplained by sedation.
 
 **Citations mapped:** `sessler2002` (original RASS validation), `ely2003` (RASS reliability/validity over time in ICU), with `rass_mdcalc` available in the registry as a scoring-procedure reference.
 
 ### 2.4 Delirium motor subtype
 
-A three-option classifier (Hyperactive / Hypoactive / Mixed) with teaching notes. The percentages are the **proportion of patients *with* delirium by motor subtype** (la Cour 2022: hypoactive 50.3% / mixed 27.7% / hyperactive 22.7%) — **not** the population prevalence of delirium (Krewulak 2018: ~31% overall, a different denominator). The on-screen and PDF wording now states this denominator explicitly and avoids the bare word "prevalence."
+A three-option classifier (Hyperactive / Hypoactive / Mixed) with teaching notes. The percentages are the **proportion of patients *with* delirium by motor subtype** (la Cour 2022: hypoactive 50.3% / mixed 27.7% / hyperactive 22.7%). This is **not** the population prevalence of delirium (Krewulak 2018: ~31% overall, a different denominator). The on-screen and PDF wording now states this denominator explicitly and avoids the bare word "prevalence."
 
 | Subtype | Description (proportion of delirious cases — la Cour 2022) |
 |---|---|
@@ -89,7 +89,7 @@ A three-option classifier (Hyperactive / Hypoactive / Mixed) with teaching notes
 | Hypoactive | "~50% of delirious cases, most common"; somnolence, reduced responsiveness; "frequently missed and associated with poor outcomes" |
 | Mixed | "~28% of delirious cases"; alternating features; "associated with the longest duration and length of stay" |
 
-**Citations mapped (Mnemonic tab reference list):** `lacour2022` (motor-subtype distribution scoping review — the source of the proportions), `krewulak2018` (overall-prevalence meta-analysis — the distinct population denominator), `hayhurst2020` (subtype and post-critical-illness cognition). The figures are approximate, drawn from these cited reviews rather than exact single-source constants.
+**Citations mapped (Mnemonic tab reference list):** `lacour2022` (motor-subtype distribution scoping review, the source of the proportions), `krewulak2018` (overall-prevalence meta-analysis, the distinct population denominator), `hayhurst2020` (subtype and post-critical-illness cognition). The figures are approximate, drawn from these cited reviews rather than exact single-source constants.
 
 ### 2.5 ABCDEF / ICU Liberation prevention bundle
 
@@ -106,7 +106,7 @@ Non-pharmacologic, first-line for all patients, documented each shift. A live co
 
 A separate **Sleep & Orientation Measures** card (quiet-hours, eye mask/earplugs, orientation board, clustered cares, clock/calendar, reorientation, oral care/hydration) accompanies the bundle.
 
-**Citations mapped (Bundle tab):** `sccm_abcdef`, `pun2019` (ICU Liberation Collaborative, >15,000 adults), `marra2017`, `balas2014`, `padis2018`, `padis2025`, `inouye1999` (HELP RCT), `hshieh2015` (non-pharm meta-analysis), `icudelirium_satsbt`, `schweickert2009` (early-mobility RCT — the element-E efficacy trial), `hodgson2014` (mobilization safety criteria — cited inline at element E), `nice_cg103`. **eCASH is cited inline to `ecash2016` (Vincent 2016 — the concept paper) plus `padis2018`** (which carries the analgesia-first / light-sedation content); the bolus-over-continuous item is cited to `kollef1998` and labelled an observational association; eye mask/earplugs to `padis2018`. (An earlier revision cited eCASH to `padis2025`, which contains no eCASH or analgesia-first recommendation — corrected; see §6.5.)
+**Citations mapped (Bundle tab):** `sccm_abcdef`, `pun2019` (ICU Liberation Collaborative, >15,000 adults), `marra2017`, `balas2014`, `padis2018`, `padis2025`, `inouye1999` (HELP RCT), `hshieh2015` (non-pharm meta-analysis), `icudelirium_satsbt`, `schweickert2009` (early-mobility RCT, the element-E efficacy trial), `hodgson2014` (mobilization safety criteria, cited inline at element E), `nice_cg103`. **eCASH is cited inline to `ecash2016` (Vincent 2016, the concept paper) plus `padis2018`** (which carries the analgesia-first / light-sedation content); the bolus-over-continuous item is cited to `kollef1998` and labelled an observational association; eye mask/earplugs to `padis2018`. (An earlier revision cited eCASH to `padis2025`, which contains no eCASH or analgesia-first recommendation; corrected, see §6.5.)
 
 ### 2.6 DELIRIUM(S) mnemonic (causative-factor review)
 
@@ -130,21 +130,21 @@ Nine review domains, each with a "Reviewed" toggle, a prompt, and a free-text ac
 
 Applies when CAM-ICU is positive. The governing principle is *"Non-pharmacological interventions are the cornerstone of treatment. Pharmacologic therapy is reserved for patient safety concerns only."*
 
-**Visual decision tree:** entry for the acutely agitated patient (RASS +2 to +4 — the entry node states that agitation does **not** make a patient "unable to assess": CAM-ICU is still performed, a patient too agitated to participate scores inattentive, and UTA is reserved for RASS −4/−5, `camicu_manual` pp.5-6/12/20; an earlier wording implied CAM-ICU "may read unable to assess" in the agitated patient — corrected, see §6.5) → rule out/treat reversible causes (pain, hypoxia, hypoglycaemia, alcohol/benzo withdrawal, urinary retention, new deliriogenic med) → **verbal de-escalation first** → branch on CAM-ICU result (Negative → continue prevention; Unable to assess at RASS −4/−5 → re-screen when RASS ≥ −3; Positive → management) → **Dr. DRE** (Diseases, Drug removal, Remove Environmental contributors) → intensify ABCDEF → safety-risk decision determining whether short, lowest-dose pharmacotherapy is warranted.
+**Visual decision tree:** entry for the acutely agitated patient (RASS +2 to +4: the entry node states that agitation does **not** make a patient "unable to assess": CAM-ICU is still performed, a patient too agitated to participate scores inattentive, and UTA is reserved for RASS −4/−5, `camicu_manual` pp.5-6/12/20; an earlier wording implied CAM-ICU "may read unable to assess" in the agitated patient; corrected, see §6.5) → rule out/treat reversible causes (pain, hypoxia, hypoglycaemia, alcohol/benzo withdrawal, urinary retention, new deliriogenic med) → **verbal de-escalation first** → branch on CAM-ICU result (Negative → continue prevention; Unable to assess at RASS −4/−5 → re-screen when RASS ≥ −3; Positive → management) → **Dr. DRE** (Diseases, Drug removal, Remove Environmental contributors) → intensify ABCDEF → safety-risk decision determining whether short, lowest-dose pharmacotherapy is warranted.
 
 **Working checklist (Steps 1–3):**
 
-- **Step 1 — Identify & treat the underlying cause:** electrolytes; occult infection/sepsis (CBC, cultures, UA when clinically indicated — do not attribute delirium to asymptomatic bacteriuria, `nicolle2019`); oxygenation/ventilation; retention/constipation/pain; **alcohol/benzo withdrawal titrated to an objective scale (RASS)** (*"CIWA-Ar is not validated in intubated / sedated / delirious patients"*; ASAM 2020 recommends objective scales — CAM-ICU, DDS, RASS, MINDS — in withdrawal delirium and names RASS for ICU monitoring, `asam2020`); brain imaging if focal neuro signs.
-- **Step 2 — Intensify non-pharmacologic measures:** full ABCDEF; family/volunteer presence; 1:1 sitter if active safety risk; geriatric/psychiatric consult.
-- **Step 3 — Pharmacologic (safety indication only):** antipsychotics *"have not been shown to treat or shorten delirium (MIND-USA negative; PADIS 2025: unable to recommend for or against)"* — the no-demonstrated-benefit clause is anchored to `mindusa2018` and the no-recommendation clause to `padis2025`, on screen and in the PDFs (the earlier categorical "do not treat or shorten" asserted more than the evidence: PADIS 2025's pooled estimates are equivocal, so the verb was softened on every surface — see §6.5); requires documented safety indication, baseline QTc (haloperidol caution if > 500 ms), lowest effective dose, daily reassessment for discontinuation, **no scheduled antipsychotics at discharge without a psychiatric indication**, and a "do NOT stop abruptly" list (benzodiazepines, opioids, SSRIs, steroids, antiepileptics, dexmedetomidine).
+- **Step 1. Identify & treat the underlying cause:** electrolytes; occult infection/sepsis (CBC, cultures, UA when clinically indicated; do not attribute delirium to asymptomatic bacteriuria, `nicolle2019`); oxygenation/ventilation; retention/constipation/pain; **alcohol/benzo withdrawal titrated to an objective scale (RASS)** (*"CIWA-Ar is not validated in intubated / sedated / delirious patients"*; ASAM 2020 recommends objective scales (CAM-ICU, DDS, RASS, MINDS) in withdrawal delirium and names RASS for ICU monitoring, `asam2020`); brain imaging if focal neuro signs.
+- **Step 2. Intensify non-pharmacologic measures:** full ABCDEF; family/volunteer presence; 1:1 sitter if active safety risk; geriatric/psychiatric consult.
+- **Step 3. Pharmacologic (safety indication only):** antipsychotics *"have not been shown to treat or shorten delirium (MIND-USA negative; PADIS 2025: unable to recommend for or against)"*. The no-demonstrated-benefit clause is anchored to `mindusa2018` and the no-recommendation clause to `padis2025`, on screen and in the PDFs (the earlier categorical "do not treat or shorten" asserted more than the evidence: PADIS 2025's pooled estimates are equivocal, so the verb was softened on every surface; see §6.5); requires documented safety indication, baseline QTc (haloperidol caution if > 500 ms), lowest effective dose, daily reassessment for discontinuation, **no scheduled antipsychotics at discharge without a psychiatric indication**, and a "do NOT stop abruptly" list (benzodiazepines, opioids, SSRIs, steroids, antiepileptics, dexmedetomidine).
 
-**Supporting frameworks:** **T-A-D-A** (Tolerate / Anticipate / Don't Agitate — Flaherty & Little 2011, `flaherty_little2011`); a **7-step Nurse Care Pathway** (1 Deter · 2 Detect · 3 Do (Acute) · 4–6 Daily · 7 Discharge); and a note that restraints are the last resort after de-escalation, environment, device removal, and 1:1 observation — least-restrictive option, re-evaluated per institutional policy, discontinued at the earliest possible time (`nice_ng10`; NG10 itself sets shorter review intervals for restrictive interventions rather than a daily rule, which is why the earlier "re-evaluate daily" wording was dropped).
+**Supporting frameworks:** **T-A-D-A** (Tolerate / Anticipate / Don't Agitate; Flaherty & Little 2011, `flaherty_little2011`); a **7-step Nurse Care Pathway** (1 Deter · 2 Detect · 3 Do (Acute) · 4–6 Daily · 7 Discharge); and a note that restraints are the last resort after de-escalation, environment, device removal, and 1:1 observation: least-restrictive option, re-evaluated per institutional policy, discontinued at the earliest possible time (`nice_ng10`; NG10 itself sets shorter review intervals for restrictive interventions rather than a daily rule, which is why the earlier "re-evaluate daily" wording was dropped).
 
-**Citations mapped (Treatment tab):** `projectbeta` (verbal de-escalation, APA Project BETA — inline at the de-escalation node; "≥ 2 arms' lengths" per Richmond 2012), `icudelirium_mnemonics` (Dr. DRE — the mnemonic is a Vanderbilt CIBS teaching aid; it does not appear in Hayhurst 2016, to which it was previously miscited), `flaherty_little2011` (T-A-D-A), `awissi2013` (no withdrawal scale, including CIWA-Ar, is validated in ICU patients — the claim previously carried only the MDCalc scale link), `asam2020` (objective withdrawal monitoring in delirium; CIWA-Ar prerequisites), `ciwa_mdcalc` (CIWA-Ar scale reference), `nicolle2019` (asymptomatic bacteriuria in delirium — observe, work up other causes), `padis2025` / `padis2018` (antipsychotic stance and prevention), `mindusa2018` (haloperidol/ziprasidone RCT), `nice_ng10` (restraints / management of aggression), `hshieh2015`, `balas2014`.
+**Citations mapped (Treatment tab):** `projectbeta` (verbal de-escalation, APA Project BETA: inline at the de-escalation node; "≥ 2 arms' lengths" per Richmond 2012), `icudelirium_mnemonics` (Dr. DRE: the mnemonic is a Vanderbilt CIBS teaching aid; it does not appear in Hayhurst 2016, to which it was previously miscited), `flaherty_little2011` (T-A-D-A), `awissi2013` (no withdrawal scale, including CIWA-Ar, is validated in ICU patients; the claim previously carried only the MDCalc scale link), `asam2020` (objective withdrawal monitoring in delirium; CIWA-Ar prerequisites), `ciwa_mdcalc` (CIWA-Ar scale reference), `nicolle2019` (asymptomatic bacteriuria in delirium: observe, work up other causes), `padis2025` / `padis2018` (antipsychotic stance and prevention), `mindusa2018` (haloperidol/ziprasidone RCT), `nice_ng10` (restraints / management of aggression), `hshieh2015`, `balas2014`.
 
 ### 2.8 Medication tables and deliriogenic-medication list
 
-**Pharmacologic options table (safety indication only) — doses as shown:**
+**Pharmacologic options table (safety indication only), doses as shown:**
 
 | Drug | Typical dose | Key notes (abridged) |
 |---|---|---|
@@ -154,9 +154,9 @@ Applies when CAM-ICU is positive. The governing principle is *"Non-pharmacologic
 | Lorazepam *(specific use)* | Symptom-triggered per institutional withdrawal protocol | Rescue / alcohol withdrawal **only** — may worsen delirium; in delirious / intubated / sedated ICU patients monitor withdrawal with an objective scale (RASS, CAM-ICU, MINDS), not CIWA-Ar (`asam2020`, `awissi2013`) |
 | Melatonin | 0.5–3 mg nightly — labelled conventional sleep dosing, **not drawn from the cited trials** (Pro-MEDIC used 4 mg; cited ICU trials 3–5 mg; PADIS 2025 makes no dose recommendation) | PADIS 2025 conditionally suggests melatonin in adult ICU patients (low certainty; may reduce delirium prevalence and improve perceived sleep) (`padis2025`); the largest RCT (Pro-MEDIC) was negative (`promedic2022`, `melatonin_meta2025`); not a treatment for established delirium. Ramelteon is named by PADIS 2025 as the FDA-regulated melatonin-receptor-agonist alternative |
 
-These doses are **conventional / expert starting references** for short-term agitation control, **not RCT- or guideline-calibrated doses for delirium** (no agent is guideline-recommended to treat delirium): haloperidol low-dose is off-label, quetiapine 12.5–25 mg is a conservative starting fraction, and dexmedetomidine 0.2–0.7 mcg/kg/hr is a **sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent** — so the three are not interchangeable.
+These doses are **conventional / expert starting references** for short-term agitation control, **not RCT- or guideline-calibrated doses for delirium** (no agent is guideline-recommended to treat delirium): haloperidol low-dose is off-label, quetiapine 12.5–25 mg is a conservative starting fraction, and dexmedetomidine 0.2–0.7 mcg/kg/hr is a **sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent**. The three are not interchangeable.
 
-**Deliriogenic-medication review list:** **11 categories containing 103 individual agents**, each independently toggleable. The three classes with the strongest / most-actionable ICU delirium signal — **benzodiazepines, opioids, and anticholinergics** — are **enabled by default**; the rest of the list is available but **off by default (opt-in)** to reduce alert fatigue. Toggling an agent adds/removes it from the printed documents.
+**Deliriogenic-medication review list:** **11 categories containing 103 individual agents**, each independently toggleable. The three classes with the strongest / most-actionable ICU delirium signal (**benzodiazepines, opioids, and anticholinergics**) are **enabled by default**; the rest of the list is available but **off by default (opt-in)** to reduce alert fatigue. Toggling an agent adds/removes it from the printed documents.
 
 | Category | Agent count |
 |---|---|
@@ -173,22 +173,22 @@ These doses are **conventional / expert starting references** for short-term agi
 | Other / Miscellaneous | 14 |
 | **Total** | **103** |
 
-The list is explicitly framed as *"a medication-review prompt, not a list of equally harmful drugs"*: risk varies by agent, dose, route, renal/hepatic function, interactions, and temporal association. A citation-backed **higher-risk** marker (a binary flag, not an invented ordinal tier) is shown on the agents with the clearest evidence — **benzodiazepines** (PADIS), **strong anticholinergics** (AGS Beers Table 7 / Anticholinergic Cognitive Burden scale), and **meperidine** (Beers; higher neurotoxicity risk than other opioids). **Glycopyrrolate carries no higher-risk flag** — it appears in neither anchor (Beers Table 7 nor the ACB scale) and is a quaternary ammonium with minimal CNS penetration; it stays on the list as a review-prompt item only. **Dexmedetomidine is not on the list** — it is the preferred, delirium-sparing sedative (PADIS 2025 / MENDS2); its only caution (rebound on abrupt withdrawal after a prolonged infusion) lives on the treatment tab's "do NOT stop abruptly" list. **Metoclopramide** is grouped under GI / antiemetics (it is a D2 antagonist, not an anticholinergic). Renal/hepatic-accumulation cautions are included, each anchored to a source that actually carries it: meperidine — avoid, higher neurotoxicity risk (`beers2023`); morphine/hydromorphone glucuronide metabolites accumulate in renal impairment with neuroexcitatory toxicity (`dean2004_renal` — this claim is **not** in Beers and is no longer cited to it); gabapentin/pregabalin — reduce dose at CrCl < 60, stated qualitatively per Beers Table 6 (the earlier "~50%" quantifier was removed as untraceable to the cited source). Beers Criteria are noted to apply to adults ≥ 65. The AGS 2025 **Beers Alternatives** companion (`beers_alt2025`) is referenced from the card as the evidence-based "what to use instead" resource.
+The list is explicitly framed as *"a medication-review prompt, not a list of equally harmful drugs"*: risk varies by agent, dose, route, renal/hepatic function, interactions, and temporal association. A citation-backed **higher-risk** marker (a binary flag, not an invented ordinal tier) is shown on the agents with the clearest evidence: **benzodiazepines** (PADIS), **strong anticholinergics** (AGS Beers Table 7 / Anticholinergic Cognitive Burden scale), and **meperidine** (Beers; higher neurotoxicity risk than other opioids). **Glycopyrrolate carries no higher-risk flag**: it appears in neither anchor (Beers Table 7 nor the ACB scale) and is a quaternary ammonium with minimal CNS penetration; it stays on the list as a review-prompt item only. **Dexmedetomidine is not on the list**: it is the preferred, delirium-sparing sedative (PADIS 2025 / MENDS2); its only caution (rebound on abrupt withdrawal after a prolonged infusion) lives on the treatment tab's "do NOT stop abruptly" list. **Metoclopramide** is grouped under GI / antiemetics (it is a D2 antagonist, not an anticholinergic). Renal/hepatic-accumulation cautions are included, each anchored to a source that actually carries it: meperidine: avoid, higher neurotoxicity risk (`beers2023`); morphine/hydromorphone glucuronide metabolites accumulate in renal impairment with neuroexcitatory toxicity (`dean2004_renal`; this claim is **not** in Beers and is no longer cited to it); gabapentin/pregabalin: reduce dose at CrCl < 60, stated qualitatively per Beers Table 6 (the earlier "~50%" quantifier was removed as untraceable to the cited source). Beers Criteria are noted to apply to adults ≥ 65. The AGS 2025 **Beers Alternatives** companion (`beers_alt2025`) is referenced from the card as the evidence-based "what to use instead" resource.
 
-**Citations mapped (Medications tab):** `beers2023` (AGS Beers Criteria 2023), `beers_alt2025` (AGS 2025 Alternatives companion), `acb_boustani` (Anticholinergic Cognitive Burden scale — anchor for the anticholinergic higher-risk flag), `clegg2011` (deliriogenic-medication systematic review), `pandharipande2006` (benzodiazepine-to-delirium primary trial), `padis2025`, `padis2018`, `haldol_label` (haloperidol prescribing information), `dex_label` (Precedex prescribing information — the 0.2–0.7 mcg/kg/hr maintenance range), `mends2` (MENDS2 dexmedetomidine vs propofol), `a2b2025` (A2B RCT), `mindusa2018`, `promedic2022` (Pro-MEDIC prophylactic-melatonin RCT), `melatonin_meta2025` (2025 ICU melatonin systematic review / meta-analysis), `dean2004_renal` (opioid metabolites in renal failure), `asam2020` (lorazepam row — withdrawal-scale selection).
+**Citations mapped (Medications tab):** `beers2023` (AGS Beers Criteria 2023), `beers_alt2025` (AGS 2025 Alternatives companion), `acb_boustani` (Anticholinergic Cognitive Burden scale: anchor for the anticholinergic higher-risk flag), `clegg2011` (deliriogenic-medication systematic review), `pandharipande2006` (benzodiazepine-to-delirium primary trial), `padis2025`, `padis2018`, `haldol_label` (haloperidol prescribing information), `dex_label` (Precedex prescribing information: the 0.2–0.7 mcg/kg/hr maintenance range), `mends2` (MENDS2 dexmedetomidine vs propofol), `a2b2025` (A2B RCT), `mindusa2018`, `promedic2022` (Pro-MEDIC prophylactic-melatonin RCT), `melatonin_meta2025` (2025 ICU melatonin systematic review / meta-analysis), `dean2004_renal` (opioid metabolites in renal failure), `asam2020` (lorazepam row: withdrawal-scale selection).
 
-**Printed SPA analgesia note:** the SPA Quick Reference's acetaminophen line is deliberately **dose-free** ("scheduled acetaminophen, dose per local order set, avoid/reduce with hepatic impairment") — PADIS 2018 recommends the adjunct without a dose, and the tool prints no analgesic regimen it cannot cite. (An earlier draft printed "650–975 mg q6h" with no source; removed.)
+**Printed SPA analgesia note:** the SPA Quick Reference's acetaminophen line is deliberately **dose-free** ("scheduled acetaminophen, dose per local order set, avoid/reduce with hepatic impairment"). PADIS 2018 recommends the adjunct without a dose, and the tool prints no analgesic regimen it cannot cite. (An earlier draft printed "650–975 mg q6h" with no source; removed.)
 
 ### 2.9 Printable bedside templates (/templates/)
 
-The template designer produces two laminate-ready sheets — an **ICU Delirium Rounding Tool**
+The template designer produces two laminate-ready sheets: an **ICU Delirium Rounding Tool**
 (per-patient landscape checklist marked with a dry-erase pen) and an **SPA Quick Reference**
 (unit-level portrait poster: Sedation · Pain/Pharmacy · Activity). The designer edits protocol
 configuration only (facility name, section/item selection, medication selection, sedation
 target, added local-protocol lines); no assessment or patient data is entered or printed.
 
 **Content provenance rule:** every clinical statement on the sheets **mirrors the interactive
-tool's cited content** — the sheets introduce no new clinical values. The mapping:
+tool's cited content**. The sheets introduce no new clinical values. The mapping:
 
 | Sheet block | Mirrors | Citations |
 |---|---|---|
@@ -203,33 +203,31 @@ tool's cited content** — the sheets introduce no new clinical values. The mapp
 | SPA columns + deeper guidance + escalation ladder | §2.5, §2.7, §2.8 statements recast as poster actions | per-column keys in `src/js/templates/data/content.js` |
 | Nurse care pathway (rounding sheet, step 4) | **Local unit workflow — the only uncited section.** It carries process steps (documentation, handoff, teaching), not clinical values, is flagged "unit workflow — edit to match your local protocol" in the designer, and is fully editable/removable. | — |
 
-**Presentation rules.** Medication names print **generic-only by default** — brand names in
+**Presentation rules.** Medication names print **generic-only by default**. Brand names in
 the registry are stripped for the sheet (clinical qualifiers such as routes and "high dose"
 always remain) and reappear only when the unit enables "show brand names". The designer's
-default medication selection mirrors the interactive tool's documented defaults — the three
+default medication selection mirrors the interactive tool's documented defaults: the three
 classes with the strongest, most actionable ICU delirium signal (**benzodiazepines, opioids,
-anticholinergics**; PADIS 2018, AGS Beers 2023/ACB, §2.8) — with the rest of the shared
+anticholinergics**; PADIS 2018, AGS Beers 2023/ACB, §2.8), with the rest of the shared
 catalog opt-in via per-category and select-all/none controls. The printed list is a mosaic of
 colour cards, one check-off square per medication, with the type size and column count
 scaling to the selection so the full catalog still fits; a classic category-rows view remains
 available.
-The two pharmacology caution lines with the strongest bedside consequence — benzodiazepines
-as withdrawal rescue only, and no antipsychotics at discharge without a psychiatric
-indication — carry a printed warning marker. The sedation-target
+The two pharmacology caution lines with the strongest bedside consequence carry a printed warning marker: benzodiazepines as withdrawal rescue only, and no antipsychotics at discharge without a psychiatric indication. The sedation-target
 selector offers the interactive tool's three bands (0 to −2 light/ICU default; 0 to −1
 general ward; −3 to −4 deep, which prints a "documented indication required" caveat) plus a
-"no unit target" option that prints a write-in blank with a "per prescriber order" note —
-a presentation choice, not a new clinical value. Each RASS row carries a check mark
+"no unit target" option that prints a write-in blank with a "per prescriber order" note.
+This is a presentation choice, not a new clinical value. Each RASS row carries a check mark
 (circle) so the current level can be marked at the bedside. "Save as
-PDF" captures the on-screen sheet itself — the PDF embeds a print-resolution image of the
+PDF" captures the on-screen sheet itself. The PDF embeds a print-resolution image of the
 exact rendered sheet, so it cannot differ from the preview or the browser print output in any
-way — and overlays interactive form fields at the captured elements' measured positions
+way, and overlays interactive form fields at the captured elements' measured positions
 (checkboxes over every check square, one mutually-exclusive radio group over the RASS
 circles, text fields over the write-in blanks). The "date created" label defaults to the day
 the configuration was created (editable); it and the optional "revision" label print in the
-footer and suffix the PDF filename for unit version-tracking — they carry no clinical
+footer and suffix the PDF filename for unit version-tracking. They carry no clinical
 content. Reworded lines, added lines, and
-unit-authored sections are local protocol content — like the nurse care pathway, they carry no
+unit-authored sections are local protocol content. Like the nurse care pathway, they carry no
 citation and are the unit's responsibility.
 
 Each printed sheet carries the verbatim reference-aid disclaimer and a footer source line
@@ -257,18 +255,18 @@ the scale's published wording (Sessler 2002, as used on the validated pediatric 
 card). Validated-instrument text is deliberately **not** unit-editable in the designer.
 
 On the workflow poster, protocol lines are unit-editable like the adult sheets, but the
-lines carrying validated values — the comatose floors, the age routing, and the positivity
-thresholds — are locked: always printed, never editable, and interpolated from the tool's
+lines carrying validated values (the comatose floors, the age routing, and the positivity
+thresholds) are locked: always printed, never editable, and interpolated from the tool's
 constants so they cannot drift. The card set and the poster print as landscape Letter pages (the bedside
 ring-deck format).
 
 The attention picture cards are **original artwork** (drawn for this site as inline SVG).
-The card faces are deliberately picture-only — naming the object or marking its set on the
+The card faces are deliberately picture-only: naming the object or marking its set on the
 face would cue the recognition task's answer; set membership is listed on the clinician
 instructions card instead.
-The validated element of the picture tasks is the procedure — ten presentations for psCAM-ICU
+The validated element of the picture tasks is the procedure (ten presentations for psCAM-ICU
 Feature 2; five memory pictures plus five "other" pictures for the pCAM-ICU memory-pictures
-alternative — not the specific images; the instructions card notes that units may substitute
+alternative), not the specific images; the instructions card notes that units may substitute
 their validated picture set per local practice. Mirror tests pin the card content to the
 pediatric tool's modules (`tests/unit/templates-peds.test.js`).
 
@@ -276,10 +274,10 @@ pediatric tool's modules (`tests/unit/templates-peds.test.js`).
 runs the pCAM-ICU memory-pictures alternative to Feature 2 as an on-screen task, not only a printed
 reference. Under Feature 2 it shows the five memory pictures, then steps through all ten recognition
 pictures with a Seen / New control per picture, scoring errors live against each picture's set
-membership — a memory picture answered "new", or a distractor answered "seen", is an error. Tapping
+membership: a memory picture answered "new", or a distractor answered "seen", is an error. Tapping
 any picture, or the "Present to child" button, opens a large one-picture-at-a-time modal to turn
 toward the bed: it walks the five memory pictures, then the ten recognition pictures where Seen / New
-is picked in the modal and auto-advances (an accessible dialog — focus-trapped, Esc/arrow-key
+is picked in the modal and auto-advances (an accessible dialog: focus-trapped, Esc/arrow-key
 operable). It
 reuses the shared stimulus deck (`src/js/shared/stim-deck.js`) and artwork
 (`src/js/templates/stim-art.js`), so the on-screen task and the printed picture cards draw the same
@@ -300,8 +298,8 @@ only), and the 4AT. The instruments are conditionally recommended by the
 Geriatric Emergency Department Guidelines 2.0 delirium chapter (Lee 2026,
 recommendation 4: "4AT, bCAM, CAM-ICU, mCAM, AMT-4, or RASS may be used to
 rule in or rule out delirium"; recommendation 5: the DTS "may be used to rule
-out delirium" — all conditional, very-low-certainty evidence). GED 2.0 makes
-no recommendation for universal screening — it notes routine screening of all
+out delirium"; all conditional, very-low-certainty evidence). GED 2.0 makes
+no recommendation for universal screening. It notes routine screening of all
 older ED adults is resource-intensive and offers validated risk scores to
 identify low-risk patients and reduce universal screening; the tool's Setup
 tab carries that framing verbatim.
@@ -311,14 +309,14 @@ ED Guidelines 2014).** The Delirium Triage Screen is positive when the RASS is
 anything other than 0, or the patient makes ≥2 errors spelling "LUNCH"
 backwards (a missing letter is one error; refusal or inability to start is
 positive; the task stops after a >15-second pause). Sensitivity 98% for both
-physician and non-physician raters — a negative DTS makes delirium unlikely and, in the two-step pathway, does not require the bCAM on its own (GED 2.0 grades this rule-out very-low certainty; continue clinical evaluation if suspicion persists). A
+physician and non-physician raters. A negative DTS makes delirium unlikely and, in the two-step pathway, does not require the bCAM on its own (GED 2.0 grades this rule-out very-low certainty; continue clinical evaluation if suspicion persists). A
 positive DTS triggers the bCAM: Feature 1 (acute change or fluctuation, by
 informant; assumed positive when no informant is available and Features 2 and
 3-or-4 are positive) AND Feature 2 (months backwards December→July, >1 error
-or unable — the required cardinal feature) AND (Feature 3: RASS ≠ 0, carried
+or unable; the required cardinal feature) AND (Feature 3: RASS ≠ 0, carried
 over from the arousal assessment, OR Feature 4: four yes/no questions in
 alternating sets plus a two-step command, ANY error positive). Physician
-84%/95.8%, non-physician 78%/96.9%. RASS −4/−5 is stupor/coma — the tool
+84%/95.8%, non-physician 78%/96.9%. RASS −4/−5 is stupor/coma: the tool
 records "unable to assess" and directs reassessment, mirroring the CAM-ICU
 and pediatric gates. The RASS rows carry the ED-adapted behavioral anchors
 printed on the DTS/bCAM worksheets (e.g. −1 "sustained awakening to voice
@@ -331,9 +329,9 @@ a negative DTS clears the bCAM features behind it).
 
 **4AT v1.2 (MacLullich/Ryan/Cash; free to use; SIGN 157 and NICE CG103 2023
 recommend it for ED/acute settings).** Four items with the form's verbatim
-anchors — alertness (0/4), AMT4 (age, date of birth, place, current year:
+anchors: alertness (0/4), AMT4 (age, date of birth, place, current year:
 0/1/2), attention months-backwards (≥7 months = 0; starts but <7 = 1;
-untestable = 2), acute change or fluctuating course (0/4) — summing 0–12.
+untestable = 2), acute change or fluctuating course (0/4), summing 0–12.
 Bands per the form: ≥4 possible delirium ± cognitive impairment; 1–3 possible
 cognitive impairment; 0 delirium unlikely (the tool carries the form's caveat
 that 0 does not definitively exclude delirium when item-4 information is
@@ -348,14 +346,14 @@ ADEPT tool (Shenvi 2020) and the ACEP ED-DEL toolkit. The intro's
 epidemiology (prevalence ~8–10%, with reported estimates ranging 6–38%;
 ~76% missed; 6-month mortality HR ≈ 1.7) carries Han 2009/2010 for the
 8–10% and missed-case figures and GED 2.0 for the 6–38% range (an earlier
-"8–17%" figure appeared in none of the cited sources and was corrected —
+"8–17%" figure appeared in none of the cited sources and was corrected;
 see §6.5). The tool is de-identified by construction and
 generates a local print/PDF summary only (assessor, editable assessment
 time, pathway, scores, actions started, and de-identified notes). Out of
 scope in this version: ED-specific risk-stratification scores (GED 2.0
 recommendations 1–3), head-CT decision support (GED 2.0 recommendation 6
 found insufficient evidence to recommend for or against), and agitation
-pharmacotherapy — all listed for future work.
+pharmacotherapy; all listed for future work.
 
 **Licensing note.** The 4AT is free to use (the4at.com; form © MacLullich,
 Ryan, Cash). The DTS and bCAM flowsheets are © 2012 Vanderbilt University
@@ -385,7 +383,7 @@ so the printed cards cannot carry different scripts, thresholds, or wording than
 interactive tool: the ED-adapted RASS behavioral anchors (Vanderbilt DTS/bCAM worksheets;
 scale Sessler 2002); the DTS positivity rule (altered arousal or ≥ 2 LUNCH-backwards errors
 or unable → positive; RASS 0 with 0–1 errors → negative) and its LUNCH script; the bCAM
-stepper — Feature 1 (acute change / fluctuation), Feature 2 (months-backward inattention, the
+stepper: Feature 1 (acute change / fluctuation), Feature 2 (months-backward inattention, the
 required cardinal feature), Feature 3 (RASS ≠ 0), Feature 4 (the alternating question sets,
 the two-step command, and the any-error rule) and the "Feature 1 + Feature 2 + (Feature 3 or
 Feature 4)" positivity rule; and the 4AT four items, point values, and 0 / 1–3 / ≥ 4 bands
@@ -482,46 +480,46 @@ Every source in the application's citation registry, reproduced as the tool stor
 
 These are stated by the tool itself or follow directly from how it is implemented:
 
-1. **The risk-factor tally is a non-validated heuristic.** It is a count of present factors, not a calibrated probability. Every factor counts **+1** (a flat checklist — no weighting), and the band boundaries are explicitly labelled heuristic. For validated ICU prediction the tool directs clinicians to **E-PRE-DELIRIC** (admission) and **PRE-DELIRIC** (after 24 h). The only score-linked escalation prompt (geriatrics above a count of 6) is pragmatic and labelled as such; there is no score-triggered psychiatry suggestion.
-2. **Adult-ICU scope (a prominent panel at the pathway picker, not just prose).** CAM-ICU, RASS, and ABCDEF are validated for the **adult ICU**; **ICDSC** is the in-ICU alternative screen. They are not validated for other settings — the picker panel directs users to the setting-appropriate validated tool: **ED → bCAM (DTS → bCAM) or 4AT**; **general / step-down ward → 3D-CAM or 4AT**; **pediatric ICU → pCAM-ICU (≥ 5 yr) / psCAM-ICU (6 mo–5 yr) / CAPD (all ages)**; **pregnancy →** the adult ICU screens apply but medication safety/dosing must be adjusted. The framing is "developed and validated in the adult ICU; use the setting-appropriate tool elsewhere," not a claim that these instruments were disproven outside the ICU.
-3. **CAM-ICU is a screen, not a diagnosis.** The tool flags reduced accuracy in primary neurologic injury/TBI, aphasia, and deep sedation; requires scoring against the patient's baseline; and notes that missed cases are predominantly hypoactive — hence screen every shift.
+1. **The risk-factor tally is a non-validated heuristic.** It is a count of present factors, not a calibrated probability. Every factor counts **+1** (a flat checklist, no weighting), and the band boundaries are explicitly labelled heuristic. For validated ICU prediction the tool directs clinicians to **E-PRE-DELIRIC** (admission) and **PRE-DELIRIC** (after 24 h). The only score-linked escalation prompt (geriatrics above a count of 6) is pragmatic and labelled as such; there is no score-triggered psychiatry suggestion.
+2. **Adult-ICU scope (a prominent panel at the pathway picker, not just prose).** CAM-ICU, RASS, and ABCDEF are validated for the **adult ICU**; **ICDSC** is the in-ICU alternative screen. They are not validated for other settings. The picker panel directs users to the setting-appropriate validated tool: **ED → bCAM (DTS → bCAM) or 4AT**; **general / step-down ward → 3D-CAM or 4AT**; **pediatric ICU → pCAM-ICU (≥ 5 yr) / psCAM-ICU (6 mo–5 yr) / CAPD (all ages)**; **pregnancy →** the adult ICU screens apply but medication safety/dosing must be adjusted. The framing is "developed and validated in the adult ICU; use the setting-appropriate tool elsewhere," not a claim that these instruments were disproven outside the ICU.
+3. **CAM-ICU is a screen, not a diagnosis.** The tool flags reduced accuracy in primary neurologic injury/TBI, aphasia, and deep sedation; requires scoring against the patient's baseline; and notes that missed cases are predominantly hypoactive, hence the every-shift screening.
 4. **CIWA-Ar is not validated in intubated/sedated/delirious patients.** CIWA-Ar requires an awake, communicative, non-delirious patient who can self-report; for withdrawal delirium and intubated/sedated ICU patients the tool directs monitoring with an objective structured scale (RASS, CAM-ICU, MINDS) per the institutional withdrawal protocol (`asam2020`, `awissi2013`).
 5. **The deliriogenic list is a review prompt, not a risk ranking.** Of 103 agents, the strongest classes (benzodiazepines, opioids, anticholinergics) are on by default and the rest are opt-in; benzodiazepines, strong anticholinergics, and meperidine carry a citation-backed *higher-risk* flag. Actual risk still varies by agent, dose, route, organ function, interactions, and temporal association. Beers Criteria apply to adults ≥ 65.
 6. **No pharmacotherapy is FDA-approved for delirium.** Antipsychotics have not been shown to treat or shorten delirium (MIND-USA negative; PADIS 2025 was unable to recommend for or against); the tool restricts them to short-term control of dangerous agitation with documented indication, QTc monitoring, daily reassessment, and no discharge continuation without a psychiatric indication. Doses shown are generic starting-point references ("cap per local protocol"), not orders.
 7. **Not a record system.** The assessment is a session scratchpad that clears on reload and is not saved to any chart; the PDFs are generated locally. The tool is not a substitute for the medical record or for a sanctioned order set.
 8. **Subtype figures are the proportion of delirious cases** (la Cour 2022), not population prevalence (Krewulak 2018); they are approximate, drawn from the cited reviews, and should not be quoted as exact constants.
-9. **Reference-archive completeness.** A substantial minority of registry sources are cited by canonical URL but not held in the local archive; `references/INDEX.md` records the per-source archive status ("not archived" rows) and is the authoritative list, and the §3 registry marks the same sources **†**. Notable examples: Sessler 2002 (RASS), the Pro-MEDIC main RCT (only the statistical-analysis plan and an editorial are archived), MIND-USA, and the thiamine dose sources (EFNS, RCP, ESPEN).
+9. **Reference-archive completeness.** A substantial minority of registry sources are cited by canonical URL but not held in the local archive; `references/INDEX.md` records the per-source archive status ("not archived" rows) and is the authoritative list, and the §3 registry marks the same sources **†**. Examples include Sessler 2002 (RASS), the Pro-MEDIC main RCT (only the statistical-analysis plan and an editorial are archived), MIND-USA, and the thiamine dose sources (EFNS, RCP, ESPEN).
 
 ---
 
 ## 5. Questions for clinical reviewers
 
-**Resolved in the current revision** (recorded in the change log, §6.5 — each still welcomes a confirming sign-off):
+**Resolved in the current revision** (recorded in the change log, §6.5; each still awaits a confirming sign-off):
 
-- **(1) Risk-factor weighting** — flattened to all +1 (the dementia +2 was removed) so the unvalidated tally cannot imply a calibration. (Whether *"high APACHE-II"* / *age ≥ 70* are the right operationalisations remains a fair review point.)
-- **(2) Risk-band escalation** — the score-triggered psychiatry suggestion was removed (psychiatry follows clinical features, not a count); geriatrics above 6 is kept, relabelled "pragmatic, not validated."
-- **(3) CAM-ICU inattention cut-point** — the Pictures ASE wording was corrected to the validated 10-item recognition task (> 2/10), so the > 2-error cut-point is genuinely equivalent across modalities.
-- **(5) Subtype wording** — restated as the *proportion of delirious cases* (la Cour 2022), explicitly distinguished from population prevalence (Krewulak 2018).
-- **(6) Deliriogenic-list breadth/defaults** — higher-risk agents now flagged (benzodiazepines, strong anticholinergics, meperidine); the long tail defaults off (opt-in); dexmedetomidine delisted; metoclopramide recategorised.
-- **(8) Thiamine guidance** — now cited (ESPEN at-risk range; EFNS vs RCP Wernicke regimens stated as a disclosed divergence — see §2.6).
+- **(1) Risk-factor weighting**: flattened to all +1 (the dementia +2 was removed) so the unvalidated tally cannot imply a calibration. (Whether *"high APACHE-II"* / *age ≥ 70* are the right operationalisations remains open to review.)
+- **(2) Risk-band escalation**: the score-triggered psychiatry suggestion was removed (psychiatry follows clinical features, not a count). Geriatrics above 6 is kept, relabelled "pragmatic, not validated."
+- **(3) CAM-ICU inattention cut-point**: the Pictures ASE wording was corrected to the validated 10-item recognition task (> 2/10), so the > 2-error cut-point is equivalent across modalities.
+- **(5) Subtype wording**: restated as the *proportion of delirious cases* (la Cour 2022), explicitly distinguished from population prevalence (Krewulak 2018).
+- **(6) Deliriogenic-list breadth/defaults**: higher-risk agents now flagged (benzodiazepines, strong anticholinergics, meperidine); the long tail defaults off (opt-in); dexmedetomidine delisted; metoclopramide recategorised.
+- **(8) Thiamine guidance**: now cited (ESPEN at-risk range; EFNS vs RCP Wernicke regimens stated as a disclosed divergence, see §2.6).
 
-**Addressed this revision — with residual points a reviewer may still weigh (pending CCO):**
+**Addressed this revision, with residual points a reviewer may still weigh (pending CCO):**
 
-- **(4) RASS target and caution zoning** — *resolved (pending CCO):* the light **0 to −2** is the only savable/shareable default; the mislabeled "−2 to −3 (moderate sedation)" option was corrected to a **−3 to −4 (deep — indication required)** band that is indication-gated (required reason + association-worded caution), and RASS −5 is now always flagged danger so a deep target cannot mask over-sedation. (Whether the amber/red zoning edges are exactly right remains a fair reviewer point.)
-- **(7) Dosing references** — *resolved (pending CCO):* labelled "conventional / expert starting references, not guideline-calibrated for delirium" (rather than chasing named sources), with the note that dexmedetomidine is a sedative infusion for ventilated patients — not a PRN antipsychotic-equivalent — so the agents are not interchangeable.
-- **(9) Melatonin** — *resolved (pending CCO):* kept as a low-risk sleep/circadian adjunct, not a delirium treatment; the "low-certainty ICU evidence" claim is anchored to the dedicated evidence (`promedic2022` + `melatonin_meta2025`), and — per the 2026-07-01 revision — the PADIS 2025 **conditional recommendation FOR melatonin** is now surfaced with its own `padis2025` cite (low certainty; no dose specified), the 0.5–3 mg range is labelled conventional sleep dosing not drawn from the cited trials (Pro-MEDIC used 4 mg), and ramelteon is noted as the PADIS-named alternative.
-- **(10) Out-of-scope gate** — *resolved (pending CCO):* a prominent (non-blocking) adult/ICU scope panel now sits at the pathway picker with setting-specific redirects (ED → bCAM/4AT; ward → 3D-CAM/4AT; peds → pCAM-ICU/psCAM-ICU/CAPD; pregnancy → adjust drug safety); ICDSC was kept as the in-ICU alternative and the Setup screening-tool selector trimmed to the two adult-ICU screens (CAM-ICU, ICDSC) so it no longer implies ward/ED validity.
+- **(4) RASS target and caution zoning**. *Resolved (pending CCO):* the light **0 to −2** is the only savable/shareable default; the mislabeled "−2 to −3 (moderate sedation)" option was corrected to a **−3 to −4 (deep: indication required)** band that is indication-gated (required reason + association-worded caution), and RASS −5 is now always flagged danger so a deep target cannot mask over-sedation. (Whether the amber/red zoning edges are exactly right remains open to review.)
+- **(7) Dosing references**. *Resolved (pending CCO):* labelled "conventional / expert starting references, not guideline-calibrated for delirium" (rather than attributing them to specific named sources), with the note that dexmedetomidine is a sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent, so the agents are not interchangeable.
+- **(9) Melatonin**. *Resolved (pending CCO):* kept as a low-risk sleep/circadian adjunct, not a delirium treatment; the "low-certainty ICU evidence" claim is anchored to the dedicated evidence (`promedic2022` + `melatonin_meta2025`), and (per the 2026-07-01 revision) the PADIS 2025 **conditional recommendation FOR melatonin** is now surfaced with its own `padis2025` cite (low certainty; no dose specified), the 0.5–3 mg range is labelled conventional sleep dosing not drawn from the cited trials (Pro-MEDIC used 4 mg), and ramelteon is noted as the PADIS-named alternative.
+- **(10) Out-of-scope gate**. *Resolved (pending CCO):* a prominent (non-blocking) adult/ICU scope panel now sits at the pathway picker with setting-specific redirects (ED → bCAM/4AT; ward → 3D-CAM/4AT; peds → pCAM-ICU/psCAM-ICU/CAPD; pregnancy → adjust drug safety); ICDSC was kept as the in-ICU alternative and the Setup screening-tool selector trimmed to the two adult-ICU screens (CAM-ICU, ICDSC) so it no longer implies ward/ED validity.
 
 
 ## 6. Governance & maintenance
 
-This section defines who owns the clinical content, how often it is reviewed, what triggers an out-of-cycle review, how each change is recorded, and how the validated published instruments (CAM-ICU, RASS) are attributed and kept distinct from the tool's home-grown checklist tally. It governs the **source content** in this repository. It is separate from the **per-deployment sign-off** an adopting unit records in the Setup tab (Protocol Version, Medical Director, CNO/Nurse Leader, Last Reviewed, Next Review Due, Footer Disclaimer) — see §6.2.
+This section defines who owns the clinical content, how often it is reviewed, what triggers an out-of-cycle review, how each change is recorded, and how the validated published instruments (CAM-ICU, RASS) are attributed and kept distinct from the tool's home-grown checklist tally. It governs the **source content** in this repository. It is separate from the **per-deployment sign-off** an adopting unit records in the Setup tab (Protocol Version, Medical Director, CNO/Nurse Leader, Last Reviewed, Next Review Due, Footer Disclaimer); see §6.2.
 
 ### 6.1 Roles & ownership
 
 This section names the people accountable for the clinical content and sets the sign-off discipline by which **no clinical value, threshold, band, cut-point, dose, instrument logic, or citation reaches a release without recorded approval.** It names a single accountable **Clinical Content Owner (CCO)**; a **Deputy CCO** who preserves that accountability when the owner is unavailable; a **Non-Device CDS Boundary Owner** answerable for the device/non-device posture; and an advisory **reviewer panel** mapped to the tool's content domains.
 
-These roles are a **self-imposed internal-review discipline — not a regulatory determination, clearance, or any claim of FDA status.** (The tool is an internal, non-distributed reference aid outside FDA premarket reach; see `INTENDED_USE.md` §10.) This section governs the **source content** in this repository and is kept separate from the **per-deployment sign-off** an adopting unit records in the Setup tab (see the two-layer table below and §6.2). Every field marked `[TBD]` / `[ ]` is completed by whoever takes the role.
+These roles are a **self-imposed internal-review discipline, not a regulatory determination, clearance, or any claim of FDA status.** (The tool is an internal, non-distributed reference aid outside FDA premarket reach; see `INTENDED_USE.md` §10.) This section governs the **source content** in this repository and is kept separate from the **per-deployment sign-off** an adopting unit records in the Setup tab (see the two-layer table below and §6.2). Every field marked `[TBD]` / `[ ]` is completed by whoever takes the role.
 
 **Accountability at a glance.**
 
@@ -534,16 +532,16 @@ These roles are a **self-imposed internal-review discipline — not a regulatory
 
 #### Clinical Content Owner (CCO)
 
-A **single named clinician — not a committee —** is accountable for the clinical content of the tool. Accountability runs to the **risk controls** in the hazard analysis (`docs/HAZARD_ANALYSIS.md`), not to the numbers alone: where a clinical value, label, or scope statement is the mitigation for an identified hazard (e.g. the "pragmatic, not validated" framing of the §2.1 tally, the antipsychotic "short-term agitation/safety control only — not a delirium treatment" caveat, the RASS deep-target indication gate, the adult-ICU scope panel), the CCO owns that the control is present, faithful to its source, and adequate.
+A **single named clinician**, not a committee, is accountable for the clinical content of the tool. Accountability runs to the **risk controls** in the hazard analysis (`docs/HAZARD_ANALYSIS.md`), not to the numbers alone: where a clinical value, label, or scope statement is the mitigation for an identified hazard (e.g. the "pragmatic, not validated" framing of the §2.1 tally, the antipsychotic "short-term agitation/safety control only, not a delirium treatment" caveat, the RASS deep-target indication gate, the adult-ICU scope panel), the CCO owns that the control is present, faithful to its source, and adequate.
 
 **Scope of accountability.** The CCO is accountable for the accuracy and provenance of every:
 
 - clinical value, threshold, score band, **cut-point**, and drug dose;
 - instrument logic reproduced from a validated source (CAM-ICU, RASS) and every **disclosed deviation** from it (§6.6 modification register);
-- citation and its assigned **evidence tier / grade** (§6.4 — V / G / R / P), and any re-tiering; and
+- citation and its assigned **evidence tier / grade** (§6.4: V / G / R / P), and any re-tiering; and
 - risk control in the hazard analysis that any of the above implements.
 
-The CCO approves every change-log entry (§6.5), signs each scheduled and triggered review (§6.2, §6.3), confirms the non-device CDS design check (§6.7), and attests at each review that every output still **supports rather than directs** (CDS criterion 3) and keeps its **basis independently reviewable** — citation and tier visible at the point of use (CDS criterion 4). Until the CCO — or the Deputy acting in role — has signed, the affected content keeps its "pending" status and **must not be represented as clinically endorsed** in any deployment. The §6.5 rows dated 2026-06-27 are in exactly this state.
+The CCO approves every change-log entry (§6.5), signs each scheduled and triggered review (§6.2, §6.3), confirms the non-device CDS design check (§6.7), and attests at each review that every output still **supports rather than directs** (CDS criterion 3) and keeps its **basis independently reviewable**, with citation and tier visible at the point of use (CDS criterion 4). Until the CCO (or the Deputy acting in role) has signed, the affected content keeps its "pending" status and **must not be represented as clinically endorsed** in any deployment. The §6.5 rows dated 2026-06-27 are in exactly this state.
 
 **Required competence (CCO and Deputy).**
 
@@ -582,12 +580,12 @@ Deputy Clinical Content Owner
 
 #### Non-Device CDS Boundary Owner (regulatory posture)
 
-A single named person is accountable for the **device / non-device boundary call** — non-device CDS criterion 1, "no device data stream." The non-device posture holds **only while every input is manual clinician entry**; ingesting a device signal fails criterion 1 regardless of how well the other criteria are met (see the device-data-stream boundary in `CDS_NONDEVICE_MAPPING.md`). The Boundary Owner reviews and signs off **before** any change that could:
+A single named person is accountable for the **device / non-device boundary call** (non-device CDS criterion 1, "no device data stream"). The non-device posture holds **only while every input is manual clinician entry**; ingesting a device signal fails criterion 1 regardless of how well the other criteria are met (see the device-data-stream boundary in `CDS_NONDEVICE_MAPPING.md`). The Boundary Owner reviews and signs off **before** any change that could:
 
-- acquire, auto-fill, or analyze a **device signal** — a bedside monitor feed (continuous SpO₂ / HR / BP), a processed-EEG depth-of-sedation index (BIS / SedLine-type), raw or processed EEG, or an in-vitro-diagnostic / lab-analyzer feed;
-- add **autonomy** — issue an order or prescription, or compute a score / probability intended to be acted on without independent review;
+- acquire, auto-fill, or analyze a **device signal**: a bedside monitor feed (continuous SpO₂ / HR / BP), a processed-EEG depth-of-sedation index (BIS / SedLine-type), raw or processed EEG, or an in-vitro-diagnostic / lab-analyzer feed;
+- add **autonomy**: issue an order or prescription, or compute a score / probability intended to be acted on without independent review;
 - change the **intended use, intended users, or care setting** (`INTENDED_USE.md` §1–3); or
-- change **distribution** — external release, or offering the tool for use outside the holding unit.
+- change **distribution**: external release, or offering the tool for use outside the holding unit.
 
 Each such change triggers a **fresh device / non-device assessment before it ships** (`INTENDED_USE.md` §10; the "FDA CDS guidance" trigger row in §6.3). Because these are usually code or architecture changes, the Boundary Owner co-signs with the technical maintainer, who confirms no device signal is ingested. This role may be held by the CCO or held separately; record which.
 
@@ -626,13 +624,13 @@ Reviewer panel (this cycle)
 
 **Quorum and decision rule.**
 
-- A **scheduled (annual) full review** is quorate only with the CCO (or Deputy) **and** the core triad — critical-care medicine, pharmacy, and nursing; geriatrics/psychiatry is also required when any medication or escalation row is in scope.
+- A **scheduled (annual) full review** is quorate only with the CCO (or Deputy) **and** the core triad: critical-care medicine, pharmacy, and nursing; geriatrics/psychiatry is also required when any medication or escalation row is in scope.
 - A **triggered / out-of-cycle review** (§6.3) is quorate with the CCO (or Deputy) **and** the reviewer(s) mapped to the affected domain(s).
 - The CCO holds final accountability. Unresolved reviewer disagreement is recorded in the change-log row (§6.5), not silently overridden.
 
 #### Conflict-of-interest disclosure & recusal
 
-Because the tool carries drug selection, dosing references, and a deliriogenic-medication list — and may, in future, touch device feeds — every person who signs content or a boundary call (CCO, Deputy, Boundary Owner, and each reviewer) discloses relevant interests **before** signing: payments, consulting / advisory / speaker roles, equity, grants, royalties, or patents involving any pharmaceutical or medical-device manufacturer, and authorship of any cited source. "None" is a valid disclosure and is recorded. Disclosures are refreshed at each scheduled review (§6.2) and whenever they change. A declared interest does not bar panel membership; it bars signing the conflicted item. A conflicted individual **recuses** from signing the affected row — for example, anyone with ties to an antipsychotic, dexmedetomidine, or melatonin manufacturer recuses from the §2.7 / §2.8 drug-content sign-off — and the recusal and the substitute signer are noted in the change-log row (§6.5) and the register below.
+Because the tool carries drug selection, dosing references, and a deliriogenic-medication list (and may, in future, touch device feeds), every person who signs content or a boundary call (CCO, Deputy, Boundary Owner, and each reviewer) discloses relevant interests **before** signing: payments, consulting / advisory / speaker roles, equity, grants, royalties, or patents involving any pharmaceutical or medical-device manufacturer, and authorship of any cited source. "None" is a valid disclosure and is recorded. Disclosures are refreshed at each scheduled review (§6.2) and whenever they change. A declared interest does not bar panel membership; it bars signing the conflicted item. A conflicted individual **recuses** from signing the affected row. For example, anyone with ties to an antipsychotic, dexmedetomidine, or melatonin manufacturer recuses from the §2.7 / §2.8 drug-content sign-off. The recusal and the substitute signer are noted in the change-log row (§6.5) and the register below.
 
 ```
 Conflict-of-interest register
@@ -649,10 +647,10 @@ Conflict-of-interest register
 - **Term.** Default **2 years**, renewable. Reviewer terms are staggered so the whole panel never turns over at once.
 - **Deputy at all times.** A Deputy is named whenever a CCO is in post. On a CCO vacancy the Deputy becomes acting CCO until a successor is appointed.
 - **Continuity / fail-safe.** While there is no CCO and no acting Deputy, clinical content is **frozen** (see the vacancy rule above): no §6.5 rows are signed and no new clinical values ship until a qualified owner is in place; pending rows stay pending.
-- **Handover.** The outgoing CCO records open items for the successor — unsigned §6.5 rows and open entries in the §6.6 modification register.
+- **Handover.** The outgoing CCO records open items for the successor: unsigned §6.5 rows and open entries in the §6.6 modification register.
 - **Retention.** Signed attestations, reviewer sign-offs, and the COI register are retained alongside the change log so the accountability trail is auditable.
 
-#### Accountability map — which role attests to which held-to criterion
+#### Accountability map: which role attests to which held-to criterion
 
 Each held-to property (a self-imposed standard, not a regulatory claim) has one answerable role and one place the attestation is recorded.
 
@@ -666,16 +664,16 @@ Each held-to property (a self-imposed standard, not a regulatory claim) has one 
 | Risk controls adequate, residual risk acceptable | CCO | `docs/HAZARD_ANALYSIS.md`; §6.5 sign-off |
 | Conflict-of-interest disclosure & recusal | CCO, Deputy, Boundary Owner, each reviewer | COI register (above); refreshed each cycle (§6.2) |
 
-#### Two governance layers — do not conflate them
+#### Two governance layers: do not conflate them
 
 | Layer | Who owns it | Where it lives | What it covers |
 |---|---|---|---|
 | Source-content governance | Clinical Content Owner + Non-Device CDS Boundary Owner + reviewer panel (this repo) | This document + the change log (§6.5) + the COI register | The evidence base: every instrument, threshold, band, cut-point, dose, citation, and grade shipped in the code, the risk controls they implement, and the device/non-device boundary the content is built against |
 | Deployment-instance sign-off | The adopting unit's Medical Director / CNO | Setup tab fields, saved to that unit's local `settings.json` | One unit's local adoption: protocol version label, who approved *this deployment*, that unit's own review dates and footer |
 
-The Setup-tab "Last Reviewed / Next Review Due" fields are the **local unit's** sign-off on its own configured protocol. They are not the source-content review and must not be read as evidence that the underlying clinical content — or the non-device boundary it is built against — was reviewed on those dates. The source-content review dates live in §6.2.
+The Setup-tab "Last Reviewed / Next Review Due" fields are the **local unit's** sign-off on its own configured protocol. They are not the source-content review and must not be read as evidence that the underlying clinical content (or the non-device boundary it is built against) was reviewed on those dates. The source-content review dates live in §6.2.
 
-#### CCO sign-off attestation — content revision 2026-06-27
+#### CCO sign-off attestation: content revision 2026-06-27
 
 The 2026-06-27 clinical-content changes are recorded in §6.5 and currently carry `[CCO — pending]`. Until this attestation is signed, that revision is **unapproved content** and must be labelled as awaiting clinical sign-off in any deployment; adopters must not treat it as clinician-approved.
 
@@ -699,7 +697,7 @@ CCO sign-off attestation
                             accordingly. Until signed, the revision stays unapproved.
 ```
 
-**Dated sign-off — 2026-06-27 §6.5 entries.** A domain may not be marked approved until both the CCO (or Deputy) and the mapped reviewer have signed. Record names and dates; `[ ]` until signed.
+**Dated sign-off for the 2026-06-27 §6.5 entries.** A domain may not be marked approved until both the CCO (or Deputy) and the mapped reviewer have signed. Record names and dates; `[ ]` until signed.
 
 | Domain — §6.5 entries covered | Tier(s) | Mapped reviewer | CCO / Deputy sign-off (name, date) | Reviewer sign-off (name, date) | Status |
 |---|---|---|---|---|---|
@@ -722,7 +720,7 @@ Record each appointment and the review it covers; this is the auditable record o
 | [TBD] | Reviewer — critical-care nursing | [TBD] | [TBD] | [TBD] | [TBD] |
 | [TBD] | Reviewer — geriatrics / psychiatry | [TBD] | [TBD] | [TBD] | [TBD] |
 
-### 6.2 Review status — "last reviewed / next review due"
+### 6.2 Review status: "last reviewed / next review due"
 
 Maintain this block and update it at every scheduled or triggered review. `Next review due` is the **earlier** of the annual anniversary and the next expected source cycle (§6.3).
 
@@ -749,10 +747,10 @@ Base cadence       : Annual full review, plus event-driven reviews on any in-sco
 | §2.10 Pediatric card set | Mirrors the peds tool's data modules | [date] | [name] |
 | §2.11 ED screening (DTS/bCAM/4AT) | Han 2013; Vanderbilt DTS/bCAM manuals v1.0; 4AT v1.2; GED 2.0; SIGN 157; NICE CG103; ADEPT; ED-DEL | 2026-07-02 | pending ED-clinician sign-off |
 
-### 6.3 Review cadence — source-cycle triggers
+### 6.3 Review cadence: source-cycle triggers
 
 ED source watch (added with §2.11): the 4AT form version (v1.2, the4at.com),
-GED Guidelines 2.0 (Lee 2026 — new; watch for errata/updates), the Vanderbilt
+GED Guidelines 2.0 (Lee 2026, new; watch for errata/updates), the Vanderbilt
 DTS/bCAM manuals (eddelirium.org, v1.0 2015), SIGN 157, NICE CG103, and the
 ADEPT tool / ACEP ED-DEL change package. Re-verify on each release that the
 rendered instrument wording still matches the archived copies in
@@ -774,7 +772,7 @@ The base cadence is an **annual full review**. In addition, any publication in t
 
 ### 6.4 Evidence-tier / grade scheme
 
-Every numeric or directive output carries a tier so a reviewer can see at a glance whether it rests on a validated instrument, a guideline, a label, or a pragmatic choice. The tier is recorded in the change log (§6.5) and should be surfaceable to the clinician (citation + grade visible — FDA non-device CDS criterion 4).
+Every numeric or directive output carries a tier so a reviewer can see at a glance whether it rests on a validated instrument, a guideline, a label, or a pragmatic choice. The tier is recorded in the change log (§6.5) and should be surfaceable to the clinician (citation + grade visible, FDA non-device CDS criterion 4).
 
 | Tier | Meaning | Examples in this tool | Maintenance rule |
 |---|---|---|---|
@@ -796,7 +794,7 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 |------|----------------|--------------|-----|-----------|------|-------|---------|
 ```
 
-**Entries — content revision 2026-07-15** (external clinical review + cross-surface consistency audit; code, PDFs, templates, and this document updated together; **pending CCO clinical sign-off**):
+**Entries: content revision 2026-07-15** (external clinical review + cross-surface consistency audit; code, PDFs, templates, and this document updated together; **pending CCO clinical sign-off**):
 
 | Date | Section / item | What changed | Why | Source(s) | Tier | Owner | Synced? |
 |---|---|---|---|---|---|---|---|
@@ -821,7 +819,7 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 | 2026-07-15 | §3 / §4 / INDEX.md bookkeeping | Registered the nine 2026-07-03 keys in the §3 table and per-tab "Citations mapped" lists; added the five missing **†** markers (ICDSC, MIND-USA, Balas 2014, Tang 2025, ACB); pointed §4 item 9 at INDEX.md as the authoritative archive record; added the missing INDEX.md rows (Hodgson, Maldonado, Flaherty 2011, Inouye & Charpentier, Pisani, Project BETA, NG10, EFNS, RCP, ESPEN, MDCalc pages, ASAM, IDSA) | The registry table is the audit contract and had drifted from the shipped registry and the archive | (mechanism) | Provenance | [CCO — pending] | [x] |
 | 2026-07-15 | ED bCAM state comment | `state.js` Feature-4 value-set comment now lists the `'unable'` state the sanitizer and UI already carry | A maintainer trusting the comment could drop the incomprehensible/no-attempt positivity path in a refactor | bCAM manual | V (comment only) | [CCO — pending] | [x] |
 
-**Entries — citation strengthening 2026-07-03** (no clinical value changed — added foundational/supporting primary sources for values already in the tool, and made each printed sheet's footer list every source its content draws on; **pending CCO clinical sign-off**):
+**Entries: citation strengthening 2026-07-03** (no clinical value changed: added foundational/supporting primary sources for values already in the tool, and made each printed sheet's footer list every source its content draws on; **pending CCO clinical sign-off**):
 
 | Date | Section / item | What changed | Why | Source(s) | Tier | Owner | Synced? |
 |---|---|---|---|---|---|---|---|
@@ -832,7 +830,7 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 | 2026-07-03 | Ward pathway | Cited 3D-CAM for the general/step-down-ward recommendation | Named as the recommended ward screen without a source | `marcantonio2014_3dcam` | Provenance | [CCO — pending] | [x] |
 | 2026-07-03 | Printable sheets | The footer source list is now derived from the blocks each sheet renders, so every printed dose, figure, and rule is attributed | The footer was the only source list shown and had drifted from the block-level cites | (mechanism) | Provenance | [CCO — pending] | [x] |
 
-**Entries — content revision 2026-06-27** (code, PDFs, and this document updated together; **pending CCO clinical sign-off** — fill the Owner cell on sign-off):
+**Entries: content revision 2026-06-27** (code, PDFs, and this document updated together; **pending CCO clinical sign-off**; fill the Owner cell on sign-off):
 
 | Date | Section / item | What changed | Why | Source(s) | Tier | Owner | Synced? |
 |---|---|---|---|---|---|---|---|
@@ -849,7 +847,7 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 | 2026-06-27 | §2.3 RASS target | Corrected the mislabeled "−2 to −3 (moderate sedation)" option to **−3 to −4 (deep — indication required)** (RASS −2 is light, −3 moderate); kept 0 to −2 (light) as the only savable/shareable default; added an indication-gated reason field + association-worded caution; made RASS −5 (unarousable) always danger | The "−2 to −3 (moderate)" label was wrong and gating it would block a legitimate light −2; the depth-harm evidence is association (observational + 1 small RCT + conditional PADIS), not causation; a deep target must not mask over-sedation | `sessler2002`, `ely2003`, `padis2018` | P (label/UX) + V (scale) | [CCO — pending] | [x] |
 | 2026-06-27 | §2.2 / §4 Adult-ICU scope | Added a prominent (non-blocking) scope panel to the pathway picker with setting-specific redirects (ED → bCAM/4AT; ward → 3D-CAM/4AT; peds → pCAM-ICU ≥5 / psCAM-ICU 6mo–5 / CAPD all-ages; pregnancy → adjust drug safety); kept ICDSC as the in-ICU alternative and trimmed the Setup screening-tool selector to CAM-ICU + ICDSC | CAM-ICU/RASS/ABCDEF are validated in the adult ICU only; the scope guidance was prose-only and the Setup selector implied ward/ED validity it did not drive | `ely2001`, `camicu_worksheet`, `icdsc_bergeron`, `padis2018` | V (instruments) + G | [CCO — pending] | [x] |
 
-**Entries — content revision 2026-07-01** (clinical-accuracy audit remediation; code, PDFs, templates, and this document updated together; **pending CCO clinical sign-off**):
+**Entries: content revision 2026-07-01** (clinical-accuracy audit remediation; code, PDFs, templates, and this document updated together; **pending CCO clinical sign-off**):
 
 | Date | Section / item | What changed | Why | Source(s) | Tier | Owner | Synced? |
 |---|---|---|---|---|---|---|---|
@@ -880,7 +878,7 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 | 2026-07-01 | §7.1 CAPD caveat | Developmental-delay note extended with the ventilated-children figures (Gupta 2021: specificity 44.8% overall, 16.5% with delay at ≥ 9); `gupta2021_capd_mv` registered and listed on the Screening tab | The archived study directly quantifies the screen's weakness in the tool's core population | Gupta 2021 (`gupta2021_capd_mv`) | V (instrument caveat) | [CCO — pending] | [x] |
 | 2026-07-01 | §2.2 import integrity | A restored/imported assessment re-derives its CAM verdict from the stored features + RASS (a stored `camResult` is never displayed as-is) | A hand-edited or stale export could show a verdict its features do not support | `camicu_worksheet` (algorithm) | V | [CCO — pending] | [x] |
 
-**Entries — content revision 2026-07-16** (clinical-accuracy follow-up; page, report data, ED/adult tools, unit tests, and this document updated together; **pending CCO clinical sign-off**):
+**Entries: content revision 2026-07-16** (clinical-accuracy follow-up; page, report data, ED/adult tools, unit tests, and this document updated together; **pending CCO clinical sign-off**):
 
 | Date | Section / item | What changed | Why | Source(s) | Tier | Owner | Synced? |
 |---|---|---|---|---|---|---|---|
@@ -897,9 +895,9 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 
 CAM-ICU and RASS are **validated, published instruments** with named authors. They must be attributed correctly and reproduced faithfully, and they must stay **visually and functionally separate** from the tool's home-grown risk-factor tally so no clinician conflates the unvalidated checklist with the validated screens.
 
-**CAM-ICU (Confusion Assessment Method for the ICU).** Developed by E. Wesley Ely and colleagues, Vanderbilt University (CIBS Center / icudelirium.org); validated in `ely2001`. Operationalisation (worksheet, training manual, Pictures-ASE) per `camicu_worksheet`, `camicu_manual`, `icudelirium_monitoring`. Reproduce the four-feature algorithm and its cut-points without alteration. The Pictures-ASE is implemented as the validated 10-item recognition task scored `> 2/10` (20%) — the same cut-point as the 10-letter SAVEAHAART task — i.e. reproduced faithfully (tier V), with no tool-introduced cut-point deviation (corrected 2026-06-27; see §6.5).
+**CAM-ICU (Confusion Assessment Method for the ICU).** Developed by E. Wesley Ely and colleagues, Vanderbilt University (CIBS Center / icudelirium.org); validated in `ely2001`. Operationalisation (worksheet, training manual, Pictures-ASE) per `camicu_worksheet`, `camicu_manual`, `icudelirium_monitoring`. Reproduce the four-feature algorithm and its cut-points without alteration. The Pictures-ASE is implemented as the validated 10-item recognition task scored `> 2/10` (20%), the same cut-point as the 10-letter SAVEAHAART task. It is reproduced faithfully (tier V), with no tool-introduced cut-point deviation (corrected 2026-06-27; see §6.5).
 
-**RASS (Richmond Agitation-Sedation Scale).** Developed by Sessler et al., 2002 (`sessler2002`); reliability/validity over time established by Ely et al., 2003 (`ely2003`). Reproduce the 10-point scale (+4 Combative … −5 Unarousable) verbatim. The **target band and colour zoning are a local, configurable, PADIS-informed overlay** — not part of the validated scale — and must remain visually distinct from the scale anchors so a configured target is never mistaken for a validated cut-point.
+**RASS (Richmond Agitation-Sedation Scale).** Developed by Sessler et al., 2002 (`sessler2002`); reliability/validity over time established by Ely et al., 2003 (`ely2003`). Reproduce the 10-point scale (+4 Combative … −5 Unarousable) verbatim. The **target band and colour zoning are a local, configurable, PADIS-informed overlay**, not part of the validated scale, and must remain visually distinct from the scale anchors so a configured target is never mistaken for a validated cut-point.
 
 **Separation mandate.** The risk-factor tally (§2.1) is a non-validated count (tier P). It must not:
 - adopt CAM-ICU or RASS visual styling, colour language, or results panel;
@@ -920,7 +918,7 @@ Any future UI change must preserve this separation. The instruments stay attribu
 
 ### 6.7 Non-device CDS design check (standing review gate)
 
-At every scheduled and triggered review, re-verify each output still satisfies the design rubric the tool is held to — the FDA non-device CDS criteria (Cures Act §520(o)(1)(E); Jan-2026 final guidance). Two criteria bind the content design and are re-checked every cycle:
+At every scheduled and triggered review, re-verify each output still satisfies the design rubric the tool is held to: the FDA non-device CDS criteria (Cures Act §520(o)(1)(E); Jan-2026 final guidance). Two criteria bind the content design and are re-checked every cycle:
 
 - **Supports, does not direct.** Each output offers options or complete information for the clinician to weigh, not a single push-button directive. No output instructs a specific action without surfacing alternatives and the "verify against local policy / prescriber & pharmacy review" framing.
 - **Basis is independently reviewable.** For every threshold, band, cut-point, and dose, the clinician can see the citation and its tier/grade (§6.4), so they can independently review the basis rather than rely on the tool. P-tier numbers carry the "pragmatic, not validated" note; V-tier instruments carry their attribution (§6.6).
@@ -931,17 +929,17 @@ Record the outcome of this check in the review ledger (§6.2). A failed check is
 
 ## 7. Pediatric tool (/peds/)
 
-A sibling bedside reference for the pediatric ICU at `/peds/`, built on the same framework and held to the same rules. Clinical values are sourced and carry a clinician/pharmacy sign-off gate; pharmacologic content is off-label and limited-evidence. This section grows as the pediatric modules land — screening first.
+A sibling bedside reference for the pediatric ICU at `/peds/`, built on the same framework and held to the same rules. Clinical values are sourced and carry a clinician/pharmacy sign-off gate; pharmacologic content is off-label and limited-evidence. This section grows as the pediatric modules are added, beginning with screening.
 
-### 7.1 Screening — arousal gate + CAPD / pCAM-ICU / psCAM-ICU
+### 7.1 Screening: arousal gate + CAPD / pCAM-ICU / psCAM-ICU
 
 The user picks the validated screen for the child's age and developmental level; arousal is scored first as the gate.
 
 **Arousal gate (all screens).** RASS **−4/−5** (or SBS **−2/−3**) = comatose → **"Unable to assess"**; screen once the child responds to voice (RASS ≥ −3). Same logic as the adult CAM-ICU gate (§2.2), carried into all three pediatric tools.
 
-**CAPD (Cornell Assessment of Pediatric Delirium) — all ages (0–21 yr).** Eight-item observational nursing screen rated over the shift against age-expected behavior; each item 0–4 (total 0–32). Items 1–4 (eye contact, purposeful actions, awareness, communication) are reverse-scored (Never = 4 … Always = 0); items 5–8 (restless, inconsolable, underactive, slow to respond) are scored Never = 0 … Always = 4. **Cut point ≥ 9 = positive** (Traube 2014: sensitivity 94.1%, specificity 79.2%). **Developmental-delay caveat surfaced at the result** (matching in-app text): CAPD ≥ 9 remains positive, but specificity falls in baseline developmental delay (Traube 2014: 51.2% at ≥ 9; Gupta 2021: 44.8% overall, 16.5% with delay in ventilated children), so the result is interpreted against the child's own developmental baseline and the anchors, with experienced-clinician or pediatric-psychiatry review when needed. The tool does not advise substituting a higher cut point — reduced specificity is a false-positive problem, not a validated replacement threshold, and the ventilated-cohort ≥ 17 figure is population-specific. The 0–32 score and positive/negative are withheld until all eight items are rated. **Anchor-band mapping:** the source anchor table defines point-age columns (NB, 4 wk, 6 wk, 8 wk, 28 wk, 1 yr, 2 yr); the tool maps a developmental age to the column whose labeled age it has reached (cuts at ≈0.92 / 1.38 / 1.84 / 6.44 / 12 / 24 months), so a child at or past a labeled age sees that column's anchors. The mapping is score-neutral — it selects the inline hint only — and is recorded in the §6.6 register as a disclosed P-tier presentation choice.
+**CAPD (Cornell Assessment of Pediatric Delirium), all ages (0–21 yr).** Eight-item observational nursing screen rated over the shift against age-expected behavior; each item 0–4 (total 0–32). Items 1–4 (eye contact, purposeful actions, awareness, communication) are reverse-scored (Never = 4 … Always = 0); items 5–8 (restless, inconsolable, underactive, slow to respond) are scored Never = 0 … Always = 4. **Cut point ≥ 9 = positive** (Traube 2014: sensitivity 94.1%, specificity 79.2%). **Developmental-delay caveat surfaced at the result** (matching in-app text): CAPD ≥ 9 remains positive, but specificity falls in baseline developmental delay (Traube 2014: 51.2% at ≥ 9; Gupta 2021: 44.8% overall, 16.5% with delay in ventilated children), so the result is interpreted against the child's own developmental baseline and the anchors, with experienced-clinician or pediatric-psychiatry review when needed. The tool does not advise substituting a higher cut point: reduced specificity is a false-positive problem, not a validated replacement threshold, and the ventilated-cohort ≥ 17 figure is population-specific. The 0–32 score and positive/negative are withheld until all eight items are rated. **Anchor-band mapping:** the source anchor table defines point-age columns (NB, 4 wk, 6 wk, 8 wk, 28 wk, 1 yr, 2 yr); the tool maps a developmental age to the column whose labeled age it has reached (cuts at ≈0.92 / 1.38 / 1.84 / 6.44 / 12 / 24 months), so a child at or past a labeled age sees that column's anchors. The mapping is score-neutral (it selects the inline hint only) and is recorded in the §6.6 register as a disclosed P-tier presentation choice.
 
-**pCAM-ICU (≥ 5 yr) and psCAM-ICU (6 mo–5 yr).** The CAM-ICU hierarchical algorithm, reused from the adult tool: **positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, with the RASS arousal gate. **Feature 3 (altered level of consciousness) is derived from the recorded RASS/SBS** — a score of 0 (alert and calm) is absent, any other assessable level present — and is shown read-only rather than entered separately, so it can never contradict the arousal score (the same operationalisation the adult CAM-ICU and ED bCAM use; guarded by a unit test). pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); Feature 2 offers the validated **memory-pictures alternative** as an interactive on-screen task (show 5 pictures to memorize, then 10 recognition pictures scored Seen/New; same ≥ 3-error cut) alongside the squeeze-on-A letters, for children who cannot squeeze — either task at threshold makes Feature 2 positive — and Feature 4 carries the instrument's alternate question set and the two-step command per the pCAM instruction tool ("now do that with the other hand" **or** "add one more finger" — the pediatric instrument gives the second step as a plain alternative, unlike the adult worksheet's cannot-use-both-hands conditional; do not repeat the number of fingers). The Feature-2 letters are read in an even tone "without stopping" per the instruction tool — no per-second rate is stated by the pediatric instrument (an earlier "about one per second" instruction traced to no cited source and was removed; see §6.5). psCAM-ICU uses age-adapted observational tasks (6 mo–5 yr); its **Feature 2 implements both validated positivity paths** — (1) no eye contact on ≥ 3 of 10 presentations, or (2) eye contact on 8+ presentations but **unable to maintain sustained eye opening during at least half the assessment despite verbal prompts** (the assessor talks to the child throughout as ongoing stimulation) — Feature 2 is absent only if neither path is met (Smith 2016, Fig. 2/Table 3; psCAM worksheet). The result is withheld until Features 1 and 2 (and a secondary feature) are answered.
+**pCAM-ICU (≥ 5 yr) and psCAM-ICU (6 mo–5 yr).** The CAM-ICU hierarchical algorithm, reused from the adult tool: **positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, with the RASS arousal gate. **Feature 3 (altered level of consciousness) is derived from the recorded RASS/SBS**: a score of 0 (alert and calm) is absent, any other assessable level present. It is shown read-only rather than entered separately, so it can never contradict the arousal score (the same operationalisation the adult CAM-ICU and ED bCAM use; guarded by a unit test). pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); Feature 2 offers the validated **memory-pictures alternative** as an interactive on-screen task (show 5 pictures to memorize, then 10 recognition pictures scored Seen/New; same ≥ 3-error cut) alongside the squeeze-on-A letters, for children who cannot squeeze (either task at threshold makes Feature 2 positive). Feature 4 carries the instrument's alternate question set and the two-step command per the pCAM instruction tool ("now do that with the other hand" **or** "add one more finger"; the pediatric instrument gives the second step as a plain alternative, unlike the adult worksheet's cannot-use-both-hands conditional; do not repeat the number of fingers). The Feature-2 letters are read in an even tone "without stopping" per the instruction tool; no per-second rate is stated by the pediatric instrument (an earlier "about one per second" instruction traced to no cited source and was removed; see §6.5). psCAM-ICU uses age-adapted observational tasks (6 mo–5 yr); its **Feature 2 implements both validated positivity paths**: (1) no eye contact on ≥ 3 of 10 presentations, or (2) eye contact on 8+ presentations but **unable to maintain sustained eye opening during at least half the assessment despite verbal prompts** (the assessor talks to the child throughout as ongoing stimulation). Feature 2 is absent only if neither path is met (Smith 2016, Fig. 2/Table 3; psCAM worksheet). The result is withheld until Features 1 and 2 (and a secondary feature) are answered.
 
 **Citations mapped (pediatric Screening tab):** CAPD → Traube 2014 (Crit Care Med 2014;42(3):656–663; PMID 24145848; cut point 9, developmental-delay specificity 51.2%); pCAM-ICU → Smith 2011 (Crit Care Med 2011;39(1):150–157; PMID 20959783; developmental age ≥ 5 yr); psCAM-ICU → Smith 2016 (Crit Care Med 2016;44(3):592–600; PMID 26565631; 6 mo–5 yr); arousal scales → Curley 2006 (State Behavioral Scale; Pediatr Crit Care Med 2006;7(2):107–114) and Sessler 2002 / Kerson 2016 (RASS, adult + pediatric validation); screening practice → SCCM PANDEM 2022 (Pediatr Crit Care Med 2022;23(2):e74–e110).
 
@@ -949,39 +947,39 @@ The user picks the validated screen for the child's age and developmental level;
 
 ### 7.2 Risk factors
 
-A review aid listing reported associations — **not a validated predictive score** (no pediatric equivalent of PRE-DELIRIC is in routine bedside use). Factors are grouped modifiable vs patient/illness, each tagged by evidence strength; the clinician checks those that apply. No numeric score or band is computed or implied.
+A review aid listing reported associations, **not a validated predictive score** (no pediatric equivalent of PRE-DELIRIC is in routine bedside use). Factors are grouped modifiable vs patient/illness, each tagged by evidence strength; the clinician checks those that apply. No numeric score or band is computed or implied.
 
-**Modifiable (review and minimize):** benzodiazepine exposure (the strongest, most consistent factor — dose-dependent, causal-effect estimate OR ≈ 3.3 from a marginal structural model, vs crude OR 4.4); deep sedation; anticholinergic cumulative burden; mechanical ventilation; physical restraints (partly confounded by indication); immobility / device tethering.
+**Modifiable (review and minimize):** benzodiazepine exposure (the strongest, most consistent factor: dose-dependent, causal-effect estimate OR ≈ 3.3 from a marginal structural model, vs crude OR 4.4); deep sedation; anticholinergic cumulative burden; mechanical ventilation; physical restraints (partly confounded by indication); immobility / device tethering.
 
 **Patient / illness:** young age (≤ 2 yr); developmental delay / baseline cognitive impairment; greater severity of illness; prior coma; prolonged PICU stay (both a risk marker and an outcome).
 
-**Citations mapped (pediatric Risk tab):** Traube 2017 epidemiology & mortality (PMID 28288026 — independent predictors: age ≤ 2, developmental delay, severity, prior coma, mechanical ventilation, benzodiazepines, anticholinergics; delirium independently predicted mortality, aOR 4.39); Traube 2017 international point-prevalence (PMID 28079605, ~25%); Mody 2018 benzodiazepine causal effect (PMID 29727363 — the corrected reference; the previously cited 29879008 resolves to an unrelated paper); SCCM PANDEM 2022 (PMID 35119438).
+**Citations mapped (pediatric Risk tab):** Traube 2017 epidemiology & mortality (PMID 28288026, independent predictors: age ≤ 2, developmental delay, severity, prior coma, mechanical ventilation, benzodiazepines, anticholinergics; delirium independently predicted mortality, aOR 4.39); Traube 2017 international point-prevalence (PMID 28079605, ~25%); Mody 2018 benzodiazepine causal effect (PMID 29727363, the corrected reference; the previously cited 29879008 resolves to an unrelated paper); SCCM PANDEM 2022 (PMID 35119438).
 
 **Sign-off status:** the risk-factor list, the evidence-strength tags, and the benzodiazepine effect-size wording are **pending pediatric-clinician sign-off**.
 
 ### 7.3 Prevention bundle
 
-The pediatric ABCDEF / PICU Liberation bundle, presented as a shift checklist with honest evidence framing: non-pharmacologic multicomponent prevention is first-line and routine pharmacologic prophylaxis is not recommended; bundle benefit is best established for mortality and care-process measures rather than a proven reduction in delirium incidence, with benzodiazepine minimization the best-supported single lever.
+The pediatric ABCDEF / PICU Liberation bundle, presented as a shift checklist with its evidence framing: non-pharmacologic multicomponent prevention is first-line and routine pharmacologic prophylaxis is not recommended; bundle benefit is best established for mortality and care-process measures rather than a proven reduction in delirium incidence, with benzodiazepine minimization the best-supported single lever.
 
-**Elements:** A — pain (FLACC/FACES/self-report); B — spontaneous awakening + breathing trials, protocolized titration, watch iatrogenic withdrawal (WAT-1); C — light goal-directed sedation (SBS −1 to 0), minimize benzodiazepines, prefer dexmedetomidine; D — screen ≥ each shift; E — developmentally appropriate early mobility; F — family engagement. Plus non-pharmacologic sleep/circadian protection, day–night normalization, sensory aids, and minimizing restraints and deliriogenic medications. Melatonin/pharmacologic sleep aids are noted as **not established** for pediatric delirium prevention.
+**Elements:** A: pain (FLACC/FACES/self-report); B: spontaneous awakening + breathing trials, protocolized titration, watch iatrogenic withdrawal (WAT-1); C: light goal-directed sedation (SBS −1 to 0), minimize benzodiazepines, prefer dexmedetomidine; D: screen ≥ each shift; E: developmentally appropriate early mobility; F: family engagement. Plus non-pharmacologic sleep/circadian protection, day–night normalization, sensory aids, and minimizing restraints and deliriogenic medications. Melatonin/pharmacologic sleep aids are noted as **not established** for pediatric delirium prevention.
 
-**Citations mapped (pediatric Prevention tab):** SCCM PANDEM 2022 (PMID 35119438); SCCM Pediatric ICU Liberation collaborative — Lin 2023 (Lin JC et al., Pediatr Crit Care Med 2023;24(8):636–651, PMID 37125798 — previously mis-attributed to "Ista E"; higher bundle utilization associated with lower mortality, not consistently lower delirium incidence — an observational collaborative, not a randomized bundle trial); RESTORE goal-directed sedation (Curley 2015, JAMA — **negative for its primary mechanical-ventilation-duration outcome**; cited only for the SBS-titration model, not an efficacy claim); PICU Up! early mobility (Kudchadkar et al., Johns Hopkins; protocol Azamfirei, Trials 2023;24:191, PMID 36918956; **NCT04989790** — previously mis-attributed to "Choong K"); Mody 2018 benzodiazepine causal effect (PMID 29727363).
+**Citations mapped (pediatric Prevention tab):** SCCM PANDEM 2022 (PMID 35119438); SCCM Pediatric ICU Liberation collaborative, Lin 2023 (Lin JC et al., Pediatr Crit Care Med 2023;24(8):636–651, PMID 37125798; previously mis-attributed to "Ista E"; higher bundle utilization associated with lower mortality, not consistently lower delirium incidence; an observational collaborative, not a randomized bundle trial); RESTORE goal-directed sedation (Curley 2015, JAMA, **negative for its primary mechanical-ventilation-duration outcome**; cited only for the SBS-titration model, not an efficacy claim); PICU Up! early mobility (Kudchadkar et al., Johns Hopkins; protocol Azamfirei, Trials 2023;24:191, PMID 36918956; **NCT04989790**, previously mis-attributed to "Choong K"); Mody 2018 benzodiazepine causal effect (PMID 29727363).
 
 **Sign-off status:** the bundle elements, the SBS comfort-target wording, the "melatonin not established" statement, and the evidence-framing of bundle benefit are **pending pediatric-clinician sign-off**.
 
 ### 7.4 Pharmacology (Treatment + Medications)
 
-**Framing (load-bearing):** treat the cause and apply the non-pharmacologic bundle first; drugs are adjunctive. Pharmacologic treatment of symptoms is reserved for short-term, refractory, safety-threatening agitation. All agents are **off-label** in pediatric delirium with **limited (retrospective/observational) evidence**. In reported PICU practice the atypicals are usually chosen before IV haloperidol — a prescribing-pattern and safety-profile preference (`madden2021_prescribing`, `capino2020`), **not a guideline ranking**: PANDEM's recommendation for severe refractory manifestations names "haloperidol or atypical antipsychotics" without preferring either (`pandem2022`), and the tool labels the hierarchy accordingly. The Medications tab opens with a prominent "not an order set — verify against formulary" banner, and every dose carries a pediatric-clinician + pharmacist sign-off gate. Doses are starting points from the literature, not orders; the numeric weight-based values must map to a current pediatric dosing reference (Lexicomp Pediatric / Harriet Lane), with the edition pinned at sign-off.
+**Framing:** treat the cause and apply the non-pharmacologic bundle first; drugs are adjunctive. Pharmacologic treatment of symptoms is reserved for short-term, refractory, safety-threatening agitation. All agents are **off-label** in pediatric delirium with **limited (retrospective/observational) evidence**. In reported PICU practice the atypicals are usually chosen before IV haloperidol, a prescribing-pattern and safety-profile preference (`madden2021_prescribing`, `capino2020`), **not a guideline ranking**: PANDEM's recommendation for severe refractory manifestations names "haloperidol or atypical antipsychotics" without preferring either (`pandem2022`), and the tool labels the hierarchy accordingly. The Medications tab opens with a prominent "not an order set: verify against formulary" banner, and every dose carries a pediatric-clinician + pharmacist sign-off gate. Doses are starting points from the literature, not orders; the numeric weight-based values must map to a current pediatric dosing reference (Lexicomp Pediatric / Harriet Lane), with the edition pinned at sign-off.
 
-**Sedation / sleep.** Dexmedetomidine 0.2–1 mcg/kg/hr IV, cited to Phan & Nahata 2008 (`phan2008_dexmed` — within its reported 0.2–2 mcg/kg/h pediatric-ICU range) (preferred, delirium-sparing; loading bolus often omitted in the PICU; bradycardia/hypotension; taper to avoid rebound; not a substitute for analgesia — opioid-sparing at most — nor reliable amnesia; **PICU continuous sedation is off-label**, while the current label's only pediatric indication is procedural sedation of non-intubated children ≥ 1 month for non-invasive procedures, `dex_label` — the earlier unqualified "off-label < 18 yr" predated that indication and was corrected, see §6.5). Benzodiazepines — limit/avoid as continuous sedation (independent dose-related risk). Melatonin 0.5–3 mg (younger) up to 3–5 mg (older) for sleep/circadian support, **not** a delirium treatment — the mg values are general pediatric sleep dosing cited to Bruni 2015 (`bruni2015_melatonin`), and the adult-ICU meta-analysis (`melatonin_meta2025`) anchors only the evidence framing, not the pediatric numbers.
+**Sedation / sleep.** Dexmedetomidine 0.2–1 mcg/kg/hr IV, cited to Phan & Nahata 2008 (`phan2008_dexmed`, within its reported 0.2–2 mcg/kg/h pediatric-ICU range) (preferred, delirium-sparing; loading bolus often omitted in the PICU; bradycardia/hypotension; taper to avoid rebound; not a substitute for analgesia (opioid-sparing at most) nor reliable amnesia; **PICU continuous sedation is off-label**, while the current label's only pediatric indication is procedural sedation of non-intubated children ≥ 1 month for non-invasive procedures, `dex_label`; the earlier unqualified "off-label < 18 yr" predated that indication and was corrected, see §6.5). Benzodiazepines: limit/avoid as continuous sedation (independent dose-related risk). Melatonin 0.5–3 mg (younger) up to 3–5 mg (older) for sleep/circadian support, **not** a delirium treatment. The mg values are general pediatric sleep dosing cited to Bruni 2015 (`bruni2015_melatonin`), and the adult-ICU meta-analysis (`melatonin_meta2025`) anchors only the evidence framing, not the pediatric numbers.
 
-**Antipsychotics (enteral unless noted).** Risperidone, started low and titrated by age/weight band: ≤ 2 yr ~0.01–0.04 mg/kg/day (Campbell 2020 — a 17-patient cohort; pharmacist verification required), < 5 yr ~0.1 mg q12–24h, ≥ 5 yr ~0.2 mg q12–24h (Capino 2020, per Kishk); **no single daily maximum is shown** — the previously displayed ~2 mg/day (Capino 2020, per Schieveld, enteral 0.1–2 mg/day) was an unqualified figure that could read as spanning infants to adolescents, so the ceiling is deferred to a named institutional protocol / formulary for the child's age and weight. Quetiapine ~0.43–0.7 mg/kg/dose q8h — **initiation ≈ 1.5 mg/kg/day divided q8h; reported median 1.3 mg/kg/day, IQR 0.4–2.3** (Joyce 2015; this single representation is used identically in the app, the report data, and here). Olanzapine age-banded (infants ~0.625 mg, toddlers ~1.25 mg, older ~2.5–5 mg; Capino 2020). Haloperidol **reserve**, IV off-label: **no generic loading or maintenance dose is shown** — IV haloperidol is gated to a current institutional pediatric agitation/delirium protocol that must specify age/weight eligibility, route, the repeat interval, a maximum cumulative loading dose and maximum daily dose, ECG/electrolyte monitoring, contraindications, and treatment of acute dystonia (`haldol_label` for the QTc/torsades warnings). The cited case series (Capino 2020) repeated ~0.025–0.1 mg/kg/dose roughly q10min for 3–4 doses (loading totals 0.09–0.25 mg/kg, one dystonia in five children); that per-dose figure is no longer displayed as a numeric instruction, because at its upper bound four repeats (0.4 mg/kg) would exceed the observed totals and the tool cannot supply the protocol's interval or cumulative cap. The previously listed "~0.015–0.15 mg/kg/dose IV q6–8h" was the observed per-dose range of a single 5-patient 2002 case series (Harrison, via Capino 2020 Table 1 — ventilated children on neuromuscular blockade) that Capino itself declines to convert into a recommendation; at q6h its upper bound permits 0.60 mg/kg/day, several-fold above published institutional protocols (e.g. maintenance 0.015–0.025 mg/kg/dose q6h with a 0.45 mg/kg/day maximum, or daily-dose titration 0.05 → 0.15 mg/kg/day divided for infants and young children). Maintenance dosing is therefore deferred to the unit formulary / pediatric pharmacist with an agreed **maximum daily dose**, pending the sign-off below; any future numeric range must be age/weight-banded, carry an explicit daily maximum, and pin to a dated pediatric dosing reference.
+**Antipsychotics (enteral unless noted).** Risperidone, started low and titrated by age/weight band: ≤ 2 yr ~0.01–0.04 mg/kg/day (Campbell 2020, a 17-patient cohort; pharmacist verification required), < 5 yr ~0.1 mg q12–24h, ≥ 5 yr ~0.2 mg q12–24h (Capino 2020, per Kishk); **no single daily maximum is shown**. The previously displayed ~2 mg/day (Capino 2020, per Schieveld, enteral 0.1–2 mg/day) was an unqualified figure that could read as spanning infants to adolescents, so the ceiling is deferred to a named institutional protocol / formulary for the child's age and weight. Quetiapine ~0.43–0.7 mg/kg/dose q8h: **initiation ≈ 1.5 mg/kg/day divided q8h; reported median 1.3 mg/kg/day, IQR 0.4–2.3** (Joyce 2015; this single representation is used identically in the app, the report data, and here). Olanzapine age-banded (infants ~0.625 mg, toddlers ~1.25 mg, older ~2.5–5 mg; Capino 2020). Haloperidol **reserve**, IV off-label: **no generic loading or maintenance dose is shown**. IV haloperidol is gated to a current institutional pediatric agitation/delirium protocol that must specify age/weight eligibility, route, the repeat interval, a maximum cumulative loading dose and maximum daily dose, ECG/electrolyte monitoring, contraindications, and treatment of acute dystonia (`haldol_label` for the QTc/torsades warnings). The cited case series (Capino 2020) repeated ~0.025–0.1 mg/kg/dose roughly q10min for 3–4 doses (loading totals 0.09–0.25 mg/kg, one dystonia in five children); that per-dose figure is no longer displayed as a numeric instruction, because at its upper bound four repeats (0.4 mg/kg) would exceed the observed totals and the tool cannot supply the protocol's interval or cumulative cap. The previously listed "~0.015–0.15 mg/kg/dose IV q6–8h" was the observed per-dose range of a single 5-patient 2002 case series (Harrison, via Capino 2020 Table 1, ventilated children on neuromuscular blockade) that Capino itself declines to convert into a recommendation; at q6h its upper bound permits 0.60 mg/kg/day, several-fold above published institutional protocols (e.g. maintenance 0.015–0.025 mg/kg/dose q6h with a 0.45 mg/kg/day maximum, or daily-dose titration 0.05 → 0.15 mg/kg/day divided for infants and young children). Maintenance dosing is therefore deferred to the unit formulary / pediatric pharmacist with an agreed **maximum daily dose**, pending the sign-off below; any future numeric range must be age/weight-banded, carry an explicit daily maximum, and pin to a dated pediatric dosing reference.
 
-**Monitoring (all antipsychotics).** Baseline 12-lead ECG (QTc), electrolytes, QT-drug review; read the QTc against age-, sex-, rhythm- and correction-formula-appropriate limits. (The earlier "> 450–500 ms or ≥ 25% rise" was ambiguous, and the 25% delta is unsupported in the cited pediatric sources and behaves unintuitively — 25% of a 400 ms baseline is 100 ms, missing a clinically meaningful 60 ms change.) A borderline/prolonged result prompts repeat/verify ECG, electrolyte correction, and interacting-drug review; QTc ≥ 500 ms or a substantial absolute rise (commonly ≥ 60 ms in QT-safety practice) warrants urgent prescriber/pharmacy review under the local cardiology or medication-safety protocol, which sets the stop/reduce thresholds. Watch EPS/dystonia (most with haloperidol), NMS, and metabolic effects (olanzapine/quetiapine highest).
+**Monitoring (all antipsychotics).** Baseline 12-lead ECG (QTc), electrolytes, QT-drug review; read the QTc against age-, sex-, rhythm- and correction-formula-appropriate limits. (The earlier "> 450–500 ms or ≥ 25% rise" was ambiguous, and the 25% delta is unsupported in the cited pediatric sources and behaves unintuitively: 25% of a 400 ms baseline is 100 ms, missing a clinically meaningful 60 ms change.) A borderline/prolonged result prompts repeat/verify ECG, electrolyte correction, and interacting-drug review; QTc ≥ 500 ms or a substantial absolute rise (commonly ≥ 60 ms in QT-safety practice) warrants urgent prescriber/pharmacy review under the local cardiology or medication-safety protocol, which sets the stop/reduce thresholds. Watch EPS/dystonia (most with haloperidol), NMS, and metabolic effects (olanzapine/quetiapine highest).
 
-**Citations mapped (pediatric Treatment + Medications tabs):** Capino 2020 (`capino2020`, PMC7025750 — registered and cited inline on the haloperidol/olanzapine/risperidone dose figures); Precedex label (`dex_label` — the pediatric procedural-sedation indication and the not-established-for-pediatric-ICU-sedation statement); SCCM PANDEM 2022 (`pandem2022`, PMID 35119438 — the no-agent-preference antipsychotic recommendation, cited inline on the practice-preference statements); Campbell 2020 risperidone ≤ 2 yr (PMID 31771334); Joyce 2015 quetiapine safety (PMID 26469214); Madden prescribing/outcomes (J Pediatr Intensive Care 2024;13(1):46–54, online 2021; PMID 38571986); QTc-effects study (PMC7792149); Cavagnero 2025 pediatric antipsychotic systematic review (`peds_apsych_sr2025`, PMID 40906237); Phan & Nahata dexmedetomidine (`phan2008_dexmed`, Paediatr Drugs 2008, PMID 18162008 — registered and cited on the infusion dose); Bruni 2015 pediatric melatonin dosing (`bruni2015_melatonin`); plus a pinned pediatric dosing reference (Lexicomp Pediatric / Harriet Lane) for the numeric weight-based values.
+**Citations mapped (pediatric Treatment + Medications tabs):** Capino 2020 (`capino2020`, PMC7025750, registered and cited inline on the haloperidol/olanzapine/risperidone dose figures); Precedex label (`dex_label`, the pediatric procedural-sedation indication and the not-established-for-pediatric-ICU-sedation statement); SCCM PANDEM 2022 (`pandem2022`, PMID 35119438; the no-agent-preference antipsychotic recommendation, cited inline on the practice-preference statements); Campbell 2020 risperidone ≤ 2 yr (PMID 31771334); Joyce 2015 quetiapine safety (PMID 26469214); Madden prescribing/outcomes (J Pediatr Intensive Care 2024;13(1):46–54, online 2021; PMID 38571986); QTc-effects study (PMC7792149); Cavagnero 2025 pediatric antipsychotic systematic review (`peds_apsych_sr2025`, PMID 40906237); Phan & Nahata dexmedetomidine (`phan2008_dexmed`, Paediatr Drugs 2008, PMID 18162008; registered and cited on the infusion dose); Bruni 2015 pediatric melatonin dosing (`bruni2015_melatonin`); plus a pinned pediatric dosing reference (Lexicomp Pediatric / Harriet Lane) for the numeric weight-based values.
 
-**Sign-off status:** every weight-based dose, route, frequency, and maximum — and the haloperidol correction in particular — is **pending pediatric-clinician + pharmacist sign-off** and pinning to a dated dosing reference before the pediatric tool is presented as reviewed.
+**Sign-off status:** every weight-based dose, route, frequency, and maximum (and the haloperidol correction in particular) is **pending pediatric-clinician + pharmacist sign-off** and pinning to a dated dosing reference before the pediatric tool is presented as reviewed.
 
 ---
 

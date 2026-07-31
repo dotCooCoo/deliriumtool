@@ -1,17 +1,17 @@
-# Non-Device CDS design rubric — output-by-output mapping
+# Non-Device CDS design rubric: output-by-output mapping
 
-**Purpose.** A design check, not legal advice. Each clinical *output* of the tool is held against the four FDA Non-Device Clinical Decision Support criteria (21st Century Cures Act §520(o)(1)(E), as structured in the Jan-2026 CDS final guidance). The goal is that every output is **built so it would qualify** as non-device CDS — even though an internal, non-distributed reference aid is outside FDA premarket reach.
+**Purpose.** A design check, not legal advice. Each clinical *output* of the tool is held against the four FDA Non-Device Clinical Decision Support criteria (21st Century Cures Act §520(o)(1)(E), as structured in the Jan-2026 CDS final guidance). The goal is that every output is built so it would qualify as non-device CDS, even though an internal, non-distributed reference aid is outside FDA premarket reach.
 
-This mapping describes the tool **as currently implemented**. Earlier revisions of this document recorded design gaps (weighted risk scores, an unvalidated Pictures-ASE cut-point, an uncited thiamine dose, mislabeled subtype "prevalence"); those gaps were remediated in the 2026-06-27 and 2026-07-01 content revisions and their resolutions are recorded in `CLINICAL_METHODOLOGY.md` §6.5. Where a row below says "resolved", the §6.5 change log carries the dated entry.
+This mapping describes the tool as currently implemented. Earlier revisions of this document recorded design gaps (weighted risk scores, an unvalidated Pictures-ASE cut-point, an uncited thiamine dose, mislabeled subtype "prevalence"). Those gaps were remediated in the 2026-06-27 and 2026-07-01 content revisions, and their resolutions are recorded in `CLINICAL_METHODOLOGY.md` §6.5. Where a row below says "resolved", the §6.5 change log carries the dated entry.
 
 **The four criteria (as applied here):**
 
-- **Crit 1 — no device data stream.** Does not acquire, process, or analyze a medical image, a signal from an in-vitro diagnostic, or a pattern/signal from a signal-acquisition system (monitor / EEG / processed-EEG depth-of-sedation index / continuous SpO₂ / lab-analyzer feed).
-- **Crit 2 — displays/analyzes medical information.** Shows patient medical information and/or peer-reviewed studies and clinical practice guidelines.
-- **Crit 3 — supports vs directs.** Provides options and complete information for the clinician to weigh — it does **not** emit a single push-button directive the clinician would rely on primarily.
-- **Crit 4 — basis independently reviewable.** The clinician can independently review the basis (the inputs, the cited source, and the logic) so they do not rely primarily on the tool's output.
+- **Crit 1: no device data stream.** Does not acquire, process, or analyze a medical image, a signal from an in-vitro diagnostic, or a pattern/signal from a signal-acquisition system (monitor / EEG / processed-EEG depth-of-sedation index / continuous SpO₂ / lab-analyzer feed).
+- **Crit 2: displays/analyzes medical information.** Shows patient medical information and/or peer-reviewed studies and clinical practice guidelines.
+- **Crit 3: supports vs directs.** Provides options and complete information for the clinician to weigh. It does not emit a single push-button directive the clinician would rely on primarily.
+- **Crit 4: basis independently reviewable.** The clinician can independently review the basis (the inputs, the cited source, and the logic) so they do not rely primarily on the tool's output.
 
-**Core enforcement principle.** Anywhere the tool emits **a number that drives an action** (a weighted score, an escalation threshold, a cut-point, a starting dose), that number implies a *calibration* the "explicitly unvalidated" framing disclaims. Such home-grown numbers must be **flattened, relabelled, or carry an explicit "pragmatic, not validated" note**, while validated, citable instruments (CAM-ICU, RASS, PADIS-anchored dosing) stay faithful and fully cited. Crit 3 and Crit 4 are where the outputs bite; Crit 1 and Crit 2 pass for every output **only because all inputs are manual clinician entry** — see the device-data-stream boundary at the end.
+**Core enforcement principle.** Anywhere the tool emits a number that drives an action (a weighted score, an escalation threshold, a cut-point, a starting dose), that number implies a *calibration* the "explicitly unvalidated" framing disclaims. Such home-grown numbers must be flattened, relabelled, or carry an explicit "pragmatic, not validated" note, while validated, citable instruments (CAM-ICU, RASS, PADIS-anchored dosing) stay faithful and fully cited. Crit 3 and Crit 4 are the binding criteria for the outputs. Crit 1 and Crit 2 pass for every output only because all inputs are manual clinician entry; see the device-data-stream boundary at the end.
 
 ## Mapping table
 
@@ -36,26 +36,26 @@ This mapping describes the tool **as currently implemented**. Earlier revisions 
 
 Every self-generated number that could imply a calibration, with its current state:
 
-1. **Risk-tally weights** — flattened to +1 (resolved 2026-06-27).
-2. **Risk band cut-points** (0–3 / 4–6 / 7–10 / 11–15) — "(heuristic)" label kept adjacent to the number.
-3. **Consult threshold** (geriatrics > 6) — labelled pragmatic; the psychiatry trigger was removed.
-4. **Pictures ASE cut-point** — corrected to the validated 10-item > 2/10 task (resolved 2026-06-27).
-5. **RASS amber/red zoning edges** — labelled a display aid; target cited to PADIS and configurable.
-6. **Subtype figures** — labelled "proportion of delirious cases (la Cour 2022)" on every surface.
-7. **Starting doses** — source-pinned (dexmedetomidine → label; weight-based pediatric doses → Capino 2020 / Phan 2008) or explicitly labelled conventional (haloperidol, quetiapine, melatonin).
-8. **Thiamine regimens** — cited (ESPEN / EFNS / RCP) with the divergence stated (resolved 2026-06-27).
+1. **Risk-tally weights**: flattened to +1 (resolved 2026-06-27).
+2. **Risk band cut-points** (0–3 / 4–6 / 7–10 / 11–15): "(heuristic)" label kept adjacent to the number.
+3. **Consult threshold** (geriatrics > 6): labelled pragmatic; the psychiatry trigger was removed.
+4. **Pictures ASE cut-point**: corrected to the validated 10-item > 2/10 task (resolved 2026-06-27).
+5. **RASS amber/red zoning edges**: labelled a display aid; target cited to PADIS and configurable.
+6. **Subtype figures**: labelled "proportion of delirious cases (la Cour 2022)" on every surface.
+7. **Starting doses**: source-pinned (dexmedetomidine → label; weight-based pediatric doses → Capino 2020 / Phan 2008) or explicitly labelled conventional (haloperidol, quetiapine, melatonin).
+8. **Thiamine regimens**: cited (ESPEN / EFNS / RCP) with the divergence stated (resolved 2026-06-27).
 
 Validated, citable instruments stay faithful and fully cited and need no flattening: **CAM-ICU** (two-step, four features, both ASE modalities), **RASS** scale + PADIS target, the **pediatric instruments** (CAPD, pCAM-ICU, psCAM-ICU, SBS), and **PADIS-anchored** drug stances (dexmedetomidine niche; antipsychotics for agitation/symptom control only, never as delirium treatment per the MIND-USA-negative result).
 
 ## Device-data-stream boundary (Crit 1)
 
-Every output above passes Crit 1 **only because all inputs are typed/checked by the clinician** — RASS is picked, CAM features are answered, inattention errors are counted by the bedside assessor, risk factors are checkboxes. Nothing is computed from a device waveform.
+Every output above passes Crit 1 only because all inputs are typed/checked by the clinician: RASS is picked, CAM features are answered, inattention errors are counted by the bedside assessor, risk factors are checkboxes. Nothing is computed from a device waveform.
 
-The tool stays non-device **only while it does not ingest a device signal.** Crit 1 flips to FAIL — and the non-device status is lost regardless of how well criteria 2–4 are met — the moment any output is derived from:
+The tool stays non-device only while it does not ingest a device signal. Crit 1 flips to FAIL (and the non-device status is lost regardless of how well criteria 2–4 are met) the moment any output is derived from:
 
 - a bedside monitor feed (continuous SpO₂, HR, BP),
 - a processed-EEG depth-of-sedation index (e.g., a BIS/SedLine-type value) used to set or auto-fill RASS or the sedation zoning,
 - a raw or processed EEG used to call the "Ictal/Seizure" domain or a delirium index,
 - an in-vitro-diagnostic / lab-analyzer feed used to drive the tally, the metabolic domain, or any threshold.
 
-**Keep all inputs manual.** If EHR integration is ever added, restrict it to *displaying/transcribing* values the clinician confirms — never analyzing a device signal to generate the CAM result, the RASS zone, the risk tally, or any escalation. Auto-pulling a monitor or EEG value to compute an output is the single change that would move this tool from non-device CDS into device territory. (The Feature-3 hint derived from the *clinician-entered* RASS stays on the manual side of this line — it re-displays a typed value; it analyzes no signal.)
+**Keep all inputs manual.** If EHR integration is ever added, restrict it to *displaying/transcribing* values the clinician confirms, never analyzing a device signal to generate the CAM result, the RASS zone, the risk tally, or any escalation. Auto-pulling a monitor or EEG value to compute an output is the single change that would move this tool from non-device CDS into device territory. (The Feature-3 hint derived from the *clinician-entered* RASS stays on the manual side of this line: it re-displays a typed value; it analyzes no signal.)
