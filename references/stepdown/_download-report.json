@@ -1,0 +1,176 @@
+[
+  {
+    "name": "beyer-2024-cam-imc-validation-bmcanesthesiol.pdf",
+    "status": "OK",
+    "bytes": 1561559,
+    "from": "https://bmcanesthesiol.biomedcentral.com/counter/pdf/10.1186/s12871-024-02849-3.pdf"
+  },
+  {
+    "name": "mariz-2013-edimcu-delirium-outcomes-bmcemergmed.pdf",
+    "status": "OK",
+    "bytes": 304434,
+    "from": "https://bmcemergmed.biomedcentral.com/counter/pdf/10.1186/1471-227X-13-2.pdf"
+  },
+  {
+    "name": "bergjan-2020-nudesc-dos-ward-bmcnursing.pdf",
+    "status": "OK",
+    "bytes": 674751,
+    "from": "https://bmcnurs.biomedcentral.com/counter/pdf/10.1186/s12912-020-00464-4.pdf"
+  },
+  {
+    "name": "sands-2021-sqid-bmccancer.pdf",
+    "status": "OK",
+    "bytes": 1044546,
+    "from": "https://bmccancer.biomedcentral.com/counter/pdf/10.1186/s12885-020-07504-x.pdf"
+  },
+  {
+    "name": "wang-2017-iatrogenic-withdrawal-annintensivecare.pdf",
+    "status": "OK",
+    "bytes": 1038335,
+    "from": "https://annalsofintensivecare.springeropen.com/counter/pdf/10.1186/s13613-017-0310-5.pdf"
+  },
+  {
+    "name": "kuczmarska-2016-3dcam-vs-camicu-jgim.pdf",
+    "status": "OK",
+    "bytes": 280326,
+    "from": "https://europepmc.org/articles/PMC4762827?pdf=render"
+  },
+  {
+    "name": "marcantonio-2014-3dcam-validation-anninternmed.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC4319978 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "balas-2014-abcde-bundle-ccm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC4105208 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "fick-2015-ub2-ultrabrief-jhm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC4665114 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "marcantonio-2022-ubcam-implementation-anninternmed.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC8938856 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "wei-2008-cam-systematic-review-jags.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC2585541 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "neufeld-2016-antipsychotics-meta-jags.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC4840067 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "tamrat-2014-sleep-nonpharm-jgim.pdf",
+    "status": "OK",
+    "bytes": 404860,
+    "from": "https://europepmc.org/articles/PMC4000341?pdf=render"
+  },
+  {
+    "name": "chester-2012-mrass-serial-jhm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC4880479 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "han-2014-camicu-ed-validation-academ.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC4034173 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "han-2015-rass-ed-academ.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC4516221 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "khan-2017-camicu7-severity-ccm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC5392153 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "ags-2015-postop-delirium-guideline-jags.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC5901697 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "douglas-2013-awol-derivation-jhm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=- OA=false hasPDF=false",
+    "tried": 0
+  },
+  {
+    "name": "needham-2012-pics-stakeholders-ccm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=- OA=false hasPDF=false",
+    "tried": 0
+  },
+  {
+    "name": "neufeld-2013-camicu-nudesc-postop-bja.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC3770063 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "oh-2019-antipsychotics-prevent-anninternmed.pdf",
+    "status": "MISS",
+    "oa": "pmcid=- OA=false hasPDF=false",
+    "tried": 0
+  },
+  {
+    "name": "nikooie-2019-antipsychotics-treat-anninternmed.pdf",
+    "status": "MISS",
+    "oa": "pmcid=- OA=false hasPDF=false",
+    "tried": 0
+  },
+  {
+    "name": "lisibach-2022-anticholinergic-burden-bjcp.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC9796852 OA=true hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "vaneijk-2011-camicu-routine-ajrccm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=- OA=false hasPDF=false",
+    "tried": 0
+  },
+  {
+    "name": "mitasova-2012-camicu-stroke-ccm.pdf",
+    "status": "MISS",
+    "oa": "pmcid=- OA=false hasPDF=false",
+    "tried": 0
+  },
+  {
+    "name": "siddiqi-2016-noniCU-prevention-cochrane.pdf",
+    "status": "MISS",
+    "oa": "pmcid=PMC10431752 OA=false hasPDF=true",
+    "tried": 3
+  },
+  {
+    "name": "dexmedetomidine-label-dailymed.pdf",
+    "status": "OK",
+    "bytes": 1029035,
+    "from": "https://dailymed.nlm.nih.gov/dailymed/downloadpdffile.cfm?setId=4419162d-81d4-49bd-96de-1729440bdb74&type=pdf"
+  },
+  {
+    "name": "sandau-2017-ecg-monitoring-standards-circulation.pdf",
+    "status": "MISS",
+    "oa": "pmcid=- OA=false hasPDF=false",
+    "tried": 0
+  }
+]

@@ -1,20 +1,20 @@
 # Intended Use & Limitations
 
-*Status: reference aid — unvalidated. Read before clinical use.*
+*Status: reference aid, unvalidated. Read before clinical use.*
 
 ---
 
 ## 1. Intended use
 
-This tool is an **electronic bedside reference aid** for the recognition, prevention, and supportive management of **delirium in critically ill adults**. It assembles validated screening instruments (CAM-ICU, RASS), a prevention bundle (ABCDEF / ICU Liberation), a structured causative-factor review (DELIRIUM(S)), and cited reference material into a single bedside surface, and produces a printable summary for the chart-adjacent workflow.
+This tool is an **electronic bedside reference aid** for the recognition, prevention, and supportive management of **delirium in critically ill adults**. It assembles validated screening instruments (CAM-ICU, RASS), a prevention bundle (ABCDEF / ICU Liberation), a structured causative-factor review (DELIRIUM(S)), and cited reference material into a single bedside surface. It produces a printable summary for the chart-adjacent workflow.
 
-Two sibling surfaces share this intended-use framing with their own scopes: the **pediatric ICU tool** at `/peds/` (CAPD, pCAM-ICU, psCAM-ICU with an SBS/RASS arousal gate — the validated pediatric instruments, for clinicians caring for PICU patients) and the **bedside template designer** at `/templates/` (a protocol-configuration tool that prints laminate-ready checklists mirroring this tool's cited content; it takes no patient data at all).
+Two sibling surfaces share this intended-use framing with their own scopes: the **pediatric ICU tool** at `/peds/`, which implements the validated pediatric instruments (CAPD, pCAM-ICU, psCAM-ICU with an SBS/RASS arousal gate) for clinicians caring for PICU patients, and the **bedside template designer** at `/templates/`, a protocol-configuration tool that prints laminate-ready checklists mirroring this tool's cited content and takes no patient data at all.
 
-It is intended to **support** the clinical reasoning of a qualified clinician — never to make, direct, or automate a clinical decision. The clinician's independent judgment, the institution's local protocol, and prescriber/pharmacy review govern every action. The user is expected to be able to review, and to choose not to rely on, any suggestion the tool surfaces.
+It is intended to **support** the clinical reasoning of a qualified clinician, never to make, direct, or automate a clinical decision. The clinician's independent judgment, the institution's local protocol, and prescriber/pharmacy review govern every action. The user is expected to be able to review, and to choose not to rely on, any suggestion the tool surfaces.
 
 ## 2. Intended users
 
-Licensed clinicians caring for adult ICU patients — intensivists and other physicians, advanced-practice providers, critical-care nurses, and clinical pharmacists — who are independently trained and credentialed in delirium assessment and ICU pharmacotherapy. It is **not** intended for patients, families, the public, students acting without supervision, or any user who would treat its output as a directive rather than a prompt for their own assessment.
+Licensed clinicians caring for adult ICU patients (intensivists and other physicians, advanced-practice providers, critical-care nurses, and clinical pharmacists) who are independently trained and credentialed in delirium assessment and ICU pharmacotherapy. It is **not** intended for patients, families, the public, students acting without supervision, or any user who would treat its output as a directive rather than a prompt for their own assessment.
 
 ## 3. Care setting
 
@@ -31,29 +31,29 @@ Licensed clinicians caring for adult ICU patients — intensivists and other phy
 
 ## 5. What the tool does NOT do
 
-- It does **not diagnose** delirium. A positive CAM-ICU is a **screen, not a diagnosis** — confirm clinically and exclude mimics.
+- It does **not diagnose** delirium. A positive CAM-ICU is a **screen, not a diagnosis**. Confirm clinically and exclude mimics.
 - It does **not issue orders, prescriptions, or an order set**, and is not a substitute for one.
 - It does **not autonomously direct** management, escalate care, or compute a validated probability, severity, or acuity score that should be acted on without independent review. Numeric outputs are prompts, not determinations (see §8).
 - It does **not** acquire, process, or analyze any medical image, waveform, monitor feed, or physiologic signal; it operates only on clinician-entered observations.
 - It is **not** a medical record. Entries are a session scratchpad that clears on reload and are not saved to any chart.
 - It is **not** a real-time or alarm/monitoring system, and must not be used as one.
 
-## 6. Validation status — and that clinical judgment governs
+## 6. Validation status, and that clinical judgment governs
 
-**This tool is not a validated clinical decision-support device.** The bundling, the risk-factor tally, the band cut-points, and the escalation prompts are **pragmatic and unvalidated** — they have not been prospectively calibrated or shown to improve outcomes. Where a number could imply a calibration the tool does not possess, it is labelled accordingly (heuristic / a count, not a validated score). The validated instruments it presents (CAM-ICU, RASS) carry the operating characteristics of their original validation only when used exactly as specified, in the population in which they were validated.
+**This tool is not a validated clinical decision-support device.** The bundling, the risk-factor tally, the band cut-points, and the escalation prompts are **pragmatic and unvalidated**. They have not been prospectively calibrated or shown to improve outcomes. Where a number could imply a calibration the tool does not possess, it is labelled accordingly (heuristic / a count, not a validated score). The validated instruments it presents (CAM-ICU, RASS) carry the operating characteristics of their original validation only when used exactly as specified, in the population in which they were validated.
 
 In every case, **the clinician's independent assessment, local protocol, and prescriber/pharmacy review take precedence over anything this tool displays.** Verify all medication decisions against current institutional policy.
 
-> **Load-bearing disclaimer (verbatim, surfaced in the application):**
+> **Disclaimer (verbatim, surfaced in the application):**
 > *"Reference aid only. This tool supports — and does not replace — clinical judgment, local protocol, and prescriber/pharmacy review. It is not a standalone order set or a validated decision-support device. Verify all medication decisions against current institutional policy."*
 
 ## 7. Out-of-scope populations and settings
 
 The tool has **not** been designed or validated for, and must not be transplanted unmodified onto, the following. Use a setting- and population-appropriate, locally validated instrument instead.
 
-- **Paediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Paediatric ICU delirium has its own validated tools — CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate — implemented in the sibling pediatric tool at `/peds/`, which carries its own sign-off gates.
+- **Pediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Pediatric ICU delirium has its own validated tools (CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate), implemented in the sibling pediatric tool at `/peds/`, which carries its own sign-off gates.
 - **Pregnancy and the peripartum patient.** Drug-safety, dosing, and risk content are not adjusted for pregnancy or lactation.
-- **General medical/surgical ward and step-down patients.** CAM-ICU/RASS/ABCDEF are not validated outside the ICU; on the ward, use a ward-validated screen (**4AT / 3D-CAM**), as the tool advises.
+- **General medical/surgical ward and step-down patients.** CAM-ICU/RASS/ABCDEF are not validated outside the ICU. On the ward, use a ward-validated screen (**4AT / 3D-CAM**), as the tool advises.
 - **Peri-operative ward / PACU and procedural sedation** outside the ICU context.
 - **Emergency, pre-hospital, ambulatory, long-term-care, and hospice settings.**
 - Any **time-critical or autonomous** decision where a clinician cannot independently review the basis before acting.
@@ -63,12 +63,12 @@ The tool has **not** been designed or validated for, and must not be transplante
 So that the tool **supports rather than directs**:
 
 - **Validated instruments are presented faithfully.** CAM-ICU logic, the RASS scale, and PADIS-anchored dosing reflect their primary sources and carry visible citations.
-- **Home-grown numbers are flattened or flagged.** The risk-factor total is a **count of present factors, not a probability**; its band boundaries and any consult/escalation suggestions are **heuristic** and qualified "per local protocol." They are options to weigh, not thresholds that command an action.
+- **Home-grown numbers are flattened or flagged.** The risk-factor total is a **count of present factors, not a probability**. Its band boundaries and any consult/escalation suggestions are **heuristic** and qualified "per local protocol." They are options to weigh, not thresholds that command an action.
 - **Every clinical value is reviewable at its source.** Each threshold, score band, criterion, and dose maps to a cited primary source so the clinician can independently check the basis and reach an independent conclusion.
 
 ## 9. Pharmacologic note
 
-**No agent is FDA-approved to prevent or treat delirium.** Non-pharmacologic measures are first-line. Antipsychotics **have not been shown to treat or shorten delirium** (MIND-USA was negative; PADIS 2025 was unable to recommend for or against); where used, they are reserved for **short-term control of dangerous agitation** with a documented safety indication, baseline/serial QTc monitoring, the lowest effective dose, daily reassessment for discontinuation, and no continuation at discharge without a psychiatric indication. Dexmedetomidine is framed to its ventilated-patient sedation niche. All doses shown are **generic starting-point references**, not orders, and must be reconciled with the patient and local policy.
+**No agent is FDA-approved to prevent or treat delirium.** Non-pharmacologic measures are first-line. Antipsychotics **have not been shown to treat or shorten delirium** (MIND-USA was negative; PADIS 2025 was unable to recommend for or against). Where used, they are reserved for **short-term control of dangerous agitation** with a documented safety indication, baseline/serial QTc monitoring, the lowest effective dose, daily reassessment for discontinuation, and no continuation at discharge without a psychiatric indication. Dexmedetomidine is framed to its ventilated-patient sedation niche. All doses shown are **generic starting-point references**, not orders, and must be reconciled with the patient and local policy.
 
 ## 10. Regulatory posture (device / non-device)
 
@@ -76,7 +76,7 @@ This is an **internal, non-distributed reference aid**. As an internal tool that
 
 1. It does **not** acquire, process, or analyze a medical image, a signal from an in-vitro diagnostic, or a pattern/signal from a signal-acquisition system.
 2. It **displays, analyzes, or prints** medical information and established clinical reference material about a patient.
-3. It is intended to **support or provide recommendations** to a clinician about prevention, diagnosis, or treatment — offering options and complete, cited information rather than a single push-button directive.
+3. It is intended to **support or provide recommendations** to a clinician about prevention, diagnosis, or treatment, offering options and complete, cited information rather than a single push-button directive.
 4. It is intended to enable the clinician to **independently review the basis** for any recommendation (citation and evidence grade visible), so that the clinician is **not expected to rely primarily** on the tool.
 
 Adherence to this rubric is a **self-imposed design standard, not a regulatory determination or clearance**, and does not constitute legal or regulatory advice. Any future change in distribution, intended use, or autonomy (e.g., issuing orders, computing acted-upon scores, or external release) requires a fresh device/non-device assessment before that change ships.

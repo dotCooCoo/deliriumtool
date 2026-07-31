@@ -1,4 +1,4 @@
-# Delirium Bedside Tool — Reference Archive
+# Delirium Bedside Tool: Reference Archive
 
 Local copies of the primary/official sources behind the tool's clinical content.
 Citations in the tool link to the **canonical URL** (below); these PDFs are the offline archive.
@@ -93,11 +93,11 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Marcantonio 1994 — postop prediction rule, JAMA 1994;271:134 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8264068/ |
 | Pisani 2009 — days of delirium & 1-year mortality, AJRCCM 2009;180:1092 | **not archived** | https://doi.org/10.1164/rccm.200904-0537OC |
 
-## Pediatric Delirium (CAPD / pCAM-ICU / psCAM-ICU) — /peds/
+## Pediatric Delirium (CAPD / pCAM-ICU / psCAM-ICU): /peds/
 
-All PMIDs/DOIs verified against PubMed (via the PubMed MCP). The PDFs/forms below are local copies
-for grounding the pediatric tool's content; most are copyright (SCCM/Lippincott, Thieme,
-Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive — never committed.
+All PMIDs/DOIs verified against PubMed. The PDFs/forms below are local copies
+for grounding the pediatric tool's content. Most are copyright (SCCM/Lippincott, Thieme,
+Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive, never committed.
 
 ### Validated instruments & evidence
 
@@ -155,12 +155,12 @@ Canonical home: https://www.icudelirium.org/medical-professionals/pediatric-deli
 | VADIC — Vanderbilt Assessment for Delirium in Infants & Children (2017) | `peds/vadic-form-2017.pdf` |
 | AACAP pediatric delirium flyer | `peds/aacap-pediatric-delirium-flyer.pdf` |
 
-_Nice-to-have, non-blocking (not yet archived):_ Smith 2011 pCAM-ICU validation (CCM 39:150 — the instruction tool + pocket cards already cover the content); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584 — the mortality companion is archived).
+_Not yet archived (lower priority):_ Smith 2011 pCAM-ICU validation (CCM 39:150, the instruction tool + pocket cards already cover the content); Campbell 2020 risperidone ≤ 2 yr (Capino covers dosing); Traube 2017 international point-prevalence (CCM 45:584, the mortality companion is archived).
 
-## Emergency Department Delirium (DTS / bCAM / 4AT) — /ed/
+## Emergency Department Delirium (DTS / bCAM / 4AT): /ed/
 
 Sources for the ED screening tool and its bedside templates. The article
-PDFs live only in the gitignored `references/ed/` archive — never committed.
+PDFs live only in the gitignored `references/ed/` archive, never committed.
 
 ### Instruments (official, freely distributed)
 
@@ -195,7 +195,7 @@ PDFs live only in the gitignored `references/ed/` archive — never committed.
 | ACEP ED-DEL toolkit (Inouye et al.) — program-level screening pathway options | `ed/acep-ed-del-toolkit-delirium-older-ed-patient.pdf` | https://www.acep.org/ |
 | ACEP ADEPT point-of-care tool (live web tool) | — (web tool, not archived) | https://www.acep.org/patient-care/adept |
 
-## Bonus papers (archived; not yet wired into the tool — useful extras)
+## Bonus papers (archived; not yet wired into the tool, useful extras)
 
 | Source | Local file |
 |---|---|
@@ -205,13 +205,13 @@ PDFs live only in the gitignored `references/ed/` archive — never committed.
 | Chen 2020 — clinical prediction models overview (methodology), Ann Transl Med 2020;8:71 | `chen-2020-prediction-models-overview-atm.pdf` |
 | Tadrisi 2009 — RASS Persian-translation validation, Iran J Crit Care Nurs 2009;2:15 | `tadrisi-2009-rass-persian-validation-ijccn.pdf` |
 
-> ⚠️ `tadrisi-2009-...` is **not** the original Sessler 2002 RASS paper despite the original filename suggesting so — do not cite it as the English-language RASS validation.
+> ⚠️ `tadrisi-2009-...` is the Tadrisi Persian-translation study, **not** the original Sessler 2002 RASS paper. Do not cite it as the English-language RASS validation.
 
-## Still to source (missing or mis-supplied)
+## Still to source (missing or mislabeled)
 
 | Need | Why | URL |
 |---|---|---|
-| Sessler 2002 RASS (AJRCCM 2002;166:1338) | the supplied "Sessler" file is actually the Tadrisi Persian study | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
+| Sessler 2002 RASS (AJRCCM 2002;166:1338) | the archived "Sessler" file is actually the Tadrisi Persian study | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
 | AGS Beers 2023 **JAGS full text** (71:2052) | the archived file is the UConn criteria-tables summary, not the article | https://doi.org/10.1111/jgs.18372 |
 | ProMEDIC **main RCT** (Wibrow 2022, ICM 2022;48:414) | only the SAP + editorial are archived | https://doi.org/10.1007/s00134-022-06638-9 |
 | Inouye 1993 / Marcantonio 1994 / Krewulak 2018 | paywalled; cited by URL | (see tables above) |

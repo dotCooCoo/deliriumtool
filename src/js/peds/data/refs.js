@@ -1,9 +1,8 @@
 /**
  * data/refs.js — the pediatric citation registry. Each clinical claim links to a
  * real, verifiable primary source here; the UI renders per-tab reference lists
- * and inline superscript markers from it (see renderRefs in main.js). Citations
- * were re-validated against PubMed. `c` is the formatted citation, `u` its DOI /
- * PubMed / source URL.
+ * and inline superscript markers from it (see renderRefs in main.js). `c` is the
+ * formatted citation, `u` its DOI / PubMed / source URL.
  */
 export const REFS = {
   traube2014_capd: {
@@ -99,11 +98,11 @@ export const REFS = {
     u: 'https://doi.org/10.1186/s40560-016-0189-5',
   },
   schieveld2009: {
-    c: 'Schieveld JNM, et al. Pediatric delirium in critical illness: phenomenology, clinical correlates and diagnostic/management algorithm (open access). Intensive Care Med. 2009;35(11):1843-1849.',
+    c: 'Schieveld JNM, van der Valk JA, Smeets I, et al. Diagnostic considerations regarding pediatric delirium: a review and a proposal for an algorithm for pediatric intensive care units. Intensive Care Med. 2009;35(11):1843-1849. (Open access.)',
     u: 'https://doi.org/10.1007/s00134-009-1652-8',
   },
   waak2022_picustars: {
-    c: 'Waak M, et al. Nurse-led PICU liberation (PICUstars) implementation protocol. BMC Pediatr. 2022;22:279.',
+    c: 'Waak M, et al. Every child, every day, back to play: the PICUstars protocol — implementation of a nurse-led PICU liberation program. BMC Pediatr. 2022;22:279.',
     u: 'https://doi.org/10.1186/s12887-022-03232-2',
   },
 };

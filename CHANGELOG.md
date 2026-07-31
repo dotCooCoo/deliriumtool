@@ -13,7 +13,7 @@ Notable changes to this project, following
   recognition pictures marking **Seen / New** for each; errors are counted against
   the picture set as you go, and either task reaching three errors makes Feature 2
   positive. It uses the same picture set as the printed pediatric cards.
-- Pediatric tool: a **Present to child** view for the picture task — tap any
+- Pediatric tool: a **Present to child** view for the picture task. Tap any
   picture (or the button) to show it full-size in a modal you can turn toward the
   bed, stepping through the memory pictures and then the recognition pictures with
   Seen / New picked right there. Works on a phone in portrait and landscape, and is
@@ -21,21 +21,21 @@ Notable changes to this project, following
 - Pediatric report: when the picture task is used, the summary now lists each
   recognition picture, whether it was a memory or new picture, and the child's
   answer, with errors flagged and the total shown against the ≥ 3-error cut.
-- Pediatric tool: a second worked example — **"pCAM-ICU example (school age)"** —
+- Pediatric tool: a second worked example, **"pCAM-ICU example (school age)"**,
   loads a filled pCAM-ICU assessment that lands directly on the picture attention
   task, so it can be explored without hunting for the right age and screen. The
   example shortcuts now sit above the age field.
 
 ### Changed
 
-- The home page now opens on a **tool switchboard** — "Who are you screening?" —
+- The home page now opens on a **tool switchboard** ("Who are you screening?")
   with a card for each care setting (Adult ICU, Pediatric ICU, Emergency Dept,
   Templates) showing the validated screens it uses. Choosing Adult ICU then
   shows its document picker; an "All tools" control returns to the switchboard.
   Previously the page opened directly on the adult document picker, with the
   other tools as banner links below it.
 - Every page's header now carries the same four-tool navigation (Adult ICU ·
-  Pediatric · ED · Templates), highlighting the current tool in its own colour —
+  Pediatric · ED · Templates), highlighting the current tool in its own colour,
   replacing per-page link sets that differed in order, wording, and coverage.
 - Adult tool: the facility field moved from the page header to the Documents
   tab, beside the PDF buttons that print it; **Auto-fill example data** moved
@@ -43,7 +43,7 @@ Notable changes to this project, following
   accessibility row on every page.
 - Assessments are now **session-only**: refreshing or reopening a tool starts a
   fresh assessment instead of restoring the previous one, and patient inputs are
-  never written to browser storage — nothing lingers for the next user of a
+  never written to browser storage. Nothing lingers for the next user of a
   shared workstation. Use **Save** (JSON file) to hand off or keep an
   assessment; unit/protocol settings and template-designer configurations still
   persist locally. Any assessment snapshot stored by an earlier version is
@@ -63,7 +63,7 @@ Notable changes to this project, following
 
 - ED bedside card set: the printed screening cards are now numbered by position
   (DTS = Step 1, bCAM = Step 2), matching the interactive ED tool, and renumber
-  themselves if a card is hidden — previously they read "Step 1" then "Step 3".
+  themselves if a card is hidden. Previously they read "Step 1" then "Step 3".
 
 ### Removed
 
@@ -93,8 +93,8 @@ Notable changes to this project, following
   (no clinical value changed): the original CAM (Inouye 1990) behind the
   four-feature algorithm every screen uses; the DSM-5-TR diagnostic standard
   behind the "screen, not a diagnosis" framing; the ICU-specific risk-factor
-  review (Zaal 2015) and cardiac-surgery rule (Rudolph 2009); the deliriogenic-
-  drug review (Clegg & Young 2011) and the benzodiazepine primary trial
+  review (Zaal 2015) and cardiac-surgery rule (Rudolph 2009); the
+  deliriogenic-drug review (Clegg & Young 2011) and the benzodiazepine primary trial
   (Pandharipande 2006); the early-mobility RCT (Schweickert 2009); the pediatric
   RASS validation (Kerson 2016); and 3D-CAM (Marcantonio 2014) for the ward
   pathway. Wired several already-referenced sources (CAM-ICU training manual,
@@ -107,7 +107,7 @@ Notable changes to this project, following
 ### Fixed
 
 - The bedside-template designer now scales a page's type down to fit whenever
-  its content would run past the footer — including cards whose content sits in
+  its content would run past the footer, including cards whose content sits in
   a fixed-height panel, which the fit check previously couldn't see (so a dense
   card, such as the 4AT, could print under its own footer). Every template
   auto-scales to fit; the overflow warning appears only when a page cannot fit
@@ -159,7 +159,7 @@ Notable changes to this project, following
 
 - The **ED Delirium Card Set** now prints as portrait pocket cards, matching
   the format of the real DTS/bCAM/4AT instruments, and combines the arousal
-  ladder and the DTS onto one "Step 1 · DTS" card — a tighter five-card set
+  ladder and the DTS onto one "Step 1 · DTS" card, a tighter five-card set
   (pathways · Step 1 DTS · bCAM · 4AT · act) instead of six landscape cards.
   The ED workflow poster stays landscape.
 
@@ -180,7 +180,7 @@ Notable changes to this project, following
 
 - Pediatric CAM screens (pCAM-ICU / psCAM-ICU) now read as negative as soon as
   Feature 1 (acute change or fluctuating course) is marked absent, without
-  waiting for the inattention feature — absence of a required feature is already
+  waiting for the inattention feature. Absence of a required feature is already
   a negative screen.
 
 
@@ -189,9 +189,9 @@ Notable changes to this project, following
 ### Added
 
 - **Bedside cards in the pediatric tool.** The pediatric tool now renders the
-  actual laminated bedside cards on a new "Bedside cards" tab — the arousal
+  actual laminated bedside cards on a new "Bedside cards" tab: the arousal
   gate card, the screen you're using (CAPD / pCAM-ICU / psCAM-ICU), and the
-  act-on-a-positive card when a screen is positive — with your recorded values
+  act-on-a-positive card when a screen is positive. Your recorded values are
   highlighted on them (the arousal row, the gate taken, and a per-card result
   ribbon). They're the same cards you can print from the template designer, and
   tapping one jumps back to Screening. The generated report gains a "Bedside
@@ -202,7 +202,7 @@ Notable changes to this project, following
 
 ### Added
 
-- **ED templates in the bedside designer** — an **ED Delirium Card Set**
+- **ED templates in the bedside designer**: an **ED Delirium Card Set**
   (landscape cards: a RASS gate card, the DTS triage-rule-out flowsheet, the
   bCAM confirmatory stepper, the 4AT single-step card, and an act-on-a-positive
   card) and an **ED Delirium Workflow** poster (screen → gate → confirm → act,
@@ -216,7 +216,7 @@ Notable changes to this project, following
 
 ### Added
 
-- **ED Delirium Screening tool** at `/ed/` — emergency-department screening
+- **ED Delirium Screening tool** at `/ed/`: emergency-department screening
   for older adults with three guideline-backed pathways: the two-step
   **DTS → bCAM** (a <20-second, 98%-sensitive triage rule-out, then the
   highly specific bCAM with the validated scripts, question sets, and the
@@ -230,29 +230,28 @@ Notable changes to this project, following
   pathway, example data, and a designed summary document (assessor, editable
   time, verdict) that prints or saves as a PDF, plus JSON export/import with
   strict validation. Every instrument card cites its sources inline and the
-  Sources list renders from the citation registry; scoring and sanitizers
-  pass strict validation.
+  Sources list renders from the citation registry.
 
 ## [0.2.0] - 2026-07-02
 
 ### Added
 
-- The picture-cards instructions card keys both sets visually — labeled
+- The picture-cards instructions card keys both sets visually, with labeled
   miniatures of the five memory-set and five other-set pictures, drawn in
-  whichever art style is selected — and the kawaii set is now the default.
+  whichever art style is selected. The kawaii set is now the default.
 
 - On wide screens the designer's preview and options columns scroll
-  independently — scrolling the print preview no longer moves the
+  independently: scrolling the print preview no longer moves the
   customization sidebar, and vice versa.
 
 - Peds card set options: the attention picture cards can print **one picture
   per page** (hold the page itself up to the child) or 4-up with cut guides,
-  and in two art styles — **Set A (classic)** or **Set B (kawaii)**. The card
+  and in two art styles: **Set A (classic)** or **Set B (kawaii)**. The card
   set prints landscape (the bedside ring-deck format), and the CAPD card's
   per-item score blanks and total line now sit as proper write-on underlines.
 
-- A "Sheet design" dropdown for the adult templates: **Design A — classic**
-  (the current look) or **Design B — modern** — white cards with accent
+- A "Sheet design" dropdown for the adult templates: **Design A (classic)**,
+  the current look, or **Design B (modern)**: white cards with accent
   borders and sentence-case tone headings in place of tinted fills and caps
   bars, matching the pediatric card system. The choice prints, saves to the
   PDF, and shares with the rest of the unit configuration.
@@ -260,7 +259,7 @@ Notable changes to this project, following
 - Pediatric bedside templates in the designer: a **Peds Delirium Card Set**
   (arousal gate card with RASS or SBS, screen-routing card, CAPD card,
   psCAM-ICU and pCAM-ICU cards, act-on-a-positive and prevention-bundle
-  cards, plus attention picture cards with cut guides — original colorful
+  cards, plus attention picture cards with cut guides and original colorful
   artwork) and a **PICU Delirium Workflow** poster (screen → gate → score →
   act, with the 10-second rounds script). Card content imports directly from
   the pediatric tool's data modules, so the printed cards and the interactive
@@ -272,12 +271,12 @@ Notable changes to this project, following
   the Sections panel in the designer sidebar.
 
 - "Save PDF" now captures the sheet itself: the PDF embeds a print-resolution
-  image of the exact on-screen sheet (identical to the browser print output —
+  image of the exact on-screen sheet (identical to the browser print output:
   fonts, icons, spacing and auto-scaling included) with the interactive
   checkboxes, RASS radio group, and write-in text fields overlaid at their
   rendered positions. Sheet and PDF can no longer differ.
 - The "Date created" field auto-fills with today's date when the designer
-  loads (still optional — clear it and the footer and filename omit it), and
+  loads (still optional: clear it and the footer and filename omit it), and
   the saved filename uses readable segments, e.g.
   `icu-delirium-rounding-tool_Rev-B_2026-07-02.pdf`.
 
@@ -293,7 +292,7 @@ Notable changes to this project, following
 
 - On the adult tool the Accessibility options sit centered above the
   "Auto-fill example data" button, beside the facility field.
-- The adult tool's header lays out as one row again — the title block
+- The adult tool's header lays out as one row again: the title block
   shrinks (its subtitle wraps) so the facility field, example-data button,
   and Accessibility options keep their place on the right; on narrow
   screens the controls wrap together as one right-aligned cluster.
@@ -306,8 +305,8 @@ Notable changes to this project, following
   a level marks it with a dot and clears the others, instead of allowing
   several independent check marks on a mutually exclusive scale.
 
-- Ticking a checkbox in the saved template PDF now shows a visible check mark —
-  the check glyph was previously rendered far outside its box, so marking a
+- Ticking a checkbox in the saved template PDF now shows a visible check mark.
+  The check glyph was previously rendered far outside its box, so marking a
   field looked like nothing happened.
 - Section header bars (the medication category bars, pathway columns, and card
   headings) no longer touch or overlap the first line beneath them; every
@@ -316,7 +315,7 @@ Notable changes to this project, following
 
 ## [0.1.0] - 2026-07-02
 
-### Changed — clinical accuracy
+### Changed: clinical accuracy
 
 Corrections from a source-verification review of every clinical value against its
 cited primary literature. Each change is recorded with its source in
@@ -334,10 +333,10 @@ cited primary literature. Each change is recorded with its source in
   worksheet's window), not "during the day"; the Feature 4 command mirrors the
   worksheet (do not repeat the number of fingers; "add one more finger" only when
   the patient cannot move both arms).
-- **psCAM-ICU Feature 2 gains the instrument's second positivity path** — eye
+- **psCAM-ICU Feature 2 gains the instrument's second positivity path**: eye
   contact on 8+ presentations but unable to maintain sustained eye opening despite
-  verbal prompts — so a delirious child who keeps eye contact but cannot stay
-  awake is no longer scored a false negative. pCAM-ICU task text now includes the
+  verbal prompts. A delirious child who keeps eye contact but cannot stay
+  awake is therefore no longer scored a false negative. pCAM-ICU task text now includes the
   validated memory-pictures alternative and alternate question set.
 - The pediatric arousal-gate instruction now matches the validated gate: SBS −2
   **and** −3 are comatose (screen at SBS ≥ −1); CAPD developmental anchors show
@@ -383,17 +382,17 @@ cited primary literature. Each change is recorded with its source in
   age-banded developmental anchors, the pediatric prevention bundle, weight-based
   dosing, and an in-browser summary report.
 - Bedside template designer at `/templates/`: customize and print laminate-ready
-  reference sheets — a per-patient ICU Delirium Rounding Tool (landscape,
+  reference sheets: a per-patient ICU Delirium Rounding Tool (landscape,
   dry-erase) and a unit-level SPA Quick Reference poster. Sections, single lines,
   and the deliriogenic-medication list are individually selectable; any line can
   be reworded and units can add their own lines and whole sections. Large print
-  text is the default and every combination — including all 103 medications
-  enabled — fits its two pages; a print-font choice (clean sans, Arial, Georgia)
+  text is the default and every combination (including all 103 medications
+  enabled) fits its two pages; a print-font choice (clean sans, Arial, Georgia)
   is verified to fit throughout. Medication names print generic-only by default
   with an opt-in for brand names; the default selection mirrors the interactive
   tool's documented default classes (benzodiazepines, opioids, anticholinergics)
   with the rest of the catalog opt-in via per-category and select-all/none
-  controls. The medication list prints as a mosaic of colour cards by default —
+  controls. The medication list prints as a mosaic of colour cards by default:
   one check-off square per medication, with the font size and column count
   adapting to the selection, the pharmacology guidance card pinned top-left,
   and a classic category-rows view as an alternative. One colour block per
@@ -406,7 +405,7 @@ cited primary literature. Each change is recorded with its source in
   laminated bedside sheets are discoverable from the landing screen.
 - The saved template PDF is a fillable form: every check square and RASS circle
   is an interactive checkbox, and the patient header, "Action" lines, notes
-  line, and write-in sedation target are text fields — so the sheet works both
+  line, and write-in sedation target are text fields, so the sheet works both
   printed-and-laminated and on-screen.
 - The RASS panel carries a check circle per row for marking the current level,
   and the sedation-target selector offers "No unit target — write in at the

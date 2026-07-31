@@ -36,7 +36,7 @@ function collectCss() {
 }
 
 /**
- * Render one sheet element to a PNG data URL at print resolution. The clone
+ * Render one sheet element to a JPEG data URL at print resolution. The clone
  * is wrapped in a container carrying the preview's classes (type scale and
  * font family are set there) plus the page's icon sprite so `use` references
  * resolve inside the image document.

@@ -78,7 +78,6 @@ export function defaultState() {
 /** Section/item visibility — absent means on. */
 export const isOn = (map, id) => map[id] !== false;
 
-/** Normalize an untrusted snapshot (import/share/localStorage) into a valid state. */
 /** True when a parsed JSON payload looks like a designer configuration. */
 export function looksLikeConfig(raw) {
   return (
@@ -86,6 +85,7 @@ export function looksLikeConfig(raw) {
   );
 }
 
+/** Normalize an untrusted snapshot (import/share/localStorage) into a valid state. */
 export function sanitize(raw) {
   const d = defaultState();
   if (!raw || typeof raw !== 'object') return d;
