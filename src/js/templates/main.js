@@ -714,7 +714,7 @@ function autoFitMeds(sheets) {
         }
       }
       const fit = parseFloat(sheet.style.getPropertyValue('--fs-fit')) || 1;
-      if (fit <= 0.86) break;
+      if (fit <= 0.8) break;
       sheet.style.setProperty('--fs-fit', (fit - 0.02).toFixed(2));
     }
     // Grow phase: give free space back to the medication list — capped near

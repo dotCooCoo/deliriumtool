@@ -24,6 +24,7 @@ import {
   fitToPages,
   stampFooter,
   RC,
+  REPORT_DISCLAIMER,
 } from '../shared/pdf-report.js';
 import { formatStamp, fileStamp } from '../shared/time.js';
 import { WORKFLOW_STAGES, HANDOFF_SCRIPT, ACT_COLUMNS } from '../templates/data/ed-content.js';
@@ -90,7 +91,9 @@ function buildSummary(doc, model, scale) {
   if (model.refs.length) yR = refsBlock(doc, yR, model.refs, R);
 
   y = Math.max(yL, yR) + 12 * scale;
-  if (y + 40 * scale > H - 28 * scale) {
+  // Fixed bottom reserve so the summary never runs into the reference-aid footer
+  // line (which is not scaled); spilling triggers a smaller fitToPages scale.
+  if (y + 40 * scale > H - 40) {
     doc.addPage();
     y = M;
   }
@@ -119,7 +122,6 @@ function buildWorkflowPage(doc) {
         head: 'If the screen is positive — first moves',
         items: ACT_COLUMNS[0].items.map((it) => it.text),
       },
-      footer: 'Reference aid only — follow local policy and prescriber / pharmacy review.',
     },
     { M: 32, W, H },
   );
@@ -139,7 +141,7 @@ export function buildEdDoc(model) {
   });
   doc.addPage('letter', 'landscape');
   buildWorkflowPage(doc);
-  stampFooter(doc, { generated: formatStamp(), margin: 48 });
+  stampFooter(doc, { generated: formatStamp(), margin: 48, disclaimer: REPORT_DISCLAIMER });
   doc.setProperties({
     title: 'ED Delirium Screening Summary',
     subject: 'De-identified screening summary — reference aid only',

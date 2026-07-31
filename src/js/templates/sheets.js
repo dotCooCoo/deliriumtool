@@ -92,16 +92,18 @@ export function sheetFooter(state, page, pages) {
     'div',
     { class: 'sh-foot' },
     el(
-      'span',
-      { class: 'sh-foot-left' },
-      el('div', { text: `${facilityLabel(state)} · ${tplDef(state).name}` }),
-      stamp ? el('div', { class: 'sh-foot-stamp', text: stamp }) : null,
+      'div',
+      { class: 'sh-foot-row' },
+      el(
+        'span',
+        { class: 'sh-foot-left' },
+        el('div', { text: `${facilityLabel(state)} · ${tplDef(state).name}` }),
+        stamp ? el('div', { class: 'sh-foot-stamp', text: stamp }) : null,
+      ),
+      el('span', { class: 'sh-foot-mid', text: `Sources: ${sourcesLine(state)}` }),
+      el('span', { class: 'sh-foot-right', text: `Page ${page} of ${pages}` }),
     ),
-    el('span', {
-      class: 'sh-foot-mid',
-      text: `${SHEET_DISCLAIMER} · Sources: ${sourcesLine(state)}`,
-    }),
-    el('span', { class: 'sh-foot-right', text: `Page ${page} of ${pages}` }),
+    el('div', { class: 'sh-foot-note', text: SHEET_DISCLAIMER }),
   );
 }
 

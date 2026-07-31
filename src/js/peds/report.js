@@ -47,6 +47,7 @@ import {
   stampFooter,
   asciiPdf as ascii,
   RC,
+  REPORT_DISCLAIMER,
 } from '../shared/pdf-report.js';
 import { formatStamp, fileStamp } from '../shared/time.js';
 
@@ -388,9 +389,10 @@ function buildSummary(doc, state, settings, scale, thumbs) {
   );
 
   y = Math.max(yL, yR) + 12 * scale;
-  // If the disclaimer would run into the footer, spill to a second page so
-  // fitToPages retries at a smaller scale until page 1 fits on its own.
-  if (y + 40 * scale > H - 28 * scale) {
+  // If the disclaimer would run into the bottom-of-page reference-aid footer,
+  // spill to a second page so fitToPages retries at a smaller scale until page 1
+  // fits on its own. The reserve is fixed (the footer line is not scaled).
+  if (y + 40 * scale > H - 40) {
     doc.addPage();
     y = M;
   }
@@ -419,7 +421,6 @@ function buildWorkflowPage(doc) {
         head: 'If the screen is positive — first moves',
         items: ACT_POSITIVE.first.map((it) => it.text),
       },
-      footer: 'Reference aid only — follow local policy and prescriber / pharmacy review.',
     },
     { M: 32, W, H },
   );
@@ -436,7 +437,7 @@ export function buildPedsDoc(state, settings, thumbs = {}) {
   });
   doc.addPage('letter', 'landscape');
   buildWorkflowPage(doc);
-  stampFooter(doc, { generated: formatStamp(), margin: 48 });
+  stampFooter(doc, { generated: formatStamp(), margin: 48, disclaimer: REPORT_DISCLAIMER });
   return doc;
 }
 

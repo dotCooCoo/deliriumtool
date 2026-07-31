@@ -225,6 +225,9 @@ test('share codec: base64url round-trips unicode payloads', () => {
 test('sheet disclaimer is verbatim (load-bearing framing)', () => {
   assert.equal(
     SHEET_DISCLAIMER,
-    'Reference aid only — follow local policy & prescriber/pharmacy review',
+    'Reference aid only. These sheets support — and do not replace — clinical judgment, ' +
+      'local protocol, and prescriber/pharmacy review. They are not a validated ' +
+      'decision-support device or an order set. Verify all medication content against ' +
+      'your formulary before use.',
   );
 });
