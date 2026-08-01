@@ -115,9 +115,18 @@
   cursor: pointer;
   background: var(--c-surface);
 }
-.ascale-opt:has(input:checked) {
+.ascale-opt:has(input:focus-visible) {
   outline: 2px solid var(--c-primary);
-  outline-offset: -2px;
+  outline-offset: 2px;
+}
+.ascale-opt:has(input:checked) {
+  border-color: var(--c-primary);
+  background: var(--c-primary-weak);
+  box-shadow: var(--shadow-sm);
+}
+.ascale-opt > .fa {
+  flex: none;
+  opacity: 0.75;
 }
 .ascale-text {
   display: flex;
@@ -152,6 +161,25 @@
 }
 .ascale-opt[data-zone='sed'] .ascale-v {
   color: #1f6a9e;
+}
+.ascale-opt[data-zone='coma'] {
+  border-left-color: #7f8893;
+  background: var(--c-surface-2);
+}
+.ascale-opt[data-zone='coma'] .ascale-v {
+  color: #5f6877;
+}
+.ascale-opt[data-zone='agi'] > .fa {
+  color: #a41f30;
+}
+.ascale-opt[data-zone='calm'] > .fa {
+  color: #2d6b43;
+}
+.ascale-opt[data-zone='sed'] > .fa {
+  color: #1f6a9e;
+}
+.ascale-opt[data-zone='coma'] > .fa {
+  color: #5f6877;
 }
 .ascale-tag {
   margin-left: auto;
@@ -351,6 +379,12 @@
 }
 
 /* ── Act blocks ── */
+.act-progress {
+  margin-bottom: var(--sp-5);
+}
+.act-progress .row {
+  justify-content: space-between;
+}
 .act-card {
   margin-bottom: var(--sp-4);
 }

@@ -8,7 +8,7 @@ Bedside reference for ICU delirium: screening, prevention, and management at the
 > recommendation against the cited primary sources and your institution's policy.
 > Provided "as is", without warranty.
 
-## The four tools
+## The five tools
 
 **Adult ICU tool** ([deliriumtool.com](https://deliriumtool.com/)), the main
 bedside reference:
@@ -39,6 +39,14 @@ older emergency-department patients: the two-step **DTS → bCAM** pathway, the
 validated scripts and thresholds, an unable-to-assess gate, guideline-backed
 next steps, and a de-identified print/PDF summary. Same privacy model.
 
+**Step-down / progressive-care tool**
+([deliriumtool.com/stepdown](https://deliriumtool.com/stepdown/)), delirium
+screening for the verbal, monitored non-intubated (intermediate-care / step-down)
+patient, where the CAM-ICU loses sensitivity: the **CAM-IMC** additive screen
+with a RASS arousal gate, an admission **risk score**, and a multicomponent
+non-pharmacologic **prevention bundle**, with a de-identified print/PDF summary.
+Same privacy model.
+
 **Bedside template designer**
 ([deliriumtool.com/templates](https://deliriumtool.com/templates/)), customize
 and print laminate-ready reference sheets: a per-patient **ICU Delirium Rounding
@@ -47,8 +55,11 @@ Reference** poster, a **Peds Delirium Card Set** (arousal gate, screen routing,
 CAPD, ps/pCAM-ICU, action cards, and attention picture cards for the bedside
 ring), a **PICU Delirium Workflow** poster with the 10-second rounds
 script, an **ED Delirium Card Set** (RASS gate, DTS → bCAM flowsheets, the 4AT,
-and an act-on-a-positive card), and an **ED Delirium Workflow** poster with the
-disposition hand-off script. Pick which sections, lines, and deliriogenic medications
+and an act-on-a-positive card), an **ED Delirium Workflow** poster with the
+disposition hand-off script, a **Step-Down Delirium Card Set** (RASS gate, CAM-IMC
+scoring, admission-risk worksheet, prevention bundle, and an act-on-a-positive
+card), and a **Step-Down Delirium Workflow** poster with the transfer hand-off
+script. Pick which sections, lines, and deliriogenic medications
 print, reword any line, add your unit's own lines and sections, set the sedation
 target, and choose the print size and font, then print at 100% on Letter paper or
 save the generated PDF. Every medication prints with its own check-off
@@ -110,10 +121,11 @@ npm run deploy   # or connect the repository for push-to-main deploys
 Every instrument, threshold, score band, and dose, along with the primary source it maps to, is documented in
 [docs/CLINICAL_METHODOLOGY.md](docs/CLINICAL_METHODOLOGY.md), with the source
 archive indexed in [references/INDEX.md](references/INDEX.md). The methodology
-document also records the governance model (clinical content ownership, review
-cadence, change log, and instrument-deviation register). Corrections backed by a primary source are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+document also records the adoption and maintenance model (MIT licensing and
+adopter responsibility, source-cycle triggers, change log, and
+instrument-deviation register). Corrections backed by a primary source are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## License & attribution
+## License & responsibility
 
 This repository's own code and documentation are released under the
 [MIT License](LICENSE) (© 2026 dotCooCoo): free to use, modify, and distribute,
@@ -124,6 +136,14 @@ of their respective authors and are used as cited; see
 [docs/CLINICAL_METHODOLOGY.md](docs/CLINICAL_METHODOLOGY.md). The MIT "as is, no
 warranty" terms are separate from, and do not replace, the clinical disclaimer
 that this is a reference aid only, not a validated decision-support device.
+
+Anyone may adopt, deploy, or fork it. If you do, you own the clinical governance,
+validation, and any regulatory determination for your deployment: confirm the
+content against current sources for your population and obtain whatever local
+clinical, pharmacy, and information-governance review your institution requires.
+The maintainers provide it as reference material and **take no responsibility for
+how it is used or for any clinical decision or outcome**. See
+[docs/INTENDED_USE.md](docs/INTENDED_USE.md) and §6.1 of the methodology.
 
 ## Contributing & security
 

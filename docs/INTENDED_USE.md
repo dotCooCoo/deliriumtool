@@ -51,7 +51,7 @@ In every case, **the clinician's independent assessment, local protocol, and pre
 
 The tool has **not** been designed or validated for, and must not be transplanted unmodified onto, the following. Use a setting- and population-appropriate, locally validated instrument instead.
 
-- **Pediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Pediatric ICU delirium has its own validated tools (CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate), implemented in the sibling pediatric tool at `/peds/`, which carries its own sign-off gates.
+- **Pediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Pediatric ICU delirium has its own validated tools (CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate), implemented in the sibling pediatric tool at `/peds/`, with its own scope and validation caveats.
 - **Pregnancy and the peripartum patient.** Drug-safety, dosing, and risk content are not adjusted for pregnancy or lactation.
 - **General medical/surgical ward and step-down patients.** CAM-ICU/RASS/ABCDEF are not validated outside the ICU. On the ward, use a ward-validated screen (**4AT / 3D-CAM**), as the tool advises.
 - **Peri-operative ward / PACU and procedural sedation** outside the ICU context.
@@ -72,15 +72,15 @@ So that the tool **supports rather than directs**:
 
 ## 10. Regulatory posture (device / non-device)
 
-This is an **internal, non-distributed reference aid**. As an internal tool that is not offered for sale or distributed as a commercial product, it is outside FDA premarket reach. Notwithstanding that, it is **built voluntarily to the FDA Non-Device Clinical Decision Support rubric** (FD&C Act §520(o)(1)(E), as amended by the 21st Century Cures Act; per the current CDS final guidance, the four-criterion structure) as a design discipline. Specifically, it is designed so that it would satisfy:
+This is **open-source reference software, released under the MIT License**, provided as-is for anyone to adopt and adapt. The project makes **no regulatory claim**: it is not offered as a cleared, certified, or registered medical device, and adopting or forking it confers no such status. It is **built voluntarily to the FDA Non-Device Clinical Decision Support rubric** (FD&C Act §520(o)(1)(E), as amended by the 21st Century Cures Act; per the current CDS final guidance, the four-criterion structure) as a design discipline. Specifically, it is designed so that it would satisfy:
 
 1. It does **not** acquire, process, or analyze a medical image, a signal from an in-vitro diagnostic, or a pattern/signal from a signal-acquisition system.
 2. It **displays, analyzes, or prints** medical information and established clinical reference material about a patient.
 3. It is intended to **support or provide recommendations** to a clinician about prevention, diagnosis, or treatment, offering options and complete, cited information rather than a single push-button directive.
 4. It is intended to enable the clinician to **independently review the basis** for any recommendation (citation and evidence grade visible), so that the clinician is **not expected to rely primarily** on the tool.
 
-Adherence to this rubric is a **self-imposed design standard, not a regulatory determination or clearance**, and does not constitute legal or regulatory advice. Any future change in distribution, intended use, or autonomy (e.g., issuing orders, computing acted-upon scores, or external release) requires a fresh device/non-device assessment before that change ships.
+Adherence to this rubric is a **self-imposed design standard, not a regulatory determination or clearance**, and does not constitute legal or regulatory advice. **Any regulatory determination for a given deployment — whether and how this tool or a derivative is regulated in a particular jurisdiction and use — is the adopter's responsibility.** An adopter that changes the inputs (e.g., ingesting a device signal), the autonomy (issuing orders or computing acted-upon scores), the intended use, or the way it is deployed should make its own device/non-device assessment for that change.
 
 ---
 
-*This statement describes intended use and limitations as a design anchor for formal clinical review. Where this statement, the in-application disclaimers, and your institution's policy differ, the in-application disclaimers and local policy govern clinical use.*
+*This statement describes intended use and limitations as a design anchor for an adopter's own clinical review. Where this statement, the in-application disclaimers, and your institution's policy differ, the in-application disclaimers and local policy govern clinical use.*

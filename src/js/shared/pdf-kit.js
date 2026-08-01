@@ -33,6 +33,7 @@ export const asciiPdf = (s) =>
     .replace(/[₂²]/g, '2') // ₂ / ² (e.g. O₂)
     .replace(/≥/g, '>=')
     .replace(/≤/g, '<=')
+    .replace(/≠/g, '!=')
     .replace(/[−–]/g, '-') // minus sign, en-dash
     .replace(/≈/g, '~');
 

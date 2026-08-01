@@ -58,6 +58,13 @@
   color: var(--c-text-2);
   font-size: var(--fs-md);
 }
+/* The reference-aid disclaimer sits at the foot of the page (the same warning
+   also prints on every sheet footer). */
+.tpl-disclaimer {
+  max-width: var(--content-w);
+  margin: var(--sp-5) auto var(--sp-4);
+  padding: 0 var(--sp-4);
+}
 
 /* The hidden attribute always wins — template-scoped controls (data-tpl /
    data-adult) are hidden by JS and must not be resurrected by display rules. */
@@ -581,6 +588,7 @@ details[open] > summary::before {
 @media print {
   .app-header,
   .tpl-lead,
+  .tpl-disclaimer,
   .ctrl,
   .preview-bar,
   .preview-note,

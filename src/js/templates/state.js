@@ -62,6 +62,8 @@ export function defaultState() {
     showDoses: false,
     showBrands: false,
     medLayout: 'mosaic',
+    // Card sets only: a blank "Notes" write-in on the action/protocol cards.
+    notesLine: false,
     // Sparse override maps: an id is only present when it differs from the default (on).
     sections: {},
     items: {},
@@ -91,9 +93,16 @@ export function sanitize(raw) {
   if (!raw || typeof raw !== 'object') return d;
   const s = { ...d };
   if (
-    ['rounding', 'spa', 'peds-cards', 'peds-workflow', 'ed-cards', 'ed-workflow'].includes(
-      raw.template,
-    )
+    [
+      'rounding',
+      'spa',
+      'peds-cards',
+      'peds-workflow',
+      'ed-cards',
+      'ed-workflow',
+      'stepdown-cards',
+      'stepdown-workflow',
+    ].includes(raw.template)
   )
     s.template = raw.template;
   if (['rass', 'sbs'].includes(raw.pedsScale)) s.pedsScale = raw.pedsScale;
@@ -113,6 +122,7 @@ export function sanitize(raw) {
   s.showActions = raw.showActions !== false;
   s.showDoses = raw.showDoses === true;
   s.showBrands = raw.showBrands === true;
+  s.notesLine = raw.notesLine === true;
   if (['mosaic', 'rows'].includes(raw.medLayout)) s.medLayout = raw.medLayout;
   const boolMap = (m) => {
     const out = {};

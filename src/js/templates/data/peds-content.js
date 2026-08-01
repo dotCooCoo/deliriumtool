@@ -78,37 +78,9 @@ export const AROUSAL_GATE = {
   },
 };
 
-/** Age routing — mirrors scoring.js recommendScreen. */
-export const SCREEN_ROUTES = [
-  {
-    id: 'route-capd',
-    name: 'CAPD',
-    who: 'Every age — the default screen',
-    how: 'Observational: rate the child over the shift against age-expected behavior. Works at any developmental age, including deep developmental delay.',
-    tone: 'plum',
-  },
-  {
-    id: 'route-pscam',
-    name: 'psCAM-ICU',
-    who: 'Developmental age 6 months – 5 years',
-    how: 'Interactive point-in-time screen with age-adapted observational tasks (picture presentations).',
-    tone: 'azure',
-  },
-  {
-    id: 'route-pcam',
-    name: 'pCAM-ICU',
-    who: 'Chronological AND developmental age ≥ 5 years',
-    how: 'Interactive point-in-time screen with verbal attention and command tasks.',
-    tone: 'navy',
-  },
-];
-
 /** SBS administration note (Curley 2006 form). */
 export const SBS_PROCEDURE =
   'Score the child’s response to your voice, then gentle touch, then noxious stimulus, per unit practice (Curley 2006).';
-
-export const SENSORY_REMINDER =
-  'Before any screen: glasses / corrective lenses and hearing aids in place, per the child profile.';
 
 // The stimulus picture deck is shared with the interactive tool's picture task;
 // re-exported here so the print modules keep importing it from one place.

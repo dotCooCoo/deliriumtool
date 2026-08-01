@@ -360,10 +360,12 @@ export function drawWorkflow(doc, opts, ctx) {
     .line(M, y, W - M, y);
   y += 12;
 
-  // Four stage cards, arrows between.
+  // Stage cards with arrows between — sized to however many stages the flow has
+  // (four for the ICU/ED flows, five when a risk stage is added).
   const arrowW = 15;
   const cardGap = 5;
-  const cardW = (CW - 3 * (arrowW + 2 * cardGap)) / 4;
+  const nStages = opts.stages.length;
+  const cardW = (CW - (nStages - 1) * (arrowW + 2 * cardGap)) / nStages;
   const padX = 8;
   const headSize = 9.5;
   const lineSize = 7.8;

@@ -3,6 +3,7 @@
 // share link, persistence, print media, and accessibility.
 /* global document, getComputedStyle */
 import { test, expect } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 import AxeBuilder from '@axe-core/playwright';
 
 test.beforeEach(async ({ page }) => {
@@ -278,6 +279,18 @@ test('Save PDF downloads a two-page document for either template', async ({ page
   );
 });
 
+test('the fillable PDF gives text fields a default appearance so Chrome renders them', async ({
+  page,
+}) => {
+  const download = page.waitForEvent('download');
+  await page.click('.preview-bar [data-act="pdf"]');
+  const pdf = (await readFile(await (await download).path())).toString('latin1');
+  // jsPDF omits the text fields' appearance entirely; Chrome/pdfium then renders
+  // nothing. The AcroForm needs a root default appearance for variable text.
+  expect(pdf).toContain('/FT /Tx');
+  expect(pdf).toMatch(/\/DA \(\/F\d+ 0 Tf 0 g\)/);
+});
+
 test('designer has no serious accessibility violations (adult templates)', async ({ page }) => {
   const seriousViolations = (results) =>
     results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
@@ -298,11 +311,11 @@ test('designer has no serious accessibility violations (adult templates)', async
 
 // ── Peds card set + workflow poster ──────────────────────────────────────────
 
-test('peds card set renders all ten pages with the arousal gate and picture deck', async ({
+test('peds card set renders all nine pages with the arousal gate and picture deck', async ({
   page,
 }) => {
   await page.check('input[name="template"][value="peds-cards"]');
-  await expect(page.locator('.sheet')).toHaveCount(10);
+  await expect(page.locator('.sheet')).toHaveCount(9);
   // Arousal card: full RASS ladder with fillable circles and both gate bars.
   const arousal = page.locator('.sheet').first();
   await expect(arousal.locator('.pc-lrow')).toHaveCount(10);
@@ -357,7 +370,7 @@ test('peds card set is a full builder: toggles, rewording, unit lines, own-card 
     b.parentElement.querySelector('.custom-add-input').value = v;
   }, 'Confirm CAPD documented in EHR');
   await secBtn.evaluate((b) => b.click());
-  await expect(page.locator('.sheet')).toHaveCount(11);
+  await expect(page.locator('.sheet')).toHaveCount(10);
   await expect(page.locator('.pc-custom')).toContainText('Unit huddle checklist');
 });
 
@@ -480,18 +493,18 @@ test('peds cards are landscape pages that fit at every size, font, and scale', a
 
 test('picture cards offer one-per-page layout and the kawaii style set', async ({ page }) => {
   await page.check('input[name="template"][value="peds-cards"]');
-  await expect(page.locator('.sheet')).toHaveCount(10);
+  await expect(page.locator('.sheet')).toHaveCount(9);
   // One picture per page: instructions page + 10 picture pages.
   await page.selectOption('#f-stim-layout', 'full');
-  await expect(page.locator('.sheet')).toHaveCount(18);
+  await expect(page.locator('.sheet')).toHaveCount(17);
   await expect(page.locator('.pc-stimfull')).toHaveCount(10);
   // Kawaii is the default; the classic set redraws every picture with the
   // count and pages identical.
   await expect(page.locator('#f-stim-style')).toHaveValue('b');
   await page.selectOption('#f-stim-style', 'a');
-  await expect(page.locator('.sheet')).toHaveCount(18);
+  await expect(page.locator('.sheet')).toHaveCount(17);
   await page.selectOption('#f-stim-layout', 'grid');
-  await expect(page.locator('.sheet')).toHaveCount(10);
+  await expect(page.locator('.sheet')).toHaveCount(9);
   // The instructions card keys both sets with labeled miniatures.
   await expect(page.locator('.pc-stim-mini')).toHaveCount(10);
   await expect(page.locator('.pc-stim-setlbl').first()).toContainText('show these five first');
@@ -543,15 +556,14 @@ test('peds card set has no serious accessibility violations', async ({ page }) =
   expect(serious.map((v) => v.id).join(', ')).toBe('');
 });
 
-test('ED card set renders five portrait cards with the RASS gate and DTS→bCAM flow', async ({
+test('ED card set renders two landscape pages with the RASS gate and DTS→bCAM flow', async ({
   page,
 }) => {
   await page.check('input[name="template"][value="ed-cards"]');
-  await expect(page.locator('.sheet')).toHaveCount(5);
-  await expect(page.locator('.sheet').first()).toHaveClass(/sheet--portrait/);
-  // Pathways card surfaces all three guideline-backed options.
-  await expect(page.locator('.pc-router .pc-route')).toHaveCount(3);
-  await expect(page.locator('.pc-router')).toContainText('bCAM directly');
+  // Two landscape pages, two cards each: DTS | bCAM, then 4AT | act.
+  await expect(page.locator('.sheet')).toHaveCount(2);
+  await expect(page.locator('.sheet').first()).toHaveClass(/sheet--landscape/);
+  await expect(page.locator('.sheet').first().locator('.pc-col')).toHaveCount(2);
   // Combined Step 1 card: the full RASS ladder + the unable gate + the LUNCH task.
   const dts = page.locator('.pc-dtsgate');
   // Sequential steps number DTS → bCAM as 1 → 2 (no gap).
@@ -576,24 +588,26 @@ test('ED card set renders five portrait cards with the RASS gate and DTS→bCAM 
   expect(await page.locator('button[data-act="editText"][data-id^="f2"]').count()).toBe(0);
 });
 
-test('ED card set: no card overflows one portrait page, even with a long facility', async ({
+test('ED card set: no card overflows a landscape page, even with a long facility', async ({
   page,
 }) => {
   await page.check('input[name="template"][value="ed-cards"]');
   await page.fill('#f-facility', 'Metropolitan Regional Medical Center Emergency Department');
   await expect(page.locator('#fit-warn')).toBeHidden();
   // The .sheet clips overflow, so scrollHeight is blind to content spilling onto
-  // the footer at print size. Measure the deepest body child against the footer
-  // top under print media — that is what actually collides on a printed page.
+  // the footer at print size. Measure the deepest body child across both card
+  // columns against the footer top under print media — that is what actually
+  // collides on a printed page. Both edges are read in viewport coordinates, so
+  // the seed must be -Infinity, not 0: a sheet scrolled above the viewport top
+  // has only negative rects, and a 0 seed would report a phantom overlap.
   await page.emulateMedia({ media: 'print' });
   const over = await page.evaluate(() =>
     [...document.querySelectorAll('.sheet')].map((s) => {
       const foot = s.querySelector('.sh-foot');
-      const body = s.querySelector('.pc-body');
-      if (!foot || !body) return -999;
+      if (!foot) return -999;
       const footTop = foot.getBoundingClientRect().top;
-      let maxBottom = 0;
-      body.querySelectorAll('*').forEach((el) => {
+      let maxBottom = -Infinity;
+      s.querySelectorAll('.pc-body *').forEach((el) => {
         const b = el.getBoundingClientRect().bottom;
         if (b > maxBottom) maxBottom = b;
       });
@@ -643,7 +657,8 @@ test('ED card set is a builder: act toggles, unit lines, own-card sections', asy
     b.parentElement.querySelector('.custom-add-input').value = v;
   }, 'Page geriatrics for a positive screen');
   await secBtn.evaluate((b) => b.click());
-  await expect(page.locator('.sheet')).toHaveCount(6);
+  // Four base cards + a custom card = five columns → three landscape pages.
+  await expect(page.locator('.sheet')).toHaveCount(3);
   await expect(page.locator('.pc-custom')).toContainText('ED delirium pathway contact');
 });
 
@@ -724,7 +739,16 @@ test('every template auto-scales so no page overflows its footer', async ({ page
       };
       return [...document.querySelectorAll('.sheet')].map((s) => Math.round(bottom(s) - limit(s)));
     });
-  for (const tpl of ['rounding', 'spa', 'peds-cards', 'peds-workflow', 'ed-cards', 'ed-workflow']) {
+  for (const tpl of [
+    'rounding',
+    'spa',
+    'peds-cards',
+    'peds-workflow',
+    'ed-cards',
+    'ed-workflow',
+    'stepdown-cards',
+    'stepdown-workflow',
+  ]) {
     await page.check(`input[name="template"][value="${tpl}"]`);
     await page.selectOption('#f-font-scale', '110'); // largest print size = most height pressure
     const over = await overflow();

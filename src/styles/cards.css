@@ -423,7 +423,10 @@
 .sh-mnem-ltr {
   color: var(--tone, var(--sh-red));
   font-weight: 800;
-  font-size: calc(11pt * var(--fs));
+  /* Oversized drop-cap so the leading letters read as D-E-L-I-R-I-U-M(S) down
+     the card set — the mnemonic is the point, so the letter outweighs the word. */
+  font-size: calc(16pt * var(--fs));
+  line-height: 1;
 }
 .sh-mnem-cell .sh-mnem-word {
   color: var(--tone, var(--sh-ink));
@@ -749,6 +752,34 @@
      landscape sheet dimensions. */
   gap: calc(7pt * var(--fs));
 }
+/* Two card columns side by side on one landscape page (step-down / ED sets). A
+   grid with a shared head row (auto) and body row (1fr) that both columns hang
+   on as subgrids, so the header rules line up across the gap and both bodies
+   fill to the same bottom edge even when one head wraps to more lines. Leaving
+   overflow visible lets the auto-fit engine see a tall column via scrollHeight
+   and shrink to fit. */
+.sheet--card-pair {
+  gap: calc(7pt * var(--fs));
+}
+.pc-cols {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: calc(10pt * var(--fs));
+}
+.pc-col {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 2;
+  gap: calc(7pt * var(--fs));
+  border: 1pt solid var(--sh-border);
+  border-radius: 7px;
+  padding: calc(9pt * var(--fs)) calc(11pt * var(--fs));
+}
 .sheet--portrait.sheet--card {
   /* Portrait pocket-card variant (ED set): the SPA poster's 1.15 type boost is
      for a sparse poster — cancel it. A card that still runs long is shrunk to
@@ -803,6 +834,22 @@
   flex: 1;
   min-height: 0;
 }
+/* Optional "Notes" write-in at the foot of a card. It flows after the content
+   (no auto margin) so the auto-fit engine measures it and shrinks the page to
+   keep it clear of the lines above rather than overlapping them. */
+.pc-writein {
+  display: flex;
+  align-items: baseline;
+  gap: calc(6pt * var(--fs));
+  padding-top: calc(5pt * var(--fs));
+  border-top: 0.6pt dashed var(--sh-border);
+  font-size: calc(9pt * var(--fs));
+  font-weight: 700;
+  color: var(--sh-ink);
+}
+.pc-writein .sh-blank {
+  flex: 1;
+}
 .pc-note {
   font-size: calc(8.5pt * var(--fs));
   color: var(--sh-slate);
@@ -855,13 +902,20 @@
 }
 .pc-lrow {
   display: grid;
-  grid-template-columns: calc(14pt * var(--fs)) calc(26pt * var(--fs)) calc(88pt * var(--fs)) 1fr;
+  grid-template-columns:
+    calc(14pt * var(--fs)) calc(12pt * var(--fs)) calc(26pt * var(--fs))
+    calc(88pt * var(--fs)) 1fr;
   align-items: center;
   gap: calc(5pt * var(--fs));
   background: var(--tone-weak);
   border-left: 3pt solid var(--tone);
   border-radius: 4px;
   padding: calc(3pt * var(--fs)) calc(6pt * var(--fs));
+}
+.pc-lrow-ico {
+  width: calc(11pt * var(--fs));
+  height: calc(11pt * var(--fs));
+  color: var(--tone);
 }
 .pc-lrow--calm {
   outline: 1.6pt solid var(--tone);
@@ -1161,6 +1215,30 @@
   min-width: calc(16pt * var(--fs));
   text-align: center;
   padding: calc(0.5pt * var(--fs)) calc(4pt * var(--fs));
+}
+/* Compact, fillable score picker used inside the CAM-IMC stepper: a wrapping
+   row of check-off options so a feature's whole score set fits one line or two
+   instead of a tall column. */
+.pc-scoreset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(2.5pt * var(--fs)) calc(10pt * var(--fs));
+  align-items: center;
+  margin-top: calc(1pt * var(--fs));
+}
+.pc-scoreset-opt {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(4pt * var(--fs));
+  font-size: calc(9pt * var(--fs));
+  color: var(--sh-ink);
+  line-height: 1.2;
+}
+.pc-scoreset-opt .sh-rass-box {
+  width: calc(10pt * var(--fs));
+  height: calc(10pt * var(--fs));
+  color: var(--sh-slate);
+  flex: 0 0 auto;
 }
 .pc-4at-total {
   display: flex;
@@ -1468,19 +1546,28 @@
   color: var(--sh-ink);
   margin-bottom: calc(1.5pt * var(--fs));
 }
+/* The set-key thumbnails size to the row they sit in: each cell flexes to an
+   equal share of the width so they enlarge when the instruction card is alone
+   on a page and shrink in the narrow grid column, capped (in --fs units, so the
+   auto-fit can still shrink them) to stay reasonable and let two rows fit. */
 .pc-stim-minis {
   display: flex;
   gap: calc(6pt * var(--fs));
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .pc-stim-mini {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: calc(68pt * var(--fs));
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: calc(1pt * var(--fs));
 }
 .pc-stim-mini-art {
-  width: calc(26pt * var(--fs));
-  height: calc(26pt * var(--fs));
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border: 0.8pt solid var(--sh-border);
   border-radius: 4px;
   padding: calc(2pt * var(--fs));
@@ -1504,12 +1591,14 @@
 }
 
 /* Full-page picture cards (one picture per page) */
-.pc-stimfull {
+.pc-stimfull,
+.pc-stiminstr-full {
   flex: 1;
   min-height: 0;
   display: flex;
 }
-.pc-stimfull .pc-stim {
+.pc-stimfull .pc-stim,
+.pc-stiminstr-full .pc-stim {
   flex: 1;
 }
 .pc-stimfull .pc-stim-art svg {

@@ -115,10 +115,14 @@ function addFields(doc, sheet, pageW, pageH, seq) {
     }
   }
 
-  // RASS circles — the levels are mutually exclusive, so one radio group per
-  // sheet: picking a level marks it with a dot and clears the others.
-  const circles = [...sheet.querySelectorAll('.sh-rass-box')];
-  if (circles.length) {
+  // RASS / score circles — mutually exclusive within their own card, so one
+  // radio group per card column. A landscape page can pair two cards (each with
+  // its own circle set); single-card pages fall back to the whole sheet.
+  const cols = sheet.querySelectorAll('.pc-col');
+  const circleContainers = cols.length ? [...cols] : [sheet];
+  for (const container of circleContainers) {
+    const circles = [...container.querySelectorAll('.sh-rass-box')];
+    if (!circles.length) continue;
     try {
       const group = new AcroFormRadioButton();
       group.fieldName = `arousal_${++seq}`;
@@ -172,6 +176,16 @@ export async function downloadPdf(state) {
     doc.addImage(png, 'JPEG', 0, 0, pageW, pageH);
     seq = addFields(doc, sheets[i], pageW, pageH, seq);
   }
+  // jsPDF returns undefined for a text field's own /DA — variable-text fields
+  // are meant to inherit the AcroForm's root default appearance — but it never
+  // sets that root /DA, so the fields ship with no appearance at all. Adobe
+  // falls back to a default font and fills fine; Chrome/pdfium paints nothing,
+  // so typed text is invisible. Set the root default appearance (Helvetica,
+  // auto-size, black) so every viewer can render the write-in fields.
+  const acro = doc.internal.acroformPlugin && doc.internal.acroformPlugin.acroFormDictionaryRoot;
+  if (acro && !acro.DA) {
+    acro.DA = `/${doc.internal.getFont('helvetica', 'normal').id} 0 Tf 0 g`;
+  }
   const scaleTag =
     state.template === 'peds-cards' ? ` (${state.pedsScale === 'sbs' ? 'SBS' : 'RASS'})` : '';
   doc.setProperties({
@@ -199,6 +213,8 @@ export async function downloadPdf(state) {
       'peds-workflow': 'picu-delirium-workflow',
       'ed-cards': 'ed-delirium-card-set',
       'ed-workflow': 'ed-delirium-workflow',
+      'stepdown-cards': 'stepdown-delirium-card-set',
+      'stepdown-workflow': 'stepdown-delirium-workflow',
     }[state.template] || 'delirium-template';
   doc.save(`${fname}${suffix ? `_${suffix}` : ''}.pdf`);
 }

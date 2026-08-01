@@ -7,6 +7,18 @@ Notable changes to this project, following
 
 ### Added
 
+- Step-down / progressive-care tool (`/stepdown/`): delirium screening for the
+  verbal, monitored non-intubated (intermediate-care / step-down) patient, where
+  the CAM-ICU loses sensitivity for mild and hypoactive delirium. It runs the
+  **CAM-IMC** additive screen (a RASS arousal gate, acute change, inattention,
+  and a five-dimension disorientation item; positive at 3 of 10), an admission
+  **risk score**, and a multicomponent non-pharmacologic **prevention bundle**,
+  and generates a de-identified print/PDF summary. Same browser-only privacy
+  model as the other tools.
+- Bedside template designer: a **Step-Down Delirium Card Set** and a **Step-Down
+  Delirium Workflow** poster. They print the same CAM-IMC, RASS, admission-risk,
+  and prevention content as the step-down tool — values are imported from the
+  tool's data modules, so the printed cards cannot drift from the screen.
 - Pediatric tool (`/peds/`): the pCAM-ICU inattention screen (Feature 2) now runs
   the validated memory-pictures attention task on screen, alongside the
   squeeze-on-A letters. Show the five memory pictures, then step through the ten

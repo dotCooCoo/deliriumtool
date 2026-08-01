@@ -12,12 +12,11 @@ import {
   DTS,
   BCAM,
   FOURAT,
-  PATHWAYS,
   ACT_POSITIVE,
 } from '../../ed/data/instruments.js';
 import { REFS as ED_REFS } from '../../ed/data/refs.js';
 
-export { RASS_LEVELS, RASS_UNABLE, DTS, BCAM, FOURAT, PATHWAYS, ACT_POSITIVE, ED_REFS };
+export { RASS_LEVELS, RASS_UNABLE, DTS, BCAM, FOURAT, ACT_POSITIVE, ED_REFS };
 
 const f2 = BCAM.features.find((f) => f.id === 'f2');
 const f4 = BCAM.features.find((f) => f.id === 'f4');

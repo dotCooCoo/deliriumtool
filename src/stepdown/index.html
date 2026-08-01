@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Step-Down Delirium Screening — CAM-IMC, RASS</title>
+    <meta
+      name="description"
+      content="Adult step-down / progressive-care delirium screening: the CAM-IMC for monitored non-intubated patients, RASS arousal, an admission risk score, and a multicomponent prevention bundle. Runs entirely in your browser; no patient data leaves the device. Reference aid only."
+    />
+    <link rel="canonical" href="https://deliriumtool.com/stepdown/" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#6d28d9" />
+
+    <link rel="icon" href="../img/stepdown-favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="../img/stepdown-favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="../img/stepdown-apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Step-Down Delirium Screening Tool" />
+    <meta property="og:title" content="Step-Down Delirium Screening — CAM-IMC, RASS" />
+    <meta
+      property="og:description"
+      content="Adult step-down / progressive-care delirium screening — the CAM-IMC, RASS, an admission risk score, and a prevention bundle. Runs entirely in your browser."
+    />
+    <meta property="og:url" content="https://deliriumtool.com/stepdown/" />
+    <meta property="og:image" content="https://deliriumtool.com/img/stepdown-og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Step-Down Delirium Screening — CAM-IMC, RASS" />
+    <meta
+      name="twitter:description"
+      content="Adult step-down / progressive-care delirium screening — the CAM-IMC, RASS, an admission risk score, and a prevention bundle. Runs entirely in your browser."
+    />
+    <meta name="twitter:image" content="https://deliriumtool.com/img/stepdown-og-image.png" />
+
+    <!-- Structured data: non-executable application/ld+json data block (CSP-safe). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Step-Down Delirium Screening Tool",
+        "url": "https://deliriumtool.com/stepdown/",
+        "description": "Adult step-down / progressive-care delirium screening: the CAM-IMC for monitored non-intubated patients, RASS arousal, an admission risk score, and a multicomponent prevention bundle. Runs entirely in the browser; no patient data leaves the device.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any modern web browser",
+        "browserRequirements": "Requires JavaScript",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "inLanguage": "en",
+        "about": { "@type": "MedicalCondition", "name": "Delirium" },
+        "keywords": "delirium, step-down, progressive care, intermediate care, CAM-IMC, RASS, delirium screening, delirium prevention, post-ICU"
+      }
+    </script>
+
+    <link rel="stylesheet" href="../assets/app.css" />
+    <link rel="stylesheet" href="../assets/stepdown.css" />
+    <script src="../assets/stepdown.js" defer></script>
+  </head>
+  <body>
+    <a id="skip-link" class="skip-link" href="#main">Skip to content</a>
+
+    <!--#sprite-->
+
+    <header class="app-header">
+      <div class="app-header-inner">
+        <div class="app-header-brand">
+          <img class="app-logo" src="../img/logo-purple.png" alt="" width="44" height="44" />
+          <div class="app-header-titles">
+            <span class="header-pill">Clinical field reference</span>
+            <h1>Step-Down Delirium Screening Tool</h1>
+            <p class="app-header-sub">
+              For adult step-down / progressive-care patients (CAM-IMC · RASS). In the ICU, use
+              CAM-ICU; in the ED, use the ED tool; for children, the pediatric tool.
+            </p>
+          </div>
+        </div>
+        <!--#tool-nav-->
+        <div class="app-header-actions"></div>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <div class="alert a-warn scope-note">
+        <svg class="fa" aria-hidden="true"><use href="#fa-triangle-exclamation" /></svg>
+        <div>
+          <strong>Reference aid only.</strong> This step-down tool supports — and does not replace —
+          clinical judgment and local protocol. It is not a validated decision-support device or an
+          order set. A positive screen suggests delirium but is not diagnostic; evaluate the cause
+          and confirm clinically. Verify against your local protocol before unit use.
+        </div>
+      </div>
+
+      <details class="why-screen">
+        <summary>Why a distinct step-down screen?</summary>
+        <p>
+          The CAM-ICU loses sensitivity in verbal, non-intubated patients — it misses much mild and
+          hypoactive delirium on the ward. The CAM-IMC was developed and validated for the monitored
+          non-intubated (intermediate-care) patient, and adds a disorientation item. Post-ICU
+          transfers also carry sedative/opioid-withdrawal and post-intensive-care-syndrome risk that
+          can look like new delirium.
+          <span class="cites-inline">(Beyer 2024; Kuczmarska 2016; Wang 2017.)</span>
+        </p>
+      </details>
+
+      <nav class="tabs" aria-label="Sections">
+        <div class="tabs-inner">
+          <button class="tab-btn active" data-tab="screen">
+            <svg class="fa" aria-hidden="true"><use href="#fa-magnifying-glass" /></svg> Screening
+            <span class="tab-badge" id="tab-badge-screen"></span>
+          </button>
+          <button class="tab-btn" data-tab="risk">
+            <svg class="fa" aria-hidden="true"><use href="#fa-triangle-risk" /></svg> Risk
+            <span class="tab-badge" id="tab-badge-risk"></span>
+          </button>
+          <button class="tab-btn" data-tab="prevent">
+            <svg class="fa" aria-hidden="true"><use href="#fa-circle-check" /></svg> Prevention
+            <span class="tab-badge" id="tab-badge-prevent"></span>
+          </button>
+          <button class="tab-btn" data-tab="setup">
+            <svg class="fa" aria-hidden="true"><use href="#fa-gauge-high" /></svg> Setup
+          </button>
+          <button class="tab-btn" data-tab="export">
+            <svg class="fa" aria-hidden="true"><use href="#fa-clipboard-list" /></svg> Summary
+          </button>
+        </div>
+      </nav>
+
+      <div id="sd-live" class="sr-only" role="status" aria-live="polite"></div>
+
+      <!-- ── Screening ── -->
+      <section class="tab-panel active" id="tab-screen">
+        <div class="screen-tools">
+          <button type="button" class="btn btn-sec btn-sm" data-act="example">
+            Load example data
+          </button>
+        </div>
+        <section class="card" id="card-arousal">
+          <h2 class="sec-h">
+            <span class="sec-n">1</span>
+            <svg class="fa sec-ico" aria-hidden="true"><use href="#fa-eye" /></svg>
+            Arousal — Richmond Agitation-Sedation Scale
+          </h2>
+          <p class="note">
+            Score the RASS first — it is the CAM-IMC's level-of-consciousness item (any value other
+            than 0 scores a point). RASS −4/−5 is stupor or coma: record it and reassess when the
+            patient responds to voice.
+          </p>
+          <fieldset class="ascale">
+            <legend class="sr-only">Richmond Agitation-Sedation Scale</legend>
+            <div id="sd-rass" class="ascale-list"></div>
+          </fieldset>
+          <p class="cites" id="arousal-cites"></p>
+        </section>
+
+        <section class="card" id="card-camimc">
+          <div class="sec-hdr">
+            <h2 class="sec-h">
+              <span class="sec-n">2</span>
+              <svg class="fa sec-ico" aria-hidden="true"><use href="#fa-clipboard-list" /></svg>
+              CAM-IMC — screening (0–10, positive at ≥3)
+            </h2>
+            <div class="score-chip">
+              <span class="score-chip-num" id="camimc-total">0</span
+              ><span class="score-chip-den">/10</span>
+            </div>
+          </div>
+          <p class="note">
+            A weighted, additive screen for monitored non-intubated patients. Disorientation or
+            inattention can drive a positive result on their own — unlike the CAM-ICU, a negative
+            acute-change item does not veto the diagnosis.
+          </p>
+
+          <fieldset class="feature">
+            <legend>1 — Acute change or fluctuating course</legend>
+            <p class="task-help">
+              Acute change from the mental-status baseline, or fluctuation over the past 24 h?
+            </p>
+            <div id="camimc-acute"></div>
+          </fieldset>
+
+          <fieldset class="feature">
+            <legend>2 — Altered level of consciousness</legend>
+            <p class="task-help" id="camimc-loc">Record the RASS above.</p>
+          </fieldset>
+
+          <fieldset class="feature">
+            <legend>3 — Inattention</legend>
+            <div id="camimc-inatt"></div>
+          </fieldset>
+
+          <fieldset class="feature">
+            <legend>4 — Disorientation (five dimensions)</legend>
+            <div id="camimc-diso"></div>
+          </fieldset>
+
+          <div id="camimc-verdict" class="verdict v-pending" role="status" aria-live="polite">
+            Record the RASS to begin.
+          </div>
+          <p class="cites" id="camimc-cites"></p>
+        </section>
+      </section>
+
+      <!-- ── Risk ── -->
+      <section class="tab-panel" id="tab-risk">
+        <section class="card">
+          <h2 class="sec-h">
+            <svg class="fa sec-ico" aria-hidden="true"><use href="#fa-triangle-risk" /></svg>
+            Admission delirium risk (Martinez 2012)
+          </h2>
+          <p class="note">
+            A validated ward prediction rule for direct admits — three admission variables, 0–3
+            points, banded to predicted incidence. Use it to target the prevention bundle. This is a
+            risk estimate, not a diagnosis.
+          </p>
+          <div id="risk-items"></div>
+          <div id="risk-verdict" class="verdict v-neg" role="status" aria-live="polite"></div>
+          <p class="cites" id="risk-cites"></p>
+        </section>
+      </section>
+
+      <!-- ── Prevention ── -->
+      <section class="tab-panel" id="tab-prevent">
+        <section class="card">
+          <div class="sec-hdr">
+            <h2 class="sec-h">
+              <svg class="fa sec-ico" aria-hidden="true"><use href="#fa-circle-check" /></svg>
+              Multicomponent prevention bundle
+            </h2>
+            <div class="row">
+              <span class="muted" id="prevention-prog">0/0 applied · 0%</span>
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                id="prevention-markall"
+                data-act="markAllPrev"
+              >
+                Mark all
+              </button>
+            </div>
+          </div>
+          <div class="pbar"><div class="pfill" id="prevention-fill"></div></div>
+          <p class="note">
+            A multicomponent non-pharmacologic bundle reduced incident delirium in non-ICU
+            inpatients (Cochrane RR 0.69). Apply it to every at-risk patient and document each
+            shift.
+          </p>
+          <div class="alert a-info">
+            <svg class="fa" aria-hidden="true"><use href="#fa-circle-info" /></svg>
+            <div>
+              <strong>Antipsychotics do not prevent delirium.</strong> Systematic reviews show no
+              reduction in incidence, duration, length of stay, or mortality — do not use them
+              prophylactically. Reserve short-term, low-dose use for severe agitation that endangers
+              the patient.
+            </div>
+          </div>
+          <div id="prevention-list" class="chk-list"></div>
+          <p class="cites" id="prevention-cites"></p>
+        </section>
+      </section>
+
+      <!-- ── Setup ── -->
+      <section class="tab-panel" id="tab-setup">
+        <section class="card">
+          <h2>Unit setup</h2>
+          <div class="frow">
+            <label for="sd-facility">Facility / unit label (prints on the summary)</label>
+            <input id="sd-facility" class="finp" type="text" maxlength="120" data-act="facility" />
+          </div>
+          <div class="alert a-info">
+            <svg class="fa" aria-hidden="true"><use href="#fa-circle-info" /></svg>
+            <div>
+              <strong>Which screen, which setting:</strong> the CAM-IMC here is for verbal,
+              non-intubated step-down / progressive-care patients. If a patient is intubated or
+              under ICU-level sedation, use the CAM-ICU (adult ICU tool). On a general acute ward,
+              the ward-validated 3D-CAM or the 4AT are the appropriate screens (Marcantonio 2014;
+              SIGN 157; NICE CG103).
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ── Summary ── -->
+      <section class="tab-panel" id="tab-export">
+        <section class="card">
+          <h2>De-identified summary</h2>
+          <p class="note">
+            A de-identified snapshot of this assessment — RASS, CAM-IMC, risk, and prevention —
+            generated on this device. No data leaves the browser; do not add identifiers to the
+            notes.
+          </p>
+          <div id="summary-doc" class="sumdoc">
+            <div class="sumdoc-head">
+              <img
+                class="sumdoc-mark"
+                src="../img/stepdown-icon-192.png"
+                alt=""
+                width="34"
+                height="34"
+              />
+              <div>
+                <div class="sumdoc-title">Step-Down Delirium — Summary</div>
+                <div class="sumdoc-sub" id="summary-facility"></div>
+              </div>
+            </div>
+            <div id="summary-body" class="summary"></div>
+            <div id="summary-verdict" class="verdict v-pending sumdoc-verdict"></div>
+            <p class="sumdoc-foot">
+              Reference aid only — supports, and does not replace, clinical judgment and local
+              protocol. De-identified; generated locally. Sources: Beyer 2024 · Martinez 2012 ·
+              Siddiqi 2016.
+            </p>
+          </div>
+          <div class="frow-grid">
+            <div class="frow">
+              <label for="sd-assessor">Assessor (name / credentials)</label>
+              <input
+                id="sd-assessor"
+                class="finp"
+                type="text"
+                maxlength="120"
+                data-act="assessor"
+              />
+            </div>
+            <div class="frow">
+              <label for="sd-assessed">Assessed (date &amp; time)</label>
+              <input id="sd-assessed" class="finp" type="datetime-local" data-act="assessedAt" />
+            </div>
+          </div>
+          <div class="frow">
+            <label for="sd-notes">Notes (de-identified)</label>
+            <textarea
+              id="sd-notes"
+              class="finp"
+              rows="3"
+              maxlength="1000"
+              data-act="notes"
+            ></textarea>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-act="savepdf">
+              <svg class="fa" aria-hidden="true"><use href="#fa-download" /></svg> Save PDF
+            </button>
+            <button
+              type="button"
+              class="btn btn-sec"
+              data-act="export"
+              title="Save the full assessment to a file on this device"
+            >
+              <svg class="fa" aria-hidden="true"><use href="#fa-download" /></svg> Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-sec"
+              data-act="import"
+              title="Load a saved assessment from a file"
+            >
+              <svg class="fa" aria-hidden="true"><use href="#fa-upload" /></svg> Load
+            </button>
+            <button type="button" class="btn btn-ghost" data-act="reset">
+              <svg class="fa" aria-hidden="true"><use href="#fa-rotate-left" /></svg> New assessment
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <section class="tpl-footer" aria-labelledby="h-sources">
+        <h2 id="h-sources">Sources</h2>
+        <p class="note">
+          Every clinical value above maps to a cited source; the full mapping lives in the project's
+          clinical methodology document.
+        </p>
+        <ol class="src-list" id="src-list"></ol>
+        <p class="note">
+          Everything runs in your browser — no patient data is sent anywhere. Do not enter PHI in
+          fields you intend to share.
+        </p>
+      </section>
+
+      <footer class="site-footer">
+        <a class="link-jump" href="/">← Adult ICU tool</a>
+      </footer>
+    </main>
+  </body>
+</html>

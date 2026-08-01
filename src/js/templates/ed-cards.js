@@ -21,13 +21,18 @@ import {
   itemOn,
   customLines,
 } from './primitives.js';
-import { sheetFooter, sheetIcon } from './sheets.js';
+import {
+  sheetFooter,
+  sheetIcon,
+  AROUSAL_ZONE_ICON,
+  pairColumnSheets,
+  withNotes,
+} from './sheets.js';
 import {
   RASS_LEVELS,
   DTS,
   BCAM,
   FOURAT,
-  PATHWAYS,
   AROUSAL_ZONE,
   RASS_RAIL,
   AROUSAL_GATE,
@@ -45,8 +50,10 @@ import {
 
 // ── Shared card chrome (mirrors peds-cards.js) ──────────────────────────────
 
+// One card renders as a bordered column; renderEdCards pairs two columns per
+// landscape page so the DTS → bCAM sequence sits side by side.
 function card(cls, ...kids) {
-  return el('div', { class: `sheet sheet--portrait sheet--card ${cls || ''}` }, ...kids);
+  return el('div', { class: `pc-col ${cls || ''}` }, ...kids);
 }
 
 function cardHead(tone, chipText, title, sub, icon) {
@@ -88,53 +95,13 @@ const printHelp = (text) =>
 
 // ── Card 1 · Pathways (choose the screen) ───────────────────────────────────
 
-function pathwayCard() {
-  const tones = ['navy', 'teal', 'plum'];
-  const body = el(
-    'div',
-    { class: 'pc-body' },
-    el(
-      'div',
-      { class: 'pc-routes' },
-      ...PATHWAYS.map((p, i) =>
-        el(
-          'div',
-          { class: `pc-route tone-${tones[i] || 'navy'}${i === 0 ? ' pc-route--default' : ''}` },
-          el(
-            'div',
-            { class: 'pc-route-name' },
-            el('span', { text: nobreak(p.name) }),
-            i === 0 ? el('span', { class: 'pc-tag', text: 'default' }) : null,
-          ),
-          el('div', { class: 'pc-route-who', text: p.who }),
-          el('div', { class: 'pc-route-how', text: p.how }),
-        ),
-      ),
-    ),
-    el('div', {
-      class: 'pc-note',
-      text: 'Score arousal first (next card). Then run one pathway — a positive screen is a finding, not a diagnosis.',
-    }),
-  );
-  return card(
-    'pc-router',
-    cardHead(
-      'plum',
-      'Start here',
-      'Choose the screening pathway',
-      'Three guideline-backed options — pick one per your department’s policy.',
-      'magnifying-glass',
-    ),
-    body,
-  );
-}
-
 function arousalRowEl(r) {
   const zone = AROUSAL_ZONE[r.v] || 'slate';
   return el(
     'div',
     { class: `pc-lrow tone-${zone}${r.v === '0' ? ' pc-lrow--calm' : ''}` },
     circleBox(),
+    sheetIcon(AROUSAL_ZONE_ICON[zone], 'sh-ico pc-lrow-ico'),
     el('span', { class: 'pc-lval', text: r.v.replace('-', '−') }),
     el('span', { class: 'pc-llabel', text: r.label }),
     el('span', { class: 'pc-ldesc', text: nobreak(r.desc || '') }),
@@ -442,24 +409,23 @@ function actCard(state) {
 // ── Assembly ─────────────────────────────────────────────────────────────────
 
 export function renderEdCards(state) {
-  const sheets = [];
-  if (secOn(state, 'sec-ed-pathway')) sheets.push(pathwayCard());
+  const cols = [];
   // DTS → bCAM is the sequential diagnostic path, so their step numbers are a
   // position, not a fixed reference — number the shown ones 1..n so hiding one
-  // leaves no gap. The pathway, 4AT alternative, and act cards sit outside the
-  // numbered sequence.
+  // leaves no gap. The 4AT alternative and act cards sit outside the sequence.
   let step = 0;
   let dtsStep = null;
   if (secOn(state, 'sec-ed-dts')) {
     step += 1;
     dtsStep = step;
-    sheets.push(dtsGateCard(dtsStep));
+    cols.push(dtsGateCard(dtsStep));
   }
-  if (secOn(state, 'sec-ed-bcam')) sheets.push(bcamCard(state, step + 1, dtsStep));
-  if (secOn(state, 'sec-ed-4at')) sheets.push(fouratCard());
-  if (secOn(state, 'sec-ed-act')) sheets.push(actCard(state));
+  if (secOn(state, 'sec-ed-bcam')) cols.push(bcamCard(state, step + 1, dtsStep));
+  if (secOn(state, 'sec-ed-4at')) cols.push(fouratCard());
+  // The dense screening cards (DTS, bCAM, 4AT) never take a notes line.
+  if (secOn(state, 'sec-ed-act')) cols.push(withNotes(actCard(state), state));
   for (const sec of state.customSections.filter((x) => x.lines.length)) {
-    sheets.push(
+    cols.push(
       card(
         'pc-custom',
         cardHead('ink', 'Unit', sec.title, 'Local protocol content — the unit’s responsibility.'),
@@ -467,9 +433,8 @@ export function renderEdCards(state) {
       ),
     );
   }
-  const pages = sheets.length;
-  sheets.forEach((s, i) => s.append(sheetFooter(state, i + 1, pages)));
-  return sheets;
+  // Two cards per landscape page (DTS beside bCAM, then 4AT beside act).
+  return pairColumnSheets(cols, state);
 }
 
 // ── Workflow poster (landscape) ─────────────────────────────────────────────

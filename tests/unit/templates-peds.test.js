@@ -10,7 +10,6 @@ import {
   RASS_RAIL,
   AROUSAL_ZONE,
   AROUSAL_GATE,
-  SCREEN_ROUTES,
   CAPD_ITEMS,
   CAPD_POSITIVE,
   CAPD_FREQ,
@@ -56,16 +55,11 @@ test('gate bars restate the comatose floors from the tool', () => {
   assert.match(AROUSAL_GATE.sbs.stop, /−2 \/ −3/);
 });
 
-test('screen routing card matches recommendScreen boundaries', () => {
-  // CAPD is the default at every age; the card says so.
-  assert.equal(SCREEN_ROUTES[0].name, 'CAPD');
-  assert.match(SCREEN_ROUTES[0].who, /Every age/);
+test('screen routing matches recommendScreen boundaries', () => {
   // psCAM band 6–60 months (dev), pCAM ≥ 60 months chrono AND dev.
   assert.deepEqual(recommendScreen({ chronoMonths: 36, devMonths: 36 }).alternatives, ['pscam']);
   assert.deepEqual(recommendScreen({ chronoMonths: 72, devMonths: 72 }).alternatives, ['pcam']);
   assert.deepEqual(recommendScreen({ chronoMonths: 72, devMonths: 24 }).alternatives, ['pscam']);
-  assert.match(SCREEN_ROUTES[1].who, /6 months – 5 years/);
-  assert.match(SCREEN_ROUTES[2].who, /≥ 5 years/);
 });
 
 test('CAPD card values come from the tool module', () => {

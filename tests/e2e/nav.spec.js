@@ -1,16 +1,17 @@
 import { test, expect } from '@playwright/test';
 
 // The shared header nav is generated at build time (scripts/build.mjs) so all
-// four pages carry the same links in the same order, with aria-current marking
+// five pages carry the same links in the same order, with aria-current marking
 // the page being viewed.
 
 const PAGES = [
   { path: '/', current: 'Adult ICU' },
+  { path: '/stepdown/', current: 'Step-Down' },
   { path: '/peds/', current: 'Pediatric' },
   { path: '/ed/', current: 'ED' },
   { path: '/templates/', current: 'Templates' },
 ];
-const LABELS = ['Adult ICU', 'Pediatric', 'ED', 'Templates'];
+const LABELS = ['Adult ICU', 'Step-Down', 'Pediatric', 'ED', 'Templates'];
 
 for (const { path, current } of PAGES) {
   test(`${path} carries the tool nav with the current page marked`, async ({ page }) => {
@@ -25,6 +26,8 @@ for (const { path, current } of PAGES) {
 test('the nav navigates between tools', async ({ page }) => {
   const navLink = (name) => page.locator('.tool-nav').getByRole('link', { name, exact: true });
   await page.goto('/');
+  await navLink('Step-Down').click();
+  await expect(page).toHaveURL(/\/stepdown\/$/);
   await navLink('Pediatric').click();
   await expect(page).toHaveURL(/\/peds\/$/);
   await navLink('ED').click();
@@ -40,4 +43,11 @@ test('the switchboard cards route to each tool page', async ({ page }) => {
   await page.click('.tool-card[href="./ed/"]');
   await expect(page).toHaveURL(/\/ed\/$/);
   await expect(page.locator('h1')).toContainText('ED Delirium Screening');
+});
+
+test('the switchboard routes to the step-down tool', async ({ page }) => {
+  await page.goto('/');
+  await page.click('.tool-card[href="./stepdown/"]');
+  await expect(page).toHaveURL(/\/stepdown\/$/);
+  await expect(page.locator('h1')).toContainText('Step-Down Delirium Screening');
 });
