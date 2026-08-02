@@ -795,7 +795,7 @@ function autoFitMeds(sheets) {
         }
       }
       const fit = parseFloat(sheet.style.getPropertyValue('--fs-fit')) || 1;
-      if (fit <= 0.8) break;
+      if (fit <= 0.7) break;
       sheet.style.setProperty('--fs-fit', (fit - 0.02).toFixed(2));
     }
     // Grow phase: give free space back to the medication list — capped near
@@ -1184,6 +1184,9 @@ function init() {
   buildMedControls();
   buildRefs();
   renderPreview();
+  // Re-fit once web fonts have loaded: their metrics differ from the fallback,
+  // so the first (pre-font) auto-fit can under-shrink and a page can then spill.
+  if (document.fonts?.ready) document.fonts.ready.then(renderPreview);
   if (shared) announce('Shared configuration loaded.');
 
   document.addEventListener('change', onChange);
