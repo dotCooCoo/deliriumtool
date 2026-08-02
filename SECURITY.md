@@ -22,7 +22,10 @@ In scope:
 - Weaknesses in the deploy configuration (CSP, security headers).
 - **Clinical correctness**: a wrong threshold, dose, score, or citation. These are
   treated as security-class issues. Please include the primary source. If it isn't
-  sensitive, you may instead file a "clinical correction" issue.
+  sensitive, you may instead file a "clinical correction" issue. Reporting one
+  helps every adopter, but it does not transfer validation to the maintainers:
+  each deployment's clinical governance and sign-off remain the adopter's (see the
+  reference-aid disclaimer and [docs/INTENDED_USE.md](docs/INTENDED_USE.md)).
 
 ## Data handling
 

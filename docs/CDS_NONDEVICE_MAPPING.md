@@ -1,8 +1,8 @@
 # Non-Device CDS design rubric: output-by-output mapping
 
-**Purpose.** A design check, not legal advice. Each clinical *output* of the tool is held against the four FDA Non-Device Clinical Decision Support criteria (21st Century Cures Act §520(o)(1)(E), as structured in the Jan-2026 CDS final guidance). The goal is that every output is built so it would qualify as non-device CDS, even though an internal, non-distributed reference aid is outside FDA premarket reach.
+**Purpose.** A design check, not legal advice. Each clinical *output* of the tool is held against the four FDA Non-Device Clinical Decision Support criteria (21st Century Cures Act §520(o)(1)(E), as structured in the Jan-2026 CDS final guidance). The goal is that every output is built so it would qualify as non-device CDS. This is a voluntary design discipline, not a regulatory determination: the project is open-source (MIT) and makes no regulatory claim, and any determination for a given deployment is the adopter's.
 
-This mapping describes the tool as currently implemented. Earlier revisions of this document recorded design gaps (weighted risk scores, an unvalidated Pictures-ASE cut-point, an uncited thiamine dose, mislabeled subtype "prevalence"). Those gaps were remediated in the 2026-06-27 and 2026-07-01 content revisions, and their resolutions are recorded in `CLINICAL_METHODOLOGY.md` §6.5. Where a row below says "resolved", the §6.5 change log carries the dated entry.
+This mapping describes the tool as currently implemented. Earlier revisions of this document recorded design gaps (weighted risk scores, an unvalidated Pictures-ASE cut-point, an uncited thiamine dose, mislabeled subtype "prevalence"). Those gaps were remediated in the 2026-06-27 and 2026-07-01 content revisions, and their resolutions are recorded in the change log ([CLINICAL_CHANGELOG.md](CLINICAL_CHANGELOG.md)). Where a row below says "resolved", that change log carries the dated entry.
 
 **The four criteria (as applied here):**
 

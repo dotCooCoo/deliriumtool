@@ -26,6 +26,8 @@ import { MEDS } from '../data/meds.js';
 import { PEDS_FOOTER_CITES, PEDS_CITE_LABELS } from './data/peds-content.js';
 import { ED_FOOTER_CITES, ED_CITE_LABELS } from './data/ed-content.js';
 import { renderEdCards, renderEdWorkflow } from './ed-cards.js';
+import { STEPDOWN_FOOTER_CITES, STEPDOWN_CITE_LABELS } from './data/stepdown-content.js';
+import { renderStepdownCards, renderStepdownWorkflow } from './stepdown-cards.js';
 import { renderPedsCards, renderPedsWorkflow } from './peds-cards.js';
 import { DELIRIUM_REFS } from '../data/refs.js';
 import { faIcon } from '../shared/dom.js';
@@ -76,10 +78,13 @@ function sourcesLine(state) {
     FOOTER_CITES[state.template] ||
     PEDS_FOOTER_CITES[state.template] ||
     ED_FOOTER_CITES[state.template] ||
+    STEPDOWN_FOOTER_CITES[state.template] ||
     [];
   return keys
     .map((k) =>
-      DELIRIUM_REFS[k] ? DELIRIUM_REFS[k].l : PEDS_CITE_LABELS[k] || ED_CITE_LABELS[k] || '',
+      DELIRIUM_REFS[k]
+        ? DELIRIUM_REFS[k].l
+        : PEDS_CITE_LABELS[k] || ED_CITE_LABELS[k] || STEPDOWN_CITE_LABELS[k] || '',
     )
     .filter(Boolean)
     .map((label) => label.replace(/ /g, '\u00a0'))
@@ -105,6 +110,47 @@ export function sheetFooter(state, page, pages) {
     ),
     el('div', { class: 'sh-foot-note', text: SHEET_DISCLAIMER }),
   );
+}
+
+/** A blank "Notes" write-in line (a dry-erase strip that also becomes a fillable
+ *  text field in the captured PDF via the .sh-blank hook). */
+export function notesRow() {
+  return el(
+    'div',
+    { class: 'pc-writein' },
+    el('span', { class: 'pc-writein-lbl', text: 'Notes' }),
+    el('span', { class: 'sh-blank grow' }),
+  );
+}
+
+/** Append a Notes write-in to a card's body when the unit turned it on. Only the
+ *  roomy action/protocol cards call this — the dense screening cards never do. */
+export function withNotes(cardEl, state) {
+  if (state.notesLine) {
+    const body = cardEl.querySelector('.pc-body');
+    if (body) body.append(notesRow());
+  }
+  return cardEl;
+}
+
+/**
+ * Lay out card columns two-up on landscape pages — an odd final column fills its
+ * page alone — and stamp the running page footer on each. Shared by the card
+ * sets that pair their cards side by side (step-down, ED).
+ */
+export function pairColumnSheets(cols, state) {
+  const sheets = [];
+  for (let i = 0; i < cols.length; i += 2) {
+    sheets.push(
+      el(
+        'div',
+        { class: 'sheet sheet--landscape sheet--card-pair' },
+        el('div', { class: 'pc-cols' }, ...cols.slice(i, i + 2)),
+      ),
+    );
+  }
+  sheets.forEach((s, i) => s.append(sheetFooter(state, i + 1, sheets.length)));
+  return sheets;
 }
 
 /** Unit-authored sections for one page — full-width titled checklists. */
@@ -138,6 +184,17 @@ function selectedMedCats(state) {
 }
 
 export const sheetIcon = (icon, cls) => faIcon(`fa-${icon}`, cls || 'sh-ico');
+
+// A shape per arousal zone (keyed by the row's tone), so the RASS/SBS ladder
+// reads by icon as well as colour — the same glyph set the interactive tools use.
+export const AROUSAL_ZONE_ICON = {
+  red: 'triangle-exclamation',
+  rust: 'triangle-exclamation',
+  green: 'circle-check',
+  teal: 'moon',
+  navy: 'bed-pulse',
+  slate: 'moon',
+};
 
 export function band(tone, text, icon) {
   const b = el('div', { class: `sh-band tone-${tone}` });
@@ -670,5 +727,7 @@ export function renderSheets(state) {
   if (state.template === 'peds-workflow') return renderPedsWorkflow(state);
   if (state.template === 'ed-cards') return renderEdCards(state);
   if (state.template === 'ed-workflow') return renderEdWorkflow(state);
+  if (state.template === 'stepdown-cards') return renderStepdownCards(state);
+  if (state.template === 'stepdown-workflow') return renderStepdownWorkflow(state);
   return state.template === 'spa' ? renderSpa(state) : renderRounding(state);
 }

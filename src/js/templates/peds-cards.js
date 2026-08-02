@@ -22,7 +22,7 @@ import {
   itemOn,
   customLines,
 } from './primitives.js';
-import { sheetFooter, sheetIcon } from './sheets.js';
+import { sheetFooter, sheetIcon, AROUSAL_ZONE_ICON, withNotes } from './sheets.js';
 import {
   RASS_LEVELS,
   SBS_LEVELS,
@@ -30,8 +30,6 @@ import {
   RASS_RAIL,
   AROUSAL_ZONE,
   AROUSAL_GATE,
-  SCREEN_ROUTES,
-  SENSORY_REMINDER,
   CAPD_ITEMS,
   CAPD_POSITIVE,
   CAPD_FREQ,
@@ -100,6 +98,7 @@ function arousalRowEl(scale, r) {
     'div',
     { class: `pc-lrow tone-${zone}${r.v === '0' ? ' pc-lrow--calm' : ''}` },
     circleBox(),
+    sheetIcon(AROUSAL_ZONE_ICON[zone], 'sh-ico pc-lrow-ico'),
     el('span', { class: 'pc-lval', text: r.v.replace('-', '−') }),
     el('span', { class: 'pc-llabel', text: r.label }),
     el('span', { class: 'pc-ldesc', text: nobreak(r.desc) }),
@@ -170,52 +169,6 @@ function arousalCard(state) {
         ? 'The screening gate for intubated infants & young children — score arousal before any delirium screen.'
         : 'The screening gate — score arousal before any delirium screen. Look, then talk, then touch.',
       'eye',
-    ),
-    body,
-  );
-}
-
-// ── Card 2 · Choose the screen ───────────────────────────────────────────────
-
-function routerCard() {
-  const body = el('div', { class: 'pc-body' });
-  body.append(
-    el(
-      'div',
-      { class: 'pc-routes' },
-      ...SCREEN_ROUTES.map((r, i) =>
-        el(
-          'div',
-          { class: `pc-route tone-${r.tone}${i === 0 ? ' pc-route--default' : ''}` },
-          el(
-            'div',
-            { class: 'pc-route-name' },
-            el('span', { text: nobreak(r.name) }),
-            i === 0 ? el('span', { class: 'pc-tag', text: 'default' }) : null,
-          ),
-          el('div', { class: 'pc-route-who', text: r.who }),
-          el('div', { class: 'pc-route-how', text: r.how }),
-        ),
-      ),
-    ),
-    el(
-      'div',
-      { class: 'pc-note pc-note--boxed' },
-      sheetIcon('triangle-exclamation', 'sh-ico pc-note-ico'),
-      el('span', {
-        text: 'Route by developmental age, not chronological age alone — a developmentally delayed child screens with the instrument matching their developmental level, anchored to their own baseline.',
-      }),
-    ),
-    el('div', { class: 'pc-note', text: SENSORY_REMINDER }),
-  );
-  return card(
-    'pc-router',
-    cardHead(
-      'plum',
-      'Step 2',
-      'Choose the delirium screen',
-      'CAPD works at every age; the CAM screens add interactive point-in-time detail.',
-      'magnifying-glass',
     ),
     body,
   );
@@ -643,10 +596,12 @@ function stimPages(state) {
           'One picture per page. Laminate for bedside reuse.',
           'eye',
         ),
+        // One picture per page, so the instruction card is alone on its page —
+        // let it fill the width instead of sitting in a half-width grid column.
         el(
           'div',
           { class: 'pc-body' },
-          el('div', { class: 'pc-stimgrid' }, stimInstructionCell(style)),
+          el('div', { class: 'pc-stiminstr-full' }, stimInstructionCell(style)),
         ),
       ),
       ...cells().map((cell, i) =>
@@ -694,12 +649,11 @@ function stimPages(state) {
 export function renderPedsCards(state) {
   const sheets = [];
   if (secOn(state, 'sec-pc-arousal')) sheets.push(arousalCard(state));
-  if (secOn(state, 'sec-pc-router')) sheets.push(routerCard());
   if (secOn(state, 'sec-pc-capd')) sheets.push(capdCard());
   if (secOn(state, 'sec-pc-pscam')) sheets.push(pscamCard());
   if (secOn(state, 'sec-pc-pcam')) sheets.push(pcamCard());
-  if (secOn(state, 'sec-pc-act')) sheets.push(actCard(state));
-  if (secOn(state, 'sec-pc-prevent')) sheets.push(preventCard(state));
+  if (secOn(state, 'sec-pc-act')) sheets.push(withNotes(actCard(state), state));
+  if (secOn(state, 'sec-pc-prevent')) sheets.push(withNotes(preventCard(state), state));
   for (const sec of state.customSections.filter((x) => x.lines.length)) {
     sheets.push(
       card(

@@ -1,0 +1,19 @@
+{
+  "name": "Step-Down Delirium Screening Tool",
+  "short_name": "Step-Down Delirium",
+  "description": "Adult step-down / progressive-care delirium screening — the CAM-IMC, RASS, an admission risk score, and a prevention bundle. Runs entirely in your browser.",
+  "start_url": "/stepdown/",
+  "scope": "/stepdown/",
+  "display": "standalone",
+  "background_color": "#faf8fe",
+  "theme_color": "#6d28d9",
+  "icons": [
+    { "src": "/img/stepdown-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    {
+      "src": "/img/stepdown-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

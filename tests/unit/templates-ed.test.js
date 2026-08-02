@@ -125,13 +125,7 @@ test('the two ED templates are registered with sections', () => {
     );
     assert.ok(SECTIONS[id]?.length, `no sections for: ${id}`);
   }
-  // The card set exposes the five instrument cards.
+  // The card set exposes the four instrument cards (paired two-up in landscape).
   const cardSecs = SECTIONS['ed-cards'].map((s) => s.id);
-  assert.deepEqual(cardSecs, [
-    'sec-ed-pathway',
-    'sec-ed-dts',
-    'sec-ed-bcam',
-    'sec-ed-4at',
-    'sec-ed-act',
-  ]);
+  assert.deepEqual(cardSecs, ['sec-ed-dts', 'sec-ed-bcam', 'sec-ed-4at', 'sec-ed-act']);
 });

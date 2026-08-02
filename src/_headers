@@ -43,3 +43,9 @@
 
 /templates/index.html
   Cache-Control: no-cache
+
+/stepdown/
+  Cache-Control: no-cache
+
+/stepdown/index.html
+  Cache-Control: no-cache

@@ -8,7 +8,7 @@
  * instruments for ED use). Everything runs in the browser — no patient data
  * leaves the device. Reference aid only.
  */
-import { wireTablist, applyGlossary, el, $, $$ } from '../shared/dom.js';
+import { wireTablist, applyGlossary, faIcon, el, $, $$ } from '../shared/dom.js';
 import { initA11y } from '../shared/a11y.js';
 import { makeStore } from '../shared/store.js';
 import { downloadJSON, pickJSON } from '../shared/files.js';
@@ -139,8 +139,17 @@ function zoneOf(v) {
   const n = Number(v);
   if (n >= 1) return 'agi';
   if (n === 0) return 'calm';
+  if (n <= -4) return 'coma';
   return 'sed';
 }
+
+// A shape per arousal zone, so the ladder reads by icon as well as colour.
+const ZONE_ICONS = {
+  agi: 'triangle-exclamation',
+  calm: 'circle-check',
+  sed: 'moon',
+  coma: 'bed-pulse',
+};
 
 function citesLine(keys) {
   const line = el('p', { class: 'cites' }, 'Sources: ');
@@ -225,10 +234,12 @@ function renderRass() {
       if (state.rass === r.v) input.checked = true;
       const text = el('span', { class: 'ascale-text' }, el('strong', { text: r.label }));
       if (r.desc) text.append(el('span', { class: 'ascale-desc', text: r.desc }));
+      const zone = zoneOf(r.v);
       const row = el(
         'label',
-        { class: 'ascale-opt', 'data-zone': zoneOf(r.v) },
+        { class: 'ascale-opt', 'data-zone': zone },
         input,
+        faIcon(`fa-${ZONE_ICONS[zone]}`),
         el('span', { class: 'ascale-v', text: fmtRass(r.v) }),
         text,
       );
@@ -590,6 +601,19 @@ function renderAct() {
       ),
     ),
   );
+  const total = ACT_POSITIVE.reduce((sum, b) => sum + b.items.length, 0);
+  const n = state.actions.length;
+  const pct = total ? Math.round((n / total) * 100) : 0;
+  const prog = $('#act-prog');
+  if (prog) prog.textContent = `${n}/${total} done · ${pct}%`;
+  const fill = $('#act-fill');
+  if (fill) {
+    fill.style.width = `${pct}%`;
+    fill.style.setProperty('--pct', pct);
+    fill.classList.toggle('is-complete', total > 0 && n === total);
+  }
+  const markBtn = $('#act-markall');
+  if (markBtn) markBtn.textContent = n === total && total > 0 ? 'Clear all' : 'Mark all';
 }
 
 // ── Summary tab ──────────────────────────────────────────────────────────────
@@ -786,6 +810,38 @@ function renderSources() {
 
 // ── Rendering root ───────────────────────────────────────────────────────────
 
+// Verdict glyph + tone per screen result, so a tab shows its state at a glance.
+const VERDICT_BADGE = {
+  'v-pos': { icon: 'fa-triangle-exclamation', tone: 'danger', label: 'Screen positive' },
+  'v-neg': { icon: 'fa-circle-check', tone: 'ok', label: 'Screen negative' },
+  'v-cog': { icon: 'fa-circle-info', tone: 'caution', label: 'Possible cognitive impairment' },
+  'v-warn': { icon: 'fa-ban', tone: 'caution', label: 'Unable to assess' },
+};
+
+function updateTabBadges() {
+  const sb = $('#tab-badge-screen');
+  if (sb) {
+    const meta = VERDICT_BADGE[overallVerdict().cls];
+    sb.className = 'tab-badge';
+    if (meta) {
+      sb.classList.add('tone-' + meta.tone);
+      sb.replaceChildren(faIcon(meta.icon, 'fa fa-sm'));
+      sb.setAttribute('aria-label', meta.label);
+      sb.title = meta.label;
+    } else {
+      sb.replaceChildren();
+      sb.removeAttribute('aria-label');
+      sb.removeAttribute('title');
+    }
+  }
+  const ab = $('#tab-badge-act');
+  if (ab) {
+    const total = ACT_POSITIVE.reduce((s, b) => s + b.items.length, 0);
+    const n = state.actions.length;
+    ab.textContent = n > 0 ? `${n}/${total}` : '';
+  }
+}
+
 function renderAll() {
   const focusKey = focusKeyOf(document.activeElement);
   renderPathwayPick();
@@ -794,6 +850,7 @@ function renderAll() {
   render4at();
   renderAct();
   renderSummary();
+  updateTabBadges();
   applyGlossary(ED_GLOSSARY, document.querySelectorAll('#tab-screen, #tab-act'));
   restoreFocus(focusKey);
 }
@@ -923,6 +980,16 @@ function onClick(e) {
       showTab('act');
       $('#tab-act').focus();
       break;
+    case 'markAllAct': {
+      const all = ACT_POSITIVE.flatMap((b) => b.items.map((_, i) => `${b.id}-${i}`));
+      const filling = state.actions.length < all.length;
+      state.actions = filling ? all : [];
+      enforceGates();
+      stampIfClinical();
+      renderAll();
+      announce(filling ? 'All actions marked.' : 'Actions cleared.');
+      break;
+    }
     case 'reset':
       if (!window.confirm('Start a new assessment? The current one will be cleared.')) return;
       state = blankAssessment();
@@ -952,9 +1019,6 @@ function onClick(e) {
         renderAll();
         announce('Assessment loaded.');
       });
-      break;
-    case 'print':
-      window.print();
       break;
     case 'example':
       state = sanitizeAssessment(EXAMPLE_ASSESSMENT);

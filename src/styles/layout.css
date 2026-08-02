@@ -357,6 +357,32 @@
   border-bottom: 2px solid var(--c-border);
 }
 
+/* Numbered / icon-led section header: a small accent chip carries the screening
+   step number and a leading glyph names the step, so the flow reads at a glance. */
+.sec-h {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.sec-h .sec-n {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 0.72em;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.sec-h .sec-ico {
+  flex: none;
+  color: var(--c-primary);
+}
+
 .sec-title {
   font-size: var(--fs-xl);
   font-weight: 800;

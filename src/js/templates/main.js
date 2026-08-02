@@ -40,6 +40,14 @@ import {
   ED_REFS,
 } from './data/ed-content.js';
 import {
+  ACT_COLUMNS as SD_ACT_COLUMNS,
+  WORKFLOW_STAGES as SD_WORKFLOW_STAGES,
+  HANDOFF_SCRIPT as SD_HANDOFF_SCRIPT,
+  PREVENTION_ITEMS as SD_PREVENTION_ITEMS,
+  STEPDOWN_ALL_CITES,
+  SD_REFS as STEPDOWN_REFS,
+} from './data/stepdown-content.js';
+import {
   defaultState,
   sanitize,
   isOn,
@@ -153,6 +161,56 @@ function controlGroups(tplId) {
             head: 'Disposition hand-off script',
             fixedHead: true,
             items: ED_HANDOFF_SCRIPT,
+          },
+        ],
+      },
+    ];
+  }
+  if (tplId === 'stepdown-cards') {
+    return [
+      {
+        section: 'sec-sd-act',
+        groups: SD_ACT_COLUMNS.map((col) => ({
+          id: col.id,
+          head: col.head,
+          fixedHead: true,
+          items: col.items,
+          custom: true,
+        })),
+      },
+      {
+        // The prevention bundle is a protocol checklist (not a scored
+        // instrument), so its lines can be switched, reworded, and added to.
+        section: 'sec-sd-prevent',
+        groups: [
+          {
+            id: 'sd-prev',
+            head: 'Prevention measures',
+            fixedHead: true,
+            items: SD_PREVENTION_ITEMS.map((c) => ({ id: `sd-prev-${c.id}`, text: c.label })),
+            custom: true,
+          },
+        ],
+      },
+    ];
+  }
+  if (tplId === 'stepdown-workflow') {
+    return [
+      {
+        section: 'sec-sd-wf-poster',
+        groups: [
+          ...SD_WORKFLOW_STAGES.map((st) => ({
+            id: st.id,
+            head: st.head,
+            fixedHead: true,
+            items: st.lines.filter((l) => !l.locked),
+            custom: true,
+          })),
+          {
+            id: 'sd-handoff',
+            head: 'Hand-off script',
+            fixedHead: true,
+            items: SD_HANDOFF_SCRIPT,
           },
         ],
       },
@@ -301,7 +359,9 @@ function buildSectionControls() {
       el('span', {
         class: 'sec-ctl-page',
         text:
-          state.template.startsWith('peds') || state.template.startsWith('ed')
+          state.template.startsWith('peds') ||
+          state.template.startsWith('ed') ||
+          state.template.startsWith('stepdown')
             ? ''
             : `p.${sec.page}`,
       }),
@@ -554,6 +614,7 @@ function reflectFields() {
   $('#f-font-scale').value = state.fontScale;
   $('#f-font-family').value = state.fontFamily;
   $('#f-actions').checked = state.showActions;
+  $('#f-notes').checked = state.notesLine;
   $('#f-doses').checked = state.showDoses;
   $('#f-brands').checked = state.showBrands;
   $('#f-med-layout').value = state.medLayout;
@@ -566,15 +627,24 @@ function reflectFields() {
   });
   // Controls scoped to one template (data-tpl) hide elsewhere; adult-only
   // controls (data-adult) hide on the peds templates.
-  const nonAdult = state.template.startsWith('peds') || state.template.startsWith('ed');
+  const nonAdult =
+    state.template.startsWith('peds') ||
+    state.template.startsWith('ed') ||
+    state.template.startsWith('stepdown');
   $$('[data-tpl]').forEach((n) => {
     n.hidden = n.dataset.tpl !== state.template;
   });
   $$('[data-adult]').forEach((n) => {
     n.hidden = nonAdult;
   });
+  $$('[data-cards]').forEach((n) => {
+    n.hidden = !['peds-cards', 'ed-cards', 'stepdown-cards'].includes(state.template);
+  });
   $$('[data-no-poster]').forEach((n) => {
-    n.hidden = state.template === 'peds-workflow' || state.template === 'ed-workflow';
+    n.hidden =
+      state.template === 'peds-workflow' ||
+      state.template === 'ed-workflow' ||
+      state.template === 'stepdown-workflow';
   });
   if ($('#f-ed-f4set')) $('#f-ed-f4set').value = state.edF4Set;
 }
@@ -591,11 +661,19 @@ function buildRefs() {
       ...PEDS_FOOTER_CITES['peds-workflow'],
       ...ED_FOOTER_CITES['ed-cards'],
       ...ED_FOOTER_CITES['ed-workflow'],
+      ...STEPDOWN_ALL_CITES,
     ]),
   ];
+  // Dedupe by source URL, not by key: the same paper is stored under different
+  // keys across tools (e.g. sessler2002 vs sessler2002_rass), so a key-set would
+  // list it twice.
+  const seen = new Set();
   for (const k of keys) {
-    const ref = DELIRIUM_REFS[k] || PEDS_REFS[k] || ED_REFS[k];
+    const ref = DELIRIUM_REFS[k] || PEDS_REFS[k] || ED_REFS[k] || STEPDOWN_REFS[k];
     if (!ref) continue;
+    const u = (ref.u || '').replace(/\/+$/, '').toLowerCase();
+    if (seen.has(u)) continue;
+    seen.add(u);
     mount.append(el('li', {}, el('a', { href: ref.u, target: '_blank', rel: 'noopener' }, ref.c)));
   }
 }
@@ -606,7 +684,10 @@ function renderPreview() {
   const mount = $('#sheets');
   // Design B applies to the adult sheets only; the peds templates already
   // use the modern card system.
-  const nonAdult = state.template.startsWith('peds') || state.template.startsWith('ed');
+  const nonAdult =
+    state.template.startsWith('peds') ||
+    state.template.startsWith('ed') ||
+    state.template.startsWith('stepdown');
   const design = !nonAdult && state.design === 'b' ? ' design-b' : '';
   mount.className = `sheets fs-${state.fontScale} ff-${state.fontFamily}${design}`;
   const sheets = renderSheets(state);
@@ -714,7 +795,7 @@ function autoFitMeds(sheets) {
         }
       }
       const fit = parseFloat(sheet.style.getPropertyValue('--fs-fit')) || 1;
-      if (fit <= 0.8) break;
+      if (fit <= 0.7) break;
       sheet.style.setProperty('--fs-fit', (fit - 0.02).toFixed(2));
     }
     // Grow phase: give free space back to the medication list — capped near
@@ -900,6 +981,10 @@ function onChange(e) {
       state.showActions = t.checked;
       update();
       break;
+    case 'f-notes':
+      state.notesLine = t.checked;
+      update();
+      break;
     case 'f-doses':
       state.showDoses = t.checked;
       update();
@@ -1039,7 +1124,10 @@ async function onClick(e) {
         announce('Up to four custom sections are supported.');
         break;
       }
-      const ownPage = state.template === 'peds-cards' || state.template === 'ed-cards';
+      const ownPage =
+        state.template === 'peds-cards' ||
+        state.template === 'ed-cards' ||
+        state.template === 'stepdown-cards';
       const page = ownPage ? 0 : $('#f-newsec-page').value === '2' ? 2 : 1;
       const id = `cs-${Date.now().toString(36)}`;
       state.customSections.push({ id, page, title, lines: [] });
@@ -1096,6 +1184,9 @@ function init() {
   buildMedControls();
   buildRefs();
   renderPreview();
+  // Re-fit once web fonts have loaded: their metrics differ from the fallback,
+  // so the first (pre-font) auto-fit can under-shrink and a page can then spill.
+  if (document.fonts?.ready) document.fonts.ready.then(renderPreview);
   if (shared) announce('Shared configuration loaded.');
 
   document.addEventListener('change', onChange);

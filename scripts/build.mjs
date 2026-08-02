@@ -42,6 +42,7 @@ const js = await esbuild.build({
     peds: join(src, 'js', 'peds', 'main.js'),
     templates: join(src, 'js', 'templates', 'main.js'),
     ed: join(src, 'js', 'ed', 'main.js'),
+    stepdown: join(src, 'js', 'stepdown', 'main.js'),
   },
   bundle: true,
   format: 'iife',
@@ -60,6 +61,7 @@ const css = await esbuild.build({
     peds: join(src, 'styles', 'peds.css'),
     templates: join(src, 'styles', 'templates.css'),
     ed: join(src, 'styles', 'ed.css'),
+    stepdown: join(src, 'styles', 'stepdown.css'),
   },
   bundle: true,
   minify: true,
@@ -84,12 +86,15 @@ const tplJsName = outName(js.metafile, 'templates', '.js');
 const tplCssName = outName(css.metafile, 'templates', '.css');
 const edJsName = outName(js.metafile, 'ed', '.js');
 const edCssName = outName(css.metafile, 'ed', '.css');
+const stepdownJsName = outName(js.metafile, 'stepdown', '.js');
+const stepdownCssName = outName(css.metafile, 'stepdown', '.css');
 
 // The cross-tool header nav is generated here from one list so every page
 // carries the same links in the same order, with aria-current marking the page
 // being viewed. Hrefs are relative so dist/ keeps working from file://.
 const TOOLS = [
   { key: 'adult', dir: '', label: 'Adult ICU' },
+  { key: 'stepdown', dir: 'stepdown/', label: 'Step-Down' },
   { key: 'peds', dir: 'peds/', label: 'Pediatric' },
   { key: 'ed', dir: 'ed/', label: 'ED' },
   { key: 'templates', dir: 'templates/', label: 'Templates' },
@@ -108,9 +113,16 @@ function toolNav(currentKey) {
 // and expand the <!--#tool-nav--> marker into the shared header nav.
 // Relative paths keep the built dist/ working from file://; the pediatric page
 // lives at /peds/ so it references ../assets/ and layers peds.css over app.css.
+// The FontAwesome icon sprite is authored once (src/partials/icon-sprite.html) and
+// injected into every page at its <!--#sprite--> marker, so no page can omit or
+// drift an icon. It stays inline (not an external sprite.svg) to satisfy the strict
+// self-only CSP and keep the built site working offline / from file://.
+const iconSprite = (await readFile(join(src, 'partials', 'icon-sprite.html'), 'utf8')).trim();
+
 async function emitPage(srcRel, outRel, subs) {
   let h = await readFile(join(src, srcRel), 'utf8');
   for (const [from, to] of subs) h = h.replaceAll(from, to);
+  h = h.replaceAll('<!--#sprite-->', iconSprite);
   await mkdir(dirname(join(dist, outRel)), { recursive: true });
   await writeFile(join(dist, outRel), h);
 }
@@ -136,6 +148,12 @@ await emitPage('ed/index.html', 'ed/index.html', [
   ['../assets/ed.css', `../assets/${edCssName}`],
   ['../assets/app.css', `../assets/${cssName}`],
   ['<!--#tool-nav-->', toolNav('ed')],
+]);
+await emitPage('stepdown/index.html', 'stepdown/index.html', [
+  ['../assets/stepdown.js', `../assets/${stepdownJsName}`],
+  ['../assets/stepdown.css', `../assets/${stepdownCssName}`],
+  ['../assets/app.css', `../assets/${cssName}`],
+  ['<!--#tool-nav-->', toolNav('stepdown')],
 ]);
 
 if (existsSync(join(src, 'vendor'))) {
@@ -179,6 +197,15 @@ const rootImages = [
   'ed-icon-192.png',
   'ed-icon-512.png',
   'ed-og-image.png',
+  // Step-down / progressive-care branding (derived from logo-purple.png) so
+  // /stepdown/ has its own tab icon, installed icon, and social card.
+  'logo-purple.png',
+  'stepdown-favicon-16.png',
+  'stepdown-favicon-32.png',
+  'stepdown-apple-touch-icon.png',
+  'stepdown-icon-192.png',
+  'stepdown-icon-512.png',
+  'stepdown-og-image.png',
 ];
 await mkdir(join(dist, 'img'), { recursive: true });
 for (const name of rootImages) {
@@ -210,6 +237,12 @@ if (existsSync(join(src, 'templates', 'site.webmanifest'))) {
   await copyFile(
     join(src, 'templates', 'site.webmanifest'),
     join(dist, 'templates', 'site.webmanifest'),
+  );
+}
+if (existsSync(join(src, 'stepdown', 'site.webmanifest'))) {
+  await copyFile(
+    join(src, 'stepdown', 'site.webmanifest'),
+    join(dist, 'stepdown', 'site.webmanifest'),
   );
 }
 
