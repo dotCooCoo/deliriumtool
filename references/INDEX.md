@@ -17,7 +17,7 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Sessler 2002 — RASS validation, AJRCCM 2002;166:1338 | **not archived** (see "Still to source") | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
 | Inouye 1990 — the original CAM (parent of the CAM-ICU/bCAM/4AT algorithm), Ann Intern Med 1990;113:941 | **not archived** | https://doi.org/10.7326/0003-4819-113-12-941 |
 | Bergeron 2001 — ICDSC (the adult-ICU alternative screen), Intensive Care Med 2001;27:859 | **not archived** | https://doi.org/10.1007/s001340100909 |
-| Marcantonio 2014 — 3D-CAM (ward-validated CAM), Ann Intern Med 2014;161:554 | **not archived** | https://doi.org/10.7326/M14-0865 |
+| Marcantonio 2014 — 3D-CAM (ward-validated CAM), Ann Intern Med 2014;161:554 | `marcantonio-2014-3d-cam-ward.pdf` | https://doi.org/10.7326/M14-0865 |
 | APA DSM-5-TR 2022 — delirium diagnostic criteria (the reference standard every screen is validated against) | **not archived** (copyright) | https://doi.org/10.1176/appi.books.9780890425787 |
 | RASS scoring procedure (MDCalc, live web tool) | — (web tool, not archived) | https://www.mdcalc.com/calc/1872/richmond-agitation-sedation-scale-rass |
 
@@ -29,18 +29,18 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Marra 2017 — ABCDEF bundle review, Crit Care Clin 2017;33:225 | `marra-2017-abcdef-bundle-critcareclin.pdf` | https://doi.org/10.1016/j.ccc.2016.12.005 |
 | Devlin 2018 — PADIS guideline, CCM 2018;46:e825 | `devlin-2018-padis-guideline-ccm.pdf` | https://pubmed.ncbi.nlm.nih.gov/30113379/ |
 | Schweickert 2009 — early mobility RCT (delirium duration), Lancet 2009;373:1874 | **not archived** | https://doi.org/10.1016/S0140-6736(09)60658-9 |
-| Balas 2014 — ABCDE bundle implementation, CCM 2014;42:1024 | **not archived** | https://doi.org/10.1097/CCM.0000000000000129 |
+| Balas 2014 — ABCDE bundle implementation, CCM 2014;42:1024 | `balas-2014-abcde-bundle-implementation.pdf` | https://doi.org/10.1097/CCM.0000000000000129 |
 | Lewis 2025 — PADIS Focused Update, CCM 2025;53:e711 | `lewis-2025-padis-focused-update-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000006574 |
 | Inouye 1999 — HELP prevention RCT, NEJM 1999;340:669 | `inouye-1999-help-rct-nejm.pdf` | https://doi.org/10.1056/NEJM199903043400901 |
 | Hshieh 2015 — non-pharm prevention meta-analysis, JAMA IM 2015;175:512 | `hshieh-2015-nonpharm-meta-jamaim.pdf` | https://doi.org/10.1001/jamainternmed.2014.7779 |
 | AGS CoCare HELP reference list | `ags-cocare-help-reference-list.pdf` | https://help.agscocare.org/ |
 | NICE CG103 — Delirium guideline | `nice-cg103-delirium.pdf` | https://www.nice.org.uk/guidance/cg103 |
-| Vincent 2016 — eCASH concept, ICM 2016;42:962 | **not archived** | https://doi.org/10.1007/s00134-016-4297-4 |
+| Vincent 2016 — eCASH concept, ICM 2016;42:962 | `vincent-2016-ecash-concept-icm.pdf` | https://doi.org/10.1007/s00134-016-4297-4 |
 | Girard 2008 — ABC trial (paired SAT+SBT), Lancet 2008;371:126 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/18191684/ |
 | Awissi 2013 — alcohol withdrawal & DT in the critically ill (CIWA not ICU-validated), ICM 2013;39:16 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/23184039/ |
 | Flaherty & Little 2011 — the delirium room / T-A-D-A method, JAGS 2011;59:S295 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/22091576/ |
 | Kollef 1998 — continuous IV sedation & ventilation duration (observational), Chest 1998;114:541 | **not archived** | https://doi.org/10.1378/chest.114.2.541 |
-| Hodgson 2014 — mobilization safety criteria consensus, Crit Care 2014;18:658 | **not archived** | https://ccforum.biomedcentral.com/articles/10.1186/s13054-014-0658-y |
+| Hodgson 2014 — mobilization safety criteria consensus, Crit Care 2014;18:658 | `hodgson-2014-mobilization-safety-criteria.pdf` | https://ccforum.biomedcentral.com/articles/10.1186/s13054-014-0658-y |
 
 ## DELIRIUM Factors (subtypes / mnemonic)
 
@@ -59,27 +59,27 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Source | Local file | Canonical URL |
 |---|---|---|
 | AGS Beers Criteria 2023, JAGS 2023;71:2052 (PMID 37139824) | `beers-2023-uconn-tables-summary.pdf` — **criteria-tables summary** (UConn Health Dept. of Pharmacy reproduction of Tables 2–10, last updated 11/02/2023), not the JAGS full text | https://doi.org/10.1111/jgs.18372 |
-| AGS Beers Criteria Alternatives 2025, JAGS 2025;73:2657 (PMID 40697073) | **not archived** | https://doi.org/10.1111/jgs.19500 |
+| AGS Beers Criteria Alternatives 2025, JAGS 2025;73:2657 (PMID 40697073) | `ags-2025-ags-beers-criteria.pdf` | https://doi.org/10.1111/jgs.19500 |
 | Haloperidol prescribing information (DailyMed) | `haloperidol-label-dailymed.pdf` | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f |
-| Girard 2018 — MIND-USA (haloperidol/ziprasidone do not treat delirium), NEJM 2018;379:2506 | **not archived** | https://doi.org/10.1056/NEJMoa1808217 |
-| Clegg & Young 2011 — deliriogenic-medication systematic review, Age Ageing 2011;40:23 | **not archived** | https://doi.org/10.1093/ageing/afq140 |
+| Girard 2018 — MIND-USA (haloperidol/ziprasidone do not treat delirium), NEJM 2018;379:2506 | `girard-2018-mind-usa-haloperidol.pdf` | https://doi.org/10.1056/NEJMoa1808217 |
+| Clegg & Young 2011 — deliriogenic-medication systematic review, Age Ageing 2011;40:23 | **not archived** (paywalled) | https://doi.org/10.1093/ageing/afq140 |
 | Pandharipande 2006 — lorazepam as independent delirium risk factor, Anesthesiology 2006;104:21 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/16394685/ |
 | Boustani 2008 — Anticholinergic Cognitive Burden (ACB) scale, Aging Health 2008;4:311 | **not archived** | https://doi.org/10.2217/1745509X.4.3.311 |
 | Tang 2025 — melatonin for delirium meta-analysis, CCM 2025;53:e1714 | **not archived** | https://doi.org/10.1097/CCM.0000000000006767 |
 | Precedex (dexmedetomidine) prescribing information (DailyMed) | **not archived** | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74 |
 | Hughes 2021 — MENDS2 dex vs propofol, NEJM 2021;384:1424 | `hughes-2021-mends2-dex-vs-propofol-nejm.pdf` | https://doi.org/10.1056/NEJMoa2024922 |
-| Walsh 2025 — A2B dexmedetomidine/clonidine vs propofol RCT, JAMA 2025;334:32 (PMID 40388916) | **not archived** | https://doi.org/10.1001/jama.2025.7200 |
+| Walsh 2025 — A2B dexmedetomidine/clonidine vs propofol RCT, JAMA 2025;334:32 (PMID 40388916) | `walsh-2025-a2b-dexmedetomidine-clonidine.pdf` | https://doi.org/10.1001/jama.2025.7200 |
 | Wibrow — ProMEDIC SAP (Trials 2021;22:7) — *supplement* | `wibrow-2021-promedic-sap-trials.pdf` | https://doi.org/10.1186/s13063-020-04981-0 |
 | Burry 2022 — ProMEDIC editorial, ICM 2022;48:479 — *commentary* | `burry-2022-promedic-editorial-icm.pdf` | https://doi.org/10.1007/s00134-022-06656-7 |
 | Wibrow 2022 — ProMEDIC melatonin RCT (main results), ICM 2022;48:414 | **not archived** (only SAP + editorial above) | https://doi.org/10.1007/s00134-022-06638-9 |
-| Dean 2004 — opioids in renal failure (morphine/hydromorphone metabolites), JPSM 2004;28:497 | **not archived** | https://doi.org/10.1016/j.jpainsymman.2004.02.021 |
+| Dean 2004 — opioids in renal failure (morphine/hydromorphone metabolites), JPSM 2004;28:497 | `dean-2004-opioids-renal-failure.pdf` | https://doi.org/10.1016/j.jpainsymman.2004.02.021 |
 | Richmond 2012 — APA Project BETA verbal de-escalation consensus, West J Emerg Med 2012;13:17 | **not archived** (open access) | https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/ |
 | NICE NG10 — violence and aggression: short-term management | **not archived** (live guideline) | https://www.nice.org.uk/guidance/ng10 |
 | Galvin 2010 — EFNS Wernicke guideline (thiamine 200 mg IV TID, before carbohydrate), Eur J Neurol 2010;17:1408 | **not archived** | https://doi.org/10.1111/j.1468-1331.2010.03153.x |
 | Thomson 2002 — RCP Wernicke A&E guidance (500 mg IV TID regimen), Alcohol Alcohol 2002;37:513 | **not archived** | https://doi.org/10.1093/alcalc/37.6.513 |
-| Singer 2019 — ESPEN ICU clinical nutrition guideline (thiamine in refeeding / at-risk), Clin Nutr 2019;38:48 | **not archived** | https://doi.org/10.1016/j.clnu.2018.08.037 |
+| Singer 2019 — ESPEN ICU clinical nutrition guideline (thiamine in refeeding / at-risk), Clin Nutr 2019;38:48 | `singer-2019-espen-icu-clinical.pdf` | https://doi.org/10.1016/j.clnu.2018.08.037 |
 | ASAM 2020 — alcohol-withdrawal management guideline (thiamine/glucose order; scale selection in delirium), J Addict Med 2020;14(3S):1 | **not archived** | https://doi.org/10.1097/ADM.0000000000000668 |
-| Nicolle 2019 — IDSA asymptomatic-bacteriuria guideline (delirium + bacteriuria → observe), Clin Infect Dis 2019;68:e83 | **not archived** | https://doi.org/10.1093/cid/ciy1121 |
+| Nicolle 2019 — IDSA asymptomatic-bacteriuria guideline (delirium + bacteriuria → observe), Clin Infect Dis 2019;68:e83 | `nicolle-2019-idsa-asymptomatic-bacteriuria.pdf` | https://doi.org/10.1093/cid/ciy1121 |
 | CIWA-Ar scale reference (MDCalc, live web tool) | — (web tool, not archived) | https://www.mdcalc.com/calc/1736/ciwa-ar-alcohol-withdrawal |
 
 ## Risk (prediction models)
@@ -91,7 +91,7 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Zaal 2015 — ICU delirium risk-factor systematic review, CCM 2015;43:40 | **not archived** | https://doi.org/10.1097/CCM.0000000000000625 |
 | Inouye 1993 — admission predictive model, Ann Intern Med 1993;119:474 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8357112/ |
 | Marcantonio 1994 — postop prediction rule, JAMA 1994;271:134 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8264068/ |
-| Pisani 2009 — days of delirium & 1-year mortality, AJRCCM 2009;180:1092 | **not archived** | https://doi.org/10.1164/rccm.200904-0537OC |
+| Pisani 2009 — days of delirium & 1-year mortality, AJRCCM 2009;180:1092 | `pisani-2009-days-delirium-1.pdf` | https://doi.org/10.1164/rccm.200904-0537OC |
 
 ## Pediatric Delirium (CAPD / pCAM-ICU / psCAM-ICU): /peds/
 
@@ -106,7 +106,7 @@ Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive, 
 | Traube 2014 — CAPD validation, CCM 2014;42:656 (PMID 24145848) | `peds/traube-2014-capd-validation-ccm.pdf` | https://doi.org/10.1097/CCM.0b013e3182a66b76 |
 | Smith 2016 — psCAM-ICU validation (6 mo–5 yr), CCM 2016;44:592 (PMID 26565631) | `peds/smith-2016-pscam-icu-validation-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000001428 |
 | Curley 2006 — State Behavioral Scale (SBS), PCCM 2006;7:107 (PMID 16446601) | `peds/curley-2006-sbs-validation-pccm.pdf` | https://doi.org/10.1097/01.PCC.0000200955.40962.38 |
-| Kerson 2016 — RASS validation in critically ill children, J Intensive Care 2016;4:65 (PMID 27800163) | **not archived** | https://doi.org/10.1186/s40560-016-0189-5 |
+| Kerson 2016 — RASS validation in critically ill children, J Intensive Care 2016;4:65 (PMID 27800163) | `peds/kerson-2016-rass-validation-critically.pdf` | https://doi.org/10.1186/s40560-016-0189-5 |
 | Traube 2017 — delirium & mortality epidemiology, CCM 2017;45:891 (PMID 28288026) | `peds/traube-2017-delirium-mortality-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000002324 |
 | Mody 2018 — benzodiazepines & delirium (causal), CCM 2018;46:1486 (PMID 29727363) | `peds/mody-2018-benzodiazepines-delirium-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000003194 |
 | Gupta 2021 — CAPD performance in ventilated children (anchor-point usability critique), JPIC | `peds/gupta-2021-capd-performance-mv-jpic.pdf` | https://doi.org/10.1055/s-0041-1728784 |
@@ -130,8 +130,8 @@ Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive, 
 | Joyce 2015 — quetiapine safety in PICU delirium, JCAP 2015;25:666 (PMID 26469214) | `peds/joyce-2015-quetiapine-peds-delirium-jcap.pdf` | https://doi.org/10.1089/cap.2015.0093 |
 | Madden 2024 — antipsychotic prescribing across PICUs (open access), JPIC 2024;13:46 (online 2021; PMID 38571986) | `peds/madden-2021-antipsychotic-prescribing-jpic.pdf` | https://doi.org/10.1055/s-0041-1736523 |
 | Cavagnero 2025 — antipsychotics for PICU delirium systematic review, Paediatr Drugs 2025;27:707 (PMID 40906237) | **not archived** | https://doi.org/10.1007/s40272-025-00716-3 |
-| Phan & Nahata 2008 — dexmedetomidine in pediatric patients, Paediatr Drugs 2008;10:49 (PMID 18162008) | **not archived** | https://doi.org/10.2165/00148581-200810010-00006 |
-| Bruni 2015 — melatonin in pediatric neurology (dosing recommendations), EJPN 2015;19:122 | **not archived** | https://doi.org/10.1016/j.ejpn.2014.12.007 |
+| Phan & Nahata 2008 — dexmedetomidine in pediatric patients, Paediatr Drugs 2008;10:49 (PMID 18162008) | **not archived** (paywalled) | https://doi.org/10.2165/00148581-200810010-00006 |
+| Bruni 2015 — melatonin in pediatric neurology (dosing recommendations), EJPN 2015;19:122 | **not archived** (paywalled) | https://doi.org/10.1016/j.ejpn.2014.12.007 |
 
 ### Bedside tools & forms (Vanderbilt / Cornell point-of-care set)
 
