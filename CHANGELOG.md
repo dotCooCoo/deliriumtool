@@ -5,6 +5,15 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Fixed
+
+- Sources & Evidence page: cleaned up the supporting passages. Sentences that had
+  been truncated at a PDF column/page break (shown with a "text extraction may be
+  imperfect" note) and web-page citations that had captured a wall of site
+  navigation are re-quoted to the cleanest complete sentence from the source, each
+  re-checked as an exact verbatim match before use; genuine tables and figures keep
+  a clear pointer to the source document. No printed clinical statement changed.
+
 ## [0.7.0] - 2026-08-03
 
 ### Added
