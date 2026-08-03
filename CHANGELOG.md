@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-08-03
+
 ### Added
 
 - **Sources & Evidence** page (`/evidence/`, linked from every tool's footer): a
