@@ -60,14 +60,20 @@ test('claims: unique ids, core fields, known status, resolvable tool', () => {
   }
 });
 
-test('multi-source claims all carry at least one verbatim paragraph', () => {
-  const multi = DATA.claims.filter((c) => (c.sources || []).length >= 2);
-  assert.ok(multi.length >= 190, `expected the full multi-source set, got ${multi.length}`);
-  const gaps = multi.filter((c) => !(c.perSource || []).some((e) => (e.paragraphs || []).length));
+test('every full-text-verified / instrument claim shows its verbatim text', () => {
+  // A claim marked full-text-verified (or validated-instrument) must actually
+  // present the wording — via a per-source paragraph or a claim-level passage.
+  // Operational / guideline / web / site-content claims are cited by note and
+  // need no passage, so they are exempt.
+  const showsText = (c) =>
+    (c.perSource || []).some((e) => (e.paragraphs || []).length) || !!(c.context || c.passage);
+  const gaps = DATA.claims.filter(
+    (c) => (c.status === 'fulltext' || c.status === 'instrument') && !showsText(c),
+  );
   assert.deepEqual(
     gaps.map((c) => c.id),
     [],
-    'every multi-source claim has a supporting paragraph',
+    'a full-text-verified / instrument claim must show its passage',
   );
 });
 

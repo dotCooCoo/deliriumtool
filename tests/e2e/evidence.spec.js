@@ -54,7 +54,7 @@ test('search narrows the visible statements', async ({ page }) => {
 
 test('a status chip filters to that evidence status', async ({ page }) => {
   await page.goto('/evidence/');
-  const chip = page.locator('.ev-chip[data-status="notstated"]');
+  const chip = page.locator('.ev-chip[data-status="na"]');
   await expect(chip).toHaveCount(1);
   await chip.click();
   await expect(chip).toHaveAttribute('aria-pressed', 'true');
@@ -62,7 +62,7 @@ test('a status chip filters to that evidence status', async ({ page }) => {
   const n = await visible.count();
   expect(n).toBeGreaterThan(0);
   for (const c of await visible.all()) {
-    await expect(c).toHaveAttribute('data-status', 'notstated');
+    await expect(c).toHaveAttribute('data-status', 'na');
   }
 });
 
