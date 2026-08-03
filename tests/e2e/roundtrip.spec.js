@@ -116,9 +116,7 @@ test('adult import refuses an out-of-range control value instead of displaying i
   ).setFiles({
     name: 'assessment.json',
     mimeType: 'application/json',
-    buffer: Buffer.from(
-      JSON.stringify({ v: 1, pathway: 'full', controls: { [key]: '999' } }),
-    ),
+    buffer: Buffer.from(JSON.stringify({ v: 1, pathway: 'full', controls: { [key]: '999' } })),
   });
   // 999 is outside the input's 0–10 range → the field stays empty, not "999".
   await expect(page.locator('#cam2-err')).toHaveValue('');

@@ -5,7 +5,7 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
-## [0.7.3] - 2026-08-03
+## [0.7.4] - 2026-08-03
 
 ### Changed
 
