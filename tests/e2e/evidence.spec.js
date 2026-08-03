@@ -1,3 +1,4 @@
+/* global window */
 import { test, expect } from '@playwright/test';
 
 // The /evidence page ("Sources & Evidence") renders the claim-source map and the
