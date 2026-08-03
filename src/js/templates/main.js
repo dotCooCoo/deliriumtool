@@ -62,6 +62,21 @@ import {
 } from './state.js';
 import { faIcon, applyGlossary, el, $, $$ } from '../shared/dom.js';
 import { initA11y } from '../shared/a11y.js';
+import { wireEvidence } from '../shared/evidence-popover.js';
+import EVIDENCE_CLAIMS from '../evidence/claims-lite.json';
+
+// Map a designer template id → the /evidence claim surface that documents its
+// printed statements, so a preview statement can open its cited sources.
+const EVIDENCE_TOOL = {
+  rounding: 'icu',
+  spa: 'spa',
+  'peds-cards': 'peds-cards',
+  'peds-workflow': 'picu-wf',
+  'ed-cards': 'ed-cards',
+  'ed-workflow': 'ed-wf',
+  'stepdown-cards': 'sd-cards',
+  'stepdown-workflow': 'sd-wf',
+};
 
 const GLOSSARY = {
   'CAM-ICU': 'Confusion Assessment Method for the ICU',
@@ -694,8 +709,10 @@ function renderPreview() {
   mount.replaceChildren(
     ...sheets.map((s, i) =>
       el(
+        // A labelled group, not an atomic image: the preview now carries
+        // keyboard-focusable evidence anchors, which a role="img" may not contain.
         'div',
-        { class: 'sheet-wrap', role: 'img', 'aria-label': `Print preview — page ${i + 1}` },
+        { class: 'sheet-wrap', role: 'group', 'aria-label': `Print preview — page ${i + 1}` },
         s,
       ),
     ),
@@ -704,6 +721,10 @@ function renderPreview() {
   autoFitMeds(sheets);
   rescale();
   checkFit(sheets);
+  // Tag printed statements that map to a cited claim with a screen-only (i) that
+  // opens their sources. Runs after auto-fit; the affordance is absolutely
+  // positioned, so it does not disturb the layout it measures.
+  wireEvidence(mount, EVIDENCE_TOOL[state.template], EVIDENCE_CLAIMS);
 }
 
 /**

@@ -46,6 +46,13 @@ async function rasterizeSheet(sheet, wrapClass) {
   const h = sheet.offsetHeight;
   const clone = sheet.cloneNode(true);
   clone.style.transform = 'none';
+  // The evidence (i) affordance is a screen-only interaction cue — never part of
+  // the printed artifact. Strip it (and its host marker class) from the raster.
+  clone.querySelectorAll('.ev-i').forEach((n) => n.remove());
+  clone.querySelectorAll('.ev-cited').forEach((n) => {
+    n.classList.remove('ev-cited');
+    n.removeAttribute('data-evidence');
+  });
   const holder = document.createElement('div');
   holder.className = wrapClass;
   holder.appendChild(clone);

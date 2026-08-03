@@ -6,6 +6,7 @@ coverage/
 scratch/
 package-lock.json
 src/js/evidence/data.json
+src/js/evidence/claims-lite.json
 references/
 wrangler.jsonc
 *.md

@@ -34,6 +34,38 @@ async function resetDir(dir) {
 
 await resetDir(dist);
 await mkdir(assets, { recursive: true });
+
+// Codegen: a trimmed evidence dataset for the tool pages' evidence popovers —
+// statements, status, each source's citation + stance, and the synthesis, WITHOUT
+// the full verbatim paragraphs (those stay on /evidence, one click away). Keeps the
+// /templates bundle light (~0.6 MB vs ~3 MB for the full claim data). Regenerated
+// on every build so it cannot drift from src/js/evidence/data.json.
+{
+  const full = JSON.parse(await readFile(join(src, 'js', 'evidence', 'data.json'), 'utf8'));
+  const lite = full.claims.map((c) => ({
+    id: c.id,
+    toolId: c.toolId,
+    section: c.section || '',
+    statement: c.statement,
+    status: c.status,
+    synthesis: c.synthesis || '',
+    discrepancy: !!c.discrepancy,
+    perSource: (c.perSource || []).map((e) => ({
+      label: e.label || '',
+      cite: e.cite || '',
+      stance: e.stance || 'background',
+      note: e.note || '',
+      docUrl: e.docUrl || '',
+      passages: (e.paragraphs || []).length,
+    })),
+    links: c.links || [],
+    sources: c.sources || [],
+    citations: c.citations || [],
+    notes: c.notes || '',
+  }));
+  await writeFile(join(src, 'js', 'evidence', 'claims-lite.json'), JSON.stringify(lite));
+}
+
 const esbuild = await import('esbuild');
 
 const js = await esbuild.build({
