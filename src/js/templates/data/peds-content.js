@@ -324,6 +324,7 @@ export const PEDS_CITE_LABELS = {
 export const PEDS_FOOTER_CITES = {
   'peds-cards': [
     'sessler2002_rass',
+    'kerson2016_rass',
     'curley2006_sbs',
     'traube2014_capd',
     'gupta2021_capd_mv',

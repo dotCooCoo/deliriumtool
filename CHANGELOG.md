@@ -87,6 +87,12 @@ Notable changes to this project, following
   available) alongside the QTc/orthostasis cautions, and cites the product label —
   matching the treatment algorithm's "antipsychotics only for a documented safety
   indication" framing. The dose (12.5–25 mg PO q12h) is unchanged.
+- ED and pediatric bedside card sets now credit the full source set behind their
+  content: the 4AT card cites its validation studies (Bellelli 2014, Shenkin 2019,
+  Tieges 2021), the ED pathways and act-on-a-positive cards cite the Geriatric ED
+  Guidelines and the ED-DEL toolkit, and the pediatric arousal card cites the
+  pediatric RASS validation (Kerson 2016). They appear on the printed "Sources"
+  line and in the template designer's reference list.
 
 ### Fixed
 
