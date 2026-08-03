@@ -5,6 +5,15 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Fixed
+
+- Pediatric tool: an imported assessment is now validated field-by-field before it
+  is applied, matching the ED and step-down tools. A malformed or hand-edited file —
+  an out-of-range arousal value, an unknown screen, truthy non-booleans in a screen
+  feature, an out-of-range CAPD frequency, unknown checklist keys — is rejected or
+  reduced to an incomplete assessment rather than driving a clinically incorrect
+  positive or negative screen.
+
 ## [0.7.1] - 2026-08-03
 
 ### Changed

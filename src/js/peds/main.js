@@ -42,6 +42,7 @@ import {
   EXAMPLE_PCAM,
   EXAMPLE_SETTINGS,
 } from './persist.js';
+import { sanitizeAssessment } from './state.js';
 
 const SCREEN_NAMES = { capd: 'CAPD', pcam: 'pCAM-ICU', pscam: 'psCAM-ICU' };
 
@@ -1374,13 +1375,16 @@ document.addEventListener('click', (e) => {
     if (a === 'exportJSON') return exportJSON(state);
     if (a === 'importJSON') {
       importJSON().then((data) => {
-        if (!data || data.__error || !data.profile || data.profile.ageM == null) {
+        // Validate every clinical domain before it can drive a screen result: a
+        // malformed / hand-edited / wrong-tool file yields null and is rejected.
+        const clean = data && !data.__error ? sanitizeAssessment(data) : null;
+        if (!clean) {
           alert(
             "That file isn't a saved pediatric assessment (it may be a settings file or from another tool).",
           );
           return;
         }
-        applyState(data);
+        applyState(clean);
       });
       return;
     }
