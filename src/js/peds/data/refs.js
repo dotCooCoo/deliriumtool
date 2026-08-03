@@ -94,7 +94,6 @@ export const REFS = {
     u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74',
   },
   kerson2016_rass: {
-    l: 'Kerson 2016',
     c: 'Kerson AG, DeMaria R, Mauer E, et al. Validity of the Richmond Agitation-Sedation Scale (RASS) in critically ill children. J Intensive Care. 2016;4:65. (Pediatric RASS validation — the arousal scale the tool applies to verbal children.)',
     u: 'https://doi.org/10.1186/s40560-016-0189-5',
   },
