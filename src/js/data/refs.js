@@ -189,6 +189,11 @@ export const DELIRIUM_REFS = {
     c: 'Precedex (dexmedetomidine hydrochloride) prescribing information — ICU sedation maintenance infusion 0.2-0.7 mcg/kg/hour. DailyMed, U.S. NLM.',
     u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74',
   },
+  quetiapine_label: {
+    l: 'Quetiapine PI',
+    c: 'Seroquel (quetiapine fumarate) prescribing information — QTc prolongation and orthostatic hypotension. DailyMed, U.S. NLM.',
+    u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0',
+  },
   mends2: {
     l: 'MENDS2 2021',
     c: 'Hughes CG, Mailloux PT, Devlin JW, et al. Dexmedetomidine or propofol for sedation in mechanically ventilated adults with sepsis (MENDS2). N Engl J Med. 2021;384(15):1424-1436.',

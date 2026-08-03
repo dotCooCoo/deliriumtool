@@ -7,6 +7,18 @@ Notable changes to this project, following
 
 ### Added
 
+- **Sources & Evidence** page (`/evidence/`, linked from every tool's footer): a
+  searchable map from each printed clinical statement to the source(s) it cites,
+  its evidence status, and the verbatim supporting passage — the cited phrase
+  highlighted within its surrounding paragraph and scope-tagged (on-scope, or a
+  nearer match in a different population, setting, or intervention) — so any
+  statement can be checked against its reference without opening the full text.
+  Statements citing more than one source show each source's passage with a short
+  synthesis that notes agreement or, where sources differ, which one governs and
+  why. Web-page sources are shown from dated, archived snapshots. The clinical
+  methodology, instrument logic, and the full citation registry (with linked DOIs)
+  are reproduced on the same page. It runs entirely in the browser under the
+  site's strict content-security policy; nothing is fetched at runtime.
 - Step-down / progressive-care tool (`/stepdown/`): delirium screening for the
   verbal, monitored non-intubated (intermediate-care / step-down) patient, where
   the CAM-ICU loses sensitivity for mild and hypoactive delirium. It runs the
@@ -70,6 +82,11 @@ Notable changes to this project, following
   months), and a plain-language readback under the field echoes the entered age
   ("→ 7 years old" / "→ 7 months old — an infant") so a mis-set unit is caught
   before it routes a child to the wrong screen.
+- SPA Quick Reference sheet: the quetiapine line now states its reserved
+  indication (hyperactive delirium with a safety risk, when the oral route is
+  available) alongside the QTc/orthostasis cautions, and cites the product label —
+  matching the treatment algorithm's "antipsychotics only for a documented safety
+  indication" framing. The dose (12.5–25 mg PO q12h) is unchanged.
 
 ### Fixed
 

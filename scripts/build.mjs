@@ -43,6 +43,7 @@ const js = await esbuild.build({
     templates: join(src, 'js', 'templates', 'main.js'),
     ed: join(src, 'js', 'ed', 'main.js'),
     stepdown: join(src, 'js', 'stepdown', 'main.js'),
+    evidence: join(src, 'js', 'evidence', 'main.js'),
   },
   bundle: true,
   format: 'iife',
@@ -62,6 +63,7 @@ const css = await esbuild.build({
     templates: join(src, 'styles', 'templates.css'),
     ed: join(src, 'styles', 'ed.css'),
     stepdown: join(src, 'styles', 'stepdown.css'),
+    evidence: join(src, 'styles', 'evidence.css'),
   },
   bundle: true,
   minify: true,
@@ -88,6 +90,8 @@ const edJsName = outName(js.metafile, 'ed', '.js');
 const edCssName = outName(css.metafile, 'ed', '.css');
 const stepdownJsName = outName(js.metafile, 'stepdown', '.js');
 const stepdownCssName = outName(css.metafile, 'stepdown', '.css');
+const evJsName = outName(js.metafile, 'evidence', '.js');
+const evCssName = outName(css.metafile, 'evidence', '.css');
 
 // The cross-tool header nav is generated here from one list so every page
 // carries the same links in the same order, with aria-current marking the page
@@ -154,6 +158,12 @@ await emitPage('stepdown/index.html', 'stepdown/index.html', [
   ['../assets/stepdown.css', `../assets/${stepdownCssName}`],
   ['../assets/app.css', `../assets/${cssName}`],
   ['<!--#tool-nav-->', toolNav('stepdown')],
+]);
+await emitPage('evidence/index.html', 'evidence/index.html', [
+  ['../assets/evidence.js', `../assets/${evJsName}`],
+  ['../assets/evidence.css', `../assets/${evCssName}`],
+  ['../assets/app.css', `../assets/${cssName}`],
+  ['<!--#tool-nav-->', toolNav('evidence')],
 ]);
 
 if (existsSync(join(src, 'vendor'))) {

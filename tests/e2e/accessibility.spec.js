@@ -37,6 +37,13 @@ test('every workspace tab has no serious accessibility violations', async ({ pag
   }
 });
 
+test('the evidence page has no serious accessibility violations', async ({ page }) => {
+  await page.goto('/evidence/');
+  const results = await new AxeBuilder({ page }).analyze();
+  const serious = seriousViolations(results);
+  expect(serious.map((v) => v.id).join(', ')).toBe('');
+});
+
 test('tab bar is keyboard navigable with arrow keys', async ({ page }) => {
   await page.click('[data-act="chooseTool"]');
   await page.click('[data-pathway="full"]');
