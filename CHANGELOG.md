@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-08-03
+
 ### Changed
 
 - SPA Quick Reference: the sedation guidance now states that dexmedetomidine is
