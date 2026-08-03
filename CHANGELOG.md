@@ -19,6 +19,11 @@ Notable changes to this project, following
   methodology, instrument logic, and the full citation registry (with linked DOIs)
   are reproduced on the same page. It runs entirely in the browser under the
   site's strict content-security policy; nothing is fetched at runtime.
+- Template designer: a printed statement that maps to a cited source now carries a
+  small (i) in the preview — select it (mouse or keyboard) to see the source(s)
+  behind that line, each with its citation and whether it agrees, and a link to the
+  full verbatim passages on the Sources & Evidence page. The (i) is screen-only: it
+  never appears in the printed sheet or the saved PDF.
 - Step-down / progressive-care tool (`/stepdown/`): delirium screening for the
   verbal, monitored non-intubated (intermediate-care / step-down) patient, where
   the CAM-ICU loses sensitivity for mild and hypoactive delirium. It runs the
