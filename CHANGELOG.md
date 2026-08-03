@@ -98,6 +98,15 @@ Notable changes to this project, following
   Guidelines and the ED-DEL toolkit, and the pediatric arousal card cites the
   pediatric RASS validation (Kerson 2016). They appear on the printed "Sources"
   line and in the template designer's reference list.
+- Sources & Evidence page: reviewed the statements previously marked "not stated in
+  cited source" — a label that could read as "unsupported" for lines that are
+  sound. Operational and write-in lines (e.g. "consult per unit practice",
+  "intensify the bundle") are now shown as **Operational**; deeper-guidance items
+  that had inherited a sheet's generic source list are re-cited to the source that
+  actually documents them (e.g. acetaminophen as an opioid-sparing adjunct →
+  PADIS 2018; quetiapine QTc/orthostasis → the product label; T-A-D-A → Flaherty
+  2011); and a "How to read the status labels" note explains that a label describes
+  how a line is sourced, not whether the advice is valid.
 
 ### Fixed
 
