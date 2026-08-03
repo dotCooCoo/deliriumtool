@@ -5,6 +5,14 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Changed
+
+- SPA Quick Reference: the sedation guidance now states that dexmedetomidine is
+  suggested over propofol when light sedation or delirium reduction is the priority
+  (PADIS 2025), matching the interactive tool, the rounding PDF, and the
+  methodology. The sheet had framed the dexmedetomidine preference only against
+  benzodiazepines.
+
 ### Fixed
 
 - Sources & Evidence page: cleaned up the supporting passages. Sentences that had

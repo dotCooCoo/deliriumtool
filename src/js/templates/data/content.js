@@ -581,7 +581,7 @@ export const SPA_DEEPER = {
       items: [
         {
           id: 'dp-s-dexmed',
-          text: 'Dexmedetomidine preferred in ventilated patients — reduces delirium vs benzodiazepines; monitor bradycardia / hypotension.',
+          text: 'Dexmedetomidine preferred in ventilated patients — reduces delirium vs benzodiazepines, and suggested over propofol when light sedation or delirium reduction is the priority (PADIS 2025); monitor bradycardia / hypotension.',
         },
         { id: 'dp-s-propofol', text: 'Propofol acceptable short-term; reassess need daily.' },
         { id: 'dp-s-benzo', text: 'Avoid midazolam / lorazepam for routine sedation.' },
