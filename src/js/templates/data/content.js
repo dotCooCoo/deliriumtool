@@ -564,7 +564,15 @@ export const SPA_COLS = [
 
 /** SPA page 2 — deeper guidance bullets per column. */
 export const SPA_DEEPER = {
-  cites: ['padis2025', 'mends2', 'haldol_label', 'hodgson2014', 'icudelirium_mobility'],
+  cites: [
+    'padis2025',
+    'mends2',
+    'haldol_label',
+    'quetiapine_label',
+    'hodgson2014',
+    'icudelirium_mobility',
+    'flaherty_little2011',
+  ],
   cols: [
     {
       id: 'dp-s',
@@ -594,7 +602,7 @@ export const SPA_DEEPER = {
         },
         {
           id: 'dp-p-quetiapine',
-          text: 'Quetiapine {quetiapineDose}when the oral route is available — monitor QTc and orthostasis.',
+          text: 'Quetiapine {quetiapineDose}for hyperactive delirium with safety risk, when the oral route is available — monitor QTc and orthostasis.',
         },
         { id: 'dp-p-apap', text: 'Scheduled acetaminophen as an opioid-sparing adjunct.' },
         {

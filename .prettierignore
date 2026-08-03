@@ -5,6 +5,7 @@ test-results/
 coverage/
 scratch/
 package-lock.json
+src/js/evidence/data.json
 references/
 wrangler.jsonc
 *.md

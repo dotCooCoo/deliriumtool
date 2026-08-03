@@ -315,3 +315,31 @@ in the Risk and DELIRIUM Factors sections above. Multicomponent prevention (Inou
 | AGS Beers 2023 **JAGS full text** (71:2052) | the archived file is the UConn criteria-tables summary, not the article | https://doi.org/10.1111/jgs.18372 |
 | ProMEDIC **main RCT** (Wibrow 2022, ICM 2022;48:414) | only the SAP + editorial are archived | https://doi.org/10.1007/s00134-022-06638-9 |
 | Inouye 1993 / Marcantonio 1994 / Krewulak 2018 | paywalled; cited by URL | (see tables above) |
+
+## Web-source snapshots (change-tracking)
+
+Web pages, guideline pages, and drug labels are mutable, so a content snapshot is
+archived under `references/web/` (raw HTML + extracted text — gitignored, copyrighted)
+at the access date below. The URL + access date + content hash are recorded here so a
+future re-fetch can be compared (hash mismatch → content changed → diff the snapshot).
+
+| Source | Accessed | Content SHA-256 (first 16) | URL |
+|---|---|---|---|
+| CAM-ICU Worksheet | 2026-08-02 | `9b109cd2f23f0b3b` | https://www.icudelirium.org/resource-downloads/cam-icu-worksheet |
+| DELIRIUM(S) mnemonic | 2026-08-02 | `e9020fd48f2c4bcc` | https://www.icudelirium.org/medical-professionals/terminology-mnemonics |
+| SAT/SBT (Wake Up and Breathe) | 2026-08-02 | `fcebc8b0bfb46f4f` | https://www.icudelirium.org/medical-professionals/both-sat-and-sbt |
+| Early Mobility | 2026-08-02 | `c853cc42dd1bb8a0` | https://www.icudelirium.org/medical-professionals/early-mobility-and-exercise |
+| SCCM ICU Liberation (ABCDEF) | 2026-08-02 | `f89dc0c704a10189` | https://sccm.org/clinical-resources/iculiberation-home/abcdef-bundles |
+| Project BETA | 2026-08-02 | `ed617c6515ff4983` | https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/ |
+| Haloperidol PI (DailyMed) | 2026-08-02 | `ec83023f7fc69666` | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f |
+| Dexmedetomidine PI (DailyMed) | 2026-08-02 | `b25546aab01d57cf` | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74 |
+| NICE CG103 | 2026-08-02 | `76190be3873dc085` | https://www.nice.org.uk/guidance/cg103 |
+| SIGN 157 | 2026-08-02 | `cc86d2656b6b0efe` | https://www.sign.ac.uk/our-guidelines/risk-reduction-and-management-of-delirium/ |
+| Geriatric ED Guidelines (2014) | 2026-08-02 | `6060dc54bca89d42` | https://www.acep.org/geda/ |
+| 4AT v1.2 | 2026-08-02 | `f012d1c1b3a16d0a` | https://www.the4at.com/ |
+
+Full hashes + snapshots: `references/web/_manifest.json`. Two URLs did not yield clean
+page text and rely on their archived PDF/paper instead: Hodgson 2014 (ccforum page
+returned a JS stub — use the PDF) and the ED-DEL toolkit (the link is a PDF, not a page).
+The **bCAM manual** URL (`eddelirium.org/…/assessment-instruments/`) now 404s — a stale
+citation link to refresh.

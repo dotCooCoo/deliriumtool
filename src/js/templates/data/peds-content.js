@@ -313,6 +313,7 @@ export const PEDS_CITE_LABELS = {
   smith2016_pscam: 'Smith 2016 (psCAM-ICU)',
   curley2006_sbs: 'Curley 2006 (SBS)',
   sessler2002_rass: 'Sessler 2002 (RASS)',
+  kerson2016_rass: 'Kerson 2016 (RASS)',
   gupta2021_capd_mv: 'Gupta 2021',
   pandem2022: 'SCCM PANDEM 2022',
   lin2023_liberation: 'Lin 2023 (ICU Liberation)',
@@ -324,6 +325,7 @@ export const PEDS_CITE_LABELS = {
 export const PEDS_FOOTER_CITES = {
   'peds-cards': [
     'sessler2002_rass',
+    'kerson2016_rass',
     'curley2006_sbs',
     'traube2014_capd',
     'gupta2021_capd_mv',
