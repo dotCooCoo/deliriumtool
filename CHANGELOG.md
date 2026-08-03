@@ -5,6 +5,8 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.7.2] - 2026-08-03
+
 ### Fixed
 
 - Pediatric tool: an imported assessment is now validated field-by-field before it
