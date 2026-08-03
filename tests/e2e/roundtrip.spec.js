@@ -96,3 +96,30 @@ test('adult import re-derives the CAM verdict from its features', async ({ page 
   // Feature 1 and 2 are both "no" → the verdict must be Negative, not the stored "positive".
   await expect(page.locator('#cam-res-txt')).toContainText('Negative');
 });
+
+// ADULT — a control value outside its declared range is refused on import, so a
+// hand-edited file cannot make an input display an impossible value.
+test('adult import refuses an out-of-range control value instead of displaying it', async ({
+  page,
+}) => {
+  page.on('dialog', (d) => d.accept());
+  await page.goto('/');
+  await page.click('[data-act="chooseTool"]');
+  await page.click('[data-pathway="full"]');
+  // data-k is assigned by document order at tool load; discover the inattention
+  // number input's key so the crafted import targets exactly that control.
+  const key = await page.locator('#cam2-err').getAttribute('data-k');
+  const chooser = page.waitForEvent('filechooser');
+  await page.click('[data-act="importJSON"]');
+  await (
+    await chooser
+  ).setFiles({
+    name: 'assessment.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(
+      JSON.stringify({ v: 1, pathway: 'full', controls: { [key]: '999' } }),
+    ),
+  });
+  // 999 is outside the input's 0–10 range → the field stays empty, not "999".
+  await expect(page.locator('#cam2-err')).toHaveValue('');
+});

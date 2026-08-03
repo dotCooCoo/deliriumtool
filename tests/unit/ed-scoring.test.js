@@ -61,6 +61,15 @@ test('bCAM inattention: >1 error on months backwards, refusal counts as positive
   assert.equal(bcamInattention({ monthUnable: true }), true);
 });
 
+test('a corrupted numeric error count leaves DTS / bCAM inattention unscored, not falsely negative', () => {
+  // Reachable only from a hand-edited import; the tap-counted UI never emits these.
+  assert.equal(evalDts({ rass: '0', lunchErrors: 'x' }), null);
+  assert.equal(evalDts({ rass: '0', lunchErrors: -1 }), null);
+  assert.equal(evalDts({ rass: '0', lunchErrors: 1.5 }), null);
+  assert.equal(bcamInattention({ monthErrors: 'x' }), null);
+  assert.equal(bcamInattention({ monthErrors: -2 }), null);
+});
+
 test('bCAM algorithm: F1 AND F2 AND (F3 OR F4); F2 is the required cardinal feature', () => {
   // Fully positive path via F3 (RASS ≠ 0).
   assert.equal(evalBcam({ f1: 'yes', f2: true, rass: '-1' }), 'positive');
@@ -136,6 +145,17 @@ test('4AT: item values and score bands match the v1.2 form', () => {
   const max = eval4at({ alertness: 4, amt4: 2, attention: 2, change: 4 });
   assert.equal(max.score, 12);
   assert.equal(max.band.verdict, 'positive');
+});
+
+test('4AT with an item value it does not offer stays unscored, not NaN', () => {
+  // A corrupted import could carry a non-numeric or out-of-range item value.
+  const bad = eval4at({ alertness: 0, amt4: 'x', attention: 0, change: 0 });
+  assert.equal(bad.complete, false);
+  assert.equal(bad.score, null);
+  // amt4 only offers 0/1/2 — a stray 3 is not a valid point for that item.
+  const oor = eval4at({ alertness: 0, amt4: 3, attention: 0, change: 0 });
+  assert.equal(oor.complete, false);
+  assert.equal(oor.score, null);
 });
 
 test('RASS carries all ten levels and every citation key resolves', () => {

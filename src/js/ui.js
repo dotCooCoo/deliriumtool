@@ -243,7 +243,8 @@ export function updateCam2() {
   if (Number.isNaN(v)) return;
   v = Math.max(0, Math.min(10, v)); // clamp typed out-of-range values to 0–10
   if (field) field.value = String(v);
-  setCam(2, inattentionPositive(v) ? 'yes' : 'no');
+  const inatt = inattentionPositive(v);
+  if (inatt != null) setCam(2, inatt ? 'yes' : 'no');
 }
 
 // Feature 3 (altered level of consciousness): positive if the actual RASS is

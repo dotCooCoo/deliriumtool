@@ -5,6 +5,20 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+## [0.7.3] - 2026-08-03
+
+### Changed
+
+- The scoring functions now refuse an out-of-range or non-numeric value instead of
+  coercing it into a definite screen. A corrupted or hand-edited import can no
+  longer make an inattention error count outside 0–10, a 4AT item value the
+  instrument does not offer, or a non-numeric CAM-IMC entry read as a confident
+  positive or negative — the affected item stays unscored and the screen stays
+  incomplete. On the adult tool, an imported form value is checked against the
+  control's own range — a dropdown option that actually exists, a number within its
+  min/max — before it is shown. Valid assessments score exactly as before; only
+  impossible values are refused.
+
 ## [0.7.2] - 2026-08-03
 
 ### Fixed
