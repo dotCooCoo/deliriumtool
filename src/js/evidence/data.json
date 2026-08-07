@@ -1782,13 +1782,12 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
-       "highlight": "board with names of care-team members and day's schedule; communication to reorient to surroundings",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
+       "highlight": "board with names of care-team members and day’s schedule; communication to reorient to surroundings",
        "scope": "different-population",
-       "note": "Nearest match on reorientation, but the population is hospitalized older general-medicine inpatients (not ICU) and the device is an orientation board with the day's schedule, not a visible clock/calendar.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Table of HELP intervention protocols flattened into run-on text; row labels merged and truncated mid-word at both ends."
       }
      ]
@@ -2128,13 +2127,12 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "communication to reorient to surroundings",
        "scope": "different-population",
-       "note": "The HELP orientation protocol is verbal reorientation plus an orienting board, the intervention the claim describes — but tested in older non-ICU medical inpatients.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Concatenated cells from Inouye's intervention-protocols table (Orientation/Therapeutic-activities/Sleep protocols), starting mid-sentence and truncated at '(e.g., si'."
       }
      ]
@@ -2306,13 +2304,12 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
-       "highlight": "board with names of care-team members and day's schedule; communication to reorient to surroundings",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
+       "highlight": "board with names of care-team members and day’s schedule; communication to reorient to surroundings",
        "scope": "different-setting",
-       "note": "HELP orientation protocol delivers reorientation via a names/schedule board plus verbal reorientation by staff/volunteers on a general medical ward — reorientation, but not ICU and not family/familiar-voice delivered.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Table of risk factors and standardized intervention protocols rendered as run-on scattered cells/labels, starting mid-sentence and containing replacement characters."
       },
       {
@@ -3241,23 +3238,21 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage",
        "scope": "different-population",
-       "note": "Nearest-match nonpharmacologic sleep protocol, but in non-ICU older inpatients and built from warm drinks/relaxation/massage, not eye masks or earplugs.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Table of HELP intervention protocols with cell labels (Nonpharmacologic sleep/Sleep-enhancement/Early-mobilization/Vision protocol) run together, truncated mid-word."
       },
       {
-       "context": "Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways)",
        "scope": "different-intervention",
-       "note": "Achieves noise reduction at the environmental/unit level rather than via patient-worn earplugs or eye masks, so shares the goal but not the intervention.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Continuation of the same protocol table with multiple cells concatenated and truncated mid-word ('equipme')."
       }
      ]
@@ -3625,13 +3620,12 @@
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
       {
-       "context": "Immobility All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "ambulation whenever possible, and range-of-motion exercises",
        "scope": "different-setting",
-       "note": "The HELP immobility risk-factor protocol; foundational for early mobilization in multicomponent delirium prevention but ward-based older-patient care, not ICU early mobility.",
-       "page": "3",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Risk-factor criteria table flattened into label+definition pairs (Visual impairment / Hearing impairment / Dehydration) with the greater-than-or-equal symbols dropped as replacement characters."
       }
      ]
@@ -4176,13 +4170,12 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — dehydration. Eligible patients: Patients with ratio of blood urea nitrogen to creatinine ≥18, screened for protocol by geriatric nurse-specialist. Standardized intervention protocols: Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids). Targeted outcome for reassessment: Change in ratio of blood urea nitrogen to creatinine.",
        "highlight": "early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
        "scope": "different-setting",
-       "note": "Supports the 'adequate fluids' action but the study setting is a general-medicine teaching-hospital service in patients >=70, not the adult ICU the tool targets; nutrition is not addressed.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "This is a table/figure rendered as scattered cells (a column header \"TARGETED OUTCOME FOR REASSESSMENT\" followed by \"Change in ... score\" cell contents), not prose."
       },
       {
@@ -4457,23 +4450,21 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "cognitively stimulating activities three times daily",
        "scope": "different-setting",
-       "note": "Exact definition of cognitive stimulation as a delirium-prevention protocol, but the setting is a general-medicine ward (patients aged 70+), not an ICU.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Concatenated cells from Inouye's standardized-intervention-protocols table, not prose; starts and ends mid-entry."
       },
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "communication to reorient to surroundings",
        "scope": "different-setting",
-       "note": "Companion HELP orientation/reorientation protocol; same non-ICU ward setting, related to the reorientation-plus-cognitive-stimulation cluster.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Risk-factor/eligibility and protocol table cells merged into one blob, with replacement characters where symbols were lost."
       }
      ]
@@ -4645,23 +4636,21 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "relaxation tapes or music",
        "scope": "different-setting",
-       "note": "Music is embedded in HELP's nonpharmacologic sleep protocol for hospitalized older patients (>=70) on a general-medicine, non-ICU service — shares the 'music' keyword but is not ICU direct support.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "This is Inouye's intervention-protocols table dumped as text: multiple protocol labels concatenated, starting and ending mid-content."
       },
       {
-       "context": "Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "cognitively stimulating activities three times daily",
        "scope": "different-setting",
-       "note": "HELP's therapeutic-activities (cognitive stimulation) protocol, the non-ICU older-adult analog of the tool's engagement item.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Same intervention-protocols table content run together, truncated mid-word ('immobil')."
       }
      ]
@@ -8382,23 +8371,21 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints)",
        "scope": "on-scope",
-       "note": "Directly supports both parts: ambulation = 'get the patient up' and 'minimal use of immobilizing equipment (bladder catheters or physical restraints)' = discontinuing catheters and restraints.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Standardized intervention-protocol table rendered as run-together rows, truncated mid-entry ('special comm')."
       },
       {
-       "context": "Immobility All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory",
        "scope": "on-scope",
-       "note": "Immobility risk-group protocol prescribing ambulation whenever possible, reinforcing 'get the patient up.'",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Risk-factor/eligibility table with the two columns interleaved as running text; also carries replacement characters."
       }
      ]
@@ -8573,13 +8560,12 @@
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
       {
-       "context": "Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment",
        "scope": "different-setting",
-       "note": "The early-mobilization protocol targets ward-based older medical patients (852 patients 70+ on general medicine), a different setting from the at-risk ICU population in the claim.",
-       "page": "",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Intervention-protocol table flattened into a run-on list of labeled cells (Early-mobilization/Vision/Hearing protocol), truncated at 'special comm'."
       }
      ]
@@ -9032,23 +9018,21 @@
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
-       "context": "STANDARDIZED INTERVENTION PROTOCOLS Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage",
        "scope": "on-scope",
-       "note": "HELP's bedtime nonpharmacologic sleep protocol — the direct evidence for a protect-sleep intervention; population is general-medicine inpatients >=70 (not ICU) and it uses warm drink/relaxation/massage rather than eye masks/earplugs/dim lights.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Intervention-protocol table cells concatenated into run-on text ending mid-word 'immobil', not a genuine paragraph."
       },
       {
-       "context": "Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures)",
+       "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures)",
        "scope": "on-scope",
-       "note": "Unit-wide noise reduction (quiet hallways) maps to the quiet-hours/earplug idea and rescheduling of medications and procedures maps to clustering cares in the statement.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-       "flag": "figure",
        "qcNote": "Same intervention-protocol table cells merged into run-on text ending mid-word 'adaptive equipme'."
       }
      ]
@@ -9069,8 +9053,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The decision to extubate was made by the attending physician according to Table 1. The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. …",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4",
    "status": "fulltext",
    "pageNum": "4",
@@ -9094,23 +9078,21 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "+4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds) -2 Light sedation Briefly awakens with eye contact to voice (10 seconds) -3 Moderate Movement or eye opening to voice (but no eye contact) sedation -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "+4 Combative",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "+4 Combative — Overtly combative, violent, immediate danger to staff",
        "scope": "on-scope",
-       "note": "RASS Table 1 row +4 is labeled Combative, directly supporting the claim's +4 mapping.",
-       "page": "2984",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
+       "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
-       "flag": "figure",
        "qcNote": "The RASS scale (Table 1) rendered as a linear run of scattered score/term/description cells, not prose."
       },
       {
-       "context": "+3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds) -2 Light sedation Briefly awakens with eye contact to voice (10 seconds) -3 Moderate Movement or eye opening to voice (but no eye contact) sedation -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "+3 Very agitated",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "+3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive",
        "scope": "on-scope",
-       "note": "RASS Table 1 row +3 is labeled Very agitated, directly supporting the claim's +3 mapping.",
-       "page": "2984",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
+       "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
-       "flag": "figure",
        "qcNote": "Same RASS scale table dumped as sequential cells; not a readable paragraph."
       }
      ]
@@ -9140,8 +9122,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The decision to extubate was made by the attending physician according to Table 1. The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. If not alert, state patient's name and say to open eyes and look at speaker. …",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4",
    "status": "fulltext",
    "pageNum": "4",
@@ -9174,33 +9156,33 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds) -2 Light sedation Briefly awakens with eye contact to voice (10 seconds) -3 Moderate Movement or eye opening to voice (but no eye contact) sedation -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "Frequent nonpurposeful movement, fights ventilator",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "+2 Agitated — Frequent nonpurposeful movement, fights ventilator",
        "scope": "on-scope",
-       "note": "RASS Table 1 defines score +2 as the term 'Agitated' (description: frequent nonpurposeful movement, fights ventilator), directly supporting the claim's +2 = Agitated mapping.",
-       "page": "2984",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
+       "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       },
       {
-       "context": "Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds) -2 Light sedation Briefly awakens with eye contact to voice (10 seconds) -3 Moderate Movement or eye opening to voice (but no eye contact) sedation -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "Anxious but movements not aggressive or vigorous",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "+1 Restless — Anxious but movements not aggressive or vigorous",
        "scope": "on-scope",
-       "note": "RASS Table 1 defines score +1 as the term 'Restless' (description: anxious but movements not aggressive or vigorous), directly supporting the claim's +1 = Restless mapping.",
-       "page": "2984",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
+       "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       },
       {
-       "context": "The relative frequency that the validation cohort spent in each major arousal category for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, -5 or -4; n = 548 observations), one third in a moderate to light sedation state (RASS score, -3 to -1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score,+1 to+4; n=41 observations), which was rated prior to stimulation, was an uncommon state (5%) found by the study nurses.",
-       "highlight": "Spontaneous agitation (RASS score,+1 to+4; n=41 observations)",
+       "context": "Utilization of the RASS for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, −5 or −4; n=548 observations), one third in a moderate to light sedation state (RASS score, −3 to −1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score, +1 to +4; n=41 observations), which was rated prior to stimulation, was an uncommon state (<5%) found by the study nurses.",
+       "highlight": "Spontaneous agitation (RASS score, +1 to +4; n=41 observations)",
        "scope": "broader",
-       "note": "Groups RASS +1 to +4 as spontaneous agitation in the validation cohort; corroborates that +1 and +2 sit on the agitation side of the scale but does not itself assign the individual row terms.",
-       "page": "",
+       "note": "Read from the printed page. The article sets the negative scores with a minus sign, and the \"less than\" sign before 5% is one of the characters this PDF’s font does not map.",
+       "page": "2987",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       }
      ]
     }
    ],
-   "synthesis": "Both sources describe the same adult-ICU Richmond Agitation-Sedation Scale, and they agree. Ely 2003 Table 1 (p. 2984) is the on-scope governing source: it defines +2 = \"Agitated\" and +1 = \"Restless\" exactly as the tool states, and Sessler 2002 is the original scale Ely's table is \"Adapted with permission\" from, so it is consistent rather than conflicting.",
+   "synthesis": "Both sources describe the same adult-ICU Richmond Agitation-Sedation Scale, and they agree. Ely 2003 Table 1 (p. 2985) is the on-scope governing source: it defines +2 = \"Agitated\" and +1 = \"Restless\" exactly as the tool states, and Sessler 2002 is the original scale Ely's table is \"Adapted with permission\" from, so it is consistent rather than conflicting.",
    "discrepancy": false
   },
   {
@@ -9215,8 +9197,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The decision to extubate was made by the attending physician according to Table 1. The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. If not alert, state patient's name and say to open eyes and look at speaker. • Patient awakens with sustained eye opening and eye contact. …\nIn the source table, score 0 carries the term only, with no behavioral description.",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4",
    "status": "fulltext",
    "pageNum": "4",
@@ -9240,21 +9222,20 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds) -2 Light sedation Briefly awakens with eye contact to voice (10 seconds) -3 Moderate Movement or eye opening to voice (but no eye contact) sedation -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
        "highlight": "0 Alert and calm",
        "scope": "on-scope",
-       "note": "Table 1 (The Richmond Agitation-Sedation Scale) defines score 0 verbatim as 'Alert and calm', directly matching the claim.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
-       "flag": "figure",
        "qcNote": "This is the RASS scale table rendered as interleaved score/term/description cells, not prose (e.g. 'Moderate ... sedation' split around the description, '-5 Unarou' cut off)."
       },
       {
-       "context": "The relative frequency that the validation cohort spent in each major arousal category for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, -5 or -4; n = 548 observations), one third in a moderate to light sedation state (RASS score, -3 to -1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score,+1 to+4; n=41 observations), which was rated prior to stimulation, was an uncommon state (5%) found by the study nurses.",
+       "context": "Utilization of the RASS for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, −5 or −4; n=548 observations), one third in a moderate to light sedation state (RASS score, −3 to −1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score, +1 to +4; n=41 observations), which was rated prior to stimulation, was an uncommon state (<5%) found by the study nurses.",
        "highlight": "an alert and calm state (RASS score, 0; n=619 observations)",
        "scope": "on-scope",
-       "note": "The validation-cohort results narrative reaffirms that RASS score 0 corresponds to the 'alert and calm' state, confirming the Table 1 definition.",
-       "page": "2986",
+       "note": "Read from the printed page. The article sets the negative scores with a minus sign, and the \"less than\" sign before 5% is one of the characters this PDF’s font does not map.",
+       "page": "2987",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       }
      ]
@@ -9284,8 +9265,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The decision to extubate was made by the attending physician according to Table 1. The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. If not alert, state patient's name and say to open eyes and look at speaker. • Patient awakens with sustained eye opening and eye contact. Score -1 • Patient awakens with eye opening and eye contact, but not sustained. …",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4",
    "status": "fulltext",
    "pageNum": "4",
@@ -9309,11 +9290,11 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds)",
-       "highlight": "Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds)",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "−1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds)",
        "scope": "on-scope",
-       "note": "This is the RASS Table 1 row for score -1, labeling it Drowsy with its defining description in adult ICU patients.",
-       "page": "2984",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
+       "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       }
      ]
@@ -9328,7 +9309,7 @@
      "paragraphs": []
     }
    ],
-   "synthesis": "Both sources are the definitive RASS references; Ely 2003 (the archived PDF) directly governs, its Table 1 listing \"-1 Drowsy\" with the description \"Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds)\", exactly matching the claim's RASS −1: Drowsy anchor. Sessler 2002, the original RASS validation paper, defines the same scale and is cited alongside it; the two agree with no scope divergence.",
+   "synthesis": "Both sources are the definitive RASS references; Ely 2003 (the archived PDF) directly governs, its Table 1 listing \"-1 Drowsy\" with the description \"Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds)\", exactly matching the claim's RASS −1: Drowsy anchor. Sessler 2002, the original RASS validation paper, defines the same scale and is cited alongside it; the two agree with no scope divergence.",
    "discrepancy": false
   },
   {
@@ -9343,8 +9324,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The decision to extubate was made by the attending physician according to Table 1. The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. If not alert, state patient's name and say to open eyes and look at speaker. • Patient awakens with sustained eye opening and eye contact. Score -1 • Patient awakens with eye opening and eye contact, but not sustained. Score -2 • Patient has any movement in response to voice but no eye contact. Score -3 3. …",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4",
    "status": "fulltext",
    "pageNum": "4",
@@ -9368,13 +9349,12 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "-2 Light sedation Briefly awakens with eye contact to voice (10 seconds)",
-       "highlight": "-2 Light sedation",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "−2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds)",
        "scope": "on-scope",
-       "note": "The RASS scale table (Table 1) row directly defines score -2 as \"Light sedation,\" exactly matching the claim.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
-       "flag": "figure",
        "qcNote": "This is the RASS scale table rendered as interleaved cells (score/term/description columns collapsed into one line, e.g. 'Moderate ... sedation' split), not prose."
       }
      ]
@@ -9404,8 +9384,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The decision to extubate was made by the attending physician according to Table 1. The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. If not alert, state patient's name and say to open eyes and look at speaker. • Patient awakens with sustained eye opening and eye contact. Score -1 • Patient awakens with eye opening and eye contact, but not sustained. Score -2 • Patient has any movement in response to voice but no eye contact. Score -3 3. …",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4",
    "status": "fulltext",
    "pageNum": "4",
@@ -9429,21 +9409,20 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "performed the RASS using the same se- Table 1. The Richmond Agitation-Sedation Scale (RASS) quence of 3 steps as outlined in Table 1. If the patients were alert or agitated prior Score Term Description to stimulation, they were scored 0 to+4 accordingly. If patients were not spon- +4 Combative Overtly combative, violent, immediate danger to staff taneously alert, they were then called by name to look at the rater, with the du- +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive ration of eye contact measured, at which time a positive response was scored ac- +2 Agitated Frequent nonpurposeful movement, fights ventilator cordingly as -1 to -3. If the patients did not respond to verbal stimulation, they +1 Restless Anxious but movements not aggressive or vigorous were then physically stimulated (ie, shoulder shake and/or sternal rub) and 0 Alert and calm scored according to their response as -4 or -5. If calm and not alert prior to ver- -1 Drowsy Not fully alert, but has sustained awakening bal and physical stimulation, patients (eye opening/eye contact) to voice (10 seconds) were then rated as -1 to -5 (as standard- ized in Table 1) even if they became agi- -2 Light sedation Briefly awakens with eye contact to voice Verbal tated on stimulation. Assessments re- (10 seconds) stimulation quired less than 20 seconds. -3 Moderate Movement or eye opening to voice (but no eye contact) Physical Structure of Reliability Study stimulation Procedures sedation Score 0 to +4 Two critical care study nurses, an in- -4 Deep sedation No response to voice, but movement or eye opening tensivist, and a neuropsychiatric ex- to physical stimulation Score -1 pert performed daily, independent RASS Score -2 ratings during each patient's ICU stay. -5 Unarousable No response to voice or physical stimulation Score -3 Interrater reliability assessments were conducted in the afternoon, and none Procedure for RASS Assessment Score -4 of the raters had access to the others' 1.",
-       "highlight": "-3 Moderate",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "−3 Moderate sedation — Movement or eye opening to voice (but no eye contact)",
        "scope": "on-scope",
-       "note": "RASS Table 1 row explicitly labels score -3 as Moderate sedation with this description, directly supporting the claim.",
-       "page": "4",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
+       "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
-       "flag": "figure",
        "qcNote": "This is the Richmond Agitation-Sedation Scale rendered as scattered score values, terms, and descriptions from a table, not prose."
       },
       {
-       "context": "The relative frequency that the validation cohort spent in each major arousal category for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, -5 or -4; n = 548 observations), one third in a moderate to light sedation state (RASS score, -3 to -1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score,+1 to+4; n=41 observations), which was rated prior to stimulation, was an uncommon state (5%) found by the study nurses.",
-       "highlight": "moderate to light sedation state (RASS score, -3 to -1",
+       "context": "Utilization of the RASS for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, −5 or −4; n=548 observations), one third in a moderate to light sedation state (RASS score, −3 to −1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score, +1 to +4; n=41 observations), which was rated prior to stimulation, was an uncommon state (<5%) found by the study nurses.",
+       "highlight": "moderate to light sedation state (RASS score, −3 to −1",
        "scope": "broader",
-       "note": "A frequency-distribution sentence that lumps scores -3 to -1 together as a moderate-to-light sedation state; shares the keywords but is not the -3 definition and could be misread as such.",
-       "page": "",
+       "note": "Read from the printed page. The article sets the negative scores with a minus sign, and the \"less than\" sign before 5% is one of the characters this PDF’s font does not map.",
+       "page": "2987",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       }
      ]
@@ -9473,8 +9452,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. If not alert, state patient's name and say to open eyes and look at speaker. • Patient awakens with sustained eye opening and eye contact. Score -1 • Patient awakens with eye opening and eye contact, but not sustained. Score -2 • Patient has any movement in response to voice but no eye contact. Score -3 3. When no response to verbal stimulation, physically stimulate patient by shaking shoulder and/or rubbing sternum. • Patient has any movement to physical stimulation. Score -4 • Patient has no response to any stimulation. …",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4",
    "status": "fulltext",
    "pageNum": "4",
@@ -9498,30 +9477,28 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "-4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "-4 Deep sedation No response to voice, but movement or eye opening to physical stimulation",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "−4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation",
        "scope": "on-scope",
-       "note": "Table 1 defines RASS -4 as Deep sedation (no response to voice, but movement/eye opening to physical stimulation) — direct support for the -4 label.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
-       "flag": "figure",
        "qcNote": "This is the RASS scale table rendered as scattered score numbers and labels, not prose."
       },
       {
-       "context": "-5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "-5 Unarousable No response to voice or physical stimulation",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "−5 Unarousable — No response to voice or physical stimulation",
        "scope": "on-scope",
-       "note": "Table 1 defines RASS -5 as Unarousable (no response to voice or physical stimulation) — direct support for the -5 label.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
-       "flag": "figure",
        "qcNote": "This is the RASS scale table rendered as scattered score numbers and labels, not prose."
       },
       {
-       "context": "The relative frequency that the validation cohort spent in each major arousal category for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, -5 or -4; n = 548 observations), one third in a moderate to light sedation state (RASS score, -3 to -1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score,+1 to+4; n=41 observations), which was rated prior to stimulation, was an uncommon state (5%) found by the study nurses.",
-       "highlight": "unarousable or in a deeply sedated state (RASS score, -5 or -4",
+       "context": "Utilization of the RASS for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, −5 or −4; n=548 observations), one third in a moderate to light sedation state (RASS score, −3 to −1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score, +1 to +4; n=41 observations), which was rated prior to stimulation, was an uncommon state (<5%) found by the study nurses.",
+       "highlight": "unarousable or in a deeply sedated state (RASS score, −5 or −4",
        "scope": "background",
-       "note": "A results-section paragraph that groups RASS -5/-4 as the unarousable/deeply-sedated states, corroborating the labels but in a frequency-of-arousal context rather than the definition itself.",
+       "note": "Read from the printed page. The article sets the negative scores with a minus sign, and the \"less than\" sign before 5% is one of the characters this PDF’s font does not map.",
        "page": "2987",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       }
@@ -9552,8 +9529,8 @@
     "Sessler 2002",
     "Ely 2003"
    ],
-   "anchor": "Ely 2003 — p. 4",
-   "passage": "… The decision to extubate was made by the attending physician according to Table 1. The Richmond Agitation-Sedation Scale (RASS) Score Term Description +4 Combative Overtly combative, violent, immediate danger to staff +3 Very agitated Pulls or removes tube(s) or catheter(s); aggressive +2 Agitated Frequent nonpurposeful movement, fights ventilator +1 Restless Anxious but movements not aggressive or vigorous 0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice ( 10 seconds) -2 Light sedation Briefly awakens with eye contact to voice ( 10 seconds) Verbal stimulation -3 Moderate sedation Movement or eye opening to voice (but no eye contact) -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation Physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1. Observe patient • Patient is alert, restless, or agitated. Score 0 to +4 2. If not alert, state patient's name and say to open eyes and look at speaker. • Patient awakens with sustained eye opening and eye contact. Score -1 • Patient awakens with eye opening and eye contact, but not sustained. Score -2 • Patient has any movement in response to voice but no eye contact. Score -3 3. When no response to verbal stimulation, physically stimulate patient by shaking shoulder and/or rubbing sternum. • Patient has any movement to physical stimulation. …\nEly 2003 labels −3 'moderate sedation' and −4 'deep sedation,' whereas the statement labels the −3/−4 band as deep sedation. The 'documented indication required' element is not in the RASS validation papers; it reflects a PADIS concept not cited here.",
+   "anchor": "Ely 2003 — p. 2985",
+   "passage": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
    "evidence": "Full text, p. 4 — partial support",
    "status": "fulltext",
    "pageNum": "4",
@@ -9586,18 +9563,18 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "-4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "-4 Deep sedation No response to voice, but movement or eye opening to physical stimulation",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "−4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation",
        "scope": "on-scope",
-       "note": "Table 1 defines RASS score -4 as 'Deep sedation' with this description, directly supporting the tool's 'Deep sedation' label for the deep end of the band.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       },
       {
-       "context": "The relative frequency that the validation cohort spent in each major arousal category for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, -5 or -4; n = 548 observations), one third in a moderate to light sedation state (RASS score, -3 to -1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score,+1 to+4; n=41 observations), which was rated prior to stimulation, was an uncommon state (5%) found by the study nurses.",
-       "highlight": "moderate to light sedation state (RASS score, -3 to -1; n=625 observations)",
+       "context": "Utilization of the RASS for 1833 observations in 275 patients indicated that the patients who received mechanical ventilation spent about one third of their time either unarousable or in a deeply sedated state (RASS score, −5 or −4; n=548 observations), one third in a moderate to light sedation state (RASS score, −3 to −1; n=625 observations), and one third in an alert and calm state (RASS score, 0; n=619 observations). Spontaneous agitation (RASS score, +1 to +4; n=41 observations), which was rated prior to stimulation, was an uncommon state (<5%) found by the study nurses.",
+       "highlight": "moderate to light sedation state (RASS score, −3 to −1; n=625 observations)",
        "scope": "narrower",
-       "note": "The cohort's arousal distribution groups -4 with -5 as the 'deeply sedated'/unarousable band and places -3 in the 'moderate to light' band, so the source treats -3 as moderate rather than deep, unlike the tool's -3-to-4 'Deep sedation' grouping.",
+       "note": "Read from the printed page. The article sets the negative scores with a minus sign, and the \"less than\" sign before 5% is one of the characters this PDF’s font does not map.",
        "page": "2987",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       },
@@ -24764,34 +24741,34 @@
      "docUrl": "https://doi.org/10.1001/jama.289.22.2983",
      "paragraphs": [
       {
-       "context": "It is a 10point scale that can be rated briefly using 3 clearly defined steps and that has discrete criteria for levels of sedation and agitation.",
-       "highlight": "It is a 10point scale",
+       "context": "The Richmond Agitation-Sedation Scale (RASS) was developed by a multidisciplinary team at Virginia Commonwealth University in Richmond. It is a 10-point scale that can be rated briefly using 3 clearly defined steps and that has discrete criteria for levels of sedation and agitation.",
+       "highlight": "It is a 10-point scale",
        "scope": "on-scope",
-       "note": "Directly supports the claim's '10 levels' framing, describing the RASS as a 10-point scale with discrete criteria for levels of sedation and agitation.",
+       "note": "Read from the printed page. The text layer runs these words together and drops the hyphen in \"10-point\" at a line break.",
        "page": "2984",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       },
       {
-       "context": "+4 Combative Overtly combative, violent, immediate danger to staff",
-       "highlight": "Overtly combative, violent, immediate danger to staff",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "+4 Combative — Overtly combative, violent, immediate danger to staff",
        "scope": "on-scope",
-       "note": "Table 1 gives the +4 endpoint verbatim, matching the claim's '+4 Combative (overtly combative/violent; immediate danger to staff)'.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       },
       {
-       "context": "0 Alert and calm -1 Drowsy Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (10 seconds) -2 Light sedation Briefly awakens with eye contact to voice (10 seconds) -3 Moderate Movement or eye opening to voice (but no eye contact) sedation -4 Deep sedation No response to voice, but movement or eye opening to physical stimulation -5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
        "highlight": "0 Alert and calm",
        "scope": "on-scope",
-       "note": "Table 1 gives the neutral midpoint verbatim, matching the claim's '0 Alert & calm'.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       },
       {
-       "context": "-5 Unarousable No response to voice or physical stimulation Procedure for RASS Assessment 1.",
-       "highlight": "No response to voice or physical stimulation",
+       "context": "Table 1. The Richmond Agitation-Sedation Scale (RASS). Score, term, description. +4 Combative — Overtly combative, violent, immediate danger to staff. +3 Very agitated — Pulls or removes tube(s) or catheter(s); aggressive. +2 Agitated — Frequent nonpurposeful movement, fights ventilator. +1 Restless — Anxious but movements not aggressive or vigorous. 0 Alert and calm. −1 Drowsy — Not fully alert, but has sustained awakening (eye opening/eye contact) to voice (>10 seconds). −2 Light sedation — Briefly awakens with eye contact to voice (<10 seconds). −3 Moderate sedation — Movement or eye opening to voice (but no eye contact). The −1 to −3 rows are bracketed in the table as verbal stimulation. −4 Deep sedation — No response to voice, but movement or eye opening to physical stimulation. −5 Unarousable — No response to voice or physical stimulation. The −4 and −5 rows are bracketed as physical stimulation.",
+       "highlight": "−5 Unarousable — No response to voice or physical stimulation",
        "scope": "on-scope",
-       "note": "Table 1 gives the −5 endpoint verbatim, matching the claim's '−5 Unarousable (no response to voice or physical stimulation)'.",
+       "note": "Transcribed from Table 1 as printed; the table’s term and description columns are joined with an em dash so each row reads as one line. The two ten-second anchors are −1 at more than 10 seconds and −2 at under 10 seconds — the distinction between them is the direction of that comparison.",
        "page": "2985",
        "docUrl": "https://doi.org/10.1001/jama.289.22.2983"
       }
@@ -24842,7 +24819,7 @@
      ]
     }
    ],
-   "synthesis": "All four sources concern the same instrument, the Richmond Agitation-Sedation Scale, and the claim's exact 10-level enumeration with endpoint wording (\"+4 Combative … immediate danger to staff\", \"0 Alert and calm\", \"−5 Unarousable … no response to voice or physical stimulation\") is reproduced verbatim in Ely 2003 Table 1 (explicitly a \"10point scale\", originally derived by Sessler 2002), which is the on-scope governing source. Han 2015 — the card's primary citation — presents the same scale as its Figure 1 but studies it in older ED patients and relabels \"sedation\" as \"drowsy,\" and Chester 2012 evaluates a modified RASS (mRASS) in VA medical inpatients, so both are nearest matches at a different scope rather than the source of the standard endpoint descriptors.",
+   "synthesis": "All four sources concern the same instrument, the Richmond Agitation-Sedation Scale, and the claim's exact 10-level enumeration with endpoint wording (\"+4 Combative … immediate danger to staff\", \"0 Alert and calm\", \"−5 Unarousable … no response to voice or physical stimulation\") is reproduced verbatim in Ely 2003 Table 1 (explicitly a \"10-point scale\", originally derived by Sessler 2002), which is the on-scope governing source. Han 2015 — the card's primary citation — presents the same scale as its Figure 1 but studies it in older ED patients and relabels \"sedation\" as \"drowsy,\" and Chester 2012 evaluates a modified RASS (mRASS) in VA medical inpatients, so both are nearest matches at a different scope rather than the source of the standard endpoint descriptors.",
    "discrepancy": true
   },
   {

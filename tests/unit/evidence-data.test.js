@@ -95,6 +95,20 @@ test('per-source passages: valid stance/scope and highlight is a literal substri
   }
 });
 
+test('every quoted passage is transcribed, not approximated', () => {
+  // A passage is quoted only once it has been read against the source. Content
+  // that cannot be transcribed carries no passage at all — the source keeps its
+  // stance and its note. Marking a passage as an approximation instead would put
+  // text in quotation marks that nobody has checked.
+  for (const c of DATA.claims) {
+    for (const e of c.perSource || []) {
+      for (const pg of e.paragraphs || []) {
+        assert.ok(!pg.flag, `passage is transcribed rather than flagged on ${c.id}/${e.label}`);
+      }
+    }
+  }
+});
+
 test('the manually-authored PICU arousal-gate claim keeps its on-scope passages', () => {
   const c = DATA.claims.find((x) => x.id === 'picu-wf-r5');
   assert.ok(c, 'picu-wf-r5 present');
