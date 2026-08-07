@@ -446,7 +446,8 @@
    "contentType": "Cited clinical content",
    "sources": [
     "CAM-ICU Worksheet",
-    "Ely 2001"
+    "Ely 2001",
+    "CAM-ICU Manual"
    ],
    "anchor": "CAM-ICU Worksheet — p. 6, ¶15",
    "passage": "Briefly awakens to voice (eyes open & contact <10 sec) -3 MODERATE SEDATION Movement or eye opening to voice (no eye contact) If RASS is ≥ -3 proceed to CAM-ICU (Is patient CAM-ICU positive or negative?) If RASS is -4 or -5 ! STOP (patient unconscious), RECHECK later V O I C E\nThe worksheet does not use the phrase \"unable to assess\"; its equivalent instruction at RASS −4/−5 is to stop the assessment (patient unconscious) and recheck later.",
@@ -529,6 +530,19 @@
        "note": "Feature 1 lists RASS among scales used to detect fluctuation; the worksheet contains no threshold that renders the patient unassessable, so this is context rather than support for the claim.",
        "page": "",
        "docUrl": "https://www.icudelirium.org/resource-downloads/cam-icu-worksheet"
+      }
+     ]
+    },
+    {
+     "label": "CAM-ICU Manual",
+     "stance": "agrees",
+     "note": "The RASS -4/-5 stop is stated in the training manual's Step Two flow. The worksheet, which the claim also cites, carries the four features but no arousal gate.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Step Two: Delirium Assessment Using the CAM-ICU RASS Score Level of Consciousness If RASS is >= -3 proceed to CAM-ICU (Is patient CAM-ICU positive or negative?) If RASS is -4 or -5 ! STOP (patient unconscious), RECHECK later",
+       "highlight": "If RASS is -4 or -5 ! STOP (patient unconscious), RECHECK later",
+       "page": "6"
       }
      ]
     }
@@ -29228,6 +29242,19 @@
     "Step-Down Card Set — Arousal card — gate (stop)",
     "Step-Down Workflow — 2 · Arousal — the gate",
     "Step-Down Workflow — Loop — unable to assess"
+   ],
+   "verdict": ""
+  },
+  {
+   "tool": "Adult ICU",
+   "source": "CAM-ICU Manual",
+   "citation": "Ely EW; Vanderbilt University. The Complete CAM-ICU Training Manual (rev. 2016). ICUDelirium.org.",
+   "link": "https://www.icudelirium.org/resource-downloads/cam-icu-training-manual",
+   "archived": true,
+   "statements": 1,
+   "check": "Confirmed against the Vanderbilt CIBS Center record; the archive holds the 2016 revision.",
+   "usedIn": [
+    "ICU Delirium Rounding Tool — Status strip — CAM-ICU result"
    ],
    "verdict": ""
   }
