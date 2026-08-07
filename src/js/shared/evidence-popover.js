@@ -14,28 +14,21 @@
  * verbatim passages.
  */
 import { el } from './dom.js';
+import { STATUS_LABEL, STANCE_LABEL } from './evidence-vocab.js';
 
-const STATUS_LABEL = {
-  fulltext: 'Full-text verified',
-  instrument: 'Validated instrument',
-  guideline: 'Guideline text',
-  abstract: 'Abstract',
-  web: 'Web / resource page',
-  notstated: 'Not stated in cited source',
-  structure: 'Operational structure',
-  na: 'Site-customized (no citation)',
-  other: 'Other',
-};
 // Only the two ends of the scale get colour; the rest read as neutral chips.
 const STATUS_MOD = { fulltext: 'is-ok', instrument: 'is-ok', notstated: 'is-flag', web: 'is-warn' };
-const STANCE = {
-  agrees: { l: 'agrees', m: 'is-ok' },
-  partial: { l: 'partial', m: 'is-warn' },
-  contradicts: { l: 'differs', m: 'is-flag' },
-  not_stated: { l: 'not in source', m: 'is-flag' },
-  not_addressed: { l: 'not re-addressed', m: '' },
-  background: { l: 'context', m: '' },
+const STANCE_MOD = {
+  agrees: 'is-ok',
+  partial: 'is-warn',
+  contradicts: 'is-flag',
+  not_stated: 'is-flag',
+  not_addressed: '',
+  background: '',
 };
+const STANCE = Object.fromEntries(
+  Object.keys(STANCE_LABEL).map((k) => [k, { l: STANCE_LABEL[k], m: STANCE_MOD[k] }]),
+);
 
 // The evidence page — the popover's "full detail" target.
 const EVIDENCE_URL = '/evidence/';
