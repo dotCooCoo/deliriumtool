@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { REFS } from '../../src/js/stepdown/data/refs.js';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/stepdown/');
@@ -223,7 +224,10 @@ test('keyboard focus survives the re-render after every selection', async ({ pag
 
 test('every source citation resolves to a link', async ({ page }) => {
   const items = page.locator('#src-list li');
-  await expect(items).toHaveCount(19); // one <li> per refs.js registry entry
+  // One <li> per registry entry, counted from the registry rather than written
+  // in: a hardcoded number goes stale the moment a source is added, and the
+  // failure then looks like a page defect rather than an out-of-date test.
+  await expect(items).toHaveCount(Object.keys(REFS).length);
   // Each entry ends in a resolvable external link.
   await expect(page.locator('#src-list li a').first()).toHaveAttribute('href', /^https?:\/\//);
   await expect(page.locator('#camimc-cites a')).toContainText('Beyer 2024');

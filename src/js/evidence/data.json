@@ -2869,9 +2869,18 @@
      "cite": "Inouye SK, Bogardus ST Jr, Charpentier PA, et al. A multicomponent intervention to prevent delirium in hospitalized older patients (HELP). N Engl J Med. 1999;340(9):669-676.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "",
+     "note": "The HELP sleep-enhancement protocol is unit-wide noise reduction. Table 1 names the measures, which is what this item asks the team to do.",
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-     "paragraphs": []
+     "paragraphs": [
+      {
+       "context": "Cognitive impairment. All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. [...] Sleep deprivation. All patients; need for protocol assessed once daily. Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures).",
+       "highlight": "Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways)",
+       "scope": "on-scope",
+       "note": "Table 1, the intervention protocols. Noise reduction is a named component of the trial’s sleep-enhancement protocol.",
+       "page": "671",
+       "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
+      }
+     ]
     },
     {
      "label": "Hshieh 2015",
@@ -3289,7 +3298,9 @@
     "Marra 2017",
     "PADIS 2018",
     "Inouye 1999",
-    "Hshieh 2015"
+    "Hshieh 2015",
+    "PADIS 2025",
+    "SAT/SBT"
    ],
    "anchor": "Inouye 1999 — p. 3, ¶60",
    "passage": "… ientation score of <8, protocol three times daily Orientation protocol: board with names of care-team members and day's schedule; communication to reorient to surroundings Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games) Change in orientation score Sleep deprivation All patients; need for protocol assessed once daily Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Change in rate of use of sedative drug for sleep† Immobility All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Change in Activities of Daily Living score Visual impairment Patients with <20/70 visual acuity on binocular near-vision testing Vision protocol: visual aids (e.g., glasses or magnifying lenses)  …",
@@ -3706,7 +3717,9 @@
     "Marra 2017",
     "PADIS 2018",
     "Inouye 1999",
-    "Hshieh 2015"
+    "Hshieh 2015",
+    "PADIS 2025",
+    "SAT/SBT"
    ],
    "anchor": "Inouye 1999 — p. 3, ¶60",
    "passage": "… or herbal tea), relaxation tapes or music, and back massage Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures) Change in rate of use of sedative drug for sleep† Immobility All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints) Change in Activities of Daily Living score Visual impairment Patients with <20/70 visual acuity on binocular near-vision testing Vision protocol: visual aids (e.g., glasses or magnifying lenses) and adaptive equipment (e.g., large illuminated telephone keypads, large-print books, and fluorescent tape on call bell), with daily reinforcement of their use Early correction of vision, «48 hr after admission Hearing impairment Patients hearing «6 of 12 whispers on Whisper Test Hearing protocol: portable amplifying devices, earwax disimpaction, and special communication techniques, with daily reinforcement of these adaptations Change in Whisper Test score Dehydration Patients with ratio o …",
@@ -4889,7 +4902,8 @@
     "Marra 2017",
     "PADIS 2018",
     "Inouye 1999",
-    "Hshieh 2015"
+    "Hshieh 2015",
+    "Flaherty & Little 2011"
    ],
    "anchor": "",
    "passage": "",
@@ -4915,7 +4929,16 @@
      "stance": "agrees",
      "note": "Describes the T-A-D-A method: Tolerate, Anticipate, Don't Agitate.",
      "docUrl": "https://pubmed.ncbi.nlm.nih.gov/22091576/",
-     "paragraphs": []
+     "paragraphs": [
+      {
+       "context": "This article is based on 13 years of experience at two hospitals. The authors have found that a restraint-free environment can be achieved; “tolerate, anticipate, and don't agitate” (the T-A-DA method) are the core principles of the nonpharmacological approach that go beyond the traditional strategies of management (such as reorientation)",
+       "highlight": "“tolerate, anticipate, and don't agitate” (the T-A-DA method) are the core principles of the nonpharmacological approach",
+       "scope": "on-scope",
+       "note": "Read from the published abstract, not the full text, which is paywalled. The abstract names the method and expands all three letters, which is what the card states. It does not carry the Delirium Room's operational detail, so nothing beyond the naming and expansion rests on this source.",
+       "page": "Abstract",
+       "docUrl": "https://pubmed.ncbi.nlm.nih.gov/22091576/"
+      }
+     ]
     }
    ],
    "synthesis": "T-A-D-A (Tolerate, Anticipate, Don't Agitate) is the restraint-free delirium-room approach described by Flaherty & Little 2011 — a way to manage agitation without escalating it within the bundle's engagement element.",
@@ -10421,7 +10444,8 @@
     "MENDS2 2021",
     "Haloperidol PI",
     "Hodgson 2014",
-    "Early Mobility"
+    "Early Mobility",
+    "Quetiapine PI"
    ],
    "anchor": "",
    "passage": "",
@@ -10443,10 +10467,27 @@
      "label": "Quetiapine PI",
      "cite": "Seroquel (quetiapine fumarate) prescribing information — QTc prolongation and orthostatic hypotension. DailyMed, U.S. NLM.",
      "kind": "pdf",
-     "stance": "agrees",
-     "note": "Product label — documents QTc prolongation and orthostatic hypotension for quetiapine.",
+     "stance": "partial",
+     "note": "The label states orthostatic hypotension outright. Its QT section is more qualified than the item’s monitoring instruction: quetiapine was not associated with a persistent QT increase in clinical trials, and the reported prolongation is in overdose, concomitant illness, co-administered QT-prolonging drugs, and named risk groups including the elderly.",
      "docUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0",
-     "paragraphs": []
+     "paragraphs": [
+      {
+       "context": "Quetiapine may induce orthostatic hypotension associated with dizziness, tachycardia and, in some patients, syncope, especially during the initial dose-titration period, probably reflecting its alpha-adrenergic antagonist properties. Syncope was reported in 1% (28/3265) of the patients treated with SEROQUEL, compared with 0.2% (2/954) on placebo and about 0.4% (2/527) on active control drugs. Orthostatic hypotension, dizziness, and syncope may lead to falls.",
+       "highlight": "Quetiapine may induce orthostatic hypotension associated with dizziness, tachycardia and, in some patients, syncope, especially during the initial dose-titration period",
+       "scope": "on-scope",
+       "note": "Direct support for the orthostasis half of the item.",
+       "page": "§5.7 Orthostatic Hypotension",
+       "docUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0"
+      },
+      {
+       "context": "5.12 QT Prolongation. In clinical trials, quetiapine was not associated with a persistent increase in QT intervals. However, the QT effect was not systematically evaluated in a thorough QT study. In post marketing experience, there were cases reported of QT prolongation in patients who overdosed on quetiapine, in patients with concomitant illness, and in patients taking medicines known to cause electrolyte imbalance or increase QT interval. The use of quetiapine should be avoided in combination with other drugs that are known to prolong QTc.",
+       "highlight": "In clinical trials, quetiapine was not associated with a persistent increase in QT intervals",
+       "scope": "narrower",
+       "note": "Read this before treating the item’s QTc instruction as label-directed. The label’s concern is concentrated in overdose, co-administration and named risk groups rather than routine monitoring.",
+       "page": "§5.12 QT Prolongation",
+       "docUrl": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0"
+      }
+     ]
     }
    ],
    "synthesis": "Antipsychotics are reserved for hyperactive delirium with a safety risk; when quetiapine is used, its dose-related QTc prolongation and orthostatic hypotension are the monitoring concerns documented in the product label.",
@@ -10466,7 +10507,8 @@
     "MENDS2 2021",
     "Haloperidol PI",
     "Hodgson 2014",
-    "Early Mobility"
+    "Early Mobility",
+    "PADIS 2018"
    ],
    "anchor": "",
    "passage": "",
@@ -10744,7 +10786,8 @@
     "MENDS2 2021",
     "Haloperidol PI",
     "Hodgson 2014",
-    "Early Mobility"
+    "Early Mobility",
+    "Flaherty & Little 2011"
    ],
    "anchor": "",
    "passage": "",
@@ -10769,7 +10812,16 @@
      "stance": "agrees",
      "note": "Describes the T-A-D-A method: Tolerate, Anticipate, Don't Agitate.",
      "docUrl": "https://pubmed.ncbi.nlm.nih.gov/22091576/",
-     "paragraphs": []
+     "paragraphs": [
+      {
+       "context": "This article is based on 13 years of experience at two hospitals. The authors have found that a restraint-free environment can be achieved; “tolerate, anticipate, and don't agitate” (the T-A-DA method) are the core principles of the nonpharmacological approach that go beyond the traditional strategies of management (such as reorientation)",
+       "highlight": "“tolerate, anticipate, and don't agitate” (the T-A-DA method) are the core principles of the nonpharmacological approach",
+       "scope": "on-scope",
+       "note": "Read from the published abstract, not the full text, which is paywalled. The abstract names the method and expands all three letters, which is what the card states. It does not carry the Delirium Room's operational detail, so nothing beyond the naming and expansion rests on this source.",
+       "page": "Abstract",
+       "docUrl": "https://pubmed.ncbi.nlm.nih.gov/22091576/"
+      }
+     ]
     }
    ],
    "synthesis": "T-A-D-A (Tolerate, Anticipate, Don't Agitate) is the restraint-free delirium-room approach described by Flaherty & Little 2011 — a way to manage agitation without escalating it.",
@@ -10789,7 +10841,9 @@
     "MENDS2 2021",
     "Haloperidol PI",
     "Hodgson 2014",
-    "Early Mobility"
+    "Early Mobility",
+    "Inouye 1999 (HELP)",
+    "PADIS 2018"
    ],
    "anchor": "",
    "passage": "",
@@ -10811,19 +10865,69 @@
      "label": "Inouye 1999 (HELP)",
      "cite": "Inouye SK, Bogardus ST Jr, Charpentier PA, et al. A multicomponent intervention to prevent delirium in hospitalized older patients (HELP). N Engl J Med. 1999;340(9):669-676.",
      "kind": "pdf",
-     "stance": "agrees",
-     "note": "Multicomponent HELP intervention — an orientation protocol and a nonpharmacologic sleep protocol.",
+     "stance": "partial",
+     "note": "Table 1 carries the orientation board and both sleep protocols this item bundles. The cadence differs: the trial ran the orientation protocol once daily, or three times daily for patients with a baseline MMSE below 20 or an orientation score below 8, not once per shift.",
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
-     "paragraphs": []
+     "paragraphs": [
+      {
+       "context": "Cognitive impairment. All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. [...] Sleep deprivation. All patients; need for protocol assessed once daily. Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures).",
+       "highlight": "Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings",
+       "scope": "on-scope",
+       "note": "The orientation board itself, as the trial defined it.",
+       "page": "671",
+       "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
+      },
+      {
+       "context": "Cognitive impairment. All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. [...] Sleep deprivation. All patients; need for protocol assessed once daily. Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures).",
+       "highlight": "protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily",
+       "scope": "narrower",
+       "note": "The trial’s cadence for that protocol. The item’s per-shift wording is a local operationalization, not the trial’s schedule.",
+       "page": "671",
+       "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
+      },
+      {
+       "context": "Cognitive impairment. All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. [...] Sleep deprivation. All patients; need for protocol assessed once daily. Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures).",
+       "highlight": "schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures)",
+       "scope": "on-scope",
+       "note": "The clustering half of the item — rescheduling care so sleep is not interrupted.",
+       "page": "671",
+       "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
+      }
+     ]
     },
     {
      "label": "PADIS 2018",
      "cite": "Devlin JW, Skrobik Y, Gelinas C, et al. Clinical practice guidelines for the prevention and management of pain, agitation/sedation, delirium, immobility, and sleep disruption in adult ICU patients (PADIS). Crit Care Med. 2018;46(9):e825-e873.",
      "kind": "pdf",
-     "stance": "agrees",
-     "note": "Sleep-disruption prevention (light/noise reduction; clustering care to protect sleep).",
+     "stance": "partial",
+     "note": "Two conditional recommendations cover the sleep half of this item, and clustering of care appears in the sleep-protocol rationale as a component of the studied bundles. The guideline does not address an orientation board.",
      "docUrl": "https://pubmed.ncbi.nlm.nih.gov/30113379/",
-     "paragraphs": []
+     "paragraphs": [
+      {
+       "context": "Recommendation: We suggest using noise and light reduction strategies to improve sleep in critically ill adults (conditional recommendation, low quality of evidence). Rationale: Two RCTs and two observational studies evaluated strategies to reduce ICU noise and light at night through the use of earplugs with or without the use of eyeshades.",
+       "highlight": "We suggest using noise and light reduction strategies to improve sleep in critically ill adults (conditional recommendation, low quality of evidence)",
+       "scope": "on-scope",
+       "note": "The formal recommendation behind protecting sleep.",
+       "page": "e858",
+       "docUrl": "https://pubmed.ncbi.nlm.nih.gov/30113379/"
+      },
+      {
+       "context": "Sleep-Promoting Protocol. Question: Should a sleep-promoting protocol be used to improve sleep in critically ill adults? Recommendation: We suggest using a sleep-promoting, multicomponent protocol in critically ill adults (conditional recommendation, very low quality of evidence.)",
+       "highlight": "We suggest using a sleep-promoting, multicomponent protocol in critically ill adults",
+       "scope": "on-scope",
+       "note": "Protecting sleep as a bundled protocol rather than a single measure.",
+       "page": "e859",
+       "docUrl": "https://pubmed.ncbi.nlm.nih.gov/30113379/"
+      },
+      {
+       "context": "One of the observational studies used a similar intervention to Hu et al, earplugs, eye shades, and music, whereas the other two tested more complex interventions including these interventions plus environmental changes, namely clustering of care to minimize interruptions overnight and early mobilization.",
+       "highlight": "clustering of care to minimize interruptions overnight",
+       "scope": "background",
+       "note": "Clustering appears in the rationale as a component of the trials pooled for the recommendation, not as a recommendation of its own.",
+       "page": "e860",
+       "docUrl": "https://pubmed.ncbi.nlm.nih.gov/30113379/"
+      }
+     ]
     }
    ],
    "synthesis": "Reorientation, sleep protection, and clustering care are components of validated multicomponent prevention: the HELP orientation and nonpharmacologic sleep protocols (Inouye 1999) and the PADIS 2018 sleep-disruption recommendations.",
@@ -20325,7 +20429,8 @@
    "contentType": "Cited clinical content",
    "sources": [
     "Han 2013 (DTS/bCAM)",
-    "DTS manual (Vanderbilt)"
+    "DTS manual (Vanderbilt)",
+    "Sessler 2002 (RASS)"
    ],
    "anchor": "DTS manual (Vanderbilt) — p. 3, ¶2",
    "passage": "2. Detailed Procedures for Each DTS Feature a) Altered Level of Consciousness Level of consciousness is determined during the routine patient evaluation by simply observing the patient. The Richmond Agitation Sedation Scale (RASS, Box 1) is used to determine if the patient has altered level of consciousness.30 A RASS of 0 indicates normal level of consciousness. A RASS other than 0 indicates altered level of consciousness and the patient would be considered DTS positive.\nAlso bCAM manual (Vanderbilt): \"A RASS other than “0” indicates that the patient has altered level of consciousness and feature 3 is considered positive.\"\nThe DTS manual (p. 3; FAQ p. 4) supports that any RASS other than 0 makes the DTS positive, and the bCAM manual (p. 5) supports its role as Feature 3; Han 2013 (p. 4) states both.",
@@ -20384,6 +20489,15 @@
      "stance": "background",
      "note": "The card's primary anchor (Delirium Triage Screen Instruction Manual v1.0, eddelirium.org, p.3 ¶2); not archived in this corpus, so no paragraphs. It is the operational source for the RASS-other-than-0 → DTS-positive rule, which Han 2013 confirms.",
      "docUrl": "https://eddelirium.org/delirium-assessment/assessment-instruments/",
+     "paragraphs": []
+    },
+    {
+     "label": "Sessler 2002 (RASS)",
+     "cite": "Sessler CN, et al. The Richmond Agitation–Sedation Scale: validity and reliability in adult intensive care unit patients. Am J Respir Crit Care Med. 2002;166(10):1338–1344.",
+     "kind": "pdf",
+     "stance": "background",
+     "note": "Derivation and validation of the RASS, the scale this claim's arousal rule reads. The DTS manual passage above cites it by reference marker for exactly this purpose. Paywalled and not archived here, so no paragraphs are extractable.",
+     "docUrl": "https://pubmed.ncbi.nlm.nih.gov/12421743/",
      "paragraphs": []
     }
    ],
@@ -28765,6 +28879,19 @@
    "verdict": ""
   },
   {
+   "tool": "Emergency Dept",
+   "source": "Sessler 2002 (RASS)",
+   "citation": "Sessler CN, et al. The Richmond Agitation–Sedation Scale: validity and reliability in adult intensive care unit patients. Am J Respir Crit Care Med. 2002;166(10):1338–1344.",
+   "link": "https://pubmed.ncbi.nlm.nih.gov/12421743/",
+   "archived": false,
+   "check": "Confirmed — the identifier resolves to the matching record. Paywalled and not archived here; cited as the source of the RASS the ED cards reproduce.",
+   "verdict": "",
+   "statements": 1,
+   "usedIn": [
+    "ED Delirium Card Set — DTS card — arousal"
+   ]
+  },
+  {
    "tool": "Pediatric",
    "source": "Curley 2006 (SBS)",
    "citation": "Curley MAQ, et al. State Behavioral Scale (SBS) for infants and young children on mechanical ventilation. Pediatr Crit Care Med. 2006;7(2):107–114.",
@@ -29257,6 +29384,33 @@
     "ICU Delirium Rounding Tool — Status strip — CAM-ICU result"
    ],
    "verdict": ""
+  },
+  {
+   "tool": "Adult ICU",
+   "source": "Flaherty & Little 2011",
+   "citation": "Flaherty JH, Little MO. Matching the environment to patients with delirium: lessons learned from the delirium room. J Am Geriatr Soc. 2011;59(Suppl 2):S295-S300.",
+   "link": "https://pubmed.ncbi.nlm.nih.gov/22091576/",
+   "archived": false,
+   "check": "Confirmed — matches the indexed record. The full text is paywalled and not archived here; the published abstract names the T-A-DA method and expands all three principles, and that sentence is quoted on the statements below. Distinct from Flaherty 2011 (Med Clin North Am), a different paper by the same first author in the same year.",
+   "verdict": "",
+   "statements": 2,
+   "usedIn": [
+    "ICU Delirium Rounding Tool — Non-pharm bundle — Engagement",
+    "SPA Quick Reference — Deeper guidance — A — Activity / Awareness"
+   ]
+  },
+  {
+   "tool": "Adult ICU",
+   "source": "Quetiapine PI",
+   "citation": "Seroquel (quetiapine fumarate) prescribing information — QTc prolongation and orthostatic hypotension. DailyMed, U.S. NLM.",
+   "link": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0",
+   "archived": true,
+   "check": "Confirmed — the DailyMed record resolves (AstraZeneca SEROQUEL, SPL version 50). The label states orthostatic hypotension outright; its QT section is more qualified than a routine-monitoring instruction, and that wording is quoted on the statement below.",
+   "verdict": "",
+   "statements": 1,
+   "usedIn": [
+    "SPA Quick Reference — Deeper guidance — P — Pain / Pharmacy"
+   ]
   }
  ],
  "legend": [
