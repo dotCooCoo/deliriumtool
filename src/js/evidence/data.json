@@ -12920,7 +12920,34 @@
     "https://doi.org/10.1097/01.PCC.0000200955.40962.38"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Curley 2006 (SBS)",
+     "stance": "partial",
+     "note": "Curley's Table 3 gives the assessment sequence verbatim and the attention anchors the gate rests on: -3 and -2 are both 'unable to pay attention to care provider', while -1 is 'able to pay attention but drifts off'. The gate itself, proceed at -1 or above and stop at -2/-3, is a screening convention Curley does not state.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Table 3 State Behavioral Scale (SBS) Score as patient's response to voice then gentle touch then noxious stimuli (planned endotracheal suctioning or <5 seconds of nail bed pressure) Score Description Definition -3 Unresponsive No spontaneous respiratory effort No cough or coughs only with suctioning No response to noxious stimuli Unable to pay attention to care provider Does not distress with any procedure (including noxious) Does not move -2 Responsive to noxious stimuli Spontaneous yet supported breathing Coughs with suctioning/repositioning Responds to noxious stimuli Unable to pay attention to care provider Will distress with a noxious procedure Does not move/occasional movement of extremities or shifting of position -1 Responsive to gentle touch or voice Spontaneous but ineffective nonsupported breaths Coughs with suctioning/repositioning Responds to touch/voice Able to pay attention but drifts off after stimulation Distresses with procedures Able to calm with comforting touch or voice when stimulus removed",
+       "highlight": "Score as patient's response to voice then gentle touch then noxious stimuli",
+       "page": "14"
+      },
+      {
+       "scope": "on-scope",
+       "context": "Table 3 State Behavioral Scale (SBS) Score as patient's response to voice then gentle touch then noxious stimuli (planned endotracheal suctioning or <5 seconds of nail bed pressure) Score Description Definition -3 Unresponsive No spontaneous respiratory effort No cough or coughs only with suctioning No response to noxious stimuli Unable to pay attention to care provider Does not distress with any procedure (including noxious) Does not move -2 Responsive to noxious stimuli Spontaneous yet supported breathing Coughs with suctioning/repositioning Responds to noxious stimuli Unable to pay attention to care provider Will distress with a noxious procedure Does not move/occasional movement of extremities or shifting of position -1 Responsive to gentle touch or voice Spontaneous but ineffective nonsupported breaths Coughs with suctioning/repositioning Responds to touch/voice Able to pay attention but drifts off after stimulation Distresses with procedures Able to calm with comforting touch or voice when stimulus removed",
+       "highlight": "Unable to pay attention to care provider",
+       "page": "14"
+      },
+      {
+       "scope": "different-intervention",
+       "context": "Table 3 State Behavioral Scale (SBS) Score as patient's response to voice then gentle touch then noxious stimuli (planned endotracheal suctioning or <5 seconds of nail bed pressure) Score Description Definition -3 Unresponsive No spontaneous respiratory effort No cough or coughs only with suctioning No response to noxious stimuli Unable to pay attention to care provider Does not distress with any procedure (including noxious) Does not move -2 Responsive to noxious stimuli Spontaneous yet supported breathing Coughs with suctioning/repositioning Responds to noxious stimuli Unable to pay attention to care provider Will distress with a noxious procedure Does not move/occasional movement of extremities or shifting of position -1 Responsive to gentle touch or voice Spontaneous but ineffective nonsupported breaths Coughs with suctioning/repositioning Responds to touch/voice Able to pay attention but drifts off after stimulation Distresses with procedures Able to calm with comforting touch or voice when stimulus removed",
+       "highlight": "Able to pay attention but drifts off after stimulation",
+       "page": "14"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "peds-cards-r15",
@@ -13437,7 +13464,28 @@
     "https://doi.org/10.1097/CCM.0000000000001428"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Smith 2016 (psCAM-ICU)",
+     "stance": "agrees",
+     "note": "The instrument's name, its 6 months to 5 years population and its point-in-time observational design are the validation study's own description.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "RATIONALE and OBJECTIVE-Delirium assessments in critically ill infants and young children pose unique challenges due to evolution of cognitive and language skills. The objectives of this study were to determine the validity and reliability of a fundamentally objective and developmentally appropriate delirium assessment tool for critically ill infants and preschool-aged children, and to determine delirium prevalence. DESIGN and SETTING-Prospective, observational cohort validation study of the PreSchool Confusion Assessment Method for the ICU (psCAM-ICU) in a tertiary medical center pediatric ICU. PATIENTS-Participants aged 6 months to 5 years and admitted to the pediatric ICU",
+       "highlight": "Prospective, observational cohort validation study of the PreSchool Confusion Assessment Method for the ICU (psCAM-ICU) in a tertiary medical center pediatric ICU.",
+       "page": "1"
+      },
+      {
+       "scope": "on-scope",
+       "context": "RATIONALE and OBJECTIVE-Delirium assessments in critically ill infants and young children pose unique challenges due to evolution of cognitive and language skills. The objectives of this study were to determine the validity and reliability of a fundamentally objective and developmentally appropriate delirium assessment tool for critically ill infants and preschool-aged children, and to determine delirium prevalence. DESIGN and SETTING-Prospective, observational cohort validation study of the PreSchool Confusion Assessment Method for the ICU (psCAM-ICU) in a tertiary medical center pediatric ICU. PATIENTS-Participants aged 6 months to 5 years and admitted to the pediatric ICU",
+       "highlight": "Participants aged 6 months to 5 years and admitted to the pediatric ICU",
+       "page": "1"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "peds-cards-r20",
@@ -25066,7 +25114,28 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "Beyer set the cut-off at three points by Youden index in the validation cohort; the card's rule is that cut-off.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Overall, the CAM-IMC showed an AUROC of 0.98 (CI 95%: 0.96-1.00). The optimal cut-off based on the Youden-Index was chosen at three points for the CAM-IMC to determine the presence of POD. This is displayed in the ROC-analysis in Fig. 3. Patients scoring three points or higher were considered as positive for POD, while those less than three points were considered negative.",
+       "highlight": "Patients scoring three points or higher were considered as positive for POD, while those less than three points were considered negative.",
+       "page": "4"
+      },
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "The system assigns up to five points for disorientation and three points for inattention",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r8",
@@ -25091,7 +25160,22 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "Acute change or fluctuating course is one of the two dichotomous elements scoring a single point.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Figure 1 illustrates the diagnostic workup using CAM-IMC as the index test. A point-based scoring system was introduced in CAM-IMC, allowing for a modified weighting of each element in the diagnosis of POD. The elements \"Acute change or fluctuating course of mental status\" and \"Altered level of consciousness\" are dichotomous, allowing for the assignment of one point for an abnormal test result. Inattention was assessed by having the patient read aloud a ten-letter word (ANANASBAUM or CASABLANCA) and squeeze the examiner's hand each time they heard the letter \"A.\" Consistent with the CAM-ICU, a maximum of three errors were permitted, with one point deducted for each mistake. Disorientation was newly introduced and evaluated across five different dimensions.",
+       "highlight": "The elements \"Acute change or fluctuating course of mental status\" and \"Altered level of consciousness\" are dichotomous, allowing for the assignment of one point for an abnormal test result.",
+       "page": "3"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r9",
@@ -25116,7 +25200,28 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "Altered level of consciousness is the second dichotomous element; the card reads it from the RASS, and Beyer describes the same item as RASS≠0.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Figure 1 illustrates the diagnostic workup using CAM-IMC as the index test. A point-based scoring system was introduced in CAM-IMC, allowing for a modified weighting of each element in the diagnosis of POD. The elements \"Acute change or fluctuating course of mental status\" and \"Altered level of consciousness\" are dichotomous, allowing for the assignment of one point for an abnormal test result. Inattention was assessed by having the patient read aloud a ten-letter word (ANANASBAUM or CASABLANCA) and squeeze the examiner's hand each time they heard the letter \"A.\" Consistent with the CAM-ICU, a maximum of three errors were permitted, with one point deducted for each mistake. Disorientation was newly introduced and evaluated across five different dimensions.",
+       "highlight": "\"Altered level of consciousness\" are dichotomous, allowing for the assignment of one point for an abnormal test result",
+       "page": "3"
+      },
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r10",
@@ -25141,7 +25246,22 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "The ten-letter word, the hand squeeze on 'A', and the three-error maximum are the instrument's own wording.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Figure 1 illustrates the diagnostic workup using CAM-IMC as the index test. A point-based scoring system was introduced in CAM-IMC, allowing for a modified weighting of each element in the diagnosis of POD. The elements \"Acute change or fluctuating course of mental status\" and \"Altered level of consciousness\" are dichotomous, allowing for the assignment of one point for an abnormal test result. Inattention was assessed by having the patient read aloud a ten-letter word (ANANASBAUM or CASABLANCA) and squeeze the examiner's hand each time they heard the letter \"A.\" Consistent with the CAM-ICU, a maximum of three errors were permitted, with one point deducted for each mistake. Disorientation was newly introduced and evaluated across five different dimensions.",
+       "highlight": "Inattention was assessed by having the patient read aloud a ten-letter word (ANANASBAUM or CASABLANCA) and squeeze the examiner's hand each time they heard the letter \"A.\" Consistent with the CAM-ICU, a maximum of three errors were permitted",
+       "page": "3"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r11",
@@ -25166,7 +25286,34 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "The five dimensions and the one-point-per-error maximum of five are stated directly; the card reproduces them.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "(AMT4) which was also the base for the 4AT we chose the four dimensions age, date of birth, place and year [21, 29, 30]. The fifth dimension we added was 'situational awareness', as during a prior study by Guenther et al., it was discovered a useful addition [24]. Interestingly, one of the earliest reports on delirium (Levin, 1956) described it as a useful diagnostic criterion, by \"asking the patient how to get from one place to another\" [1]. In this study we asked about their way they took from onset of symptoms to our hospital. Each error in these dimensions resulted in one point, with a maximum of five points possible.",
+       "highlight": "we chose the four dimensions age, date of birth, place and year",
+       "page": "4"
+      },
+      {
+       "scope": "on-scope",
+       "context": "(AMT4) which was also the base for the 4AT we chose the four dimensions age, date of birth, place and year [21, 29, 30]. The fifth dimension we added was 'situational awareness', as during a prior study by Guenther et al., it was discovered a useful addition [24]. Interestingly, one of the earliest reports on delirium (Levin, 1956) described it as a useful diagnostic criterion, by \"asking the patient how to get from one place to another\" [1]. In this study we asked about their way they took from onset of symptoms to our hospital. Each error in these dimensions resulted in one point, with a maximum of five points possible.",
+       "highlight": "The fifth dimension we added was 'situational awareness'",
+       "page": "4"
+      },
+      {
+       "scope": "on-scope",
+       "context": "(AMT4) which was also the base for the 4AT we chose the four dimensions age, date of birth, place and year [21, 29, 30]. The fifth dimension we added was 'situational awareness', as during a prior study by Guenther et al., it was discovered a useful addition [24]. Interestingly, one of the earliest reports on delirium (Levin, 1956) described it as a useful diagnostic criterion, by \"asking the patient how to get from one place to another\" [1]. In this study we asked about their way they took from onset of symptoms to our hospital. Each error in these dimensions resulted in one point, with a maximum of five points possible.",
+       "highlight": "Each error in these dimensions resulted in one point, with a maximum of five points possible.",
+       "page": "4"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r12",
@@ -25191,7 +25338,34 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": "Validated for postoperative delirium in a non-intubated cardiac-surgery intermediate-care unit; step-down / progressive-care use extends that population."
+   "notes": "Validated for postoperative delirium in a non-intubated cardiac-surgery intermediate-care unit; step-down / progressive-care use extends that population.",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "Beyer states the non-veto design explicitly: neither dichotomous item is mandatory for a positive result.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "The features disorientation and inattention can each trigger a positive test result.",
+       "page": "5"
+      },
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "are not mandatory for a positive test outcome",
+       "page": "5"
+      },
+      {
+       "scope": "different-population",
+       "context": "This cohort study evaluates the test performance of the newly developed CAM-IMC and its disorientation component in a prospective cohort study. The CAM-IMC shows a sensitivity of 0.96 and specificity of 0.94 in diagnosis of POD in non-intubated postoperative cardiac surgery patients. Its test performance is comparable to the widely used CAM-ICU demonstrating a high level of accuracy [19].",
+       "highlight": "in non-intubated postoperative cardiac surgery patients",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r13",
@@ -25348,7 +25522,22 @@
     "https://doi.org/10.1136/bmjopen-2012-001599"
    ],
    "decision": "",
-   "notes": "Source is internally inconsistent (abstract ≥ 85 vs Table 7 footnote > 85); card follows the abstract."
+   "notes": "Source is internally inconsistent (abstract ≥ 85 vs Table 7 footnote > 85); card follows the abstract.",
+   "perSource": [
+    {
+     "label": "Martinez 2012 (ward risk rule)",
+     "stance": "agrees",
+     "note": "One point for age over 85 is the rule's first criterion.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Accordingly, the medication data was coded according to the number of different drugs patients were taking at admission with each antidepressant, antidementia or anticonvulsant drug contributing equally, while antipsychotic drugs were weighted by a factor of two. The ADL data were also dichotomised with a cut-off of reported impairments in five activities. The scores for the clinical prediction rule were assigned on the basis of regression coefficients obtained in the logistic regression model (table 7). One point was given to patients older than 85 years, to those who had two or more points in the variable drugs, and to those with impairments in five or more of the ADL considered. Therefore, the total score for the rule ranged between 0 and 3.",
+       "highlight": "One point was given to patients older than 85 years",
+       "page": "4"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r15",
@@ -25373,7 +25562,28 @@
     "https://doi.org/10.1136/bmjopen-2012-001599"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Martinez 2012 (ward risk rule)",
+     "stance": "agrees",
+     "note": "Martinez assessed six activities of daily living and dichotomised dependence at five; the card lists the same six.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Finally, certain characteristics of patients prior to admission were also assessed: level of dependence for activities of daily living (ADL) (personal hygiene and grooming, dressing and undressing, getting onto or off toilet, ambulation, bowel and bladder control and self-feeding) as dichotomous variables (dependent; independent); presence of pressure ulcers and excess alcohol intake (>60 g/ethanol/day), as well as use of certain types of medication: benzodiazepines, antidepressants, antidementia drugs, antipsychotics, anti-Parkinson's drugs or anticonvulsants.",
+       "highlight": "personal hygiene and grooming, dressing and undressing, getting onto or off toilet, ambulation, bowel and bladder control and self-feeding",
+       "page": "2"
+      },
+      {
+       "scope": "on-scope",
+       "context": "Accordingly, the medication data was coded according to the number of different drugs patients were taking at admission with each antidepressant, antidementia or anticonvulsant drug contributing equally, while antipsychotic drugs were weighted by a factor of two. The ADL data were also dichotomised with a cut-off of reported impairments in five activities. The scores for the clinical prediction rule were assigned on the basis of regression coefficients obtained in the logistic regression model (table 7). One point was given to patients older than 85 years, to those who had two or more points in the variable drugs, and to those with impairments in five or more of the ADL considered. Therefore, the total score for the rule ranged between 0 and 3.",
+       "highlight": "The ADL data were also dichotomised with a cut-off of reported impairments in five activities.",
+       "page": "4"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r16",
@@ -25398,7 +25608,28 @@
     "https://doi.org/10.1136/bmjopen-2012-001599"
    ],
    "decision": "",
-   "notes": "Benzodiazepines recorded in the study but not weighted — correctly excluded from scoring on the card."
+   "notes": "Benzodiazepines recorded in the study but not weighted — correctly excluded from scoring on the card.",
+   "perSource": [
+    {
+     "label": "Martinez 2012 (ward risk rule)",
+     "stance": "agrees",
+     "note": "The weighting is stated twice: in the methods, and in the Table 7 footnote that defines the drugs criterion. Benzodiazepines were recorded at admission but are not part of the weighted score.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Accordingly, the medication data was coded according to the number of different drugs patients were taking at admission with each antidepressant, antidementia or anticonvulsant drug contributing equally, while antipsychotic drugs were weighted by a factor of two. The ADL data were also dichotomised with a cut-off of reported impairments in five activities. The scores for the clinical prediction rule were assigned on the basis of regression coefficients obtained in the logistic regression model (table 7). One point was given to patients older than 85 years, to those who had two or more points in the variable drugs, and to those with impairments in five or more of the ADL considered. Therefore, the total score for the rule ranged between 0 and 3.",
+       "highlight": "each antidepressant, antidementia or anticonvulsant drug contributing equally, while antipsychotic drugs were weighted by a factor of two",
+       "page": "4"
+      },
+      {
+       "scope": "on-scope",
+       "context": "*Age: >85 years old. †DADLs: dependence in five or more activities of daily livings. ‡Drugs: total of two or more points for drugs taken on admission where antidepressants, antidementia drugs and anticonvulsants score one point each, and antipsychotics score two points.",
+       "highlight": "total of two or more points for drugs taken on admission where antidepressants, antidementia drugs and anticonvulsants score one point each, and antipsychotics score two points",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r17",
@@ -25423,7 +25654,28 @@
     "https://doi.org/10.1136/bmjopen-2012-001599"
    ],
    "decision": "",
-   "notes": "Band percentages are the derivation-to-validation incidence ranges from Martinez Table 8."
+   "notes": "Band percentages are the derivation-to-validation incidence ranges from Martinez Table 8.",
+   "perSource": [
+    {
+     "label": "Martinez 2012 (ward risk rule)",
+     "stance": "agrees",
+     "note": "The bands are Table 8's incidence by score, read across the derivation and validation cohorts. The card's High band covers 2-3 because 3 is the rule's maximum, where Martinez reports the open-ended category as 2 or more.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Table 8 Logistic regression model Group Points on the prediction rule Incidence of delirium (%) OR AUC (95% IC) Derivation cohort (n=397) 0.77 (0.73 to 0.82) 0 9/219 (4) Reference 1 16/116 (14) 3.7 (1.5 to 8.7) ≥2 27/62 (43) 18 (7.8 to 41.5) Validation cohort (n=302) 0.85 (0.8 to 0.88) 0 5/142 (3.5) Reference 1 18/77 (23) 8.3 (2.9 to 23.6) ≥2 53/83 (64) 48.4 (17.8 to 131.4)",
+       "highlight": "0 9/219 (4) Reference 1 16/116 (14)",
+       "page": "5"
+      },
+      {
+       "scope": "on-scope",
+       "context": "Table 8 Logistic regression model Group Points on the prediction rule Incidence of delirium (%) OR AUC (95% IC) Derivation cohort (n=397) 0.77 (0.73 to 0.82) 0 9/219 (4) Reference 1 16/116 (14) 3.7 (1.5 to 8.7) ≥2 27/62 (43) 18 (7.8 to 41.5) Validation cohort (n=302) 0.85 (0.8 to 0.88) 0 5/142 (3.5) Reference 1 18/77 (23) 8.3 (2.9 to 23.6) ≥2 53/83 (64) 48.4 (17.8 to 131.4)",
+       "highlight": "0 5/142 (3.5) Reference 1 18/77 (23)",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r18",
@@ -26214,7 +26466,22 @@
     "https://doi.org/10.1186/s13613-017-0310-5"
    ],
    "decision": "",
-   "notes": "Onset window is opioid-associated (Wang 2017); the card extends the framing to sedatives."
+   "notes": "Onset window is opioid-associated (Wang 2017); the card extends the framing to sedatives.",
+   "perSource": [
+    {
+     "label": "Wang 2017 (iatrogenic withdrawal)",
+     "stance": "partial",
+     "note": "The onset window is an exact match. Wang measured opioid-associated withdrawal specifically and could not isolate a benzodiazepine or sedative contribution, so the card's 'sedative / opioid' is broader than the source.",
+     "paragraphs": [
+      {
+       "scope": "narrower",
+       "context": "Incidence of IWS was 16.7% (9 out of 54 patients) (95% CI, 6-27%). Onset of IWS ranged from 1 to 11 days following opioid cessation or dose reduction (median = 2 days; 25th-75th percentile 1-4). The agreement between two raters for the 38 evaluations of IWS-based DSM-V criteria was concordant in 90.1% of cases.",
+       "highlight": "Onset of IWS ranged from 1 to 11 days following opioid cessation or dose reduction (median = 2 days; 25th-75th percentile 1-4).",
+       "page": "4"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-cards-r23",
@@ -26767,7 +27034,28 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "The performance figures and the population are stated in the same sentence; the cohort is cardiac-surgery intermediate care, which is narrower than the step-down population the workflow addresses.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "This cohort study evaluates the test performance of the newly developed CAM-IMC and its disorientation component in a prospective cohort study. The CAM-IMC shows a sensitivity of 0.96 and specificity of 0.94 in diagnosis of POD in non-intubated postoperative cardiac surgery patients. Its test performance is comparable to the widely used CAM-ICU demonstrating a high level of accuracy [19].",
+       "highlight": "The CAM-IMC shows a sensitivity of 0.96 and specificity of 0.94 in diagnosis of POD",
+       "page": "5"
+      },
+      {
+       "scope": "different-population",
+       "context": "This cohort study evaluates the test performance of the newly developed CAM-IMC and its disorientation component in a prospective cohort study. The CAM-IMC shows a sensitivity of 0.96 and specificity of 0.94 in diagnosis of POD in non-intubated postoperative cardiac surgery patients. Its test performance is comparable to the widely used CAM-ICU demonstrating a high level of accuracy [19].",
+       "highlight": "in non-intubated postoperative cardiac surgery patients",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-wf-r4",
@@ -26792,7 +27080,28 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "The additive score and its three-point cut-off are the instrument as published.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Overall, the CAM-IMC showed an AUROC of 0.98 (CI 95%: 0.96-1.00). The optimal cut-off based on the Youden-Index was chosen at three points for the CAM-IMC to determine the presence of POD. This is displayed in the ROC-analysis in Fig. 3. Patients scoring three points or higher were considered as positive for POD, while those less than three points were considered negative.",
+       "highlight": "Patients scoring three points or higher were considered as positive for POD",
+       "page": "4"
+      },
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "The system assigns up to five points for disorientation and three points for inattention",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-wf-r5",
@@ -27021,7 +27330,34 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "Each element's point value is stated across the methods and the discussion.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Figure 1 illustrates the diagnostic workup using CAM-IMC as the index test. A point-based scoring system was introduced in CAM-IMC, allowing for a modified weighting of each element in the diagnosis of POD. The elements \"Acute change or fluctuating course of mental status\" and \"Altered level of consciousness\" are dichotomous, allowing for the assignment of one point for an abnormal test result. Inattention was assessed by having the patient read aloud a ten-letter word (ANANASBAUM or CASABLANCA) and squeeze the examiner's hand each time they heard the letter \"A.\" Consistent with the CAM-ICU, a maximum of three errors were permitted, with one point deducted for each mistake. Disorientation was newly introduced and evaluated across five different dimensions.",
+       "highlight": "The elements \"Acute change or fluctuating course of mental status\" and \"Altered level of consciousness\" are dichotomous, allowing for the assignment of one point for an abnormal test result.",
+       "page": "3"
+      },
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "The system assigns up to five points for disorientation and three points for inattention",
+       "page": "5"
+      },
+      {
+       "scope": "on-scope",
+       "context": "Overall, the CAM-IMC showed an AUROC of 0.98 (CI 95%: 0.96-1.00). The optimal cut-off based on the Youden-Index was chosen at three points for the CAM-IMC to determine the presence of POD. This is displayed in the ROC-analysis in Fig. 3. Patients scoring three points or higher were considered as positive for POD, while those less than three points were considered negative.",
+       "highlight": "The optimal cut-off based on the Youden-Index was chosen at three points",
+       "page": "4"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-wf-r8",
@@ -27046,7 +27382,28 @@
     "https://doi.org/10.1186/s12871-024-02849-3"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Beyer 2024 (CAM-IMC)",
+     "stance": "agrees",
+     "note": "The non-veto behaviour is stated directly.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "The features disorientation and inattention can each trigger a positive test result.",
+       "page": "5"
+      },
+      {
+       "scope": "on-scope",
+       "context": "The CAM-IMC outperforms each individual feature of the CAM-IMC. By creating the CAM-IMC flowchart design as a pointbased scoring system, the importance of disorientation as a central feature of POD has been reinforced. The features disorientation and inattention can each trigger a positive test result. The system assigns up to five points for disorientation and three points for inattention, thereby increasing the weight of these single features in the overall diagnosis. The categories of acute or fluctuating change and RASS≠0 have been reduced in significance and each contribute one point to the total score but are not mandatory for a positive test outcome.",
+       "highlight": "are not mandatory for a positive test outcome",
+       "page": "5"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-wf-r9",
@@ -27071,7 +27428,22 @@
     "https://doi.org/10.1136/bmjopen-2012-001599"
    ],
    "decision": "",
-   "notes": ""
+   "notes": "",
+   "perSource": [
+    {
+     "label": "Martinez 2012 (ward risk rule)",
+     "stance": "agrees",
+     "note": "The three criteria, the one-point-each scoring and the 0-3 range are stated together in the methods.",
+     "paragraphs": [
+      {
+       "scope": "on-scope",
+       "context": "Accordingly, the medication data was coded according to the number of different drugs patients were taking at admission with each antidepressant, antidementia or anticonvulsant drug contributing equally, while antipsychotic drugs were weighted by a factor of two. The ADL data were also dichotomised with a cut-off of reported impairments in five activities. The scores for the clinical prediction rule were assigned on the basis of regression coefficients obtained in the logistic regression model (table 7). One point was given to patients older than 85 years, to those who had two or more points in the variable drugs, and to those with impairments in five or more of the ADL considered. Therefore, the total score for the rule ranged between 0 and 3.",
+       "highlight": "One point was given to patients older than 85 years, to those who had two or more points in the variable drugs, and to those with impairments in five or more of the ADL considered. Therefore, the total score for the rule ranged between 0 and 3.",
+       "page": "4"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "sd-wf-r10",
