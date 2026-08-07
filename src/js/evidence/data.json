@@ -28090,11 +28090,11 @@
   {
    "tool": "Adult ICU",
    "source": "Project BETA",
-   "citation": "Richmond JS, Berlin JS, Fishkind AB, et al. Verbal de-escalation of the agitated patient: consensus statement of the APA Project BETA. West J Emerg Med. 2012;13(1):17-25.",
+   "citation": "Richmond JS, Berlin JS, Fishkind AB, et al. Verbal de-escalation of the agitated patient: consensus statement of the American Association for Emergency Psychiatry Project BETA De-escalation Workgroup. West J Emerg Med. 2012;13(1):17-25.",
    "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/",
-   "archived": false,
+   "archived": true,
    "statements": 4,
-   "check": "Confirmed, with one correction: Project BETA is a project of the American Association for Emergency Psychiatry (AAEP), not the APA.",
+   "check": "Confirmed against the indexed record. The consensus statement is from the American Association for Emergency Psychiatry.",
    "usedIn": [
     "SPA Quick Reference — Escalation ladder — 1 · All patients",
     "SPA Quick Reference — Escalation ladder — 2 · CAM positive",
