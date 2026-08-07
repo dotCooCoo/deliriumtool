@@ -6,6 +6,12 @@ name: Dependabot auto-merge
 # change or a swapped maintainer is most likely to slip through. Auto-merge only
 # ever completes after the branch ruleset's required `test` check is green, so a
 # dependency that breaks the build or the tests can never land unattended.
+#
+# A pull request that brings a prerelease into the dependency tree also waits for
+# a human, even when the bump itself is a patch or minor. The version being
+# updated is not the whole story: a stable release of a direct dependency can
+# resolve to an alpha or release-candidate build further down the tree, so the
+# check reads the resolved lockfile rather than the version number in the title.
 
 on: pull_request
 
@@ -18,15 +24,50 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
       - name: Fetch Dependabot metadata
         id: meta
         uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
 
+      # HEAD is the merge commit, so its first parent is the base branch and the
+      # diff between them is exactly what this pull request would introduce.
+      - name: Check whether a prerelease enters the dependency tree
+        id: prerelease
+        run: |
+          set -euo pipefail
+          # Take the diff first. Folding it into the grep pipeline would let a
+          # git failure be swallowed by the `|| true` that grep needs, and the
+          # guard would then wave the update through on an empty result.
+          diff=$(git diff HEAD^1 HEAD -- package-lock.json)
+          added=$(printf '%s\n' "$diff" \
+            | grep -E '^\+ *"version": "[0-9]+\.[0-9]+\.[0-9]+-' || true)
+          if [ -n "$added" ]; then
+            echo 'found=true' >> "$GITHUB_OUTPUT"
+            echo 'Prerelease versions introduced by this update:'
+            echo "$added"
+          else
+            echo 'found=false' >> "$GITHUB_OUTPUT"
+            echo 'No prerelease versions in the resolved tree.'
+          fi
+
       - name: Enable auto-merge for patch and minor updates
         if: >-
-          steps.meta.outputs.update-type == 'version-update:semver-patch' ||
-          steps.meta.outputs.update-type == 'version-update:semver-minor'
+          steps.prerelease.outputs.found == 'false' &&
+          (steps.meta.outputs.update-type == 'version-update:semver-patch' ||
+           steps.meta.outputs.update-type == 'version-update:semver-minor')
         run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Explain why auto-merge was withheld
+        if: steps.prerelease.outputs.found == 'true'
+        run: |
+          gh pr comment "$PR_URL" --body \
+            'Auto-merge was not enabled: this update resolves to a prerelease build somewhere in the dependency tree. Review the `package-lock.json` diff for an `-alpha`, `-beta` or `-rc` version before merging.'
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
