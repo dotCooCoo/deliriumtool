@@ -48,7 +48,11 @@ export const CAMIMC = {
   full: 'Confusion Assessment Method for Intermediate Care Unit',
   positiveAt: 3,
   maxScore: 10,
-  cites: ['beyer2024_camimc'],
+  // Delirium in intermediate care is largely present on arrival rather than
+  // acquired later (Mariz 2013), so the first screen belongs at admission.
+  cadence:
+    'Screen on arrival in the unit, then per unit protocol and with any change in mental status.',
+  cites: ['beyer2024_camimc', 'mariz2013_edimcu'],
   acute: {
     points: 1,
     prompt:

@@ -514,7 +514,22 @@ Validated instrument scripts and thresholds render verbatim from
 `src/js/stepdown/data/instruments.js` and are pinned by golden-value tests
 (`tests/unit/templates-stepdown.test.js`). The tool is de-identified by
 construction and generates a local print/PDF summary only (facility, editable
-assessment time, RASS, CAM-IMC, risk, prevention, and de-identified notes). Out
+assessment time, RASS, CAM-IMC, risk, prevention, and de-identified notes). **Instruments considered and not carried.** The archive holds validated
+alternatives that this tool deliberately does not implement, so the omission is a
+decision rather than an oversight. The **UB-2** two-item screen and the two-step
+**UB-CAM** are validated ultra-brief front doors for general medical inpatients
+(Fick 2015; Marcantonio 2022), and **Nu-DESC** and the **DOS** are nurse-
+observation screens validated on general wards that need no patient interview
+(Bergjan 2020). The **SQiD** single informant question has been studied in
+oncology inpatients (Sands 2021). Each addresses a different setting or workflow
+from the one this tool screens, and carrying several instruments for the same
+decision invites the wrong one being picked at the bedside; the Setup routing
+note points to the ward-validated screens instead. A **CAM-ICU severity grade**
+(CAM-ICU-7, Khan 2017) is likewise out of scope for the adult tool for the reason
+given for the step-down tool below: severity instruments are validated separately
+from the screen they extend.
+
+Out
 of scope in this version, each for a stated reason. A **CAM-IMC severity scale**
 does not exist; severity instruments are built and validated separately from the
 screen they extend, as the CAM-ICU-7 was for the CAM-ICU (Khan 2017, Crit Care
@@ -580,6 +595,7 @@ Every source cited anywhere in the application, reproduced as each tool stores i
 | `hayhurst2016` | Hayhurst CJ, Pandharipande PP, Hughes CG. ICU delirium: a review of diagnosis, prevention, and treatment. Anesthesiology. 2016;125(6):1229-1241. | https://doi.org/10.1097/ALN.0000000000001378 |
 | `gusmaoflores2012` | Gusmão-Flores D, Salluh JI, Chalhub RÁ, Quarantini LC. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care. 2012;16(4):R115. (Nine CAM-ICU studies, 969 patients: pooled sensitivity 80.0%, specificity 95.9%; sensitivity lower in hypoactive delirium.) | https://doi.org/10.1186/cc11407 |
 | `wei2008_cam` | Wei LA, Fearing MA, Sternberg EJ, Inouye SK. The Confusion Assessment Method: a systematic review of current usage. J Am Geriatr Soc. 2008;56(5):823-830. | https://doi.org/10.1111/j.1532-5415.2008.01674.x |
+| `han2014_camicu_ed` | Han JH, Wilson A, Graves AJ, et al. Validation of the Confusion Assessment Method for the Intensive Care Unit in older emergency department patients. Acad Emerg Med. 2014;21(2):180-187. | https://doi.org/10.1111/acem.12309 |
 | `sccm_abcdef` | Society of Critical Care Medicine. ICU Liberation Bundle (A-F). | https://sccm.org/clinical-resources/iculiberation-home/abcdef-bundles |
 | `pun2019` | Pun BT, Balas MC, Barnes-Daly MA, et al. Caring for critically ill patients with the ABCDEF bundle: ICU Liberation Collaborative in over 15,000 adults. Crit Care Med. 2019;47(1):3-14. | https://doi.org/10.1097/CCM.0000000000003482 |
 | `marra2017` | Marra A, Ely EW, Pandharipande PP, Patel MB. The ABCDEF bundle in critical care. Crit Care Clin. 2017;33(2):225-243. | https://doi.org/10.1016/j.ccc.2016.12.005 |
@@ -701,6 +717,7 @@ Sources this tool cites that are not already listed above (shared sources are no
 | `kuczmarska2016` | Kuczmarska A, et al. Detection of delirium in hospitalized older general medicine patients: a comparison of the 3D-CAM and CAM-ICU. J Gen Intern Med 2016;31:297. | https://doi.org/10.1007/s11606-015-3514-0 |
 | `neufeld2013_postop` | Neufeld KJ, et al. Evaluation of two delirium screening tools for detecting post-operative delirium in the elderly. Br J Anaesth 2013;111:612. | https://doi.org/10.1093/bja/aet167 |
 | `marcantonio2022_ubcam` | Marcantonio ER, et al. Comparative implementation of a brief app-directed protocol for delirium identification by hospitalists, nurses, and nursing assistants. Ann Intern Med 2022;175:65. | https://doi.org/10.7326/M21-1687 |
+| `mariz2013_edimcu` | Mariz J, Santos NC, Afonso H, et al. Risk and clinical-outcome indicators of delirium in an emergency department intermediate care unit (EDIMCU): an observational prospective study. BMC Emerg Med 2013;13:2. | https://doi.org/10.1186/1471-227X-13-2 |
 | `martinez2012` | Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599. | https://doi.org/10.1136/bmjopen-2012-001599 |
 | `siddiqi2016` | Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563. | https://doi.org/10.1002/14651858.CD005563.pub3 |
 | `ags2015` | American Geriatrics Society. Abstracted clinical practice guideline for postoperative delirium in older adults. J Am Geriatr Soc 2015;63:142. | https://doi.org/10.1111/jgs.13281 |
