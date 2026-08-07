@@ -285,6 +285,7 @@ committed; citations link to the canonical URL.
 | Source | Local file | Canonical URL |
 |---|---|---|
 | Li & You 2026 — correspondence on the under-recognition of hypoactive delirium, Anaesthesia 2026;81:444-5 | `stepdown/li-2026-hypoactive-delirium-overlooked-anaesthesia.pdf` | https://doi.org/10.1111/anae.16785 |
+| Gibbison & Pufulete 2026 — reply to the above (printed in the same file), Anaesthesia 2026;81:445-6 | `stepdown/li-2026-hypoactive-delirium-overlooked-anaesthesia.pdf` | https://doi.org/10.1111/anae.70035 |
 
 ### Still to source (paywalled — cited by URL, not archived)
 

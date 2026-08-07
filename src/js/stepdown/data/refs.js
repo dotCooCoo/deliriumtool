@@ -51,6 +51,16 @@ export const REFS = {
     c: 'Gusmão-Flores D, et al. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care 2012;16:R115.',
     u: 'https://doi.org/10.1186/cc11407',
   },
+  rousseau2021_pics: {
+    l: 'Rousseau 2021 (PICS)',
+    c: 'Rousseau AF, Prescott HC, Brett SJ, et al. Long-term outcomes after critical illness: recent insights. Crit Care 2021;25:108.',
+    u: 'https://doi.org/10.1186/s13054-021-03535-3',
+  },
+  nakanishi2024_picsfollowup: {
+    l: 'Nakanishi 2024 (PICS follow-up)',
+    c: 'Nakanishi N, Liu K, Hatakeyama J, et al. Post-intensive care syndrome follow-up system after hospital discharge: a narrative review. J Intensive Care 2024;12:2.',
+    u: 'https://doi.org/10.1186/s40560-023-00716-w',
+  },
   mariz2013_edimcu: {
     l: 'Mariz 2013 (intermediate care)',
     c: 'Mariz J, Santos NC, Afonso H, et al. Risk and clinical-outcome indicators of delirium in an emergency department intermediate care unit (EDIMCU): an observational prospective study. BMC Emerg Med 2013;13:2.',
