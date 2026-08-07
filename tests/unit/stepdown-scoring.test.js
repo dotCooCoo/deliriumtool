@@ -95,6 +95,22 @@ test('"unable" on the inattention task scores the maximum 3 points', () => {
   assert.equal(r.positive, true); // reaches the cut-point
 });
 
+test('a corrupted inattention value scores no points and keeps the screen incomplete', () => {
+  // The sanitizer restricts inattention to '0'–'3'; a hand-edited import could carry
+  // anything. It must not turn the additive total into NaN or read as "answered".
+  assert.equal(inattentionErrors(cam({ camimc: { inattention: 'x' } })), null);
+  assert.equal(inattentionErrors(cam({ camimc: { inattention: '' } })), null);
+  assert.equal(inattentionErrors(cam({ camimc: { inattention: '2' } })), 2);
+  const s = cam({
+    rass: '0',
+    camimc: { acute: 'no', inattention: 'x', disorientDone: true },
+  });
+  const r = evalCamImc(s);
+  assert.equal(r.parts.inattPts, 0); // not NaN
+  assert.equal(Number.isNaN(r.score), false);
+  assert.equal(r.complete, false); // the invalid item is treated as unanswered
+});
+
 test('the screen reads positive as soon as the total reaches the cut-point', () => {
   // acute(1) + LOC(1) + inattention(3) = 5 before disorientation is even done.
   const s = cam({ rass: '+1', camimc: { acute: 'yes', inattention: '3' } });

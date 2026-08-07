@@ -11,10 +11,18 @@ export const arousalGate = (rass) => {
   return 'ok';
 };
 
-/** Number of inattention errors a snapshot encodes (unable counts as the max). */
+/**
+ * Number of inattention errors a snapshot encodes: the max when marked unable, a
+ * non-negative integer when answered, or null when unanswered / not a valid count
+ * (a corrupted import). A null keeps the item unscored and the screen incomplete
+ * rather than propagating NaN into the total.
+ */
 export function inattentionErrors(s) {
   if (s.camimc.inattentionUnable) return CAMIMC.inattention.maxPoints;
-  return s.camimc.inattention === '' ? 0 : Number(s.camimc.inattention);
+  const raw = s.camimc.inattention;
+  if (raw === '' || raw == null) return null;
+  const n = Number(raw);
+  return Number.isInteger(n) && n >= 0 ? n : null;
 }
 
 /**
@@ -31,12 +39,15 @@ export function evalCamImc(s) {
   const c = s.camimc;
   const acutePts = c.acute === 'yes' ? CAMIMC.acute.points : 0;
   const locPts = s.rass !== '' && s.rass !== '0' ? CAMIMC.loc.points : 0;
-  const inattPts = Math.min(inattentionErrors(s), CAMIMC.inattention.maxPoints);
+  const inatt = inattentionErrors(s);
+  const inattPts = inatt == null ? 0 : Math.min(inatt, CAMIMC.inattention.maxPoints);
   const disoPts = Math.min((c.disorientTaps || []).length, CAMIMC.disorientation.maxPoints);
   const score = acutePts + locPts + inattPts + disoPts;
 
   const acuteDone = c.acute === 'yes' || c.acute === 'no';
-  const inattDone = c.inattentionUnable || c.inattention !== '';
+  // A present-but-invalid inattention value (inatt == null while not blank) leaves
+  // the item unresolved, so the screen stays incomplete instead of scoring wrong.
+  const inattDone = c.inattentionUnable || (c.inattention !== '' && inatt != null);
   const disoDone = c.disorientDone === true;
   const locDone = s.rass !== '';
   const complete = acuteDone && inattDone && disoDone && locDone;

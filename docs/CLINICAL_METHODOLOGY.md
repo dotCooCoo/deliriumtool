@@ -437,7 +437,18 @@ the ED tool's modules (`tests/unit/templates-ed.test.js`).
 
 The step-down tool screens the verbal, monitored-but-non-intubated
 (intermediate-care / progressive-care) patient, where the CAM-ICU loses
-sensitivity for the mild and hypoactive delirium common on the ward. It
+sensitivity for the mild and hypoactive delirium common on the ward. Two
+sources carry that premise. Pooled across nine ICU studies (969 patients) the
+CAM-ICU reached 80.0% sensitivity (95% CI 77.1–82.6) and 95.9% specificity,
+but sensitivity was lower in the two studies that examined hypoactive
+delirium, the most prevalent subtype; that review compared no ventilated
+against non-ventilated cohorts, so it speaks to the subtype weakness rather
+than the setting (Gusmão-Flores 2012). The setting evidence is Neufeld 2013:
+in 91 patients aged ≥ 70 screened after general anaesthesia against a
+psychiatry-trained physician's DSM-IV neuropsychiatric examination, the
+CAM-ICU was 98% specific but 28% sensitive (95% CI 16–45). That cohort is
+post-anaesthesia care and surgical ward rather than step-down, so it is
+directional for this population, not a validation in it. It
 implements the CAM-IMC as the screen, a RASS arousal gate, the Martinez
 admission-risk rule, and a multicomponent non-pharmacologic prevention bundle.
 The setting sits between the ICU tool (CAM-ICU) and a general acute ward, where
@@ -490,13 +501,49 @@ first (Lisibach 2022; AGS 2015) and, for post-ICU transfers, considers
 sedative/opioid withdrawal — Wang 2017 reports iatrogenic withdrawal onset 1–11
 days after opioid cessation or dose reduction.
 
+The bundle's evidence is for the bundle. Individual components should not be
+read as separately established: a systematic review of non-pharmacologic sleep
+interventions in non-ICU inpatients concluded there is "insufficient to low
+strength of evidence that any non-pharmacologic intervention improves sleep
+quality or quantity of general inpatients" (Tamrat 2014, J Gen Intern Med
+2014;29:788). The sleep component is carried because it is part of the
+multicomponent interventions the pooled reviews tested, not because standalone
+sleep interventions have been shown to work.
+
 Validated instrument scripts and thresholds render verbatim from
 `src/js/stepdown/data/instruments.js` and are pinned by golden-value tests
 (`tests/unit/templates-stepdown.test.js`). The tool is de-identified by
 construction and generates a local print/PDF summary only (facility, editable
-assessment time, RASS, CAM-IMC, risk, prevention, and de-identified notes). Out
-of scope in this version: a CAM-IMC severity scale, EEG-assisted assessment, and
-post-intensive-care-syndrome follow-up.
+assessment time, RASS, CAM-IMC, risk, prevention, and de-identified notes). **Instruments considered and not carried.** The archive holds validated
+alternatives that this tool deliberately does not implement, so the omission is a
+decision rather than an oversight. The **UB-2** two-item screen and the two-step
+**UB-CAM** are validated ultra-brief front doors for general medical inpatients
+(Fick 2015; Marcantonio 2022), and **Nu-DESC** and the **DOS** are nurse-
+observation screens validated on general wards that need no patient interview
+(Bergjan 2020). The **SQiD** single informant question has been studied in
+oncology inpatients (Sands 2021). Each addresses a different setting or workflow
+from the one this tool screens, and carrying several instruments for the same
+decision invites the wrong one being picked at the bedside; the Setup routing
+note points to the ward-validated screens instead. A **CAM-ICU severity grade**
+(CAM-ICU-7, Khan 2017) is likewise out of scope for the adult tool for the reason
+given for the step-down tool below: severity instruments are validated separately
+from the screen they extend.
+
+Out
+of scope in this version, each for a stated reason. A **CAM-IMC severity scale**
+does not exist; severity instruments are built and validated separately from the
+screen they extend, as the CAM-ICU-7 was for the CAM-ICU (Khan 2017, Crit Care
+Med 2017;45:851), and the tool will not derive a severity score the instrument's
+authors have not published. **EEG-assisted assessment** is validated for this
+population — DeltaScan was evaluated prospectively across ICU and non-ICU
+patients (Ditzel 2024, Am J Geriatr Psychiatry 2024;32:1093) — but it reads a
+physiological signal from a device, which fails the first non-device criterion in
+§6.7; a tool that ingested that signal would no longer be the kind of software
+this project builds. **Post-intensive-care-syndrome follow-up** is a real and
+adjacent need for the post-ICU patients this tool screens (Rousseau 2021, Crit
+Care 2021;25:108; Nakanishi 2024, J Intensive Care 2024;12:2), but it is a
+longitudinal outpatient pathway rather than a bedside screen, so it belongs to a
+different instrument. All four sources are held in the reference archive.
 
 ### 2.14 Adult step-down bedside card set & workflow poster (/templates/)
 
@@ -542,10 +589,13 @@ Every source cited anywhere in the application, reproduced as each tool stores i
 | `inouye1990` **†** | Inouye SK, van Dyck CH, Alessi CA, Balkin S, Siegal AP, Horwitz RI. Clarifying confusion: the Confusion Assessment Method. Ann Intern Med. 1990;113(12):941-948. (The original CAM; the four-feature 1 AND 2 AND (3 OR 4) algorithm the CAM-ICU adapts.) | https://doi.org/10.7326/0003-4819-113-12-941 |
 | `dsm5tr` **†** | American Psychiatric Association. Diagnostic and Statistical Manual of Mental Disorders, 5th ed, Text Revision (DSM-5-TR). Washington, DC: APA; 2022. (Delirium diagnostic criteria — the reference standard every bedside screen is validated against.) | https://doi.org/10.1176/appi.books.9780890425787 |
 | `icdsc_bergeron` **†** | Bergeron N, Dubois MJ, Dumont M, Dial S, Skrobik Y. Intensive Care Delirium Screening Checklist: evaluation of a new screening tool. Intensive Care Med. 2001;27(5):859-864. (8-item checklist; ≥ 4 = positive.) | https://doi.org/10.1007/s001340100909 |
-| `marcantonio2014_3dcam` **†** | Marcantonio ER, Ngo LH, O'Connor M, et al. 3D-CAM: derivation and validation of a 3-minute diagnostic interview for CAM-defined delirium. Ann Intern Med. 2014;161(8):554-561. (The ward-validated CAM the general/step-down pathway recommends.) | https://doi.org/10.7326/M14-0865 |
+| `marcantonio2014_3dcam` | Marcantonio ER, Ngo LH, O'Connor M, et al. 3D-CAM: derivation and validation of a 3-minute diagnostic interview for CAM-defined delirium. Ann Intern Med. 2014;161(8):554-561. (The ward-validated CAM the general/step-down pathway recommends.) | https://doi.org/10.7326/M14-0865 |
 | `sessler2002` **†** | Sessler CN, Gosnell MS, Grap MJ, et al. The Richmond Agitation-Sedation Scale (RASS): validity and reliability in adult ICU patients. Am J Respir Crit Care Med. 2002;166(10):1338-1344. | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
 | `ely2003` | Ely EW, Truman B, Shintani A, et al. Monitoring sedation status over time in ICU patients: reliability and validity of the RASS. JAMA. 2003;289(22):2983-2991. | https://doi.org/10.1001/jama.289.22.2983 |
 | `hayhurst2016` | Hayhurst CJ, Pandharipande PP, Hughes CG. ICU delirium: a review of diagnosis, prevention, and treatment. Anesthesiology. 2016;125(6):1229-1241. | https://doi.org/10.1097/ALN.0000000000001378 |
+| `gusmaoflores2012` | Gusmão-Flores D, Salluh JI, Chalhub RÁ, Quarantini LC. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care. 2012;16(4):R115. (Nine CAM-ICU studies, 969 patients: pooled sensitivity 80.0%, specificity 95.9%; sensitivity lower in hypoactive delirium.) | https://doi.org/10.1186/cc11407 |
+| `wei2008_cam` | Wei LA, Fearing MA, Sternberg EJ, Inouye SK. The Confusion Assessment Method: a systematic review of current usage. J Am Geriatr Soc. 2008;56(5):823-830. | https://doi.org/10.1111/j.1532-5415.2008.01674.x |
+| `han2014_camicu_ed` | Han JH, Wilson A, Graves AJ, et al. Validation of the Confusion Assessment Method for the Intensive Care Unit in older emergency department patients. Acad Emerg Med. 2014;21(2):180-187. | https://doi.org/10.1111/acem.12309 |
 | `sccm_abcdef` | Society of Critical Care Medicine. ICU Liberation Bundle (A-F). | https://sccm.org/clinical-resources/iculiberation-home/abcdef-bundles |
 | `pun2019` | Pun BT, Balas MC, Barnes-Daly MA, et al. Caring for critically ill patients with the ABCDEF bundle: ICU Liberation Collaborative in over 15,000 adults. Crit Care Med. 2019;47(1):3-14. | https://doi.org/10.1097/CCM.0000000000003482 |
 | `marra2017` | Marra A, Ely EW, Pandharipande PP, Patel MB. The ABCDEF bundle in critical care. Crit Care Clin. 2017;33(2):225-243. | https://doi.org/10.1016/j.ccc.2016.12.005 |
@@ -553,14 +603,14 @@ Every source cited anywhere in the application, reproduced as each tool stores i
 | `padis2025` | Lewis K, Balas MC, Stollings JL, et al. A focused update to the PADIS guidelines. Crit Care Med. 2025;53(3):e711-e727. | https://doi.org/10.1097/CCM.0000000000006574 |
 | `inouye1999` | Inouye SK, Bogardus ST Jr, Charpentier PA, et al. A multicomponent intervention to prevent delirium in hospitalized older patients (HELP). N Engl J Med. 1999;340(9):669-676. | https://doi.org/10.1056/NEJM199903043400901 |
 | `hshieh2015` | Hshieh TT, Yue J, Oh E, et al. Effectiveness of multicomponent nonpharmacological delirium interventions: a meta-analysis. JAMA Intern Med. 2015;175(4):512-520. | https://doi.org/10.1001/jamainternmed.2014.7779 |
-| `schweickert2009` **†** | Schweickert WD, Pohlman MC, Pohlman AS, et al. Early physical and occupational therapy in mechanically ventilated, critically ill patients: a randomised controlled trial. Lancet. 2009;373(9678):1874-1882. (Landmark RCT: early mobility shortens delirium duration — the evidence behind bundle element E.) | https://doi.org/10.1016/S0140-6736(09)60658-9 |
+| `schweickert2009` | Schweickert WD, Pohlman MC, Pohlman AS, et al. Early physical and occupational therapy in mechanically ventilated, critically ill patients: a randomised controlled trial. Lancet. 2009;373(9678):1874-1882. (Landmark RCT: early mobility shortens delirium duration — the evidence behind bundle element E.) | https://doi.org/10.1016/S0140-6736(09)60658-9 |
 | `nice_cg103` | NICE. Delirium: prevention, diagnosis and management. Clinical guideline CG103 (updated 2023). | https://www.nice.org.uk/guidance/cg103 |
 | `icudelirium_satsbt` | Vanderbilt CIBS Center. Both SAT and SBT (Wake Up and Breathe). | https://www.icudelirium.org/medical-professionals/both-sat-and-sbt |
 | `icudelirium_mobility` | Vanderbilt CIBS Center. Early Mobility and Exercise. | https://www.icudelirium.org/medical-professionals/early-mobility-and-exercise |
 | `hodgson2014` | Hodgson CL, Stiller K, Needham DM, et al. Expert consensus and recommendations on safety criteria for active mobilization of mechanically ventilated critically ill adults. Crit Care. 2014;18(6):658. | https://ccforum.biomedcentral.com/articles/10.1186/s13054-014-0658-y |
 | `icudelirium_mnemonics` | Vanderbilt CIBS Center. Terminology and Mnemonics: DELIRIUM(S) differential diagnosis. | https://www.icudelirium.org/medical-professionals/terminology-mnemonics |
-| `flaherty2011` | Flaherty JH. The evaluation and management of delirium among older persons. Med Clin North Am. 2011;95(3):555-577. | https://pubmed.ncbi.nlm.nih.gov/21549878/ |
-| `maldonado2018` | Maldonado JR. Delirium pathophysiology: an updated hypothesis of the etiology of acute brain failure. Int J Geriatr Psychiatry. 2018;33(11):1428-1457. | https://doi.org/10.1002/gps.4823 |
+| `flaherty2011` **†** | Flaherty JH. The evaluation and management of delirium among older persons. Med Clin North Am. 2011;95(3):555-577. | https://pubmed.ncbi.nlm.nih.gov/21549878/ |
+| `maldonado2018` **†** | Maldonado JR. Delirium pathophysiology: an updated hypothesis of the etiology of acute brain failure. Int J Geriatr Psychiatry. 2018;33(11):1428-1457. | https://doi.org/10.1002/gps.4823 |
 | `inouye_charpentier1996` | Inouye SK, Charpentier PA. Precipitating factors for delirium in hospitalized elderly persons: predictive model and interrelationship with baseline vulnerability. JAMA. 1996;275(11):852-857. | https://pubmed.ncbi.nlm.nih.gov/8596223/ |
 | `lacour2022` | la Cour KN, Andersen-Ranberg NC, Weihe S, et al. Distribution of delirium motor subtypes in the ICU: a systematic scoping review. Crit Care. 2022;26:53. | https://doi.org/10.1186/s13054-022-03931-3 |
 | `krewulak2018` **†** | Krewulak KD, Stelfox HT, Leigh JP, Ely EW, Fiest KM. Incidence and prevalence of delirium subtypes in an adult ICU: a systematic review and meta-analysis. Crit Care Med. 2018;46(12):2029-2035. | https://doi.org/10.1097/CCM.0000000000003402 |
@@ -572,35 +622,35 @@ Every source cited anywhere in the application, reproduced as each tool stores i
 | `beers2023` | 2023 AGS Beers Criteria Update Expert Panel. AGS 2023 updated Beers Criteria for potentially inappropriate medication use in older adults. J Am Geriatr Soc. 2023;71(7):2052-2081. | https://pubmed.ncbi.nlm.nih.gov/37139824/ |
 | `clegg2011` **†** | Clegg A, Young JB. Which medications to avoid in people at risk of delirium: a systematic review. Age Ageing. 2011;40(1):23-29. (Canonical review of delirium-precipitating medications.) | https://doi.org/10.1093/ageing/afq140 |
 | `pandharipande2006` **†** | Pandharipande P, Shintani A, Peterson J, et al. Lorazepam is an independent risk factor for transitioning to delirium in ICU patients. Anesthesiology. 2006;104(1):21-26. (Primary trial establishing the independent, dose-dependent benzodiazepine-to-delirium relationship.) | https://pubmed.ncbi.nlm.nih.gov/16394685/ |
-| `nicolle2019` **†** | Nicolle LE, Gupta K, Bradley SF, et al. Clinical practice guideline for the management of asymptomatic bacteriuria: 2019 update by the Infectious Diseases Society of America. Clin Infect Dis. 2019;68(10):e83-e110. (Delirium with bacteriuria but no genitourinary symptoms or systemic signs: assess for other causes and observe rather than treat.) | https://doi.org/10.1093/cid/ciy1121 |
+| `nicolle2019` | Nicolle LE, Gupta K, Bradley SF, et al. Clinical practice guideline for the management of asymptomatic bacteriuria: 2019 update by the Infectious Diseases Society of America. Clin Infect Dis. 2019;68(10):e83-e110. (Delirium with bacteriuria but no genitourinary symptoms or systemic signs: assess for other causes and observe rather than treat.) | https://doi.org/10.1093/cid/ciy1121 |
 | `haldol_label` | Haloperidol prescribing information (boxed warnings, QTc/Torsades, Parkinson/Lewy). DailyMed, U.S. NLM. | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f |
 | `mends2` | Hughes CG, Mailloux PT, Devlin JW, et al. Dexmedetomidine or propofol for sedation in mechanically ventilated adults with sepsis (MENDS2). N Engl J Med. 2021;384(15):1424-1436. | https://doi.org/10.1056/NEJMoa2024922 |
 | `promedic2022` **†** | Wibrow B, Martinez FE, Myers E, et al. Prophylactic melatonin for delirium in intensive care (Pro-MEDIC): an RCT. Intensive Care Med. 2022;48(4):414-425. | https://doi.org/10.1007/s00134-022-06638-9 |
 | `melatonin_meta2025` **†** | Tang BHY, Manalo J, Chowdhury SR, et al. Melatonin use in the ICU: a systematic review and meta-analysis. Crit Care Med. 2025;53(9):e1714-e1724. (32 RCTs, n=3895; may reduce delirium / improve sleep — low certainty.) | https://doi.org/10.1097/CCM.0000000000006767 |
-| `mindusa2018` **†** | Girard TD, Exline MC, Carson SS, et al. Haloperidol and ziprasidone for treatment of delirium in critical illness (MIND-USA). N Engl J Med. 2018;379(26):2506-2516. | https://doi.org/10.1056/NEJMoa1808217 |
-| `balas2014` **†** | Balas MC, Vasilevskis EE, Olsen KM, et al. Effectiveness and safety of the ABCDE bundle. Crit Care Med. 2014;42(5):1024-1036. | https://pubmed.ncbi.nlm.nih.gov/24394627/ |
+| `mindusa2018` | Girard TD, Exline MC, Carson SS, et al. Haloperidol and ziprasidone for treatment of delirium in critical illness (MIND-USA). N Engl J Med. 2018;379(26):2506-2516. | https://doi.org/10.1056/NEJMoa1808217 |
+| `balas2014` | Balas MC, Vasilevskis EE, Olsen KM, et al. Effectiveness and safety of the ABCDE bundle. Crit Care Med. 2014;42(5):1024-1036. | https://pubmed.ncbi.nlm.nih.gov/24394627/ |
 | `projectbeta` | Richmond JS, Berlin JS, Fishkind AB, et al. Verbal de-escalation of the agitated patient: consensus statement of the APA Project BETA. West J Emerg Med. 2012;13(1):17-25. | https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/ |
-| `nice_ng10` | NICE. Violence and aggression: short-term management in mental health, health and community settings. NG10. | https://www.nice.org.uk/guidance/ng10 |
+| `nice_ng10` **†** | NICE. Violence and aggression: short-term management in mental health, health and community settings. NG10. | https://www.nice.org.uk/guidance/ng10 |
 | `inouye1993` **†** | Inouye SK, Viscoli CM, Horwitz RI, et al. A predictive model for delirium in hospitalized elderly based on admission characteristics. Ann Intern Med. 1993;119(6):474-481. | https://pubmed.ncbi.nlm.nih.gov/8357112/ |
 | `marcantonio1994` **†** | Marcantonio ER, Goldman L, Mangione CM, et al. A clinical prediction rule for delirium after elective noncardiac surgery. JAMA. 1994;271(2):134-139. | https://pubmed.ncbi.nlm.nih.gov/8264068/ |
 | `predeliric2012` | van den Boogaard M, Pickkers P, Slooter AJC, et al. Development and validation of PRE-DELIRIC. BMJ. 2012;344:e420. | https://doi.org/10.1136/bmj.e420 |
 | `epredeliric2015` | Wassenaar A, van den Boogaard M, van Achterberg T, et al. Multinational development and validation of an early (admission) delirium prediction model for ICU patients (E-PRE-DELIRIC). Intensive Care Med. 2015;41(6):1048-1056. | https://doi.org/10.1007/s00134-015-3777-2 |
-| `ciwa_mdcalc` | CIWA-Ar (Clinical Institute Withdrawal Assessment for Alcohol, revised). MDCalc. | https://www.mdcalc.com/calc/1736/ciwa-ar-alcohol-withdrawal |
-| `rass_mdcalc` | Richmond Agitation-Sedation Scale (RASS) — scoring procedure. MDCalc. | https://www.mdcalc.com/calc/1872/richmond-agitation-sedation-scale-rass |
+| `ciwa_mdcalc` **†** | CIWA-Ar (Clinical Institute Withdrawal Assessment for Alcohol, revised). MDCalc. | https://www.mdcalc.com/calc/1736/ciwa-ar-alcohol-withdrawal |
+| `rass_mdcalc` **†** | Richmond Agitation-Sedation Scale (RASS) — scoring procedure. MDCalc. | https://www.mdcalc.com/calc/1872/richmond-agitation-sedation-scale-rass |
 | `efns_wernicke` **†** | Galvin R, Bråthen G, Ivashynka A, et al. EFNS guidelines for diagnosis, therapy and prevention of Wernicke encephalopathy. Eur J Neurol. 2010;17(12):1408-1418. (Thiamine 200 mg IV TID, before carbohydrate; Level C.) | https://doi.org/10.1111/j.1468-1331.2010.03153.x |
 | `rcp_wernicke` **†** | Thomson AD, Cook CCH, Touquet R, Henry JA. The Royal College of Physicians report on alcohol: guidelines for managing Wernicke's encephalopathy in the accident and emergency department. Alcohol Alcohol. 2002;37(6):513-521. (Higher-dose regimen, e.g. 500 mg IV TID × 2–3 days then taper.) | https://doi.org/10.1093/alcalc/37.6.513 |
-| `espen_icu` **†** | Singer P, Blaser AR, Berger MM, et al. ESPEN guideline on clinical nutrition in the intensive care unit. Clin Nutr. 2019;38(1):48-79. (Thiamine in refeeding / at-risk critically ill.) | https://doi.org/10.1016/j.clnu.2018.08.037 |
+| `espen_icu` | Singer P, Blaser AR, Berger MM, et al. ESPEN guideline on clinical nutrition in the intensive care unit. Clin Nutr. 2019;38(1):48-79. (Thiamine in refeeding / at-risk critically ill.) | https://doi.org/10.1016/j.clnu.2018.08.037 |
 | `acb_boustani` **†** | Boustani M, Campbell N, Munger S, Maidment I, Fox C. Impact of anticholinergics on the aging brain (Anticholinergic Cognitive Burden scale). Aging Health. 2008;4(3):311-320. | https://doi.org/10.2217/1745509X.4.3.311 |
-| `ecash2016` **†** | Vincent JL, Shehabi Y, Walsh TS, et al. Comfort and patient-centred care without excessive sedation: the eCASH concept. Intensive Care Med. 2016;42(6):962-971. | https://doi.org/10.1007/s00134-016-4297-4 |
-| `a2b2025` **†** | Walsh TS, Aitken LM, McKenzie CA, et al. Dexmedetomidine- or clonidine-based sedation compared with propofol in critically ill patients: the A2B randomized clinical trial. JAMA. 2025;334(1):32-45. | https://doi.org/10.1001/jama.2025.7200 |
+| `ecash2016` | Vincent JL, Shehabi Y, Walsh TS, et al. Comfort and patient-centred care without excessive sedation: the eCASH concept. Intensive Care Med. 2016;42(6):962-971. | https://doi.org/10.1007/s00134-016-4297-4 |
+| `a2b2025` | Walsh TS, Aitken LM, McKenzie CA, et al. Dexmedetomidine- or clonidine-based sedation compared with propofol in critically ill patients: the A2B randomized clinical trial. JAMA. 2025;334(1):32-45. | https://doi.org/10.1001/jama.2025.7200 |
 | `kollef1998` **†** | Kollef MH, Levy NT, Ahrens TS, Schaiff R, Prentice D, Sherman G. The use of continuous IV sedation is associated with prolongation of mechanical ventilation. Chest. 1998;114(2):541-548. (Observational cohort.) | https://doi.org/10.1378/chest.114.2.541 |
-| `dean2004_renal` **†** | Dean M. Opioids in renal failure and dialysis patients. J Pain Symptom Manage. 2004;28(5):497-504. | https://doi.org/10.1016/j.jpainsymman.2004.02.021 |
-| `beers_alt2025` **†** | American Geriatrics Society Beers Criteria Alternatives Panel. Alternative treatments to selected medications in the 2023 AGS Beers Criteria. J Am Geriatr Soc. 2025;73(9):2657-2677. | https://doi.org/10.1111/jgs.19500 |
+| `dean2004_renal` | Dean M. Opioids in renal failure and dialysis patients. J Pain Symptom Manage. 2004;28(5):497-504. | https://doi.org/10.1016/j.jpainsymman.2004.02.021 |
+| `beers_alt2025` | American Geriatrics Society Beers Criteria Alternatives Panel. Alternative treatments to selected medications in the 2023 AGS Beers Criteria. J Am Geriatr Soc. 2025;73(9):2657-2677. | https://doi.org/10.1111/jgs.19500 |
 | `girard2008` **†** | Girard TD, Kress JP, Fuchs BD, et al. Efficacy and safety of a paired sedation and ventilator weaning protocol for mechanically ventilated patients in intensive care (Awakening and Breathing Controlled trial): a randomised controlled trial. Lancet. 2008;371(9607):126-134. | https://pubmed.ncbi.nlm.nih.gov/18191684/ |
 | `awissi2013` **†** | Awissi DK, Lebrun G, Coursin DB, Riker RR, Skrobik Y. Alcohol withdrawal and delirium tremens in the critically ill: a systematic review and commentary. Intensive Care Med. 2013;39(1):16-30. | https://pubmed.ncbi.nlm.nih.gov/23184039/ |
 | `asam2020` **†** | The ASAM Clinical Practice Guideline on Alcohol Withdrawal Management. J Addict Med. 2020;14(3S):1-72. (Thiamine and glucose in either order or concurrently — do not delay glucose; objective scales (CAM-ICU, DDS, RASS, MINDS) for withdrawal delirium; CIWA-Ar not recommended in delirium.) | https://doi.org/10.1097/ADM.0000000000000668 |
 | `flaherty_little2011` **†** | Flaherty JH, Little MO. Matching the environment to patients with delirium: lessons learned from the delirium room, a restraint-free environment for older hospitalized adults with delirium. J Am Geriatr Soc. 2011;59(Suppl 2):S295-S300. | https://pubmed.ncbi.nlm.nih.gov/22091576/ |
-| `dex_label` **†** | Precedex (dexmedetomidine hydrochloride) prescribing information — ICU sedation maintenance infusion 0.2-0.7 mcg/kg/hour. DailyMed, U.S. NLM. | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74 |
+| `dex_label` | Precedex (dexmedetomidine hydrochloride) prescribing information — ICU sedation maintenance infusion 0.2-0.7 mcg/kg/hour. DailyMed, U.S. NLM. | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74 |
 | `quetiapine_label` **†** | Seroquel (quetiapine fumarate) prescribing information — QTc prolongation and orthostatic hypotension. DailyMed, U.S. NLM. | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0 |
 
 *Edition/year details are reproduced as they appear in the source registry; where a source is a living web resource (e.g., the SCCM/Vanderbilt pages, NICE guidelines, DailyMed label) it carries the version/update designation the registry records and is otherwise undated.*
@@ -613,6 +663,7 @@ Sources this tool cites that are not already listed above (shared sources are no
 |---|---|---|
 | `han2013_dts_bcam` | Han JH, et al. Diagnosing delirium in older emergency department patients: validity and reliability of the Delirium Triage Screen and the Brief Confusion Assessment Method. Ann Emerg Med. 2013;62(5):457–465. | https://doi.org/10.1016/j.annemergmed.2013.05.003 |
 | `dts_manual` | Han JH. Delirium Triage Screen (DTS) Instruction Manual, v1.0 (2015). Vanderbilt University School of Medicine; eddelirium.org. | https://eddelirium.org/delirium-assessment/assessment-instruments/ |
+| `bcam_manual` | Han JH. Brief Confusion Assessment Method (bCAM) Instruction Manual, v1.0 (2015). Vanderbilt University School of Medicine; eddelirium.org. | https://eddelirium.org/delirium-assessment/assessment-instruments/ |
 | `fourat_form` | MacLullich A, Ryan T, Cash H. 4AT — Assessment Test for Delirium & Cognitive Impairment, v1.2 (2011–2014). the4at.com (free to use). | https://www.the4at.com/ |
 | `bellelli2014` | Bellelli G, et al. Validation of the 4AT, a new instrument for rapid delirium screening: a study in 234 hospitalised older people. Age Ageing. 2014;43(4):496–502. | https://doi.org/10.1093/ageing/afu021 |
 | `shenkin2019` | Shenkin SD, et al. Delirium detection in older acute medical inpatients: a multicentre prospective comparative diagnostic test accuracy study of the 4AT and the confusion assessment method. BMC Med. 2019;17:138. | https://doi.org/10.1186/s12916-019-1367-9 |
@@ -648,6 +699,8 @@ Sources this tool cites that are not already listed above (shared sources are no
 | `bruni2015_melatonin` | Bruni O, Alonso-Alconada D, Besag F, et al. Current role of melatonin in pediatric neurology: clinical recommendations. Eur J Paediatr Neurol. 2015;19(2):122–133. (Age-banded pediatric sleep dosing; not delirium-specific.) | https://doi.org/10.1016/j.ejpn.2014.12.007 |
 | `peds_apsych_sr2025` | Cavagnero F, et al. Antipsychotic medications for delirium treatment in the pediatric intensive care unit: a systematic review. Paediatr Drugs. 2025;27(6):707-722. | https://doi.org/10.1007/s40272-025-00716-3 |
 | `picuup_kudchadkar` | Kudchadkar SR, et al. PICU Up! multicenter early mobility trial (protocol: Azamfirei R, et al. Trials. 2023;24(1):191). NCT04989790. | https://clinicaltrials.gov/study/NCT04989790 |
+| `williams2025_picsp` | Williams CN, Pinto NP, Colville GA. Pediatric post-intensive care syndrome and current therapeutic options. Crit Care Clin. 2025;41(1):53-71. | https://doi.org/10.1016/j.ccc.2024.08.001 |
+| `sandau2017_ecg` | Sandau KE, Funk M, Auerbach A, et al. Update to practice standards for electrocardiographic monitoring in hospital settings: a scientific statement from the American Heart Association. Circulation. 2017;136(19):e273-e344. | https://doi.org/10.1161/CIR.0000000000000527 |
 | `gupta2021_capd_mv` | Gupta N, et al. Performance of the Cornell Assessment of Pediatric Delirium scale in mechanically ventilated children. J Pediatr Intensive Care. 2023;12(1):24–30 (online 2021). (At CAPD ≥ 9: overall specificity 44.8%; 16.5% with developmental delay.) | https://doi.org/10.1055/s-0041-1728784 |
 | `kerson2016_rass` | Kerson AG, DeMaria R, Mauer E, et al. Validity of the Richmond Agitation-Sedation Scale (RASS) in critically ill children. J Intensive Care. 2016;4:65. (Pediatric RASS validation — the arousal scale the tool applies to verbal children.) | https://doi.org/10.1186/s40560-016-0189-5 |
 | `schieveld2009` | Schieveld JNM, van der Valk JA, Smeets I, et al. Diagnostic considerations regarding pediatric delirium: a review and a proposal for an algorithm for pediatric intensive care units. Intensive Care Med. 2009;35(11):1843-1849. (Open access.) | https://doi.org/10.1007/s00134-009-1652-8 |
@@ -663,6 +716,11 @@ Sources this tool cites that are not already listed above (shared sources are no
 | `han2015_rass` | Han JH, et al. The diagnostic performance of the RASS for detecting delirium in older ED patients. Acad Emerg Med 2015;22:878. | https://doi.org/10.1111/acem.12706 |
 | `chester2012_mrass` | Chester JG, et al. Serial administration of a modified RASS for delirium screening. J Hosp Med 2012;7:450. | https://doi.org/10.1002/jhm.1003 |
 | `kuczmarska2016` | Kuczmarska A, et al. Detection of delirium in hospitalized older general medicine patients: a comparison of the 3D-CAM and CAM-ICU. J Gen Intern Med 2016;31:297. | https://doi.org/10.1007/s11606-015-3514-0 |
+| `neufeld2013_postop` | Neufeld KJ, et al. Evaluation of two delirium screening tools for detecting post-operative delirium in the elderly. Br J Anaesth 2013;111:612. | https://doi.org/10.1093/bja/aet167 |
+| `marcantonio2022_ubcam` | Marcantonio ER, et al. Comparative implementation of a brief app-directed protocol for delirium identification by hospitalists, nurses, and nursing assistants. Ann Intern Med 2022;175:65. | https://doi.org/10.7326/M21-1687 |
+| `rousseau2021_pics` | Rousseau AF, Prescott HC, Brett SJ, et al. Long-term outcomes after critical illness: recent insights. Crit Care 2021;25:108. | https://doi.org/10.1186/s13054-021-03535-3 |
+| `nakanishi2024_picsfollowup` | Nakanishi N, Liu K, Hatakeyama J, et al. Post-intensive care syndrome follow-up system after hospital discharge: a narrative review. J Intensive Care 2024;12:2. | https://doi.org/10.1186/s40560-023-00716-w |
+| `mariz2013_edimcu` | Mariz J, Santos NC, Afonso H, et al. Risk and clinical-outcome indicators of delirium in an emergency department intermediate care unit (EDIMCU): an observational prospective study. BMC Emerg Med 2013;13:2. | https://doi.org/10.1186/1471-227X-13-2 |
 | `martinez2012` | Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599. | https://doi.org/10.1136/bmjopen-2012-001599 |
 | `siddiqi2016` | Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563. | https://doi.org/10.1002/14651858.CD005563.pub3 |
 | `ags2015` | American Geriatrics Society. Abstracted clinical practice guideline for postoperative delirium in older adults. J Am Geriatr Soc 2015;63:142. | https://doi.org/10.1111/jgs.13281 |
@@ -686,7 +744,7 @@ These are stated by the tool itself or follow directly from how it is implemente
 6. **No pharmacotherapy is FDA-approved for delirium.** Antipsychotics have not been shown to treat or shorten delirium (MIND-USA negative; PADIS 2025 was unable to recommend for or against); the tool restricts them to short-term control of dangerous agitation with documented indication, QTc monitoring, daily reassessment, and no discharge continuation without a psychiatric indication. Doses shown are generic starting-point references ("cap per local protocol"), not orders.
 7. **Not a record system.** The assessment is a session scratchpad that clears on reload and is not saved to any chart; the PDFs are generated locally. The tool is not a substitute for the medical record or for a sanctioned order set.
 8. **Subtype figures are the proportion of delirious cases** (la Cour 2022), not population prevalence (Krewulak 2018); they are approximate, drawn from the cited reviews, and should not be quoted as exact constants.
-9. **Reference-archive completeness.** A substantial minority of registry sources are cited by canonical URL but not held in the local archive; `references/INDEX.md` records the per-source archive status ("not archived" rows) and is the authoritative list, and the §3 registry marks the same sources **†**. Examples include Sessler 2002 (RASS), the Pro-MEDIC main RCT (only the statistical-analysis plan and an editorial are archived), MIND-USA, and the thiamine dose sources (EFNS, RCP, ESPEN).
+9. **Reference-archive completeness.** A substantial minority of registry sources are cited by canonical URL but not held in the local archive; `references/INDEX.md` records the per-source archive status ("not archived" rows) and is the authoritative list, and the §3 registry marks the same sources **†**. Examples include Sessler 2002 (RASS), Inouye 1990 (the original CAM), the Pro-MEDIC main RCT (only the statistical-analysis plan and an editorial are archived), Clegg & Young 2011, and the Wernicke thiamine-dose sources (EFNS, RCP).
 
 ---
 
@@ -849,6 +907,8 @@ The pediatric ABCDEF / PICU Liberation bundle, presented as a shift checklist wi
 
 **Adopter validation:** the bundle elements, the SBS comfort-target wording, the "melatonin not established" statement, and the evidence-framing of bundle benefit should be confirmed by the adopting unit's pediatric-clinician review before clinical use.
 
+**Out of scope, and why.** Post-PICU follow-up and PICS-p rehabilitation are not carried here, mirroring the step-down exclusion in §2.13: they are an outpatient service pathway rather than bedside screening, and the model is aspirational rather than established, with few broad-population PICU follow-up programs identified to date. A unit building that pathway should start from Williams 2025 (`williams2025_picsp`), which is also the source for the tool's statement that families are themselves affected. The **A-to-H bundle** lettering, which adds good nutrition/sleep (G) and home-care planning (H), is not adopted. Williams attributes it to a single proposal paper describing what some institutions have done and presents no outcome evidence for it. PANDEM 2022 does not use lettered-bundle framing at all: it names ABCDEF three times, as background in its opening, as an open research question about whether bundled care affects delirium and long-term outcomes, and as a citation, and never mentions A-to-H. The tool's own A–F lettering follows Lin 2023, whose subject is the ICU Liberation Bundle (ABCDEF), and its unlettered sleep, day–night, sensory and deprescribing measures already cover most of what G describes.
+
 ### 7.4 Pharmacology (Treatment + Medications)
 
 **Framing:** treat the cause and apply the non-pharmacologic bundle first; drugs are adjunctive. Pharmacologic treatment of symptoms is reserved for short-term, refractory, safety-threatening agitation. All agents are **off-label** in pediatric delirium with **limited (retrospective/observational) evidence**. In reported PICU practice the atypicals are usually chosen before IV haloperidol, a prescribing-pattern and safety-profile preference (`madden2021_prescribing`, `capino2020`), **not a guideline ranking**: PANDEM's recommendation for severe refractory manifestations names "haloperidol or atypical antipsychotics" without preferring either (`pandem2022`), and the tool labels the hierarchy accordingly. The Medications tab opens with a prominent "not an order set: verify against formulary" banner. Doses are starting points from the literature, not orders; before use they must be reconciled by the adopting unit's pediatric-clinician + pharmacist review against a current pediatric dosing reference (Lexicomp Pediatric / Harriet Lane), with the edition pinned by the adopter.
@@ -857,7 +917,7 @@ The pediatric ABCDEF / PICU Liberation bundle, presented as a shift checklist wi
 
 **Antipsychotics (enteral unless noted).** Risperidone, started low and titrated by age/weight band: ≤ 2 yr ~0.01–0.04 mg/kg/day (Campbell 2020, a 17-patient cohort; pharmacist verification required), < 5 yr ~0.1 mg q12–24h, ≥ 5 yr ~0.2 mg q12–24h (Capino 2020, per Kishk); **no single daily maximum is shown**. The previously displayed ~2 mg/day (Capino 2020, per Schieveld, enteral 0.1–2 mg/day) was an unqualified figure that could read as spanning infants to adolescents, so the ceiling is deferred to a named institutional protocol / formulary for the child's age and weight. Quetiapine ~0.43–0.7 mg/kg/dose q8h: **initiation ≈ 1.5 mg/kg/day divided q8h; reported median 1.3 mg/kg/day, IQR 0.4–2.3** (Joyce 2015; this single representation is used identically in the app, the report data, and here). Olanzapine age-banded (infants ~0.625 mg, toddlers ~1.25 mg, older ~2.5–5 mg; Capino 2020). Haloperidol **reserve**, IV off-label: **no generic loading or maintenance dose is shown**. IV haloperidol is gated to a current institutional pediatric agitation/delirium protocol that must specify age/weight eligibility, route, the repeat interval, a maximum cumulative loading dose and maximum daily dose, ECG/electrolyte monitoring, contraindications, and treatment of acute dystonia (`haldol_label` for the QTc/torsades warnings). The cited case series (Capino 2020) repeated ~0.025–0.1 mg/kg/dose roughly q10min for 3–4 doses (loading totals 0.09–0.25 mg/kg, one dystonia in five children); that per-dose figure is no longer displayed as a numeric instruction, because at its upper bound four repeats (0.4 mg/kg) would exceed the observed totals and the tool cannot supply the protocol's interval or cumulative cap. The previously listed "~0.015–0.15 mg/kg/dose IV q6–8h" was the observed per-dose range of a single 5-patient 2002 case series (Harrison, via Capino 2020 Table 1, ventilated children on neuromuscular blockade) that Capino itself declines to convert into a recommendation; at q6h its upper bound permits 0.60 mg/kg/day, several-fold above published institutional protocols (e.g. maintenance 0.015–0.025 mg/kg/dose q6h with a 0.45 mg/kg/day maximum, or daily-dose titration 0.05 → 0.15 mg/kg/day divided for infants and young children). Maintenance dosing is therefore deferred to the unit formulary / pediatric pharmacist with an agreed **maximum daily dose**, which the adopting unit validates before use; any future numeric range must be age/weight-banded, carry an explicit daily maximum, and pin to a dated pediatric dosing reference.
 
-**Monitoring (all antipsychotics).** Baseline 12-lead ECG (QTc), electrolytes, QT-drug review; read the QTc against age-, sex-, rhythm- and correction-formula-appropriate limits. (The earlier "> 450–500 ms or ≥ 25% rise" was ambiguous, and the 25% delta is unsupported in the cited pediatric sources and behaves unintuitively: 25% of a 400 ms baseline is 100 ms, missing a clinically meaningful 60 ms change.) A borderline/prolonged result prompts repeat/verify ECG, electrolyte correction, and interacting-drug review; QTc ≥ 500 ms or a substantial absolute rise (commonly ≥ 60 ms in QT-safety practice) warrants urgent prescriber/pharmacy review under the local cardiology or medication-safety protocol, which sets the stop/reduce thresholds. Watch EPS/dystonia (most with haloperidol), NMS, and metabolic effects (olanzapine/quetiapine highest).
+**Monitoring (all antipsychotics).** Baseline 12-lead ECG (QTc), electrolytes, QT-drug review; read the QTc against age-, sex-, rhythm- and correction-formula-appropriate limits. The AHA practice standards give the pediatric reference range the card now states: "The normal upper limit for QTc among children 11 days to 16 years of age was identified as < 450 milliseconds" (`sandau2017_ecg`). A borderline/prolonged result prompts repeat/verify ECG, electrolyte correction, and interacting-drug review; QTc ≥ 500 ms, or a clear rise from the patient's own baseline, warrants urgent prescriber/pharmacy review under the local cardiology or medication-safety protocol, which sets the stop/reduce thresholds. The ≥ 500 ms trigger follows the same statement's general finding that a QTc above 500 ms carries higher torsades risk, and its Table 6 direction to stop the causative drug at that level; the pediatric section's own ≥ 500 ms sentence is specific to congenital long-QT syndrome and is not the basis here. No numeric threshold is given for the rise from baseline: the earlier "≥ 25% rise" and the "≥ 60 ms" that replaced it were both uncited, and a search of the reference archive found no source for either. Watch EPS/dystonia (most with haloperidol), NMS, and metabolic effects (olanzapine/quetiapine highest).
 
 **Citations mapped (pediatric Treatment + Medications tabs):** Capino 2020 (`capino2020`, PMC7025750, registered and cited inline on the haloperidol/olanzapine/risperidone dose figures); Precedex label (`dex_label`, the pediatric procedural-sedation indication and the not-established-for-pediatric-ICU-sedation statement); SCCM PANDEM 2022 (`pandem2022`, PMID 35119438; the no-agent-preference antipsychotic recommendation, cited inline on the practice-preference statements); Campbell 2020 risperidone ≤ 2 yr (PMID 31771334); Joyce 2015 quetiapine safety (PMID 26469214); Madden prescribing/outcomes (J Pediatr Intensive Care 2024;13(1):46–54, online 2021; PMID 38571986); QTc-effects study (PMC7792149); Cavagnero 2025 pediatric antipsychotic systematic review (`peds_apsych_sr2025`, PMID 40906237); Phan & Nahata dexmedetomidine (`phan2008_dexmed`, Paediatr Drugs 2008, PMID 18162008; registered and cited on the infusion dose); Bruni 2015 pediatric melatonin dosing (`bruni2015_melatonin`); plus a pinned pediatric dosing reference (Lexicomp Pediatric / Harriet Lane) for the numeric weight-based values.
 

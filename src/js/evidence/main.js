@@ -11,20 +11,29 @@
  * hover/click evidence modals on the tool pages, keyed by claim id.
  */
 import { el } from '../shared/dom.js';
+import { STATUS_LABEL, STATUS_SHORT, STANCE_LABEL } from '../shared/evidence-vocab.js';
 import DATA from './data.json';
 
-// Evidence-status vocabulary → badge label + class. Order also drives the filter row.
-const STATUS = {
-  fulltext: { label: 'Full-text verified', short: 'Full text', cls: 'ev-ok' },
-  instrument: { label: 'Validated instrument', short: 'Instrument', cls: 'ev-inst' },
-  guideline: { label: 'Guideline text', short: 'Guideline', cls: 'ev-guide' },
-  abstract: { label: 'Abstract', short: 'Abstract', cls: 'ev-info' },
-  web: { label: 'Web / resource page', short: 'Web page', cls: 'ev-warn' },
-  notstated: { label: 'Not stated in cited source', short: 'Not stated', cls: 'ev-flag' },
-  structure: { label: 'Operational structure', short: 'Operational', cls: 'ev-na' },
-  na: { label: 'Site-customized (no citation)', short: 'Site content', cls: 'ev-na' },
-  other: { label: 'Other', short: 'Other', cls: 'ev-na' },
+// Evidence-status vocabulary → badge label + class. Order also drives the filter
+// row. The wording is shared with the template previews' evidence popovers; only
+// the class names are this page's own.
+const STATUS_CLASS = {
+  fulltext: 'ev-ok',
+  instrument: 'ev-inst',
+  guideline: 'ev-guide',
+  abstract: 'ev-info',
+  web: 'ev-warn',
+  notstated: 'ev-flag',
+  structure: 'ev-na',
+  na: 'ev-na',
+  other: 'ev-na',
 };
+const STATUS = Object.fromEntries(
+  Object.keys(STATUS_LABEL).map((k) => [
+    k,
+    { label: STATUS_LABEL[k], short: STATUS_SHORT[k], cls: STATUS_CLASS[k] },
+  ]),
+);
 const statusOf = (s) => STATUS[s] || STATUS.other;
 
 // Split a passage into text + quoted runs so the cited phrase can be emphasized
@@ -139,14 +148,17 @@ function mdBlock(b) {
 }
 
 // Per-source stance → chip label + class.
-const STANCE = {
-  agrees: { label: 'agrees', cls: 'st-ok' },
-  partial: { label: 'partial', cls: 'st-warn' },
-  contradicts: { label: 'differs', cls: 'st-flag' },
-  not_stated: { label: 'not in source', cls: 'st-na' },
-  not_addressed: { label: 'not re-addressed', cls: 'st-na' },
-  background: { label: 'context', cls: 'st-na' },
+const STANCE_CLASS = {
+  agrees: 'st-ok',
+  partial: 'st-warn',
+  contradicts: 'st-flag',
+  not_stated: 'st-na',
+  not_addressed: 'st-na',
+  background: 'st-na',
 };
+const STANCE = Object.fromEntries(
+  Object.keys(STANCE_LABEL).map((k) => [k, { label: STANCE_LABEL[k], cls: STANCE_CLASS[k] }]),
+);
 
 // Per-paragraph scope relation to the claim.
 const SCOPE = {
@@ -193,19 +205,10 @@ function paragraphBlock(pg) {
     );
   }
   box.append(meta);
-  // Extraction-quality / figure flag: don't pass off garbled or figure-dependent
-  // text as a clean quote — warn and point to the source document.
-  if (pg.flag) {
-    box.append(
-      el('p', {
-        class: 'ev-para-warn',
-        text:
-          pg.flag === 'figure'
-            ? 'This content is a table/figure in the source — the text below is an approximate extraction; check the source document.'
-            : 'PDF text extraction may be imperfect here — verify the wording against the source document.',
-      }),
-    );
-  }
+  // A passage is quoted only when it has been read against the source, so there
+  // is no approximate-extraction state to warn about. Content that cannot be
+  // transcribed — a table in a scanned page, a source that is not held here —
+  // carries no passage at all; the source keeps its stance and its note instead.
   box.append(
     el('blockquote', { class: 'ev-srcblock-q' }, ...highlightContext(pg.context, pg.highlight)),
   );

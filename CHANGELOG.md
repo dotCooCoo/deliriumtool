@@ -5,6 +5,58 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Changed
+
+- Pediatric antipsychotic monitoring card: the QTc guidance now gives a reference
+  range instead of asking the reader to judge against unnamed limits. The normal
+  upper limit is stated as **< 450 ms** in children 11 days to 16 years, with the
+  notes that adult limits diverge by sex after puberty and that Bazett is
+  unreliable in tachycardia and with conduction abnormalities. The previous
+  absolute-rise figure is replaced by "a clear rise from this patient's own
+  baseline", leaving the threshold to local protocol. The **≥ 500 ms** urgent-review
+  trigger is unchanged, and the universal baseline ECG before a first antipsychotic
+  dose is unchanged.
+- Adult screening tab: the CAM-ICU limitations note now names documented dementia
+  alongside neurologic injury, aphasia and deep sedation. Specificity falls in
+  dementia, so a positive result is less certain and is confirmed clinically.
+- Step-down tool: the rationale panel now states the CAM-IMC's validation cohort,
+  gives a prevalence figure for the population, and says what post-intensive care
+  syndrome is — persisting cognitive impairment can be mistaken for new delirium.
+  The CAM-IMC card now carries an admission-screening cadence.
+- Step-down printed card set and workflow poster: each sheet's source list is
+  trimmed to the sources its own content draws on, so a printed sheet no longer
+  credits sources for statements it does not make.
+- Pediatric prevention tab: family engagement now notes that families are
+  themselves affected, because post-intensive care syndrome in paediatrics
+  includes their psychosocial sequelae.
+
+### Fixed
+
+- Sources & Evidence: every statement whose source analysis says a source supports
+  it now shows a passage from that source. The quetiapine label, the T-A-DA source
+  and three reference rows were previously named without anything to read. Reading
+  the quetiapine label narrowed what it supports: its QT section records no
+  persistent QT increase in clinical trials and concentrates the concern in
+  overdose, concomitant illness, co-administered QT-prolonging drugs and named risk
+  groups, so that entry is now marked partial rather than agreeing.
+- Sources & Evidence: corrected archive badges and reference labels, including a
+  source shown under an internal key rather than its citation, and two archive
+  markers in the methodology registry that disagreed with the reference index.
+
+## [0.7.4] - 2026-08-03
+
+### Changed
+
+- The scoring functions now refuse an out-of-range or non-numeric value instead of
+  coercing it into a definite screen. A corrupted or hand-edited import can no
+  longer make an inattention error count outside 0–10, a 4AT item value the
+  instrument does not offer, or a non-numeric CAM-IMC entry read as a confident
+  positive or negative — the affected item stays unscored and the screen stays
+  incomplete. On the adult tool, an imported form value is checked against the
+  control's own range — a dropdown option that actually exists, a number within its
+  min/max — before it is shown. Valid assessments score exactly as before; only
+  impossible values are refused.
+
 ## [0.7.2] - 2026-08-03
 
 ### Fixed

@@ -47,6 +47,16 @@ test('CAM-ICU inattention is positive at > 2 errors', () => {
   assert.equal(inattentionPositive(10), true);
 });
 
+test('an error count outside the 0–10 task range is indeterminate, not a definite "no"', () => {
+  // Only reachable from a corrupted import — the UI clamps to 0–10. The count must
+  // not coerce into a confident "no inattention".
+  assert.equal(inattentionPositive(-1), null);
+  assert.equal(inattentionPositive(11), null);
+  assert.equal(inattentionPositive(1.5), null);
+  assert.equal(inattentionPositive('x'), null);
+  assert.equal(inattentionPositive(undefined), null);
+});
+
 test('CAM-ICU arousal gate: RASS -4/-5 → unable to assess', () => {
   assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'yes', rass: '-4' }), 'unable');
   assert.equal(evalCam({ f1: 'yes', f2: 'yes', f3: 'yes', rass: '-5' }), 'unable');
@@ -116,4 +126,12 @@ test('checklist percentage rounds and guards divide-by-zero', () => {
   assert.equal(pct(10, 10), 100);
   assert.equal(pct(1, 3), 33);
   assert.equal(pct(0, 0), 0);
+});
+
+test('checklist percentage stays within 0–100 and never returns NaN on bad input', () => {
+  assert.equal(pct(20, 10), 100); // clamped, not 200
+  assert.equal(pct(-5, 10), 0); // clamped, not negative
+  assert.equal(pct(NaN, 10), 0);
+  assert.equal(pct(5, 'x'), 0);
+  assert.equal(pct(5, -1), 0);
 });

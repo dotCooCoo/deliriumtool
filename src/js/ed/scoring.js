@@ -21,7 +21,9 @@ export function evalDts({ rass, lunchErrors, lunchUnable, lunchDone, lunchTaps }
     return lunchTaps.length >= 2 ? 'positive' : 'negative';
   }
   if (lunchErrors === undefined || lunchErrors === null || lunchErrors === '') return null;
-  return Number(lunchErrors) >= 2 ? 'positive' : 'negative';
+  const n = Number(lunchErrors);
+  if (!Number.isInteger(n) || n < 0) return null; // out of the attention-task range → not scorable
+  return n >= 2 ? 'positive' : 'negative';
 }
 
 /** RASS −4/−5 = stupor/coma — content assessment impossible; reassess later. */
@@ -41,7 +43,9 @@ export function bcamInattention({ monthErrors, monthUnable, monthDone, monthTaps
     return monthTaps.length >= 2;
   }
   if (monthErrors === undefined || monthErrors === null || monthErrors === '') return null;
-  return Number(monthErrors) >= 2;
+  const n = Number(monthErrors);
+  if (!Number.isInteger(n) || n < 0) return null; // out of range → not scorable
+  return n >= 2;
 }
 
 /**
@@ -76,12 +80,22 @@ export function evalBcam({ f1, f2, rass, f4AnyError }) {
  * cognitive impairment; 1–3 possible cognitive impairment; 0 unlikely.
  */
 export function eval4at(values) {
-  const ids = FOURAT.items.map((i) => i.id);
-  const nums = ids.map((id) => values?.[id]);
-  if (nums.some((v) => v === undefined || v === null || v === '')) {
+  const items = FOURAT.items;
+  const raw = items.map((i) => values?.[i.id]);
+  if (raw.some((v) => v === undefined || v === null || v === '')) {
     return { complete: false, score: null, band: null };
   }
-  const score = nums.reduce((a, v) => a + Number(v), 0);
+  // Each item must carry one of that item's declared point values. Anything else
+  // (a corrupted import, a non-numeric string, an out-of-range number) leaves the
+  // 4AT unscorable rather than summing to NaN or a total outside 0–12.
+  const points = items.map((i, k) => {
+    const n = Number(raw[k]);
+    return i.options.some((o) => Number(o.v) === n) ? n : null;
+  });
+  if (points.some((p) => p === null)) {
+    return { complete: false, score: null, band: null };
+  }
+  const score = points.reduce((a, p) => a + p, 0);
   const band = FOURAT.bands.find((b) => score >= b.min);
   return { complete: true, score, band };
 }

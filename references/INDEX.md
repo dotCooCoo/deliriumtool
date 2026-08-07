@@ -4,6 +4,11 @@ Local copies of the primary/official sources behind the tool's clinical content.
 Citations in the tool link to the **canonical URL** (below); these PDFs are the offline archive.
 Filenames follow `firstauthor-year-topic-venue.pdf`.
 
+Rows marked **not archived** carry the reason: *paywalled* (no free full text at the
+publisher or in PubMed Central), *copyright*, or *live guideline / web tool* (mutable —
+see the snapshot table at the end). Publisher free-to-read status can lapse, so confirm
+at the DOI rather than trusting an open-access index.
+
 ## CAM Screening (CAM-ICU + RASS)
 
 | Source | Local file | Canonical URL |
@@ -14,9 +19,9 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Ely 2001 — CAM-ICU validation, JAMA 2001;286:2703 | `ely-2001-cam-icu-validation-jama.pdf` | https://doi.org/10.1001/jama.286.21.2703 |
 | Ely 2003 — RASS validity/reliability, JAMA 2003;289:2983 | `ely-2003-rass-jama.pdf` | https://doi.org/10.1001/jama.289.22.2983 |
 | Hayhurst 2016 — ICU delirium review, Anesthesiology 2016;125:1229 | `hayhurst-2016-icu-delirium-review-anesthesiology.pdf` | https://doi.org/10.1097/ALN.0000000000001378 |
-| Sessler 2002 — RASS validation, AJRCCM 2002;166:1338 | **not archived** (see "Still to source") | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
-| Inouye 1990 — the original CAM (parent of the CAM-ICU/bCAM/4AT algorithm), Ann Intern Med 1990;113:941 | **not archived** | https://doi.org/10.7326/0003-4819-113-12-941 |
-| Bergeron 2001 — ICDSC (the adult-ICU alternative screen), Intensive Care Med 2001;27:859 | **not archived** | https://doi.org/10.1007/s001340100909 |
+| Sessler 2002 — RASS validation, AJRCCM 2002;166:1338 (PMID 12421743) | **not archived** (paywalled; see "Still to source") | https://doi.org/10.1164/rccm.2107138 |
+| Inouye 1990 — the original CAM (parent of the CAM-ICU/bCAM/4AT algorithm), Ann Intern Med 1990;113:941 (PMID 2240918) | **not archived** (paywalled) | https://doi.org/10.7326/0003-4819-113-12-941 |
+| Bergeron 2001 — ICDSC (the adult-ICU alternative screen), Intensive Care Med 2001;27:859 (PMID 11430542) | **not archived** (paywalled) | https://doi.org/10.1007/s001340100909 |
 | Marcantonio 2014 — 3D-CAM (ward-validated CAM), Ann Intern Med 2014;161:554 | `marcantonio-2014-3d-cam-ward.pdf` | https://doi.org/10.7326/M14-0865 |
 | APA DSM-5-TR 2022 — delirium diagnostic criteria (the reference standard every screen is validated against) | **not archived** (copyright) | https://doi.org/10.1176/appi.books.9780890425787 |
 | RASS scoring procedure (MDCalc, live web tool) | — (web tool, not archived) | https://www.mdcalc.com/calc/1872/richmond-agitation-sedation-scale-rass |
@@ -28,7 +33,7 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | Pun 2019 — ABCDEF Collaborative (15,000 adults), CCM 2019;47:3 | `pun-2019-abcdef-collaborative-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000003482 |
 | Marra 2017 — ABCDEF bundle review, Crit Care Clin 2017;33:225 | `marra-2017-abcdef-bundle-critcareclin.pdf` | https://doi.org/10.1016/j.ccc.2016.12.005 |
 | Devlin 2018 — PADIS guideline, CCM 2018;46:e825 | `devlin-2018-padis-guideline-ccm.pdf` | https://pubmed.ncbi.nlm.nih.gov/30113379/ |
-| Schweickert 2009 — early mobility RCT (delirium duration), Lancet 2009;373:1874 | **not archived** | https://doi.org/10.1016/S0140-6736(09)60658-9 |
+| Schweickert 2009 — early mobility RCT (delirium duration), Lancet 2009;373:1874 (PMID 19446324) | `schweickert-2009-early-mobility-rct-lancet.pdf` | https://doi.org/10.1016/S0140-6736(09)60658-9 |
 | Balas 2014 — ABCDE bundle implementation, CCM 2014;42:1024 | `balas-2014-abcde-bundle-implementation.pdf` | https://doi.org/10.1097/CCM.0000000000000129 |
 | Lewis 2025 — PADIS Focused Update, CCM 2025;53:e711 | `lewis-2025-padis-focused-update-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000006574 |
 | Inouye 1999 — HELP prevention RCT, NEJM 1999;340:669 | `inouye-1999-help-rct-nejm.pdf` | https://doi.org/10.1056/NEJM199903043400901 |
@@ -36,10 +41,10 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 | AGS CoCare HELP reference list | `ags-cocare-help-reference-list.pdf` | https://help.agscocare.org/ |
 | NICE CG103 — Delirium guideline | `nice-cg103-delirium.pdf` | https://www.nice.org.uk/guidance/cg103 |
 | Vincent 2016 — eCASH concept, ICM 2016;42:962 | `vincent-2016-ecash-concept-icm.pdf` | https://doi.org/10.1007/s00134-016-4297-4 |
-| Girard 2008 — ABC trial (paired SAT+SBT), Lancet 2008;371:126 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/18191684/ |
-| Awissi 2013 — alcohol withdrawal & DT in the critically ill (CIWA not ICU-validated), ICM 2013;39:16 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/23184039/ |
-| Flaherty & Little 2011 — the delirium room / T-A-D-A method, JAGS 2011;59:S295 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/22091576/ |
-| Kollef 1998 — continuous IV sedation & ventilation duration (observational), Chest 1998;114:541 | **not archived** | https://doi.org/10.1378/chest.114.2.541 |
+| Girard 2008 — ABC trial (paired SAT+SBT), Lancet 2008;371:126 (PMID 18191684) | **not archived** (paywalled) | https://doi.org/10.1016/S0140-6736(08)60105-1 |
+| Awissi 2013 — alcohol withdrawal & DT in the critically ill (CIWA not ICU-validated), ICM 2013;39:16 (PMID 23184039) | **not archived** (paywalled) | https://doi.org/10.1007/s00134-012-2758-y |
+| Flaherty & Little 2011 — the delirium room / T-A-D-A method, JAGS 2011;59:S295 (PMID 22091576) | **not archived** (paywalled) | https://doi.org/10.1111/j.1532-5415.2011.03678.x |
+| Kollef 1998 — continuous IV sedation & ventilation duration (observational), Chest 1998;114:541 (PMID 9726743) | **not archived** (paywalled) | https://doi.org/10.1378/chest.114.2.541 |
 | Hodgson 2014 — mobilization safety criteria consensus, Crit Care 2014;18:658 | `hodgson-2014-mobilization-safety-criteria.pdf` | https://ccforum.biomedcentral.com/articles/10.1186/s13054-014-0658-y |
 
 ## DELIRIUM Factors (subtypes / mnemonic)
@@ -48,37 +53,39 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 |---|---|---|
 | la Cour 2022 — motor-subtype distribution, Crit Care 2022;26:53 | `lacour-2022-motor-subtypes-critcare.pdf` | https://doi.org/10.1186/s13054-022-03931-3 |
 | Hayhurst 2020 — subtype & cognition, CCM 2020;48:e480 | `hayhurst-2020-subtype-cognition-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000004313 |
-| Krewulak 2018 — subtype meta-analysis, CCM 2018;46:2029 | **not archived** | https://doi.org/10.1097/CCM.0000000000003402 |
+| Krewulak 2018 — subtype meta-analysis, CCM 2018;46:2029 (PMID 30234569) | **not archived** (paywalled) | https://doi.org/10.1097/CCM.0000000000003402 |
 | Vanderbilt DELIRIUM(S) mnemonic | (web) | https://www.icudelirium.org/medical-professionals/terminology-mnemonics |
-| Maldonado 2018 — delirium pathophysiology (acute brain failure), Int J Geriatr Psychiatry 2018;33:1428 | **not archived** | https://doi.org/10.1002/gps.4823 |
-| Flaherty 2011 — evaluation & management of delirium in older persons, Med Clin North Am 2011;95:555 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/21549878/ |
-| Inouye & Charpentier 1996 — precipitating-factor model, JAMA 1996;275:852 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8596223/ |
+| Maldonado 2018 — delirium pathophysiology (acute brain failure), Int J Geriatr Psychiatry 2018;33:1428 (PMID 29278283) | **not archived** (paywalled) | https://doi.org/10.1002/gps.4823 |
+| Flaherty 2011 — evaluation & management of delirium in older persons, Med Clin North Am 2011;95:555 (PMID 21549878) | **not archived** (paywalled) | https://doi.org/10.1016/j.mcna.2011.02.005 |
+| Inouye & Charpentier 1996 — precipitating-factor model, JAMA 1996;275:852 (PMID 8596223) | `inouye-1996-precipitating-factors-jama.pdf` | https://doi.org/10.1001/jama.1996.03530350034031 |
 
 ## Treatment / Medications
 
 | Source | Local file | Canonical URL |
 |---|---|---|
-| AGS Beers Criteria 2023, JAGS 2023;71:2052 (PMID 37139824) | `beers-2023-uconn-tables-summary.pdf` — **criteria-tables summary** (UConn Health Dept. of Pharmacy reproduction of Tables 2–10, last updated 11/02/2023), not the JAGS full text | https://doi.org/10.1111/jgs.18372 |
+| AGS Beers Criteria 2023 — JAGS full text, JAGS 2023;71:2052 (PMID 37139824) | `ags-2023-beers-criteria-jags.pdf` | https://doi.org/10.1111/jgs.18372 |
+| AGS Beers Criteria 2023 — **criteria-tables summary** (UConn Health Dept. of Pharmacy reproduction of Tables 2–10, last updated 11/02/2023); use the JAGS full text above for the criteria themselves | `beers-2023-uconn-tables-summary.pdf` | https://doi.org/10.1111/jgs.18372 |
 | AGS Beers Criteria Alternatives 2025, JAGS 2025;73:2657 (PMID 40697073) | `ags-2025-ags-beers-criteria.pdf` | https://doi.org/10.1111/jgs.19500 |
 | Haloperidol prescribing information (DailyMed) | `haloperidol-label-dailymed.pdf` | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f |
+| Quetiapine (SEROQUEL) prescribing information (DailyMed, AstraZeneca, SPL v50); §5.7 states orthostatic hypotension outright, while §5.12 records no persistent QT increase in clinical trials and concentrates the QT concern in overdose, concomitant illness, co-administered QT-prolonging drugs, and named risk groups | `quetiapine-label-dailymed.pdf` | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=0584dda8-bc3c-48fe-1a90-79608f78e8a0 |
 | Girard 2018 — MIND-USA (haloperidol/ziprasidone do not treat delirium), NEJM 2018;379:2506 | `girard-2018-mind-usa-haloperidol.pdf` | https://doi.org/10.1056/NEJMoa1808217 |
-| Clegg & Young 2011 — deliriogenic-medication systematic review, Age Ageing 2011;40:23 | **not archived** (paywalled) | https://doi.org/10.1093/ageing/afq140 |
-| Pandharipande 2006 — lorazepam as independent delirium risk factor, Anesthesiology 2006;104:21 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/16394685/ |
-| Boustani 2008 — Anticholinergic Cognitive Burden (ACB) scale, Aging Health 2008;4:311 | **not archived** | https://doi.org/10.2217/1745509X.4.3.311 |
-| Tang 2025 — melatonin for delirium meta-analysis, CCM 2025;53:e1714 | **not archived** | https://doi.org/10.1097/CCM.0000000000006767 |
-| Precedex (dexmedetomidine) prescribing information (DailyMed) | **not archived** | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74 |
+| Clegg & Young 2011 — deliriogenic-medication systematic review, Age Ageing 2011;40:23 (PMID 21068014) | **not archived** (paywalled) | https://doi.org/10.1093/ageing/afq140 |
+| Pandharipande 2006 — lorazepam as independent delirium risk factor, Anesthesiology 2006;104:21 (PMID 16394685) | **not archived** (paywalled) | https://doi.org/10.1097/00000542-200601000-00005 |
+| Boustani 2008 — Anticholinergic Cognitive Burden (ACB) scale, Aging Health 2008;4:311 | **not archived** (paywalled) | https://doi.org/10.2217/1745509X.4.3.311 |
+| Tang 2025 — melatonin use in the ICU, systematic review & meta-analysis, CCM 2025;53:e1714 (PMID 40662882) | **not archived** (paywalled) | https://doi.org/10.1097/CCM.0000000000006767 |
+| Precedex (dexmedetomidine) prescribing information (DailyMed) | `stepdown/dexmedetomidine-label-dailymed.pdf` | https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4419162d-81d4-49bd-96de-1729440bdb74 |
 | Hughes 2021 — MENDS2 dex vs propofol, NEJM 2021;384:1424 | `hughes-2021-mends2-dex-vs-propofol-nejm.pdf` | https://doi.org/10.1056/NEJMoa2024922 |
 | Walsh 2025 — A2B dexmedetomidine/clonidine vs propofol RCT, JAMA 2025;334:32 (PMID 40388916) | `walsh-2025-a2b-dexmedetomidine-clonidine.pdf` | https://doi.org/10.1001/jama.2025.7200 |
 | Wibrow — ProMEDIC SAP (Trials 2021;22:7) — *supplement* | `wibrow-2021-promedic-sap-trials.pdf` | https://doi.org/10.1186/s13063-020-04981-0 |
 | Burry 2022 — ProMEDIC editorial, ICM 2022;48:479 — *commentary* | `burry-2022-promedic-editorial-icm.pdf` | https://doi.org/10.1007/s00134-022-06656-7 |
-| Wibrow 2022 — ProMEDIC melatonin RCT (main results), ICM 2022;48:414 | **not archived** (only SAP + editorial above) | https://doi.org/10.1007/s00134-022-06638-9 |
+| Wibrow 2022 — ProMEDIC melatonin RCT (main results), ICM 2022;48:414 (PMID 35220473) | **not archived** (paywalled; only SAP + editorial above) | https://doi.org/10.1007/s00134-022-06638-9 |
 | Dean 2004 — opioids in renal failure (morphine/hydromorphone metabolites), JPSM 2004;28:497 | `dean-2004-opioids-renal-failure.pdf` | https://doi.org/10.1016/j.jpainsymman.2004.02.021 |
-| Richmond 2012 — APA Project BETA verbal de-escalation consensus, West J Emerg Med 2012;13:17 | **not archived** (open access) | https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/ |
+| Richmond 2012 — APA Project BETA verbal de-escalation consensus, West J Emerg Med 2012;13:17 (PMID 22461917) | `richmond-2012-project-beta-de-escalation-wjem.pdf` | https://doi.org/10.5811/westjem.2011.9.6864 |
 | NICE NG10 — violence and aggression: short-term management | **not archived** (live guideline) | https://www.nice.org.uk/guidance/ng10 |
-| Galvin 2010 — EFNS Wernicke guideline (thiamine 200 mg IV TID, before carbohydrate), Eur J Neurol 2010;17:1408 | **not archived** | https://doi.org/10.1111/j.1468-1331.2010.03153.x |
-| Thomson 2002 — RCP Wernicke A&E guidance (500 mg IV TID regimen), Alcohol Alcohol 2002;37:513 | **not archived** | https://doi.org/10.1093/alcalc/37.6.513 |
+| Galvin 2010 — EFNS Wernicke guideline (thiamine 200 mg IV TID, before carbohydrate), Eur J Neurol 2010;17:1408 (PMID 20642790) | **not archived** (paywalled) | https://doi.org/10.1111/j.1468-1331.2010.03153.x |
+| Thomson 2002 — RCP Wernicke A&E guidance (500 mg IV TID regimen), Alcohol Alcohol 2002;37:513 (PMID 12414541) | **not archived** (paywalled) | https://doi.org/10.1093/alcalc/37.6.513 |
 | Singer 2019 — ESPEN ICU clinical nutrition guideline (thiamine in refeeding / at-risk), Clin Nutr 2019;38:48 | `singer-2019-espen-icu-clinical.pdf` | https://doi.org/10.1016/j.clnu.2018.08.037 |
-| ASAM 2020 — alcohol-withdrawal management guideline (thiamine/glucose order; scale selection in delirium), J Addict Med 2020;14(3S):1 | **not archived** | https://doi.org/10.1097/ADM.0000000000000668 |
+| ASAM 2020 — alcohol-withdrawal management guideline (thiamine/glucose order; scale selection in delirium), J Addict Med 2020;14(3S):1 (PMID 32511109) | **not archived** (paywalled) | https://doi.org/10.1097/ADM.0000000000000668 |
 | Nicolle 2019 — IDSA asymptomatic-bacteriuria guideline (delirium + bacteriuria → observe), Clin Infect Dis 2019;68:e83 | `nicolle-2019-idsa-asymptomatic-bacteriuria.pdf` | https://doi.org/10.1093/cid/ciy1121 |
 | CIWA-Ar scale reference (MDCalc, live web tool) | — (web tool, not archived) | https://www.mdcalc.com/calc/1736/ciwa-ar-alcohol-withdrawal |
 
@@ -88,9 +95,9 @@ Filenames follow `firstauthor-year-topic-venue.pdf`.
 |---|---|---|
 | van den Boogaard 2012 — PRE-DELIRIC, BMJ 2012;344:e420 | `vandenboogaard-2012-pre-deliric-bmj.pdf` | https://doi.org/10.1136/bmj.e420 |
 | Wassenaar 2015 — E-PRE-DELIRIC, ICM 2015;41:1048 | `wassenaar-2015-e-pre-deliric-icm.pdf` | https://doi.org/10.1007/s00134-015-3777-2 |
-| Zaal 2015 — ICU delirium risk-factor systematic review, CCM 2015;43:40 | **not archived** | https://doi.org/10.1097/CCM.0000000000000625 |
-| Inouye 1993 — admission predictive model, Ann Intern Med 1993;119:474 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8357112/ |
-| Marcantonio 1994 — postop prediction rule, JAMA 1994;271:134 | **not archived** | https://pubmed.ncbi.nlm.nih.gov/8264068/ |
+| Zaal 2015 — ICU delirium risk-factor systematic review, CCM 2015;43:40 (PMID 25251759) | **not archived** (paywalled) | https://doi.org/10.1097/CCM.0000000000000625 |
+| Inouye 1993 — admission predictive model, Ann Intern Med 1993;119:474 (PMID 8357112) | **not archived** (paywalled) | https://doi.org/10.7326/0003-4819-119-6-199309150-00005 |
+| Marcantonio 1994 — postop prediction rule, JAMA 1994;271:134 (PMID 8264068) | **not archived** (paywalled) | https://doi.org/10.1001/jama.1994.03510260066030 |
 | Pisani 2009 — days of delirium & 1-year mortality, AJRCCM 2009;180:1092 | `pisani-2009-days-delirium-1.pdf` | https://doi.org/10.1164/rccm.200904-0537OC |
 
 ## Pediatric Delirium (CAPD / pCAM-ICU / psCAM-ICU): /peds/
@@ -119,8 +126,8 @@ Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive, 
 |---|---|---|
 | Smith 2022 — SCCM PANDEM guideline, PCCM 2022;23:e74 (PMID 35119438) | `peds/smith-2022-pandem-guideline-pccm.pdf` | https://doi.org/10.1097/PCC.0000000000002873 |
 | Waak 2022 — PICUstars nurse-led PICU liberation protocol, BMC Pediatr 2022;22:279 | `peds/waak-2022-picustars-liberation-protocol-bmcpediatrics.pdf` | https://doi.org/10.1186/s12887-022-03232-2 |
-| Lin 2023 — PICU Liberation collaborative (ABCDEF), PCCM 2023;24:636 (PMID 37125798) | **not archived** | https://doi.org/10.1097/PCC.0000000000003262 |
-| Kudchadkar — PICU Up! multicenter early-mobility trial (protocol: Azamfirei, Trials 2023;24:191, PMID 36918956) | **not archived** | https://clinicaltrials.gov/study/NCT04989790 |
+| Lin 2023 — PICU Liberation collaborative (ABCDEF), PCCM 2023;24:636 (PMID 37125798) | **not archived** (paywalled) | https://doi.org/10.1097/PCC.0000000000003262 |
+| Azamfirei 2023 — PICU Up! multicenter early-mobility trial protocol, Trials 2023;24:191 (PMID 36918956; NCT04989790) | `peds/azamfirei-2023-picu-up-protocol-trials.pdf` | https://doi.org/10.1186/s13063-023-07206-2 |
 
 ### Treatment / medications
 
@@ -129,7 +136,7 @@ Vanderbilt/Cornell) and live only in the gitignored `references/peds/` archive, 
 | Capino 2020 — antipsychotics in pediatric ICU delirium, JPPT 2020;25:81 (PMC7025750) | `peds/capino-2020-antipsychotics-peds-delirium-jppt.pdf` | https://doi.org/10.5863/1551-6776-25.2.81 |
 | Joyce 2015 — quetiapine safety in PICU delirium, JCAP 2015;25:666 (PMID 26469214) | `peds/joyce-2015-quetiapine-peds-delirium-jcap.pdf` | https://doi.org/10.1089/cap.2015.0093 |
 | Madden 2024 — antipsychotic prescribing across PICUs (open access), JPIC 2024;13:46 (online 2021; PMID 38571986) | `peds/madden-2021-antipsychotic-prescribing-jpic.pdf` | https://doi.org/10.1055/s-0041-1736523 |
-| Cavagnero 2025 — antipsychotics for PICU delirium systematic review, Paediatr Drugs 2025;27:707 (PMID 40906237) | **not archived** | https://doi.org/10.1007/s40272-025-00716-3 |
+| Cavagnero 2025 — antipsychotics for PICU delirium systematic review, Paediatr Drugs 2025;27:707 (PMID 40906237) | **not archived** (paywalled) | https://doi.org/10.1007/s40272-025-00716-3 |
 | Phan & Nahata 2008 — dexmedetomidine in pediatric patients, Paediatr Drugs 2008;10:49 (PMID 18162008) | **not archived** (paywalled) | https://doi.org/10.2165/00148581-200810010-00006 |
 | Bruni 2015 — melatonin in pediatric neurology (dosing recommendations), EJPN 2015;19:122 | **not archived** (paywalled) | https://doi.org/10.1016/j.ejpn.2014.12.007 |
 
@@ -198,11 +205,11 @@ PDFs live only in the gitignored `references/ed/` archive, never committed.
 
 ## Adult Stepdown / Progressive Care Delirium — /stepdown/
 
-Sources for a planned adult stepdown / progressive-care (intermediate care,
-high-dependency) delirium screening reference — for patients transferred from the
-ICU and for direct admits to a monitored non-ICU bed. The article PDFs live only
-in the gitignored `references/stepdown/` archive, never committed; citations link
-to the canonical URL.
+Sources for the adult stepdown / progressive-care (intermediate care,
+high-dependency) delirium screening tool at `/stepdown/`, covering patients
+transferred from the ICU and direct admits to a monitored non-ICU bed. The
+article PDFs live only in the gitignored `references/stepdown/` archive, never
+committed; citations link to the canonical URL.
 
 ### Setting-native & closest-population evidence
 
@@ -226,7 +233,7 @@ to the canonical URL.
 | Sands 2021 — Single Question in Delirium (SQiD), BMC Cancer 2021;21:75 | `stepdown/sands-2021-sqid-bmccancer.pdf` | https://doi.org/10.1186/s12885-020-07504-x |
 | Gusmão-Flores 2012 — CAM-ICU & ICDSC diagnostic meta-analysis, Crit Care 2012;16:R115 | `stepdown/gusmao-flores-2012-camicu-icdsc-meta-critcare.pdf` | https://doi.org/10.1186/cc11407 |
 | Han 2014 — CAM-ICU validation in older ED patients, Acad Emerg Med 2014;21:180 (PMID 24673674) | `stepdown/han-2014-camicu-ed-validation-academ.pdf` | https://doi.org/10.1111/acem.12309 |
-| Ditzel 2024 — DeltaScan EEG-based acute-encephalopathy/delirium assessment, ICU & non-ICU, Am J Geriatr Psychiatry 2024;32:1093 | `stepdown/ditzel-2024-deltascan-eeg-validation-ajgp.pdf` | https://doi.org/10.1016/j.jagp.2023.12.005 |
+| Ditzel 2024 — DeltaScan EEG-based acute-encephalopathy/delirium assessment, ICU & non-ICU, Am J Geriatr Psychiatry 2024;32:1093 (cited in the methodology as the reason EEG-assisted assessment is out of scope: an EEG device sits outside the non-device boundary) | `stepdown/ditzel-2024-deltascan-eeg-validation-ajgp.pdf` | https://doi.org/10.1016/j.jagp.2023.12.005 |
 
 ### Arousal & severity
 
@@ -234,7 +241,7 @@ to the canonical URL.
 |---|---|---|
 | Chester 2012 — modified RASS (mRASS) serial screening on general-medicine wards, J Hosp Med 2012;7:450 (PMID 22173963) | `stepdown/chester-2012-mrass-serial-jhm.pdf` | https://doi.org/10.1002/jhm.1003 |
 | Han 2015 — RASS for detecting delirium in older ED patients, Acad Emerg Med 2015;22:878 (PMID 26113020) | `stepdown/han-2015-rass-ed-academ.pdf` | https://doi.org/10.1111/acem.12706 |
-| Khan 2017 — CAM-ICU-7 delirium severity scale, Crit Care Med 2017;45:851 (PMID 28263192; archived background — not currently cited by the tool) | `stepdown/khan-2017-camicu7-severity-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000002368 |
+| Khan 2017 — CAM-ICU-7 delirium severity scale, Crit Care Med 2017;45:851 (PMID 28263192; cited in the methodology as the reason a CAM-IMC severity scale is out of scope) | `stepdown/khan-2017-camicu7-severity-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000002368 |
 
 ### Risk prediction
 
@@ -265,8 +272,8 @@ to the canonical URL.
 | Source | Local file | Canonical URL |
 |---|---|---|
 | Wang 2017 — opioid-associated iatrogenic withdrawal in critically ill adults, Ann Intensive Care 2017;7:88 (PMID 28866754) | `stepdown/wang-2017-iatrogenic-withdrawal-annintensivecare.pdf` | https://doi.org/10.1186/s13613-017-0310-5 |
-| Rousseau 2021 — long-term outcomes after critical illness (PICS), Crit Care 2021;25:108 | `stepdown/rousseau-2021-pics-longterm-outcomes-critcare.pdf` | https://doi.org/10.1186/s13054-021-03535-3 |
-| Nakanishi 2024 — PICS follow-up system after hospital discharge (review), J Intensive Care 2024;12:2 | `stepdown/nakanishi-2024-pics-followup-system-jintensivecare.pdf` | https://doi.org/10.1186/s40560-023-00716-w |
+| Rousseau 2021 — long-term outcomes after critical illness (PICS), Crit Care 2021;25:108 (cited in the methodology as adjacent-but-out-of-scope)  | `stepdown/rousseau-2021-pics-longterm-outcomes-critcare.pdf` | https://doi.org/10.1186/s13054-021-03535-3 |
+| Nakanishi 2024 — PICS follow-up system after hospital discharge (review), J Intensive Care 2024;12:2 (cited in the methodology as adjacent-but-out-of-scope)  | `stepdown/nakanishi-2024-pics-followup-system-jintensivecare.pdf` | https://doi.org/10.1186/s40560-023-00716-w |
 
 ### Monitoring burden
 
@@ -278,22 +285,24 @@ to the canonical URL.
 
 | Source | Local file | Canonical URL |
 |---|---|---|
-| Li & You 2026 — correspondence on the under-recognition of hypoactive delirium, Anaesthesia 2026;81:444 | `stepdown/li-2026-hypoactive-delirium-overlooked-anaesthesia.pdf` | https://doi.org/10.1111/anae.70000 |
+| Li & You 2026 — correspondence on the under-recognition of hypoactive delirium, Anaesthesia 2026;81:444-5 | `stepdown/li-2026-hypoactive-delirium-overlooked-anaesthesia.pdf` | https://doi.org/10.1111/anae.16785 |
+| Gibbison & Pufulete 2026 — reply to the above (printed in the same file), Anaesthesia 2026;81:445-6 | `stepdown/li-2026-hypoactive-delirium-overlooked-anaesthesia.pdf` | https://doi.org/10.1111/anae.70035 |
 
 ### Still to source (paywalled — cited by URL, not archived)
 
 | Need | Why | URL |
 |---|---|---|
-| van Eijk 2011 — routine-practice CAM-ICU sensitivity, Am J Respir Crit Care Med 2011;184:340 (PMID 21562131) | the caveat that CAM-ICU sensitivity falls sharply in routine (non-research) use | https://doi.org/10.1164/rccm.201101-0065OC |
+| van Eijk 2011 — routine-practice CAM-ICU sensitivity, Am J Respir Crit Care Med 2011;184:340 (PMID 21562131) | the caveat that CAM-ICU sensitivity falls sharply in routine (non-research) use. Indexed as having a repository copy, but that handle is dead and every other deposit is closed — treat as paywalled | https://doi.org/10.1164/rccm.201101-0065OC |
 | Douglas 2013 — AWOL delirium prediction rule, J Hosp Med 2013;8:493 (PMID 23922253) | primary bedside risk score for direct admits | https://doi.org/10.1002/jhm.2062 |
 | Needham 2012 — PICS stakeholders' conference, Crit Care Med 2012;40:502 (PMID 21946660) | the defining reference for post-intensive care syndrome | https://doi.org/10.1097/CCM.0b013e318232da75 |
 | Mitasova 2012 — CAM-ICU validation on a stroke unit, Crit Care Med 2012;40:484 (PMID 22001583) | monitored non-ICU (stroke-unit) validation of the CAM-ICU | https://doi.org/10.1097/CCM.0b013e318232da12 |
 
-The vulnerability × precipitant framework for this population (Inouye 1993 admission
-model; Inouye & Charpentier 1996 precipitating-factor model) is listed, not archived,
-in the Risk and DELIRIUM Factors sections above. Multicomponent prevention (Inouye
-1999 HELP; Hshieh 2015 meta-analysis) and the ICU screening/liberation guidelines
-(Devlin 2018 PADIS; Pun 2019 ABCDEF) are archived in the sections above.
+The vulnerability × precipitant framework for this population sits in the sections
+above: Inouye & Charpentier 1996 (precipitating-factor model) is archived under
+DELIRIUM Factors; Inouye 1993 (admission model) is paywalled and cited by URL under
+Risk. Multicomponent prevention (Inouye 1999 HELP; Hshieh 2015 meta-analysis) and the
+ICU screening/liberation guidelines (Devlin 2018 PADIS; Pun 2019 ABCDEF) are archived
+in the sections above.
 
 ## Bonus papers (archived; not yet wired into the tool, useful extras)
 
@@ -311,8 +320,7 @@ in the Risk and DELIRIUM Factors sections above. Multicomponent prevention (Inou
 
 | Need | Why | URL |
 |---|---|---|
-| Sessler 2002 RASS (AJRCCM 2002;166:1338) | the archived "Sessler" file is actually the Tadrisi Persian study | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
-| AGS Beers 2023 **JAGS full text** (71:2052) | the archived file is the UConn criteria-tables summary, not the article | https://doi.org/10.1111/jgs.18372 |
+| Sessler 2002 RASS (AJRCCM 2002;166:1338, PMID 12421743) | the archived "Sessler" file is actually the Tadrisi Persian study | https://doi.org/10.1164/rccm.2107138 |
 | ProMEDIC **main RCT** (Wibrow 2022, ICM 2022;48:414) | only the SAP + editorial are archived | https://doi.org/10.1007/s00134-022-06638-9 |
 | Inouye 1993 / Marcantonio 1994 / Krewulak 2018 | paywalled; cited by URL | (see tables above) |
 

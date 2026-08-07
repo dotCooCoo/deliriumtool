@@ -245,12 +245,9 @@ export const STEPDOWN_FOOTER_CITES = {
     'neufeld2016',
     'nice_cg103',
   ],
-  'stepdown-workflow': [
-    'beyer2024_camimc',
-    'martinez2012',
-    'siddiqi2016',
-    'oh2019',
-    'nikooie2019',
-    'nice_cg103',
-  ],
+  // The poster covers screening, the arousal gate, CAM-IMC scoring, risk and
+  // act. It carries no antipsychotic line, so the two antipsychotic reviews are
+  // not listed here; they belong to the card set's act-on-a-positive column,
+  // which does make that statement.
+  'stepdown-workflow': ['beyer2024_camimc', 'martinez2012', 'siddiqi2016', 'nice_cg103'],
 };

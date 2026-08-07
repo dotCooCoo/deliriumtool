@@ -41,10 +41,40 @@ export const REFS = {
     c: 'Kuczmarska A, et al. Detection of delirium in hospitalized older general medicine patients: a comparison of the 3D-CAM and CAM-ICU. J Gen Intern Med 2016;31:297.',
     u: 'https://doi.org/10.1007/s11606-015-3514-0',
   },
+  neufeld2013_postop: {
+    l: 'Neufeld 2013 (postoperative screening)',
+    c: 'Neufeld KJ, et al. Evaluation of two delirium screening tools for detecting post-operative delirium in the elderly. Br J Anaesth 2013;111:612.',
+    u: 'https://doi.org/10.1093/bja/aet167',
+  },
+  gusmaoflores2012: {
+    l: 'Gusmão-Flores 2012 (CAM-ICU meta-analysis)',
+    c: 'Gusmão-Flores D, et al. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care 2012;16:R115.',
+    u: 'https://doi.org/10.1186/cc11407',
+  },
+  rousseau2021_pics: {
+    l: 'Rousseau 2021 (PICS)',
+    c: 'Rousseau AF, Prescott HC, Brett SJ, et al. Long-term outcomes after critical illness: recent insights. Crit Care 2021;25:108.',
+    u: 'https://doi.org/10.1186/s13054-021-03535-3',
+  },
+  nakanishi2024_picsfollowup: {
+    l: 'Nakanishi 2024 (PICS follow-up)',
+    c: 'Nakanishi N, Liu K, Hatakeyama J, et al. Post-intensive care syndrome follow-up system after hospital discharge: a narrative review. J Intensive Care 2024;12:2.',
+    u: 'https://doi.org/10.1186/s40560-023-00716-w',
+  },
+  mariz2013_edimcu: {
+    l: 'Mariz 2013 (intermediate care)',
+    c: 'Mariz J, Santos NC, Afonso H, et al. Risk and clinical-outcome indicators of delirium in an emergency department intermediate care unit (EDIMCU): an observational prospective study. BMC Emerg Med 2013;13:2.',
+    u: 'https://doi.org/10.1186/1471-227X-13-2',
+  },
   martinez2012: {
     l: 'Martinez 2012 (ward risk rule)',
     c: 'Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599.',
     u: 'https://doi.org/10.1136/bmjopen-2012-001599',
+  },
+  marcantonio2022_ubcam: {
+    l: 'Marcantonio 2022 (UB-CAM implementation)',
+    c: 'Marcantonio ER, et al. Comparative implementation of a brief app-directed protocol for delirium identification by hospitalists, nurses, and nursing assistants. Ann Intern Med 2022;175:65.',
+    u: 'https://doi.org/10.7326/M21-1687',
   },
   siddiqi2016: {
     l: 'Siddiqi 2016 (Cochrane)',

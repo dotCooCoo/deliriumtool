@@ -34,6 +34,21 @@ export const DELIRIUM_REFS = {
     c: 'Ely EW, Truman B, Shintani A, et al. Monitoring sedation status over time in ICU patients: reliability and validity of the RASS. JAMA. 2003;289(22):2983-2991.',
     u: 'https://doi.org/10.1001/jama.289.22.2983',
   },
+  gusmaoflores2012: {
+    l: 'Gusmão-Flores 2012',
+    c: 'Gusmão-Flores D, Salluh JI, Chalhub RÁ, Quarantini LC. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care. 2012;16(4):R115. (Nine CAM-ICU studies, 969 patients: pooled sensitivity 80.0%, specificity 95.9%; sensitivity lower in hypoactive delirium.)',
+    u: 'https://doi.org/10.1186/cc11407',
+  },
+  han2014_camicu_ed: {
+    l: 'Han 2014',
+    c: 'Han JH, Wilson A, Graves AJ, et al. Validation of the Confusion Assessment Method for the Intensive Care Unit in older emergency department patients. Acad Emerg Med. 2014;21(2):180-187. (Highly specific but modestly sensitive in older ED patients; specificity falls significantly in documented dementia.)',
+    u: 'https://doi.org/10.1111/acem.12309',
+  },
+  wei2008_cam: {
+    l: 'Wei 2008',
+    c: 'Wei LA, Fearing MA, Sternberg EJ, Inouye SK. The Confusion Assessment Method: a systematic review of current usage. J Am Geriatr Soc. 2008;56(5):823-830. (Pooled sensitivity 94%, specificity 89% across seven high-quality validation studies; advises against the CAM as the sole means of identification.)',
+    u: 'https://doi.org/10.1111/j.1532-5415.2008.01674.x',
+  },
   hayhurst2016: {
     l: 'Hayhurst 2016',
     c: 'Hayhurst CJ, Pandharipande PP, Hughes CG. ICU delirium: a review of diagnosis, prevention, and treatment. Anesthesiology. 2016;125(6):1229-1241.',

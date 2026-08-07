@@ -48,6 +48,10 @@ export const CAMIMC = {
   full: 'Confusion Assessment Method for Intermediate Care Unit',
   positiveAt: 3,
   maxScore: 10,
+  // The admission-screening cadence is carried in the tool page's screening
+  // panel, not on the printed card, so Mariz 2013 is cited there and is not in
+  // this list: these keys feed the template source list, which must name only
+  // what the card itself states.
   cites: ['beyer2024_camimc'],
   acute: {
     points: 1,

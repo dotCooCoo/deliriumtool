@@ -99,8 +99,21 @@ export function restore(root, data) {
       const k = el.dataset.k;
       if (!Object.prototype.hasOwnProperty.call(controls, k)) return;
       const v = controls[k];
-      if (el.type === 'checkbox') el.checked = v === true;
-      else el.value = asText(v);
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        el.checked = v === true;
+      } else if (el.tagName === 'SELECT') {
+        // Only accept a value the control actually offers — a hand-edited export
+        // cannot make a dropdown display an option that isn't there.
+        const text = asText(v);
+        if (Array.from(el.options).some((o) => o.value === text)) el.value = text;
+      } else if (el.type === 'number' || el.type === 'range') {
+        const n = Number(v);
+        const min = el.min === '' ? -Infinity : Number(el.min);
+        const max = el.max === '' ? Infinity : Number(el.max);
+        if (Number.isFinite(n) && n >= min && n <= max) el.value = String(n);
+      } else {
+        el.value = asText(v);
+      }
     });
   }
 

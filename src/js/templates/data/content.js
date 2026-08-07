@@ -125,7 +125,10 @@ export const STATUS = {
     lines: ['Avoid deep sedation unless clinically required.', 'Daily SAT/SBT when feasible.'],
   },
   cam: {
-    cites: ['camicu_worksheet', 'ely2001'],
+    // The worksheet carries the four features and the overall rule; the RASS
+    // −4/−5 stop is stated in the training manual, not the worksheet, so the
+    // "unable to assess" option is attributed there.
+    cites: ['camicu_worksheet', 'camicu_manual', 'ely2001'],
     options: ['Positive — delirium present', 'Negative', 'Unable to assess (RASS −4/−5)'],
   },
   subtype: {

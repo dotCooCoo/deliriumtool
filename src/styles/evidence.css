@@ -561,15 +561,6 @@
   color: var(--c-text-3);
   font-style: italic;
 }
-.ev-para-warn {
-  margin: 0.2rem 0;
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  color: color-mix(in srgb, var(--c-caution) 55%, #3a2a00);
-  background: var(--c-caution-weak);
-  border-radius: var(--radius-sm);
-  padding: 0.25rem 0.45rem;
-}
 .ev-srcblock-q {
   margin: 0;
   padding-left: 0.7rem;

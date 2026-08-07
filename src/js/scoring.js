@@ -76,8 +76,13 @@ export function riskActions(score) {
 // ─── CAM-ICU ────────────────────────────────────────────────────────────────
 // Inattention is positive at > 2 errors on the SAVEAHAART letters task (or the
 // 10-item Pictures ASE, > 2/10 — same cut-point). See docs §2.2.
+// An error count outside the 0–10 task range (only reachable from a corrupted
+// import, never the clamped UI) is indeterminate → null, so it cannot assert a
+// definite "no inattention".
 export function inattentionPositive(errors) {
-  return Number(errors) > 2;
+  const n = Number(errors);
+  if (!Number.isInteger(n) || n < 0 || n > 10) return null;
+  return n > 2;
 }
 
 /**
@@ -179,5 +184,8 @@ export function rassTone(rass, target) {
 // ─── Checklist completion ───────────────────────────────────────────────────
 /** Percent complete (0–100, rounded) — used by the ABCDEF bundle and DELIRIUM(S) strips. */
 export function pct(on, total) {
-  return total ? Math.round((on / total) * 100) : 0;
+  const o = Number(on),
+    t = Number(total);
+  if (!Number.isFinite(o) || !Number.isFinite(t) || t <= 0) return 0;
+  return Math.max(0, Math.min(100, Math.round((o / t) * 100)));
 }
