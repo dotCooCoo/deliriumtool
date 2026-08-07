@@ -48,11 +48,11 @@ export const CAMIMC = {
   full: 'Confusion Assessment Method for Intermediate Care Unit',
   positiveAt: 3,
   maxScore: 10,
-  // Delirium in intermediate care is largely present on arrival rather than
-  // acquired later (Mariz 2013), so the first screen belongs at admission.
-  cadence:
-    'Screen on arrival in the unit, then per unit protocol and with any change in mental status.',
-  cites: ['beyer2024_camimc', 'mariz2013_edimcu'],
+  // The admission-screening cadence is carried in the tool page's screening
+  // panel, not on the printed card, so Mariz 2013 is cited there and is not in
+  // this list: these keys feed the template source list, which must name only
+  // what the card itself states.
+  cites: ['beyer2024_camimc'],
   acute: {
     points: 1,
     prompt:
