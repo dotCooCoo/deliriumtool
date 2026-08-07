@@ -112,7 +112,7 @@
        "highlight": "If a patient requires deep sedation or has a high risk of bradycardia, alternative sedative agents should be considered",
        "scope": "different-intervention",
        "note": "The guideline mentions deep sedation only as a reason to select an alternative sedative agent (a different intervention, agent choice), not as guidance to avoid a sedation depth.",
-       "page": "5",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -749,7 +749,7 @@
        "highlight": "Hypoactive delirium was more common and persistent than hyperactive delirium (71% vs 17%; median 3 vs 1 d)",
        "scope": "on-scope",
        "note": "Cohort finding corroborating 'most common' (hypoactive 71% vs hyperactive 17%), consistent with la Cour's pooled ranking.",
-       "page": "2",
+       "page": "e488",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000004313"
       },
       {
@@ -757,7 +757,7 @@
        "highlight": "reduced activity, apathy, decreased amount or speed of speech, decreased alertness, unawareness, or hypersomnolence",
        "scope": "on-scope",
        "note": "Characterizes hypoactive delirium (reduced activity, hypersomnolence) — supports the 'somnolent, quiet' descriptor.",
-       "page": "2",
+       "page": "e488",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000004313"
       },
       {
@@ -765,7 +765,7 @@
        "highlight": "majority of hypoactive delirium will go undiagnosed without routine screening",
        "scope": "on-scope",
        "note": "Directly supports 'easily missed' — hypoactive delirium is missed absent routine ICU screening.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000004313"
       },
       {
@@ -773,7 +773,7 @@
        "highlight": "postoperative and hospital settings, patients with hypoactive delirium have greater risk",
        "scope": "different-setting",
        "note": "Nearest keyword match but a different scope: postoperative/hospital settings (not ICU) and about complications/mortality, not prevalence — must not be read as support for 'most common'.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000004313"
       }
      ]
@@ -2071,7 +2071,7 @@
        "highlight": "is promoting sleep hygiene to prevent sleep disruption and the use of early and progressive mobilization",
        "scope": "different-intervention",
        "note": "Nearest ICU non-pharm paragraph, but it endorses sleep hygiene + progressive mobilization as the strongly recommended measures, not verbal reorientation.",
-       "page": "7",
+       "page": "228",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       },
       {
@@ -2264,7 +2264,7 @@
        "highlight": "Family members and surrogate decision makers must become active partners in multi-professional decision-making and treatment planning",
        "scope": "broader",
        "note": "Bundle element F framed as family engagement/empowerment (shared decision-making, ICU rounds, family conferences) — the parent concept, broader than and distinct from familiar-voice reorientation.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       }
      ]
@@ -2439,7 +2439,7 @@
        "highlight": "visual aids (e.g., glasses or magnifying lenses)",
        "scope": "on-scope",
        "note": "Standardized vision protocol directly describing provision of glasses; note the study population is hospitalized older patients on general-medicine units, not ICU.",
-       "page": "3",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       }
      ]
@@ -2483,7 +2483,7 @@
        "highlight": "promoting sleep hygiene to prevent sleep disruption and the use of early and progressive mobilization",
        "scope": "different-intervention",
        "note": "Nearest match on nonpharmacologic ICU delirium prevention, but it emphasizes sleep hygiene and mobilization — not glasses — so it must not be read as direct support for the sensory item.",
-       "page": "7",
+       "page": "228",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       }
      ]
@@ -2962,7 +2962,7 @@
        "highlight": "We suggest using noise and light reduction strategies to improve sleep in critically ill adults (conditional recommendation, low quality of evidence).",
        "scope": "on-scope",
        "note": "Direct guideline recommendation for the exact intervention (noise and light reduction at night) in the exact population (critically ill adults).",
-       "page": "34",
+       "page": "e857",
        "docUrl": "https://pubmed.ncbi.nlm.nih.gov/30113379/"
       },
       {
@@ -2970,7 +2970,7 @@
        "highlight": "Application of earplugs (vs no earplugs) to nonsedated, critically ill adults improved patient-reported sleep quality and reduced delirium",
        "scope": "on-scope",
        "note": "Rationale: reducing ICU noise and light at night (earplugs/eyeshades) improved sleep quality and reduced delirium in ICU adults.",
-       "page": "34",
+       "page": "e857",
        "docUrl": "https://pubmed.ncbi.nlm.nih.gov/30113379/"
       },
       {
@@ -3530,7 +3530,7 @@
        "highlight": "elements A, C, D, and E on all ICU days",
        "scope": "on-scope",
        "note": "Methods confirm element E (early mobility) was a tracked, performed bundle element for which patients were eligible on all ICU days.",
-       "page": "16",
+       "page": "4",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000003482"
       }
      ]
@@ -3548,7 +3548,7 @@
        "highlight": "Early mobility is an integral part of the ABCDEF bundle and has been the only intervention resulting in a decrease in days of delirium",
        "scope": "on-scope",
        "note": "States early mobility is an integral ABCDEF element and the only intervention shown to decrease days of delirium in the ICU.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       },
       {
@@ -3556,7 +3556,7 @@
        "highlight": "physical and occupational therapy, versus SAT alone, resulted in an improved return to independent functional status at hospital discharge, shorter duration of ICU-delirium",
        "scope": "on-scope",
        "note": "Cites the Schweickert RCT where SAT plus physical and occupational therapy improved functional recovery and shortened ICU-delirium — direct PT–OT support.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       },
       {
@@ -3564,7 +3564,7 @@
        "highlight": "Physical therapy is safe and feasible in the ICU, even while on mechanical ventilation, renal replacement therapy, and/or circulatory support",
        "scope": "on-scope",
        "note": "Key-points summary: early mobility is the only known intervention reducing delirium duration and physical therapy is safe and feasible in the ICU.",
-       "page": "15",
+       "page": "ms. p.15",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       }
      ]
@@ -3616,7 +3616,7 @@
        "highlight": "ambulation or active range-of-motion exercises three times daily",
        "scope": "different-setting",
        "note": "The claim's stated primary anchor: the HELP early-mobilization protocol, but in hospitalized older patients on a general-medicine service, not an ICU population.",
-       "page": "3",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
       {
@@ -3643,7 +3643,7 @@
        "highlight": "early mobilization",
        "scope": "different-setting",
        "note": "Describes HELP's early-mobilization component within multicomponent nonpharmacological prevention, but for hospitalized older patients rather than ICU.",
-       "page": "2",
+       "page": "513",
        "docUrl": "https://doi.org/10.1001/jamainternmed.2014.7779"
       },
       {
@@ -3651,7 +3651,7 @@
        "highlight": "acute medical and surgical wards in academic and community hospitals",
        "scope": "different-setting",
        "note": "The meta-analysis population is acute medical/surgical wards (mean age 79.7), a non-ICU setting — shares the early-mobility keyword but is a different scope than the ICU tool.",
-       "page": "4",
+       "page": "515",
        "docUrl": "https://doi.org/10.1001/jamainternmed.2014.7779"
       }
      ]
@@ -3910,7 +3910,7 @@
        "highlight": "minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints)",
        "scope": "on-scope",
        "note": "HELP's early-mobilization protocol explicitly prescribes minimal use of immobilizing equipment such as bladder catheters — the direct basis for the 'unneeded lines/catheters removed' item, though HELP was a general-medicine older-adult ward program, not an ICU.",
-       "page": "3",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       }
      ]
@@ -4748,7 +4748,7 @@
        "highlight": "eligible for element F if family or another caregiver was present",
        "scope": "on-scope",
        "note": "Operational definition: element F was credited when family or another caregiver was present, precisely matching 'Family present or contacted.'",
-       "page": "16",
+       "page": "4",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000003482"
       },
       {
@@ -4774,7 +4774,7 @@
        "highlight": "Family members and surrogate decision makers must become active partners in multi-professional decision-making and treatment planning",
        "scope": "on-scope",
        "note": "Opens the F: Family engagement section, defining family as active partners in ICU care and decision-making.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       },
       {
@@ -4782,7 +4782,7 @@
        "highlight": "Family presence on ICU rounds is beneficial",
        "scope": "on-scope",
        "note": "Directly supports family presence/contact at the bedside (rounds, family conferences, communication) as the F element in practice.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       },
       {
@@ -4790,7 +4790,7 @@
        "highlight": "family presence during CPR is associated with positive results on psychological variables",
        "scope": "different-intervention",
        "note": "Nearest keyword match but a distinct scenario (family witnessed resuscitation), not the routine engagement/contact the checklist item denotes.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1016/j.ccc.2016.12.005"
       }
      ]
@@ -4987,7 +4987,7 @@
        "highlight": "We are unable to issue a recommendation for or against the use of antipsychotics over usual care for the treatment of delirium in adult patients admitted to the ICU",
        "scope": "on-scope",
        "note": "Recommendation 3 verbatim - the exact 'unable to recommend for or against' antipsychotics position the claim cites.",
-       "page": "8",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -4995,7 +4995,7 @@
        "highlight": "all potential benefits were of low certainty evidence, in part due to imprecision",
        "scope": "on-scope",
        "note": "Evidence-to-recommendation rationale — any apparent benefit is only low-certainty, so no benefit is established.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -5003,7 +5003,7 @@
        "highlight": "A total of eight RCTs (58-65) enrolling 1869 adult ICU patients administered antipsychotics compared with no antipsychotic",
        "scope": "on-scope",
        "note": "Pooled evidence summary — effect on duration of delirium is uncertain, supporting 'not shown to shorten delirium.'",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -5011,7 +5011,7 @@
        "highlight": "the use of antipsychotics to treat delirium",
        "scope": "on-scope",
        "note": "Abstract-level restatement of the no-recommendation on antipsychotics for delirium.",
-       "page": "1",
+       "page": "ms. p.1",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -5019,7 +5019,7 @@
        "highlight": "We suggest not routinely using haloperidol or an atypical antipsychotic, to treat delirium",
        "scope": "background",
        "note": "This is the reproduced PADIS 2018 recommendation shown in the 2025 comparison table, not the 2025 position itself.",
-       "page": "8",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -5037,7 +5037,7 @@
        "highlight": "there was no evidence that either haloperidol or ziprasidone led to a shorter duration of delirium and coma",
        "scope": "on-scope",
        "note": "Discussion — the trial's core efficacy finding for ICU delirium.",
-       "page": "10",
+       "page": "ms. p.10",
        "docUrl": "https://doi.org/10.1056/NEJMoa1808217"
       },
       {
@@ -5045,7 +5045,7 @@
        "highlight": "we found no evidence that the use of haloperidol (up to 20 mg daily) or ziprasidone (up 40 mg daily) had an effect on the duration of delirium",
        "scope": "on-scope",
        "note": "Formal trial conclusion — no effect on delirium duration.",
-       "page": "11",
+       "page": "ms. p.11",
        "docUrl": "https://doi.org/10.1056/NEJMoa1808217"
       },
       {
@@ -5053,7 +5053,7 @@
        "highlight": "did not significantly alter the duration of delirium",
        "scope": "on-scope",
        "note": "Abstract conclusion stating the primary negative efficacy result.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1056/NEJMoa1808217"
       }
      ]
@@ -5131,7 +5131,7 @@
        "highlight": "outcomes in patients who received dexmedetomidine did not differ from outcomes in those who received propofol",
        "scope": "different-intervention",
        "note": "Compares two sedatives, not antipsychotics; cited for the section's sedation approach, not for the antipsychotic-efficacy statement.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1056/NEJMoa2024922"
       }
      ]
@@ -6064,7 +6064,7 @@
        "highlight": "discontinue antipsychotics that were newly initiated in the ICU upon discharge if no longer clinically required",
        "scope": "on-scope",
        "note": "Directly supports the claim: antipsychotics newly started in the ICU should be discontinued at discharge unless still clinically required.",
-       "page": "7",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -7043,7 +7043,7 @@
        "highlight": "using either propofol or dexmedetomidine over benzodiazepines for sedation in critically ill, mechanically ventilated adults",
        "scope": "on-scope",
        "note": "The 2025 update reproduces the 2018 recommendation verbatim in its carry-forward table, confirming the benzo-avoidance position remains the current guidance.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -7051,7 +7051,7 @@
        "highlight": "use dexmedetomidine over propofol for sedation",
        "scope": "different-intervention",
        "note": "The update's new recommendation compares the two nonbenzodiazepine agents (dexmedetomidine vs. propofol) - a different question than benzodiazepine avoidance.",
-       "page": "5",
+       "page": "ms. p.1",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -7059,7 +7059,7 @@
        "highlight": "dexmedetomidine probably reduced the prevalence of delirium (RR, 0.55; 95% CI, 0.37-0.81",
        "scope": "different-intervention",
        "note": "Delirium reduction here is dexmedetomidine vs propofol (both nonbenzodiazepines), not the benzo-vs-nonbenzo contrast in the claim.",
-       "page": "5",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -7758,7 +7758,7 @@
        "highlight": "using either propofol or dexmedetomidine over benzodiazepines for sedation",
        "scope": "background",
        "note": "The focused update lists the retained 2018 non-benzodiazepine sedation recommendation; it did not re-address deliriogenic-medication review, so that position remains the current guidance.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -7766,7 +7766,7 @@
        "highlight": "continuation of the chronic benzodiazepines upon admission to the ICU should be considered",
        "scope": "different-population",
        "note": "Caveat about patients on chronic benzodiazepines for baseline anxiety, warning against abrupt cessation, a nuance the blanket instruction to reduce benzodiazepines must not override.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -7784,7 +7784,7 @@
        "highlight": "Avoid in older adults with or at high risk of delirium because of the potential of inducing or worsening delirium.",
        "scope": "on-scope",
        "note": "The 2023 Beers Delirium criterion, whose drug list includes benzodiazepines, anticholinergics, and corticosteroids, recommends avoiding these classes in older adults with or at high risk of delirium, supporting the daily review to stop or reduce deliriogenic drugs.",
-       "page": "12",
+       "page": "2066",
        "docUrl": "https://pubmed.ncbi.nlm.nih.gov/37139824/"
       },
       {
@@ -7792,7 +7792,7 @@
        "highlight": "use the lowest possible dose for the shortest duration and monitor for delirium",
        "scope": "on-scope",
        "note": "Supports reducing/minimizing steroids where possible and monitoring for delirium, backing the 'steroids' element of the claim.",
-       "page": "12",
+       "page": "2066",
        "docUrl": "https://pubmed.ncbi.nlm.nih.gov/37139824/"
       },
       {
@@ -7817,9 +7817,9 @@
        "context": "Rationale: Delirium is defined as acute organic brain dysfunction characterised by inattention and disturbance of cognition. It is common in the intensive care unit and is associated with poorer outcomes. Good quality sleep is important in the prevention and management of delirium. Melatonin is a natural hormone secreted by the pineal gland which helps in the regulation of the sleep-wake cycle. It is possible that melatonin supplementation in intensive care improves sleep and prevents delirium. Methods and design: The `Prophylactic Melatonin for Delirium in Intensive Care' study is a multi-centre, randomised, double-blinded, placebo-controlled trial. The primary objective of this study is to determine whether melatonin given prophylactically decreases delirium in critically ill patients. A total of 850 ICU patients have been randomised (1:1) to receive either melatonin or a placebo. Participants were monitored twice daily for symptoms of delirium.",
        "highlight": "melatonin given prophylactically decreases delirium in critically ill patients",
        "scope": "different-intervention",
-       "note": "A melatonin-prophylaxis RCT (statistical analysis plan) that tests adding a drug to prevent delirium, a different intervention from deprescribing deliriogenic drugs; it does not address the claim's medication-review action.",
-       "page": "2",
-       "docUrl": "https://doi.org/10.1007/s00134-022-06638-9"
+       "note": "Quoted from the trial's published statistical analysis plan (Wibrow B, et al. Trials. 2021;22:7), which is the Pro-MEDIC document held here; the main trial report is not archived. It states the trial's subject, which is melatonin for delirium prevention rather than the medication review this item asks for.",
+       "page": "Analysis plan, p. 1",
+       "docUrl": "https://doi.org/10.1186/s13063-020-04981-0"
       }
      ]
     },
@@ -8152,7 +8152,7 @@
        "highlight": "We suggest administering melatonin over no melatonin in adult patients admitted to the ICU",
        "scope": "on-scope",
        "note": "Recommendation 5 - the conditional (for intervention; low certainty) recommendation to administer melatonin, directly supporting the claim; the certainty parenthetical is split across a column break so the clean clause is used.",
-       "page": "9",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -8160,7 +8160,7 @@
        "highlight": "Melatonin may reduce the prevalence of delirium (RR, 0.70; 95% CI, 0.57-0.87; low certainty)",
        "scope": "on-scope",
        "note": "Pooled evidence summary: melatonin may reduce delirium prevalence, low certainty — the basis for the recommendation.",
-       "page": "9",
+       "page": "ms. p.10",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -8176,7 +8176,7 @@
        "highlight": "The conditional recommendation favoring melatonin is based on the reduction of delirium prevalence and perceived improvement in sleep quality balanced against the low risk of adverse events",
        "scope": "on-scope",
        "note": "States the rationale — reduced delirium prevalence and perceived sleep improvement weighed against low adverse-event risk.",
-       "page": "9",
+       "page": "ms. p.10",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -8184,7 +8184,7 @@
        "highlight": "There was significant heterogeneity of included trials in terms of dose, duration, and frequency of melatonin which limits specific recommendations for administration",
        "scope": "on-scope",
        "note": "Supports 'dose per local practice' — the guideline declined a specific dose because of trial heterogeneity.",
-       "page": "9",
+       "page": "ms. p.10",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -8624,7 +8624,7 @@
        "highlight": "visual aids (e.g., glasses or magnifying lenses)",
        "scope": "on-scope",
        "note": "HELP Table 1 vision protocol defines the statement's \"glasses\" intervention (visual aids with daily reinforcement of their use).",
-       "page": "3",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
       {
@@ -8632,7 +8632,7 @@
        "highlight": "portable amplifying devices, earwax disimpaction, and special communication techniques",
        "scope": "on-scope",
        "note": "HELP Table 1 hearing protocol defines the statement's \"hearing aids\" intervention (portable amplifying devices).",
-       "page": "3",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
       {
@@ -8640,7 +8640,7 @@
        "highlight": "board with names of care-team members and day's schedule; communication to reorient to surroundings",
        "scope": "on-scope",
        "note": "HELP Table 1 orientation protocol is the reorientation board the statement operationalizes; source specifies daily reinforcement rather than a per-shift cadence.",
-       "page": "3",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
       {
@@ -8648,7 +8648,7 @@
        "highlight": "amenable to intervention strategies considered feasible in the context of current hospital practice",
        "scope": "on-scope",
        "note": "Supports \"sensory deprivation is reversible\": visual and hearing impairment are among the modifiable risk factors amenable to intervention. Population is hospitalized medical patients aged 70+, not ICU-specific.",
-       "page": "2",
+       "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       }
      ]
@@ -9671,7 +9671,7 @@
        "highlight": "dexmedetomidine probably reduced the prevalence of delirium",
        "scope": "on-scope",
        "note": "2025 focused-update evidence: in ventilated ICU adults titrated to light sedation, dexmedetomidine probably reduced the prevalence of delirium versus propofol.",
-       "page": "5",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -9679,7 +9679,7 @@
        "highlight": "Compared with propofol, dexmedetomidine probably reduced the prevalence of delirium (RR, 0.55; 95% CI, 0.37-0.81",
        "scope": "on-scope",
        "note": "29-RCT meta-analysis (dex vs propofol): delirium prevalence reduced (RR 0.55); the same summary reports dexmedetomidine probably increases bradycardia with little-to-no difference in hypotension - grounds 'reduces delirium' and the bradycardia/hypotension monitoring caveat.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -9687,7 +9687,7 @@
        "highlight": "If a patient requires deep sedation or has a high risk of bradycardia, alternative sedative agents should be considered",
        "scope": "on-scope",
        "note": "Supports the monitoring caveat — consider alternative agents when bradycardia risk is high.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -9695,7 +9695,7 @@
        "highlight": "We suggest using either propofol or dexmedetomidine over benzodiazepines for sedation in critically ill, mechanically ventilated adults",
        "scope": "broader",
        "note": "The 2018 recommendation recapped in the 2025 update - dexmedetomidine OR propofol over benzodiazepines. It is the only place a benzodiazepine comparator appears; it bundles dexmedetomidine with propofol and makes no delirium-reduction claim, while the 2025 delirium data compare dexmedetomidine with propofol.",
-       "page": "8",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -9721,7 +9721,7 @@
        "highlight": "we did not find evidence that sedation with dexmedetomidine led to more days alive without acute brain dysfunction than propofol",
        "scope": "different-intervention",
        "note": "Null primary result: no difference from propofol in days alive without delirium or coma, so it does not support a delirium-reduction claim, and the comparator is propofol rather than a benzodiazepine.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1056/NEJMoa2024922"
       },
       {
@@ -9729,7 +9729,7 @@
        "highlight": "Symptomatic bradycardia requiring discontinuation of the trial drug was similar in the two groups",
        "scope": "different-intervention",
        "note": "Hypotension and symptomatic bradycardia were similar to propofol here (vs the increased bradycardia PADIS reports for dex-vs-propofol) — relevant to the monitoring caveat but from a propofol comparator, not benzodiazepine.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1056/NEJMoa2024922"
       }
      ]
@@ -9842,7 +9842,7 @@
        "highlight": "using either propofol or dexmedetomidine over benzodiazepines for sedation",
        "scope": "on-scope",
        "note": "Restated 2018 recommendation naming propofol as an accepted sedative (over benzodiazepines) for ventilated ICU adults, supporting 'propofol acceptable'.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -9850,7 +9850,7 @@
        "highlight": "use dexmedetomidine over propofol for sedation",
        "scope": "on-scope",
        "note": "The focused-update recommendation conditionally prefers dexmedetomidine over propofol when light sedation/delirium reduction are prioritized - a nuance the bedside line 'propofol acceptable' simplifies.",
-       "page": "5",
+       "page": "ms. p.1",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -9858,7 +9858,7 @@
        "highlight": "If a patient requires deep sedation or has a high risk of bradycardia, alternative sedative agents should be considered",
        "scope": "on-scope",
        "note": "Confirms propofol remains appropriate where deep sedation is required or bradycardia risk is high (with comparable cost), reinforcing propofol acceptability.",
-       "page": "7",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -10013,7 +10013,7 @@
        "highlight": "using either propofol or dexmedetomidine over benzodiazepines for sedation in critically ill, mechanically ventilated adults",
        "scope": "on-scope",
        "note": "Directly supports avoiding benzodiazepines (midazolam/lorazepam) for routine sedation: the guideline suggests propofol or dexmedetomidine over benzodiazepines in mechanically ventilated adults.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -10021,7 +10021,7 @@
        "highlight": "use dexmedetomidine over propofol for sedation",
        "scope": "different-intervention",
        "note": "Nearest sedation recommendation in the 2025 update, but it compares two nonbenzodiazepines (dexmedetomidine vs. propofol) and does not itself address benzodiazepine avoidance.",
-       "page": "5",
+       "page": "ms. p.1",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -10047,7 +10047,7 @@
        "highlight": "use of either dexmedetomidine or propofol for light sedation",
        "scope": "on-scope",
        "note": "The trial's own conclusion reinforces the guideline recommending dexmedetomidine or propofol (non-benzodiazepines) for light sedation, supporting benzodiazepine avoidance.",
-       "page": "10",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1056/NEJMoa2024922"
       },
       {
@@ -10055,7 +10055,7 @@
        "highlight": "dexmedetomidine leads to better short-term and long-term outcomes than propofol",
        "scope": "different-intervention",
        "note": "MENDS2's own randomized comparison is dexmedetomidine vs propofol (two non-benzodiazepines) in sepsis, so it provides no head-to-head evidence on avoiding benzodiazepines.",
-       "page": "5",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1056/NEJMoa2024922"
       }
      ]
@@ -10168,7 +10168,7 @@
        "highlight": "continuation of the chronic benzodiazepines upon admission to the ICU should be considered",
        "scope": "narrower",
        "note": "Supports only the benzodiazepine-withdrawal half of the exception, and frames it as continuing a patient's chronic benzodiazepines to avoid precipitating withdrawal (within the anxiety recommendation) rather than as first-line treatment; says nothing about alcohol withdrawal. This is the primaryAnchor page.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -11815,7 +11815,7 @@
        "highlight": "use dexmedetomidine over propofol for sedation",
        "scope": "on-scope",
        "note": "The focused update's sedation recommendation (prefer dexmedetomidine over propofol) is the evidence-based substance of reassessing an ICU patient's sedation strategy.",
-       "page": "5",
+       "page": "ms. p.1",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -11823,7 +11823,7 @@
        "highlight": "alternative sedative agents should be considered",
        "scope": "on-scope",
        "note": "Directly instructs clinicians to reconsider and switch sedative agents when deep sedation, bradycardia risk, or delirium apply — an explicit reassess-the-sedation-strategy directive.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -11831,7 +11831,7 @@
        "highlight": "It may improve the time spent at target sedation",
        "scope": "on-scope",
        "note": "Supporting evidence that titrating sedatives to light/target sedation is the strategy that reduces delirium, reinforcing the reassessment goal.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -12107,7 +12107,7 @@
        "highlight": "unable to issue a recommendation for or against the use of antipsychotics over usual care for the treatment of delirium in adult patients admitted to the ICU",
        "scope": "different-setting",
        "note": "ICU setting; makes no recommendation on antipsychotics for delirium and states no dosing or duration rule, so it neither states nor governs the 'lowest dose, shortest duration' principle.",
-       "page": "8",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -12115,7 +12115,7 @@
        "highlight": "little to no effect on QT interval prolongation and extrapyramidal symptoms (both low certainty)",
        "scope": "different-setting",
        "note": "Pooled ICU safety data on QT prolongation and arrhythmia — the rationale behind QTc monitoring — but a meta-analytic effect estimate, not a monitoring instruction.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       },
       {
@@ -12123,7 +12123,7 @@
        "highlight": "discontinue antipsychotics that were newly initiated in the ICU upon discharge if no longer clinically required",
        "scope": "different-setting",
        "note": "Supports minimizing duration (stop when no longer needed) but is ICU discontinuation-at-discharge advice, not a bedside 'shortest duration' dosing rule.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000006574"
       }
      ]
@@ -13088,7 +13088,7 @@
        "highlight": "the critical care nursing staff became adept at using the CAPD in all but the most developmentally delayed patients",
        "scope": "on-scope",
        "note": "Primary anchor (Applicability): confirms CAPD is a valid screen in vulnerable populations and completed midshift after hours of observation, but qualifies 'deep developmental delay' — nurses were adept in all BUT the most developmentally delayed.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13096,7 +13096,7 @@
        "highlight": "in patients of all ages and developmental levels",
        "scope": "on-scope",
        "note": "States the every-age / every-developmental-level design target the CAPD was built to meet, supporting 'Every age' and 'any developmental age.'",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13104,7 +13104,7 @@
        "highlight": "The CAPD screen performed similarly in all age groups of children from 0 to 13 years old",
        "scope": "on-scope",
        "note": "Empirical support for 'works at any age' across 0–13 years; adolescents (>13) were the small-n exception, a minor caveat on 'every age.'",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13112,7 +13112,7 @@
        "highlight": "demonstrating its applicability in this hard-to-assess population",
        "scope": "on-scope",
        "note": "Supports use in developmental delay: sensitivity remained high and AUC 0.86 despite reduced specificity (51.2%), the core evidence behind 'including deep developmental delay.'",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13120,7 +13120,7 @@
        "highlight": "To better capture a fluctuating course of delirium over a nurse's shift",
        "scope": "on-scope",
        "note": "Supports 'rate the child over the shift' — the response scale is designed to capture the fluctuating course across a nursing shift.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13128,7 +13128,7 @@
        "highlight": "each anchor point characterizes the normal developing child for each item on the CAPD",
        "scope": "on-scope",
        "note": "Supports 'against age-expected behavior' — developmental anchor points define normal behavior per age so the child is rated against age-expected norms.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -13146,7 +13146,7 @@
        "highlight": "the CAPD (subjective scoring over a nursing shift)",
        "scope": "on-scope",
        "note": "Independently characterizes CAPD as subjective scoring over a nursing shift, corroborating 'rate the child over the shift.'",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13154,7 +13154,7 @@
        "highlight": "the CAPD requires anchor points for each developmental stage",
        "scope": "on-scope",
        "note": "Corroborates 'against age-expected behavior' — CAPD uses anchor points for each developmental stage to judge normal-to-abnormal behavior.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13162,7 +13162,7 @@
        "highlight": "was introduced as a subjective delirium screening tool in critically ill children",
        "scope": "on-scope",
        "note": "Describes CAPD as a subjective (observational) delirium screening tool, corroborating the 'observational' framing.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13170,7 +13170,7 @@
        "highlight": "developmental delay (cognition < 6 months of age)",
        "scope": "different-intervention",
        "note": "Nearest-match but opposite scope: the psCAM-ICU study EXCLUDED deep developmental delay — a contrast screen that does not work where the claim says CAPD does, so must not be read as support.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13178,7 +13178,7 @@
        "highlight": "Participants aged 6 months to 5 years",
        "scope": "different-population",
        "note": "psCAM-ICU is validated only for ages 6 months–5 years, a narrower band than CAPD's every-age scope; shares keywords but is a different tool/population.",
-       "page": "1",
+       "page": "600",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -13240,7 +13240,7 @@
        "highlight": "shown 10 cards consisting of alternating mirrors and elementary, colorful pictures",
        "scope": "on-scope",
        "note": "Describes the age-adapted observational picture-card task (Feature 2 inattention); children >=2 yr additionally identify the pictures, confirming age adaptation.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13248,7 +13248,7 @@
        "highlight": "Participants aged 6 months to 5 years",
        "scope": "on-scope",
        "note": "Confirms the developmental age band of 6 months to 5 years.",
-       "page": "1",
+       "page": "600",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13256,7 +13256,7 @@
        "highlight": "a principally objective and interactive, developmentally-targeted, delirium monitoring tool",
        "scope": "on-scope",
        "note": "Supports the 'interactive' and developmentally-targeted framing of the screen.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13264,7 +13264,7 @@
        "highlight": "provides for immediate delirium assessment",
        "scope": "on-scope",
        "note": "Supports the point-in-time / 'in the moment' nature of the psCAM-ICU screen.",
-       "page": "10",
+       "page": "ms. p.10",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -13282,7 +13282,7 @@
        "highlight": "a valid, rapid, observational nursing screen",
        "scope": "different-intervention",
        "note": "CAPD is a passive observational nursing screen scored over a shift, not the interactive point-in-time picture-card assessment described in the claim.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13290,7 +13290,7 @@
        "highlight": "after several hours of observing the child's behavior",
        "scope": "different-intervention",
        "note": "CAPD is scored after hours of observation over a shift, the opposite of psCAM-ICU's point-in-time assessment.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13298,7 +13298,7 @@
        "highlight": "ages ranging from 0 to 21 years and across developmental levels",
        "scope": "different-population",
        "note": "CAPD was validated across ages 0-21, not the 6 months-5 years developmental band psCAM-ICU targets.",
-       "page": "1",
+       "page": "663",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13306,7 +13306,7 @@
        "highlight": "children more than 5 years old",
        "scope": "background",
        "note": "Notes the pCAM-ICU is restricted to children over 5 years old, the gap that psCAM-ICU (6 mo-5 yr) was designed to fill.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -13368,7 +13368,7 @@
        "highlight": "children more than 5 years old",
        "scope": "on-scope",
        "note": "Directly states the pCAM-ICU is restricted to children more than 5 years old, corroborating the claim's age cutoff (phrased '>5' vs the claim's '≥5').",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13376,7 +13376,7 @@
        "highlight": "an elegant cognitive tool but requires patient cooperation",
        "scope": "on-scope",
        "note": "Characterizes the pCAM-ICU as a cognitive tool requiring patient cooperation — the interactive quality named in the claim (same sentence, split across a page break).",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13384,7 +13384,7 @@
        "highlight": "in patients of all ages and developmental levels",
        "scope": "different-intervention",
        "note": "Describes the goal of the CAPD (the paper's own tool) to cover all ages and developmental levels — the contrasting instrument, nearest match on topic but a different intervention and population than pCAM-ICU.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -13402,7 +13402,7 @@
        "highlight": "objective delirium monitoring in critically ill children over 5 years of age",
        "scope": "on-scope",
        "note": "Directly identifies the pCAM-ICU as the objective delirium-monitoring tool for children over 5 years of age — the age cutoff and objective/interactive nature in the claim.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13410,7 +13410,7 @@
        "highlight": "pCAM-ICU (objective, brief, in the moment assessment)",
        "scope": "on-scope",
        "note": "Characterizes the pCAM-ICU as an objective, brief, in-the-moment assessment — supports the 'interactive point-in-time screen' framing.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -13418,7 +13418,7 @@
        "highlight": "critically ill infants and preschool-aged children",
        "scope": "different-population",
        "note": "The paper's own tool (psCAM-ICU) targets infants and preschool-aged children under 5 — the complement to the claim's pCAM-ICU (≥5), a nearest match but a different population and intervention.",
-       "page": "10",
+       "page": "ms. p.10",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -13477,7 +13477,7 @@
        "highlight": "at a total CAPD score of 9 or greater",
        "scope": "on-scope",
        "note": "ROC cut-point analysis sets the CAPD positive threshold at a total score of 9 or greater, directly supporting 'positive at score ≥ 9'.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13485,7 +13485,7 @@
        "highlight": "to the format \"never/rarely/sometimes/often/ always\"",
        "scope": "on-scope",
        "note": "Documents the five per-item response options (never/rarely/sometimes/often/always), matching the statement's response scale.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -13493,7 +13493,7 @@
        "highlight": "a valid, rapid, observational nursing screen",
        "scope": "on-scope",
        "note": "Characterizes CAPD as a rapid observational nursing screen, supporting the 'observational' descriptor.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -14115,7 +14115,7 @@
        "highlight": "Benzodiazepines are an independent and modifiable risk factor for development of delirium in critically ill children",
        "scope": "narrower",
        "note": "Supports only the 'new medications' precipitant (benzodiazepines) as modifiable; narrower than the claim's five-item list.",
-       "page": "e1486",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000003194"
       }
      ]
@@ -14549,7 +14549,7 @@
        "highlight": "Remove/ Reduce deliriogenic drugs, patient Atmosphere, Immobilization",
        "scope": "on-scope",
        "note": "PANDEM's BRAIN MAPS model directs clinicians to Remove/Reduce deliriogenic drugs (anticholinergics are a canonical deliriogenic class) and to address Immobilization (restraints); the card operationalizes these categories.",
-       "page": "16",
+       "page": "e89",
        "docUrl": "https://doi.org/10.1097/PCC.0000000000002873"
       },
       {
@@ -14714,7 +14714,7 @@
        "highlight": "optimization of sleep hygiene, use of interdisciplinary rounds, family engagement on rounds",
        "scope": "on-scope",
        "note": "The guideline's formal nonpharmacologic delirium-prevention recommendation, naming sleep-hygiene optimization and family engagement/involvement; the same recommendation's next clause suggests performing EM.",
-       "page": "16",
+       "page": "e77",
        "docUrl": "https://doi.org/10.1097/PCC.0000000000002873"
       },
       {
@@ -14722,7 +14722,7 @@
        "highlight": "healthy sleep conditions at night (minimizing noise, light, and stimulation)",
        "scope": "on-scope",
        "note": "Environmental rationale for 'restore sleep and day-night rhythm' — day/night cycling with daytime light and healthy, low-stimulation nighttime sleep conditions.",
-       "page": "16",
+       "page": "e89",
        "docUrl": "https://doi.org/10.1097/PCC.0000000000002873"
       },
       {
@@ -16767,7 +16767,7 @@
        "highlight": "Orientation, arousal, and appropriate cognition (which are all affected in delirium) are difficult to assess in young children",
        "scope": "background",
        "note": "CAPD's 'orientation' is a cognitive domain screened via developmental (age-appropriate) anchor points, a keyword collision with the claim's 'age-appropriate orientation' prevention measure rather than support for it.",
-       "page": "e657",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -17163,7 +17163,7 @@
        "highlight": "the reliability and validity of the State Behavioral Scale (SBS) for use in describing sedation/agitation levels",
        "scope": "different-intervention",
        "note": "A measurement/assessment tool for sedation-agitation level, not a prevention intervention — shares the sedation keyword but different scope.",
-       "page": "1",
+       "page": "114",
        "docUrl": "https://doi.org/10.1097/01.PCC.0000200955.40962.38"
       }
      ]
@@ -17181,7 +17181,7 @@
        "highlight": "a rapid observational screening tool",
        "scope": "different-intervention",
        "note": "Validation of a delirium detection instrument — the nearest topical match but a different intervention (screening, not prevention).",
-       "page": "1",
+       "page": "663",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -17217,7 +17217,7 @@
        "highlight": "sedation practices may be a modifiable risk factor for the development of delirium",
        "scope": "background",
        "note": "Background rationale noting sedation as a modifiable risk factor (echoing 'minimize deliriogenic meds'), but stated to motivate a screening tool rather than as a prevention finding.",
-       "page": "2",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -17260,7 +17260,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "Traube 2014 (CAPD) — p. 8",
    "passage": "For study purposes, the CAPD and psychiatric evaluations happened during the daylight hours, at approximately noon each day. To more accurately capture delirious patients, who may be more symptomatic at night, the CAPD will need to be performed a minimum of twice daily, once by each shift nurse. SUMMARY The CAPD is a promising new clinical screening tool designed and validated for use in the PICU setting to detect delirium in most children. Future work will address further clinical applications of the CAPD, such as diagnostic algorithms for special populations in which delirium diagnoses are challenging. The CAPD may facilitate the development of much needed research investigating the causes, pathophysiology, treatment, and long-term implications of pediatric delirium. Acknowledgments This work was performed at Weill Cornell Medical College/NY Presbyterian Hospital. Drs. Traube and Greenwald received support for travel from Weill Cornell Medical College. Dr. …\nAlso SCCM PANDEM 2022: \"We recommend routine screening for ICU delirium using a validated tool in critically ill pediatric patients upon admission through ICU discharge or transfer\"\nTraube 2014 supports the once-per-shift minimum (a CAPD by each shift nurse, twice daily), and PANDEM 2022 supports screening every PICU child from admission through discharge. The 'with any mental-status change' trigger is a clinical addition not stated in the pediatric sources.",
@@ -17275,7 +17275,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -17338,7 +17338,7 @@
        "highlight": "sedation scoring should be completed with the patient's pain assessment every four hours and also before and after an intervention",
        "scope": "different-intervention",
        "note": "Every-4-hour cadence (plus before/after sedation-altering interventions) is for the State Behavioral Scale sedation assessment, not delirium screening; shares 'assessment frequency' keywords but must not be read as support for the delirium-screening interval.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/01.PCC.0000200955.40962.38"
       }
      ]
@@ -17356,7 +17356,7 @@
        "highlight": "the CAPD will need to be performed a minimum of twice daily, once by each shift nurse",
        "scope": "on-scope",
        "note": "Direct support for 'at least once per shift' — twice daily, once per shift nurse.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -17364,7 +17364,7 @@
        "highlight": "By performing the screen twice daily, these subjects would have been detected",
        "scope": "on-scope",
        "note": "Empirical rationale that twice-daily (per-shift) screening catches cases a single daily screen misses.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -17391,7 +17391,7 @@
        "highlight": "1) fluctuation or acute change from baseline mental status, 2) inattention",
        "scope": "background",
        "note": "Acute change from baseline mental status here is a diagnostic criterion within the tool, not the claim's screen-on-mental-status-change trigger; shares wording but different concept.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -17399,7 +17399,7 @@
        "highlight": "can be used to detect abrupt changes in brain function during shock, respiratory insufficiency, or even indolent disease processes, and subsequently be used for efficient reassessment",
        "scope": "background",
        "note": "Closest to the change-triggered reassessment idea, but framed as tool capability in a validation discussion rather than a screening-frequency recommendation.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -17414,36 +17414,36 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "agrees",
      "note": "Operationalizes the per-shift cadence in a large multicenter cohort: each child screened twice daily (6 am / 6 pm) with the CAPD, consistent with the ESPNIC recommendation of every 8-12 hours.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm",
        "scope": "on-scope",
        "note": "Direct support: every child screened twice daily, once per 12-hour shift, matching 'at least once per shift'.",
-       "page": "3",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours",
        "scope": "on-scope",
        "note": "ESPNIC every-8-12-hour recommendation cited here maps directly to once-per-shift screening.",
-       "page": "3",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Setting--Urban academic tertiary care pediatric intensive care unit (PICU). Patients--All consecutive admissions from September 2014 through August 2015. Intervention--Children were screened for delirium twice daily throughout their ICU stay. Measurements and Main Results--Of 1547 consecutive patients, delirium was diagnosed in 267 (17%), and lasted a median of two days (IQR 1,5). Seventy-eight percent of children with delirium developed it within the first three PICU days. Most cases of delirium were of the hypoactive (46%) and mixed (45%) subtypes; only 8% of delirium episodes were characterized as hyperactive delirium. In multivariable analysis, independent predictors of delirium included age 2 years, developmental delay, severity of illness, prior coma, mechanical ventilation, and receipt of benzodiazepines and anticholinergics. PICU LOS was increased in children with delirium (adjusted relative LOS 2.3, CI= 2.1, 2.5, p<0.001), as was duration of MV (median 4 vs. 1 day, p<0.001). Delirium was a strong and independent predictor of mortality (adjusted OR 4.39, CI= 1.96-9.99, p<0.001). Conclusions--Delirium occurs frequently in critically ill children and is independently associated with mortality. Some in-hospital risk factors for delirium development are modifiable. Interventional studies are needed to determine best practices to limit delirium exposure in at-risk children.",
        "highlight": "Children were screened for delirium twice daily throughout their ICU stay",
        "scope": "on-scope",
        "note": "Abstract statement of the twice-daily (per-shift) screening applied to every child for the whole stay.",
-       "page": "2",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.2",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -17467,9 +17467,10 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)",
+    "Traube 2017 (point prevalence)"
    ],
-   "anchor": "Traube 2017: \"Of the 835 remaining subjects, 25% screened positive for delirium, 13% were classified as comatose, and 62% were delirium-free and coma-free.\"",
+   "anchor": "Traube 2017 (point prevalence) — Abstract: \"Of the 835 remaining subjects, 25% screened positive for delirium, 13% were classified as comatose, and 62% were delirium-free and coma-free.\"",
    "passage": "Also SCCM PANDEM 2022: \"the hypoactive subtype which is most easily missed without routine screening.\"\nThe ~25% point prevalence is specific to Traube 2017's international point-prevalence study; PANDEM 2022 corroborates the hypoactive-predominant, easily missed presentation. PANDEM itself cites rates up to 80%, so the 25% figure should be attributed to Traube 2017.",
    "evidence": "Abstract",
    "status": "abstract",
@@ -17482,7 +17483,8 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
+    "Traube C, Silver G, Reeder RW, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -17629,43 +17631,61 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "partial",
      "note": "The attached file is Traube's single-center epidemiology/mortality study, not the International Point Prevalence Study its citation names: it strongly supports the subtype and 'missed-without-screening' portions but reports 16.6% prevalence / 17.3% incidence, not the ~25% figure — and the quoted '835 subjects, 25% screened positive' passage is not in this file.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Measurements and Main Results--Of 1547 consecutive patients, delirium was diagnosed in 267 (17%), and lasted a median of two days (IQR 1,5). Seventy-eight percent of children with delirium developed it within the first three PICU days. Most cases of delirium were of the hypoactive (46%) and mixed (45%) subtypes; only 8% of delirium episodes were characterized as hyperactive delirium. In multivariable analysis, independent predictors of delirium included age 2 years, developmental delay, severity of illness, prior coma, mechanical ventilation, and receipt of benzodiazepines and anticholinergics. PICU LOS was increased in children with delirium (adjusted relative LOS 2.3, CI= 2.1, 2.5, p<0.001), as was duration of MV (median 4 vs. 1 day, p<0.001). Delirium was a strong and independent predictor of mortality (adjusted OR 4.39, CI= 1.96-9.99, p<0.001).",
        "highlight": "Most cases of delirium were of the hypoactive (46%) and mixed (45%) subtypes; only 8% of delirium episodes were characterized as hyperactive delirium.",
        "scope": "on-scope",
        "note": "Directly supports 'mostly hypoactive or mixed' — 46% hypoactive plus 45% mixed, with only 8% hyperactive, in a PICU cohort.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.2",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Consistent with the literature, many children were delirious during their first few PICU days. Without routine screening, these children, as well as children with hypoactive delirium, are likely underdiagnosed(29). This is of great clinical significance, as screening facilitates detection which allows for earlier intervention, and may lead to a decrease in delirium duration(30).",
        "highlight": "Without routine screening, these children, as well as children with hypoactive delirium, are likely underdiagnosed",
        "scope": "on-scope",
        "note": "Directly supports 'easily missed without a screen' — hypoactive cases are underdiagnosed absent routine screening.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.6",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "It is important to note that, as in adults, only a minority of delirium was of the easily recognizable hyperactive subtype(1,25,26). In adults, hypoactive delirium is thought to be the most severe form of delirium, with worse prognostic implications(27). In addition, hypoactive subtype of delirium may be less likely to respond to treatment with antipsychotics (28). Further study is needed to determine whether this is true in children as well.",
        "highlight": "only a minority of delirium was of the easily recognizable hyperactive subtype",
        "scope": "on-scope",
        "note": "Reinforces that the easily recognizable hyperactive form is the minority, so most delirium (hypoactive/mixed) is not obvious at the bedside.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.6",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Delirium was diagnosed in 267 patients, for an incidence of 17.3%. Of the 7,591 patient study days, 1,259 were days with delirium, for a prevalence of 16.6% in this cohort. 566 patient days (7.5%) were classified as days with coma (almost always medication-induced), and 5671 patient days (74.7%) as days with normal mental status (DFCF). Only 95 patient days (<2%) were classified as unknown, due to missed opportunities for delirium screening.",
        "highlight": "for a prevalence of 16.6% in this cohort",
        "scope": "narrower",
        "note": "This single-center study reports 17.3% incidence / 16.6% prevalence — lower than the claimed ~25%; the 25% point-prevalence figure comes from the separate international study the citation names, whose text is not in this file.",
-       "page": "",
+       "page": "ms. p.5",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
+      }
+     ]
+    },
+    {
+     "label": "Traube 2017 (point prevalence)",
+     "cite": "Traube C, Silver G, Reeder RW, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "kind": "pdf",
+     "stance": "agrees",
+     "note": "The ~25% figure is this study, not its mortality companion. The full text is not archived here; the published abstract states the proportion directly, so that is what is quoted.",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "paragraphs": [
+      {
+       "context": "Measurements and Main Results: Primary study outcome measure was prevalence of delirium. In 159 children, a final determination of mental status could not be ascertained. Of the 835 remaining subjects, 25% screened positive for delirium, 13% were classified as comatose, and 62% were delirium-free and coma-free. Delirium prevalence rates varied significantly with reason for ICU admission, with highest delirium rates found in children admitted with an infectious or inflammatory disorder. For children who were in the PICU for 6 or more days, delirium prevalence rate was 38%.",
+       "highlight": "Of the 835 remaining subjects, 25% screened positive for delirium",
+       "scope": "on-scope",
+       "note": "Read from the published abstract. 835 subjects is this study’s denominator after 159 indeterminate screens; the mortality companion reports a different cohort of 1,547 patients.",
+       "page": "Abstract",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
       }
      ]
@@ -17690,7 +17710,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "SCCM PANDEM 2022 — p. 10",
    "passage": "… Rationale: The Comfort-B Scale (56, 117, 118) and the SBS (119, 120) have both been validated in several PICU settings to assess the level of sedation in mechanically ventilated pediatric patients. Both scales reliably differentiate adequate from overor undersedation in patients not receiving NMBAs. Their psychometric validity has been supported in a meta-analysis of 13 sedation scales (121). Although the RASS has only been validated in a single trial, it is extensively used in pediatric critical care as it forms the basis for determining the appropriateness of delirium screening with the pediatric Confusion Assessment Method for the ICU (pCAM-ICU) and Cornell Assessment of Pediatric Delirium (CAPD) delirium screening tools (122). Characteristics of each sedation assessment scale are described in detail in SDC Table 6 (http://links.lww. com/PCC/B920). Protocolized Sedation. Question: Should critically ill pediatric patients requiring MV routinely be assigned a target depth of sedation? (SDC Section C2, http://links.lww.com/ PCC/B920). Answer: \"We suggest\" that all pediatric patients requiring MV be assigned a target depth of sedation using a validated sedation assessment tool at least once daily (conditional, low-level evidence). …\nAlso Curley 2006 (SBS): \"The SBS was specifically designed for and tested in young intubated mechanically ventilated patients\"\nIn the PANDEM passage, 'it' refers to the RASS; both the RASS and SBS are endorsed sedation/arousal tools, and Curley 2006 confirms the SBS was designed for intubated infants and young children (6 wk–6 yr). The RASS-for-older/verbal versus SBS-for-infants assignment is clinical convention rather than a rule stated in either source.",
@@ -17705,7 +17725,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -17820,12 +17840,12 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "background",
      "note": "Pediatric delirium epidemiology/mortality — supplies burden context, not the arousal-scoring method (different scope).",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": []
     }
    ],
@@ -17848,7 +17868,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "Smith 2016 (psCAM-ICU) — p. 4",
    "passage": "… All psCAM-ICU assessments were completed using a two-step approach based on Plum and Posner's (14) categorization of consciousness: arousal and content. The first step was the assessment of patient arousal using the Richmond Agitation-Sedation Scale (RASS). (15) There are three major categories of an abnormal arousal state when using the RASS: agitation (RASS +1 through +4), decreased arousal, though reactive to voice (-1 through -3), and unreactive to voice (-4 or -5). A patient who is comatose (RASS -4 or -5) cannot be clinically assessed for delirium . The stage of sleep that a child is in determines ease of awakening; i.e. infants and young children may require a more pronounced period of stimulation if in a stage of deep sleep to differentiate deep sleep from an assessed level of consciousness of either moderate or deep sedation. Therefore, patients who were initially assessed as having a RASS -3, -4, or -5 were stimulated by physical touch for 15 seconds, followed by a non-stimulating period of 15 seconds, and then reassessed using the RASS. If the patient remained deeply sedated or comatose then they were deemed unable to be assessed (UTA). For patients who were at least responsive to voice (RASS ≥ -3), their content of consciousness or delirium assessment was then performed using the psCAM-ICU. The psCAM-ICU delirium assessment is based on four features. An acute change or fluctuation from baseline mental status (Feature 1) was determined using the documented sedation or Glasgow coma scale scores (i.e. RASS, GCS) and/or patient evaluation. The sedation scores (RASS) were reviewed for the past 24 hours to establish whether fluctuation in consciousness was present, while an abnormal GCS score or patient history and examination helped to determine whether an acute alteration from their baseline mental status was present (i.e. when the patient's mental status is not the same as when they are in good health). …\nAlso Smith 2011 (pCAM-ICU): \"If RASS is – 4 or – 5 then STOP and REASSESS patient later.\"\nSmith 2016 supports RASS −4/−5 as comatose and unable to assess, with reassessment once the child is responsive to voice (RASS ≥ −3); Smith 2011 corroborates with 'STOP and REASSESS patient later.' The SBS −2/−3 equivalent floor is not stated in either source and is a clinical mapping.",
@@ -17863,7 +17883,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -17971,7 +17991,7 @@
        "highlight": "A patient who is comatose (RASS -4 or -5) cannot be clinically assessed for delirium",
        "scope": "on-scope",
        "note": "States the exact comatose RASS floor at which a child cannot be assessed for delirium.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -17979,7 +17999,7 @@
        "highlight": "then they were deemed unable to be assessed (UTA)",
        "scope": "on-scope",
        "note": "After a stimulation-and-recheck step, persistently comatose children are recorded unable to assess (UTA) and only screened once responsive to voice (RASS >= -3) — the reassess-when-responds step.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -17994,20 +18014,20 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "agrees",
      "note": "Defines daily 'comatose' status as RASS -4/-5, unarousable, and therefore impossible to assess for delirium — matching the claim's floor.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Each child was assigned a daily status: \"comatose\" (patients with a Richmond Agitation Sedation Scale (RASS) score of -4 or -5, who are unarousable to verbal stimulation(10,11), and therefore impossible to assess for delirium), \"delirious\" (CAPD score 9 with diagnosis confirmed by physician), or \"normal\" mental status (i.e.: delirium-free and coma-free (DFCF)). If an assessment opportunity was missed (due to noncompliance with screening protocol), status for that day was designated as \"unknown\".",
        "highlight": "and therefore impossible to assess for delirium",
        "scope": "on-scope",
        "note": "Assigns children with RASS -4/-5 (unarousable to verbal stimulation) a 'comatose' daily status that is impossible to assess for delirium, exactly the claim's comatose floor.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -18031,7 +18051,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "Traube 2014 (CAPD) — p. 3",
    "passage": "children more than 5 years old, limited in patients with developmental delay, and requires extensive nurse training. The PAED (35) designed, for immediate postoperative use by anesthesiologists, selects for the hyperactive subtype of delirium. An ideal screening tool would detect all types of delirium (hyperactive, hypoactive, and mixed), in patients of all ages and developmental levels. Our primary objective was to describe the development of the Cornell Assessment of Pediatric Delirium (CAPD) and test its validity and reliability as a screening tool. In addition, we explored the instrument's performance in subgroups defined by developmental delay, gender, respiratory support, prematurity, and severity of illness. MATERIALS AND METHODS Phase I: Development of the CAPD The CAPD is an adaptation of the PAED. As the original PAED was designed to detect transient emergence delirium following anesthesia, it selects for patients with a hyperactive, agitated delirium subtype and would be incomplete for assessing the PICU population. …\n'Observational' and 'over the shift' are supported elsewhere in Traube 2014: the tool is described as observational in the article title, and nurses completed the assessment midshift after several hours of observing the child's behavior.",
@@ -18046,7 +18066,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -18117,7 +18137,7 @@
        "highlight": "describing sedation/agitation levels in young intubated patients supported on mechanical ventilation",
        "scope": "different-intervention",
        "note": "The SBS measures depth of sedation/agitation in ventilated children 6 wk-6 yr, not delirium; it is a companion arousal tool in the same workflow section, not the every-age delirium screen the claim describes.",
-       "page": "1",
+       "page": "114",
        "docUrl": "https://doi.org/10.1097/01.PCC.0000200955.40962.38"
       }
      ]
@@ -18135,7 +18155,7 @@
        "highlight": "in patients of all ages and developmental levels",
        "scope": "on-scope",
        "note": "The primary-anchor page (p.3): the CAPD was designed to be the ideal screen across all ages and developmental levels, the basis for an every-age default.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -18143,7 +18163,7 @@
        "highlight": "The CAPD screen performed similarly in all age groups of children from 0 to 13 years old",
        "scope": "on-scope",
        "note": "Validated similar performance across all age groups 0-13 yr; the adolescent subgroup (>13-21 yr) rested on only two confirmed cases, a caveat to 'every age.'",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -18151,7 +18171,7 @@
        "highlight": "a valid, rapid, observational nursing screen",
        "scope": "on-scope",
        "note": "Conclusion states the CAPD is an observational nursing screen, supporting 'observational.'",
-       "page": "1",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -18159,7 +18179,7 @@
        "highlight": "The nurses completed the assessment midshift, after several hours of observing the",
        "scope": "on-scope",
        "note": "Nurses scored the CAPD midshift after several hours of observing the child, directly supporting 'observational, over the shift.'",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -18167,7 +18187,7 @@
        "highlight": "the CAPD will need to be performed a minimum of twice daily, once by each shift nurse",
        "scope": "on-scope",
        "note": "Recommends performing the CAPD once by each shift nurse (twice daily), the over-the-shift cadence in the claim.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -18194,7 +18214,7 @@
        "highlight": "the CAPD (subjective scoring over a nursing shift)",
        "scope": "on-scope",
        "note": "Explicitly characterizes the CAPD as subjective/observational scoring over a nursing shift, the exact 'over the shift' descriptor in the claim.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -18202,7 +18222,7 @@
        "highlight": "the other being performed over a nursing shift (CAPD, ICDCS)",
        "scope": "on-scope",
        "note": "Classifies the CAPD as the over-a-nursing-shift instrument, contrasted with in-the-moment CAM tools.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -18210,7 +18230,7 @@
        "highlight": "the CAPD applies scoring of observations over time to screen for delirium",
        "scope": "on-scope",
        "note": "Describes the CAPD as scoring observations over time and requiring developmental anchor points for each stage, i.e. usable across developmental ages.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -18218,7 +18238,7 @@
        "highlight": "critically ill infants and preschool-aged children",
        "scope": "different-population",
        "note": "The paper's own subject, the psCAM-ICU, is a different, age-restricted (6 mo-5 yr) interactive in-the-moment tool, not the every-age observational CAPD.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -18233,28 +18253,28 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "agrees",
      "note": "",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm",
        "scope": "on-scope",
        "note": "Every admitted child was universally screened per shift (6 am/6 pm) with the CAPD, consistent with ESPNIC grade-A every 8-12 h; the every-age, over-the-shift default in practice.",
-       "page": "3",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "The CAPD is a well-validated observational 8-item tool",
        "scope": "on-scope",
        "note": "Confirms the CAPD is a well-validated observational tool that distinguishes delirium from sedation/agitation; the paper's own aim (prevalence/mortality) is broader epidemiology.",
-       "page": "3",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -18278,7 +18298,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "SCCM PANDEM 2022 — p. 15",
    "passage": "… Delirium Monitoring. Question: Which delirium screening tools have the best validity and reliability in critically ill pediatric patients? (SDC Section E2, http://links.lww.com/ PCC/B920). Answer: \"We recommend\" use of the preschool and pCAM-ICU (ps/pCAM-ICU) or the CAPD as the most valid and reliable delirium monitoring tools in critically ill pediatric patients (strong, high-level evidence). Rationale: Of five pediatric-specific delirium screening tools available, three are relevant to PICU patients (SDC Section E2b, http://links.lww.com/PCC/B920). The ps/pCAM-ICU are considered \"point-in-time\" assessments, using both observation and interactive components (241), and maintaining the basic foundation of its highly valid and reliable precursor, the adult Confusion Assessment Method for the ICU. The pCAM-ICU was originally validated in a prospective cohort of general medical/surgical PICU patients over 5 years old and performed with a high sensitivity (83%) and specificity (99%) compared with psychiatry assessment, and high interrater reliability (kappa of 0.96) (225). The preschool CAM-ICU psCAM-ICU is an adaptation of the pCAM-ICU for purposes of meeting the language and cognitive deficits in children developmentally less than 5 years old. …\nAlso Smith 2016 (psCAM-ICU): \"Participants aged 6 months to 5 years and admitted to the pediatric ICU\"\nPANDEM additionally notes the pCAM-ICU was validated in patients over 5 years and the psCAM-ICU in those under 5, consistent with the printed age ranges.",
@@ -18293,7 +18313,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -18464,20 +18484,20 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "background",
      "note": "Nearest-topic epidemiology study but a different intervention: it screens with CAPD twice daily (observational), not the interactive point-in-time psCAM/pCAM the claim describes.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "The CAPD is a well-validated observational 8-item tool",
        "scope": "different-intervention",
        "note": "Uses CAPD (observational, twice-daily) as the screen; contrasts with the interactive point-in-time psCAM/pCAM and does not address their age assignment.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -18501,7 +18521,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "Traube 2014 (CAPD) — p. 5",
    "passage": "… Developmental delay was a significant risk factor for delirium as children with developmental delay were diagnosed with delirium almost three times as often as children without delay (38.8% vs 13.9% of assessments, respectively). Prevalence of delirium in the \"sicker\" patients, as measured by Pediatric Index of Mortality II (PIM2) score above the median, was notably higher than in those children with PIM2 score below the median (29.7% vs 12.3%). This is consistent with prior pediatric delirium research (42). The lowest delirium prevalence was observed in children more than 13 years old (3.6%) and in children not on respiratory support (5.2%). CAPD Performance Cut point analysis showed the best sensitivity and specificity for the screening instrument (prioritizing high sensitivity) at a total CAPD score of 9 or greater. Sensitivity was 94.1% (95% CI, 83.8-98.8%) and specificity 79.2% (95% CI, 73.5-84.9%). At a cut point of greater than or equal to 9, there were three false-negative CAPD screens (Table 3) and 41 false-positive screens. Concordance between CAPD and psychiatric diagnosis was 82.3% (r = 0.62). Nurses' CAPD interrater reliability was also highest at a cut point of 9, with κ = 0.94. κ ranged from 0.68 to 0.78 for each of the eight CAPD items. CAPD performance compared with the \"gold standard\" psychiatric diagnosis by subgroups is reported in Table 4. …\nAlso Smith 2011 (pCAM-ICU): \"Pediatric CAM-ICU (pCAM-ICU):  DELIRIUM  =  Presence of FEATURES  1  +  2  +  either  3  or  4\"",
@@ -18516,7 +18536,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -18544,7 +18564,7 @@
        "highlight": "at a total CAPD score of 9 or greater",
        "scope": "on-scope",
        "note": "Directly establishes CAPD score of 9 or greater as the validated positive cutoff (sens 94.1%, spec 79.2%).",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -18552,7 +18572,7 @@
        "highlight": "a total cutoff score of 9 successfully selects for delirium",
        "scope": "on-scope",
        "note": "Reaffirms the total cutoff score of 9 as the delirium-selecting threshold.",
-       "page": "5",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -18584,20 +18604,20 @@
      ]
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "agrees",
      "note": "Corroborates CAPD >= 9 as a positive screen in an independent study.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "A CAPD score of 9 or higher represents a positive screen",
        "scope": "on-scope",
        "note": "Directly restates the CAPD >= 9 positive-screen threshold used at the bedside.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     },
@@ -18684,7 +18704,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "Traube 2014 (CAPD) — p. 8",
    "passage": "For study purposes, the CAPD and psychiatric evaluations happened during the daylight hours, at approximately noon each day. To more accurately capture delirious patients, who may be more symptomatic at night, the CAPD will need to be performed a minimum of twice daily, once by each shift nurse. SUMMARY The CAPD is a promising new clinical screening tool designed and validated for use in the PICU setting to detect delirium in most children. Future work will address further clinical applications of the CAPD, such as diagnostic algorithms for special populations in which delirium diagnoses are challenging. The CAPD may facilitate the development of much needed research investigating the causes, pathophysiology, treatment, and long-term implications of pediatric delirium. Acknowledgments This work was performed at Weill Cornell Medical College/NY Presbyterian Hospital. Drs. Traube and Greenwald received support for travel from Weill Cornell Medical College. Dr. …\nAlso SCCM PANDEM 2022: \"optimization of sleep hygiene, use of interdisciplinary rounds, family engagement on rounds, and family involvement with direct patient care\"\nTraube 2014 supports rescreening each shift, and PANDEM's nonpharmacologic prevention strategies support continuing the bundle. Neither source frames prevention as conditional on a negative screen — it is recommended universally — so support for the compound statement is partial.",
@@ -18699,7 +18719,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -18770,7 +18790,7 @@
        "highlight": "sedation scoring should be completed with the patient's pain assessment every four hours and also before and after an intervention that impacts the patient's level of sedation",
        "scope": "different-intervention",
        "note": "Shares the keyword 'assessment frequency' but sets the every-4-hour cadence for the State Behavioral Scale (depth of sedation/agitation), not delirium rescreening — must not be read as support for the rescreen step.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/01.PCC.0000200955.40962.38"
       }
      ]
@@ -18788,7 +18808,7 @@
        "highlight": "the CAPD will need to be performed a minimum of twice daily, once by each shift nurse.",
        "scope": "on-scope",
        "note": "The explicit cadence recommendation — CAPD a minimum of twice daily, once by each shift nurse — directly supports rescreening on the next shift.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       },
       {
@@ -18796,7 +18816,7 @@
        "highlight": "By performing the screen twice daily, these subjects would have been detected",
        "scope": "on-scope",
        "note": "Serial twice-daily screening would have caught false negatives a single screen missed — the rationale for rescreening after a negative result.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1097/CCM.0b013e3182a66b76"
       }
      ]
@@ -18823,7 +18843,7 @@
        "highlight": "efficient reassessment to reflect acute delirium resolution following appropriate interventions",
        "scope": "narrower",
        "note": "Supports serial reassessment with a validated delirium tool, but validated specifically in critically ill infants/preschool (<5y) and does not state a rescreen cadence — narrower than the general PICU step.",
-       "page": "9",
+       "page": "ms. p.9",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       },
       {
@@ -18831,7 +18851,7 @@
        "highlight": "performed over a nursing shift (CAPD, ICDCS)",
        "scope": "background",
        "note": "Characterizes the CAPD as scored over a nursing shift — the per-shift observation window the rescreen step relies on.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1097/CCM.0000000000001428"
       }
      ]
@@ -18846,36 +18866,36 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "agrees",
      "note": "A prevalence study, but its screening protocol operationalizes twice-daily each-shift CAPD screening and cites the ESPNIC every-8-12-hour recommendation — directly on point for the rescreen cadence.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours",
        "scope": "on-scope",
        "note": "Twice-daily bedside CAPD screening tied to the ESPNIC every-8-12-hour (each-shift) recommendation — directly supports rescreening next shift.",
-       "page": "3",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Setting--Urban academic tertiary care pediatric intensive care unit (PICU). Patients--All consecutive admissions from September 2014 through August 2015. Intervention--Children were screened for delirium twice daily throughout their ICU stay. Measurements and Main Results--Of 1547 consecutive patients, delirium was diagnosed in 267 (17%), and lasted a median of two days (IQR 1,5). Seventy-eight percent of children with delirium developed it within the first three PICU days. Most cases of delirium were of the hypoactive (46%) and mixed (45%) subtypes; only 8% of delirium episodes were characterized as hyperactive delirium. In multivariable analysis, independent predictors of delirium included age 2 years, developmental delay, severity of illness, prior coma, mechanical ventilation, and receipt of benzodiazepines and anticholinergics. PICU LOS was increased in children with delirium (adjusted relative LOS 2.3, CI= 2.1, 2.5, p<0.001), as was duration of MV (median 4 vs. 1 day, p<0.001). Delirium was a strong and independent predictor of mortality (adjusted OR 4.39, CI= 1.96-9.99, p<0.001). Conclusions--Delirium occurs frequently in critically ill children and is independently associated with mortality. Some in-hospital risk factors for delirium development are modifiable. Interventional studies are needed to determine best practices to limit delirium exposure in at-risk children.",
        "highlight": "Children were screened for delirium twice daily throughout their ICU stay",
        "scope": "on-scope",
        "note": "Protocol was twice-daily screening for the full ICU stay — i.e., repeated each shift, not a one-time screen.",
-       "page": "2",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.2",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Consistent with the literature, many children were delirious during their first few PICU days. Without routine screening, these children, as well as children with hypoactive delirium, are likely underdiagnosed(29). This is of great clinical significance, as screening facilitates detection which allows for earlier intervention, and may lead to a decrease in delirium duration(30).",
        "highlight": "screening facilitates detection which allows for earlier intervention",
        "scope": "on-scope",
        "note": "Rationale that routine (repeated) screening enables earlier detection and intervention — supports why a negative screen is followed by rescreening rather than stopping.",
-       "page": "6",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.6",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -18899,7 +18919,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "SCCM PANDEM 2022 — p. 16",
    "passage": "… Family presence and involvement, familiar care team members, and comforting objects from home can also help reassure and reorient patients. Studies in critically ill adults have shown decreased occurrence rate and duration of delirium with implementation of EM. A single-center prospective study indirectly supports potential effectiveness of this approach in children. Over a 22-month period, phased implementation of protocolized sedation followed by EM was associated with a near 40% reduction in delirium rates (224). Mitigation of delirium is often achieved by resolution of the underlying critical illness or other contributing medical conditions. Therefore, the initial steps in delirium management should focus on identification and treatment of these underlying etiologies (231, 239, 240, 247-249). Differential diagnoses should be considered using a model such as Bring oxygen, Remove/ Reduce deliriogenic drugs, patient Atmosphere, Immobilization, New organ dysfunction, Metabolic disturbances, Awake, Pain, Sedation (SDC Table 19, http://links.lww.com/PCC/B920) (247). Pharmacologic management of delirium Question: What \"pharmacologic\" sedation strategies reduce the incidence and/or decrease the duration or severity of delirium in critically ill pediatric patients? Answer: 1) \"We recommend\" minimizing benzodiazepine-based sedation when feasible in critically ill pediatric patients to\nPANDEM's initial management steps (identify and treat underlying etiologies; the BRAIN-MAPS differential) support 'find and fix precipitants; bundle levers first.' The guideline also recommends the WAT-1 or Sophia Observation Scale for withdrawal assessment (pp. 5, 18) and warns that sedating for delirium symptoms further exacerbates them, supporting the WAT-1 step and 'drugs treat symptoms only.'",
@@ -18914,7 +18934,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -19053,36 +19073,36 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "agrees",
      "note": "",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Although as yet there are few evidence-based treatment strategies for delirium, we suggest the following three-pronged approach: investigating for underlying illness, iatrogenic causes, and abnormal environment. When delirium is diagnosed, the clinician should first assess for underlying illness that may have precipitated the delirium (as examples: a new urinary tract infection, or hypoxia). Then, investigation into iatrogenic causes is necessary (for instance, does the patient have evidence of opiate withdrawal?). Finally, environmental causes should be recognized and modified as able (mobilization of a bed-bound patient, attempts at creating an environment that promotes sleep, etc...) (6, 21, 45). For those children who remain delirious after the clinician has addressed these factors, pharmacologic treatment may be considered. The atypical antipsychotics (in particular, quetiapine) have been used safely for treatment of delirium in critically ill children (46-48).",
        "highlight": "When delirium is diagnosed, the clinician should first assess for underlying illness that may have precipitated the delirium",
        "scope": "on-scope",
        "note": "On a positive screen the clinician first assesses for the underlying illness that precipitated the delirium — directly supports \"find and fix precipitants.\"",
-       "page": "7",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.7",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Although as yet there are few evidence-based treatment strategies for delirium, we suggest the following three-pronged approach: investigating for underlying illness, iatrogenic causes, and abnormal environment. When delirium is diagnosed, the clinician should first assess for underlying illness that may have precipitated the delirium (as examples: a new urinary tract infection, or hypoxia). Then, investigation into iatrogenic causes is necessary (for instance, does the patient have evidence of opiate withdrawal?). Finally, environmental causes should be recognized and modified as able (mobilization of a bed-bound patient, attempts at creating an environment that promotes sleep, etc...) (6, 21, 45). For those children who remain delirious after the clinician has addressed these factors, pharmacologic treatment may be considered. The atypical antipsychotics (in particular, quetiapine) have been used safely for treatment of delirium in critically ill children (46-48).",
        "highlight": "does the patient have evidence of opiate withdrawal?",
        "scope": "on-scope",
        "note": "Second prong is investigating iatrogenic causes, explicitly opiate withdrawal — supports \"rule out withdrawal.\"",
-       "page": "7",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.7",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Although as yet there are few evidence-based treatment strategies for delirium, we suggest the following three-pronged approach: investigating for underlying illness, iatrogenic causes, and abnormal environment. When delirium is diagnosed, the clinician should first assess for underlying illness that may have precipitated the delirium (as examples: a new urinary tract infection, or hypoxia). Then, investigation into iatrogenic causes is necessary (for instance, does the patient have evidence of opiate withdrawal?). Finally, environmental causes should be recognized and modified as able (mobilization of a bed-bound patient, attempts at creating an environment that promotes sleep, etc...) (6, 21, 45). For those children who remain delirious after the clinician has addressed these factors, pharmacologic treatment may be considered. The atypical antipsychotics (in particular, quetiapine) have been used safely for treatment of delirium in critically ill children (46-48).",
        "highlight": "For those children who remain delirious after the clinician has addressed these factors, pharmacologic treatment may be considered",
        "scope": "on-scope",
        "note": "Pharmacologic treatment is considered only after precipitating, iatrogenic and environmental factors are addressed — supports \"bundle levers first; drugs treat symptoms only.\"",
-       "page": "7",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.7",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -19106,7 +19126,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "SCCM PANDEM 2022 — p. 10",
    "passage": "… Although the RASS has only been validated in a single trial, it is extensively used in pediatric critical care as it forms the basis for determining the appropriateness of delirium screening with the pediatric Confusion Assessment Method for the ICU (pCAM-ICU) and Cornell Assessment of Pediatric Delirium (CAPD) delirium screening tools (122). Characteristics of each sedation assessment scale are described in detail in SDC Table 6 (http://links.lww. com/PCC/B920). Protocolized Sedation. Question: Should critically ill pediatric patients requiring MV routinely be assigned a target depth of sedation? (SDC Section C2, http://links.lww.com/ PCC/B920). Answer: \"We suggest\" that all pediatric patients requiring MV be assigned a target depth of sedation using a validated sedation assessment tool at least once daily (conditional, low-level evidence). Rationale: Two studies assessing the impact of goaldirected sedation concluded that targeting a sedation score may minimize time the patient is agitated (123, 124). Although a larger multicenter RCT found no difference in rates of inadequate sedation or analgesia, the intervention group in this study was exposed to interventions beyond just targeting sedation depth (69). Question: Is protocolized sedation superior to nonprotocolized sedation in critically ill pediatric patients? …\nPANDEM supports assigning a target depth of sedation using a validated tool such as the RASS or SBS. The statement is an organizational rounds prompt rather than a specific clinical threshold.",
@@ -19121,7 +19141,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -19268,12 +19288,12 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "background",
      "note": "Delirium point-prevalence/outcomes study using RASS descriptively (coma and motoric subtype), not to set or recommend a sedation target.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Delirium subtype was determined by psychomotor activity and level of alertness, as assessed by the RASS, over the 24 hour period(11, 12). The frequency of RASS assessment was dependent on patient's acuity level, and ranged from hourly to every 4 hours. The RASS score ranges from -5 (unarousable), through 0 (alert and calm), to +4 (combative)(10). Delirious children with RASS scores from 0 to -3 were designated as having hypoactive delirium. Delirious children with RASS scores from 0 to +4 were designated as having hyperactive delirium. Children with RASS scores crossing zero (including both negative and positive numbers) were designated as having mixed delirium.",
@@ -19281,7 +19301,7 @@
        "scope": "background",
        "note": "Describes the RASS range for classifying coma/delirium subtype in an epidemiology study — supplies RASS context but does not address setting an arousal target.",
        "page": "ms. p.3",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -19305,7 +19325,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "SCCM PANDEM 2022 — p. 10",
    "passage": "… Assessment of Sedation. Question: What sedation assessment scales are valid for assessing depth of sedation in critically ill pediatric patients? (SDC Section C1, http://links.lww.com/ PCC/B920). Answer: 1) \"We recommend\" the use the Comfort-B Scale or the State Behavioral Scale (SBS) to assess level of sedation in mechanically ventilated pediatric patients (strong, moderatelevel evidence). 2) \"We suggest\" the use of the Richmond Agitation-Sedation Scale (RASS) to assess level of sedation in mechanically ventilated pediatric patients (conditional, low-level evidence). Rationale: The Comfort-B Scale (56, 117, 118) and the SBS (119, 120) have both been validated in several PICU settings to assess the level of sedation in mechanically ventilated pediatric patients. Both scales reliably differentiate adequate from overor undersedation in patients not receiving NMBAs. Their psychometric validity has been supported in a meta-analysis of 13 sedation scales (121). Although the RASS has only been validated in a single trial, it is extensively used in pediatric critical care as it forms the basis for determining the appropriateness of delirium screening with the pediatric Confusion Assessment Method for the ICU (pCAM-ICU) and Cornell Assessment of Pediatric Delirium (CAPD) delirium screening tools (122). …\nPANDEM endorses the SBS — and notes the RASS is extensively used in pediatric critical care — for assessing current level of sedation. The statement is an organizational rounds prompt rather than a numeric claim.",
@@ -19320,7 +19340,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -19467,28 +19487,28 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "background",
      "note": "International delirium point-prevalence/mortality study; uses RASS to grade level of alertness but its scope is delirium epidemiology, not validation of the arousal scale.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Delirium subtype was determined by psychomotor activity and level of alertness, as assessed by the RASS, over the 24 hour period(11, 12). The frequency of RASS assessment was dependent on patient's acuity level, and ranged from hourly to every 4 hours. The RASS score ranges from -5 (unarousable), through 0 (alert and calm), to +4 (combative)(10). Delirious children with RASS scores from 0 to -3 were designated as having hypoactive delirium. Delirious children with RASS scores from 0 to +4 were designated as having hyperactive delirium. Children with RASS scores crossing zero (including both negative and positive numbers) were designated as having mixed delirium.",
        "highlight": "level of alertness, as assessed by the RASS, over the 24 hour period",
        "scope": "different-intervention",
        "note": "Nearest match: RASS used to grade alertness/arousal for delirium subtyping — shares the keyword but the study aim is delirium prevalence/mortality.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Delirium subtype was determined by psychomotor activity and level of alertness, as assessed by the RASS, over the 24 hour period(11, 12). The frequency of RASS assessment was dependent on patient's acuity level, and ranged from hourly to every 4 hours. The RASS score ranges from -5 (unarousable), through 0 (alert and calm), to +4 (combative)(10). Delirious children with RASS scores from 0 to -3 were designated as having hypoactive delirium. Delirious children with RASS scores from 0 to +4 were designated as having hyperactive delirium. Children with RASS scores crossing zero (including both negative and positive numbers) were designated as having mixed delirium.",
        "highlight": "The frequency of RASS assessment was dependent on patient's acuity level, and ranged from hourly to every 4 hours",
        "scope": "background",
        "note": "Documents real-world RASS assessment cadence (hourly to q4h), consistent with the per-shift arousal prompt, though within an epidemiology study.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -19512,7 +19532,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "SCCM PANDEM 2022 — p. 15",
    "passage": "… \"Precipitating risk factors\" include benzodiazepine exposure, coma and deep sedation, requirement for invasive MV, and prolonged cardiopulmonary bypass time (113, 151, 152, 221, 222, 226, 234, 237-239) (SDC Section E1, Table 16, http://links.lww. com/PCC/B920). Delirium in critically ill pediatric patients is associated with increases in hospital and PICU LOS, duration of MV, hospital costs, and in-hospital mortality (113, 151, 221, 222, 224, 234, 237-240). Delirium Monitoring. Question: Which delirium screening tools have the best validity and reliability in critically ill pediatric patients? (SDC Section E2, http://links.lww.com/ PCC/B920). Answer: \"We recommend\" use of the preschool and pCAM-ICU (ps/pCAM-ICU) or the CAPD as the most valid and reliable delirium monitoring tools in critically ill pediatric patients (strong, high-level evidence). Rationale: Of five pediatric-specific delirium screening tools available, three are relevant to PICU patients (SDC Section E2b, http://links.lww.com/PCC/B920). The ps/pCAM-ICU are considered \"point-in-time\" assessments, using both observation and interactive components (241), and maintaining the basic foundation of its highly valid and reliable precursor, the adult Confusion Assessment Method for the ICU. …\nPANDEM's endorsement of the ps/pCAM-ICU and CAPD supports naming these tools on rounds. The statement is an organizational rounds prompt rather than a discrete clinical claim.",
@@ -19527,7 +19547,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -19674,20 +19694,20 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "agrees",
      "note": "Archived text is Traube et al.'s single-center pediatric delirium epidemiology/mortality cohort (twice-daily CAPD screening), not the 'international point prevalence' paper named in the citation - a content/label mismatch - but both use CAPD screening and the passage supports the CAPD score usage.",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician",
        "scope": "on-scope",
        "note": "Operationalizes CAPD screening with score >=9 as a positive screen, directly supporting the 'CAPD score' screen result reported on rounds.",
-       "page": "",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -19711,7 +19731,7 @@
     "Smith 2011 (pCAM-ICU)",
     "Smith 2016 (psCAM-ICU)",
     "Lin 2023 (ICU Liberation)",
-    "Traube 2017"
+    "Traube 2017 (mortality)"
    ],
    "anchor": "SCCM PANDEM 2022 — p. 2",
    "passage": "Copyright © 2022 by the Society of Critical Care Medicine and the World Federation of Pediatric Intensive and Critical Care Societies. Unauthorized reproduction of this article is prohibited Online Special Article Pediatric Critical Care Medicine www.pccmjournal.org e75 CONCLUSIONS: The current guidelines represent a comprehensive list of practical clinical recommendations for the assessment, prevention, and management of key aspects for the comprehensive critical care of infants and children. Main areas of focus included 1) need for the routine monitoring of pain, agitation, withdrawal, and delirium using validated tools, 2) enhanced use of protocolized sedation and analgesia , and 3) recognition of the importance of nonpharmacologic interventions for enhancing patient comfort and comprehensive care provision. KEY WORDS: analgesia; delirium; guidelines; neuromuscular blockade; pediatric critical care; sedation I CU care bundles, including the ICU Liberation ABCDEF bundle, provide a new paradigm for liberating critically ill patients from mechanical ventilation (MV) and ICU environment, while optimizing post-ICU outcomes (1, 2). Despite growing appreciation of this bundled patient care approach, PICU sedation and analgesia practices remain highly variable (3-5). …\nThe statement maps to PANDEM's integrated scope of daily pain, sedation/agitation, analgesia, and delirium management; it is an organizational rounds prompt rather than a discrete clinical assertion.",
@@ -19726,7 +19746,7 @@
     "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
     "Smith HAB, et al. The Preschool Confusion Assessment Method for the ICU (psCAM-ICU). Crit Care Med. 2016;44(3):592–600.",
     "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
-    "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590."
+    "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898."
    ],
    "links": [
     "https://doi.org/10.1097/PCC.0000000000002873",
@@ -19881,28 +19901,28 @@
      "paragraphs": []
     },
     {
-     "label": "Traube 2017",
-     "cite": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+     "label": "Traube 2017 (mortality)",
+     "cite": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
      "kind": "pdf",
      "stance": "background",
      "note": "Nearest match on the delirium topic but a DIFFERENT SCOPE — an epidemiology/mortality cohort supplying rationale for delirium being on the plan, not a care-plan study. Also a metadata mismatch: the citation ('international point prevalence study,' 45(4):584–590) does not match the stored file ('Delirium and Mortality... Epidemiology and Outcomes,' 45(5):891–898).",
-     "docUrl": "https://doi.org/10.1097/CCM.0000000000002250",
+     "docUrl": "https://doi.org/10.1097/CCM.0000000000002324",
      "paragraphs": [
       {
        "context": "Conclusions--Delirium occurs frequently in critically ill children and is independently associated with mortality. Some in-hospital risk factors for delirium development are modifiable. Interventional studies are needed to determine best practices to limit delirium exposure in at-risk children.",
        "highlight": "independently associated with mortality",
        "scope": "broader",
        "note": "Establishes delirium burden and mortality association — rationale for including delirium in the plan, not a recommendation about the plan itself.",
-       "page": "892",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.2",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       },
       {
        "context": "Consistent with our PICU standard, each child was screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm, using the Cornell Assessment of Pediatric Delirium (CAPD)(8). This is also consistent with the recent position paper published by the European Society of Paediatric and Neonatal Intensive Care (ESPNIC), recommending use of CAPD to assess for pediatric delirium (grade of recommendation = A) every 8-12 hours(9). The CAPD is a well-validated observational 8-item tool that can reliably distinguish between pain, agitation, residual sedation, and delirium(8,9). A CAPD score of 9 or higher represents a positive screen; the diagnosis is then confirmed by the physician(8). Any developmentally delayed child who screened positive for delirium on the CAPD subsequently had the diagnosis of delirium confirmed (or refuted) by an intensivist or psychiatrist prior to being classified as delirious. (The clinician had to establish an alteration from mental status at prehospital baseline, in order to ensure that static encephalopathy - i.e.: the underlying developmental delay - was not confused with delirium).",
        "highlight": "screened for delirium twice daily by the bedside nurse, at 6 am and 6 pm",
        "scope": "broader",
        "note": "Its twice-daily CAPD screening protocol illustrates routine delirium-monitoring cadence, but the study's aim is epidemiologic outcomes rather than a daily plan.",
-       "page": "893",
-       "docUrl": "https://doi.org/10.1097/CCM.0000000000002250"
+       "page": "ms. p.3",
+       "docUrl": "https://doi.org/10.1097/CCM.0000000000002324"
       }
      ]
     }
@@ -19954,7 +19974,7 @@
        "highlight": "this two-step approach (highly sensitive DTS followed by highly specific bCAM)",
        "scope": "on-scope",
        "note": "Abstract Conclusions state the exact sequence claimed: highly sensitive DTS followed by highly specific bCAM in older ED patients.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -19962,7 +19982,7 @@
        "highlight": "we developed and evaluated a novel two-step approach to delirium surveillance for the ED",
        "scope": "on-scope",
        "note": "Abstract Background frames the whole study as a two-step ED delirium surveillance approach.",
-       "page": "2",
+       "page": "465",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -19970,7 +19990,7 @@
        "highlight": "to serve as the rule-out and rule-in tests for the two-step approach to delirium surveillance",
        "scope": "on-scope",
        "note": "Introduction names DTS as the rule-out step and bCAM as the rule-in step of the two-step approach.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -19978,7 +19998,7 @@
        "highlight": "If the DTS result is positive, then a confirmatory delirium assessment such as the bCAM should be performed.",
        "scope": "on-scope",
        "note": "Figure 1 caption spells out the DTS-then-bCAM ordering: a positive DTS triggers the confirmatory bCAM.",
-       "page": "12",
+       "page": "ms. p.12",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -20072,7 +20092,7 @@
        "highlight": "a highly specific rule-in test for delirium",
        "scope": "on-scope",
        "note": "Directly supports the claim's characterization of the bCAM as a highly specific rule-in instrument.",
-       "page": "1",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20080,7 +20100,7 @@
        "highlight": "the bCAM to be a brief (<1 minute) rule-in test",
        "scope": "on-scope",
        "note": "Supports the claim's 'quick, go straight to the bCAM' framing; Han's <1-minute design target is within the tool's stated <2-minute budget.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20088,7 +20108,7 @@
        "highlight": "one or both components can be used",
        "scope": "on-scope",
        "note": "Explicitly sanctions using the bCAM alone (without the DTS), which is exactly the 'bCAM directly' pathway.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -20322,7 +20342,7 @@
        "highlight": "If a patient had a RASS other than 0, or made >1 error on the \"LUNCH\" backwards spelling test, then the DTS was considered positive.",
        "scope": "on-scope",
        "note": "Defines the DTS positivity rule (spell LUNCH backwards; RASS other than 0 or >1 error = positive), so RASS 0 with 0-1 errors is a negative rule-out screen.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20330,7 +20350,7 @@
        "highlight": "The DTS was 98.0% (95%CI: 89.5% - 99.5%) sensitive",
        "scope": "on-scope",
        "note": "Directly supports the '98% sensitive rule-out' figure the card cites.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20338,7 +20358,7 @@
        "highlight": "indicating that a negative DTS essentially ruled out delirium",
        "scope": "on-scope",
        "note": "Supports 'DTS negative → delirium less likely' as an essentially rule-out result.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20346,7 +20366,7 @@
        "highlight": "A negative screen would rule out delirium, reduce the number of formal delirium assessments needed, and enhance screening efficiency.",
        "scope": "on-scope",
        "note": "Frames a negative DTS as ruling out delirium and a positive screen as triggering further clinical evaluation.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20354,7 +20374,7 @@
        "highlight": "a negative DTS essentially ruled-out delirium",
        "scope": "on-scope",
        "note": "Discussion restates the LUNCH-backwards script and the negative-DTS rule-out.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20362,7 +20382,7 @@
        "highlight": "If the DTS result is negative, then delirium is ruled out and no additional testing is needed.",
        "scope": "on-scope",
        "note": "Figure 1 confirms RASS 0 = normal level of consciousness and that a negative DTS rules out delirium.",
-       "page": "12",
+       "page": "ms. p.12",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20370,7 +20390,7 @@
        "highlight": "The DTS and bCAM's diagnostic performances and inter-observer reliabilities were similar as the main analysis",
        "scope": "different-setting",
        "note": "Nearest performance match but in an in-hospital admitted non-ICU subgroup, not the ED-bedside triage screening the card describes.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20378,7 +20398,7 @@
        "highlight": "the bCAM and DTS may have different diagnostic performances in patients less than 65 years of age",
        "scope": "different-population",
        "note": "The 98% sensitivity was established in ED patients ≥65; the authors caution performance may differ in patients under 65.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -20438,7 +20458,7 @@
        "highlight": "If a patient had a RASS other than 0, or made >1 error on the \"LUNCH\" backwards spelling test, then the DTS was considered positive.",
        "scope": "on-scope",
        "note": "States that any RASS other than 0 (or a failed LUNCH spelling) makes the DTS positive — the first half of the claim, in the same older-ED-patient population and setting; the clause calling RASS an ICU sedation scale is provenance within this on-scope paragraph, not separate different-setting support.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20446,7 +20466,7 @@
        "highlight": "altered level of consciousness (feature 3) was determined by the RASS and disorganized thinking",
        "scope": "on-scope",
        "note": "Defines altered level of consciousness as bCAM feature 3, scored by RASS, with any RASS other than 0 counting as altered — the second half of the claim.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20454,7 +20474,7 @@
        "highlight": "Both assessments use the Richmond Agitation Sedation Scale (RASS), which assesses for arousal and ranges from -5 (coma) to +4 (combative);25 a score of 0 indicates normal level of consciousness.",
        "scope": "background",
        "note": "Figure 1 legend framing RASS as the shared arousal measure for both the DTS and bCAM, with 0 as normal — supports the arousal framing but does not itself state the positivity threshold.",
-       "page": "12",
+       "page": "ms. p.12",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -20522,7 +20542,7 @@
        "highlight": "A patient was considered to be delirious if both features 1 (altered mental status or fluctuating course) and feature 2 (inattention) were present, and either feature 3 (altered level of consciousness) or feature 4 (disorganized thinking) were present.",
        "scope": "on-scope",
        "note": "States the bCAM positivity rule identical to the claim: Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4).",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -20530,7 +20550,7 @@
        "highlight": "both features 1 (altered mental status or fluctuating course) and feature 2 (inattention) were present, and either feature 3 (altered level of consciousness) or feature 4 (disorganized thinking) were present",
        "scope": "on-scope",
        "note": "States the bCAM-positive rule directly: features 1 and 2 both present plus either feature 3 or feature 4, matching the combination rule in the claim.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -20790,7 +20810,7 @@
        "highlight": "perform a medication review to identify recent medication changes and use of medications at high risk of causing delirium",
        "scope": "on-scope",
        "note": "Directly supports reviewing medications first (new, changed, or deliriogenic drugs) as part of the cause search for a delirious ED patient.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -20798,7 +20818,7 @@
        "highlight": "sedative hypnotics (benzodiazepines, zolpidem)",
        "scope": "on-scope",
        "note": "Table 1 itemizes the deliriogenic classes named in the claim — anticholinergics and benzodiazepines.",
-       "page": "16",
+       "page": "ms. p.16",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -20806,7 +20826,7 @@
        "highlight": "it may lead to withdrawal and worsening delirium",
        "scope": "on-scope",
        "note": "Prose warns that abruptly stopping long-term benzodiazepines can precipitate withdrawal and worsening delirium, supporting 'consider withdrawal (benzodiazepines)'; alcohol and benzodiazepine withdrawal also appear in Table 1's reversible-causes list.",
-       "page": "16",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -20814,7 +20834,7 @@
        "highlight": "nonsedating, nonopioid medications if possible",
        "scope": "different-intervention",
        "note": "Nearest mention of opioids, but in the Prevent step (choose non-opioid analgesia) rather than the diagnostic medication review the claim describes.",
-       "page": "7",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -20946,7 +20966,7 @@
        "highlight": "Infections, neurologic disorders, and metabolic or electrolyte disorder are 3 of the most common causes of acute alterations in mental status",
        "scope": "on-scope",
        "note": "Prose names infection, neurologic, and metabolic or electrolyte disorders as the most common causes of acute mental-status change in older adults, matching the claim's screen list (hypoxia and hypoglycemia appear among Table 1's reversible causes).",
-       "page": "6",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -21038,7 +21058,7 @@
        "highlight": "other compounding factors such as dehydration, pain, new antibiotic medications, and change in environment can also contribute",
        "scope": "on-scope",
        "note": "Prose names pain among the compounding, reversible factors that contribute to delirium; urinary retention and constipation appear in Table 1's 'Other factors' example list rather than in prose.",
-       "page": "16",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21046,7 +21066,7 @@
        "highlight": "nausea, vomiting, and constipation",
        "scope": "on-scope",
        "note": "Constipation appears in the Prevent step as a bothersome symptom worth treating; supports acting on it, though framed as symptom management rather than an explicitly listed precipitant.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21054,7 +21074,7 @@
        "highlight": "dehydration, pain",
        "scope": "on-scope",
        "note": "Reinforces pain as a common compounding/contributing factor in multifactorial ED delirium.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -21146,7 +21166,7 @@
        "highlight": "Providing large-font clocks and other visual cues about the date and location can help self-orientation.",
        "scope": "on-scope",
        "note": "Reorientation via clocks and visual cues about date/location — supports 'reorient frequently.'",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21154,7 +21174,7 @@
        "highlight": "family members and caregivers who demonstrate a calming presence to remain at the bedside",
        "scope": "on-scope",
        "note": "Family/caregiver calming presence at the bedside — supports 'involve family.'",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21162,7 +21182,7 @@
        "highlight": "1:1 sitters",
        "scope": "on-scope",
        "note": "1:1 sitters listed as a nonpharmacologic measure — supports 'or a sitter.'",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21170,7 +21190,7 @@
        "highlight": "with assistance from sitters, family, or staff",
        "scope": "on-scope",
        "note": "Nonpharmacologic de-escalation delivered with assistance from sitters, family, or staff supports involving family or a sitter.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21178,7 +21198,7 @@
        "highlight": "hearing-assistive devices",
        "scope": "on-scope",
        "note": "Providing hearing-assistive devices to normalize daily function — supports keeping hearing aids on.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21302,7 +21322,7 @@
        "highlight": "Unless medically necessary, things that tether the patient to the bed should be avoided, including blood pressure cuffs, monitor leads, continuous intravenous infusions,",
        "scope": "on-scope",
        "note": "PREVENT step directly instructs limiting disruptions and avoiding bed tethers (BP cuffs, monitor leads/telemetry, IV lines) unless medically necessary.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21310,7 +21330,7 @@
        "highlight": "Greater numbers of restraints or tethers, immobilization, and use of bladder catheters are associated with higher rates of delirium.",
        "scope": "on-scope",
        "note": "Continuation of the tether list onto p.7 (bladder catheters) and the rationale linking restraints/tethers/immobilization to higher delirium rates.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21318,7 +21338,7 @@
        "highlight": "measures should be taken to help prevent injury while still promoting mobility, if possible.",
        "scope": "on-scope",
        "note": "Supports 'mobilize when safe' — prevent fall injury while still promoting mobility (low beds, out of bed to chairs).",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21426,7 +21446,7 @@
        "highlight": "treating the underlying condition and managing pain,36 ideally with nonsedating, nonopioid medications if possible",
        "scope": "on-scope",
        "note": "The 'Prevent' step directly supports 'treat pain adequately' and favors nonsedating, nonopioid analgesia in the older ED delirium patient.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21434,7 +21454,7 @@
        "highlight": "Medications that can cause delirium should be avoided (Table 1).",
        "scope": "on-scope",
        "note": "Directly supports avoiding new deliriogenic/psychoactive medications where possible.",
-       "page": "6",
+       "page": "ms. p.6",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21442,7 +21462,7 @@
        "highlight": "Benzodiazepines should be avoided in individuals not already receiving them",
        "scope": "on-scope",
        "note": "Most literal support for 'avoid NEW psychoactive medications' — do not start benzodiazepines in patients not already on them.",
-       "page": "7",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -21450,7 +21470,7 @@
        "highlight": "nonpharmacologic measures should be used first when possible",
        "scope": "background",
        "note": "Frames the overall principle that antipsychotics/benzodiazepines carry risk and nonpharmacologic measures come first; supports but is broader than the specific claim.",
-       "page": "1",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -21750,7 +21770,7 @@
        "highlight": "Delirium in older ED patients is an independent predictor of increased 6-month mortality",
        "scope": "on-scope",
        "note": "Abstract Conclusion states the exact claim — ED delirium independently predicts 6-month mortality.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -21758,7 +21778,7 @@
        "highlight": "independent predictor of increased 6-month mortality",
        "scope": "on-scope",
        "note": "The study's conclusion establishes delirium as an independent predictor of increased 6-month mortality after covariate adjustment (the abstract Results HR sentence is split across the page break, so the clean conclusion statement is used).",
-       "page": "1",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -21766,7 +21786,7 @@
        "highlight": "delirium is an independent predictor for death",
        "scope": "on-scope",
        "note": "Final Conclusion restates independent prediction of death after full covariate adjustment.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -21774,7 +21794,7 @@
        "highlight": "Despite being a marker of death, delirium is missed by emergency physicians in up to 75% of the cases",
        "scope": "on-scope",
        "note": "Supports the 'treat it as a finding that matters' framing — delirium is a marker of death yet frequently missed in the ED.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       }
      ]
@@ -22190,7 +22210,7 @@
        "highlight": "this two-step approach (highly sensitive DTS followed by highly specific bCAM) may enable healthcare professionals, regardless of clinical background, to efficiently screen for delirium",
        "scope": "on-scope",
        "note": "Abstract conclusion: the two-step DTS-then-bCAM approach for older ED patients, the first pathway in the menu.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -22198,7 +22218,7 @@
        "highlight": "a two-step approach: a sequential testing strategy that utilizes brief, valid, and reliable delirium assessments",
        "scope": "on-scope",
        "note": "Describes the design: a brief highly sensitive rule-out (DTS) followed by a specific rule-in (bCAM).",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -22206,7 +22226,7 @@
        "highlight": "If the DTS result is positive, then a confirmatory delirium assessment such as the bCAM should be performed",
        "scope": "on-scope",
        "note": "Figure 1 flow: a negative DTS rules out; a positive DTS triggers bCAM confirmation, the DTS-to-bCAM pathway.",
-       "page": "12",
+       "page": "ms. p.12",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -22214,7 +22234,7 @@
        "highlight": "one or both components can be used",
        "scope": "on-scope",
        "note": "States either component can be used alone, supporting the bCAM-directly option.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -22360,7 +22380,7 @@
        "highlight": "is very sensitive, so it functions well as a screening tool",
        "scope": "on-scope",
        "note": "The DTS is rapid and sensitive, functioning as the screening step in the ED.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -22368,7 +22388,7 @@
        "highlight": "such as the Confusion Assessment Method or Brief Confusion Assessment Method",
        "scope": "on-scope",
        "note": "A positive DTS should trigger confirmation with the CAM or bCAM, the two-step DTS-to-bCAM pathway.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -22386,7 +22406,7 @@
        "highlight": "Performing the CAM in high risk patients only (dementia, functional impairment, hearing impairment, or nursing home residence) may improve screening efficiency",
        "scope": "different-intervention",
        "note": "The rationale behind targeting screening to high-risk patients (the bCAM-directly-in-high-risk idea), but using the older CAM rather than the pathway tools.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -22394,7 +22414,7 @@
        "highlight": "delirium surveillance in the ED be a key quality indicator for emergency geriatric care",
        "scope": "background",
        "note": "Frames ED delirium surveillance as a key quality indicator, supporting screening every older adult (the section premise), not a specific pathway.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       }
      ]
@@ -22459,7 +22479,7 @@
        "highlight": "If a patient had a RASS other than 0",
        "scope": "on-scope",
        "note": "Defines the DTS: component 1 is level of consciousness measured by the RASS (scored first), and a RASS other than 0 makes the screen positive — directly supports scoring RASS first and treating any non-zero RASS as altered arousal.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -22467,7 +22487,7 @@
        "highlight": "If the RASS was other than 0 (alert, normal level of consciousness) then the patient was considered to have altered level of consciousness",
        "scope": "on-scope",
        "note": "States the numeric rule explicitly: any RASS other than 0 counts as altered level of consciousness/arousal.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -22475,7 +22495,7 @@
        "highlight": "which assesses for arousal and ranges from -5 (coma) to +4 (combative)",
        "scope": "on-scope",
        "note": "Figure 1 legend confirms the RASS assesses arousal with 0 as the normal baseline, so any other score is altered arousal.",
-       "page": "12",
+       "page": "ms. p.12",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -22573,7 +22593,7 @@
        "highlight": "The Delirium Triage Screen (Figure 2) can be rapidly administered",
        "scope": "on-scope",
        "note": "ADEPT's rapid, sensitive Delirium Triage Screen is the ED arousal-first screen; its formal arousal (RASS) assessment is detailed in the tool's Figure 2, corroborating the arousal-first gate without restating the RASS-0 cut.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -22852,7 +22872,7 @@
        "highlight": "If a patient had a RASS other than 0, or made >1 error on the \"LUNCH\" backwards spelling test, then the DTS was considered positive.",
        "scope": "on-scope",
        "note": "Core definition: a positive DTS is altered arousal (RASS other than 0) or >1 error (>=2 errors) spelling LUNCH backwards, which then triggers the confirmatory bCAM.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -22868,7 +22888,7 @@
        "highlight": "A positive screen would trigger a formal delirium assessment",
        "scope": "on-scope",
        "note": "States the two-step design: a brief highly-sensitive screen whose positive result prompts a more specific rule-in assessment.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -22876,7 +22896,7 @@
        "highlight": "was unable or refused to perform the task, then he/she was considered to be positive for inattention",
        "scope": "on-scope",
        "note": "Source of the 'unable or refused -> positive' wording; stated here for the bCAM (confirmatory step) months-backwards attention item, which the claim applies to the DTS attention component.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -22974,7 +22994,7 @@
        "highlight": "A positive Delirium Triage Screen result should trigger confirmation with a test that is more specific",
        "scope": "on-scope",
        "note": "A positive Delirium Triage Screen triggers confirmation with a more specific test (the CAM or bCAM), matching the claim's screen-then-confirm flow.",
-       "page": "4",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -22982,7 +23002,7 @@
        "highlight": "such as the Confusion Assessment Method or Brief Confusion",
        "scope": "on-scope",
        "note": "Directly states a positive DTS should trigger confirmation with a more specific test such as the CAM or bCAM, mirroring the claim's confirm step.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -23065,7 +23085,7 @@
        "highlight": "A patient was considered to be delirious if both features 1 (altered mental status or fluctuating course) and feature 2 (inattention) were present, and either feature 3 (altered level of consciousness) or feature 4 (disorganized thinking) were present.",
        "scope": "on-scope",
        "note": "Primary source; defines the bCAM-positive algorithm exactly as the claim states — features 1 and 2 both present plus either feature 3 or feature 4.",
-       "page": "4",
+       "page": "ms. p.4",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       },
       {
@@ -23073,7 +23093,7 @@
        "highlight": "We developed the bCAM to be a brief (<1 minute) rule-in test.",
        "scope": "on-scope",
        "note": "Supports the tool's speed: bCAM was designed as a rule-in test taking under one minute, which is within the claim's <2-minute bound.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -23091,7 +23111,7 @@
        "highlight": "A patient is delirious if he or she has acute onset or fluctuating course, inattention, and either disorganized thinking or altered level of consciousness.",
        "scope": "on-scope",
        "note": "ADEPT restates the bCAM positive rule as confirmation via the Confusion Assessment Method or Brief Confusion Assessment Method: acute onset or fluctuating course, inattention, and either disorganized thinking or altered level of consciousness.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -23163,7 +23183,7 @@
        "highlight": "Like the CAM, a patient must possess both features 1 and 2, and either 3 or 4 in order to meet criteria for delirium.",
        "scope": "different-intervention",
        "note": "States the identical 1+2+(3 or 4) combination rule, but for the CAM-ICU — the predecessor instrument this earlier ED study used — not the bCAM; shares the algorithm keywords under a different tool.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       }
      ]
@@ -23661,7 +23681,7 @@
        "highlight": "an independent predictor of increased 6-month mortality",
        "scope": "on-scope",
        "note": "Directly supports the mortality clause: delirium in older ED patients independently predicts 6-month mortality.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -23669,7 +23689,7 @@
        "highlight": "the diagnostic evaluation should then focus on uncovering the underlying etiology",
        "scope": "on-scope",
        "note": "Supports 'find the cause' — same paragraph lists medication reactions among common causes, backing 'review meds first'.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -23677,7 +23697,7 @@
        "highlight": "physicians at the next level of care should be notified of the patient's delirium status",
        "scope": "on-scope",
        "note": "Supports handing the finding off at disposition — notify the next level of care on admission.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -23685,7 +23705,7 @@
        "highlight": "inappropriate interventions known to exacerbate delirium such as medications with anticholinergic properties or benzodiazepines",
        "scope": "on-scope",
        "note": "Supports 'manage without new harm' by naming the interventions (anticholinergics, benzodiazepines) that worsen delirium.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       }
      ]
@@ -23938,7 +23958,7 @@
        "highlight": "it is important that the diagnosis be communicated explicitly",
        "scope": "on-scope",
        "note": "Directly supports the disposition hand-off item: the ED team must communicate delirium presence to the receiving inpatient team and the diagnosis must be communicated explicitly.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -23946,7 +23966,7 @@
        "highlight": "such as the Confusion Assessment Method or Brief Confusion Assessment Method",
        "scope": "on-scope",
        "note": "Names the DTS/bCAM two-step ED screen and its result (positive DTS triggers confirmatory bCAM), matching the screen/result named in the claim.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -23964,7 +23984,7 @@
        "highlight": "physicians at the next level of care should be notified of the patient's delirium status",
        "scope": "on-scope",
        "note": "Directly supports hand-off of the screen result: if admitted, the next level of care should be notified of the patient's delirium status.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       },
       {
@@ -24296,7 +24316,7 @@
        "highlight": "it is important that the diagnosis be communicated explicitly",
        "scope": "on-scope",
        "note": "Primary anchor (p.7): the ED team must explicitly communicate the delirium diagnosis to the receiving inpatient team at hand-off.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -24304,7 +24324,7 @@
        "highlight": "identify and address the underlying cause",
        "scope": "on-scope",
        "note": "Supports the 'suspected cause(s)' component — the Treat step's goal is to identify and address the underlying cause.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -24312,7 +24332,7 @@
        "highlight": "have been ruled out",
        "scope": "on-scope",
        "note": "Supports the 'what was ruled out' component — life-threatening, immediately treatable conditions are ruled out first in the Assess step.",
-       "page": "3",
+       "page": "ms. p.3",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -24320,7 +24340,7 @@
        "highlight": "focuses on evaluation for underlying causes",
        "scope": "on-scope",
        "note": "The Evaluate step is dedicated to working up the underlying cause(s) that the hand-off then conveys.",
-       "page": "5",
+       "page": "ms. p.5",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -24338,7 +24358,7 @@
        "highlight": "physicians at the next level of care should be notified",
        "scope": "on-scope",
        "note": "Directly on-scope: after the evaluation focuses on uncovering the underlying etiology, if admitted the next level of care must be notified of the patient's delirium status — both hand-off components.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       }
      ]
@@ -24403,7 +24423,7 @@
        "highlight": "performing these interventions in high-risk delirious patients early in the ED course",
        "scope": "background",
        "note": "Its only mention of ED intervention is an aspirational future-research paradigm, not support for relaying interventions already started at disposition.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -24475,7 +24495,7 @@
        "highlight": "communicate the presence of delirium or agitation to the inpatient team",
        "scope": "on-scope",
        "note": "ED-specific direction to explicitly hand off delirium to the receiving inpatient team at disposition — the governing basis for the handoff script.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -24483,7 +24503,7 @@
        "highlight": "Nonpharmacologic interventions such as verbal de-escalation, distraction, and reassurance",
        "scope": "on-scope",
        "note": "Describes the nonpharmacologic ('Treat') interventions started in the ED that the handoff item asks the clinician to relay to the receiving team.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -24491,7 +24511,7 @@
        "highlight": "low beds, getting out of bed to chairs, physical therapy, nonslip floors or socks, and 1:1 sitters",
        "scope": "on-scope",
        "note": "Describes the 'Prevent' interventions (mobility measures, sitters) initiated in the ED — part of the 'interventions started' content being handed off.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -24509,7 +24529,7 @@
        "highlight": "physicians at the next level of care should be notified of the patient's delirium status",
        "scope": "on-scope",
        "note": "Directly supports handing off delirium status to the receiving team at admission; the same paragraph frames delirium interventions as occurring within the ED course.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       }
      ]
@@ -24574,7 +24594,7 @@
        "highlight": "delirium that is missed in the ED will also be missed in the inpatient setting in over 90% of cases",
        "scope": "background",
        "note": "Supplies the justification for communicating delirium at disposition rather than describing the hand-off/follow-up plan itself.",
-       "page": "2",
+       "page": "ms. p.2",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2013.05.003"
       }
      ]
@@ -24654,7 +24674,7 @@
        "highlight": "communicate the presence of delirium or agitation to the inpatient team",
        "scope": "on-scope",
        "note": "Directly supports the disposition hand-off item: ED staff must communicate delirium to the admitting/inpatient team, and communicate the diagnosis explicitly.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       },
       {
@@ -24662,7 +24682,7 @@
        "highlight": "reassess their effects frequently",
        "scope": "different-intervention",
        "note": "Nearest match sharing the word 'reassess' but concerns frequent reassessment of agitation-medication effects, not a hand-off/follow-up reassessment plan for the receiving team.",
-       "page": "7",
+       "page": "ms. p.7",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2019.07.023"
       }
      ]
@@ -24680,7 +24700,7 @@
        "highlight": "physicians at the next level of care should be notified of the patient's delirium status",
        "scope": "on-scope",
        "note": "Directly supports the hand-off item — the admitting/receiving team must be notified of delirium status at disposition.",
-       "page": "8",
+       "page": "ms. p.8",
        "docUrl": "https://doi.org/10.1016/j.annemergmed.2010.03.003"
       }
      ]
@@ -29077,12 +29097,11 @@
   },
   {
    "tool": "Pediatric",
-   "source": "Traube 2017",
-   "citation": "Traube C, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
-   "link": "https://doi.org/10.1097/CCM.0000000000002250",
-   "archived": false,
+   "source": "Traube 2017 (mortality)",
+   "citation": "Traube C, Silver G, Gerber LM, et al. Delirium and mortality in critically ill children: epidemiology and outcomes of pediatric delirium. Crit Care Med. 2017;45(5):891–898.",
+   "link": "https://doi.org/10.1097/CCM.0000000000002324",
+   "archived": true,
    "statements": 5,
-   "check": "Confirmed — matches the indexed record.",
    "usedIn": [
     "PICU Delirium Workflow — 1 · Screen every child",
     "PICU Delirium Workflow — 10-second rounds script",
@@ -29090,6 +29109,20 @@
     "PICU Delirium Workflow — 3 · Score the screen",
     "PICU Delirium Workflow — 4 · Act on the result"
    ],
+   "check": "Confirmed — matches the indexed record. Distinct from the point-prevalence study published by the same first author in the same year; the passages quoted on this tool are all from this paper.",
+   "verdict": ""
+  },
+  {
+   "tool": "Pediatric",
+   "source": "Traube 2017 (point prevalence)",
+   "citation": "Traube C, Silver G, Reeder RW, et al. Delirium in critically ill children: an international point prevalence study. Crit Care Med. 2017;45(4):584–590.",
+   "link": "https://doi.org/10.1097/CCM.0000000000002250",
+   "archived": false,
+   "statements": 1,
+   "usedIn": [
+    "PICU Delirium Workflow — 1 · Screen every child"
+   ],
+   "check": "Confirmed — matches the indexed record. The full text is not archived here; the published abstract carries the prevalence figure quoted on the statement below.",
    "verdict": ""
   },
   {
