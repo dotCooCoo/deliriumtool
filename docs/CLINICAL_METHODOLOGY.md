@@ -501,6 +501,15 @@ first (Lisibach 2022; AGS 2015) and, for post-ICU transfers, considers
 sedative/opioid withdrawal — Wang 2017 reports iatrogenic withdrawal onset 1–11
 days after opioid cessation or dose reduction.
 
+The bundle's evidence is for the bundle. Individual components should not be
+read as separately established: a systematic review of non-pharmacologic sleep
+interventions in non-ICU inpatients concluded there is "insufficient to low
+strength of evidence that any non-pharmacologic intervention improves sleep
+quality or quantity of general inpatients" (Tamrat 2014, J Gen Intern Med
+2014;29:788). The sleep component is carried because it is part of the
+multicomponent interventions the pooled reviews tested, not because standalone
+sleep interventions have been shown to work.
+
 Validated instrument scripts and thresholds render verbatim from
 `src/js/stepdown/data/instruments.js` and are pinned by golden-value tests
 (`tests/unit/templates-stepdown.test.js`). The tool is de-identified by
@@ -692,7 +701,6 @@ Sources this tool cites that are not already listed above (shared sources are no
 | `kuczmarska2016` | Kuczmarska A, et al. Detection of delirium in hospitalized older general medicine patients: a comparison of the 3D-CAM and CAM-ICU. J Gen Intern Med 2016;31:297. | https://doi.org/10.1007/s11606-015-3514-0 |
 | `neufeld2013_postop` | Neufeld KJ, et al. Evaluation of two delirium screening tools for detecting post-operative delirium in the elderly. Br J Anaesth 2013;111:612. | https://doi.org/10.1093/bja/aet167 |
 | `marcantonio2022_ubcam` | Marcantonio ER, et al. Comparative implementation of a brief app-directed protocol for delirium identification by hospitalists, nurses, and nursing assistants. Ann Intern Med 2022;175:65. | https://doi.org/10.7326/M21-1687 |
-| `tamrat2014_sleep` | Tamrat R, et al. Non-pharmacologic interventions to improve the sleep of hospitalized patients: a systematic review. J Gen Intern Med 2014;29:788. | https://doi.org/10.1007/s11606-013-2640-9 |
 | `martinez2012` | Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599. | https://doi.org/10.1136/bmjopen-2012-001599 |
 | `siddiqi2016` | Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563. | https://doi.org/10.1002/14651858.CD005563.pub3 |
 | `ags2015` | American Geriatrics Society. Abstracted clinical practice guideline for postoperative delirium in older adults. J Am Geriatr Soc 2015;63:142. | https://doi.org/10.1111/jgs.13281 |

@@ -155,8 +155,6 @@ export const PREVENTION = {
     'neufeld2016',
     'oh2019',
     'nikooie2019',
-    // the sleep component is the one bundle element with its own non-ICU review
-    'tamrat2014_sleep',
   ],
   intro:
     'A multicomponent non-pharmacologic bundle reduced incident delirium in non-ICU inpatients (Cochrane RR 0.69). Antipsychotics do NOT prevent delirium — do not use them prophylactically.',
