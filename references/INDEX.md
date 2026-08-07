@@ -204,11 +204,11 @@ PDFs live only in the gitignored `references/ed/` archive, never committed.
 
 ## Adult Stepdown / Progressive Care Delirium — /stepdown/
 
-Sources for a planned adult stepdown / progressive-care (intermediate care,
-high-dependency) delirium screening reference — for patients transferred from the
-ICU and for direct admits to a monitored non-ICU bed. The article PDFs live only
-in the gitignored `references/stepdown/` archive, never committed; citations link
-to the canonical URL.
+Sources for the adult stepdown / progressive-care (intermediate care,
+high-dependency) delirium screening tool at `/stepdown/`, covering patients
+transferred from the ICU and direct admits to a monitored non-ICU bed. The
+article PDFs live only in the gitignored `references/stepdown/` archive, never
+committed; citations link to the canonical URL.
 
 ### Setting-native & closest-population evidence
 
@@ -232,7 +232,7 @@ to the canonical URL.
 | Sands 2021 — Single Question in Delirium (SQiD), BMC Cancer 2021;21:75 | `stepdown/sands-2021-sqid-bmccancer.pdf` | https://doi.org/10.1186/s12885-020-07504-x |
 | Gusmão-Flores 2012 — CAM-ICU & ICDSC diagnostic meta-analysis, Crit Care 2012;16:R115 | `stepdown/gusmao-flores-2012-camicu-icdsc-meta-critcare.pdf` | https://doi.org/10.1186/cc11407 |
 | Han 2014 — CAM-ICU validation in older ED patients, Acad Emerg Med 2014;21:180 (PMID 24673674) | `stepdown/han-2014-camicu-ed-validation-academ.pdf` | https://doi.org/10.1111/acem.12309 |
-| Ditzel 2024 — DeltaScan EEG-based acute-encephalopathy/delirium assessment, ICU & non-ICU, Am J Geriatr Psychiatry 2024;32:1093 | `stepdown/ditzel-2024-deltascan-eeg-validation-ajgp.pdf` | https://doi.org/10.1016/j.jagp.2023.12.005 |
+| Ditzel 2024 — DeltaScan EEG-based acute-encephalopathy/delirium assessment, ICU & non-ICU, Am J Geriatr Psychiatry 2024;32:1093 (archived background — not currently cited by the tool; an EEG device sits outside the non-device boundary) | `stepdown/ditzel-2024-deltascan-eeg-validation-ajgp.pdf` | https://doi.org/10.1016/j.jagp.2023.12.005 |
 
 ### Arousal & severity
 
@@ -284,7 +284,7 @@ to the canonical URL.
 
 | Source | Local file | Canonical URL |
 |---|---|---|
-| Li & You 2026 — correspondence on the under-recognition of hypoactive delirium, Anaesthesia 2026;81:444 | `stepdown/li-2026-hypoactive-delirium-overlooked-anaesthesia.pdf` | https://doi.org/10.1111/anae.70000 |
+| Li & You 2026 — correspondence on the under-recognition of hypoactive delirium, Anaesthesia 2026;81:444-5 | `stepdown/li-2026-hypoactive-delirium-overlooked-anaesthesia.pdf` | https://doi.org/10.1111/anae.16785 |
 
 ### Still to source (paywalled — cited by URL, not archived)
 
