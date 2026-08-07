@@ -56,6 +56,16 @@ export const REFS = {
     c: 'Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599.',
     u: 'https://doi.org/10.1136/bmjopen-2012-001599',
   },
+  tamrat2014_sleep: {
+    l: 'Tamrat 2014 (sleep interventions)',
+    c: 'Tamrat R, et al. Non-pharmacologic interventions to improve the sleep of hospitalized patients: a systematic review. J Gen Intern Med 2014;29:788.',
+    u: 'https://doi.org/10.1007/s11606-013-2640-9',
+  },
+  marcantonio2022_ubcam: {
+    l: 'Marcantonio 2022 (UB-CAM implementation)',
+    c: 'Marcantonio ER, et al. Comparative implementation of a brief app-directed protocol for delirium identification by hospitalists, nurses, and nursing assistants. Ann Intern Med 2022;175:65.',
+    u: 'https://doi.org/10.7326/M21-1687',
+  },
   siddiqi2016: {
     l: 'Siddiqi 2016 (Cochrane)',
     c: 'Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563.',

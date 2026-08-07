@@ -232,7 +232,7 @@ committed; citations link to the canonical URL.
 | Sands 2021 — Single Question in Delirium (SQiD), BMC Cancer 2021;21:75 | `stepdown/sands-2021-sqid-bmccancer.pdf` | https://doi.org/10.1186/s12885-020-07504-x |
 | Gusmão-Flores 2012 — CAM-ICU & ICDSC diagnostic meta-analysis, Crit Care 2012;16:R115 | `stepdown/gusmao-flores-2012-camicu-icdsc-meta-critcare.pdf` | https://doi.org/10.1186/cc11407 |
 | Han 2014 — CAM-ICU validation in older ED patients, Acad Emerg Med 2014;21:180 (PMID 24673674) | `stepdown/han-2014-camicu-ed-validation-academ.pdf` | https://doi.org/10.1111/acem.12309 |
-| Ditzel 2024 — DeltaScan EEG-based acute-encephalopathy/delirium assessment, ICU & non-ICU, Am J Geriatr Psychiatry 2024;32:1093 (archived background — not currently cited by the tool; an EEG device sits outside the non-device boundary) | `stepdown/ditzel-2024-deltascan-eeg-validation-ajgp.pdf` | https://doi.org/10.1016/j.jagp.2023.12.005 |
+| Ditzel 2024 — DeltaScan EEG-based acute-encephalopathy/delirium assessment, ICU & non-ICU, Am J Geriatr Psychiatry 2024;32:1093 (cited in the methodology as the reason EEG-assisted assessment is out of scope: an EEG device sits outside the non-device boundary) | `stepdown/ditzel-2024-deltascan-eeg-validation-ajgp.pdf` | https://doi.org/10.1016/j.jagp.2023.12.005 |
 
 ### Arousal & severity
 
@@ -240,7 +240,7 @@ committed; citations link to the canonical URL.
 |---|---|---|
 | Chester 2012 — modified RASS (mRASS) serial screening on general-medicine wards, J Hosp Med 2012;7:450 (PMID 22173963) | `stepdown/chester-2012-mrass-serial-jhm.pdf` | https://doi.org/10.1002/jhm.1003 |
 | Han 2015 — RASS for detecting delirium in older ED patients, Acad Emerg Med 2015;22:878 (PMID 26113020) | `stepdown/han-2015-rass-ed-academ.pdf` | https://doi.org/10.1111/acem.12706 |
-| Khan 2017 — CAM-ICU-7 delirium severity scale, Crit Care Med 2017;45:851 (PMID 28263192; archived background — not currently cited by the tool) | `stepdown/khan-2017-camicu7-severity-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000002368 |
+| Khan 2017 — CAM-ICU-7 delirium severity scale, Crit Care Med 2017;45:851 (PMID 28263192; cited in the methodology as the reason a CAM-IMC severity scale is out of scope) | `stepdown/khan-2017-camicu7-severity-ccm.pdf` | https://doi.org/10.1097/CCM.0000000000002368 |
 
 ### Risk prediction
 
@@ -271,8 +271,8 @@ committed; citations link to the canonical URL.
 | Source | Local file | Canonical URL |
 |---|---|---|
 | Wang 2017 — opioid-associated iatrogenic withdrawal in critically ill adults, Ann Intensive Care 2017;7:88 (PMID 28866754) | `stepdown/wang-2017-iatrogenic-withdrawal-annintensivecare.pdf` | https://doi.org/10.1186/s13613-017-0310-5 |
-| Rousseau 2021 — long-term outcomes after critical illness (PICS), Crit Care 2021;25:108 | `stepdown/rousseau-2021-pics-longterm-outcomes-critcare.pdf` | https://doi.org/10.1186/s13054-021-03535-3 |
-| Nakanishi 2024 — PICS follow-up system after hospital discharge (review), J Intensive Care 2024;12:2 | `stepdown/nakanishi-2024-pics-followup-system-jintensivecare.pdf` | https://doi.org/10.1186/s40560-023-00716-w |
+| Rousseau 2021 — long-term outcomes after critical illness (PICS), Crit Care 2021;25:108 (cited in the methodology as adjacent-but-out-of-scope)  | `stepdown/rousseau-2021-pics-longterm-outcomes-critcare.pdf` | https://doi.org/10.1186/s13054-021-03535-3 |
+| Nakanishi 2024 — PICS follow-up system after hospital discharge (review), J Intensive Care 2024;12:2 (cited in the methodology as adjacent-but-out-of-scope)  | `stepdown/nakanishi-2024-pics-followup-system-jintensivecare.pdf` | https://doi.org/10.1186/s40560-023-00716-w |
 
 ### Monitoring burden
 

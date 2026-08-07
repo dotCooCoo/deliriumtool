@@ -506,8 +506,20 @@ Validated instrument scripts and thresholds render verbatim from
 (`tests/unit/templates-stepdown.test.js`). The tool is de-identified by
 construction and generates a local print/PDF summary only (facility, editable
 assessment time, RASS, CAM-IMC, risk, prevention, and de-identified notes). Out
-of scope in this version: a CAM-IMC severity scale, EEG-assisted assessment, and
-post-intensive-care-syndrome follow-up.
+of scope in this version, each for a stated reason. A **CAM-IMC severity scale**
+does not exist; severity instruments are built and validated separately from the
+screen they extend, as the CAM-ICU-7 was for the CAM-ICU (Khan 2017, Crit Care
+Med 2017;45:851), and the tool will not derive a severity score the instrument's
+authors have not published. **EEG-assisted assessment** is validated for this
+population — DeltaScan was evaluated prospectively across ICU and non-ICU
+patients (Ditzel 2024, Am J Geriatr Psychiatry 2024;32:1093) — but it reads a
+physiological signal from a device, which fails the first non-device criterion in
+§6.7; a tool that ingested that signal would no longer be the kind of software
+this project builds. **Post-intensive-care-syndrome follow-up** is a real and
+adjacent need for the post-ICU patients this tool screens (Rousseau 2021, Crit
+Care 2021;25:108; Nakanishi 2024, J Intensive Care 2024;12:2), but it is a
+longitudinal outpatient pathway rather than a bedside screen, so it belongs to a
+different instrument. All four sources are held in the reference archive.
 
 ### 2.14 Adult step-down bedside card set & workflow poster (/templates/)
 
@@ -557,6 +569,8 @@ Every source cited anywhere in the application, reproduced as each tool stores i
 | `sessler2002` **†** | Sessler CN, Gosnell MS, Grap MJ, et al. The Richmond Agitation-Sedation Scale (RASS): validity and reliability in adult ICU patients. Am J Respir Crit Care Med. 2002;166(10):1338-1344. | https://pubmed.ncbi.nlm.nih.gov/12421743/ |
 | `ely2003` | Ely EW, Truman B, Shintani A, et al. Monitoring sedation status over time in ICU patients: reliability and validity of the RASS. JAMA. 2003;289(22):2983-2991. | https://doi.org/10.1001/jama.289.22.2983 |
 | `hayhurst2016` | Hayhurst CJ, Pandharipande PP, Hughes CG. ICU delirium: a review of diagnosis, prevention, and treatment. Anesthesiology. 2016;125(6):1229-1241. | https://doi.org/10.1097/ALN.0000000000001378 |
+| `gusmaoflores2012` | Gusmão-Flores D, Salluh JI, Chalhub RÁ, Quarantini LC. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care. 2012;16(4):R115. (Nine CAM-ICU studies, 969 patients: pooled sensitivity 80.0%, specificity 95.9%; sensitivity lower in hypoactive delirium.) | https://doi.org/10.1186/cc11407 |
+| `wei2008_cam` | Wei LA, Fearing MA, Sternberg EJ, Inouye SK. The Confusion Assessment Method: a systematic review of current usage. J Am Geriatr Soc. 2008;56(5):823-830. | https://doi.org/10.1111/j.1532-5415.2008.01674.x |
 | `sccm_abcdef` | Society of Critical Care Medicine. ICU Liberation Bundle (A-F). | https://sccm.org/clinical-resources/iculiberation-home/abcdef-bundles |
 | `pun2019` | Pun BT, Balas MC, Barnes-Daly MA, et al. Caring for critically ill patients with the ABCDEF bundle: ICU Liberation Collaborative in over 15,000 adults. Crit Care Med. 2019;47(1):3-14. | https://doi.org/10.1097/CCM.0000000000003482 |
 | `marra2017` | Marra A, Ely EW, Pandharipande PP, Patel MB. The ABCDEF bundle in critical care. Crit Care Clin. 2017;33(2):225-243. | https://doi.org/10.1016/j.ccc.2016.12.005 |
@@ -676,7 +690,8 @@ Sources this tool cites that are not already listed above (shared sources are no
 | `chester2012_mrass` | Chester JG, et al. Serial administration of a modified RASS for delirium screening. J Hosp Med 2012;7:450. | https://doi.org/10.1002/jhm.1003 |
 | `kuczmarska2016` | Kuczmarska A, et al. Detection of delirium in hospitalized older general medicine patients: a comparison of the 3D-CAM and CAM-ICU. J Gen Intern Med 2016;31:297. | https://doi.org/10.1007/s11606-015-3514-0 |
 | `neufeld2013_postop` | Neufeld KJ, et al. Evaluation of two delirium screening tools for detecting post-operative delirium in the elderly. Br J Anaesth 2013;111:612. | https://doi.org/10.1093/bja/aet167 |
-| `gusmaoflores2012` | Gusmão-Flores D, et al. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care 2012;16:R115. | https://doi.org/10.1186/cc11407 |
+| `marcantonio2022_ubcam` | Marcantonio ER, et al. Comparative implementation of a brief app-directed protocol for delirium identification by hospitalists, nurses, and nursing assistants. Ann Intern Med 2022;175:65. | https://doi.org/10.7326/M21-1687 |
+| `tamrat2014_sleep` | Tamrat R, et al. Non-pharmacologic interventions to improve the sleep of hospitalized patients: a systematic review. J Gen Intern Med 2014;29:788. | https://doi.org/10.1007/s11606-013-2640-9 |
 | `martinez2012` | Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599. | https://doi.org/10.1136/bmjopen-2012-001599 |
 | `siddiqi2016` | Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563. | https://doi.org/10.1002/14651858.CD005563.pub3 |
 | `ags2015` | American Geriatrics Society. Abstracted clinical practice guideline for postoperative delirium in older adults. J Am Geriatr Soc 2015;63:142. | https://doi.org/10.1111/jgs.13281 |
