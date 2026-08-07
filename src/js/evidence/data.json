@@ -27856,7 +27856,7 @@
    "source": "Hodgson 2014",
    "citation": "Hodgson CL, Stiller K, Needham DM, et al. Expert consensus and recommendations on safety criteria for active mobilization of mechanically ventilated critically ill adults. Crit Care. 2014;18(6):658.",
    "link": "https://ccforum.biomedcentral.com/articles/10.1186/s13054-014-0658-y",
-   "archived": false,
+   "archived": true,
    "statements": 4,
    "check": "Confirmed — matches the indexed record.",
    "usedIn": [
@@ -27997,7 +27997,7 @@
    "source": "MIND-USA 2018",
    "citation": "Girard TD, Exline MC, Carson SS, et al. Haloperidol and ziprasidone for treatment of delirium in critical illness (MIND-USA). N Engl J Med. 2018;379(26):2506-2516.",
    "link": "https://doi.org/10.1056/NEJMoa1808217",
-   "archived": false,
+   "archived": true,
    "statements": 1,
    "check": "Confirmed — matches the indexed record.",
    "usedIn": [
@@ -28421,10 +28421,10 @@
   },
   {
    "tool": "Pediatric",
-   "source": "kerson2016_rass",
+   "source": "Kerson 2016 (RASS)",
    "citation": "Kerson AG, DeMaria R, Mauer E, et al. Validity of the Richmond Agitation-Sedation Scale (RASS) in critically ill children. J Intensive Care. 2016;4:65. (Pediatric RASS validation — the arousal scale the tool applies to verbal children.)",
    "link": "https://doi.org/10.1186/s40560-016-0189-5",
-   "archived": false,
+   "archived": true,
    "statements": 2,
    "check": "Confirmed — matches the indexed record.",
    "usedIn": [
@@ -28627,7 +28627,7 @@
    "link": "https://doi.org/10.1186/s12871-024-02849-3",
    "archived": true,
    "statements": 17,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Arousal card — administration",
     "Step-Down Card Set — Arousal card — gate (altered)",
@@ -28667,7 +28667,7 @@
    "link": "https://doi.org/10.1111/acem.12706",
    "archived": true,
    "statements": 6,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Arousal card — RASS scale",
     "Step-Down Card Set — Arousal card — administration",
@@ -28684,7 +28684,7 @@
    "link": "https://doi.org/10.1111/bcp.15432",
    "archived": true,
    "statements": 2,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Act card — Find the cause",
     "Step-Down Workflow — 5 · Act on the result"
@@ -28698,7 +28698,7 @@
    "link": "https://doi.org/10.1136/bmjopen-2012-001599",
    "archived": true,
    "statements": 6,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Risk card — rule",
     "Step-Down Card Set — Risk card — Age",
@@ -28716,7 +28716,7 @@
    "link": "https://doi.org/10.1111/jgs.14076",
    "archived": true,
    "statements": 2,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Prevention card — intro",
     "Step-Down Card Set — Act card — Manage without new harm"
@@ -28730,7 +28730,7 @@
    "link": "https://doi.org/10.7326/M19-1860",
    "archived": true,
    "statements": 1,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Act card — Manage without new harm"
    ],
@@ -28743,7 +28743,7 @@
    "link": "https://doi.org/10.7326/M19-1859",
    "archived": true,
    "statements": 2,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Prevention card — intro",
     "Step-Down Card Set — Act card — Manage without new harm"
@@ -28757,7 +28757,7 @@
    "link": "https://doi.org/10.1002/14651858.CD005563.pub3",
    "archived": true,
    "statements": 5,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Prevention card — intro",
     "Step-Down Card Set — Prevention card — bundle",
@@ -28774,7 +28774,7 @@
    "link": "https://doi.org/10.1186/s13613-017-0310-5",
    "archived": true,
    "statements": 1,
-   "check": "Confirmed — DOI resolves to the matching record (validate_references); matches references/INDEX.md.",
+   "check": "Confirmed — the DOI resolves to the matching record and matches the reference index.",
    "usedIn": [
     "Step-Down Card Set — Act card — Find the cause"
    ],
@@ -28785,9 +28785,9 @@
    "source": "Ely 2003 (RASS)",
    "citation": "Ely EW, et al. Monitoring sedation status over time in ICU patients: reliability and validity of the RASS. JAMA 2003;289:2983.",
    "link": "https://doi.org/10.1001/jama.289.22.2983",
-   "archived": false,
+   "archived": true,
    "statements": 2,
-   "check": "Confirmed — identifier resolves with matching author/year/title (validate_references); cross-tool/guideline source, not archived under references/stepdown/.",
+   "check": "Confirmed — identifier resolves with matching author/year/title; the archive copy is held once in the shared reference archive rather than under references/stepdown/.",
    "usedIn": [
     "Step-Down Card Set — Arousal card — RASS scale",
     "Step-Down Card Set — Arousal card — administration"
@@ -28799,9 +28799,9 @@
    "source": "Hshieh 2015 (meta-analysis)",
    "citation": "Hshieh TT, et al. Effectiveness of multicomponent nonpharmacological delirium interventions: a meta-analysis. JAMA Intern Med 2015;175:512.",
    "link": "https://doi.org/10.1001/jamainternmed.2014.7779",
-   "archived": false,
+   "archived": true,
    "statements": 2,
-   "check": "Confirmed — identifier resolves with matching author/year/title (validate_references); cross-tool/guideline source, not archived under references/stepdown/.",
+   "check": "Confirmed — identifier resolves with matching author/year/title; the archive copy is held once in the shared reference archive rather than under references/stepdown/.",
    "usedIn": [
     "Step-Down Card Set — Prevention card — intro",
     "Step-Down Card Set — Prevention card — bundle"
@@ -28813,9 +28813,9 @@
    "source": "Inouye 1999 (HELP)",
    "citation": "Inouye SK, et al. A multicomponent intervention to prevent delirium in hospitalized older patients. N Engl J Med 1999;340:669.",
    "link": "https://doi.org/10.1056/NEJM199903043400901",
-   "archived": false,
+   "archived": true,
    "statements": 4,
-   "check": "Confirmed — identifier resolves with matching author/year/title (validate_references); cross-tool/guideline source, not archived under references/stepdown/.",
+   "check": "Confirmed — identifier resolves with matching author/year/title; the archive copy is held once in the shared reference archive rather than under references/stepdown/.",
    "usedIn": [
     "Step-Down Card Set — Prevention card — intro",
     "Step-Down Card Set — Prevention card — bundle",
@@ -28829,9 +28829,9 @@
    "source": "NICE CG103",
    "citation": "National Institute for Health and Care Excellence. Delirium: prevention, diagnosis and management in hospital and long-term care. CG103 (updated 2023).",
    "link": "https://www.nice.org.uk/guidance/cg103",
-   "archived": false,
+   "archived": true,
    "statements": 8,
-   "check": "No DOI/PMID (NICE web guideline); citation is the NICE CG103 record. Not machine-verifiable; not archived locally.",
+   "check": "Confirmed against the NICE guideline record — a web guideline has no DOI or PMID to resolve. A snapshot is held in the shared reference archive.",
    "usedIn": [
     "Step-Down Card Set — Risk card — rule",
     "Step-Down Card Set — Act card — Find the cause",
@@ -28849,7 +28849,7 @@
    "link": "https://pubmed.ncbi.nlm.nih.gov/12421743/",
    "archived": false,
    "statements": 5,
-   "check": "Confirmed — identifier resolves with matching author/year/title (validate_references); cross-tool/guideline source, not archived under references/stepdown/.",
+   "check": "Confirmed — the identifier resolves to the matching record. The article is paywalled and cited by its PubMed record rather than held in the archive.",
    "usedIn": [
     "Step-Down Card Set — Arousal card — RASS scale",
     "Step-Down Card Set — Arousal card — administration",
