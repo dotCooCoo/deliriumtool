@@ -85,6 +85,10 @@ export const REFS = {
     c: 'Gupta N, et al. Performance of the Cornell Assessment of Pediatric Delirium scale in mechanically ventilated children. J Pediatr Intensive Care. 2023;12(1):24–30 (online 2021). (At CAPD ≥ 9: overall specificity 44.8%; 16.5% with developmental delay.)',
     u: 'https://doi.org/10.1055/s-0041-1728784',
   },
+  sandau2017_ecg: {
+    c: 'Sandau KE, Funk M, Auerbach A, et al. Update to practice standards for electrocardiographic monitoring in hospital settings: a scientific statement from the American Heart Association. Circulation. 2017;136(19):e273-e344. (Bazett overestimates QTc at faster heart rates; Hodges, Framingham, Fridericia and subject-specific formulas are more accurate.)',
+    u: 'https://doi.org/10.1161/CIR.0000000000000527',
+  },
   haldol_label: {
     c: 'Haloperidol prescribing information (boxed warnings; QTc / torsades). DailyMed, U.S. NLM.',
     u: 'https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8397a841-f240-4767-9dcd-781e6d3f7c7f',
