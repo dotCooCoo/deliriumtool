@@ -15,6 +15,14 @@ Record every change to a clinical value, threshold, band, dose, instrument logic
 |------|----------------|--------------|-----|-----------|------|---------|
 ```
 
+**Entries: citation strengthening 2026-08-06** (no clinical value, threshold, or recommendation changed: newly archived primary sources attached to statements the tool already made):
+
+| Date | Section / item | What changed | Why | Source(s) | Tier | Synced? |
+|---|---|---|---|---|---|---|
+| 2026-08-06 | §2.13 step-down rationale | Registered `neufeld2013_postop` and `gusmaoflores2012` in the step-down registry and cited them on the "why a distinct step-down screen" rationale, on the tool page and in §2.13. §2.13 now states the pooled CAM-ICU operating characteristics (80.0% sensitivity, 95% CI 77.1–82.6; 95.9% specificity, nine ICU studies, 969 patients), that sensitivity was lower in the two studies examining hypoactive delirium, and the postoperative figures (98% specific, 28% sensitive, 95% CI 16–45, in 91 patients aged ≥ 70 against a psychiatry-led DSM-IV examination) | The tool's founding premise — that the CAM-ICU under-detects mild and hypoactive delirium in verbal, non-intubated patients — rested on Beyer 2024 and Kuczmarska 2016, which support the CAM-IMC and the 3D-CAM comparison rather than the premise itself. These two are the primary evidence for it, and stating their figures lets a reader judge the claim instead of taking it | `gusmaoflores2012`, `neufeld2013_postop` | V | [x] |
+| 2026-08-06 | §2.13 scope note | Recorded that Gusmão-Flores compared no ventilated against non-ventilated cohorts, so it evidences the hypoactive-subtype weakness rather than the setting, and that the Neufeld cohort is post-anaesthesia care and surgical ward rather than step-down | Both sources are directional for this population rather than validations in it; saying so keeps the scope-extension framing honest | `gusmaoflores2012`, `neufeld2013_postop` | V | [x] |
+| 2026-08-06 | §3 ED registry | Added the missing `bcam_manual` row (bCAM Instruction Manual v1.0, Vanderbilt) | The manual backs the bCAM Feature-2 script, the ED arousal citations, and the printed ED card footer, but was absent from §3 while its sibling `dts_manual` was listed; §3 states it lists every source cited anywhere in the application | `bcam_manual` | V | [x] |
+
 **Entries: content revision 2026-07-15** (external clinical review + cross-surface consistency audit; code, PDFs, templates, and this document updated together):
 
 | Date | Section / item | What changed | Why | Source(s) | Tier | Synced? |

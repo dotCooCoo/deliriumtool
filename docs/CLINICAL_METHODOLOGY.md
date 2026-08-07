@@ -437,7 +437,18 @@ the ED tool's modules (`tests/unit/templates-ed.test.js`).
 
 The step-down tool screens the verbal, monitored-but-non-intubated
 (intermediate-care / progressive-care) patient, where the CAM-ICU loses
-sensitivity for the mild and hypoactive delirium common on the ward. It
+sensitivity for the mild and hypoactive delirium common on the ward. Two
+sources carry that premise. Pooled across nine ICU studies (969 patients) the
+CAM-ICU reached 80.0% sensitivity (95% CI 77.1–82.6) and 95.9% specificity,
+but sensitivity was lower in the two studies that examined hypoactive
+delirium, the most prevalent subtype; that review compared no ventilated
+against non-ventilated cohorts, so it speaks to the subtype weakness rather
+than the setting (Gusmão-Flores 2012). The setting evidence is Neufeld 2013:
+in 91 patients aged ≥ 70 screened after general anaesthesia against a
+psychiatry-trained physician's DSM-IV neuropsychiatric examination, the
+CAM-ICU was 98% specific but 28% sensitive (95% CI 16–45). That cohort is
+post-anaesthesia care and surgical ward rather than step-down, so it is
+directional for this population, not a validation in it. It
 implements the CAM-IMC as the screen, a RASS arousal gate, the Martinez
 admission-risk rule, and a multicomponent non-pharmacologic prevention bundle.
 The setting sits between the ICU tool (CAM-ICU) and a general acute ward, where
@@ -613,6 +624,7 @@ Sources this tool cites that are not already listed above (shared sources are no
 |---|---|---|
 | `han2013_dts_bcam` | Han JH, et al. Diagnosing delirium in older emergency department patients: validity and reliability of the Delirium Triage Screen and the Brief Confusion Assessment Method. Ann Emerg Med. 2013;62(5):457–465. | https://doi.org/10.1016/j.annemergmed.2013.05.003 |
 | `dts_manual` | Han JH. Delirium Triage Screen (DTS) Instruction Manual, v1.0 (2015). Vanderbilt University School of Medicine; eddelirium.org. | https://eddelirium.org/delirium-assessment/assessment-instruments/ |
+| `bcam_manual` | Han JH. Brief Confusion Assessment Method (bCAM) Instruction Manual, v1.0 (2015). Vanderbilt University School of Medicine; eddelirium.org. | https://eddelirium.org/delirium-assessment/assessment-instruments/ |
 | `fourat_form` | MacLullich A, Ryan T, Cash H. 4AT — Assessment Test for Delirium & Cognitive Impairment, v1.2 (2011–2014). the4at.com (free to use). | https://www.the4at.com/ |
 | `bellelli2014` | Bellelli G, et al. Validation of the 4AT, a new instrument for rapid delirium screening: a study in 234 hospitalised older people. Age Ageing. 2014;43(4):496–502. | https://doi.org/10.1093/ageing/afu021 |
 | `shenkin2019` | Shenkin SD, et al. Delirium detection in older acute medical inpatients: a multicentre prospective comparative diagnostic test accuracy study of the 4AT and the confusion assessment method. BMC Med. 2019;17:138. | https://doi.org/10.1186/s12916-019-1367-9 |
@@ -663,6 +675,8 @@ Sources this tool cites that are not already listed above (shared sources are no
 | `han2015_rass` | Han JH, et al. The diagnostic performance of the RASS for detecting delirium in older ED patients. Acad Emerg Med 2015;22:878. | https://doi.org/10.1111/acem.12706 |
 | `chester2012_mrass` | Chester JG, et al. Serial administration of a modified RASS for delirium screening. J Hosp Med 2012;7:450. | https://doi.org/10.1002/jhm.1003 |
 | `kuczmarska2016` | Kuczmarska A, et al. Detection of delirium in hospitalized older general medicine patients: a comparison of the 3D-CAM and CAM-ICU. J Gen Intern Med 2016;31:297. | https://doi.org/10.1007/s11606-015-3514-0 |
+| `neufeld2013_postop` | Neufeld KJ, et al. Evaluation of two delirium screening tools for detecting post-operative delirium in the elderly. Br J Anaesth 2013;111:612. | https://doi.org/10.1093/bja/aet167 |
+| `gusmaoflores2012` | Gusmão-Flores D, et al. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care 2012;16:R115. | https://doi.org/10.1186/cc11407 |
 | `martinez2012` | Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599. | https://doi.org/10.1136/bmjopen-2012-001599 |
 | `siddiqi2016` | Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563. | https://doi.org/10.1002/14651858.CD005563.pub3 |
 | `ags2015` | American Geriatrics Society. Abstracted clinical practice guideline for postoperative delirium in older adults. J Am Geriatr Soc 2015;63:142. | https://doi.org/10.1111/jgs.13281 |

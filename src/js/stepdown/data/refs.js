@@ -41,6 +41,16 @@ export const REFS = {
     c: 'Kuczmarska A, et al. Detection of delirium in hospitalized older general medicine patients: a comparison of the 3D-CAM and CAM-ICU. J Gen Intern Med 2016;31:297.',
     u: 'https://doi.org/10.1007/s11606-015-3514-0',
   },
+  neufeld2013_postop: {
+    l: 'Neufeld 2013 (postoperative screening)',
+    c: 'Neufeld KJ, et al. Evaluation of two delirium screening tools for detecting post-operative delirium in the elderly. Br J Anaesth 2013;111:612.',
+    u: 'https://doi.org/10.1093/bja/aet167',
+  },
+  gusmaoflores2012: {
+    l: 'Gusmão-Flores 2012 (CAM-ICU meta-analysis)',
+    c: 'Gusmão-Flores D, et al. The confusion assessment method for the intensive care unit (CAM-ICU) and intensive care delirium screening checklist (ICDSC) for the diagnosis of delirium: a systematic review and meta-analysis of clinical studies. Crit Care 2012;16:R115.',
+    u: 'https://doi.org/10.1186/cc11407',
+  },
   martinez2012: {
     l: 'Martinez 2012 (ward risk rule)',
     c: 'Martinez JA, et al. Derivation and validation of a clinical prediction rule for delirium in patients admitted to a medical ward. BMJ Open 2012;2:e001599.',
