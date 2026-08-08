@@ -23,8 +23,11 @@ Notable changes to this project, following
 
 - The step-down prevention items and the step-down bedside card now read
   "mobilization" and "minimize", matching the American spelling used across the
-  rest of the tool. Reference lists, journal names and published article titles
-  keep the spelling their publishers used, as before.
+  rest of the tool, and the methodology notes shown on the Sources & Evidence
+  page follow suit ("labeled", "color", "operationalization"). Quoted source
+  passages, reference lists, journal names and published article titles keep the
+  spelling their publishers used — including where a title's own wording differs
+  from the surrounding text.
 
 - Printed bedside sheets now separate the unit's own wording from the cited
   content. The designer has always let a unit reword any built-in line and add
