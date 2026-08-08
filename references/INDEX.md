@@ -186,7 +186,7 @@ PDFs live only in the gitignored `references/ed/` archive, never committed.
 |---|---|---|
 | Han 2013 — DTS + bCAM validation, Ann Emerg Med 2013;62:457 (PMID 23916018) | `ed/han-2013-dts-bcam-validation-annemergmed.pdf` | https://doi.org/10.1016/j.annemergmed.2013.05.003 |
 | Bellelli 2014 — 4AT validation, Age Ageing 2014;43:496 | `ed/bellelli-2014-4at-validation-ageageing.pdf` | https://doi.org/10.1093/ageing/afu021 |
-| Shenkin 2019 — 4AT vs CAM randomised diagnostic accuracy, BMC Med 2019;17:138 | `ed/shenkin-2019-4at-vs-cam-dta-bmcmed.pdf` | https://doi.org/10.1186/s12916-019-1367-9 |
+| Shenkin 2019 — 4AT vs CAM randomized diagnostic accuracy, BMC Med 2019;17:138 | `ed/shenkin-2019-4at-vs-cam-dta-bmcmed.pdf` | https://doi.org/10.1186/s12916-019-1367-9 |
 | Tieges 2021 — 4AT diagnostic-accuracy meta-analysis, Age Ageing 2021;50:733 | `ed/tieges-2021-4at-meta-analysis-ageageing.pdf` | https://doi.org/10.1093/ageing/afaa224 |
 | Han 2009 — ED delirium recognition & psychomotor subtypes, Acad Emerg Med 2009;16:193 | `ed/han-2009-ed-delirium-recognition-subtypes-academ.pdf` | https://doi.org/10.1111/j.1553-2712.2008.00339.x |
 | Han 2010 — ED delirium & 6-month mortality, Ann Emerg Med 2010;56:244 | `ed/han-2010-ed-delirium-6month-mortality-annemergmed.pdf` | https://doi.org/10.1016/j.annemergmed.2010.03.003 |

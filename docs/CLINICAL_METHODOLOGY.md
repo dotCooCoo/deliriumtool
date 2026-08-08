@@ -97,16 +97,16 @@ Implemented as the standard four-feature algorithm with an arousal gate. Perform
 **Decision logic:**
 
 1. **Level of consciousness first (two-step assessment).** The instrument's Step 1 is the RASS. The tool returns **no verdict until a RASS is documented** (the result stays "Incomplete" with a "document the RASS first" prompt). If RASS is **−4 or −5**, the result is **"Unable to assess"** (patient too sedated); the tool instructs re-assessment when RASS ≥ −3 (`camicu_manual` p.6).
-2. **Feature 1: Acute onset or fluctuating course** *(required)*. Acute change from the mental-status baseline, OR **fluctuation in mental status in the past 24 hours** (e.g., on RASS/GCS or a previous delirium assessment; the worksheet's 24-hour window, not "during the day"). The baseline is anchored from family/collateral **or the H&P**, and a normal baseline may be presumed in a younger patient admitted from home with no known neurocognitive disease (`camicu_manual` p.9); **documented 24-hour fluctuation satisfies Feature 1 even when no baseline informant is available**. The two questions are an OR, so Feature 1 is never blocked on collateral (the on-page tip previously said Feature 1 "cannot be scored without" a collateral-anchored baseline, which was stricter than the instrument; corrected (see §6.5).
-3. **Feature 2: Inattention** *(required)*. Letters task ("SAVEAHAART", 10 letters, ~1 every 3 s; squeeze on each "A"). **Cut-point: > 2 errors = positive** (error entry constrained to 0–10). The **Pictures ASE** alternative is the validated 10-item recognition task (show 5 pictures to memorise, then 10 recognition pictures, yes/no), **scored out of 10 with the same > 2-error cut-point**. The threshold is equivalent across modalities. (The on-screen text previously described it loosely as "5 cards," which has been corrected to the validated /10 form; cited to `camicu_worksheet`.)
-4. **Feature 3: Altered level of consciousness.** **Positive if the actual RASS is anything other than alert and calm (zero)**; negative only at RASS 0; the current worksheet's operationalisation (`camicu_worksheet`; the CAM-ICU is only performed at RASS ≥ −3). Feature 3 is read directly from the RASS documented in the same panel (there is no separate control to enter), so it can never contradict the documented arousal. (The earlier descriptor form, Alert vs Vigilant/Lethargic/Stuporous, the Ely-2001 Table-1 wording, was replaced with the worksheet criterion; see §6.5/§6.6.)
+2. **Feature 1: Acute onset or fluctuating course** *(required)*. Acute change from the mental-status baseline, OR **fluctuation in mental status in the past 24 hours** (e.g., on RASS/GCS or a previous delirium assessment; the worksheet's 24-hour window, not "during the day"). The baseline is anchored from family/collateral **or the H&P**, and a normal baseline may be presumed in a younger patient admitted from home with no known neurocognitive disease (`camicu_manual` p.9); **documented 24-hour fluctuation satisfies Feature 1 even when no baseline informant is available**. The two questions are an OR, so Feature 1 is never blocked on collateral (the on-page tip previously said Feature 1 "cannot be scored without" a collateral-anchored baseline, which was stricter than the instrument; corrected — see §6.5).
+3. **Feature 2: Inattention** *(required)*. Letters task ("SAVEAHAART", 10 letters, ~1 every 3 s; squeeze on each "A"). **Cut-point: > 2 errors = positive** (error entry constrained to 0–10). The **Pictures ASE** alternative is the validated 10-item recognition task (show 5 pictures to memorize, then 10 recognition pictures, yes/no), **scored out of 10 with the same > 2-error cut-point**. The threshold is equivalent across modalities. (The on-screen text previously described it loosely as "5 cards," which has been corrected to the validated /10 form; cited to `camicu_worksheet`.)
+4. **Feature 3: Altered level of consciousness.** **Positive if the actual RASS is anything other than alert and calm (zero)**; negative only at RASS 0; the current worksheet's operationalization (`camicu_worksheet`; the CAM-ICU is only performed at RASS ≥ −3). Feature 3 is read directly from the RASS documented in the same panel (there is no separate control to enter), so it can never contradict the documented arousal. (The earlier descriptor form, Alert vs Vigilant/Lethargic/Stuporous, the Ely-2001 Table-1 wording, was replaced with the worksheet criterion; see §6.5/§6.6.)
 5. **Feature 4: Disorganized thinking.** Four yes/no questions plus the command, worded per the worksheet: "Hold up this many fingers" (2 shown), then "Now do the same thing with the other hand" (**do not repeat the number of fingers**); the "add one more finger" variant applies **only if the patient cannot move both arms**. **Positive if combined errors > 1.**
 
 **Result rule (displayed and enforced):** **Positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, evaluated only once a RASS is documented (Step 1). Features 1 and 2 must both be answered before any result; if either is absent the screen is Negative; if 1 and 2 are positive but both secondary features are assessed and negative the screen is Negative; otherwise "Incomplete" until a secondary feature is assessed.
 
 The result panel reinforces that *"A positive CAM-ICU is a screen, not a diagnosis: confirm clinically and exclude mimics,"* and provides a delirium-vs-mimics differential (dementia, depression, receptive aphasia/focal stroke, non-convulsive seizures, catatonia, intoxication/withdrawal). **ICDSC** (`icdsc_bergeron`) is the validated adult-ICU alternative screen. PADIS endorses CAM-ICU and ICDSC, and the Setup "Screening Tool" selector offers these two. CAM-ICU is validated for the adult ICU only; the pathway picker carries a prominent scope panel directing out-of-ICU users to the setting-appropriate validated tool (§4, item 2).
 
-**Citations mapped (CAM tab):** `inouye1990` (the parent CAM), `camicu_worksheet`, `camicu_manual`, `ely2001`, `ely2003`, `sessler2002`, `icdsc_bergeron`, `dsm5tr` (the diagnostic reference standard), `hayhurst2016`, `icudelirium_monitoring`, `nice_cg103`. (CAM-ICU validation → `ely2001`; worksheet/Pictures-ASE operationalisation → `camicu_worksheet`, `icudelirium_monitoring`; baseline sources and the agitated-patient / UTA rules → `camicu_manual`; accuracy limitations → `hayhurst2016`.)
+**Citations mapped (CAM tab):** `inouye1990` (the parent CAM), `camicu_worksheet`, `camicu_manual`, `ely2001`, `ely2003`, `sessler2002`, `icdsc_bergeron`, `dsm5tr` (the diagnostic reference standard), `hayhurst2016`, `icudelirium_monitoring`, `nice_cg103`. (CAM-ICU validation → `ely2001`; worksheet/Pictures-ASE operationalization → `camicu_worksheet`, `icudelirium_monitoring`; baseline sources and the agitated-patient / UTA rules → `camicu_manual`; accuracy limitations → `hayhurst2016`.)
 
 ### 2.3 RASS (Richmond Agitation-Sedation Scale)
 
@@ -114,7 +114,7 @@ The result panel reinforces that *"A positive CAM-ICU is a screen, not a diagnos
 
 **Target band:** **0 to −2** (light sedation; the ICU default, and the only target savable/shareable as a default). The Setup tab also offers *0 to −1 (general ward)* and a deeper *−3 to −4 (deep: indication required)* band. The deep band is **indication-gated**: selecting it reveals a required "indication for deeper sedation" field and a caution that deeper sedation is *associated with* longer ventilation, more delirium, and higher mortality (observational evidence + one small RCT; PADIS conditional, low-certainty). (RASS −2 is *light* sedation and −3 *moderate* per the scale anchors, so the earlier "−2 to −3 (moderate sedation)" label was corrected. A light −2 target is never gated.)
 
-**Colour/zoning of the RASS strip: follows the configured target band.** Green (at target) = every RASS inside the configured band; amber (caution) = restless/agitation short of intervention and the level one step off-goal; red = marked agitation (+2/+3/+4) and over-sedation (≥ 2 levels below the band); **RASS −5 (unarousable) is always red**, regardless of the configured target, so a deep target cannot mask an over-sedated patient. For the 0 to −2 default this is green 0/−1/−2, amber +1 and −3, red +2/+3/+4 and −4/−5. The patient-RASS dropdown's ✓ TARGET markers and the printed `[TARGET]` rows are driven by the same band, so a reconfigured target stays consistent on screen and in the PDF. RASS −4/−5 also triggers the CAM-ICU "unable to assess" gate (§2.2). Per-level advisory prompts are provided and were source-aligned in the 2026-07-01 revision: agitation prompts are non-pharmacologic-first (pharmacologic control reserved for danger to the patient or staff, per PADIS 2018); reassessment intervals defer to unit protocol (no interval is source-defined); −4 states the *association* between deeper sedation and delirium/delayed extubation/mortality (PADIS 2018 observational evidence) with daily reassessment/SAT unless deeper sedation is indicated; −5 carries the instrument's stop-and-recheck directive (CAM-ICU unable to assess) with neurologic evaluation only when unresponsiveness is unexplained by sedation.
+**Color/zoning of the RASS strip: follows the configured target band.** Green (at target) = every RASS inside the configured band; amber (caution) = restless/agitation short of intervention and the level one step off-goal; red = marked agitation (+2/+3/+4) and over-sedation (≥ 2 levels below the band); **RASS −5 (unarousable) is always red**, regardless of the configured target, so a deep target cannot mask an over-sedated patient. For the 0 to −2 default this is green 0/−1/−2, amber +1 and −3, red +2/+3/+4 and −4/−5. The patient-RASS dropdown's ✓ TARGET markers and the printed `[TARGET]` rows are driven by the same band, so a reconfigured target stays consistent on screen and in the PDF. RASS −4/−5 also triggers the CAM-ICU "unable to assess" gate (§2.2). Per-level advisory prompts are provided and were source-aligned in the 2026-07-01 revision: agitation prompts are non-pharmacologic-first (pharmacologic control reserved for danger to the patient or staff, per PADIS 2018); reassessment intervals defer to unit protocol (no interval is source-defined); −4 states the *association* between deeper sedation and delirium/delayed extubation/mortality (PADIS 2018 observational evidence) with daily reassessment/SAT unless deeper sedation is indicated; −5 carries the instrument's stop-and-recheck directive (CAM-ICU unable to assess) with neurologic evaluation only when unresponsiveness is unexplained by sedation.
 
 **Citations mapped:** `sessler2002` (original RASS validation), `ely2003` (RASS reliability/validity over time in ICU), with `rass_mdcalc` available in the registry as a scoring-procedure reference.
 
@@ -249,7 +249,7 @@ default medication selection mirrors the interactive tool's documented defaults:
 classes with the strongest, most actionable ICU delirium signal (**benzodiazepines, opioids,
 anticholinergics**; PADIS 2018, AGS Beers 2023/ACB, §2.8), with the rest of the shared
 catalog opt-in via per-category and select-all/none controls. The printed list is a mosaic of
-colour cards, one check-off square per medication, with the type size and column count
+color cards, one check-off square per medication, with the type size and column count
 scaling to the selection so the full catalog still fits; a classic category-rows view remains
 available.
 The two pharmacology caution lines with the strongest bedside consequence carry a printed warning marker: benzodiazepines as withdrawal rescue only, and no antipsychotics at discharge without a psychiatric indication. The sedation-target
@@ -374,7 +374,7 @@ untestable = 2), acute change or fluctuating course (0/4), summing 0–12.
 Bands per the form: ≥4 possible delirium ± cognitive impairment; 1–3 possible
 cognitive impairment; 0 delirium unlikely (the tool carries the form's caveat
 that 0 does not definitively exclude delirium when item-4 information is
-incomplete). Validation: Bellelli 2014; Shenkin 2019 (randomised head-to-head
+incomplete). Validation: Bellelli 2014; Shenkin 2019 (randomized head-to-head
 vs CAM: 4AT sensitivity 76% / specificity 94%); Tieges 2021 meta-analysis
 (pooled sensitivity 0.88).
 
@@ -441,15 +441,16 @@ sensitivity for the mild and hypoactive delirium common on the ward. Two
 sources carry that premise. Pooled across nine ICU studies (969 patients) the
 CAM-ICU reached 80.0% sensitivity (95% CI 77.1–82.6) and 95.9% specificity,
 but sensitivity was lower in the two studies that examined hypoactive
-delirium, the most prevalent subtype; that review compared no ventilated
-against non-ventilated cohorts, so it speaks to the subtype weakness rather
+delirium, the most prevalent subtype; that review made no comparison of
+ventilated against non-ventilated cohorts, so it speaks to the subtype weakness rather
 than the setting (Gusmão-Flores 2012). The setting evidence is Neufeld 2013:
-in 91 patients aged ≥ 70 screened after general anaesthesia against a
+in 91 patients aged ≥ 70 screened after general anesthesia against a
 psychiatry-trained physician's DSM-IV neuropsychiatric examination, the
 CAM-ICU was 98% specific but 28% sensitive (95% CI 16–45). That cohort is
-post-anaesthesia care and surgical ward rather than step-down, so it is
-directional for this population, not a validation in it. It
-implements the CAM-IMC as the screen, a RASS arousal gate, the Martinez
+post-anesthesia care and surgical ward rather than step-down, so it is
+directional for this population, not a validation in it.
+
+The tool implements the CAM-IMC as the screen, a RASS arousal gate, the Martinez
 admission-risk rule, and a multicomponent non-pharmacologic prevention bundle.
 The setting sits between the ICU tool (CAM-ICU) and a general acute ward, where
 the ward-validated 3D-CAM or the 4AT apply (Marcantonio 2014; SIGN 157; NICE
@@ -514,7 +515,9 @@ Validated instrument scripts and thresholds render verbatim from
 `src/js/stepdown/data/instruments.js` and are pinned by golden-value tests
 (`tests/unit/templates-stepdown.test.js`). The tool is de-identified by
 construction and generates a local print/PDF summary only (facility, editable
-assessment time, RASS, CAM-IMC, risk, prevention, and de-identified notes). **Instruments considered and not carried.** The archive holds validated
+assessment time, RASS, CAM-IMC, risk, prevention, and de-identified notes).
+
+**Instruments considered and not carried.** The archive holds validated
 alternatives that this tool deliberately does not implement, so the omission is a
 decision rather than an oversight. The **UB-2** two-item screen and the two-step
 **UB-CAM** are validated ultra-brief front doors for general medical inpatients
@@ -529,8 +532,7 @@ note points to the ward-validated screens instead. A **CAM-ICU severity grade**
 given for the step-down tool below: severity instruments are validated separately
 from the screen they extend.
 
-Out
-of scope in this version, each for a stated reason. A **CAM-IMC severity scale**
+**Out of scope in this version**, each for a stated reason. A **CAM-IMC severity scale**
 does not exist; severity instruments are built and validated separately from the
 screen they extend, as the CAM-ICU-7 was for the CAM-ICU (Khan 2017, Crit Care
 Med 2017;45:851), and the tool will not derive a severity score the instrument's
@@ -559,7 +561,7 @@ Clinical values are **imported directly from the step-down tool's data modules**
 (`src/js/templates/data/stepdown-content.js` imports
 `src/js/stepdown/data/instruments.js` and `refs.js`), so the printed cards cannot
 carry different scripts, thresholds, or wording than the interactive tool: the
-CAM-IMC 0–10 additive score positive at ≥ 3, its five components and their
+CAM-IMC 0–10 additive score positive at ≥ 3, its four components and their
 per-item cut-offs (inattention ≥ 3 errors, disorientation ≥ 2 errors); the RASS
 anchors and the −4/−5 unable floor; the Martinez rule (age ≥ 85, ADL dependence
 ≥ 5 of 6, psychotropic subtotal ≥ 2, one point each) with its Low / Intermediate
@@ -752,11 +754,11 @@ These are stated by the tool itself or follow directly from how it is implemente
 
 **Resolved in the current revision** (recorded in the change log, §6.5):
 
-- **(1) Risk-factor weighting**: flattened to all +1 (the dementia +2 was removed) so the unvalidated tally cannot imply a calibration. (Whether *"high APACHE-II"* / *age ≥ 70* are the right operationalisations remains open to review.)
+- **(1) Risk-factor weighting**: flattened to all +1 (the dementia +2 was removed) so the unvalidated tally cannot imply a calibration. (Whether *"high APACHE-II"* / *age ≥ 70* are the right operationalizations remains open to review.)
 - **(2) Risk-band escalation**: the score-triggered psychiatry suggestion was removed (psychiatry follows clinical features, not a count). Geriatrics above 6 is kept, relabelled "pragmatic, not validated."
 - **(3) CAM-ICU inattention cut-point**: the Pictures ASE wording was corrected to the validated 10-item recognition task (> 2/10), so the > 2-error cut-point is equivalent across modalities.
 - **(5) Subtype wording**: restated as the *proportion of delirious cases* (la Cour 2022), explicitly distinguished from population prevalence (Krewulak 2018).
-- **(6) Deliriogenic-list breadth/defaults**: higher-risk agents now flagged (benzodiazepines, strong anticholinergics, meperidine); the long tail defaults off (opt-in); dexmedetomidine delisted; metoclopramide recategorised.
+- **(6) Deliriogenic-list breadth/defaults**: higher-risk agents now flagged (benzodiazepines, strong anticholinergics, meperidine); the long tail defaults off (opt-in); dexmedetomidine delisted; metoclopramide recategorized.
 - **(8) Thiamine guidance**: now cited (ESPEN at-risk range; EFNS vs RCP Wernicke regimens stated as a disclosed divergence, see §2.6).
 
 **Addressed this revision, with residual points a reviewer may still weigh:**
@@ -793,20 +795,20 @@ There is no central review-and-approve gate in this repository. An adopting unit
 
 ### 6.3 Review cadence: source-cycle triggers
 
-ED source watch (added with §2.11): the 4AT form version (v1.2, the4at.com),
+ED source watch: the 4AT form version (v1.2, the4at.com),
 GED Guidelines 2.0 (Lee 2026, new; watch for errata/updates), the Vanderbilt
 DTS/bCAM manuals (eddelirium.org, v1.0 2015), SIGN 157, NICE CG103, and the
 ADEPT tool / ACEP ED-DEL change package. Re-verify on each release that the
 rendered instrument wording still matches the archived copies in
 `references/ed/`.
 
-The base cadence is an **annual full review**. In addition, any publication in the table below triggers an **out-of-cycle review** of the rows it governs, within the stated window. When a trigger fires, update the affected content *and its citation together* (per the project's hard invariant), log a change-log row (§6.5).
+The base cadence is an **annual full review**. In addition, any publication in the table below triggers an **out-of-cycle review** of the rows it governs, within the stated window. When a trigger fires, update the affected content *and its citation together* (per the project's hard invariant), and log a change-log row (§6.5).
 
 | Source | Governs (tool sections) | Cadence / what to watch | Action on update |
 |---|---|---|---|
 | **PADIS** (SCCM) — `padis2018`, `padis2025` | §2.5, §2.7, §2.8, dosing table, RASS target rationale | Irregular; full guideline 2018, focused update 2025. Watch SCCM for the next focused update or full revision | Re-review sedation/analgesia choice, antipsychotic stance, dexmedetomidine niche, and dose anchors; confirm "no recommendation for/against antipsychotics to treat delirium" still holds |
 | **AGS Beers Criteria** — `beers2023` | §2.8 deliriogenic list, the ≥ 65 framing | ~Every 3 years (2023 current; next update expected ~2026 — watch JAGS) | Reconcile the 11-category / 103-agent list and anticholinergic flags against the new edition; bump the citation year |
-| **CAM-ICU** — `ely2001`, `camicu_worksheet`, `camicu_manual`, `icudelirium_monitoring` | §2.2 (feature logic, SAVEAHAART, Pictures-ASE) | Instrument owned by Vanderbilt CIBS Center (Ely). Worksheet/Manual last rev. 2016. Watch icudelirium.org for worksheet/manual revisions and any change to the Pictures-ASE / ASE operationalisation | Re-verify the four-feature algorithm and cut-points are reproduced faithfully; confirm the Pictures-ASE remains the validated 10-item > 2/10 task |
+| **CAM-ICU** — `ely2001`, `camicu_worksheet`, `camicu_manual`, `icudelirium_monitoring` | §2.2 (feature logic, SAVEAHAART, Pictures-ASE) | Instrument owned by Vanderbilt CIBS Center (Ely). Worksheet/Manual last rev. 2016. Watch icudelirium.org for worksheet/manual revisions and any change to the Pictures-ASE / ASE operationalization | Re-verify the four-feature algorithm and cut-points are reproduced faithfully; confirm the Pictures-ASE remains the validated 10-item > 2/10 task |
 | **RASS** — `sessler2002`, `ely2003` | §2.3 scale anchors, arousal gate | Scale is fixed/validated and stable; effectively no revision cadence. Watch only the procedural reference (`rass_mdcalc`) and PADIS-driven target-band guidance | Confirm the +4…−5 anchors are verbatim; the configurable target band is local, not part of the validated scale |
 | **NICE** — `nice_cg103` (delirium), `nice_ng10` (violence/aggression) | §2.2, §2.5, §2.7 | NICE runs rolling surveillance; CG103 last updated 2023. Watch nice.org.uk for CG103/NG10 status changes | Re-review prevention and de-escalation/restraint content; update the "(updated YYYY)" designation |
 | **FDA Clinical Decision Support guidance** (final, Jan 2026; 4-criterion non-device CDS structure) | Whole-tool design discipline; the §6.7 design principles | Watch FDA for revisions to the CDS guidance and adjacent software-function policy | Re-check against the §6.7 non-device CDS design principles (supports-not-directs; basis independently reviewable) |
@@ -835,12 +837,12 @@ The change log — one row per change to a clinical value, threshold, band, dose
 
 CAM-ICU and RASS are **validated, published instruments** with named authors. They must be attributed correctly and reproduced faithfully, and they must stay **visually and functionally separate** from the tool's home-grown risk-factor tally so no clinician conflates the unvalidated checklist with the validated screens.
 
-**CAM-ICU (Confusion Assessment Method for the ICU).** Developed by E. Wesley Ely and colleagues, Vanderbilt University (CIBS Center / icudelirium.org); validated in `ely2001`. Operationalisation (worksheet, training manual, Pictures-ASE) per `camicu_worksheet`, `camicu_manual`, `icudelirium_monitoring`. Reproduce the four-feature algorithm and its cut-points without alteration. The Pictures-ASE is implemented as the validated 10-item recognition task scored `> 2/10` (20%), the same cut-point as the 10-letter SAVEAHAART task. It is reproduced faithfully (tier V), with no tool-introduced cut-point deviation (corrected 2026-06-27; see §6.5).
+**CAM-ICU (Confusion Assessment Method for the ICU).** Developed by E. Wesley Ely and colleagues, Vanderbilt University (CIBS Center / icudelirium.org); validated in `ely2001`. Operationalization (worksheet, training manual, Pictures-ASE) per `camicu_worksheet`, `camicu_manual`, `icudelirium_monitoring`. Reproduce the four-feature algorithm and its cut-points without alteration. The Pictures-ASE is implemented as the validated 10-item recognition task scored `> 2/10` (20%), the same cut-point as the 10-letter SAVEAHAART task. It is reproduced faithfully (tier V), with no tool-introduced cut-point deviation (corrected 2026-06-27; see §6.5).
 
-**RASS (Richmond Agitation-Sedation Scale).** Developed by Sessler et al., 2002 (`sessler2002`); reliability/validity over time established by Ely et al., 2003 (`ely2003`). Reproduce the 10-point scale (+4 Combative … −5 Unarousable) verbatim. The **target band and colour zoning are a local, configurable, PADIS-informed overlay**, not part of the validated scale, and must remain visually distinct from the scale anchors so a configured target is never mistaken for a validated cut-point.
+**RASS (Richmond Agitation-Sedation Scale).** Developed by Sessler et al., 2002 (`sessler2002`); reliability/validity over time established by Ely et al., 2003 (`ely2003`). Reproduce the 10-point scale (+4 Combative … −5 Unarousable) verbatim. The **target band and color zoning are a local, configurable, PADIS-informed overlay**, not part of the validated scale, and must remain visually distinct from the scale anchors so a configured target is never mistaken for a validated cut-point.
 
 **Separation mandate.** The risk-factor tally (§2.1) is a non-validated count (tier P). It must not:
-- adopt CAM-ICU or RASS visual styling, colour language, or results panel;
+- adopt CAM-ICU or RASS visual styling, color language, or results panel;
 - be presented as a "score" without the "(not a validated score)" / "(heuristic)" qualifier the tool already carries;
 - share a print block or PDF region with the CAM-ICU result in a way that implies a single validated output.
 
@@ -851,9 +853,9 @@ Any future UI change must preserve this separation. The instruments stay attribu
 | Instrument | Deviation | Tier | Disclosed where | Status |
 |---|---|---|---|---|
 | CAM-ICU | Pictures-ASE corrected to the validated 10-item > 2/10 task (no cut-point deviation) | V | §2.2, §6.5 | Resolved 2026-06-27 |
-| CAM-ICU | Feature 3 had shipped in the superseded descriptor form (Alert vs Vigilant/Lethargic/Stuporous) — an **undisclosed deviation** found in the 2026-07-01 audit; replaced with the worksheet's RASS ≠ 0 operationalisation, so no deviation remains | V | §2.2, §6.5 | Resolved 2026-07-01 |
+| CAM-ICU | Feature 3 had shipped in the superseded descriptor form (Alert vs Vigilant/Lethargic/Stuporous) — an **undisclosed deviation** found in the 2026-07-01 audit; replaced with the worksheet's RASS ≠ 0 operationalization, so no deviation remains | V | §2.2, §6.5 | Resolved 2026-07-01 |
 | CAM-ICU | Verdict gating now requires a documented RASS before any result (return to the source's two-step order; previously a verdict could be produced with RASS unset) | V | §2.2, §6.5 | Resolved 2026-07-01 |
-| RASS | Configurable target band / colour zoning overlaid on the validated scale | P (overlay) | §2.3, Setup tab | Disclosed |
+| RASS | Configurable target band / color zoning overlaid on the validated scale | P (overlay) | §2.3, Setup tab | Disclosed |
 | CAPD (peds) | The source's point-age anchor columns (NB/4 wk/6 wk/8 wk/28 wk/1 yr/2 yr) are mapped to ranges that begin at each labeled age (score-neutral; picks which inline hint shows) | P (band mapping) | §7.1, `capd.js` comment | Disclosed 2026-07-01 |
 
 ### 6.7 Non-device CDS design principles
@@ -879,7 +881,7 @@ The user picks the validated screen for the child's age and developmental level;
 
 **CAPD (Cornell Assessment of Pediatric Delirium), all ages (0–21 yr).** Eight-item observational nursing screen rated over the shift against age-expected behavior; each item 0–4 (total 0–32). Items 1–4 (eye contact, purposeful actions, awareness, communication) are reverse-scored (Never = 4 … Always = 0); items 5–8 (restless, inconsolable, underactive, slow to respond) are scored Never = 0 … Always = 4. **Cut point ≥ 9 = positive** (Traube 2014: sensitivity 94.1%, specificity 79.2%). **Developmental-delay caveat surfaced at the result** (matching in-app text): CAPD ≥ 9 remains positive, but specificity falls in baseline developmental delay (Traube 2014: 51.2% at ≥ 9; Gupta 2021: 44.8% overall, 16.5% with delay in ventilated children), so the result is interpreted against the child's own developmental baseline and the anchors, with experienced-clinician or pediatric-psychiatry review when needed. The tool does not advise substituting a higher cut point: reduced specificity is a false-positive problem, not a validated replacement threshold, and the ventilated-cohort ≥ 17 figure is population-specific. The 0–32 score and positive/negative are withheld until all eight items are rated. **Anchor-band mapping:** the source anchor table defines point-age columns (NB, 4 wk, 6 wk, 8 wk, 28 wk, 1 yr, 2 yr); the tool maps a developmental age to the column whose labeled age it has reached (cuts at ≈0.92 / 1.38 / 1.84 / 6.44 / 12 / 24 months), so a child at or past a labeled age sees that column's anchors. The mapping is score-neutral (it selects the inline hint only) and is recorded in the §6.6 register as a disclosed P-tier presentation choice.
 
-**pCAM-ICU (≥ 5 yr) and psCAM-ICU (6 mo–5 yr).** The CAM-ICU hierarchical algorithm, reused from the adult tool: **positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, with the RASS arousal gate. **Feature 3 (altered level of consciousness) is derived from the recorded RASS/SBS**: a score of 0 (alert and calm) is absent, any other assessable level present. It is shown read-only rather than entered separately, so it can never contradict the arousal score (the same operationalisation the adult CAM-ICU and ED bCAM use; guarded by a unit test). pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); Feature 2 offers the validated **memory-pictures alternative** as an interactive on-screen task (show 5 pictures to memorize, then 10 recognition pictures scored Seen/New; same ≥ 3-error cut) alongside the squeeze-on-A letters, for children who cannot squeeze (either task at threshold makes Feature 2 positive). Feature 4 carries the instrument's alternate question set and the two-step command per the pCAM instruction tool ("now do that with the other hand" **or** "add one more finger"; the pediatric instrument gives the second step as a plain alternative, unlike the adult worksheet's cannot-use-both-hands conditional; do not repeat the number of fingers). The Feature-2 letters are read in an even tone "without stopping" per the instruction tool; no per-second rate is stated by the pediatric instrument (an earlier "about one per second" instruction traced to no cited source and was removed; see §6.5). psCAM-ICU uses age-adapted observational tasks (6 mo–5 yr); its **Feature 2 implements both validated positivity paths**: (1) no eye contact on ≥ 3 of 10 presentations, or (2) eye contact on 8+ presentations but **unable to maintain sustained eye opening during at least half the assessment despite verbal prompts** (the assessor talks to the child throughout as ongoing stimulation). Feature 2 is absent only if neither path is met (Smith 2016, Fig. 2/Table 3; psCAM worksheet). The result is withheld until Features 1 and 2 (and a secondary feature) are answered.
+**pCAM-ICU (≥ 5 yr) and psCAM-ICU (6 mo–5 yr).** The CAM-ICU hierarchical algorithm, reused from the adult tool: **positive if Feature 1 AND Feature 2 AND (Feature 3 OR Feature 4)**, with the RASS arousal gate. **Feature 3 (altered level of consciousness) is derived from the recorded RASS/SBS**: a score of 0 (alert and calm) is absent, any other assessable level present. It is shown read-only rather than entered separately, so it can never contradict the arousal score (the same operationalization the adult CAM-ICU and ED bCAM use; guarded by a unit test). pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); Feature 2 offers the validated **memory-pictures alternative** as an interactive on-screen task (show 5 pictures to memorize, then 10 recognition pictures scored Seen/New; same ≥ 3-error cut) alongside the squeeze-on-A letters, for children who cannot squeeze (either task at threshold makes Feature 2 positive). Feature 4 carries the instrument's alternate question set and the two-step command per the pCAM instruction tool ("now do that with the other hand" **or** "add one more finger"; the pediatric instrument gives the second step as a plain alternative, unlike the adult worksheet's cannot-use-both-hands conditional; do not repeat the number of fingers). The Feature-2 letters are read in an even tone "without stopping" per the instruction tool; no per-second rate is stated by the pediatric instrument (an earlier "about one per second" instruction traced to no cited source and was removed; see §6.5). psCAM-ICU uses age-adapted observational tasks (6 mo–5 yr); its **Feature 2 implements both validated positivity paths**: (1) no eye contact on ≥ 3 of 10 presentations, or (2) eye contact on 8+ presentations but **unable to maintain sustained eye opening during at least half the assessment despite verbal prompts** (the assessor talks to the child throughout as ongoing stimulation). Feature 2 is absent only if neither path is met (Smith 2016, Fig. 2/Table 3; psCAM worksheet). The result is withheld until Features 1 and 2 (and a secondary feature) are answered.
 
 **Citations mapped (pediatric Screening tab):** CAPD → Traube 2014 (Crit Care Med 2014;42(3):656–663; PMID 24145848; cut point 9, developmental-delay specificity 51.2%); pCAM-ICU → Smith 2011 (Crit Care Med 2011;39(1):150–157; PMID 20959783; developmental age ≥ 5 yr); psCAM-ICU → Smith 2016 (Crit Care Med 2016;44(3):592–600; PMID 26565631; 6 mo–5 yr); arousal scales → Curley 2006 (State Behavioral Scale; Pediatr Crit Care Med 2006;7(2):107–114) and Sessler 2002 / Kerson 2016 (RASS, adult + pediatric validation); screening practice → SCCM PANDEM 2022 (Pediatr Crit Care Med 2022;23(2):e74–e110).
 

@@ -161,7 +161,7 @@ Notable changes to this project, following
   Previously the page opened directly on the adult document picker, with the
   other tools as banner links below it.
 - Every page's header now carries the same four-tool navigation (Adult ICU ·
-  Pediatric · ED · Templates), highlighting the current tool in its own colour,
+  Pediatric · ED · Templates), highlighting the current tool in its own color,
   replacing per-page link sets that differed in order, wording, and coverage.
 - Adult tool: the facility field moved from the page header to the Documents
   tab, beside the PDF buttons that print it; **Auto-fill example data** moved
@@ -538,10 +538,10 @@ cited primary literature. Each change is recorded with its source in
   with an opt-in for brand names; the default selection mirrors the interactive
   tool's documented default classes (benzodiazepines, opioids, anticholinergics)
   with the rest of the catalog opt-in via per-category and select-all/none
-  controls. The medication list prints as a mosaic of colour cards by default:
+  controls. The medication list prints as a mosaic of color cards by default:
   one check-off square per medication, with the font size and column count
   adapting to the selection, the pharmacology guidance card pinned top-left,
-  and a classic category-rows view as an alternative. One colour block per
+  and a classic category-rows view as an alternative. One color block per
   category, warning markers on the key pharmacology cautions, and icons aid
   bedside scanning. Output as browser print or a generated two-page PDF. Sheet
   content mirrors the interactive tool's cited clinical content;
