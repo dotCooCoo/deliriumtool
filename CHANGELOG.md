@@ -7,6 +7,19 @@ Notable changes to this project, following
 
 ### Changed
 
+- Template previews: 37 more printed statements now carry the (i) that opens their
+  cited sources, taking the total from 135 to 172. A statement was only matched to
+  its sources when its wording matched the sheet character for character, so two
+  differences hid a third of them: the sheets swap hyphens for non-breaking
+  hyphens so short tokens like CAM-ICU and T-A-DA cannot wrap on a printed card,
+  and a statement often names a card item and its description together where the
+  sheet prints the two as separate elements. Both are now allowed for, while
+  signs and comparisons are still compared exactly, so a threshold's direction or
+  a score's sign can never be read as interchangeable. Where more than one element
+  could be meant, the statement is left without an (i) rather than attached to a
+  guess. Nothing that already carried an (i) moved, and the printed sheets are
+  unchanged — the affordance is screen-only.
+
 - Pediatric antipsychotic monitoring card: the QTc guidance now gives a reference
   range instead of asking the reader to judge against unnamed limits. The normal
   upper limit is stated as **< 450 ms** in children 11 days to 16 years, with the
