@@ -46,10 +46,11 @@ const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
  * wrap on a printed card, and a few spans use non-breaking spaces. Those
  * characters are the renderer's, not the source text's.
  *
- * `joined` drops the punctuation entirely. A statement often names a card item
- * and its description together — "Set a RASS goal every shift: Target the
- * lightest RASS…" — where the sheet prints the two as adjacent elements and the
- * colon joining them exists only in the statement.
+ * `joined` drops the punctuation that joins parts of a statement, but keeps
+ * every sign and comparison. A statement often names a card item and its
+ * description together — "Set a RASS goal every shift: Target the lightest
+ * RASS…" — where the sheet prints the two as adjacent elements and the colon
+ * joining them exists only in the statement.
  */
 const printed = (s) =>
   norm(
