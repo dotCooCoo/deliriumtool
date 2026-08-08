@@ -5,7 +5,26 @@ Notable changes to this project, following
 
 ## [Unreleased]
 
+### Fixed
+
+- The pediatric tool kept its "reference aid only" notice on the opening screen
+  but not once a child's details were entered — the banner sat inside the panel
+  that collapses on entry, so every screen of the assessment, and anything
+  printed from it, went without the framing that keeps the tool out of
+  decision-support territory. It now stays on screen throughout, as it already did on the adult,
+  emergency-department and step-down tools. The wording is unchanged.
+
+- Page references on the Sources & Evidence page printed a second "p. " in front
+  of locators that already stated their own form, so a manuscript page read
+  "p. ms. p.8" and a labelled section read "p. Abstract". A reference now reads
+  as the source numbers it, and only a bare page number is given the prefix.
+
 ### Changed
+
+- The step-down prevention items and the step-down bedside card now read
+  "mobilization" and "minimize", matching the American spelling used across the
+  rest of the tool. Reference lists, journal names and published article titles
+  keep the spelling their publishers used, as before.
 
 - Printed bedside sheets now separate the unit's own wording from the cited
   content. The designer has always let a unit reword any built-in line and add

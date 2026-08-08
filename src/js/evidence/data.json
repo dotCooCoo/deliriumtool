@@ -1785,7 +1785,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "board with names of care-team members and day’s schedule; communication to reorient to surroundings",
        "scope": "different-population",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Table of HELP intervention protocols flattened into run-on text; row labels merged and truncated mid-word at both ends."
@@ -2130,7 +2130,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "communication to reorient to surroundings",
        "scope": "different-population",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Concatenated cells from Inouye's intervention-protocols table (Orientation/Therapeutic-activities/Sleep protocols), starting mid-sentence and truncated at '(e.g., si'."
@@ -2307,7 +2307,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "board with names of care-team members and day’s schedule; communication to reorient to surroundings",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Table of risk factors and standardized intervention protocols rendered as run-on scattered cells/labels, starting mid-sentence and containing replacement characters."
@@ -3241,7 +3241,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage",
        "scope": "different-population",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Table of HELP intervention protocols with cell labels (Nonpharmacologic sleep/Sleep-enhancement/Early-mobilization/Vision protocol) run together, truncated mid-word."
@@ -3250,7 +3250,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways)",
        "scope": "different-intervention",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Continuation of the same protocol table with multiple cells concatenated and truncated mid-word ('equipme')."
@@ -3623,7 +3623,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "ambulation whenever possible, and range-of-motion exercises",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Risk-factor criteria table flattened into label+definition pairs (Visual impairment / Hearing impairment / Dehydration) with the greater-than-or-equal symbols dropped as replacement characters."
@@ -4173,7 +4173,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — dehydration. Eligible patients: Patients with ratio of blood urea nitrogen to creatinine ≥18, screened for protocol by geriatric nurse-specialist. Standardized intervention protocols: Dehydration protocol: early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids). Targeted outcome for reassessment: Change in ratio of blood urea nitrogen to creatinine.",
        "highlight": "early recognition of dehydration and volume repletion (i.e., encouragement of oral intake of fluids)",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "This is a table/figure rendered as scattered cells (a column header \"TARGETED OUTCOME FOR REASSESSMENT\" followed by \"Change in ... score\" cell contents), not prose."
@@ -4453,7 +4453,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "cognitively stimulating activities three times daily",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Concatenated cells from Inouye's standardized-intervention-protocols table, not prose; starts and ends mid-entry."
@@ -4462,7 +4462,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "communication to reorient to surroundings",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Risk-factor/eligibility and protocol table cells merged into one blob, with replacement characters where symbols were lost."
@@ -4639,7 +4639,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "relaxation tapes or music",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "This is Inouye's intervention-protocols table dumped as text: multiple protocol labels concatenated, starting and ending mid-content."
@@ -4648,7 +4648,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — cognitive impairment. Eligible patients: All patients, protocol once daily; patients with base-line MMSE score of <20 or orientation score of <8, protocol three times daily. Standardized intervention protocols: Orientation protocol: board with names of care-team members and day’s schedule; communication to reorient to surroundings. Therapeutic-activities protocol: cognitively stimulating activities three times daily (e.g., discussion of current events, structured reminiscence, or word games). Targeted outcome for reassessment: Change in orientation score.",
        "highlight": "cognitively stimulating activities three times daily",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Same intervention-protocols table content run together, truncated mid-word ('immobil')."
@@ -8374,7 +8374,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints)",
        "scope": "on-scope",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Standardized intervention-protocol table rendered as run-together rows, truncated mid-entry ('special comm')."
@@ -8383,7 +8383,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory",
        "scope": "on-scope",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Risk-factor/eligibility table with the two columns interleaved as running text; also carries replacement characters."
@@ -8563,7 +8563,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — immobility. Eligible patients: All patients; ambulation whenever possible, and range-of-motion exercises when patients chronically non-ambulatory, bed or wheelchair bound, immobilized (e.g., because of an extremity fracture or deep venous thrombosis), or when prescribed bed rest. Standardized intervention protocols: Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints). Targeted outcome for reassessment: Change in Activities of Daily Living score.",
        "highlight": "Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment",
        "scope": "different-setting",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Intervention-protocol table flattened into a run-on list of labeled cells (Early-mobilization/Vision/Hearing protocol), truncated at 'special comm'."
@@ -9021,7 +9021,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage",
        "scope": "on-scope",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Intervention-protocol table cells concatenated into run-on text ending mid-word 'immobil', not a genuine paragraph."
@@ -9030,7 +9030,7 @@
        "context": "Table 1. Risk factors for delirium and intervention protocols. Targeted risk factor — sleep deprivation. Eligible patients: All patients; need for protocol assessed once daily. Standardized intervention protocols: Nonpharmacologic sleep protocol: at bedtime, warm drink (milk or herbal tea), relaxation tapes or music, and back massage. Sleep-enhancement protocol: unit-wide noise-reduction strategies (e.g., silent pill crushers, vibrating beepers, and quiet hallways) and schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures). Targeted outcome for reassessment: Change in rate of use of sedative drug for sleep.",
        "highlight": "schedule adjustments to allow sleep (e.g., rescheduling of medications and procedures)",
        "scope": "on-scope",
-       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labelled here so the row reads in the order the table gives it.",
+       "note": "Transcribed from Table 1 as printed. The table sets the eligible patients, the intervention protocols and the targeted outcome in three columns; they are labeled here so the row reads in the order the table gives it.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
        "qcNote": "Same intervention-protocol table cells merged into run-on text ending mid-word 'adaptive equipme'."
@@ -11424,14 +11424,14 @@
        "context": "Clinicians in emergency settings also will need to be skilled at recognizing that the inability to conform is due to either cognitive impairment—for example, delirium, psychosis, intoxication, and intellectual disability—or the patient's lack of the skills needed to effectively get his needs met, eg, personality disorder.",
        "highlight": "for example, delirium, psychosis, intoxication, and intellectual disability",
        "scope": "different-setting",
-       "note": "Different setting/intervention — emergency-psychiatry de-escalation that names delirium as one possible cause of a patient's behaviour, not the delirium-screen escalation action.",
+       "note": "Different setting/intervention — emergency-psychiatry de-escalation that names delirium as one possible cause of a patient's behavior, not the delirium-screen escalation action.",
        "page": "",
        "docUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/"
       }
      ]
     }
    ],
-   "synthesis": "NICE CG103 governs and directly supports the claim: after a positive CAM-ICU/4AT screen a healthcare professional with the relevant expertise makes the final diagnosis (grounding \"notify provider\"), and both the changes that may indicate delirium and the confirmed diagnosis must be documented in the person's record (recs 1.5.2, 1.6.2, 1.6.4). PADIS 2025 (an ICU symptom-management focused update centred on anxiety) and Project BETA (verbal de-escalation of agitation in emergency psychiatry) share keywords but are different-scope and do not address the notify-provider/document escalation action.",
+   "synthesis": "NICE CG103 governs and directly supports the claim: after a positive CAM-ICU/4AT screen a healthcare professional with the relevant expertise makes the final diagnosis (grounding \"notify provider\"), and both the changes that may indicate delirium and the confirmed diagnosis must be documented in the person's record (recs 1.5.2, 1.6.2, 1.6.4). PADIS 2025 (an ICU symptom-management focused update centered on anxiety) and Project BETA (verbal de-escalation of agitation in emergency psychiatry) share keywords but are different-scope and do not address the notify-provider/document escalation action.",
    "discrepancy": true
   },
   {
@@ -11605,7 +11605,7 @@
        "context": "others, first use verbal and non-verbal techniques to de-escalate the situation.",
        "highlight": "first use verbal and non-verbal techniques to de-escalate the situation",
        "scope": "different-intervention",
-       "note": "Recommendation 1.7.3 is the first-line behavioural step for the distressed/agitated delirious patient (de-escalation), a different rung than the sitter/family measure in this claim.",
+       "note": "Recommendation 1.7.3 is the first-line behavioral step for the distressed/agitated delirious patient (de-escalation), a different rung than the sitter/family measure in this claim.",
        "page": "11",
        "docUrl": "https://www.nice.org.uk/guidance/cg103"
       },
@@ -11658,7 +11658,7 @@
      "cite": "Richmond JS, Berlin JS, Fishkind AB, et al. Verbal de-escalation of the agitated patient: consensus statement of the APA Project BETA. West J Emerg Med. 2012;13(1):17-25.",
      "kind": "pdf",
      "stance": "background",
-     "note": "Psychiatric-emergency consensus on verbal de-escalation of the agitated patient; supports a noncoercive behavioural approach but does not mention a 1:1 sitter or family presence.",
+     "note": "Psychiatric-emergency consensus on verbal de-escalation of the agitated patient; supports a noncoercive behavioral approach but does not mention a 1:1 sitter or family presence.",
      "docUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3298202/",
      "paragraphs": [
       {
@@ -20708,7 +20708,7 @@
      "cite": "Bellelli G, et al. Validation of the 4AT, a new instrument for rapid delirium screening: a study in 234 hospitalised older people. Age Ageing. 2014;43(4):496–502.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Enumerates all four items and all three bands; validation population is hospitalised older people (geriatric admission), but the description of the instrument is on-scope.",
+     "note": "Enumerates all four items and all three bands; validation population is hospitalized older people (geriatric admission), but the description of the instrument is on-scope.",
      "docUrl": "https://doi.org/10.1093/ageing/afu021",
      "paragraphs": [
       {
@@ -22052,7 +22052,7 @@
        "context": "A person may already have delirium when they present to hospital or long-term care or it may develop during a hospital admission or residential stay in long-term care. Delirium can be hypoactive or hyperactive but some people show signs of both (mixed). People with hyperactive delirium have heightened arousal and can be restless, agitated and aggressive. People with hypoactive delirium become withdrawn, quiet and sleepy. Hypoactive and mixed delirium can be more difficult to recognise.",
        "highlight": "Hypoactive and mixed delirium can be more difficult to recognise",
        "scope": "different-setting",
-       "note": "Confirms the quiet, hard-to-recognise hypoactive picture — again for hospital/long-term-care patients rather than the ED.",
+       "note": "Confirms the quiet, hard-to-recognize hypoactive picture — again for hospital/long-term-care patients rather than the ED.",
        "page": "",
        "docUrl": "https://www.nice.org.uk/guidance/cg103"
       },
@@ -24458,7 +24458,7 @@
        "context": "99 Where delirium is detected, the diagnosis of delirium should be clearly documented and coded to aid transfers of care (eg handover notes, referral and discharge letters).",
        "highlight": "to aid transfers of care (eg handover notes, referral and discharge letters)",
        "scope": "broader",
-       "note": "Directs documenting/coding the delirium diagnosis at all transfers of care (ED and acute hospital) — a wider-scope handover recommendation that centres on the diagnosis, not the ED interventions started.",
+       "note": "Directs documenting/coding the delirium diagnosis at all transfers of care (ED and acute hospital) — a wider-scope handover recommendation that centers on the diagnosis, not the ED interventions started.",
        "page": "",
        "docUrl": "https://www.sign.ac.uk/our-guidelines/risk-reduction-and-management-of-delirium/"
       }
@@ -25847,14 +25847,14 @@
      "cite": "Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Primary on-scope source: Cochrane review of hospitalised non-ICU patients that directly supplies both the RR 0.69 multicomponent figure and the class-level antipsychotic conclusion.",
+     "note": "Primary on-scope source: Cochrane review of hospitalized non-ICU patients that directly supplies both the RR 0.69 multicomponent figure and the class-level antipsychotic conclusion.",
      "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3",
      "paragraphs": [
       {
        "context": "We found multi-component interventions reduced the incidence of delirium compared to usual care (RR 0.69, 95% CI 0.59 to 0.81; seven studies; 1950 participants; moderate-quality evidence). E ect sizes were similar in medical (RR 0.63, 95% CI 0.43 to 0.92; four studies; 1365 participants) and surgical settings (RR 0.71, 95% CI 0.59 to 0.85; three studies; 585 participants). In the subgroup of patients with preexisting dementia, the e ect of multi-component interventions remains uncertain (RR 0.90, 95% CI 0.59 to 1.36; one study, 50 participants; low-quality evidence).",
        "highlight": "multi-component interventions reduced the incidence of delirium compared to usual care (RR 0.69, 95% CI 0.59 to 0.81; seven studies; 1950 participants; moderate-quality evidence)",
        "scope": "on-scope",
-       "note": "Abstract headline result and exact source of the claim's RR 0.69 in hospitalised non-ICU patients.",
+       "note": "Abstract headline result and exact source of the claim's RR 0.69 in hospitalized non-ICU patients.",
        "page": "7",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -25913,7 +25913,7 @@
      "cite": "Inouye SK, et al. A multicomponent intervention to prevent delirium in hospitalized older patients. N Engl J Med 1999;340:669.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Landmark HELP trial supporting only the multicomponent prong (no antipsychotic content); population is hospitalised older general-medicine patients, i.e. non-ICU.",
+     "note": "Landmark HELP trial supporting only the multicomponent prong (no antipsychotic content); population is hospitalized older general-medicine patients, i.e. non-ICU.",
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
@@ -25939,7 +25939,7 @@
      "cite": "Hshieh TT, et al. Effectiveness of multicomponent nonpharmacological delirium interventions: a meta-analysis. JAMA Intern Med 2015;175:512.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Meta-analysis supporting the multicomponent prong across hospitalised older patients; does not address antipsychotics.",
+     "note": "Meta-analysis supporting the multicomponent prong across hospitalized older patients; does not address antipsychotics.",
      "docUrl": "https://doi.org/10.1001/jamainternmed.2014.7779",
      "paragraphs": [
       {
@@ -26119,7 +26119,7 @@
      ]
     }
    ],
-   "synthesis": "The primary on-scope source, Siddiqi 2016 (Cochrane, hospitalised non-ICU patients), directly supports both prongs — multicomponent interventions cut incident delirium (RR 0.69) while antipsychotics as a class show no clear benefit — and it governs because it is the exact population and figure the claim cites; it is corroborated for the bundle by Inouye 1999 and Hshieh 2015 and for antipsychotics by Oh 2019 and Neufeld 2016. The only divergence is scope, not direction: atypical/second-generation antipsychotics reduced incidence in postoperative surgical trials (Siddiqi's olanzapine subgroup and Oh's second-generation pooled RR 0.36), and the AGS 2015 postoperative guideline rates prophylactic antipsychotics as \"insufficient evidence\" rather than clearly ineffective — a different surgical setting/agent that should not be read as endorsing routine antipsychotic prophylaxis in general non-ICU inpatients.",
+   "synthesis": "The primary on-scope source, Siddiqi 2016 (Cochrane, hospitalized non-ICU patients), directly supports both prongs — multicomponent interventions cut incident delirium (RR 0.69) while antipsychotics as a class show no clear benefit — and it governs because it is the exact population and figure the claim cites; it is corroborated for the bundle by Inouye 1999 and Hshieh 2015 and for antipsychotics by Oh 2019 and Neufeld 2016. The only divergence is scope, not direction: atypical/second-generation antipsychotics reduced incidence in postoperative surgical trials (Siddiqi's olanzapine subgroup and Oh's second-generation pooled RR 0.36), and the AGS 2015 postoperative guideline rates prophylactic antipsychotics as \"insufficient evidence\" rather than clearly ineffective — a different surgical setting/agent that should not be read as endorsing routine antipsychotic prophylaxis in general non-ICU inpatients.",
    "discrepancy": true
   },
   {
@@ -26128,7 +26128,7 @@
    "tool": "Step-Down Card Set",
    "page": "2",
    "section": "Prevention card — bundle",
-   "statement": "Ten-component HELP-style bundle: reorientation; glasses & hearing aids; early mobilisation; sleep protocol; hydration & nutrition; deliriogenic/anticholinergic medication review; pain treated without over-sedation; bowel/bladder care; infection/hypoxia/metabolic work-up; family engagement & education.",
+   "statement": "Ten-component HELP-style bundle: reorientation; glasses & hearing aids; early mobilization; sleep protocol; hydration & nutrition; deliriogenic/anticholinergic medication review; pain treated without over-sedation; bowel/bladder care; infection/hypoxia/metabolic work-up; family engagement & education.",
    "contentType": "Cited clinical content",
    "sources": [
     "Siddiqi 2016 (Cochrane)",
@@ -26161,14 +26161,14 @@
      "cite": "Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Cochrane review of prevention in hospitalised non-ICU patients — the exact step-down/ward setting the card targets; supports the multicomponent nonpharmacological approach but treats the specific component list as variable rather than prescribing all ten.",
+     "note": "Cochrane review of prevention in hospitalized non-ICU patients — the exact step-down/ward setting the card targets; supports the multicomponent nonpharmacological approach but treats the specific component list as variable rather than prescribing all ten.",
      "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3",
      "paragraphs": [
       {
        "context": "Most included individualised care, an educational component, reorientation, and early mobilisation. Many of the delirium risk factors targeted with multi-component interventions relate to good basic care.",
        "highlight": "Most included individualised care, an educational component, reorientation, and early mobilisation.",
        "scope": "on-scope",
-       "note": "Across seven non-ICU multicomponent-intervention trials, the bundles commonly included individualised care, education, reorientation, and early mobilisation.",
+       "note": "Across seven non-ICU multicomponent-intervention trials, the bundles commonly included individualized care, education, reorientation, and early mobilization.",
        "page": "",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -26176,7 +26176,7 @@
        "context": "On the basis of seven randomised controlled trials (RCTs) (four in medical patients and three in surgical patients) n = 1950 participants, there is moderate-quality evidence that multicomponent delirium prevention interventions can reduce rates of incident delirium; this is consistent across the included trials. Evidence has been downgraded due to the possibility of performance bias (the nature of the intervention precludes blinding of participants and those delivering intervention). Outcome assessors were unblinded to the intervention in two studies, including the study with the largest weighting and highest event rate. Furthermore, there is a risk of other bias in two of the included studies due to an imbalance between the intervention and control groups in respect to the prevalence of pre-existing dementia.",
        "highlight": "multicomponent delirium prevention interventions can reduce rates of incident delirium",
        "scope": "on-scope",
-       "note": "Moderate-quality evidence that a multicomponent prevention bundle lowers incident delirium in hospitalised non-ICU (medical and surgical) patients.",
+       "note": "Moderate-quality evidence that a multicomponent prevention bundle lowers incident delirium in hospitalized non-ICU (medical and surgical) patients.",
        "page": "",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -26184,7 +26184,7 @@
        "context": "Preliminary evidence for the content of multicomponent interventions suggests that they should include as a minimum: sta education; individualised care (sometimes referred to as person-centred care); re-orientation at frequent intervals; and early mobilisation, but this needs further investigation. These areas are familiar aspects of care but are currently poorly and unreliably delivered.",
        "highlight": "re-orientation at frequent intervals; and early mobilisation",
        "scope": "on-scope",
-       "note": "The review's view of minimum bundle content reinforces reorientation and early mobilisation as core elements.",
+       "note": "The review's view of minimum bundle content reinforces reorientation and early mobilization as core elements.",
        "page": "",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -26200,7 +26200,7 @@
        "context": "Research in older people has identified a range of risk factors for delirium. The condition clearly has a multi-factorial aetiology, and these risk factors interact (Inouye 1998b); the more risk factors that are present, the greater the likelihood that the patient will develop delirium. Risk factors that have so far been identified include: increased age, sensory deprivation (visual or hearing impairment), sleep deprivation, social isolation, physical restraint, use of bladder catheter, iatrogenic adverse events, poly-pharmacy (more than three new medications added), use of psychoactive drugs, comorbidities, severe illness (especially infection, fracture or stroke), prior cognitive impairment, temperature abnormality (fever or hypothermia), dehydration, malnutrition and low serum albumin (Inouye 1998b; Inouye 1999c; NICE 2010).",
        "highlight": "use of bladder catheter, iatrogenic adverse events, poly-pharmacy (more than three new medications added)",
        "scope": "background",
-       "note": "The risk-factor list grounds several otherwise weakly-cited components — bladder catheters, polypharmacy, sensory deprivation, sleep, and infection are all recognised delirium risk factors.",
+       "note": "The risk-factor list grounds several otherwise weakly-cited components — bladder catheters, polypharmacy, sensory deprivation, sleep, and infection are all recognized delirium risk factors.",
        "page": "",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       }
@@ -26211,14 +26211,14 @@
      "cite": "Inouye SK, et al. A multicomponent intervention to prevent delirium in hospitalized older patients. N Engl J Med 1999;340:669.",
      "kind": "pdf",
      "stance": "partial",
-     "note": "The foundational HELP randomized trial in hospitalised older medical (non-ICU) patients; establishes six of the ten listed components but does not address nutrition, medication review, pain, bowel/bladder care, infection/hypoxia/metabolic work-up, or family engagement as discrete components.",
+     "note": "The foundational HELP randomized trial in hospitalized older medical (non-ICU) patients; establishes six of the ten listed components but does not address nutrition, medication review, pain, bowel/bladder care, infection/hypoxia/metabolic work-up, or family engagement as discrete components.",
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
        "context": "Methods We studied 852 patients 70 years of age or older who had been admitted to the general-medicine service at a teaching hospital. Patients from one intervention unit and two usual-care units were enrolled by means of a prospective matching strategy. The intervention consisted of standardized protocols for the management of six risk factors for delirium: cognitive impairment, sleep deprivation, immobility, visual impairment, hearing impairment, and dehydration. Delirium, the primary outcome, was assessed daily until discharge.",
        "highlight": "standardized protocols for the management of six risk factors for delirium: cognitive impairment, sleep deprivation, immobility, visual impairment, hearing impairment, and dehydration",
        "scope": "on-scope",
-       "note": "The HELP protocol the bundle is named for — six targeted risk factors mapping to reorientation, sleep, mobilisation, glasses, hearing aids, and hydration.",
+       "note": "The HELP protocol the bundle is named for — six targeted risk factors mapping to reorientation, sleep, mobilization, glasses, hearing aids, and hydration.",
        "page": "669",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
@@ -26242,7 +26242,7 @@
        "context": "Early-mobilization protocol: ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints)",
        "highlight": "ambulation or active range-of-motion exercises three times daily; minimal use of immobilizing equipment (e.g., bladder catheters or physical restraints)",
        "scope": "on-scope",
-       "note": "Supports early mobilisation; also minimises immobilizing equipment such as bladder catheters, touching the bowel/bladder-care component.",
+       "note": "Supports early mobilization; also minimizes immobilizing equipment such as bladder catheters, touching the bowel/bladder-care component.",
        "page": "671",
        "docUrl": "https://doi.org/10.1056/NEJM199903043400901"
       },
@@ -26277,7 +26277,7 @@
      "cite": "Hshieh TT, et al. Effectiveness of multicomponent nonpharmacological delirium interventions: a meta-analysis. JAMA Intern Med 2015;175:512.",
      "kind": "pdf",
      "stance": "partial",
-     "note": "Meta-analysis of 14 trials in hospitalised older persons confirming the HELP-style multicomponent approach; enumerates the core HELP components (adding nutrition and family-delivered care) but does not prescribe medication review, pain, bowel/bladder, or infection/hypoxia/metabolic work-up as components.",
+     "note": "Meta-analysis of 14 trials in hospitalized older persons confirming the HELP-style multicomponent approach; enumerates the core HELP components (adding nutrition and family-delivered care) but does not prescribe medication review, pain, bowel/bladder, or infection/hypoxia/metabolic work-up as components.",
      "docUrl": "https://doi.org/10.1001/jamainternmed.2014.7779",
      "paragraphs": [
       {
@@ -26292,7 +26292,7 @@
        "context": "b Evidence-based nonpharmacological interventions include the following: cognition or orientation (C), early mobility (E), hearing (H), sleep-wake cycle preservation (P), vision (V), and hydration (W).",
        "highlight": "cognition or orientation (C), early mobility (E), hearing (H), sleep-wake cycle preservation (P), vision (V), and hydration (W)",
        "scope": "on-scope",
-       "note": "The six evidence-based HELP interventions used to characterize included studies — maps to reorientation, mobilisation, hearing, sleep, glasses, and hydration.",
+       "note": "The six evidence-based HELP interventions used to characterize included studies — maps to reorientation, mobilization, hearing, sleep, glasses, and hydration.",
        "page": "515",
        "docUrl": "https://doi.org/10.1001/jamainternmed.2014.7779"
       },
@@ -26342,7 +26342,7 @@
        "context": "VIII. Analgesia Recommendation--Healthcare professionals should optimize postoperative pain control, preferably with nonopioid pain medications, to minimize pain in older adults to prevent delirium (strength of recommendation: strong; quality of evidence: low).",
        "highlight": "optimize postoperative pain control, preferably with nonopioid pain medications, to minimize pain in older adults to prevent delirium",
        "scope": "on-scope",
-       "note": "Supports pain treated without over-sedation — nonopioid-preferred analgesia to minimise both pain and sedating opioids.",
+       "note": "Supports pain treated without over-sedation — nonopioid-preferred analgesia to minimize both pain and sedating opioids.",
        "page": "7",
        "docUrl": "https://doi.org/10.1111/jgs.13281"
       },
@@ -26365,7 +26365,7 @@
      ]
     }
    ],
-   "synthesis": "All four sources support a HELP-style multicomponent nonpharmacological prevention bundle for hospitalised older adults and none contradicts the claim: the AGS 2015 postoperative-delirium guideline (primary anchor, p. 4) governs the specific list, enumerating nearly all ten components in one strong recommendation, while Inouye 1999 (HELP) and Hshieh 2015 establish and meta-analytically validate the core six (reorientation, sleep, mobilisation, vision/hearing, hydration) and Siddiqi 2016 confirms multicomponent prevention works in the exact hospitalised non-ICU (step-down) setting. The four extra components (medication review, pain without over-sedation, bowel/bladder care, infection/hypoxia/metabolic work-up, family engagement) rest chiefly on the AGS enumeration — drawn from an older-surgical population — rather than on all four sources, so the AGS list is the governing citation for the full ten while the HELP trials cover only the core six.",
+   "synthesis": "All four sources support a HELP-style multicomponent nonpharmacological prevention bundle for hospitalized older adults and none contradicts the claim: the AGS 2015 postoperative-delirium guideline (primary anchor, p. 4) governs the specific list, enumerating nearly all ten components in one strong recommendation, while Inouye 1999 (HELP) and Hshieh 2015 establish and meta-analytically validate the core six (reorientation, sleep, mobilization, vision/hearing, hydration) and Siddiqi 2016 confirms multicomponent prevention works in the exact hospitalized non-ICU (step-down) setting. The four extra components (medication review, pain without over-sedation, bowel/bladder care, infection/hypoxia/metabolic work-up, family engagement) rest chiefly on the AGS enumeration — drawn from an older-surgical population — rather than on all four sources, so the AGS list is the governing citation for the full ten while the HELP trials cover only the core six.",
    "discrepancy": true
   },
   {
@@ -26374,7 +26374,7 @@
    "tool": "Step-Down Card Set",
    "page": "3",
    "section": "Act card — Find the cause",
-   "statement": "Review deliriogenic / anticholinergic medications first — minimise the burden.",
+   "statement": "Review deliriogenic / anticholinergic medications first — minimize the burden.",
    "contentType": "Cited clinical content",
    "sources": [
     "Lisibach 2022 (anticholinergic burden)",
@@ -26401,14 +26401,14 @@
      "cite": "Lisibach A, et al. Quantifying anticholinergic burden and its association with delirium (comparison of 19 scales). Br J Clin Pharmacol 2022;88:4915.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Cohort study of >26,000 older hospitalised (non-ICU) patients: a high cumulative anticholinergic burden was independently associated with incident delirium, and reducing that burden is framed as a targeted intervention. Closest available scope to a general step-down/ward card.",
+     "note": "Cohort study of >26,000 older hospitalized (non-ICU) patients: a high cumulative anticholinergic burden was independently associated with incident delirium, and reducing that burden is framed as a targeted intervention. Closest available scope to a general step-down/ward card.",
      "docUrl": "https://doi.org/10.1111/bcp.15432",
      "paragraphs": [
       {
        "context": "Although prospective studies need to confirm these results, discontinuing or substituting drugs with a score of 3 at admission might be a targeted intervention to reduce incident delirium.",
        "highlight": "discontinuing or substituting drugs with a score of 3 at admission might be a targeted intervention to reduce incident delirium",
        "scope": "on-scope",
-       "note": "Abstract conclusion directly supports reviewing anticholinergic medications and minimising the burden — discontinuing or substituting high-score drugs is a targeted intervention to reduce delirium.",
+       "note": "Abstract conclusion directly supports reviewing anticholinergic medications and minimizing the burden — discontinuing or substituting high-score drugs is a targeted intervention to reduce delirium.",
        "page": "4915",
        "docUrl": "https://doi.org/10.1111/bcp.15432"
       },
@@ -26434,7 +26434,7 @@
        "context": "Recommendation--The prescribing practitioner should avoid medications that induce delirium postoperatively in older adults to prevent delirium (strength of recommendation: strong; quality of evidence: low).",
        "highlight": "The prescribing practitioner should avoid medications that induce delirium postoperatively in older adults",
        "scope": "different-population",
-       "note": "Strong recommendation to avoid deliriogenic/anticholinergic drugs supports 'minimise the burden', but is scoped to postoperative older surgical patients rather than a general step-down population.",
+       "note": "Strong recommendation to avoid deliriogenic/anticholinergic drugs supports 'minimize the burden', but is scoped to postoperative older surgical patients rather than a general step-down population.",
        "page": "Page 8",
        "docUrl": "https://doi.org/10.1111/jgs.13281"
       },
@@ -26449,7 +26449,7 @@
      ]
     }
    ],
-   "synthesis": "Both sources endorse reviewing and minimising deliriogenic/anticholinergic medications to reduce delirium. Lisibach 2022 is the on-scope, governing source for a general step-down/ward card: in older hospitalised (non-ICU) patients a high cumulative anticholinergic burden was independently associated with incident delirium, and discontinuing or substituting high-burden drugs is presented as a targeted preventive intervention (with the caveat that drugs are only one factor in a multifactorial syndrome). AGS 2015 corroborates the same principle — a strong recommendation to avoid anticholinergic/deliriogenic drugs and to evaluate medications to identify causes — but from a different population (postoperative older surgical patients), so it is a nearest-match at a different scope rather than direct on-scope support.",
+   "synthesis": "Both sources endorse reviewing and minimizing deliriogenic/anticholinergic medications to reduce delirium. Lisibach 2022 is the on-scope, governing source for a general step-down/ward card: in older hospitalized (non-ICU) patients a high cumulative anticholinergic burden was independently associated with incident delirium, and discontinuing or substituting high-burden drugs is presented as a targeted preventive intervention (with the caveat that drugs are only one factor in a multifactorial syndrome). AGS 2015 corroborates the same principle — a strong recommendation to avoid anticholinergic/deliriogenic drugs and to evaluate medications to identify causes — but from a different population (postoperative older surgical patients), so it is a nearest-match at a different scope rather than direct on-scope support.",
    "discrepancy": true
   },
   {
@@ -26534,7 +26534,7 @@
        "context": "implementing infection control procedures in line with the NICE guideline on healthcare-associated infections. [2010]",
        "highlight": "implementing infection control procedures in line with the NICE guideline on healthcare-associated infections",
        "scope": "different-intervention",
-       "note": "Names infection (and, via 'avoiding unnecessary catheterisation', urinary/elimination), but within recommendation 1.4.7 of the PREVENTION multicomponent package aimed at preventing delirium, not the cause-workup of established delirium.",
+       "note": "Names infection (and, via 'avoiding unnecessary catheterization', urinary/elimination), but within recommendation 1.4.7 of the PREVENTION multicomponent package aimed at preventing delirium, not the cause-workup of established delirium.",
        "page": "8",
        "docUrl": "https://www.nice.org.uk/guidance/cg103"
       },
@@ -26644,7 +26644,7 @@
      "cite": "Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Systematic review of prevention in hospitalised non-ICU patients (medical + surgical wards) — the closest scope to a step-down unit; strongly supports multicomponent interventions as routine care.",
+     "note": "Systematic review of prevention in hospitalized non-ICU patients (medical + surgical wards) — the closest scope to a step-down unit; strongly supports multicomponent interventions as routine care.",
      "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3",
      "paragraphs": [
       {
@@ -26782,7 +26782,7 @@
      ]
     }
    ],
-   "synthesis": "All three sources agree that a multicomponent non-pharmacologic bundle is the recommended, harm-free first-line intervention for delirium; Siddiqi 2016 — the only source covering hospitalised non-ICU medical and surgical wards, the closest match to a step-down setting — governs and concludes these interventions should be adopted into routine care. The supporting evidence is strongest for primary prevention in at-risk patients (Inouye's HELP RCT was in older ≥70 general-medicine inpatients; AGS gives a strong prevention recommendation but only a weak one for treating established postoperative delirium), so \"first-line for every patient\" is a reasonable extrapolation of the consensus rather than a directly tested claim.",
+   "synthesis": "All three sources agree that a multicomponent non-pharmacologic bundle is the recommended, harm-free first-line intervention for delirium; Siddiqi 2016 — the only source covering hospitalized non-ICU medical and surgical wards, the closest match to a step-down setting — governs and concludes these interventions should be adopted into routine care. The supporting evidence is strongest for primary prevention in at-risk patients (Inouye's HELP RCT was in older ≥70 general-medicine inpatients; AGS gives a strong prevention recommendation but only a weak one for treating established postoperative delirium), so \"first-line for every patient\" is a reasonable extrapolation of the consensus rather than a directly tested claim.",
    "discrepancy": true
   },
   {
@@ -27512,7 +27512,7 @@
     {
      "label": "Beyer 2024 (CAM-IMC)",
      "stance": "agrees",
-     "note": "The non-veto behaviour is stated directly.",
+     "note": "The non-veto behavior is stated directly.",
      "paragraphs": [
       {
        "scope": "on-scope",
@@ -27606,14 +27606,14 @@
      "cite": "Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Cochrane review of interventions for preventing delirium in hospitalised non-ICU patients — the most directly on-scope source for a general step-down (non-ICU) setting; pooled RCT evidence that the multicomponent nonpharmacologic bundle reduces incident delirium.",
+     "note": "Cochrane review of interventions for preventing delirium in hospitalized non-ICU patients — the most directly on-scope source for a general step-down (non-ICU) setting; pooled RCT evidence that the multicomponent nonpharmacologic bundle reduces incident delirium.",
      "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3",
      "paragraphs": [
       {
        "context": "We found multi-component interventions reduced the incidence of delirium compared to usual care (RR 0.69, 95% CI 0.59 to 0.81; seven studies; 1950 participants; moderate-quality evidence). E ect sizes were similar in medical (RR 0.63, 95% CI 0.43 to 0.92; four studies; 1365 participants) and surgical settings (RR 0.71, 95% CI 0.59 to 0.85; three studies; 585 participants). In the subgroup of patients with preexisting dementia, the e ect of multi-component interventions remains uncertain (RR 0.90, 95% CI 0.59 to 1.36; one study, 50 participants; low-quality evidence).",
        "highlight": "multi-component interventions reduced the incidence of delirium compared to usual care",
        "scope": "on-scope",
-       "note": "Primary pooled result — the multicomponent bundle cuts delirium incidence vs usual care (RR 0.69; seven RCTs; 1950 participants) in hospitalised non-ICU patients, directly supporting the claim.",
+       "note": "Primary pooled result — the multicomponent bundle cuts delirium incidence vs usual care (RR 0.69; seven RCTs; 1950 participants) in hospitalized non-ICU patients, directly supporting the claim.",
        "page": "1",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -27629,7 +27629,7 @@
        "context": "There is strong evidence supporting multi-component interventions to prevent delirium in hospitalised patients. There is no clear evidence that cholinesterase inhibitors, antipsychotic medication or melatonin reduce the incidence of delirium. Using the Bispectral Index to monitor and control depth of anaesthesia reduces the incidence of postoperative delirium. The role of drugs and other anaesthetic techniques to prevent delirium remains uncertain.",
        "highlight": "There is strong evidence supporting multi-component interventions to prevent delirium in hospitalised patients",
        "scope": "on-scope",
-       "note": "Authors' conclusion — strong evidence for the multicomponent bundle in hospitalised patients.",
+       "note": "Authors' conclusion — strong evidence for the multicomponent bundle in hospitalized patients.",
        "page": "1",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -27637,7 +27637,7 @@
        "context": "Preliminary evidence for the content of multicomponent interventions suggests that they should include as a minimum: sta education; individualised care (sometimes referred to as person-centred care); re-orientation at frequent intervals; and early mobilisation, but this needs further investigation. These areas are familiar aspects of care but are currently poorly and unreliably delivered.",
        "highlight": "re-orientation at frequent intervals; and early mobilisation",
        "scope": "on-scope",
-       "note": "Describes the review's minimum bundle content (staff education, individualised care, re-orientation at frequent intervals, early mobilisation) and the 'frequent intervals' cadence that underpins per-shift delivery.",
+       "note": "Describes the review's minimum bundle content (staff education, individualized care, re-orientation at frequent intervals, early mobilization) and the 'frequent intervals' cadence that underpins per-shift delivery.",
        "page": "",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -27645,7 +27645,7 @@
        "context": "On the basis of two RCTs (n = 2057 participants), there is moderate-quality evidence that BIS-guided anaesthesia reduces the incidence of delirium compared to BIS-blinded anaesthesia/ clinical judgement.",
        "highlight": "BIS-guided anaesthesia reduces the incidence of delirium",
        "scope": "different-intervention",
-       "note": "Nearest keyword match ('reduces the incidence of delirium'), but BIS-guided anaesthesia is an intraoperative anaesthetic-depth technique, not the nonpharmacologic bundle - must not be read as support for the claim.",
+       "note": "Nearest keyword match ('reduces the incidence of delirium'), but BIS-guided anesthesia is an intraoperative anesthetic-depth technique, not the nonpharmacologic bundle - must not be read as support for the claim.",
        "page": "1",
        "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3"
       },
@@ -27706,7 +27706,7 @@
      "cite": "Inouye SK, et al. A multicomponent intervention to prevent delirium in hospitalized older patients. N Engl J Med 1999;340:669.",
      "kind": "pdf",
      "stance": "agrees",
-     "note": "Seminal HELP/Elder Life Program controlled trial establishing the multicomponent risk-factor bundle; population is at-risk hospitalised older MEDICAL (general-medicine, non-ICU) patients, complementing AGS's surgical scope.",
+     "note": "Seminal HELP/Elder Life Program controlled trial establishing the multicomponent risk-factor bundle; population is at-risk hospitalized older MEDICAL (general-medicine, non-ICU) patients, complementing AGS's surgical scope.",
      "docUrl": "https://doi.org/10.1056/NEJM199903043400901",
      "paragraphs": [
       {
@@ -27752,7 +27752,7 @@
      ]
     }
    ],
-   "synthesis": "All three sources agree that a multicomponent, risk-factor–targeted nonpharmacologic bundle reduces incident delirium in at-risk hospitalised non-ICU patients: the Cochrane 2016 review (RR 0.69, effect similar in medical and surgical settings) is the most directly on-scope source and governs the general step-down setting, underpinned by the Inouye 1999 HELP RCT (older medical patients) and the AGS 2015 strong recommendation (at-risk older surgical patients). Two caveats warrant flagging: the claim's \"every shift\" cadence is an operational specification — the sources specify daily rounds, three-times-daily protocols, \"the entire hospitalization,\" and \"re-orientation at frequent intervals\" rather than literally every shift — and Cochrane's pharmacologic/anaesthetic prevention findings (antipsychotics with no clear effect; BIS-guided anaesthesia positive) are different interventions that share the \"prevent delirium\" keyword but must not be read as support for the nonpharmacologic bundle.",
+   "synthesis": "All three sources agree that a multicomponent, risk-factor–targeted nonpharmacologic bundle reduces incident delirium in at-risk hospitalized non-ICU patients: the Cochrane 2016 review (RR 0.69, effect similar in medical and surgical settings) is the most directly on-scope source and governs the general step-down setting, underpinned by the Inouye 1999 HELP RCT (older medical patients) and the AGS 2015 strong recommendation (at-risk older surgical patients). Two caveats warrant flagging: the claim's \"every shift\" cadence is an operational specification — the sources specify daily rounds, three-times-daily protocols, \"the entire hospitalization,\" and \"re-orientation at frequent intervals\" rather than literally every shift — and Cochrane's pharmacologic/anesthetic prevention findings (antipsychotics with no clear effect; BIS-guided anesthesia positive) are different interventions that share the \"prevent delirium\" keyword but must not be read as support for the nonpharmacologic bundle.",
    "discrepancy": true
   },
   {
@@ -27869,7 +27869,7 @@
        "context": "A person may already have delirium when they present to hospital or long-term care or it may develop during a hospital admission or residential stay in long-term care. Delirium can be hypoactive or hyperactive but some people show signs of both (mixed). People with hyperactive delirium have heightened arousal and can be restless, agitated and aggressive. People with hypoactive delirium become withdrawn, quiet and sleepy. Hypoactive and mixed delirium can be more difficult to recognise.",
        "highlight": "Hypoactive and mixed delirium can be more difficult to recognise",
        "scope": "background",
-       "note": "Definitional background — hypoactive/mixed delirium is harder to recognise — contextualizing why an unremarkable or negative screen must not be treated as ruling delirium out.",
+       "note": "Definitional background — hypoactive/mixed delirium is harder to recognize — contextualizing why an unremarkable or negative screen must not be treated as ruling delirium out.",
        "page": "21",
        "docUrl": "https://www.nice.org.uk/guidance/cg103"
       }
@@ -28052,7 +28052,7 @@
      "cite": "Siddiqi N, et al. Interventions for preventing delirium in hospitalised non-ICU patients. Cochrane Database Syst Rev 2016;CD005563.",
      "kind": "pdf",
      "stance": "background",
-     "note": "Nearest match on multi-component and medication approaches but scoped to PREVENTION of delirium in hospitalised non-ICU patients, not acting on a positive screen — a different-intervention scope that does not govern this claim.",
+     "note": "Nearest match on multi-component and medication approaches but scoped to PREVENTION of delirium in hospitalized non-ICU patients, not acting on a positive screen — a different-intervention scope that does not govern this claim.",
      "docUrl": "https://doi.org/10.1002/14651858.CD005563.pub3",
      "paragraphs": [
       {
@@ -28179,7 +28179,7 @@
    "sources": [
     "NICE CG103"
    ],
-   "anchor": "An SBAR-style hand-off structure. The four items operationalise a delirium care-transition communication (cited to NICE CG103, a live web guideline not held in the local archive, so no passage is quoted). Not drawn verbatim from any archived source; it is an operational template consistent with structured hand-off practice.",
+   "anchor": "An SBAR-style hand-off structure. The four items operationalize a delirium care-transition communication (cited to NICE CG103, a live web guideline not held in the local archive, so no passage is quoted). Not drawn verbatim from any archived source; it is an operational template consistent with structured hand-off practice.",
    "passage": "",
    "evidence": "Operational structure (cited NICE CG103) — not in local archive",
    "status": "structure",

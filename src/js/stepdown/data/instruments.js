@@ -165,13 +165,13 @@ export const PREVENTION = {
   components: [
     { id: 'orient', label: 'Reorientation — clock, calendar, whiteboard, familiar objects' },
     { id: 'sensory', label: 'Glasses and hearing aids in place' },
-    { id: 'mobilise', label: 'Early mobilisation; remove restraints/lines that impede it' },
+    { id: 'mobilise', label: 'Early mobilization; remove restraints/lines that impede it' },
     {
       id: 'sleep',
       label: 'Sleep protocol — cluster care, reduce night noise/light, offer eye mask/earplugs',
     },
     { id: 'hydrate', label: 'Hydration and nutrition reviewed' },
-    { id: 'meds', label: 'Deliriogenic / anticholinergic medications reviewed and minimised' },
+    { id: 'meds', label: 'Deliriogenic / anticholinergic medications reviewed and minimized' },
     { id: 'pain', label: 'Pain assessed and treated without over-sedation' },
     { id: 'elimination', label: 'Bowel/bladder care; avoid unnecessary urinary catheters' },
     { id: 'workup', label: 'Infection, hypoxia, and metabolic causes identified and treated' },
