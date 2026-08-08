@@ -83,7 +83,7 @@ export const ACT_COLUMNS = [
     head: 'Find the cause',
     cites: ['lisibach2022', 'ags2015', 'wang2017'],
     lines: [
-      'Review deliriogenic / anticholinergic medications first — minimise the burden.',
+      'Review deliriogenic / anticholinergic medications first — minimize the burden.',
       'Look for infection, hypoxia, and metabolic causes; check pain and elimination.',
       'In post-ICU transfers, consider sedative / opioid withdrawal (onset 1–11 days).',
     ],

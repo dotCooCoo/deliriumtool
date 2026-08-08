@@ -231,3 +231,48 @@ test('sheet disclaimer is verbatim (load-bearing framing)', () => {
       'your formulary before use.',
   );
 });
+
+// American English in authored clinical content. Citations, journal names and
+// published article titles keep their own spelling and live in the reference
+// registries, not here — these modules are the text printed on a card or shown
+// on a tool page, so they follow the project's US spelling. A blanket -ise→-ize
+// sweep is wrong (stepwise, exercise, otherwise are already US), so this is an
+// explicit list of forms that have actually appeared.
+test('shipped card and tool content uses American spellings', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { fileURLToPath } = await import('node:url');
+  const FORMS = [
+    'mobilisation',
+    'minimise',
+    'minimised',
+    'minimising',
+    'individualised',
+    'recognise',
+    'catheterisation',
+    'behavioural',
+    'colour',
+    'labelled',
+    'hospitalised',
+    'anaesthesia',
+    'paediatric',
+  ];
+  const FILES = [
+    '../../src/js/templates/data/content.js',
+    '../../src/js/templates/data/stepdown-content.js',
+    '../../src/js/templates/data/peds-content.js',
+    '../../src/js/templates/data/ed-content.js',
+    '../../src/js/stepdown/data/instruments.js',
+  ];
+  const hits = [];
+  for (const rel of FILES) {
+    const src = readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8');
+    src.split('\n').forEach((line, i) => {
+      for (const f of FORMS) {
+        if (new RegExp(`\b${f}\b`, 'i').test(line)) {
+          hits.push(`${rel.split('/').pop()}:${i + 1}  ${f}  ${line.trim().slice(0, 70)}`);
+        }
+      }
+    });
+  }
+  assert.deepEqual(hits, [], 'convert to the American form (citations belong in the registry)');
+});

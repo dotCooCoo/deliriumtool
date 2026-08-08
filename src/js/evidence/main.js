@@ -195,6 +195,22 @@ function linkNode(u, cls) {
   return frag;
 }
 
+/**
+ * A page reference as it should read.
+ *
+ * "p. " is added ONLY to a bare page number or range. Every other recorded form
+ * already states what it is — a manuscript page ("ms. p.8"), an electronic
+ * article locator ("e838 (p. 14)"), a labelled section ("§5.12 QT Prolongation",
+ * "Abstract", "Table 1"), or a value that spells the word out ("Page 17") — and
+ * prefixing those produced "p. ms. p.8" and "p. Abstract". Anything unrecognized
+ * prints as recorded, so a new form can never gain a prefix that contradicts it.
+ */
+const BARE_PAGE = /^(\d+(\s*[-–—]\s*\d+)?|[ivxlcdm]+(\s*[-–—]\s*[ivxlcdm]+)?|\d+\s+of\s+\d+)$/i;
+function pageLabel(page) {
+  const v = String(page).trim();
+  return BARE_PAGE.test(v) ? `p. ${v}` : v;
+}
+
 // One relevant paragraph: scope tag + verbatim source paragraph with the cited span
 // highlighted + an optional relevance/scope note.
 function paragraphBlock(pg) {
@@ -202,7 +218,7 @@ function paragraphBlock(pg) {
   const box = el('div', { class: 'ev-para' });
   const meta = el('div', { class: 'ev-para-meta' });
   meta.append(el('span', { class: `ev-scope ${sc.cls}`, text: sc.label }));
-  if (pg.page) meta.append(el('span', { class: 'ev-srcblock-pg', text: `p. ${pg.page}` }));
+  if (pg.page) meta.append(el('span', { class: 'ev-srcblock-pg', text: pageLabel(pg.page) }));
   if (pg.docUrl) {
     meta.append(
       el(
@@ -271,7 +287,7 @@ export function claimDetail(claim) {
       const head = el('div', { class: 'ev-srcblock-hd' });
       head.append(el('span', { class: 'ev-srcblock-name', text: e.label }));
       head.append(el('span', { class: `ev-stance ${st.cls}`, text: st.label }));
-      if (e.page) head.append(el('span', { class: 'ev-srcblock-pg', text: `p. ${e.page}` }));
+      if (e.page) head.append(el('span', { class: 'ev-srcblock-pg', text: pageLabel(e.page) }));
       if (e.verified)
         head.append(
           el('span', {
