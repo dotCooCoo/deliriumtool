@@ -4,13 +4,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 
-const headers = readFileSync(
-  join(dirname(fileURLToPath(import.meta.url)), '../../src/_headers'),
-  'utf8',
-);
+const headers = readFileSync(join(import.meta.dirname, '../../src/_headers'), 'utf8');
 const csp = (headers.match(/Content-Security-Policy:.*/) || [''])[0];
 
 test('CSP is present and strict', () => {

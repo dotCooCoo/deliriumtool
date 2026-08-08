@@ -6,9 +6,8 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = path.resolve(import.meta.dirname, '..');
 const FA = path.join(ROOT, 'node_modules/@fortawesome/fontawesome-free/svgs');
 const STYLES = ['solid', 'regular', 'brands'];
 

@@ -697,6 +697,10 @@
   border: 1px solid var(--c-border);
   border-radius: var(--radius-sm);
 }
+.ev-md-tablewrap:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+}
 .ev-md-table {
   border-collapse: collapse;
   width: 100%;
@@ -728,7 +732,11 @@
 /* ── Responsive ────────────────────────────────────────────────────────── */
 @media (max-width: 56rem) {
   .ev-layout {
-    grid-template-columns: 1fr;
+    /* minmax(0, …), not a bare 1fr: a bare 1fr floors the track at the
+       content's min-content width, which a wide reference table then pushes
+       past the viewport — the whole page scrolls sideways instead of the table
+       scrolling inside its own wrapper. Matches the desktop rule above. */
+    grid-template-columns: minmax(0, 1fr);
   }
   .ev-rail {
     position: static;

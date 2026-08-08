@@ -22,6 +22,40 @@ for (const width of [360, 768]) {
   });
 }
 
+// The loop above walks the adult tool only, which is how a sideways-scrolling
+// /evidence/ shipped: its mobile grid track was a bare `1fr`, so a wide
+// reference table set the whole page's minimum width. Every surface now carries
+// the same guarantee, at the narrowest width the layout claims to support.
+const SURFACES = ['/', '/peds/', '/ed/', '/stepdown/', '/templates/', '/evidence/'];
+for (const width of [320, 360, 768]) {
+  for (const path of SURFACES) {
+    test(`no horizontal overflow on ${path} at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      await page.waitForLoadState('networkidle');
+      expect(await noOverflow(page), `${path} @ ${width}`).toBeTruthy();
+    });
+  }
+}
+
+test('every printable template reflows without scrolling the page sideways', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 900 });
+  await page.goto('/templates/');
+  for (const tpl of [
+    'rounding',
+    'spa',
+    'peds-cards',
+    'peds-workflow',
+    'ed-cards',
+    'ed-workflow',
+    'stepdown-cards',
+    'stepdown-workflow',
+  ]) {
+    await page.check(`input[name="template"][value="${tpl}"]`);
+    expect(await noOverflow(page), `${tpl} @ 360`).toBeTruthy();
+  }
+});
+
 test('medication table reflows to stacked labelled cards on a phone', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 900 });
   await page.goto('/');

@@ -7,6 +7,11 @@ Notable changes to this project, following
 
 ### Changed
 
+- Node is pinned to 24.19.0, up from 24.18.0. The 24.18.1 release in between was
+  a security release carrying eleven CVE fixes, three of them rated High. The
+  minimum supported version moves with it, so a build cannot run on a release
+  that still carries them.
+
 - Template previews: 37 more printed statements now carry the (i) that opens their
   cited sources, taking the total from 135 to 172. A statement was only matched to
   its sources when its wording matched the sheet character for character, so two
@@ -44,6 +49,22 @@ Notable changes to this project, following
   includes their psychosocial sequelae.
 
 ### Fixed
+
+- Sources & Evidence scrolled sideways on a phone. Below roughly 700px the whole
+  page — headings, prose, filter chips and all — was pushed to a fixed 702px, so
+  reading it meant scrolling horizontally. A wide reference table was setting the
+  page's minimum width instead of scrolling inside its own box. The tables now
+  scroll within themselves and the page reflows, as it already did on the other
+  five surfaces.
+- Sources & Evidence: the reference tables that scroll sideways are now reachable
+  by keyboard, with a visible focus ring. A region that a mouse can pan but a
+  keyboard cannot is content some readers cannot get to at all.
+- Sources & Evidence: four notes explained that a guideline "could not be
+  independently retrieved" and gave an HTTP status code. That describes what
+  happened when this project tried to fetch the page, which a reader cannot act
+  on. They now say what is true and useful: NICE CG103 is a live web guideline
+  that is not held in the local archive, so no passage is quoted and the
+  guideline itself is the thing to read.
 
 - Sources & Evidence: every statement whose source analysis says a source supports
   it now shows a passage from that source. The quetiapine label, the T-A-DA source

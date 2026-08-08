@@ -3,10 +3,9 @@
 
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
-import { dirname, extname, join, normalize, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { extname, join, normalize, sep } from 'node:path';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+const root = join(import.meta.dirname, '..', 'dist');
 const port = Number(process.env.PORT) || 4173;
 
 // Mirror the global (/*) security headers Cloudflare serves from _headers, so the

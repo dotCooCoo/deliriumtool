@@ -9,9 +9,8 @@
 import { existsSync } from 'node:fs';
 import { rm, mkdir, readdir, copyFile, cp, readFile, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const root = join(import.meta.dirname, '..');
 const src = join(root, 'src');
 const dist = join(root, 'dist');
 const assets = join(dist, 'assets');

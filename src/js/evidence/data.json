@@ -17974,7 +17974,7 @@
      "cite": "Smith HAB, et al. Diagnosing delirium in critically ill children: validity and reliability of the pCAM-ICU. Crit Care Med. 2011;39(1):150–157.",
      "kind": "unarchived",
      "stance": "background",
-     "note": "Original pCAM-ICU validation (children >5y) using the same two-step arousal-then-content approach with RASS as the arousal gate; cited by section/DOI, not retrievable here.",
+     "note": "Original pCAM-ICU validation (children >5y) using the same two-step arousal-then-content approach with RASS as the arousal gate; cited by section and DOI; the full text is not held in the local archive.",
      "docUrl": "https://doi.org/10.1097/CCM.0b013e3181feb489",
      "paragraphs": []
     },
@@ -18009,7 +18009,7 @@
      "cite": "Lin JC, Srivastava A, Malone S, et al. Caring for critically ill children with the ICU Liberation Bundle (ABCDEF): results of the pediatric collaborative. Pediatr Crit Care Med. 2023;24(8):636–651.",
      "kind": "unarchived",
      "stance": "background",
-     "note": "Pediatric ABCDEF (ICU Liberation) collaborative; cited by section for the bundle context of arousal/sedation assessment feeding delirium screening. Not retrievable here.",
+     "note": "Pediatric ABCDEF (ICU Liberation) collaborative; cited by section for the bundle context of arousal/sedation assessment feeding delirium screening. The full text is not held in the local archive, so no passage is quoted.",
      "docUrl": "https://doi.org/10.1097/PCC.0000000000003262",
      "paragraphs": []
     },
@@ -27097,7 +27097,7 @@
    "sources": [
     "NICE CG103"
    ],
-   "anchor": "Cited to NICE CG103, a web guideline that is not held in the local reference archive and could not be independently retrieved (nice.org.uk returned HTTP 403). NICE CG103 directs teams to record the delirium diagnosis and to reassess; documenting the screen used and its result and rescreening on any mental-status change is standard delirium documentation practice consistent with that guideline. Among the archived sources, AGS 2015 explicitly states diagnosis and screening are outside its scope (p. 2), so it offers no support here.",
+   "anchor": "Cited to NICE CG103, a live web guideline that is not held in the local reference archive, so no passage is quoted here. NICE CG103 directs teams to record the delirium diagnosis and to reassess; documenting the screen used and its result and rescreening on any mental-status change is standard delirium documentation practice consistent with that guideline. Among the archived sources, AGS 2015 explicitly states diagnosis and screening are outside its scope (p. 2), so it offers no support here.",
    "passage": "",
    "evidence": "Guideline (NICE CG103) — cited, not in local archive",
    "status": "guideline",
@@ -27122,7 +27122,7 @@
    "sources": [
     "NICE CG103"
    ],
-   "anchor": "Cited to NICE CG103 (web guideline, not in the local archive; not retrievable — HTTP 403). Communicating a delirium finding, its suspected cause and the plan at care transitions is standard practice consistent with NICE CG103's emphasis on sharing the diagnosis. Not stated in any archived step-down source.",
+   "anchor": "Cited to NICE CG103 (a live web guideline, not held in the local archive, so no passage is quoted). Communicating a delirium finding, its suspected cause and the plan at care transitions is standard practice consistent with NICE CG103's emphasis on sharing the diagnosis. Not stated in any archived step-down source.",
    "passage": "",
    "evidence": "Guideline (NICE CG103) — cited, not in local archive",
    "status": "guideline",
@@ -28179,7 +28179,7 @@
    "sources": [
     "NICE CG103"
    ],
-   "anchor": "An SBAR-style hand-off structure. The four items operationalise a delirium care-transition communication (cited to NICE CG103, a web guideline not held in the local archive and not retrievable — HTTP 403). Not drawn verbatim from any archived source; it is an operational template consistent with structured hand-off practice.",
+   "anchor": "An SBAR-style hand-off structure. The four items operationalise a delirium care-transition communication (cited to NICE CG103, a live web guideline not held in the local archive, so no passage is quoted). Not drawn verbatim from any archived source; it is an operational template consistent with structured hand-off practice.",
    "passage": "",
    "evidence": "Operational structure (cited NICE CG103) — not in local archive",
    "status": "structure",

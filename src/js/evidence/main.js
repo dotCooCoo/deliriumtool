@@ -142,7 +142,15 @@ function mdBlock(b) {
       tbody.append(el('tr', {}, ...r.map((c) => el('td', {}, mdSpans(c))))),
     );
     table.append(tbody);
-    return el('div', { class: 'ev-md-tablewrap' }, table);
+    // The wrapper scrolls sideways on a narrow screen, so it has to be
+    // reachable by keyboard — a region a mouse can pan but a keyboard cannot is
+    // content some readers simply cannot get to. tabindex makes it a tab stop
+    // and the group role gives that stop a name to announce.
+    return el(
+      'div',
+      { class: 'ev-md-tablewrap', tabindex: '0', role: 'group', 'aria-label': 'Table, scrollable' },
+      table,
+    );
   }
   return document.createTextNode('');
 }
