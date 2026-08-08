@@ -242,6 +242,17 @@ tool's cited content**. The sheets introduce no new clinical values. The mapping
 | SPA columns + deeper guidance + escalation ladder | §2.5, §2.7, §2.8 statements recast as poster actions | per-column keys in `src/js/templates/data/content.js` |
 | Nurse care pathway (rounding sheet, step 4) | **Local unit workflow — the only uncited section.** It carries process steps (documentation, handoff, teaching), not clinical values, is flagged "unit workflow — edit to match your local protocol" in the designer, and is fully editable/removable. | — |
 
+**Reworded and added lines.** The designer lets a unit reword any built-in line and add
+lines and sections of its own, so a printed sheet can carry text that no cited source
+supports — and a configuration can arrive from a colleague's share link rather than being
+built on the device that prints it. Any line the designer supplied prints with a dagger
+(†), whether it replaced a built-in line, was added under a built-in group, or belongs to a
+unit-authored section, and the footer of every page carries **"† Edited in the designer —
+not the cited source text."** The sources named in the same footer therefore never read as
+covering a supplied line. A sheet with no edits prints neither the dagger nor the note.
+Opening a configuration from a link also raises an on-screen notice naming how many lines it
+edited, so the wording can be checked against local protocol before the sheet is laminated.
+
 **Presentation rules.** Medication names print **generic-only by default**. Brand names in
 the registry are stripped for the sheet (clinical qualifiers such as routes and "high dose"
 always remain) and reappear only when the unit enables "show brand names". The designer's

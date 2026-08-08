@@ -723,6 +723,20 @@
   line-height: 1.2;
   color: var(--sh-slate);
 }
+/* Lines the designer supplied, and the footnote explaining their marker. The
+   sheet prints in black on a laminator, so the mark is a glyph, not a color. */
+.sh-edit-mark {
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  padding-left: 0.12em;
+}
+.sh-foot-edit {
+  font-size: calc(5.9pt * var(--fs));
+  line-height: 1.2;
+  color: var(--sh-slate);
+  font-style: italic;
+}
 .sh-foot-stamp {
   font-weight: 400;
   color: var(--sh-slate);

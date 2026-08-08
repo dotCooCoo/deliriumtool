@@ -27,6 +27,16 @@ export function buildHashUrl(param, payload) {
   return `${location.origin}${location.pathname}#${param}=${toBase64Url(JSON.stringify(payload))}`;
 }
 
+/**
+ * True when `#<param>=…` is present, whether or not it decodes. Callers pair
+ * this with readHashPayload to tell "no link" apart from "damaged link" — a
+ * truncated URL otherwise falls through to the saved state and looks like a
+ * link that worked.
+ */
+export function hasHashPayload(param) {
+  return new RegExp(`[#&]${param}=`).test(location.hash);
+}
+
 /** Read `#<param>=…` from the current URL; null if absent or invalid. */
 export function readHashPayload(param) {
   const m = new RegExp(`[#&]${param}=([^&]+)`).exec(location.hash);

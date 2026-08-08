@@ -8,7 +8,7 @@
  * site's Referrer-Policy: no-referrer keeps it out of referrer headers.
  */
 
-import { buildHashUrl, readHashPayload } from './shared/share-codec.js';
+import { buildHashUrl, readHashPayload, hasHashPayload } from './shared/share-codec.js';
 export { toBase64Url, fromBase64Url, copyText } from './shared/share-codec.js';
 
 /** Build a shareable URL carrying only the de-identified configuration. */
@@ -21,6 +21,9 @@ export function buildShareUrl({ pathway, settings, meds }) {
 export function readShareUrl() {
   return readHashPayload('cfg');
 }
+
+/** True when the URL carries a `#cfg=` payload, decodable or not. */
+export const hasShareUrl = () => hasHashPayload('cfg');
 
 /** Copy text to the clipboard; resolves true on success. */
 export async function copyToClipboard(text) {

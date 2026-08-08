@@ -42,6 +42,11 @@ import {
   secOn,
   itemOn,
   customLines,
+  asEdited,
+  remap,
+  resetEdits,
+  listEdits,
+  EDIT_MARK,
 } from './primitives.js';
 export { el, nobreak, box, circleBox, blank, checkItem, ov, secOn, itemOn };
 
@@ -163,7 +168,9 @@ function customSections(state, page) {
       el(
         'div',
         { class: 'sh-section' },
-        band('ink', sec.title),
+        // The card sets label a unit-authored block in its card head; the adult
+        // sheets have only this band, so the block is marked here instead.
+        band('ink', asEdited(sec.title, `added-section:${sec.id}`)),
         el('div', { class: 'sh-custom-lines' }, ...sec.lines.map((t) => checkItem(t))),
       ),
     );
@@ -352,7 +359,9 @@ function pharmCard(state) {
     line.append(el('strong', {}, `${r.drug}: `));
     const text = ov(state, r.id, r.text);
     line.append(
-      document.createTextNode(nobreak(state.showDoses && r.dose ? `${r.dose} · ${text}` : text)),
+      el('span', {
+        text: nobreak(remap(text, (t) => (state.showDoses && r.dose ? `${r.dose} · ${t}` : t))),
+      }),
     );
     kids.push(line);
   });
@@ -655,9 +664,11 @@ function spaDeeper(state) {
         }),
         ...items.map((i) =>
           checkItem(
-            ov(state, i.id, i.text)
-              .replace('{haldolDose}', doses.haldolDose)
-              .replace('{quetiapineDose}', doses.quetiapineDose),
+            remap(ov(state, i.id, i.text), (t) =>
+              t
+                .replace('{haldolDose}', doses.haldolDose)
+                .replace('{quetiapineDose}', doses.quetiapineDose),
+            ),
           ),
         ),
       );
@@ -672,7 +683,10 @@ function spaDeeper(state) {
 // Escalation stages are sequential local tiers, so their leading number is a
 // position, not a fixed reference — renumber the shown stages 1..n so hiding one
 // (all its items toggled off) leaves no gap in the numbering.
-const renumberHead = (head, n) => head.replace(/^\s*\d+(?:[–-]\d+)?\s*·\s*/, `${n} · `);
+// remap, not a bare .replace: a stage head the unit reworded arrives branded so
+// the sheet can mark it, and a plain string return would drop that silently.
+const renumberHead = (head, n) =>
+  remap(head, (h) => h.replace(/^\s*\d+(?:[–-]\d+)?\s*·\s*/, `${n} · `));
 
 function escalationSection(state) {
   const visible = ESCALATION.stages
@@ -722,7 +736,26 @@ function renderSpa(state) {
 }
 
 /** Render the active template's sheets (array of .sheet elements). */
+/** The footnote that keeps the sources line from covering unit-supplied text. */
+export const EDIT_FOOTNOTE = `${EDIT_MARK} Edited in the designer — not the cited source text.`;
+
 export function renderSheets(state) {
+  resetEdits();
+  const sheets = renderTemplate(state);
+  // A sheet outlives the session it was designed in, so the marker has to be
+  // explained on the paper. Appended after the whole set is built: a footer is
+  // laid down before the content below it on the same page.
+  if (listEdits().length) {
+    sheets.forEach((sheet) =>
+      sheet
+        .querySelectorAll('.sh-foot')
+        .forEach((foot) => foot.append(el('div', { class: 'sh-foot-edit', text: EDIT_FOOTNOTE }))),
+    );
+  }
+  return sheets;
+}
+
+function renderTemplate(state) {
   if (state.template === 'peds-cards') return renderPedsCards(state);
   if (state.template === 'peds-workflow') return renderPedsWorkflow(state);
   if (state.template === 'ed-cards') return renderEdCards(state);
