@@ -8,7 +8,7 @@
 
 This tool is an **electronic bedside reference aid** for the recognition, prevention, and supportive management of **delirium in critically ill adults**. It assembles validated screening instruments (CAM-ICU, RASS), a prevention bundle (ABCDEF / ICU Liberation), a structured causative-factor review (DELIRIUM(S)), and cited reference material into a single bedside surface. It produces a printable summary for the chart-adjacent workflow.
 
-Two sibling surfaces share this intended-use framing with their own scopes: the **pediatric ICU tool** at `/peds/`, which implements the validated pediatric instruments (CAPD, pCAM-ICU, psCAM-ICU with an SBS/RASS arousal gate) for clinicians caring for PICU patients, and the **bedside template designer** at `/templates/`, a protocol-configuration tool that prints laminate-ready checklists mirroring this tool's cited content and takes no patient data at all.
+Four sibling surfaces share this intended-use framing with their own scopes: the **pediatric ICU tool** at `/peds/`, which implements the validated pediatric instruments (CAPD, pCAM-ICU, psCAM-ICU with an SBS/RASS arousal gate) for clinicians caring for PICU patients; the **emergency-department tool** at `/ed/`, which implements the DTS, bCAM and 4AT for the ED presentation; the **step-down / progressive-care tool** at `/stepdown/`, which implements the CAM-IMC for the monitored, non-intubated patient; and the **bedside template designer** at `/templates/`, a protocol-configuration tool that prints laminate-ready checklists mirroring this tool's cited content and takes no patient data at all.
 
 It is intended to **support** the clinical reasoning of a qualified clinician, never to make, direct, or automate a clinical decision. The clinician's independent judgment, the institution's local protocol, and prescriber/pharmacy review govern every action. The user is expected to be able to review, and to choose not to rely on, any suggestion the tool surfaces.
 
@@ -53,9 +53,9 @@ The tool has **not** been designed or validated for, and must not be transplante
 
 - **Pediatric and neonatal patients.** CAM-ICU, RASS, and the prevention/dosing content on *this* surface are adult instruments. Pediatric ICU delirium has its own validated tools (CAPD, pCAM-ICU, psCAM-ICU with the SBS/RASS arousal gate), implemented in the sibling pediatric tool at `/peds/`, with its own scope and validation caveats.
 - **Pregnancy and the peripartum patient.** Drug-safety, dosing, and risk content are not adjusted for pregnancy or lactation.
-- **General medical/surgical ward and step-down patients.** CAM-ICU/RASS/ABCDEF are not validated outside the ICU. On the ward, use a ward-validated screen (**4AT / 3D-CAM**), as the tool advises.
+- **General medical/surgical ward and step-down patients.** CAM-ICU/RASS/ABCDEF are not validated outside the ICU. On the ward, use a ward-validated screen (**4AT / 3D-CAM**), as the tool advises; for the monitored, non-intubated step-down patient there is a sibling tool at `/stepdown/`, with its own scope and validation caveats.
 - **Peri-operative ward / PACU and procedural sedation** outside the ICU context.
-- **Emergency, pre-hospital, ambulatory, long-term-care, and hospice settings.**
+- **Emergency, pre-hospital, ambulatory, long-term-care, and hospice settings.** For the emergency department there is a sibling tool at `/ed/`, with its own scope and validation caveats.
 - Any **time-critical or autonomous** decision where a clinician cannot independently review the basis before acting.
 
 ## 8. How the outputs are to be read (numbers vs. validated instruments)

@@ -6,7 +6,8 @@ Thanks for helping improve a tool clinicians rely on. Issues and pull requests a
 
 - **Clinical changes must cite a primary source and add a test.** Any change to a
   score, threshold, dose, criterion, or recommendation, whether in the adult tool, the
-  pediatric tool (`/peds/`), or the template designer (`/templates/`), needs a
+  pediatric tool (`/peds/`), the emergency-department tool (`/ed/`), the step-down
+  tool (`/stepdown/`), or the template designer (`/templates/`), needs a
   citation (DOI/PubMed), a golden-value test, a matching update to
   `docs/CLINICAL_METHODOLOGY.md`, and a row in that document's change log (§6.5).
   Never change a clinical number without updating its citation in the same change.
