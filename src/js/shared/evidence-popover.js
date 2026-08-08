@@ -34,6 +34,40 @@ const STANCE = Object.fromEntries(
 const EVIDENCE_URL = '/evidence/';
 
 const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
+
+/**
+ * Two further comparisons, each forgiving one known difference between a
+ * statement and the way the sheet prints it. A statement is tried against them
+ * in order and binds at the first that finds exactly one node, so a more
+ * forgiving comparison can never override an exact one.
+ *
+ * `printed` undoes what the sheet does for layout: hyphens inside short tokens
+ * (T-A-D-A, CAM-ICU, WAT-1) are swapped for non-breaking hyphens so they cannot
+ * wrap on a printed card, and a few spans use non-breaking spaces. Those
+ * characters are the renderer's, not the source text's.
+ *
+ * `joined` drops the punctuation that joins parts of a statement, but keeps
+ * every sign and comparison. A statement often names a card item and its
+ * description together — "Set a RASS goal every shift: Target the lightest
+ * RASS…" — where the sheet prints the two as adjacent elements and the colon
+ * joining them exists only in the statement.
+ */
+const printed = (s) =>
+  norm(
+    String(s == null ? '' : s)
+      .replace(/\u2011/g, '-')
+      .replace(/\u00a0/g, ' '),
+  );
+const joined = (s) =>
+  printed(s)
+    .toLowerCase()
+    // Drop the separators and decorative glyphs a sheet adds; keep every
+    // sign, comparison and percent. Stripping those would make ≥ and ≤,
+    // or +4 and −4, the same key — the matcher would then be blind to
+    // exactly the characters a clinical statement can least afford to have
+    // confused, and two card items differing only by + and & would collide.
+    .replace(/[^a-z0-9+\u2212<>=\u2264\u2265\u2260&%-]+/g, '');
+
 function hostOf(u) {
   try {
     return new URL(u).hostname.replace(/^www\./, '');
@@ -195,34 +229,64 @@ function openPopover(anchor, claim) {
 }
 
 /**
- * Tag rendered statements in `container` that match a claim (same tool surface,
- * exact text) and wire the popover. Safe to call after every re-render. Returns
- * the number of matched anchors.
+ * Tag rendered statements in `container` that match a claim on the same tool
+ * surface and wire the popover. A statement is compared to a node's text
+ * exactly, then allowing for the sheet's layout substitutions, then ignoring
+ * punctuation — binding at the first comparison that identifies exactly one
+ * node, and left alone when none or several could be meant. Safe to call after
+ * every re-render. Returns the number of matched anchors.
  */
 export function wireEvidence(container, toolId, claims) {
   if (!container) return 0;
-  const byStatement = new Map();
-  for (const c of claims) if (c.toolId === toolId) byStatement.set(norm(c.statement), c);
-  if (!byStatement.size) {
+  const mine = claims.filter((c) => c.toolId === toolId);
+  if (!mine.length) {
     closePopover(false);
     return 0;
   }
+  // Read every node's text once, before anything is bound. Binding appends an
+  // (i) button, which would otherwise become part of every ancestor's text and
+  // change what a later comparison sees — making the result depend on the order
+  // claims happen to be visited.
+  const nodes = [];
+  for (const n of container.querySelectorAll('*')) {
+    if (n.classList.contains('ev-cited') || n.classList.contains('ev-i')) continue;
+    nodes.push([n, n.textContent]);
+  }
+
+  const taken = new Set();
+  const done = new Set();
+  const pending = [];
   let matched = 0;
-  for (const node of container.querySelectorAll('*')) {
-    if (node.classList.contains('ev-cited') || node.classList.contains('ev-i')) continue;
-    const text = norm(node.textContent);
-    const claim = byStatement.get(text);
-    if (!claim) continue;
-    // Anchor only the tightest wrapper: if a descendant already carries the same
-    // full text, that descendant is the better anchor (skip this outer node).
-    let hasTighter = false;
-    for (const child of node.querySelectorAll('*')) {
-      if (norm(child.textContent) === text) {
-        hasTighter = true;
-        break;
-      }
+  for (const compare of [norm, printed, joined]) {
+    const byKey = new Map();
+    for (const [n, raw] of nodes) {
+      if (taken.has(n)) continue;
+      const k = compare(raw);
+      if (!k) continue;
+      const list = byKey.get(k);
+      if (list) list.push(n);
+      else byKey.set(k, [n]);
     }
-    if (hasTighter) continue;
+    for (const claim of mine) {
+      if (done.has(claim.id)) continue;
+      const hits = (byKey.get(compare(claim.statement)) || []).filter((n) => !taken.has(n));
+      if (!hits.length) continue;
+      // Anchor only the tightest wrapper: drop any node that contains another
+      // node carrying the same text. If that still leaves more than one, the
+      // statement is not uniquely placed and binding it would be a guess.
+      const tight = hits.filter((n) => !hits.some((m) => m !== n && n.contains(m)));
+      if (tight.length !== 1) continue;
+      const node = tight[0];
+      pending.push([node, claim]);
+      taken.add(node);
+      done.add(claim.id);
+      matched++;
+    }
+  }
+  // Mark up only now. Appending during the passes would put the button's own
+  // letter inside every ancestor's text, so a later pass would compare against
+  // text this function had just altered.
+  for (const [node, claim] of pending) {
     // The (i) is the interactive trigger — a real <button>, so it is
     // keyboard-operable and valid inside a list/table. The statement element
     // itself stays a plain, unmodified node (no role/tabindex), preserving
@@ -236,7 +300,6 @@ export function wireEvidence(container, toolId, claims) {
         'i',
       ),
     );
-    matched++;
   }
   if (!container.__evWired) {
     container.__evWired = true;

@@ -8,19 +8,19 @@
 import { test, expect } from '@playwright/test';
 
 // Minimum bindings per template, set a little below the counts observed when
-// the snapshot and the content modules agree (rounding 56, spa 20, peds-cards
-// 11, peds-workflow 10, ed-cards 9, ed-workflow 12, stepdown-cards 11,
-// stepdown-workflow 6). Ordinary editing does not trip these; wholesale drift —
+// the snapshot and the content modules agree (rounding 60, spa 37, peds-cards
+// 14, peds-workflow 13, ed-cards 9, ed-workflow 13, stepdown-cards 15,
+// stepdown-workflow 11). Ordinary editing does not trip these; wholesale drift —
 // a renamed field, a regenerated snapshot, a reworded statement set — does.
 const MIN_BOUND = {
-  rounding: 45,
-  spa: 16,
-  'peds-cards': 9,
-  'peds-workflow': 8,
+  rounding: 52,
+  spa: 30,
+  'peds-cards': 12,
+  'peds-workflow': 11,
   'ed-cards': 7,
-  'ed-workflow': 9,
-  'stepdown-cards': 9,
-  'stepdown-workflow': 5,
+  'ed-workflow': 11,
+  'stepdown-cards': 12,
+  'stepdown-workflow': 9,
 };
 
 test.beforeEach(async ({ page }) => {
