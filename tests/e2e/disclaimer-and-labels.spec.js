@@ -5,7 +5,7 @@
 // banner lived inside the pathway picker, so entering a child context hid it on
 // every tab — and a textContent-based check passed anyway, because textContent
 // sees through display:none. These assertions use innerText and a client rect.
-/* global document, window */
+/* global document */
 import { test, expect } from '@playwright/test';
 
 const TOOLS = [
