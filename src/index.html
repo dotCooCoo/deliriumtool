@@ -89,6 +89,18 @@
       </div>
     </header>
 
+    <div id="link-notice" class="link-notice" role="status" hidden>
+      <svg class="fa" aria-hidden="true"><use href="#fa-link" /></svg>
+      <p id="link-notice-text"></p>
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm link-notice-close"
+        data-act="dismissLinkNotice"
+      >
+        Dismiss
+      </button>
+    </div>
+
     <!-- ═══════ TOOL PICKER (shown first) ═══════ -->
     <section id="tool-picker" class="pathway-picker" tabindex="-1" aria-labelledby="tool-picker-h">
       <div class="pathway-picker__lead">

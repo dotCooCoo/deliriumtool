@@ -1285,3 +1285,48 @@ details.panel[open] > summary::before {
     flex-wrap: wrap;
   }
 }
+
+/* ── Shared-link notice ──────────────────────────────────────────────────────
+   Shown when a configuration arrived from a link rather than from this device.
+   The fragment is stripped from the address bar on load, so without this the
+   recipient has nothing telling them whose wording they are looking at. */
+.link-notice[hidden] {
+  display: none;
+}
+.link-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin: var(--sp-2) 0 0;
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--c-caution);
+  border-left-width: 4px;
+  border-radius: var(--radius-sm);
+  background: var(--c-caution-weak);
+  font-size: var(--fs-sm);
+}
+.link-notice .fa {
+  flex: none;
+  margin-top: 0.15em;
+  color: var(--c-caution);
+}
+.link-notice p {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.link-notice.is-error {
+  border-color: var(--c-danger);
+  background: var(--c-danger-weak);
+}
+.link-notice.is-error .fa {
+  color: var(--c-danger);
+}
+.link-notice-close {
+  flex: none;
+}
+@media print {
+  .link-notice {
+    display: none;
+  }
+}

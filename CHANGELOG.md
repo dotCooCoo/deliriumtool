@@ -7,6 +7,34 @@ Notable changes to this project, following
 
 ### Changed
 
+- Printed bedside sheets now separate the unit's own wording from the cited
+  content. The designer has always let a unit reword any built-in line and add
+  lines and sections of its own, but the sheet printed all of it above the same
+  cited-sources footer, so a reworded line could be read as text those sources
+  support. Any line the designer supplied — reworded, added, or in a
+  unit-authored section — now prints with a dagger, and each page footer carries
+  "† Edited in the designer — not the cited source text." A sheet with no edits
+  prints neither mark, and no built-in wording, value or dose changed.
+
+- Opening a design or a setup from a shared link now says so on the page. The
+  link's configuration is applied and the fragment drops out of the address bar,
+  which left nothing to tell a recipient that the wording in front of them came
+  from whoever sent it rather than from the built-in content. The notice names
+  how many lines the link edited and points at the marker they carry on the
+  sheet, so they can be checked against local protocol before printing. A link
+  carries no proof of who built it, so handle one from an unexpected sender the
+  way you would any other unverified document.
+
+- A share link that will not decode now says the link is damaged. A truncated or
+  altered link previously fell through in silence: the designer rendered the
+  design already saved on the device, and the adult tool kept that device's own
+  settings, either of which looked like the link had loaded. Nothing from a
+  damaged link is applied.
+
+- A share link pasted while the tool is already open now takes effect. Because
+  such a link changes only the part of the address after the "#", the page does
+  not reload, and the link previously did nothing at all.
+
 - Node is pinned to 24.19.0, up from 24.18.0. The 24.18.1 release in between was
   a security release carrying eleven CVE fixes, three of them rated High. The
   minimum supported version moves with it, so a build cannot run on a release

@@ -10,7 +10,7 @@
 import { MEDS } from '../data/meds.js';
 import { makeStore } from '../shared/store.js';
 import { downloadJSON, pickJSON } from '../shared/files.js';
-import { buildHashUrl, readHashPayload } from '../shared/share-codec.js';
+import { buildHashUrl, readHashPayload, hasHashPayload } from '../shared/share-codec.js';
 
 const KEY = 'deliriumtool:templates';
 
@@ -206,6 +206,8 @@ export function readShareUrl() {
   const raw = readHashPayload('tpl');
   return raw ? sanitize(raw) : null;
 }
+/** True when the URL carries a `#tpl=` payload, decodable or not. */
+export const hasShareUrl = () => hasHashPayload('tpl');
 
 // ── JSON export / import ─────────────────────────────────────────────────────
 export function exportJSON(state) {

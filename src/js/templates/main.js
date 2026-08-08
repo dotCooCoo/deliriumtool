@@ -57,9 +57,11 @@ import {
   clearSaved,
   buildShareUrl,
   readShareUrl,
+  hasShareUrl,
   exportJSON,
   importJSON,
 } from './state.js';
+import { listEdits, EDIT_MARK } from './primitives.js';
 import { faIcon, applyGlossary, el, $, $$ } from '../shared/dom.js';
 import { initA11y } from '../shared/a11y.js';
 import { wireEvidence } from '../shared/evidence-popover.js';
@@ -90,6 +92,7 @@ const GLOSSARY = {
 
 let state = null;
 let shared = false;
+let damagedShare = false;
 
 // ── Designer controls: sections/items per template ───────────────────────────
 
@@ -878,6 +881,36 @@ function checkFit(sheets) {
   }
 }
 
+/**
+ * Say where this configuration came from. A shared link carries the sender's
+ * wording, and the fragment is stripped from the address bar on load, so
+ * without this the recipient has nothing telling them the sheet is not the
+ * built-in one. Counted from what actually rendered, so it matches the marks.
+ */
+function showLinkNotice() {
+  const box = $('#link-notice');
+  const text = $('#link-notice-text');
+  if (!box || !text) return;
+  if (!shared && !damagedShare) return;
+
+  let msg;
+  if (damagedShare) {
+    msg =
+      'That shared link is damaged, so nothing from it was loaded — this is the design already on this device. Ask whoever sent it to copy the whole link again.';
+    box.classList.add('is-error');
+  } else {
+    const n = listEdits().length;
+    msg =
+      n === 0
+        ? 'This design was loaded from a shared link. Every clinical line is the built-in text.'
+        : `This design was loaded from a shared link, and ${n === 1 ? 'one line was' : `${n} lines were`} edited or added by whoever sent it — marked with a dagger (${EDIT_MARK}) on the sheet. Check those lines against your own protocol before printing.`;
+  }
+  // Unhide first: a live region that is revealed and then filled announces
+  // reliably, where filling it while hidden may not.
+  box.hidden = false;
+  text.textContent = msg;
+}
+
 function announce(msg) {
   const live = $('#tpl-status');
   live.textContent = msg;
@@ -1054,6 +1087,11 @@ async function onClick(e) {
     case 'editText':
       startEdit(btn);
       break;
+    case 'dismissLinkNotice': {
+      const box = $('#link-notice');
+      if (box) box.hidden = true;
+      break;
+    }
     case 'medAll':
     case 'medNone': {
       const cat = MEDS.categories.find((c) => c.id === btn.dataset.cat);
@@ -1195,6 +1233,10 @@ function init() {
     shared = true;
     history.replaceState(null, '', location.pathname + location.search);
   } else {
+    // A link that is present but will not decode must not fall through
+    // quietly: the previously saved design would render and read as the
+    // sender's.
+    damagedShare = hasShareUrl();
     state = loadSaved() || defaultState();
   }
   state = sanitize(state);
@@ -1208,11 +1250,17 @@ function init() {
   // Re-fit once web fonts have loaded: their metrics differ from the fallback,
   // so the first (pre-font) auto-fit can under-shrink and a page can then spill.
   if (document.fonts?.ready) document.fonts.ready.then(renderPreview);
-  if (shared) announce('Shared configuration loaded.');
+  showLinkNotice();
 
   document.addEventListener('change', onChange);
   document.addEventListener('input', onInput);
   document.addEventListener('click', onClick);
+  // Pasting a share link while the designer is already open changes only the
+  // fragment, so the page does not reload and nothing would apply it. Re-enter
+  // through a real load — the configuration autosaves, so nothing is lost.
+  window.addEventListener('hashchange', () => {
+    if (hasShareUrl()) location.reload();
+  });
   window.addEventListener('resize', rescale);
   window.addEventListener('pagehide', () => flushSave(state));
   // A descriptive PDF filename when the browser prints to file.

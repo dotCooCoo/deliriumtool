@@ -31,7 +31,7 @@ import {
   syncRassTarget,
   flash,
 } from './settings.js';
-import { buildShareUrl, readShareUrl, copyToClipboard } from './share.js';
+import { buildShareUrl, readShareUrl, hasShareUrl, copyToClipboard } from './share.js';
 import { MEDS } from './data/meds.js';
 
 const $ = (id) => document.getElementById(id);
@@ -287,6 +287,10 @@ function applySharedConfig(cfg) {
 const onClick = {
   chooseTool: () => showPathwayPicker(),
   allTools: () => showToolPicker(),
+  dismissLinkNotice: () => {
+    const box = document.getElementById('link-notice');
+    if (box) box.hidden = true;
+  },
   choosePathway: (el) => choosePathway(el.dataset.pathway),
   reset: () => resetAll(),
   goTab: (el) => {
@@ -468,6 +472,37 @@ function init() {
   // shared config or show the pathway picker.
   scrubAutosave();
   if (shared) applySharedConfig(shared);
+  showLinkNotice(!!shared);
+
+  // A setup link pasted while the tool is already open changes only the
+  // fragment, so the page does not reload. Apply it in place rather than
+  // reloading — a reload would discard the assessment on screen.
+  window.addEventListener('hashchange', () => {
+    if (!hasShareUrl()) return;
+    const next = readShareUrl();
+    if (next) applySharedConfig(next);
+    showLinkNotice(!!next);
+  });
+}
+
+/**
+ * Say where this setup came from. A `#cfg` link that will not decode used to
+ * fall through in silence, leaving this device's own settings on screen and
+ * looking like the sender's — so a damaged link now says so.
+ */
+function showLinkNotice(applied) {
+  const damaged = !applied && hasShareUrl();
+  if (!applied && !damaged) return;
+  const box = document.getElementById('link-notice');
+  const text = document.getElementById('link-notice-text');
+  if (!box || !text) return;
+  box.classList.toggle('is-error', damaged);
+  // Unhide first: a live region that is revealed and then filled announces
+  // reliably, where filling it while hidden may not.
+  box.hidden = false;
+  text.textContent = damaged
+    ? 'That setup link is damaged, so none of it was applied — these are this device’s own settings. Ask whoever sent it to copy the whole link again.'
+    : 'The protocol settings and medication list below came from a shared setup link, not from this device.';
 }
 
 if (document.readyState === 'loading') {
