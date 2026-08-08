@@ -29894,7 +29894,7 @@
    "t": "p",
    "spans": [
     {
-     "text": "The band cut-points are labelled "
+     "text": "The band cut-points are labeled "
     },
     {
      "text": "\"(heuristic)\"",
@@ -30152,7 +30152,7 @@
       "b": 1
      },
      {
-      "text": " alternative is the validated 10-item recognition task (show 5 pictures to memorise, then 10 recognition pictures, yes/no), "
+      "text": " alternative is the validated 10-item recognition task (show 5 pictures to memorize, then 10 recognition pictures, yes/no), "
      },
      {
       "text": "scored out of 10 with the same > 2-error cut-point",
@@ -30182,7 +30182,7 @@
       "b": 1
      },
      {
-      "text": "; negative only at RASS 0; the current worksheet's operationalisation ("
+      "text": "; negative only at RASS 0; the current worksheet's operationalization ("
      },
      {
       "text": "camicu_worksheet",
@@ -30361,7 +30361,7 @@
      "code": 1
     },
     {
-     "text": "; worksheet/Pictures-ASE operationalisation → "
+     "text": "; worksheet/Pictures-ASE operationalization → "
     },
     {
      "text": "camicu_worksheet",
@@ -30486,7 +30486,7 @@
    "t": "p",
    "spans": [
     {
-     "text": "Colour/zoning of the RASS strip: follows the configured target band.",
+     "text": "Color/zoning of the RASS strip: follows the configured target band.",
      "b": 1
     },
     {
@@ -30784,7 +30784,7 @@
        "code": 1
       },
       {
-       "text": "); analgesia-first; bolus over continuous infusion labelled an observational association (Kollef 1998 — PADIS classifies intermittent-vs-continuous as an evidence gap)"
+       "text": "); analgesia-first; bolus over continuous infusion labeled an observational association (Kollef 1998 — PADIS classifies intermittent-vs-continuous as an evidence gap)"
       }
      ]
     ],
@@ -30965,7 +30965,7 @@
      "code": 1
     },
     {
-     "text": " and labelled an observational association; eye mask/earplugs to "
+     "text": " and labeled an observational association; eye mask/earplugs to "
     },
     {
      "text": "padis2018",
@@ -31769,7 +31769,7 @@
      ],
      [
       {
-       "text": "0.5–3 mg nightly — labelled conventional sleep dosing, "
+       "text": "0.5–3 mg nightly — labeled conventional sleep dosing, "
       },
       {
        "text": "not drawn from the cited trials",
@@ -32792,7 +32792,7 @@
    "t": "p",
    "spans": [
     {
-     "text": "colour cards, one check-off square per medication, with the type size and column count"
+     "text": "color cards, one check-off square per medication, with the type size and column count"
     }
    ]
   },
@@ -37569,7 +37569,7 @@
       "b": 1
      },
      {
-      "text": " (a flat checklist, no weighting), and the band boundaries are explicitly labelled heuristic. For validated ICU prediction the tool directs clinicians to "
+      "text": " (a flat checklist, no weighting), and the band boundaries are explicitly labeled heuristic. For validated ICU prediction the tool directs clinicians to "
      },
      {
       "text": "E-PRE-DELIRIC",
@@ -37583,7 +37583,7 @@
       "b": 1
      },
      {
-      "text": " (after 24 h). The only score-linked escalation prompt (geriatrics above a count of 6) is pragmatic and labelled as such; there is no score-triggered psychiatry suggestion."
+      "text": " (after 24 h). The only score-linked escalation prompt (geriatrics above a count of 6) is pragmatic and labeled as such; there is no score-triggered psychiatry suggestion."
      }
     ],
     [
@@ -37781,7 +37781,7 @@
       "i": 1
      },
      {
-      "text": " are the right operationalisations remains open to review.)"
+      "text": " are the right operationalizations remains open to review.)"
      }
     ],
     [
@@ -37824,7 +37824,7 @@
       "b": 1
      },
      {
-      "text": ": higher-risk agents now flagged (benzodiazepines, strong anticholinergics, meperidine); the long tail defaults off (opt-in); dexmedetomidine delisted; metoclopramide recategorised."
+      "text": ": higher-risk agents now flagged (benzodiazepines, strong anticholinergics, meperidine); the long tail defaults off (opt-in); dexmedetomidine delisted; metoclopramide recategorized."
      }
     ],
     [
@@ -37893,7 +37893,7 @@
       "i": 1
      },
      {
-      "text": " labelled \"conventional / expert starting references, not guideline-calibrated for delirium\" (rather than attributing them to specific named sources), with the note that dexmedetomidine is a sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent, so the agents are not interchangeable."
+      "text": " labeled \"conventional / expert starting references, not guideline-calibrated for delirium\" (rather than attributing them to specific named sources), with the note that dexmedetomidine is a sedative infusion for ventilated patients, not a PRN antipsychotic-equivalent, so the agents are not interchangeable."
      }
     ],
     [
@@ -37937,7 +37937,7 @@
       "code": 1
      },
      {
-      "text": " cite (low certainty; no dose specified), the 0.5–3 mg range is labelled conventional sleep dosing not drawn from the cited trials (Pro-MEDIC used 4 mg), and ramelteon is noted as the PADIS-named alternative."
+      "text": " cite (low certainty; no dose specified), the 0.5–3 mg range is labeled conventional sleep dosing not drawn from the cited trials (Pro-MEDIC used 4 mg), and ramelteon is noted as the PADIS-named alternative."
      }
     ],
     [
@@ -38336,7 +38336,7 @@
      ],
      [
       {
-       "text": "Instrument owned by Vanderbilt CIBS Center (Ely). Worksheet/Manual last rev. 2016. Watch icudelirium.org for worksheet/manual revisions and any change to the Pictures-ASE / ASE operationalisation"
+       "text": "Instrument owned by Vanderbilt CIBS Center (Ely). Worksheet/Manual last rev. 2016. Watch icudelirium.org for worksheet/manual revisions and any change to the Pictures-ASE / ASE operationalization"
       }
      ],
      [
@@ -38667,7 +38667,7 @@
        "b": 1
       },
       {
-       "text": " and labelled as a modification (§6.6)"
+       "text": " and labeled as a modification (§6.6)"
       }
      ]
     ],
@@ -38849,7 +38849,7 @@
      "code": 1
     },
     {
-     "text": ". Operationalisation (worksheet, training manual, Pictures-ASE) per "
+     "text": ". Operationalization (worksheet, training manual, Pictures-ASE) per "
     },
     {
      "text": "camicu_worksheet",
@@ -38906,7 +38906,7 @@
      "text": "). Reproduce the 10-point scale (+4 Combative … −5 Unarousable) verbatim. The "
     },
     {
-     "text": "target band and colour zoning are a local, configurable, PADIS-informed overlay",
+     "text": "target band and color zoning are a local, configurable, PADIS-informed overlay",
      "b": 1
     },
     {
@@ -38931,7 +38931,7 @@
    "items": [
     [
      {
-      "text": "adopt CAM-ICU or RASS visual styling, colour language, or results panel;"
+      "text": "adopt CAM-ICU or RASS visual styling, color language, or results panel;"
      }
     ],
     [
@@ -39038,7 +39038,7 @@
        "b": 1
       },
       {
-       "text": " found in the 2026-07-01 audit; replaced with the worksheet's RASS ≠ 0 operationalisation, so no deviation remains"
+       "text": " found in the 2026-07-01 audit; replaced with the worksheet's RASS ≠ 0 operationalization, so no deviation remains"
       }
      ],
      [
@@ -39092,7 +39092,7 @@
      ],
      [
       {
-       "text": "Configurable target band / colour zoning overlaid on the validated scale"
+       "text": "Configurable target band / color zoning overlaid on the validated scale"
       }
      ],
      [
@@ -39331,7 +39331,7 @@
      "b": 1
     },
     {
-     "text": ": a score of 0 (alert and calm) is absent, any other assessable level present. It is shown read-only rather than entered separately, so it can never contradict the arousal score (the same operationalisation the adult CAM-ICU and ED bCAM use; guarded by a unit test). pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); Feature 2 offers the validated "
+     "text": ": a score of 0 (alert and calm) is absent, any other assessable level present. It is shown read-only rather than entered separately, so it can never contradict the arousal score (the same operationalization the adult CAM-ICU and ED bCAM use; guarded by a unit test). pCAM-ICU uses verbal attention/command tasks (developmental age ≥ 5 yr); Feature 2 offers the validated "
     },
     {
      "text": "memory-pictures alternative",
