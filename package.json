@@ -38,6 +38,6 @@
     "eslint-config-prettier": "10.1.8",
     "globals": "17.11.0",
     "prettier": "3.9.6",
-    "wrangler": "4.120.1"
+    "wrangler": "4.123.0"
   }
 }
