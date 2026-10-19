@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "jspdf": "4.2.1",
-    "jspdf-autotable": "5.0.8"
+    "jspdf-autotable": "5.0.9"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
