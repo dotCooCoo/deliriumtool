@@ -57,10 +57,17 @@ Notable changes to this project, following
   such a link changes only the part of the address after the "#", the page does
   not reload, and the link previously did nothing at all.
 
-- Node is pinned to 24.19.0, up from 24.18.0. The 24.18.1 release in between was
-  a security release carrying eleven CVE fixes, three of them rated High. The
-  minimum supported version moves with it, so a build cannot run on a release
-  that still carries them.
+- Node is pinned to 24.22.1, up from 24.19.0. 24.22.1 is a security release
+  with eight CVE fixes, five of them rated High, including CVE-2026-111497
+  ("Node2Shell"), an out-of-bounds write in the bundled Brotli decoder that can
+  lead to remote code execution when Node decompresses attacker-supplied data.
+  The site does not run Node in production; Node is used only to build and test
+  it. The minimum supported version in `package.json` moves to 24.22.1, so a
+  build cannot run on a release without these fixes.
+
+- Node was earlier pinned to 24.19.0, up from 24.18.0. The 24.18.1 release in
+  between was a security release carrying eleven CVE fixes, three of them rated
+  High.
 
 - Template previews: 37 more printed statements now carry the (i) that opens their
   cited sources, taking the total from 135 to 172. A statement was only matched to
