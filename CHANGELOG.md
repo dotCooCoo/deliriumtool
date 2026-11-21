@@ -57,7 +57,11 @@ Notable changes to this project, following
   such a link changes only the part of the address after the "#", the page does
   not reload, and the link previously did nothing at all.
 
-- Node is pinned to 24.22.1, up from 24.19.0. 24.22.1 is a security release
+- Node is pinned to 26.13.1, up from 24.22.1. Node 26 is the current LTS line,
+  and 26.13.1 is its latest security release. The minimum supported version in
+  `package.json` moves to 26.13.1. Node is used only to build and test the site.
+
+- Node was earlier pinned to 24.22.1, up from 24.19.0. 24.22.1 is a security release
   with eight CVE fixes, five of them rated High, including CVE-2026-111497
   ("Node2Shell"), an out-of-bounds write in the bundled Brotli decoder that can
   lead to remote code execution when Node decompresses attacker-supplied data.
